@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Home;
+namespace App\Http\Controllers\Role;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\WebController;
 
-class HomeController extends WebController
+class RoleController extends WebController
 {
     /**
      * Create a new controller instance.
@@ -25,13 +25,7 @@ class HomeController extends WebController
      */
     public function index()
     {
-      //  session_start();
-        //print_r($this->user());
-      //  print_r($_SESSION);
-        foreach($this->user() as $k=>$v){
-       //     echo $k.'--'.$v."<br>";
-        }
-        return view('home.home');
+        return view('role.index');
     }
     public  function test(){
         echo  'test';
