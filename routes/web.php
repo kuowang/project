@@ -15,10 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+//Auth::routes();
+//Route::get('/home', 'HomeController@index');
 
-Route::get('/home', 'HomeController@index');
+Route::group(['namespace' => 'Home','middleware' => 'auth'], function () {
+    Route::get('/home', 'HomeController@index');
+});
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index');

@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Home;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\WebController;
 
 class HomeController extends WebController
 {
@@ -23,7 +24,12 @@ class HomeController extends WebController
      */
     public function index()
     {
-        print_r($this->user());
+        session_start();
+        //print_r($this->user());
+        print_r($_SESSION);
+        foreach($this->user() as $k=>$v){
+            echo $k.'--'.$v."<br>";
+        }
         return view('home');
     }
 }
