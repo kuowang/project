@@ -45,17 +45,33 @@ class SystemSettingController extends WebController
         }
     }
     //添加新的参数页码
-    public function addSystemSetting(){
+    public function addSystemSetting(Request $request){
         return view('admin.addsystemsetting');
     }
 
     //编辑系统参数页码
-    public function editSystemSetting(Request $request){
-        $id=$request->input('id',0);
-        $data=DB::table('system_setting')->where('id',$id)->get();
+    public function editSystemSetting(Request $request,$id){
+        $id =(int)$id;
+        $data=DB::table('system_setting')->where('id',$id)->first();
+
         return view('admin.editsystemsetting',['data'=>$data]);
     }
+    //提交系统参数修改
+    public function postSystemSetting(Request $request){
+        $id= (int)$request->input('id',0);
+        $data['field']      =$request->input('field',0);
+        $data['remark']     =$request->input('remark',0);
+        $data['name']       =$request->input('name',0);
+        $data['updated_at'] =date('Y-m-d H:i:s');
 
+        if($id ==0){
+            $data['created_at'] =date('Y-m-d H:i:s');
+            DB::table('system_setting')->insert($data);
+        }else{
+            DB::table('system_setting')->where('id',$id)->update($data);
+        }
+        return 'success';
+    }
 
 
 }

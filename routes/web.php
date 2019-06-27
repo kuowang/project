@@ -26,7 +26,8 @@ Route::group(['namespace' => 'Admin','middleware' => 'auth'], function () {
     Route::get('/home',                 'RoleController@index'); //管理员首页
     Route::get('/system_list',          'SystemSettingController@index'); //系统参数配置列表页
     Route::get('/add_system_list',      'SystemSettingController@addSystemSetting');//添加系统参数
-    Route::get('/edit_system_list',     'SystemSettingController@editSystemSetting');//编辑系统参数
+    Route::get('/edit_system_list/{id}', 'SystemSettingController@editSystemSetting');//编辑系统参数
+    Route::post('/postSystemSetting',    'SystemSettingController@postSystemSetting');//提交系统参数修改
 
 });
 

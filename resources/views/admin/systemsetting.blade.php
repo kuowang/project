@@ -52,8 +52,7 @@
                                   <tr>
                                     <th>
                                       <input type="checkbox" lay-filter="checkall" name="" lay-skin="primary">
-                                    </th>
-                                    <th>ID</th>
+                                    ID</th>
                                     <th>字段名</th>
                                     <th>描述</th>
                                     <th>系统名称</th>
@@ -68,16 +67,17 @@
                                     <tr>
                                         <td>
                                             <input type="checkbox" name="id" value="{{ $val->id }}"   lay-skin="primary">
+                                            {{ $val->id }}
                                         </td>
                                         <td>{{ $val->field }}</td>
                                         <td>{{ $val->remark }}</td>
                                         <td>{{ $val->name }}</td>
                                         <td>{{ $val->created_at }}</td>
                                         <td>{{ $val->updated_at }}</td>
-                                        <td class="td-status">{{ $val->id }}</td>
+
                                         <td class="td-manage">
 
-                                            <a title="编辑"  onclick="xadmin.open('编辑系统参数','{{ url("edit_system_list") }}',600,400)" href="javascript:;">
+                                            <a title="编辑"  onclick="xadmin.open('编辑系统参数','{{ url("edit_system_list/".$val->id) }}',600,400)" href="javascript:;">
                                                 <i class="layui-icon">&#xe642;</i>
                                             </a>
 
