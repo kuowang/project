@@ -18,13 +18,16 @@ Route::get('/', function () {
 //Route::get('/home', 'HomeController@index');
 //测试
 Route::group(['namespace' => 'Home','middleware' => 'auth'], function () {
-    Route::get('/home', 'HomeController@index');
+    //Route::get('/home', 'HomeController@index');
 });
 
 //角色类的控制组 需要登录
-Route::group(['namespace' => 'Role','middleware' => 'auth'], function () {
-    Route::get('/test', 'RoleController@index');
-    Route::post('/test', 'RoleController@test');
+Route::group(['namespace' => 'Admin','middleware' => 'auth'], function () {
+    Route::get('/home',                 'RoleController@index'); //管理员首页
+    Route::get('/system_list',          'SystemSettingController@index'); //系统参数配置列表页
+    Route::get('/add_system_list',      'SystemSettingController@addSystemSetting');//添加系统参数
+    Route::get('/edit_system_list',     'SystemSettingController@editSystemSetting');//编辑系统参数
+
 });
 
 //角色类的控制组 不需要登录

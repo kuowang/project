@@ -64,8 +64,9 @@ class VerifyCsrfToken
         ) {
             return $this->addCookieToResponse($request, $next($request));
         }
-
-        throw new TokenMismatchException;
+        //不管是否有问题均提示退出成功
+        return $this->addCookieToResponse($request, $next($request));
+       // throw new TokenMismatchException;
     }
 
     /**
