@@ -27,23 +27,32 @@ class ProjectController extends WebController
      */
     public function index(Request $request)
     {
+        $uid =$this->user()->id;
         $search =$request->input('search','');
         $page =$request->input('page',1);
         $rows =$request->input('rows',20);
-        $data =$this->getSystemSetting($search,$page,$rows);
-        return view('project.project',['data'=>$data]);
+        $data['data'] =$this->getProjectList($search,$page,$rows);
+        $data['nav'] =$this->getAuthTopNav($uid,20);
+        return view('project.project',$data);
     }
 
-    protected function getSystemSetting($search='',$page=1,$rows=20)
+    protected function getProjectList($search='',$page=1,$rows=20)
     {
         if(empty($search)){
-            return DB::table('system_setting')->skip(($page-1)*$rows)->take($rows)->get();
+            return DB::table('project')
+                ->orderby('uh_project_id','desc')
+                ->skip(($page-1)*$rows)
+                ->take($rows)
+                ->get();
         }else{
-            return DB::table('system_setting')->where('name','like','%'.$search.'%')
-                ->skip(($page-1)*$rows)->take($rows)->get();
+            return DB::table('project')
+                ->where('project_name','like','%'.$search.'%')
+                ->orderby('uh_project_id','desc')
+                ->skip(($page-1)*$rows)
+                ->take($rows)
+                ->get();
         }
     }
-
 
 
 }

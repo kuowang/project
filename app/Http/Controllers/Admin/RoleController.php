@@ -35,31 +35,6 @@ class RoleController extends WebController
         return view('admin.index',['data'=>$data,'project_name'=>$project]);
     }
 
-    protected function getAuthLevel($uid,$level=1){
-        $data =DB::table('user_role')
-        ->join('role_authority','role_authority.role_id','=','user_role.role_id')
-        ->where('role_authority.level','<=',$level)
-        ->where('role_authority.status',1)
-        ->where('user_role.status',1)
-        ->where('user_role.uid',$uid)
-        ->groupby('auth_id')->pluck('auth_id');
-
-        $datalist = DB::table('authority')
-            ->wherein('auth_id',$data)
-            ->where('status',1)
-            ->where('is_show',1)
-            ->orderby('auth_id')
-            ->get();
-        $auth=[];
-        foreach($datalist as $value){
-            if($value->parent_id ==0){
-                $auth[$value->auth_id]=$value;
-            }else{
-                $auth[$value->parent_id]->children[]=$value;
-            }
-        }
-        return $auth;
-    }
 
     public  function test(){
         echo  'test';
