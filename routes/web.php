@@ -38,3 +38,16 @@ Route::group(['namespace' => 'Role'], function () {
     //Route::post('/test', 'RoleController@test');
 
 });
+
+//项目类的控制组 需要登录
+Route::group(['namespace' => 'Project','middleware' => 'auth'], function () {
+    Route::get('project/index',                 'ProjectController@index'); //项目首页
+});
+
+//项目类的控制组 不需要登录
+Route::group(['namespace' => 'Role'], function () {
+
+    //Route::get('/test', 'RoleController@test');
+    //Route::post('/test', 'RoleController@test');
+
+});

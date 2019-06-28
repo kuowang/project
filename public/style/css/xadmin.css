@@ -181,22 +181,30 @@ body{
 }
 .left-nav #nav li a{
     font-size: 14px;
-    padding: 10px 15px 10px 15px;
+    padding: 15px 15px 15px 15px;
     display: block;
     cursor: pointer;
     border-left: 4px solid transparent;
     transition: all 0.3s;
 }
 .left-nav a:hover{
+    background: url(../images/nav.png) 0 0 no-repeat ;
+    /*
     background: #009688 !important;
-    color: #fff;
     border-color:  #04564e !important;
+    */
+    color: #fff;
+
 }
 .left-nav a.active{
-    background: #009688 !important;
+    background: url(../images/nav.png) 0 0 no-repeat ;
     color: #fff;
+    /*
     border-color:  #04564e !important;
+    background:  #009688 !important;
+    */
 }
+
 .left-nav #nav li a cite{
     font-size: 14px;
 }
@@ -218,7 +226,7 @@ body{
      /*background: #fff ;*/
 }
 .left-nav #nav li .sub-menu li a{
-    padding: 12px 15px 12px 30px;
+    padding: 15px 15px 15px 30px;
     font-size: 14px;
     cursor: pointer;
 }

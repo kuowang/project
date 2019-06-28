@@ -2,7 +2,6 @@
 <html class="x-admin-sm">
     <head>
         <meta charset="UTF-8">
-        <title>后台登录-X-admin2.2</title>
         <meta name="renderer" content="webkit|ie-comp|ie-stand">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -73,14 +72,14 @@
                     @foreach ($data as $item)
                         @if (isset($item->children)  && count($item->children) > 0)
                             <li>
-                                <a href="javascript:;">
+                                <a href="javascript:;" style="margin: 20px auto;">
                                     <i class="iconfont left-nav-li" lay-tips="{{ $item->name }}">&#xe6b8;</i>
                                     <cite>{{ $item->name }}</cite>
                                     <i class="iconfont nav_right">&#xe697;</i>
                                 </a>
                                 <ul class="sub-menu">
                                     @foreach ($item->children as $val)
-                                    <li>
+                                    <li style="margin: 20px auto;">
                                         <a onclick="xadmin.add_tab('{{ $val->name }}','{{ $val->url }}',true)">
                                             <i class="iconfont">&#xe6a7;</i>
                                             <cite>{{ $val->name }}</cite></a>
