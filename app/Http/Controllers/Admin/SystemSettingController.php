@@ -32,7 +32,7 @@ class SystemSettingController extends WebController
         $rows =$request->input('rows',20);
         $datalist =$this->getSystemSetting($search,$page,$rows);
         //分页
-        $url='system_list?search='.$search.'&rows='.$rows;
+        $url='/admin/system_list?search='.$search.'&rows='.$rows;
         $data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
         $data['data']   =$datalist['data'];
         $data['search'] =$search;

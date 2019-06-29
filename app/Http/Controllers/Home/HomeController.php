@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\Models\SystemSetting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\WebController;
 
@@ -28,10 +29,17 @@ class HomeController extends WebController
       //  session_start();
         //print_r($this->user());
       //  print_r($_SESSION);
-        foreach($this->user() as $k=>$v){
+        //foreach($this->user() as $k=>$v){
        //     echo $k.'--'.$v."<br>";
-        }
-        return view('home.home');
+        //}
+        //return view('home.home');
+
+        $uid =$this->user()->id;
+        $data =$this->getAuthLevel($uid,2);
+        //print_R($data);
+        $project =SystemSetting::where('field','project_name')->value('name');
+        return view('home.index',['data'=>$data,'project_name'=>$project]);
+
     }
     public  function test(){
         echo  'test';
