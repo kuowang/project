@@ -30,31 +30,38 @@ class SystemSettingController extends WebController
         $search =$request->input('search','');
         $page =$request->input('page',1);
         $rows =$request->input('rows',20);
-        $data =$this->getSystemSetting($search,$page,$rows);
-        return view('admin.systemsetting',['data'=>$data]);
+        $datalist =$this->getSystemSetting($search,$page,$rows);
+        //分页
+        $url='system_list?search='.$search.'&rows='.$rows;
+        $data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
+        $data['data']   =$datalist['data'];
+        $data['search'] =$search;
+        return view('admin.system.systemsetting',$data);
     }
 
     protected function getSystemSetting($search='',$page=1,$rows=20)
     {
-        if(empty($search)){
-            return DB::table('system_setting')->skip(($page-1)*$rows)->take($rows)->get();
-        }else{
-            return DB::table('system_setting')->where('name','like','%'.$search.'%')
-
-                ->skip(($page-1)*$rows)->take($rows)->get();
+        $db=DB::table('system_setting');
+        if(!empty($search)){
+            $db->where('name','like','%'.$search.'%')
+               ->orwhere('remark','like','%'.$search.'%');
         }
-    }
-    //添加新的参数页码
-    public function addSystemSetting(Request $request){
-        return view('admin.addsystemsetting');
+        $data['count'] =$db->count();
+        $data['data']= $db  ->skip(($page-1)*$rows)->take($rows)->get();
+        return $data;
     }
 
-    //编辑系统参数页码
+    //添加新的参数页面
+    public function addSystemSetting(Request $request){
+        return view('admin.system.addsystemsetting');
+    }
+
+    //编辑系统参数页面
     public function editSystemSetting(Request $request,$id){
         $id =(int)$id;
         $data=DB::table('system_setting')->where('id',$id)->first();
 
-        return view('admin.editsystemsetting',['data'=>$data]);
+        return view('admin.system.editsystemsetting',['data'=>$data]);
     }
     //提交系统参数修改
     public function postSystemSetting(Request $request){
