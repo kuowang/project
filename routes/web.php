@@ -11,9 +11,10 @@
 |
 */
 Auth::routes();
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+    //return view('welcome');
+//});
+Route::get('/',                     'Home\HomeController@index'); //首页地址
 
 //Route::get('/home', 'HomeController@index');
 //测试
@@ -23,6 +24,7 @@ Route::group(['namespace' => 'Home','middleware' => 'auth'], function () {
 
 //角色类的控制组 需要登录
 Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => 'auth'], function () {
+
     Route::get('/home',                 'RoleController@index'); //管理员首页
     //系统配置
     Route::get('/system_list',          'SystemSettingController@index'); //系统参数配置列表页
@@ -40,7 +42,9 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => 'auth']
     Route::get('/edit_role_authority/{id}', 'RoleController@editRoleAuthority');                   //编辑角色权限页面
     Route::post('/post_role_authority/{id}', 'RoleController@poseRoleAuthority');                   //提交角色权限信息
     //用户角色
-    Route::get('/user_role_list',            'UserRoleController@index');                   //用户角色列表
+    Route::get('/user_role_list',            'UserRoleController@index');                          //用户角色列表
+    Route::get('/add_user_info',             'UserRoleController@addUserInfo');                    //添加新用户
+    Route::get('/edit_user_info',            'UserRoleController@editUserInfo');                   //编辑用户
 
 
 });

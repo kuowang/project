@@ -33,6 +33,9 @@ class HomeController extends WebController
        //     echo $k.'--'.$v."<br>";
         //}
         //return view('home.home');
+        if(empty($this->user())){ //账号不存在 跳转到登录页面
+            return redirect('/login');
+        }
 
         $uid =$this->user()->id;
         $data =$this->getAuthLevel($uid,2);

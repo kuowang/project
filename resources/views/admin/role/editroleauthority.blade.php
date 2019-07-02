@@ -99,6 +99,25 @@
           form.on('checkbox(checkall)', function(data){
              //alert($(this).val());
              id =$(this).val();
+             //选择子集默认选中父级
+              len =id.length;
+              if(len > 2){
+                  str=id.substring(0,2);
+                  $("input[class='auth_"+str+"']").prop('checked',true);
+              }
+              if(len > 4){
+                  str=id.substring(0,4);
+                  $("input[class='auth_"+str+"']").prop('checked',true);
+              }
+              if(len > 6){
+                  str=id.substring(0,6);
+                  $("input[class='auth_"+str+"']").prop('checked',true);
+              }
+              if(len > 8){
+                  str=id.substring(0,8);
+                  $("input[class='auth_"+str+"']").prop('checked',true);
+              }
+
               if(data.elem.checked){
                   //$('tbody input').prop('checked',true);
                   $("input[class^='auth_"+id+"']").prop('checked',true);

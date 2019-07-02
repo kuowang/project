@@ -33,7 +33,7 @@
                             <form class="layui-form layui-col-space5">
 
                                 <div class="layui-inline layui-show-xs-block">
-                                    <input type="text" name="search" value="{{ $search }}" placeholder="请输入名称或注释" autocomplete="off" class="layui-input">
+                                    <input type="text" name="search" value="{{ $search }}" placeholder="请输入用户名或邮箱" autocomplete="off" class="layui-input">
                                 </div>
 
                                 <div class="layui-inline layui-show-xs-block">
@@ -42,40 +42,44 @@
                             </form>
                         </div>
                         <div class="layui-card-header">
-                            <button class="layui-btn" onclick="xadmin.open('添加系统参数','{{ url("/admin/add_system_list") }}',600,400)"><i class="layui-icon"></i>添加系统参数</button>
+                            <button class="layui-btn" onclick="xadmin.open('添加新用户','{{ url("/admin/add_user_info") }}',600,400)"><i class="layui-icon"></i>添加新用户</button>
                         </div>
                         <div class="layui-card-body layui-table-body layui-table-main">
                             <table class="layui-table layui-form">
                                 <thead>
                                   <tr>
-                                    <th>
-                                    ID</th>
-                                    <th>字段名</th>
-                                    <th>描述</th>
-                                    <th>系统名称</th>
+                                    <th>用户ID</th>
+                                    <th>用户名称</th>
+                                    <th>邮箱名</th>
+                                    <th>角色</th>
                                     <th>创建时间</th>
                                     <th>修改时间</th>
-                                    <th>操作</th></tr>
+                                    <th>操作</th>
+                                  </tr>
                                 </thead>
                                 <tbody>
 
                                 @foreach ($data as $val)
-
                                     <tr>
                                         <td>
                                             {{ $val->id }}
                                         </td>
-                                        <td>{{ $val->field }}</td>
-                                        <td>{{ $val->remark }}</td>
                                         <td>{{ $val->name }}</td>
+                                        <td>{{ $val->email }}</td>
+                                        <td>
+                                            @if (isset($userRoleList[$val->id]))
+                                            @foreach ($userRoleList[$val->id] as $v)
+                                                    {{ $v->role_name }} &nbsp;&nbsp;
+                                            @endforeach
+                                            @endif
+                                        </td>
                                         <td>{{ $val->created_at }}</td>
                                         <td>{{ $val->updated_at }}</td>
 
                                         <td class="td-manage">
-                                            <a title="编辑"  onclick="xadmin.open('编辑系统参数','{{ url("/admin/edit_system_list/".$val->id) }}',600,400)" href="javascript:;">
-                                                <i class="layui-icon">&#xe642;</i>
+                                            <a title="编辑用户"  onclick="xadmin.open('编辑用户','{{ url("/admin/edit_user_info/".$val->id) }}',600,400)" href="javascript:;">
+                                                <i class="layui-icon">&#xe642;编辑用户</i>
                                             </a>
-
                                         </td>
                                     </tr>
 
