@@ -39,12 +39,13 @@
                                     <th>ID</th>
                                     <th>父ID</th>
                                     <th>是否左侧导航显示</th>
-                                    <th>创建时间</th></tr>
+                                    <th>创建时间</th>
+                                    <th>操作</th></tr>
                                 </thead>
                                 <tbody>
 
                                 @foreach ($data as $val)
-                                    <tr>
+                                    <tr class="type_show_{{ $val->auth_id }}">
                                         <td>
                                             @php
                                                 echo  str_repeat('&nbsp;', 6*($val->level -1));
@@ -74,6 +75,7 @@
                                             @endif
                                         </td>
                                         <td>{{ $val->created_at }}</td>
+                                        <td onclick="show({{ $val->auth_id }})" ><div class="yincang_{{ $val->auth_id }}">隐藏</div></td>
                                     </tr>
 
                                 @endforeach
@@ -127,14 +129,17 @@
               }
               form.render('checkbox');
           });
-
-
-
-
-
-
-
-
       });
+      function  show(id){
+          htm =$('.yincang_'+id).html();
+          if(htm == '隐藏'){
+              $("tr[class^='type_show_"+id+"']").hide();
+              $('.yincang_'+id).html('显示');
+              $("tr[class='type_show_"+id+"']").show();
+          }else{
+              $("tr[class^='type_show_"+id+"']").show();
+              $('.yincang_'+id).html('隐藏');
+          }
+      }
     </script>
 </html>

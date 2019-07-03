@@ -26,18 +26,55 @@
                         <label for="L_username" class="layui-form-label">
                             <span class="x-red">*</span>ID</label>
                         <div class="layui-input-inline">
-                            <input type="hidden" id="id" name="id" value="{{ $data->id }}" required="" lay-verify="id" autocomplete="off" class="layui-input"></div>
+                            <input type="hidden" id="id" name="id" value="{{ $user->id }}" required="" lay-verify="id" autocomplete="off" class="layui-input"></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="remark" class="layui-form-label">
+                            <span class="x-red">*</span>用户名</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="username" name="username" value="{{ $user->name }}" required="" lay-verify="username" autocomplete="off" class="layui-input"></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="remark" class="layui-form-label">
+                            <span class="x-red">*</span>邮箱</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="email" name="email" value="{{ $user->email }}" required="" lay-verify="email" autocomplete="off" class="layui-input"></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="remark" class="layui-form-label">
+                            密码</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="pwd" name="pwd"  lay-verify="pwd" autocomplete="off" class="layui-input"></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="remark" class="layui-form-label">
+                            确认密码</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="checkpwd" name="checkpwd"  lay-verify="checkpwd" autocomplete="off" class="layui-input"></div>
+                    </div>
+                    <div class="layui-form-item">
+
+                        <label for="remark" class="layui-form-label">
+                            角色</label>
+                        <div class="layui-input-inline">
+                        @foreach ($role_list as $val )
+                        <div >
+                            @if (in_array($val->id ,$user_role))
+                                <input type="checkbox" id="checkpwd" name="checkpwd" checked="checked" lay-verify="checkpwd" autocomplete="off" class="layui-input">
+                            {{ $val->name }}
+                            @else
+                                <input type="checkbox" id="checkpwd" name="checkpwd"  lay-verify="checkpwd" autocomplete="off" class="layui-input">
+                                {{ $val->name }}
+                            @endif
+                        </div>
+                        @endforeach
+                        </div>
                     </div>
 
                     <div class="layui-form-item">
-                        <label for="L_username" class="layui-form-label">
-                            <span class="x-red">*</span>系统名称</label>
-                        <div class="layui-input-inline">
-                            <input type="text" id="name" name="name" value="{{ $data->name }}" required="" lay-verify="name" autocomplete="off" class="layui-input"></div>
-                    </div>
-                    <div class="layui-form-item">
                         <label for="L_repass" class="layui-form-label"></label>
-                        <input type="submit" class="layui-btn" lay-filter="add" lay-submit="" value="提交"></div>
+                        <input type="submit" class="layui-btn" lay-filter="add" lay-submit="" value="提交">
+                    </div>
                 </form>
             </div>
         </div>

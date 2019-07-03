@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Role;
+use App\Models\User;
+use App\Models\UserRole;
 use Illuminate\Http\Request;
 use App\Http\Controllers\WebController;
 use Illuminate\Support\Facades\DB;
@@ -51,7 +54,7 @@ class UserRoleController extends WebController
         $db=DB::table('users');
         if(!empty($search)){
             $db->where('name','like','%'.$search.'%')
-            ->orwhere('email','like','%'.$search.'%');
+                ->orwhere('email','like','%'.$search.'%');
         }
         $data['count'] =$db->count();
         $data['data']= $db ->orderby('id','desc')
@@ -78,7 +81,13 @@ class UserRoleController extends WebController
     }
     //编辑用户
     public function editUserInfo(Request $request,$id){
-        $data=[];
+        //获取用户信息
+        $data['user']=User::where('id',$id)->first();
+        //获取用户角色
+        $data['user_role']=UserRole::where('uid',$id)->where('status',1)->pluck('role_id')->toarray();
+
+        //获取角色列表
+        $data['role_list']=Role::where('status',1)->get();
         return view('admin.userrole.edituserinfo',$data);
     }
 

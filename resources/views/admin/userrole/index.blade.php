@@ -77,7 +77,7 @@
                                         <td>{{ $val->updated_at }}</td>
 
                                         <td class="td-manage">
-                                            <a title="编辑用户"  onclick="xadmin.open('编辑用户','{{ url("/admin/edit_user_info/".$val->id) }}',600,400)" href="javascript:;">
+                                            <a title="编辑用户"  onclick="xadmin.open('编辑用户','{{ url("/admin/edit_user_info/".$val->id) }}',600,800)" href="javascript:;">
                                                 <i class="layui-icon">&#xe642;编辑用户</i>
                                             </a>
                                         </td>

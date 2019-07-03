@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+    <style>
+        body{
+            background-color:#0076A6
+        }
+    </style>
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -53,10 +58,6 @@
                                 <button type="submit" class="btn btn-primary">
                                     登录
                                 </button>
-
-                                <a class="btn btn-link" href="{{ url('/password/reset') }}">
-                                    忘记密码
-                                </a>
                             </div>
                         </div>
                     </form>
@@ -65,4 +66,8 @@
         </div>
     </div>
 </div>
+
+
+
+
 @endsection
