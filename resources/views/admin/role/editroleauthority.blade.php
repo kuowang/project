@@ -68,7 +68,7 @@
                                         <td>{{ $val->parent_id }}</td>
 
                                         <td>
-                                            @if ($val->is_left_show == 1)
+                                            @if ($val->is_show == 1)
                                                 是
                                             @else
                                                 否

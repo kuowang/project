@@ -72,7 +72,7 @@ class DatabaseUserProvider implements UserProvider
             ->where('id', $identifier)
             ->where('remember_token', $token)
             ->first();
-
+exit;
         return $this->getGenericUser($user);
     }
 

@@ -12,10 +12,6 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    //如果用户登录返回用户信息 否则返回null
-    public function user(){
-       return  Auth::user();
-    }
     /**
      * @param $data
      * @param int $code

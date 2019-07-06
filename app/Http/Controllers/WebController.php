@@ -2,14 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class WebController extends Controller
 {
-    protected function getAuthLevel($uid,$level=1){
+    //如果用户登录返回用户信息 否则返回null
+    public function user(){
+        //添加用户的导航信息
+        if(!isset(Auth::user()->nav)){
+            //Auth::user()->system=$this->getSystem();
+            Auth::user()->nav = $this->getAuthLevel(Auth::user()->id);
+            Auth::user()->system=$this->getSystem();
+        }
+        return  Auth::user();
+    }
+    protected function getAuthLevel($uid){
         $data =DB::table('user_role')
             ->join('role_authority','role_authority.role_id','=','user_role.role_id')
-            ->where('role_authority.level','<=',$level)
+            //->where('role_authority.parent_auth_id','<=',$parent_id)
             ->where('role_authority.status',1)
             ->where('user_role.status',1)
             ->where('user_role.uid',$uid)
@@ -18,16 +29,12 @@ class WebController extends Controller
         $datalist = DB::table('authority')
             ->wherein('auth_id',$data)
             ->where('status',1)
-            ->where('is_left_show',1)
+            //->where('is_show',1)
             ->orderby('auth_id')
             ->get();
         $auth=[];
         foreach($datalist as $value){
-            if($value->parent_id ==0){
-                $auth[$value->auth_id]=$value;
-            }else{
-                $auth[$value->parent_id]->children[]=$value;
-            }
+            $auth[$value->parent_id][]=$value;
         }
         return $auth;
     }
@@ -141,5 +148,8 @@ class WebController extends Controller
     }
 
 
+    public  function getSystem(){
+        return DB::table('system_setting')->pluck('name','field');
+    }
 
 }

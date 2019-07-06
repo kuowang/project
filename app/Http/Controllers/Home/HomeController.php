@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Home;
 use App\Models\SystemSetting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\WebController;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends WebController
 {
@@ -36,15 +37,25 @@ class HomeController extends WebController
         if(empty($this->user())){ //账号不存在 跳转到登录页面
             return redirect('/login');
         }
-
-        $uid =$this->user()->id;
-        $data =$this->getAuthLevel($uid,2);
-        //print_R($data);
-        $project =SystemSetting::where('field','project_name')->value('name');
-        return view('home.index',['data'=>$data,'project_name'=>$project]);
+        $data['data']=$this->user()->nav;
+        $data['project_name'] =config('app.name');
+        $data['username']=$this->user()->name;
+        foreach($data['data'][0] as $v){
+            $data['navList'][]= $v->auth_id;
+        }
+        $data['allNavList']=$this->getNavLaval(0);
+        return view('home.test',$data);
 
     }
-    public  function test(){
-        echo  'test';
+
+    //获取父id对应的导航信息
+    public  function getNavLaval($id=0){
+        return  DB::table('authority')
+            ->where('parent_id',$id)
+            ->where('status',1)
+            ->where('is_show',1)
+            ->where('auth_id','!=','10')
+            ->orderby('auth_id')
+            ->get();
     }
 }

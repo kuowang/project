@@ -45,7 +45,11 @@ class UserRoleController extends WebController
         //获取用户对应的角色名称
         $data['userRoleList'] =$this->getUserRoleList($userList);
         $data['search']=$search;
-
+        //用户权限部分
+        $data['username']   =$this->user()->name;
+        $data['nav']        =$this->user()->nav;
+        $data['navid']      =10;
+        $data['subnavid']   =1002;
         return view('admin.userrole.index',$data);
     }
     //获取用户列表
@@ -85,12 +89,15 @@ class UserRoleController extends WebController
         $data['user']=User::where('id',$id)->first();
         //获取用户角色
         $data['user_role']=UserRole::where('uid',$id)->where('status',1)->pluck('role_id')->toarray();
-
         //获取角色列表
         $data['role_list']=Role::where('status',1)->get();
         return view('admin.userrole.edituserinfo',$data);
     }
-
+    //保存用户信息
+    public  function postUser(Request $request){
+        $data=$request->all();
+        return $this->success($data);
+    }
 
 
 }

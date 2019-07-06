@@ -141,7 +141,7 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
 
         if (is_null($user) && ! is_null($recaller)) {
             $user = $this->getUserByRecaller($recaller);
-
+            var_dump($user);exit;
             if ($user) {
                 $this->updateSession($user->getAuthIdentifier());
 

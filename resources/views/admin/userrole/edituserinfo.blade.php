@@ -60,10 +60,10 @@
                         @foreach ($role_list as $val )
                         <div >
                             @if (in_array($val->id ,$user_role))
-                                <input type="checkbox" id="checkpwd" name="checkpwd" checked="checked" lay-verify="checkpwd" autocomplete="off" class="layui-input">
+                                <input type="checkbox" id="roleid" name="roleid[]" value="{{ $val->id }}" checked="checked" lay-verify="checkpwd" autocomplete="off" class="layui-input">
                             {{ $val->name }}
                             @else
-                                <input type="checkbox" id="checkpwd" name="checkpwd"  lay-verify="checkpwd" autocomplete="off" class="layui-input">
+                                <input type="checkbox" id="roleid" name="roleid[]" value="{{ $val->id }}" lay-verify="checkpwd" autocomplete="off" class="layui-input">
                                 {{ $val->name }}
                             @endif
                         </div>
@@ -88,7 +88,7 @@
                 form.on('submit(add)', function(data) {
                     console.log(data);
                     $.ajax({
-                        url:'{{ url("admin/post_role") }}',
+                        url:'{{ url("admin/post_user") }}',
                         type:'post',
                         dataType:'text',
                         contentType: 'application/json',

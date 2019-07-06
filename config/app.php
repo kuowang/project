@@ -10,9 +10,11 @@ return [
     | This value is the name of your application. This value is used when the
     | framework needs to place the application's name in a notification or
     | any other location as required by the application or its packages.
+    project_name_url x项目的logo
     */
 
-    'name' => '项目名称',
+    'name' => '筑的宝',
+    'project_logo'=>'/img/logo.png',
 
     /*
     |--------------------------------------------------------------------------
@@ -120,10 +122,10 @@ return [
     |
     */
 
-    'log' => env('APP_LOG', 'single'),
+    'log' => env('APP_LOG', 'daily'),
 
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
-
+    'log_max_files' => 30, //最多保存30天
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
