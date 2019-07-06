@@ -1,103 +1,94 @@
-<!DOCTYPE html>
-<html class="x-admin-sm">
-    
-    <head>
-        <meta charset="UTF-8">
-        <meta name="renderer" content="webkit">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
-        <meta http-equiv="Cache-Control" content="no-siteapp" />
-        <link rel="stylesheet" href="/style/css/font.css">
-        <link rel="stylesheet" href="/style/css/xadmin.css">
-        <!-- <link rel="stylesheet" href="./css/theme5.css"> -->
-        <script src="/style/lib/layui/layui.js" charset="utf-8"></script>
-        <script type="text/javascript" src="/style/js/xadmin.js"></script>
+@extends('layouts.web')
+
+@section('content')
+    <div class="left-sidebar">
 
 
-        <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
-        <!--[if lt IE 9]>
-            <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-            <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
-    </head>
-    <body>
-        <div class="layui-fluid">
-            <div class="layui-row">
-                <form class="layui-form" >
-                    <div class="layui-form-item">
-                        <label for="remark" class="layui-form-label">
-                            <span class="x-red">*</span>用户名</label>
-                        <div class="layui-input-inline">
-                            <input type="text" id="username" name="username" required="" lay-verify="username" autocomplete="off" class="layui-input"></div>
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget">
+                    <div class="widget-header">
+                        <div class="title">
+                            创建用户
+                            <span class="mini-title">
+                       &nbsp;
+                      </span>
+                        </div>
+                        <span class="tools">
+                      <a class="fs1" aria-hidden="true" data-icon="" data-original-title=""></a>
+                    </span>
                     </div>
-                    <div class="layui-form-item">
-                        <label for="remark" class="layui-form-label">
-                            <span class="x-red">*</span>邮箱</label>
-                        <div class="layui-input-inline">
-                            <input type="text" id="email" name="email" required="" lay-verify="email" autocomplete="off" class="layui-input"></div>
+                    <div class="widget-body">
+
+                        <form class="form-horizontal no-margin" action="/admin/post_add_user" method="post">
+                            <div class="control-group">
+                                <label class="control-label" for="name">
+                                    姓名:
+                                </label>
+                                <div class="controls controls-row">
+                                    <input class="span6" type="text" placeholder="姓名">
+
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="email1">
+                                    邮箱:
+                                </label>
+                                <div class="controls">
+                                    <input type="text" name="email1" id="email1" class="span6" placeholder="电子邮箱">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="password1">
+                                    密码:
+                                </label>
+                                <div class="controls">
+                                    <input type="password" name="password1" id="password1" class="span6" placeholder="6位以上的字符或数字">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="repPassword">
+                                    确认密码:
+                                </label>
+                                <div class="controls">
+                                    <input type="password" name="repPassword" id="repPassword" class="span6" placeholder="再输一次">
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label" for="role">
+                                    角色:
+                                </label>
+                                <div class="controls">
+                                    @foreach ($role_list as $val )
+                                        <label class="checkbox">
+                                            <input type="checkbox"  name="roleid[]" value="{{ $val->id }}">
+                                            {{ $val->name }}
+                                        </label>
+                                    @endforeach
+                                </div>
+                            </div>
+                            <div class="form-actions no-margin">
+                                <button type="submit" class="btn btn-info pull-right">
+                                    创建用户
+                                </button>
+                                <div class="clearfix">
+                                </div>
+                            </div>
+
+                        </form>
+
                     </div>
-                    <div class="layui-form-item">
-                        <label for="remark" class="layui-form-label">
-                            <span class="x-red">*</span>密码</label>
-                        <div class="layui-input-inline">
-                            <input type="text" id="pwd" name="pwd" required="" lay-verify="pwd" autocomplete="off" class="layui-input"></div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label for="remark" class="layui-form-label">
-                            <span class="x-red">*</span>确认密码</label>
-                        <div class="layui-input-inline">
-                            <input type="text" id="checkpwd" name="checkpwd" required="" lay-verify="checkpwd" autocomplete="off" class="layui-input"></div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label for="L_repass" class="layui-form-label"></label>
-                        <button class="layui-btn" lay-filter="add" lay-submit="">增加</button></div>
-                </form>
+                </div>
             </div>
+
         </div>
-        <script>layui.use(['form', 'layer','jquery'],
-            function() {
-                $ = layui.jquery;
-                var form = layui.form,
-                layer = layui.layer;
-                //监听提交
-                form.on('submit(add)', function(data) {
-                    $.ajax({
-                        url:'{{ url("admin/post_role") }}',
-                        type:'post',
-                        dataType:'text',
-                        contentType: 'application/json',
-                        data:JSON.stringify(data.field),
-                        success:function(data){
-                            datalist =JSON.parse(data);
-                            console.log(data);
-                            if(datalist.status == 1){
-                                //发异步，把数据提交给php
-                                layer.alert("增加成功", {icon: 6},
-                                    function() {
-                                        //关闭当前frame
-                                        xadmin.close();
-                                        // 可以对父窗口进行刷新
-                                        xadmin.father_reload();
-                                    });
-                            }else{
-                                layer.msg("提交失败")
-                            }
-                        },
-                        error:function () {
-                            layer.msg("提交失败")
-                        }
-                    });
-                    //发异步，把数据提交给php
-                    return false;
-                });
 
-            });</script>
-        <script>var _hmt = _hmt || []; (function() {
-                var hm = document.createElement("script");
-                hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-                var s = document.getElementsByTagName("script")[0];
-                s.parentNode.insertBefore(hm, s);
-            })();</script>
-    </body>
 
-</html>
+    </div>
+    <style>
+        .dashboard-wrapper .left-sidebar {
+            margin:auto;
+        }
+    </style>
+@endsection

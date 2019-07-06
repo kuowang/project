@@ -81,10 +81,22 @@ class UserRoleController extends WebController
     }
     //添加新用户
     public function addUserInfo(Request $request){
-        return view('admin.userrole.adduserinfo');
+        //用户权限部分
+        $data['username']   =$this->user()->name;
+        $data['nav']        =$this->user()->nav;
+        $data['navid']      =10;
+        $data['subnavid']   =1002;
+        //获取角色列表
+        $data['role_list']=Role::where('status',1)->get();
+        return view('admin.userrole.adduserinfo',$data);
     }
     //编辑用户
     public function editUserInfo(Request $request,$id){
+        //用户权限部分
+        $data['username']   =$this->user()->name;
+        $data['nav']        =$this->user()->nav;
+        $data['navid']      =10;
+        $data['subnavid']   =1002;
         //获取用户信息
         $data['user']=User::where('id',$id)->first();
         //获取用户角色
@@ -93,11 +105,99 @@ class UserRoleController extends WebController
         $data['role_list']=Role::where('status',1)->get();
         return view('admin.userrole.edituserinfo',$data);
     }
+    //保存新用户信息
+    public  function postAddUser(Request $request){
+
+        $username =$request->input('username','');
+        $email =$request->input('email','');
+        $pwd =$request->input('pwd','');
+        $checkpwd =$request->input('checkpwd','');
+        $roleid =$request->input('roleid',[]);
+        if((empty($pwd) || empty($checkpwd))){
+            $this->notice='密码不能为空';
+            return redirect('admin/add_user_info');
+        }elseif($pwd != $checkpwd){
+            return $this->error('两次密码不一致');
+        }
+        if(empty($username)){
+            return $this->error('用户名不能为空');
+        }
+        $count =DB::table('users')->where('email',$email)->count();
+        if($count >=1){
+            return $this->error('邮箱已经被使用，请更改邮箱');
+        }
+
+        DB::beginTransaction();
+        $data =[
+            'name' => $username,
+            'email' => $email,
+            'password' => bcrypt($pwd),
+        ];
+        $id =DB::table('users')->insertGetId($data);
+        if(empty($id)){
+            DB::rollback();
+            return $this->error('创建用户失败，请重试');
+        }
+        if(!empty($roleid)){
+           $datalist=[];
+           $role =DB::table('role')->wherein('id',$roleid)->get();
+            foreach($role as $item){
+                $datalist[]=[
+                  'uid'=>$id,
+                  'role_id'=>$item->id,
+                    'role_name'=>$item->name,
+                    'status'=>1,
+                    'created_at'=>date('Y-m-d H:i:s'),
+                    'updated_at'=>date('Y-m-d H:i:s'),
+                ];
+            }
+           $res= DB::table('user_role')->insert($datalist);
+            if(empty($res)){
+                return $this->error('创建用户权限失败，请重试');
+            }
+        }
+        DB::commit();
+
+        return $this->success('创建用户成功');
+    }
+
     //保存用户信息
-    public  function postUser(Request $request){
+    public  function postEditUser(Request $request){
         $data=$request->all();
+        $id =$request->input('id',0);
+        $username =$request->input('username','');
+        $email =$request->input('email','');
+        $pwd =$request->input('pwd','');
+        $checkpwd =$request->input('checkpwd','');
+        $roleid =$request->input('roleid',[]);
+
+        if(empty($id) && (empty($pwd) || empty($checkpwd))){
+            return $this->error('密码不能为空');
+        }elseif($pwd != $checkpwd){
+            return $this->error('两次密码不一致');
+        }
+
+        if(empty($id)){
+            $count =DB::table('user')->where('email',$email)->count();
+            if($count >=1){
+                return $this->error('邮箱已经被使用，请更改邮箱');
+            }
+        }
+        DB::beginTransaction();
+        if(empty($id)){ //创建用户
+
+
+        }else{  //编辑用户
+
+        }
+
+        DB::commit();
+
+
+
         return $this->success($data);
     }
+
 
 
 }
