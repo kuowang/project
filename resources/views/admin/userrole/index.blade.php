@@ -1,6 +1,31 @@
 @extends('layouts.web')
 
 @section('content')
+    @if($status == 2)
+    <div class="alert alert-block alert-error fade in">
+        <button data-dismiss="alert" class="close" type="button">
+            ×
+        </button>
+        <h4 class="alert-heading">
+           失败
+        </h4>
+        <p>
+            {{$notice}}
+        </p>
+    </div>
+    @elseif($status ==1)
+    <div class="alert alert-block alert-success fade in">
+        <button data-dismiss="alert" class="close" type="button">
+            ×
+        </button>
+        <h4 class="alert-heading">
+            成功!
+        </h4>
+        <p>
+            {{$notice}}
+        </p>
+    </div>
+    @endif
 
 <div class="left-sidebar">
     <div class="row-fluid">

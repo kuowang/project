@@ -1,9 +1,35 @@
 @extends('layouts.web')
 
 @section('content')
+
+    @if($status == 2)
+        <div class="alert alert-block alert-error fade in">
+            <button data-dismiss="alert" class="close" type="button">
+                ×
+            </button>
+            <h4 class="alert-heading">
+                失败
+            </h4>
+            <p>
+                {{$notice}}
+            </p>
+        </div>
+    @elseif($status ==1)
+        <div class="alert alert-block alert-success fade in">
+            <button data-dismiss="alert" class="close" type="button">
+                ×
+            </button>
+            <h4 class="alert-heading">
+                成功!
+            </h4>
+            <p>
+                {{$notice}}
+            </p>
+        </div>
+    @endif
+
+
     <div class="left-sidebar">
-
-
         <div class="row-fluid">
             <div class="span12">
                 <div class="widget">
@@ -26,24 +52,24 @@
                                     姓名:
                                 </label>
                                 <div class="controls controls-row">
-                                    <input class="span6" type="text" placeholder="姓名">
+                                    <input class="span6" type="text" name="username" placeholder="姓名">
 
                                 </div>
                             </div>
                             <div class="control-group">
-                                <label class="control-label" for="email1">
+                                <label class="control-label" for="email">
                                     邮箱:
                                 </label>
                                 <div class="controls">
-                                    <input type="text" name="email1" id="email1" class="span6" placeholder="电子邮箱">
+                                    <input type="text" name="email" id="email" class="span6" placeholder="电子邮箱">
                                 </div>
                             </div>
                             <div class="control-group">
-                                <label class="control-label" for="password1">
+                                <label class="control-label" for="password">
                                     密码:
                                 </label>
                                 <div class="controls">
-                                    <input type="password" name="password1" id="password1" class="span6" placeholder="6位以上的字符或数字">
+                                    <input type="password" name="password" id="password" class="span6" placeholder="6位以上的字符或数字">
                                 </div>
                             </div>
                             <div class="control-group">

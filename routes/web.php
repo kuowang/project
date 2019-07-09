@@ -46,6 +46,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => 'auth']
     Route::get('/add_user_info',             'UserRoleController@addUserInfo');                    //添加新用户
     Route::get('/edit_user_info/{id}',            'UserRoleController@editUserInfo');                   //编辑用户
     Route::post('/post_add_user',             'UserRoleController@postAddUser');                   //提交新用户
+    Route::post('/post_edit_user',             'UserRoleController@postEditUser');                   //提交编辑用户
 
 });
 
