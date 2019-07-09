@@ -205,8 +205,11 @@ class ExceptionHandler
             case 404:
                 $title = 'Sorry, the page you are looking for could not be found.';
                 break;
+            case 500:
+                $title =$exception->getMessage();
+                break;
             default:
-                $title = 'Whoops, looks like something went wrong.';
+                $title = '哎呀，好像出了什么问题.';
         }
 
         $content = '';

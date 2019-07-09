@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+
 class WebController extends Controller
 {
     //如果用户登录返回用户信息 否则返回null
@@ -15,6 +16,9 @@ class WebController extends Controller
             //Auth::user()->system=$this->getSystem();
             Auth::user()->nav = $this->getAuthLevel(Auth::user()->id);
             Auth::user()->system=$this->getSystem();
+        }
+        if($user && $user->status ==0){
+           throw new \Exception('用户被禁止，不能访问');
         }
         return  $user;
     }
