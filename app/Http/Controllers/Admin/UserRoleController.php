@@ -51,6 +51,11 @@ class UserRoleController extends WebController
         $data['nav']        =$this->user()->nav;
         $data['navid']      =10;
         $data['subnavid']   =1002;
+        $pageauth=[];
+        foreach($data['nav'][$data['subnavid']] as $v){
+            $pageauth[]=$v->auth_id;
+        }
+        $data['pageauth']   =$pageauth;
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
         return view('admin.userrole.index',$data);
@@ -64,7 +69,7 @@ class UserRoleController extends WebController
                 ->orwhere('email','like','%'.$search.'%');
         }
         $data['count'] =$db->count();
-        $data['data']= $db ->orderby('id','desc')
+        $data['data']= $db ->orderby('status','desc')->orderby('id','desc')
             ->skip(($page-1)*$rows)
             ->take($rows)->get();
         return $data;
@@ -141,6 +146,8 @@ class UserRoleController extends WebController
             'name' => $username,
             'email' => $email,
             'password' => bcrypt($pwd),
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s'),
         ];
         $id =DB::table('users')->insertGetId($data);
         if(empty($id)){
@@ -171,7 +178,7 @@ class UserRoleController extends WebController
 
     //保存用户信息
     public  function postEditUser(Request $request){
-        $data=$request->all();
+
         $id =$request->input('id',0);
         $username =$request->input('username','');
         $email =$request->input('email','');
@@ -194,12 +201,14 @@ class UserRoleController extends WebController
         $data =[
             'name' => $username,
             'email' => $email,
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s'),
         ];
         if(!empty($pwd)){
             $data['password'] =bcrypt($pwd);
         }
         DB::table('users')->where('id',$id)->update($data);
-        DB::table('user_role')->where('uid',$id)->update(['status'=>0]);
+        DB::table('user_role')->where('uid',$id)->update(['status'=>0,'updated_at'=>date('Y-m-d H:i:s')]);
         if(!empty($roleid)){
             $datalist=[];
             $role =DB::table('role')->wherein('id',$roleid)->get();
@@ -221,6 +230,15 @@ class UserRoleController extends WebController
         DB::commit();
 
         return redirect('admin/user_role_list?status=1&notice='.'编辑用户成功');
+    }
+
+    public function banUser(Request $request,$id){
+        DB::table('users')->where('id',$id)->update(['status'=>0,'updated_at'=>date('Y-m-d H:i:s')]);
+        return redirect('admin/user_role_list?status=1&notice='.'禁用用户成功');
+    }
+    public function noBanUser(Request $request,$id){
+        DB::table('users')->where('id',$id)->update(['status'=>1,'updated_at'=>date('Y-m-d H:i:s')]);
+        return redirect('admin/user_role_list?status=1&notice='.'开启用户成功');
     }
 
 

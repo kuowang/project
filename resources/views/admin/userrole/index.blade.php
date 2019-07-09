@@ -34,18 +34,21 @@
                 <div class="widget-header">
                     <div class="title">
                         用户列表<a id="dynamicTable"></a>
+                        @if(in_array(100202,$pageauth))
                         <a class="btn btn-success" title="新增用户"   href="/admin/add_user_info/">
                             <i class="layui-icon">新增用户</i>
                         </a>
+                        @endif
                     </div>
-
+                    @if(in_array(100201,$pageauth))
                     <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                         <label>
                             <form class="form-search">
                                 用户名:<input type="text" class="input-medium search-query">
-                                <button type="submit" class="btn">Search</button>
+                                <button type="submit" class="btn">搜索</button>
                             </form></label>
                     </div>
+                    @endif
                     <span class="tools">
                       <a class="fs1" aria-hidden="true" data-icon="&#xe090;"></a>
                     </span>
@@ -60,6 +63,7 @@
                                 <th>用户名称</th>
                                 <th>邮箱名</th>
                                 <th>角色</th>
+                                <th>状态</th>
                                 <th>创建时间</th>
                                 <th>修改时间</th>
                                 <th>操作</th>
@@ -86,13 +90,33 @@
                                             @endforeach
                                         @endif
                                     </td>
+                                    <td>
+                                        @if($val->status ==0)
+                                            禁用
+                                        @else
+                                            活跃
+                                        @endif
+                                    </td>
+
                                     <td>{{ $val->created_at }}</td>
                                     <td>{{ $val->updated_at }}</td>
-
                                     <td class="td-manage">
+                                        @if(in_array(100203,$pageauth))
                                         <a class="btn btn-success" title="编辑用户"  href="/admin/edit_user_info/{{ $val->id }}">
                                             <i class="layui-icon">编辑用户</i>
                                         </a>
+                                        @endif
+                                        @if(in_array(100204,$pageauth))
+                                            @if($val->status == 1)
+                                        <a class="btn btn-warning" title="禁用用户"  href="/admin/ban_user/{{ $val->id }}">
+                                            <i class="layui-icon">禁用用户</i>
+                                        </a>
+                                            @else
+                                        <a class="btn btn-success" title="开启用户"  href="/admin/no_ban_user/{{ $val->id }}">
+                                            <i class="layui-icon">开启用户</i>
+                                        </a>
+                                            @endif
+                                        @endif
                                     </td>
                                 </tr>
 
