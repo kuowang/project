@@ -1,66 +1,81 @@
-<!DOCTYPE html>
-<html class="x-admin-sm">
-    <head>
-        <meta name="renderer" content="webkit|ie-comp|ie-stand">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
-        <meta http-equiv="Cache-Control" content="no-siteapp" />
-        <link rel="stylesheet" href="/style/css/font.css">
-        <link rel="stylesheet" href="/style/css/xadmin.css">
-        <!-- <link rel="stylesheet" href="./css/theme5.css"> -->
-        <script src="/style/lib/layui/layui.js" charset="utf-8"></script>
-        <script type="text/javascript" src="/style/js/xadmin.js"></script>
-        <!--[if lt IE 9]>
-          <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-          <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
-    </head>
-    <body>
-        <div class="x-nav">
-          <span class="layui-breadcrumb">
-            <a href="">首页</a>
-            <a>
-              <cite>项目配置</cite></a>
-          </span>
-          <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
-            <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
-        </div>
-        <div class="layui-fluid">
-            <div class="layui-row layui-col-space15">
-                <div class="layui-col-md12">
-                    <div class="layui-card">
-                        <div class="layui-card-body ">
-                            <form class="layui-form layui-col-space5">
+@extends('layouts.web')
 
-                                <div class="layui-inline layui-show-xs-block">
-                                    <input type="text" name="search" value="{{ $search }}" placeholder="请输入名称" autocomplete="off" class="layui-input">
-                                </div>
+@section('content')
+    @if($status == 2)
+    <div class="alert alert-block alert-error fade in">
+        <button data-dismiss="alert" class="close" type="button">
+            ×
+        </button>
+        <h4 class="alert-heading">
+           失败
+        </h4>
+        <p>
+            {{$notice}}
+        </p>
+    </div>
+    @elseif($status ==1)
+    <div class="alert alert-block alert-success fade in">
+        <button data-dismiss="alert" class="close" type="button">
+            ×
+        </button>
+        <h4 class="alert-heading">
+            成功!
+        </h4>
+        <p>
+            {{$notice}}
+        </p>
+    </div>
+    @endif
 
-                                <div class="layui-inline layui-show-xs-block">
-                                    <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="layui-card-header">
-                            <button class="layui-btn" onclick="xadmin.open('添加角色','{{ url("/admin/add_role") }}',600,400)"><i class="layui-icon"></i>添加角色</button>
-                        </div>
-                        <div class="layui-card-body layui-table-body layui-table-main">
-                            <table class="layui-table layui-form">
-                                <thead>
-                                  <tr>
-                                    <th>
-                                    ID</th>
-                                    <th>角色名称</th>
-                                    <th>创建时间</th>
-                                    <th>修改时间</th>
-                                    <th>所属用户</th>
-                                    <th>操作</th></tr>
-                                </thead>
-                                <tbody>
+<div class="left-sidebar">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget">
+                <div class="widget-header">
+                    <div class="title">
+                        用户列表<a id="dynamicTable"></a>
+                        @if(in_array(100102,$pageauth))
+                        <a class="btn btn-success" title="新增角色"   href="/admin/add_role/">
+                            <i class="layui-icon">新增角色</i>
+                        </a>
+                        @endif
+                    </div>
+                    @if(in_array(100101,$pageauth))
+                    <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
+                        <label>
+                            <form class="form-search">
+                                用户名:<input type="text" class="input-medium search-query">
+                                <button type="submit" class="btn">搜索</button>
+                            </form></label>
+                    </div>
+                    @endif
+                    <span class="tools">
+                      <a class="fs1" aria-hidden="true" data-icon="&#xe090;"></a>
+                    </span>
+                </div>
+                <div class="widget-body">
+                    <div id="dt_example" class="example_alt_pagination">
+                        <table class="table table-condensed table-striped table-hover table-bordered pull-left" id="data-table">
 
-                                @foreach ($data as $val)
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>角色名称</th>
+                                <th>创建时间</th>
+                                <th>修改时间</th>
+                                <th>所属用户</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
 
-                                    <tr>
+                            @foreach ($data as $k =>$val)
+                                @if($k%2 ==1)
+                                    <tr class="gradeC">
+                                @else
+                                    <tr class="gradeA success">
+                                @endif
+
                                         <td>
                                             {{ $val->id }}
                                         </td>
@@ -69,102 +84,69 @@
                                         <td>{{ $val->updated_at }}</td>
                                         <td></td>
                                         <td class="td-manage">
-
-                                            <a title="编辑角色"  onclick="xadmin.open('编辑角色','{{ url("admin/edit_role/".$val->id) }}',600,400)" href="javascript:;">
-                                                <i class="layui-icon">&#xe642;编辑角色</i>
+                                            @if(in_array(100103,$pageauth))
+                                            <a title="编辑角色" class="btn btn-success" onclick="layer.open('编辑角色','{{ url("admin/edit_role/".$val->id) }}',600,400)" href="javascript:;">
+                                                编辑角色
                                             </a>
+                                            @endif
+                                            @if(in_array(100105,$pageauth))
                                             &nbsp;&nbsp;&nbsp;&nbsp;
-                                            <a title="编辑权限"   href='{{ url("admin/edit_role_authority/".$val->id) }}'>
-                                                <i class="layui-icon">&#xe642;编辑权限</i>
+                                            <a title="编辑权限" class="btn btn-success"  href='{{ url("admin/edit_role_authority/".$val->id) }}'>
+                                               编辑权限
                                             </a>
+                                            @endif
                                         </td>
-                                    </tr>
+                                </tr>
 
-                                @endforeach
+                            @endforeach
 
-
-                                </tbody>
-                            </table>
+                            </tbody>
+                        </table>
+                        <div class="clearfix">
                         </div>
-                       @php
-                        echo $page;
-                       @endphp
-
                     </div>
                 </div>
             </div>
-        </div> 
-    </body>
+        </div>
+
+    </div>
+</div>
+    <style>
+        .dashboard-wrapper .left-sidebar {
+            margin:auto;
+        }
+    </style>
+    <!-- 你的HTML代码 -->
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/layui/layui.js"></script>
     <script>
-      layui.use(['laydate','form'], function(){
-        var laydate = layui.laydate;
-        var  form = layui.form;
-          @if ($notice)
-          layer.msg('{{ $notice }}');
-          @endif
-        //执行一个laydate实例
-        laydate.render({
-          elem: '#start' //指定元素
-        });
+        //一般直接写在一个js文件中
 
-        //执行一个laydate实例
-        laydate.render({
-          elem: '#end' //指定元素
-        });
-
-
-      });
-
-       /*用户-停用*/
-      function member_stop(obj,id){
-          layer.confirm('确认要停用吗？',function(index){
-
-              if($(obj).attr('title')=='启用'){
-
-                //发异步把用户状态进行更改
-                $(obj).attr('title','停用')
-                $(obj).find('i').html('&#xe62f;');
-
-                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
-                layer.msg('已停用!',{icon: 5,time:1000});
-
-              }else{
-                $(obj).attr('title','启用')
-                $(obj).find('i').html('&#xe601;');
-
-                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-                layer.msg('已启用!',{icon: 5,time:1000});
-              }
-              
-          });
-      }
-
-      /*用户-删除*/
-      function member_del(obj,id){
-          layer.confirm('确认要删除吗？',function(index){
-              //发异步删除数据
-              $(obj).parents("tr").remove();
-              layer.msg('已删除!',{icon:1,time:1000});
-          });
-      }
-
-
-
-      function delAll (argument) {
-        var ids = [];
-
-        // 获取选中的id 
-        $('tbody input').each(function(index, el) {
-            if($(this).prop('checked')){
-               ids.push($(this).val())
+            function editUser(id){
+                layui.use(['layer', 'form'], function(){
+                    var layer = layui.layer
+                        ,form = layui.form;
+                    layer.open({
+                        type: 2,
+                        area: ['600px', '800px'],
+                        content: '/admin/edit_user_info/'+id //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+                    });
+                });
             }
-        });
-  
-        layer.confirm('确认要删除吗？'+ids.toString(),function(index){
-            //捉到所有被选中的，发异步进行删除
-            layer.msg('删除成功', {icon: 1});
-            $(".layui-form-checked").not('.header').parents('tr').remove();
-        });
-      }
+            function addUser(){
+                layui.use(['layer', 'form'], function(){
+                    var layer = layui.layer
+                        ,form = layui.form;
+                    layer.open({
+                        type: 2,
+                        area: ['600px', '800px'],
+                        content: '/admin/add_user_info/' //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+                    });
+                });
+
+            }
+
+
     </script>
-</html>
+
+@endsection

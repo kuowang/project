@@ -17,7 +17,6 @@ class RoleController extends WebController
      *
      * @return void
      */
-    public $notice=null;
     public function __construct()
     {
         //该方法验证说明必须登录用户才能操作
@@ -40,7 +39,19 @@ class RoleController extends WebController
         $data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
         $data['data']   =$datalist['data'];
         $data['search'] =$search;
-        $data['notice'] =$this->notice;
+
+        //用户权限部分
+        $data['username']   =$this->user()->name;
+        $data['nav']        =$this->user()->nav;
+        $data['navid']      =10;
+        $data['subnavid']   =1001;
+        $pageauth=[];
+        foreach($data['nav'][$data['subnavid']] as $v){
+            $pageauth[]=$v->auth_id;
+        }
+        $data['pageauth']   =$pageauth;
+        $data['status']=$request->input('status',0); //1成功 2失败
+        $data['notice']=$request->input('notice','成功'); //提示信息
         return view('admin.role.index',$data);
     }
     protected function getRoleList($search='',$page=1,$rows=20)
