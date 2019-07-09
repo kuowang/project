@@ -44,7 +44,7 @@
                     <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                         <label>
                             <form class="form-search">
-                                用户名:<input type="text" class="input-medium search-query">
+                                用户名:<input type="text" name="search" value="{{ $search }}" class="input-medium search-query">
                                 <button type="submit" class="btn">搜索</button>
                             </form></label>
                     </div>

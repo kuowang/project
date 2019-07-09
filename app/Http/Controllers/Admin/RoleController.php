@@ -39,6 +39,14 @@ class RoleController extends WebController
         $data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
         $data['data']   =$datalist['data'];
         $data['search'] =$search;
+        $rolelist=[];
+        foreach($data['data'] as $val){
+            $rolelist[]=$val->id;
+        }
+        //获取角色对应的用户
+        $data['userlist']= $this->role_user($rolelist);
+        //var_dump($data['userlist']);
+        //exit;
 
         //用户权限部分
         $data['username']   =$this->user()->name;
@@ -54,6 +62,7 @@ class RoleController extends WebController
         $data['notice']=$request->input('notice','成功'); //提示信息
         return view('admin.role.index',$data);
     }
+    //获取角色列表
     protected function getRoleList($search='',$page=1,$rows=20)
     {
         $db=DB::table('role');
@@ -96,6 +105,18 @@ class RoleController extends WebController
 
     //编辑角色权限
     public function editRoleAuthority(Request $request,$id){
+
+        //用户权限部分
+        $data['username']   =$this->user()->name;
+        $data['nav']        =$this->user()->nav;
+        $data['navid']      =10;
+        $data['subnavid']   =1001;
+        $pageauth=[];
+        foreach($data['nav'][$data['subnavid']] as $v){
+            $pageauth[]=$v->auth_id;
+        }
+        $data['pageauth']   =$pageauth;
+
         $data['id']=(int)$id;
         $data['data']=Authority::where('status',1)->orderby('auth_id')->get();
         $data['auth']=RoleAuthority::where('role_id',$id)->pluck('auth_id')->toarray();
@@ -108,8 +129,7 @@ class RoleController extends WebController
         $uid=$this->user()->id;
         $authdata =$request->input('auth_id');
         if(empty($authdata)){
-            $this->notice='没有给该角色添加任何权限';
-            return $this->index($request);
+            return redirect('/admin/role_list?status=2&notice='.'没有给该角色添加任何权限');
         }else{
             $this->notice=null;
         }
@@ -135,14 +155,13 @@ class RoleController extends WebController
         $res = DB::table('role_authority')->insert($data);
         if(empty($res)){
             DB::rollback();
-            $this->notice='分配权限失败';
-            return $this->index($request);
+            return redirect('/admin/role_list?status=2&notice='.'分配权限失败');
         }
         DB::commit();
-        $this->notice='角色分配权限成功';
-        return $this->index($request);
+        return redirect('/admin/role_list?status=1&notice='.'角色分配权限成功');
     }
 
+    //获取权限列表
     public function getAuthinfo($arr){
         return DB::table('authority')
             ->where('status',1)
@@ -151,5 +170,22 @@ class RoleController extends WebController
             ->get();
     }
 
+    //获取角色对应的用户信息
+    public function role_user($rolelist){
+        $list =DB::table('user_role')
+            ->join('users','users.id','=','user_role.uid')
+            ->wherein('role_id',$rolelist)
+            ->where('user_role.status',1)
+            ->select(['uid','role_id','name as username'])
+            ->get();
+        if(empty($list)){
+            return [];
+        }
+        $data=[];
+        foreach($list as $item){
+            $data[$item->role_id][]=$item;
+        }
+        return $data;
+    }
 
 }

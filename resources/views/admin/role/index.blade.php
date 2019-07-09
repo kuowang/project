@@ -33,7 +33,7 @@
             <div class="widget">
                 <div class="widget-header">
                     <div class="title">
-                        用户列表<a id="dynamicTable"></a>
+                        角色列表<a id="dynamicTable"></a>
                         @if(in_array(100102,$pageauth))
                         <a class="btn btn-success" title="新增角色"  onclick="addUser()">
                             <i class="layui-icon">新增角色</i>
@@ -43,8 +43,8 @@
                     @if(in_array(100101,$pageauth))
                     <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                         <label>
-                            <form class="form-search">
-                                用户名:<input type="text" class="input-medium search-query">
+                            <form class="form-search" action="/admin/role_list" method="get">
+                                角色名称:<input type="text" name="search" value="{{ $search }}" class="input-medium search-query">
                                 <button type="submit" class="btn">搜索</button>
                             </form></label>
                     </div>
@@ -63,7 +63,7 @@
                                 <th>角色名称</th>
                                 <th>创建时间</th>
                                 <th>修改时间</th>
-                                <th>所属用户</th>
+                                <th style="min-width: 200px">所属用户</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -82,7 +82,13 @@
                                         <td>{{ $val->name }}</td>
                                         <td>{{ $val->created_at }}</td>
                                         <td>{{ $val->updated_at }}</td>
-                                        <td></td>
+                                        <td>
+                                            @if(isset($userlist[$val->id]))
+                                                @foreach($userlist[$val->id] as $item)
+                                                    {{ $item->username }} &nbsp;
+                                                @endforeach
+                                            @endif
+                                        </td>
                                         <td class="td-manage">
                                             @if(in_array(100103,$pageauth))
                                             <a title="编辑角色" class="btn btn-success" onclick="editUser({{ $val->id }})" href="javascript:;">
