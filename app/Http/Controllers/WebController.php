@@ -10,12 +10,13 @@ class WebController extends Controller
     //如果用户登录返回用户信息 否则返回null
     public function user(){
         //添加用户的导航信息
-        if(!isset(Auth::user()->nav)){
+        $user=Auth::user();
+        if($user && !isset($user->nav)){
             //Auth::user()->system=$this->getSystem();
             Auth::user()->nav = $this->getAuthLevel(Auth::user()->id);
             Auth::user()->system=$this->getSystem();
         }
-        return  Auth::user();
+        return  $user;
     }
     protected function getAuthLevel($uid){
         $data =DB::table('user_role')
