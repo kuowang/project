@@ -35,7 +35,7 @@
                     <div class="title">
                         用户列表<a id="dynamicTable"></a>
                         @if(in_array(100102,$pageauth))
-                        <a class="btn btn-success" title="新增角色"   href="/admin/add_role/">
+                        <a class="btn btn-success" title="新增角色"  onclick="addUser()">
                             <i class="layui-icon">新增角色</i>
                         </a>
                         @endif
@@ -85,7 +85,7 @@
                                         <td></td>
                                         <td class="td-manage">
                                             @if(in_array(100103,$pageauth))
-                                            <a title="编辑角色" class="btn btn-success" onclick="layer.open('编辑角色','{{ url("admin/edit_role/".$val->id) }}',600,400)" href="javascript:;">
+                                            <a title="编辑角色" class="btn btn-success" onclick="editUser({{ $val->id }})" href="javascript:;">
                                                 编辑角色
                                             </a>
                                             @endif
@@ -127,9 +127,10 @@
                     var layer = layui.layer
                         ,form = layui.form;
                     layer.open({
+                        title:'编辑角色',
                         type: 2,
-                        area: ['600px', '800px'],
-                        content: '/admin/edit_user_info/'+id //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+                        area: ['400px', '200px'],
+                        content: '/admin/edit_role/'+id //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
                     });
                 });
             }
@@ -138,9 +139,10 @@
                     var layer = layui.layer
                         ,form = layui.form;
                     layer.open({
+                        title:'新增角色',
                         type: 2,
-                        area: ['600px', '800px'],
-                        content: '/admin/add_user_info/' //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+                        area: ['400px', '200px'],
+                        content: '/admin/add_role/' //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
                     });
                 });
 
