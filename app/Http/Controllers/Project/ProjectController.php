@@ -33,7 +33,22 @@ class ProjectController extends WebController
         $rows =$request->input('rows',20);
         $data['data'] =$this->getProjectList($search,$page,$rows);
         $data['nav'] =$this->getAuthTopNav($uid,20);
-        return view('project.project',$data);
+        //用户权限部分
+        $data['username']   =$this->user()->name;
+        $data['nav']        =$this->user()->nav;
+        $data['navid']      =15;
+        $data['subnavid']   =1502;
+        $pageauth=[];
+        if(isset($data['nav'][$data['subnavid']])){
+            foreach($data['nav'][$data['subnavid']] as $v){
+                $pageauth[]=$v->auth_id;
+            }
+        }
+        $data['pageauth']   =$pageauth;
+        $data['status']=$request->input('status',0); //1成功 2失败
+        $data['notice']=$request->input('notice','成功'); //提示信息
+
+        return view('project.index',$data);
     }
 
     protected function getProjectList($search='',$page=1,$rows=20)
