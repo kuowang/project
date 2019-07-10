@@ -203,7 +203,7 @@ class ExceptionHandler
     {
         switch ($exception->getStatusCode()) {
             case 404:
-                $title = 'Sorry, the page you are looking for could not be found.';
+                $title = '抱歉，找不到您要查找的页面.';
                 break;
             case 500:
                 $title =$exception->getMessage();
@@ -250,7 +250,7 @@ EOF
                 if ($this->debug) {
                     $title = sprintf('Exception thrown when handling an exception (%s: %s)', get_class($e), $this->escapeHtml($e->getMessage()));
                 } else {
-                    $title = 'Whoops, looks like something went wrong.';
+                    $title = '抱歉，找不到您要查找的页面.';
                 }
             }
         }

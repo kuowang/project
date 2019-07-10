@@ -2,10 +2,12 @@
 
 @section('content')
 
-<div class="left-sidebar">
+<div class="left-sidebar dashboard-wrapper">
     <div class="row-fluid">
         <div class="span12">
             <div class="widget">
+                <form class="layui-form"  action="{{ url('/admin/post_role_authority/'.$id) }}" method="post">
+
                 <div class="widget-header">
                     <div class="title">
                         角色权限<a id="dynamicTable"></a>
@@ -18,7 +20,6 @@
                 <div class="widget-body">
                     <div id="dt_example" class="example_alt_pagination">
 
-                        <form class="layui-form"  action="{{ url('/admin/post_role_authority/'.$id) }}" method="post">
 
                             <table class="layui-table layui-form table table-condensed table-striped table-hover table-bordered pull-left">
                                 <thead>
@@ -80,14 +81,43 @@
 
                                 </tbody>
                             </table>
-                            <div class="layui-form-item">
-                                <input type="submit" class="layui-btn" lay-filter="add" lay-submit="" value="提交" style="width: 100px">
-                            </div>
-                        </form>
+
                         <div class="clearfix">
                         </div>
                     </div>
                 </div>
+                    <div class="widget-header">
+                        <div class="title">
+                            管理权限
+                            <span class="mini-title">
+                                        查看详情信息
+                                    </span>
+                        </div>
+                        <span class="tools">
+                                    <a class="fs1" aria-hidden="true" data-icon=""></a>
+                        </span>
+                    </div>
+                    <div class="widget-body" style="margin-left:15px ">
+                        @foreach($managelist as $list)
+                        @if (in_array($list->id,$rolemanagelist))
+                            <input type="checkbox" name="manage_id[]" class="rolemanage" value="{{ $list->id }}" checked="checked" lay-filter="checkall" lay-skin="primary">
+                        @else
+                            <input type="checkbox" name="manage_id[]" class="rolemanage" value="{{ $list->id }}" lay-filter="checkall" lay-skin="primary">
+                        @endif
+                            {{ $list->name }}
+                            <hr>
+                        @endforeach
+
+                    </div>
+                    <div class="clearfix">
+                    </div>
+                    <div class="layui-form-item" style="margin: 10px">
+                        <input type="submit" class="layui-btn" lay-filter="add" lay-submit="" value="提交" style="width: 100px">
+                    </div>
+
+                    <div class="clearfix">
+                    </div>
+                </form>
             </div>
         </div>
 
@@ -107,6 +137,9 @@
             var  form = layui.form;
             // 监听全选
             form.on('checkbox(checkall)', function(data){
+                if($(this).prop('class') == 'rolemanage'){
+                    return false;
+                }
                 //alert($(this).val());
                 id =$(this).val();
                 //选择子集默认选中父级
@@ -138,6 +171,7 @@
                 form.render('checkbox');
             });
         });
+
         function  show(id){
             htm =$('.yincang_'+id).html();
             if(htm == '隐藏'){

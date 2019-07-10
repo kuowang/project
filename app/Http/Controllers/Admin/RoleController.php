@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Authority;
+use App\Models\ManageAuthority;
 use App\Models\Role;
 use App\Models\RoleAuthority;
+use App\Models\RoleManageAuthority;
+use App\Models\UserManageAuthority;
 use Illuminate\Http\Request;
 use App\Http\Controllers\WebController;
 use Illuminate\Support\Facades\DB;
@@ -105,6 +108,13 @@ class RoleController extends WebController
 
     //编辑角色权限
     public function editRoleAuthority(Request $request,$id){
+        $data['id']=(int)$id;
+        //角色权限
+        $data['data']=Authority::where('status',1)->orderby('auth_id')->get();
+        $data['auth']=RoleAuthority::where('role_id',$id)->pluck('auth_id')->toarray();
+        //管理权限
+        $data['managelist']=ManageAuthority::orderby('id')->get();
+        $data['rolemanagelist']=RoleManageAuthority::where('role_id',$id)->pluck('manage_auth_id')->toarray();
 
         //用户权限部分
         $data['username']   =$this->user()->name;
@@ -116,10 +126,6 @@ class RoleController extends WebController
             $pageauth[]=$v->auth_id;
         }
         $data['pageauth']   =$pageauth;
-
-        $data['id']=(int)$id;
-        $data['data']=Authority::where('status',1)->orderby('auth_id')->get();
-        $data['auth']=RoleAuthority::where('role_id',$id)->pluck('auth_id')->toarray();
         return view('admin.role.editroleauthority',$data);
     }
 
@@ -127,14 +133,14 @@ class RoleController extends WebController
     //提交角色的权限
     public function poseRoleAuthority(Request $request,$id){
         $uid=$this->user()->id;
-        $authdata =$request->input('auth_id');
+        $authdata =$request->input('auth_id',[]);
+        $managedata =$request->input('manage_id',[]);
         if(empty($authdata)){
             return redirect('/admin/role_list?status=2&notice='.'没有给该角色添加任何权限');
-        }else{
-            $this->notice=null;
         }
         //获取权限信息
         $auth =$this->getAuthinfo($authdata);
+        $time =date('Y-m-d H:i:s');
         $data=[];
         DB::beginTransaction();
         //删除数据
@@ -148,14 +154,34 @@ class RoleController extends WebController
                 'level'=>$val->level,
                 'status'=>1,
                 'operator'=>$uid,
-                'created_at'=>date('Y-m-d H:i:s'),
-                'updated_at'=>date('Y-m-d H:i:s'),
+                'created_at'=>$time,
+                'updated_at'=>$time,
             ];
         }
         $res = DB::table('role_authority')->insert($data);
         if(empty($res)){
             DB::rollback();
             return redirect('/admin/role_list?status=2&notice='.'分配权限失败');
+        }
+        //获取管理权限信息
+        DB::table('role_manage_authority')->where('role_id',$id)->delete();
+        if($managedata){
+            $managelist=$this->getManageAuthority($managedata);
+            unset($managedata);
+            foreach ($managelist as $value){
+                $datalist[]=[
+                    'role_id'=>$id,
+                    'manage_auth_id'=>$value->id,
+                    'name' =>$value->name,
+                    'created_at'=>$time,
+                    'updated_at'=>$time,
+                ];
+            }
+            $res = DB::table('role_manage_authority')->insert($datalist);
+            if(empty($res)){
+                DB::rollback();
+                return redirect('/admin/role_list?status=2&notice='.'分配管理权限失败');
+            }
         }
         DB::commit();
         return redirect('/admin/role_list?status=1&notice='.'角色分配权限成功');
@@ -169,6 +195,12 @@ class RoleController extends WebController
             ->orderby('auth_id')
             ->get();
     }
+    //获取管理者权限列表
+    public function getManageAuthority($managedata){
+        return ManageAuthority::wherein('id',$managedata)->get();
+    }
+
+
 
     //获取角色对应的用户信息
     public function role_user($rolelist){
