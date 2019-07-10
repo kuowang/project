@@ -67,10 +67,30 @@
 </header>
 <div class="container-fluid">
     <div class="dashboard-container">
+        <div class="top-nav">
+            <ul>
+                <li>
+                    <a href="/home" class="selected">
+                        <div class="fs1" aria-hidden="true" data-icon="&#xe0a0;"></div>
+                      首页
+                    </a>
+                </li>
+                @foreach($data[0] as $item)
+                <li>
+                    <a href="{{ $item->url }}" >
+                        <div class="fs2" aria-hidden="false" data-icon="{{ $item->icon }}"></div>
+                        {{ $item->name }}
+                    </a>
+                </li>
+               @endforeach
+            </ul>
+            <div class="clearfix">
+            </div>
+        </div>
 
         <div class="dashboard-wrapper">
 
-            <div class="left-sidebar" style="margin: auto">
+            <div class="left-sidebar">
 
                 <div class="row-fluid">
                     <div class="span12">
@@ -91,7 +111,7 @@
                                         @foreach($allNavList as $nav)
                                             @if(in_array($nav->auth_id,$navList))
                                         <div class="metro-nav-block nav-block-blue double">
-                                            <a href=" {{ $nav->url }}" style="font-size: 30px;" >
+                                            <a href=" {{ $nav->url }}" >
                                                 <div class="fs1" aria-hidden="true" data-icon=" {{ $nav->icon }}">
                                                        {{ $nav->name }}
                                                 </div>
@@ -99,8 +119,9 @@
                                         </div>
                                             @else
                                         <div class="metro-nav-block nav-block-red double">
-                                            <a style="font-size: 30px;">
-                                                <div class="fs1" aria-hidden="true" data-icon="{{ $nav->icon }}">
+                                            <a >
+                                                <div class="fs1" aria-hidden="true" data-icon="{{ $nav->icon }}"></div>
+                                                <div class="brand">
                                                     {{ $nav->name }}
                                                 </div>
                                             </a>
@@ -113,6 +134,27 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
+            </div>
+            <div class="right-sidebar">
+
+                <div class="wrapper">
+                    <ul class="stats">
+                        <li>
+                            <div class="left">
+                                <h4>公告
+                                </h4>
+                            </div>
+                            <div class="chart">
+
+                            </div>
+                        </li>
+                        <li>
+                               1消息列表按量打算打发士大夫阿斯顿发生大是大非打发士大夫全文法师打发违法所得
+                        </li>
+
+                    </ul>
                 </div>
 
             </div>
