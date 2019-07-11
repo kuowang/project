@@ -92,13 +92,13 @@
                                         <td class="td-manage">
                                             @if(in_array(100103,$pageauth))
                                             <a title="编辑角色" class="btn btn-success" onclick="editUser({{ $val->id }})" href="javascript:;">
-                                                编辑角色
+                                                <i class="layui-icon">编辑角色</i>
                                             </a>
                                             @endif
                                             @if(in_array(100105,$pageauth))
                                             &nbsp;&nbsp;&nbsp;&nbsp;
                                             <a title="编辑权限" class="btn btn-success"  href='{{ url("admin/edit_role_authority/".$val->id) }}'>
-                                               编辑权限
+                                               <i class="layui-icon">编辑权限</i>
                                             </a>
                                             @endif
                                         </td>
@@ -136,7 +136,7 @@
                         title:'编辑角色',
                         type: 2,
                         area: ['400px', '200px'],
-                        content: '/admin/edit_role/'+id //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+                        content: '/admin/edit_system_list/'+id //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
                     });
                 });
             }

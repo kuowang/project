@@ -5584,7 +5584,7 @@ header {
   .metro-nav .metro-nav-block [data-icon]::before {
     font-size: 32px;
     color: white;
-    line-height: 36px; }
+    line-height: 60px; }
   .metro-nav .metro-nav-block a {
     height: 100%;
     vertical-align: top;

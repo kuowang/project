@@ -35,10 +35,11 @@
 
                     <div class="layui-form-item">
                         <label for="L_repass" class="layui-form-label"></label>
-                        <button class="layui-btn" lay-filter="add" lay-submit="">增加</button></div>
+                        <button class="btn btn-success" lay-filter="add" lay-submit="">增加角色</button></div>
                 </form>
             </div>
         </div>
+
         <script>layui.use(['form', 'layer','jquery'],
             function() {
                 $ = layui.jquery;

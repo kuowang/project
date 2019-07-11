@@ -91,7 +91,7 @@
                                         @foreach($allNavList as $nav)
                                             @if(in_array($nav->auth_id,$navList))
                                         <div class="metro-nav-block nav-block-blue double">
-                                            <a href=" {{ $nav->url }}" style="font-size: 30px;" >
+                                            <a href=" {{ $nav->url }}" style="font-size: 26px;" >
                                                 <div class="fs1" aria-hidden="true" data-icon=" {{ $nav->icon }}">
                                                        {{ $nav->name }}
                                                 </div>
@@ -99,7 +99,7 @@
                                         </div>
                                             @else
                                         <div class="metro-nav-block nav-block-red double">
-                                            <a style="font-size: 30px;">
+                                            <a style="font-size: 26px;">
                                                 <div class="fs1" aria-hidden="true" data-icon="{{ $nav->icon }}">
                                                     {{ $nav->name }}
                                                 </div>

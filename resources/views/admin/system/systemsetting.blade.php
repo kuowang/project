@@ -48,8 +48,7 @@
                             <table class="layui-table layui-form">
                                 <thead>
                                   <tr>
-                                    <th>
-                                    ID</th>
+                                    <th>ID</th>
                                     <th>字段名</th>
                                     <th>描述</th>
                                     <th>系统名称</th>
