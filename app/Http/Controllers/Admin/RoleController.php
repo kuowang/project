@@ -57,8 +57,10 @@ class RoleController extends WebController
         $data['navid']      =10;
         $data['subnavid']   =1001;
         $pageauth=[];
-        foreach($data['nav'][$data['subnavid']] as $v){
-            $pageauth[]=$v->auth_id;
+        if(isset($data['nav'][$data['subnavid']])){
+            foreach($data['nav'][$data['subnavid']] as $v){
+                $pageauth[]=$v->auth_id;
+            }
         }
         $data['pageauth']   =$pageauth;
         $data['status']=$request->input('status',0); //1成功 2失败
@@ -122,9 +124,12 @@ class RoleController extends WebController
         $data['navid']      =10;
         $data['subnavid']   =1001;
         $pageauth=[];
-        foreach($data['nav'][$data['subnavid']] as $v){
-            $pageauth[]=$v->auth_id;
+        if(isset($data['nav'][$data['subnavid']])){
+            foreach($data['nav'][$data['subnavid']] as $v){
+                $pageauth[]=$v->auth_id;
+            }
         }
+
         $data['pageauth']   =$pageauth;
         return view('admin.role.editroleauthority',$data);
     }

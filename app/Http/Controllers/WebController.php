@@ -14,8 +14,9 @@ class WebController extends Controller
         $user=Auth::user();
         if($user && !isset($user->nav)){
             //Auth::user()->system=$this->getSystem();
-            Auth::user()->nav = $this->getAuthLevel(Auth::user()->id);
-            Auth::user()->system=$this->getSystem();
+            Auth::user()->nav = $this->getAuthLevel(Auth::user()->id); //导航列表
+            Auth::user()->system=$this->getSystem();    //系统参数
+            //系统公告
         }
         if($user && $user->status ==0){
            throw new \Exception('用户被禁止，不能访问');

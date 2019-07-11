@@ -27,6 +27,7 @@ class SystemSettingController extends WebController
      */
     public function index(Request $request)
     {
+
         $search =$request->input('search','');
         $page =$request->input('page',1);
         $rows =$request->input('rows',20);
