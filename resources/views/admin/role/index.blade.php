@@ -108,6 +108,9 @@
 
                             </tbody>
                         </table>
+                        @php
+                            echo $page;
+                        @endphp
                         <div class="clearfix">
                         </div>
                     </div>

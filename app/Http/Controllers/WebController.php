@@ -69,7 +69,7 @@ class WebController extends Controller
      * @return $return html内容
      */
 
-    public function webfenye($page,$count,$url){
+    public function webfenyetest($page,$count,$url){
         /** 实例
         <div class="layui-card-body ">
             <div class="page">
@@ -152,6 +152,97 @@ class WebController extends Controller
         $str .=' </div>';
         return $str;
     }
+    public function webfenye($page,$count,$url){
+        /** 实例
+        <div class="dataTables_paginate paging_full_numbers" id="data-table_paginate">
+        <a tabindex="0" class="first paginate_button paginate_button_disabled" id="data-table_first">First</a>
+        <span><a tabindex="0" class="paginate_active">1</a>
+        <a tabindex="0" class="paginate_button">2</a>
+        <a tabindex="0" class="paginate_button">3</a>
+        <a tabindex="0" class="paginate_button">4</a>
+        </span>
+        <a tabindex="0" class="last paginate_button" id="data-table_last">Last</a>
+        </div>
+         */
+        if($count ==1){
+            return '';
+        }
+
+        $str ='<div class="dataTables_paginate paging_full_numbers" id="data-table_paginate" style="margin-right:20px ">';
+
+        if($count <=10){ //小于10页全部显示
+            for($i=1; $i <= $count; $i++){
+                if($i ==$page){
+                    $str .='<a tabindex="0" class="paginate_active">'.$i.'</a>';
+                }else{
+                    $str .='<a tabindex="0" class="paginate_button" href="'.$url.'&page='.$i.'">'.$i.'</a>';
+                }
+            }
+        }else{ //大于10页分类显示
+            if($page !=1){
+                $str .='<a tabindex="0" class="paginate_button" href="'.$url.'&page='.($page-1).'">上一页</a>';
+            }
+            if($page < 5 ){
+                for($j=1;$j<=5;$j++){
+                    if($j ==$page){
+                        $str .='<a tabindex="0" class="paginate_active">'.$j.'</a>';
+                    }else{
+                        $str .='<a tabindex="0" class="paginate_button" href="'.$url.'&page='.$j.'">'.$j.'</a>';
+                    }
+                }
+            }else{
+                $str .='<a tabindex="0" class="paginate_button" href="'.$url.'&page=1">1</a>';
+                $str .='<a tabindex="0" class="paginate_button">…</a>';
+            }
+
+            if($page >= 5 && $page <= ($count-5)){
+                for($h =($page-3);$h < $page;$h++){
+                    $str .='<a tabindex="0" class="paginate_button" href="'.$url.'&page='.$h.'">'.$h.'</a>';
+                }
+
+                $str .='<a tabindex="0" class="paginate_active">'.$page.'</a>';
+
+                for($h =($page+1);$h < ($page+4);$h++){
+                    $str .='<a tabindex="0" class="paginate_button" href="'.$url.'&page='.$h.'">'.$h.'</a>';
+                }
+
+            }
+
+            if($page > ($count-5)){
+                for($j=$count-5;$j<= $count;$j++){
+                    if($j ==$page){
+                        $str .='<a tabindex="0" class="paginate_button">'.$j.'</a>';
+                    }else{
+                        $str .='<a tabindex="0" class="paginate_button" href="'.$url.'&page='.$j.'">'.$j.'</a>';
+                    }
+                }
+            }else{
+                $str .='<a tabindex="0" class="paginate_button">…</a>';
+                $str .='<a tabindex="0" class="paginate_button" href="'.$url.'&page='.$count.'">'.$count.'</a>';
+            }
+
+            if($page != $count){
+                $str .='<a tabindex="0" class="paginate_button" href="'.$url.'&page='.($page+1).'">下一页</a>';
+            }
+        }
+
+        $str .=' </div>';
+        return $str;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public  function getSystem(){
