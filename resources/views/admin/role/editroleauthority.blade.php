@@ -27,7 +27,7 @@
                                     <th>名称</th>
                                     <th>ID</th>
                                     <th>父ID</th>
-                                    <th>是否左侧导航显示</th>
+                                    <th>是否导航显示</th>
                                     <th>创建时间</th>
                                     <th>操作</th></tr>
                                 </thead>
