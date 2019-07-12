@@ -31,6 +31,7 @@ class ProjectController extends WebController
         $search =$request->input('search','');
         $page =$request->input('page',1);
         $rows =$request->input('rows',20);
+        $data['search']        =$search;
         $data['data'] =$this->getProjectList($search,$page,$rows);
         $data['nav'] =$this->getAuthTopNav($uid,20);
         //用户权限部分
