@@ -33,15 +33,10 @@ class MenuNavController extends WebController
         $data['nav']        =$this->user()->nav;
         $data['navid']      =10;
         $data['subnavid']   =1004;
-        $pageauth=[];
-        foreach($data['nav'][$data['subnavid']] as $v){
-            $pageauth[]=$v->auth_id;
-        }
-        $data['pageauth']   =$pageauth;
+        $data['pageauth']   =$this->user()->pageauth;
+
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
-
-
         $data['data']=Authority::orderby('auth_id')->get();
         return view('admin.menunav.index',$data);
     }

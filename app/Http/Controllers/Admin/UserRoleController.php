@@ -51,14 +51,7 @@ class UserRoleController extends WebController
         $data['nav']        =$this->user()->nav;
         $data['navid']      =10;
         $data['subnavid']   =1002;
-        $pageauth=[];
-        if(isset($data['nav'][$data['subnavid']])){
-            foreach($data['nav'][$data['subnavid']] as $v){
-                $pageauth[]=$v->auth_id;
-            }
-        }
-
-        $data['pageauth']   =$pageauth;
+        $data['pageauth']   =$this->user()->pageauth;
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
         return view('admin.userrole.index',$data);

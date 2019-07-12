@@ -24,6 +24,10 @@ class RoleController extends WebController
     {
         //该方法验证说明必须登录用户才能操作
         //$this->middleware('auth');
+
+
+
+
     }
 
     /**
@@ -56,13 +60,8 @@ class RoleController extends WebController
         $data['nav']        =$this->user()->nav;
         $data['navid']      =10;
         $data['subnavid']   =1001;
-        $pageauth=[];
-        if(isset($data['nav'][$data['subnavid']])){
-            foreach($data['nav'][$data['subnavid']] as $v){
-                $pageauth[]=$v->auth_id;
-            }
-        }
-        $data['pageauth']   =$pageauth;
+        $data['pageauth']   =$this->user()->pageauth;
+
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
         return view('admin.role.index',$data);
@@ -123,14 +122,8 @@ class RoleController extends WebController
         $data['nav']        =$this->user()->nav;
         $data['navid']      =10;
         $data['subnavid']   =1001;
-        $pageauth=[];
-        if(isset($data['nav'][$data['subnavid']])){
-            foreach($data['nav'][$data['subnavid']] as $v){
-                $pageauth[]=$v->auth_id;
-            }
-        }
+        $data['pageauth']   =$this->user()->pageauth;
 
-        $data['pageauth']   =$pageauth;
         return view('admin.role.editroleauthority',$data);
     }
 

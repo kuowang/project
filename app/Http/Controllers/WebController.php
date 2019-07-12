@@ -13,8 +13,9 @@ class WebController extends Controller
         //添加用户的导航信息
         $user=Auth::user();
         if($user && !isset($user->nav)){
-            //Auth::user()->system=$this->getSystem();
-            Auth::user()->nav = $this->getAuthLevel(Auth::user()->id); //导航列表
+            $userauth=$this->getAuthLevel(Auth::user()->id); //导航列表
+            Auth::user()->nav =$userauth['nav']; //导航列表
+            Auth::user()->pageauth =$userauth['authlist']; //权限id
             Auth::user()->system=$this->getSystem();    //系统参数
             //系统公告
         }
@@ -38,9 +39,11 @@ class WebController extends Controller
             //->where('is_show',1)
             ->orderby('auth_id')
             ->get();
-        $auth=[];
+        $auth['nav']=[];
+        $auth['authlist']=[];
         foreach($datalist as $value){
-            $auth[$value->parent_id][]=$value;
+            $auth['nav'][$value->parent_id][]=$value;
+            $auth['authlist'][]=$value->auth_id;
         }
         return $auth;
     }
