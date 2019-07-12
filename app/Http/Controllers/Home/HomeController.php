@@ -40,8 +40,11 @@ class HomeController extends WebController
         $data['data']=$this->user()->nav;
         $data['project_name'] =config('app.name');
         $data['username']=$this->user()->name;
-        foreach($data['data'][0] as $v){
-            $data['navList'][]= $v->auth_id;
+        $data['navList']=[];
+        if(isset($data['data'][0])){
+            foreach($data['data'][0] as $v){
+                $data['navList'][]= $v->auth_id;
+            }
         }
         $data['allNavList']=$this->getNavLaval(0);
         return view('home.test',$data);
