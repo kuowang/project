@@ -10,7 +10,7 @@
 
                 <div class="widget-header">
                     <div class="title">
-                        角色权限<a id="dynamicTable"></a>
+                        系统进入权限<a id="dynamicTable"></a>
                     </div>
 
                     <span class="tools">
@@ -88,7 +88,7 @@
                 </div>
                     <div class="widget-header">
                         <div class="title">
-                            管理权限
+                            系统管理权限
                             <span class="mini-title">
                                         查看详情信息
                                     </span>
