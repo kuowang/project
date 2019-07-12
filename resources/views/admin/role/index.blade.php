@@ -139,7 +139,7 @@
                         title:'编辑角色',
                         type: 2,
                         area: ['400px', '200px'],
-                        content: '/admin/edit_system_list/'+id //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+                        content: '/admin/edit_role/'+id //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
                     });
                 });
             }
