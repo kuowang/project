@@ -1,6 +1,31 @@
 @extends('layouts.web')
 
 @section('content')
+    @if($status == 2)
+        <div class="alert alert-block alert-error fade in">
+            <button data-dismiss="alert" class="close" type="button">
+                ×
+            </button>
+            <h4 class="alert-heading">
+                失败
+            </h4>
+            <p>
+                {{$notice}}
+            </p>
+        </div>
+    @elseif($status ==1)
+        <div class="alert alert-block alert-success fade in">
+            <button data-dismiss="alert" class="close" type="button">
+                ×
+            </button>
+            <h4 class="alert-heading">
+                成功!
+            </h4>
+            <p>
+                {{$notice}}
+            </p>
+        </div>
+    @endif
 
     <div class="left-sidebar">
         <div class="row-fluid">
@@ -8,10 +33,22 @@
                 <div class="widget">
                     <div class="widget-header">
                         <div class="title">
-                            菜单列表页面<a id="dynamicTable"></a>
-
+                            系统参数列表<a id="dynamicTable"></a>
+                            @if(in_array(100302,$pageauth))
+                                <a class="btn btn-success" title="新增系统参数"  onclick="addSystem()">
+                                    <i class="layui-icon">新增系统参数</i>
+                                </a>
+                            @endif
                         </div>
-
+                        @if(in_array(100301,$pageauth))
+                            <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
+                                <label>
+                                    <form class="form-search" action="/admin/role_list" method="get">
+                                        角色名称:<input type="text" name="search" value="{{ $search }}" class="input-medium search-query">
+                                        <button type="submit" class="btn">搜索</button>
+                                    </form></label>
+                            </div>
+                        @endif
                         <span class="tools">
                       <a class="fs1" aria-hidden="true" data-icon="&#xe090;"></a>
                     </span>
@@ -23,12 +60,12 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>父ID</th>
-                                    <th>名称</th>
-                                    <th>是否左侧导航显示</th>
-                                    <th>路由</th>
-                                    <th>是否禁用</th>
+                                    <th>字段名</th>
+                                    <th>描述</th>
+                                    <th>系统名称</th>
                                     <th>创建时间</th>
+                                    <th>修改时间</th>
+                                    <th>操作</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -38,31 +75,24 @@
                                         <tr class="gradeC">
                                     @else
                                         <tr class="gradeA success">
-                                            @endif
+                                    @endif
 
-                                            <td>{{ $val->auth_id }}</td>
-                                            <td>{{ $val->parent_id }}</td>
-                                            <td> @php
-                                                    echo  str_repeat('&nbsp;', 6*($val->level -1));
-                                                @endphp
-                                                {{ $val->name }}</td>
                                             <td>
-                                                @if ($val->is_show == 1)
-                                                    是
-                                                @else
-                                                    否
-                                                @endif
+                                                {{ $val->id }}
                                             </td>
-                                            <td>{{ $val->url }}</td>
-                                            <td>
-                                                @if ($val->status == 1)
-                                                    是
-                                                @else
-                                                    否
-                                                @endif
-
-                                            </td>
+                                            <td>{{ $val->field }}</td>
+                                            <td>{{ $val->remark }}</td>
+                                            <td>{{ $val->name }}</td>
                                             <td>{{ $val->created_at }}</td>
+                                            <td>{{ $val->updated_at }}</td>
+
+                                            <td class="td-manage">
+                                                @if(in_array(100303,$pageauth))
+                                                    <a title="编辑" class="btn btn-success" onclick="editsystem({{ $val->id }})" href="javascript:;">
+                                                        <i class="layui-icon">编辑</i>
+                                                    </a>
+                                                @endif
+                                            </td>
                                         </tr>
 
                                         @endforeach

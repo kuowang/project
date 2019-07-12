@@ -37,10 +37,11 @@
                     </div>
                     <div class="layui-form-item">
                         <label for="L_repass" class="layui-form-label"></label>
-                        <input type="submit" class="layui-btn" lay-filter="add" lay-submit="" value="提交"></div>
+                        <input type="submit" class="btn btn-success" lay-filter="add" lay-submit="" value="提交"></div>
                 </form>
             </div>
         </div>
+
         <script>layui.use(['form', 'layer'],
             function() {
                 $ = layui.jquery;

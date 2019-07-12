@@ -540,3 +540,56 @@ table th, table td {
     color: #393D49;
 }
 
+.btn {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    color: #333333;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+    background-color: #e6e6e6;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(white), to(#e6e6e6));
+    background-image: -webkit-linear-gradient(top, white, #e6e6e6);
+    background-image: -moz-linear-gradient(top, white, #e6e6e6);
+    background-image: -ms-linear-gradient(top, white, #e6e6e6);
+    background-image: -o-linear-gradient(top, white, #e6e6e6);
+    background-image: linear-gradient(top, white, #e6e6e6);
+    background-repeat: repeat-x;
+    border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    border: 1px solid #bbbbbb;
+    *border: 0;
+    border-bottom-color: #a2a2a2;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    *margin-left: .3em;
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2) 0 1px 2px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2) 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2) 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.btn-success {
+    color: white;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    background-color: #68a541;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#74b749), to(#68a541));
+    background-image: -webkit-linear-gradient(top, #74b749, #68a541);
+    background-image: -moz-linear-gradient(top, #74b749, #68a541);
+    background-image: -ms-linear-gradient(top, #74b749, #68a541);
+    background-image: -o-linear-gradient(top, #74b749, #68a541);
+    background-image: linear-gradient(top, #74b749, #68a541);
+    border-color: #74b749 #74b749 #68a541;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+
+    font-family: layui-icon!important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

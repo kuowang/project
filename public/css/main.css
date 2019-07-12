@@ -5584,7 +5584,7 @@ header {
   .metro-nav .metro-nav-block [data-icon]::before {
     font-size: 32px;
     color: white;
-    line-height: 36px; }
+    line-height: 60px; }
   .metro-nav .metro-nav-block a {
     height: 100%;
     vertical-align: top;
@@ -5599,7 +5599,7 @@ header {
     line-height: 16px;
     width: 100%; }
   .metro-nav .metro-nav-block.double {
-    width: 39%; }
+    width: 49%; }
   .metro-nav .metro-nav-block:hover {
     outline: 2px rgba(0, 0, 0, 0.75) solid; }
   .metro-nav .metro-nav-block .brand, .metro-nav .metro-nav-block .tile-status {
