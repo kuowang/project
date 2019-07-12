@@ -53,7 +53,7 @@ class SystemSettingController extends WebController
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
 
-        return view('admin.system.systemsetting',$data);
+        return view('admin.system.index',$data);
     }
 
     protected function getSystemSetting($search='',$page=1,$rows=20)
