@@ -272,6 +272,75 @@ class ArchitecturalController extends WebController
         return redirect('/architectural/index');
     }
 
+    /**
+     * 建筑系统子系统
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Exception
+     */
+
+    public function architectureList(Request $request)
+    {
+        $system_name        =$request->input('system_name','');
+        $sub_system_name    =$request->input('sub_system_name','');
+        $work_code          =$request->input('work_code','');
+
+        $page =$request->input('page',1);
+        $rows =$request->input('rows',10);
+        $data['system_name']      =$system_name;
+        $data['sub_system_name'] =$sub_system_name;
+        $data['work_code']        =$work_code;
+
+        $datalist =$this->getSubArchitecturalList($system_name,$sub_system_name,$work_code,$page,$rows);
+        //分页
+        $url='/architectural/index?system_name='.$system_name.'&sub_system_name='.$sub_system_name.'&work_code='.$work_code.'&rows='.$rows;
+        $data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
+        $data['data']   =$datalist['data'];
+
+        //用户权限部分
+        $data['username']   =$this->user()->name;
+        $data['nav']        =$this->user()->nav; //导航页面
+        $data['navid']      =35; //当前导航页面
+        $data['pageauth']   =$this->user()->pageauth; //按钮权限
+        $data['subnavid']   =3502;//当前子导航页
+        $data['manageauth'] =(array)$this->user()->manageauth; //能够查询详情权限
+        $data['uid']        =$this->user()->id;
+
+        $data['status']=$request->input('status',0); //1成功 2失败
+        $data['notice']=$request->input('notice','成功'); //提示信息
+        return view('architectural.architectureList',$data);
+    }
+    //获取子系统列表
+    private function getSubArchitecturalList($system_name='',$sub_system_name='',$work_code='',$page=1,$rows=100){
+        $db=DB::table('architectural_system')
+            ->leftjoin('architectural_sub_system','architectural_system.id','=','architectural_sub_system.architectural_id')
+            ->where('architectural_system.status',1);
+
+
+        if(!empty($system_name)){
+            $db->where('system_name','like','%'.$system_name.'%');
+        }
+        if(!empty($sub_system_name)){
+            $db->where('sub_system_name','like','%'.$sub_system_name.'%');
+        }
+        if(!empty($work_code)){
+            $db->where('work_code','like','%'.$work_code.'%');
+        }
+
+        $data['count'] =$db->count();
+        $data['data']= $db->orderby('system_code','asc')
+                ->orderby('sort','asc')
+            ->skip(($page-1)*$rows)
+            ->take($rows)
+            ->select(['architectural_sub_system.id','system_name','engineering_name',
+                'system_code','sub_system_name','sub_system_code','work_code'
+                ,'architectural_sub_system.status','sort','architectural_sub_system.username','architectural_sub_system.uid'
+                ,'architectural_sub_system.created_at','architectural_sub_system.updated_at'])
+            ->get();
+        return $data;
+
+    }
+
 
 
 }
