@@ -57,7 +57,6 @@ Route::group(['namespace' => 'Admin'], function () {
 
     //Route::get('/test', 'RoleController@test');
     //Route::post('/test', 'RoleController@test');
-
 });
 
 //项目类的控制组 需要登录
@@ -67,7 +66,6 @@ Route::group(['namespace' => 'Project','middleware' => 'auth'], function () {
 
 //项目类的控制组 不需要登录
 Route::group(['namespace' => 'Project'], function () {
-
     //Route::get('/test', 'RoleController@test');
     //Route::post('/test', 'RoleController@test');
 
@@ -81,5 +79,7 @@ Route::group(['prefix' => 'architectural','namespace' => 'Architectural','middle
     Route::get('/edit_architect/{id}',     'ArchitecturalController@editArchitect'); //编辑建筑工程
     Route::post('/post_edit_architect',    'ArchitecturalController@postEditArchitect'); //提交编辑建筑工程
     Route::get('/architect_detail/{id}',   'ArchitecturalController@architectDetail'); //查看详情建筑工程
+    Route::get('/edit_architect_status/{id}/{status}',    'ArchitecturalController@EditArchitectStatus'); //编辑建筑工程状态
+
 
 });

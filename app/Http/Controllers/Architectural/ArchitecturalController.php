@@ -58,7 +58,7 @@ class ArchitecturalController extends WebController
             $db->where('system_name','like','%'.$search.'%');
         }
         $data['count'] =$db->count();
-        $data['data']= $db->orderby('status','desc') ->orderby('system_code','asc')
+        $data['data']= $db->orderby('system_code','asc')
             ->skip(($page-1)*$rows)
             ->take($rows)->get();
         return $data;
@@ -108,7 +108,7 @@ class ArchitecturalController extends WebController
             'system_name'=>$system_name,
             'engineering_name'=>$engineering_name,
             'system_code'=>$system_code,
-            'status'=>$status,
+            'status'=>(int)$status,
             'uid'=>$uid,
             'created_at'=>date('Y-m-d'),
             'updated_at'=>date('Y-m-d'),
@@ -127,8 +127,8 @@ class ArchitecturalController extends WebController
                     'sub_system_name'=>$v,
                     'sub_system_code'=>$sub_system_code[$k],
                     'work_code'=>$work_code[$k],
-                    'status'=>$sub_status[$k],
-                    'sort'=>$sort[$k],
+                    'status'=>(int)$sub_status[$k],
+                    'sort'=>(int)$sort[$k],
                     'uid'=>$uid,
                     'created_at'=>date('Y-m-d'),
                     'updated_at'=>date('Y-m-d'),
@@ -205,7 +205,7 @@ class ArchitecturalController extends WebController
             'system_name'=>$system_name,
             'engineering_name'=>$engineering_name,
             'system_code'=>$system_code,
-            'status'=>$status,
+            'status'=>(int)$status,
             'uid'=>$uid,
             'updated_at'=>date('Y-m-d'),
             'username'=>$username,
@@ -220,8 +220,8 @@ class ArchitecturalController extends WebController
                     'sub_system_code'=>$sub_system_code[$k],
                     'work_code'=>$work_code[$k],
                     'status'=>$sub_status[$k],
-                    'sort'=>$sort[$k],
-                    'uid'=>$uid,
+                    'sort'=>(int)$sort[$k],
+                    'uid'=>(int)$uid,
                     'updated_at'=>date('Y-m-d'),
                     'username'=>$username,
                 ];
@@ -261,7 +261,16 @@ class ArchitecturalController extends WebController
 
     }
 
+    //更改建筑系统状态
+    public function EditArchitectStatus(Request $request,$id,$staus=1){
 
+        $architect=DB::table('architectural_system')->where('id',$id)->first();
+        if($this->user()->id != $architect->uid ){
+            return redirect('/architectural/index?status=2&notice='.'仅有创建用户才能更改状态');
+        }
+        DB::table('architectural_system')->where('id',$id)->update(['status'=>(int)$staus,'updated_at'=>date('Y-m-d')]);
+        return redirect('/architectural/index');
+    }
 
 
 

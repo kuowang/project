@@ -100,12 +100,12 @@
                                         @if(in_array(350104,$pageauth) && $val->uid == $uid)
                                             @if ($val->status ==1)
                                                 &nbsp;&nbsp;&nbsp;
-                                                <a title="无效" class="btn btn-warning"   href='{{ url("/architectural/edit_architect_status/".$val->id.'/0') }}'>
+                                                <a title="无效" class="btn btn-warning"  href='{{ url("/architectural/edit_architect_status/".$val->id.'/0') }}'>
                                                     <i class="layui-icon">无效</i>
                                                 </a>
                                             @else
                                                 &nbsp;&nbsp;&nbsp;
-                                                <a title="有效" class="btn btn-success"  href='{{ url("admin/edit_architect_status/".$val->id.'/1') }}'>
+                                                <a title="有效" class="btn btn-success"  href='{{ url("/architectural/edit_architect_status/".$val->id.'/1') }}'>
                                                     <i class="layui-icon">有效</i>
                                                 </a>
                                             @endif
@@ -138,15 +138,6 @@
     <!-- 你的HTML代码 -->
     <link rel="stylesheet" href="/layui/css/layui.css">
     <script src="/layui/layui.js"></script>
-    <script>
-        //一般直接写在一个js文件中
 
-            function editUser(id){
-
-            }
-
-
-
-    </script>
 
 @endsection
