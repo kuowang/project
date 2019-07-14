@@ -76,27 +76,42 @@
                                     <td>{{ $val->system_name }}</td>
                                     <td>{{ $val->engineering_name }}</td>
                                     <td>{{ $val->system_code }}</td>
-                                    <td>{{ $val->status }}</td>
+                                    <td>@if ($val->status ==1)
+                                        有效
+                                        @else
+                                        无效
+                                        @endif
+                                    </td>
                                     <td>{{ $val->username }}</td>
                                     <td>{{ $val->created_at }}</td>
                                     <td class="td-manage">
-                                        @if(in_array(100103,$pageauth))
-                                            <a title="详情" class="btn btn-success" onclick="editUser({{ $val->id }})" href="javascript:;">
-                                                <i class="layui-icon">详情</i>
-                                            </a>
+                                        @if($val->uid == $uid || in_array(6,$manageauth))
+                                                <a title="详情" class="btn btn-success"  href='{{ url("/architectural/architect_detail/".$val->id) }}'>
+                                                    <i class="layui-icon">详情</i>
+                                                </a>
                                         @endif
-                                        @if(in_array(100105,$pageauth))
+
+                                        @if(in_array(350103,$pageauth) && $val->uid == $uid)
                                             &nbsp;&nbsp;&nbsp;&nbsp;
-                                            <a title="编辑" class="btn btn-success"  href='{{ url("admin/edit_role_authority/".$val->id) }}'>
+                                            <a title="编辑" class="btn btn-success"  href='{{ url("/architectural/edit_architect/".$val->id) }}'>
                                                 <i class="layui-icon">编辑</i>
                                             </a>
                                         @endif
-                                            @if(in_array(100105,$pageauth))
-                                                &nbsp;&nbsp;&nbsp;&nbsp;
-                                                <a title="删除" class="btn btn-success"  href='{{ url("admin/edit_role_authority/".$val->id) }}'>
-                                                    <i class="layui-icon">删除</i>
+                                        @if(in_array(350104,$pageauth) && $val->uid == $uid)
+                                            @if ($val->status ==1)
+                                                &nbsp;&nbsp;&nbsp;
+                                                <a title="无效" class="btn btn-warning"   href='{{ url("/architectural/edit_architect_status/".$val->id.'/0') }}'>
+                                                    <i class="layui-icon">无效</i>
+                                                </a>
+                                            @else
+                                                &nbsp;&nbsp;&nbsp;
+                                                <a title="有效" class="btn btn-success"  href='{{ url("admin/edit_architect_status/".$val->id.'/1') }}'>
+                                                    <i class="layui-icon">有效</i>
                                                 </a>
                                             @endif
+                                            &nbsp;
+                                        @endif
+
                                     </td>
                                 </tr>
                             @endforeach
@@ -127,30 +142,9 @@
         //一般直接写在一个js文件中
 
             function editUser(id){
-                layui.use(['layer', 'form'], function(){
-                    var layer = layui.layer
-                        ,form = layui.form;
-                    layer.open({
-                        title:'编辑角色',
-                        type: 2,
-                        area: ['400px', '200px'],
-                        content: '/admin/edit_role/'+id //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
-                    });
-                });
-            }
-            function addUser(){
-                layui.use(['layer', 'form'], function(){
-                    var layer = layui.layer
-                        ,form = layui.form;
-                    layer.open({
-                        title:'新增角色',
-                        type: 2,
-                        area: ['400px', '200px'],
-                        content: '/admin/add_role/' //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
-                    });
-                });
 
             }
+
 
 
     </script>

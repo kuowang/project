@@ -5,6 +5,7 @@ namespace Illuminate\Auth\Middleware;
 use Closure;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use Log;
 
 class Authenticate
 {
@@ -38,6 +39,21 @@ class Authenticate
      */
     public function handle($request, Closure $next, ...$guards)
     {
+        if (isset($_SERVER['HTTP_CLIENT_IP'])) {
+            $ip     =   $_SERVER['HTTP_CLIENT_IP'];
+        }elseif (isset($_SERVER['REMOTE_ADDR'])) {
+            $ip     =   $_SERVER['REMOTE_ADDR'];
+        }else {
+            $ip = '0.0.0.0';
+        }
+        if(isset($this->auth->user()->id)){
+            $uid =      $this->auth->user()->id;
+        }else{
+            $uid='';
+        }
+        //记录操作日志
+        Log::info('Request ', ['operator'=>$uid,'url' => $request->decodedPath(),'User-Agent' => $request->header('User-Agent'),'ip' => $ip,'param' => $request->all()]);
+
         $this->authenticate($guards);
 
         return $next($request);

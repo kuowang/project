@@ -14,9 +14,10 @@ class WebController extends Controller
         $user=Auth::user();
         if($user && !isset($user->nav)){
             $userauth=$this->getAuthLevel(Auth::user()->id); //导航列表
-            Auth::user()->nav =$userauth['nav']; //导航列表
-            Auth::user()->pageauth =$userauth['authlist']; //权限id
-            Auth::user()->system=$this->getSystem();    //系统参数
+            Auth::user()->nav           =$userauth['nav']; //导航列表
+            Auth::user()->pageauth      =$userauth['authlist']; //权限id
+            Auth::user()->system        =$this->getSystem();    //系统参数
+            Auth::user()->manageauth    =$userauth['manageauth'];
             //系统公告
         }
         if($user && $user->status ==0){
@@ -39,11 +40,23 @@ class WebController extends Controller
             //->where('is_show',1)
             ->orderby('auth_id')
             ->get();
+        //管理权限
+        $manageauth =DB::table('user_role')
+            ->join('role_manage_authority','role_manage_authority.role_id','=','user_role.role_id')
+            ->where('user_role.status',1)
+            ->where('user_role.uid',$uid)
+            ->groupby('manage_auth_id')
+            ->pluck('manage_auth_id')
+            ->toArray();
         $auth['nav']=[];
         $auth['authlist']=[];
+        $auth['manageauth']=[];
         foreach($datalist as $value){
             $auth['nav'][$value->parent_id][]=$value;
             $auth['authlist'][]=$value->auth_id;
+        }
+        if($manageauth){
+            $auth['manageauth']=$manageauth;
         }
         return $auth;
     }

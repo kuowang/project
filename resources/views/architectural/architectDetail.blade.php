@@ -4,7 +4,7 @@
 <div class="left-sidebar">
     <div class="row-fluid">
         <div class="span12">
-            <form method="post" action="/architectural/post_add_architect">
+
             <div class="widget">
                 <div class="widget-header">
                     <div class="title">
@@ -27,29 +27,23 @@
                             <tbody>
                             <tr>
                                 <td>
-                                    <input type="text" name="system_name" lay-skin="primary">
+                                    {{ $architect->system_name }} </td>
+                                <td>
+                                    {{ $architect->engineering_name }}
                                 </td>
                                 <td>
-                                    <input type="text" name="engineering_name" lay-skin="primary">
+                                    {{ $architect->system_code }}
                                 </td>
                                 <td>
-                                    <input type="text" name="system_code" lay-skin="primary">
-                                </td>
-                                <td>
-                                    <select name="status" id="stateAndCity" class="span12" style="min-width: 80px">
-                                        <option value="1" selected="selected">
-                                            有效
-                                        </option>
-                                        <option value="0">
-                                            无效
-                                        </option>
-                                    </select>
-                                </td>
+                                    @if($architect->status ==1)
+                                    有效
+                                    @else
+                                       无效
+                                    @endif
 
+                                </td>
                             </tr>
-
                             </tbody>
-
                         </table>
                         <div class="clearfix">
                         </div>
@@ -61,10 +55,6 @@
                     <div class="title">
                         关联子系统
                     </div>
-                    <span class="title"style="float: right;">
-                        <a class="btn btn-success" onclick="add_xitong()" ><i class="layui-icon">关联新子系统 +</i></a>
-                    </span>
-
                 </div>
                 <div class="widget-body">
                     <div id="dt_example" class="example_alt_pagination">
@@ -76,38 +66,31 @@
                                 <th>工况代码</th>
                                 <th>系统状态</th>
                                 <th>排序</th>
-                                <th>操作</th>
+
                             </thead>
                             <tbody id="zixitong">
+                            @foreach($sub_architect as $v)
                             <tr>
                                 <td>
-                                    <input type="text" name="sub_system_name[]" lay-skin="primary">
+                                    {{ $v->sub_system_name }}
                                 </td>
                                 <td>
-                                    <input type="text" name="sub_system_code[]" lay-skin="primary">
+                                    {{ $v->sub_system_code }}
                                 </td>
                                 <td>
-                                    <input type="text" name="work_code[]" lay-skin="primary">
+                                    {{ $v->work_code }}
                                 </td>
                                 <td>
-                                    <select name="sub_status[]" id="stateAndCity" class="span12" style="min-width: 80px">
-                                        <option value="1" selected="selected">
-                                            有效
-                                        </option>
-                                        <option value="0">
-                                            无效
-                                        </option>
-                                    </select>
+                                @if($v->status ==1)
+                                    有效
+                                @else
+                                无效
+                                @endif
                                 </td>
-                                <td>
-                                    <input type="text" name="sort[]" lay-skin="primary">
-                                </td>
-                                <td>
-                                    <a  class="btn btn-danger delete_zixitong" onclick="deleteTrRow(this)">
-                                        删除
-                                    </a>
-                                </td>
+                                <td>{{ $v->sort }}</td>
+
                             </tr>
+                            @endforeach
                             </tbody>
                         </table>
                         <div class="clearfix">
@@ -116,18 +99,14 @@
 
                 </div>
             </div>
+
             <div class="layui-form-item" style="float: right;clear: left">
-                <label for="L_repass" class="layui-form-label"></label>
-                <button class="btn btn-success" lay-filter="add" type="submit" lay-submit="" onclick='return form_submit()'>确认/保存</button>
-            </div>
-            <div class="layui-form-item" style="float: right;clear: left">
-                <a href="/architectural/index">
+                <a href="javascript:history.go(-1)">
                 <label for="L_repass" class="layui-form-label"></label>
                     <span class="btn btn-success" lay-filter="add" lay-submit="">返回/取消</span>
                 </a>
             </div>
 
-            </form>
         </div>
     </div>
 </div>
@@ -149,7 +128,7 @@
         }
         //添加事件
         function add_xitong() {
-           str ='<tr><td><input type="text" name="sub_system_name[]" lay-skin="primary"></td>'+
+           str ='<tr><td><input type="hidden" name="sub_id[]" value="0" lay-skin="primary"><input type="text" name="sub_system_name[]" lay-skin="primary"></td>'+
                '<td><input type="text" name="sub_system_code[]" lay-skin="primary"></td>'+
             '<td><input type="text" name="work_code[]" lay-skin="primary"></td>'+
             '<td><select name="sub_status[]" id="stateAndCity" class="span12" style="min-width: 80px">'+

@@ -4,7 +4,7 @@
 <div class="left-sidebar">
     <div class="row-fluid">
         <div class="span12">
-            <form method="post" action="/architectural/post_add_architect">
+            <form method="post" action="/architectural/post_edit_architect">
             <div class="widget">
                 <div class="widget-header">
                     <div class="title">
@@ -27,29 +27,28 @@
                             <tbody>
                             <tr>
                                 <td>
-                                    <input type="text" name="system_name" lay-skin="primary">
+                                    <input type="hidden" name="id" value="{{ $architect->id }}" lay-skin="primary">
+                                    <input type="text"   name="system_name" value="{{ $architect->system_name }}" lay-skin="primary">
                                 </td>
                                 <td>
-                                    <input type="text" name="engineering_name" lay-skin="primary">
+                                    <input type="text" name="engineering_name" value="{{ $architect->engineering_name }}" lay-skin="primary">
                                 </td>
                                 <td>
-                                    <input type="text" name="system_code" lay-skin="primary">
+                                    <input type="text" name="system_code" value="{{ $architect->system_code }}" lay-skin="primary">
                                 </td>
                                 <td>
                                     <select name="status" id="stateAndCity" class="span12" style="min-width: 80px">
-                                        <option value="1" selected="selected">
-                                            有效
-                                        </option>
-                                        <option value="0">
-                                            无效
-                                        </option>
+                                        @if($architect->status ==1)
+                                        <option value="1" selected="selected">有效</option>
+                                        <option value="0">无效</option>
+                                        @else
+                                            <option value="1" >有效</option>
+                                            <option value="0" selected="selected">无效</option>
+                                        @endif
                                     </select>
                                 </td>
-
                             </tr>
-
                             </tbody>
-
                         </table>
                         <div class="clearfix">
                         </div>
@@ -79,35 +78,36 @@
                                 <th>操作</th>
                             </thead>
                             <tbody id="zixitong">
+                            @foreach($sub_architect as $v)
                             <tr>
                                 <td>
-                                    <input type="text" name="sub_system_name[]" lay-skin="primary">
+                                    <input type="hidden" name="sub_id[]" value="{{ $v->id }}" lay-skin="primary">
+                                    <input type="text" name="sub_system_name[]" value="{{ $v->sub_system_name }}" lay-skin="primary">
                                 </td>
                                 <td>
-                                    <input type="text" name="sub_system_code[]" lay-skin="primary">
+                                    <input type="text" name="sub_system_code[]" value="{{ $v->sub_system_code }}" lay-skin="primary">
                                 </td>
                                 <td>
-                                    <input type="text" name="work_code[]" lay-skin="primary">
+                                    <input type="text" name="work_code[]"   value="{{ $v->work_code }}" lay-skin="primary">
                                 </td>
                                 <td>
                                     <select name="sub_status[]" id="stateAndCity" class="span12" style="min-width: 80px">
-                                        <option value="1" selected="selected">
-                                            有效
-                                        </option>
-                                        <option value="0">
-                                            无效
-                                        </option>
+                                        @if($v->status ==1)
+                                            <option value="1" selected="selected">有效</option>
+                                            <option value="0">无效</option>
+                                        @else
+                                            <option value="1" >有效</option>
+                                            <option value="0" selected="selected">无效</option>
+                                        @endif
                                     </select>
                                 </td>
+                                <td><input type="text" name="sort[]"  value="{{ $v->sort }}" lay-skin="primary"></td>
                                 <td>
-                                    <input type="text" name="sort[]" lay-skin="primary">
+
                                 </td>
-                                <td>
-                                    <a  class="btn btn-danger delete_zixitong" onclick="deleteTrRow(this)">
-                                        删除
-                                    </a>
-                                </td>
+
                             </tr>
+                            @endforeach
                             </tbody>
                         </table>
                         <div class="clearfix">
@@ -149,7 +149,7 @@
         }
         //添加事件
         function add_xitong() {
-           str ='<tr><td><input type="text" name="sub_system_name[]" lay-skin="primary"></td>'+
+           str ='<tr><td><input type="hidden" name="sub_id[]" value="0" lay-skin="primary"><input type="text" name="sub_system_name[]" lay-skin="primary"></td>'+
                '<td><input type="text" name="sub_system_code[]" lay-skin="primary"></td>'+
             '<td><input type="text" name="work_code[]" lay-skin="primary"></td>'+
             '<td><select name="sub_status[]" id="stateAndCity" class="span12" style="min-width: 80px">'+

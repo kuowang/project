@@ -75,8 +75,11 @@ Route::group(['namespace' => 'Project'], function () {
 //角色类的控制组 需要登录
 Route::group(['prefix' => 'architectural','namespace' => 'Architectural','middleware' => 'auth'], function () {
 
-    Route::get('/index',                 'ArchitecturalController@index'); //建筑设计主页
-    Route::get('/add_architect',          'ArchitecturalController@addArchitect'); //创建建筑工程
-    Route::post('/post_add_architect',    'ArchitecturalController@postAddArchitect'); //提交建筑工程
+    Route::get('/index',                   'ArchitecturalController@index');      //建筑设计主页
+    Route::get('/add_architect',           'ArchitecturalController@addArchitect'); //创建建筑工程
+    Route::post('/post_add_architect',     'ArchitecturalController@postAddArchitect'); //提交建筑工程
+    Route::get('/edit_architect/{id}',     'ArchitecturalController@editArchitect'); //编辑建筑工程
+    Route::post('/post_edit_architect',    'ArchitecturalController@postEditArchitect'); //提交编辑建筑工程
+    Route::get('/architect_detail/{id}',   'ArchitecturalController@architectDetail'); //查看详情建筑工程
 
 });
