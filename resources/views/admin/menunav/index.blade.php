@@ -1,7 +1,9 @@
 @extends('layouts.web')
 
 @section('content')
-
+    <!-- 你的HTML代码 -->
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/layui/layui.js"></script>
     <div class="left-sidebar">
         <div class="row-fluid">
             <div class="span12">
@@ -112,9 +114,7 @@
             margin:auto;
         }
     </style>
-    <!-- 你的HTML代码 -->
-    <link rel="stylesheet" href="/layui/css/layui.css">
-    <script src="/layui/layui.js"></script>
+
 
 
 @endsection

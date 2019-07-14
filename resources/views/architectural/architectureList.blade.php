@@ -1,6 +1,9 @@
 @extends('layouts.web')
 
 @section('content')
+    <!-- 你的HTML代码 -->
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/layui/layui.js"></script>
     @if($status == 2)
     <div class="alert alert-block alert-error fade in">
         <button data-dismiss="alert" class="close" type="button">
@@ -35,14 +38,14 @@
                     <div class="title">
                         建筑系统<a id="dynamicTable"></a>
                     </div>
-                    @if(in_array(350101,$pageauth))
+                    @if(in_array(350201,$pageauth))
                     <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                         <label>
-                            <form class="form-search" action="/architectural/index" method="get">
-                                系统名称:<input type="text" name="system_name" value="{{ $system_name }}" class="input-medium search-query">
-                                工程名称:<input type="text" name="sub_system_name" value="{{ $sub_system_name }}" class="input-medium search-query">
-                                工况代码:<input type="text" name="work_code" value="{{ $work_code }}" class="input-medium search-query">
-                                <button type="submit" class="btn">搜索</button>
+                            <form class="form-search" action="/architectural/architectureList" method="get">
+                                <span style="padding-right: 50px;">系统名称:<input type="text" name="system_name" value="{{ $system_name }}" class="input-medium search-query"></span>
+                                <span style="padding-right: 50px;">工程名称:<input type="text" name="sub_system_name" value="{{ $sub_system_name }}" class="input-medium search-query"></span>
+                                <span style="padding-right: 50px;">工况代码:<input type="text" name="work_code" value="{{ $work_code }}" class="input-medium search-query"></span>
+                                <button type="submit" class="btn">查询</button>
                             </form></label>
                     </div>
                     @endif
@@ -85,14 +88,14 @@
                                     <td>{{ $val->created_at }}</td>
                                     <td class="td-manage">
                                         @if($val->uid == $uid || in_array(6,$manageauth))
-                                                <a title="详情" class="btn btn-success"  href='{{ url("/architectural/architect_detail/".$val->id) }}'>
+                                                <a title="详情" class="btn btn-success"  href='{{ url("/architectural/material_detail/".$val->id) }}'>
                                                     <i class="layui-icon">详情</i>
                                                 </a>
                                         @endif
 
-                                        @if(in_array(350103,$pageauth) && $val->uid == $uid)
+                                        @if(in_array(350202,$pageauth) && $val->uid == $uid)
                                             &nbsp;&nbsp;&nbsp;&nbsp;
-                                            <a title="编辑" class="btn btn-success"  href='{{ url("/architectural/edit_architect/".$val->id) }}'>
+                                            <a title="编辑" class="btn btn-success"  href='{{ url("/architectural/edit_material/".$val->id) }}'>
                                                 <i class="layui-icon">编辑</i>
                                             </a>
                                         @endif
@@ -119,9 +122,7 @@
             margin:auto;
         }
     </style>
-    <!-- 你的HTML代码 -->
-    <link rel="stylesheet" href="/layui/css/layui.css">
-    <script src="/layui/layui.js"></script>
+
 
 
 @endsection

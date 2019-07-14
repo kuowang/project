@@ -226,6 +226,7 @@ class ArchitecturalController extends WebController
                     'username'=>$username,
                 ];
                 if($v == 0){
+                    $datalist['created_at']=date('Y-m-d');
                     DB::table('architectural_sub_system')->insert($datalist);
                 }else{
                     DB::table('architectural_sub_system')->where('id',$v)->update($datalist);
@@ -338,8 +339,127 @@ class ArchitecturalController extends WebController
                 ,'architectural_sub_system.created_at','architectural_sub_system.updated_at'])
             ->get();
         return $data;
-
     }
+
+    //编辑建筑设计子系统下材料信息
+    public function editMaterial(Request $request,$id){
+        //用户权限部分
+        $data['username']   =$this->user()->name;
+        $data['nav']        =$this->user()->nav; //导航页面
+        $data['navid']      =35; //当前导航页面
+        $data['pageauth']   =$this->user()->pageauth; //按钮权限
+        $data['subnavid']   =3502;//当前子导航页
+        $data['manageauth'] =(array)$this->user()->manageauth; //能够查询详情权限
+        $data['uid']        =$this->user()->id;
+        $data['id']         =$id;
+        //获取该用户的建筑系统关联子系统
+        $data['sub_architect']=DB::table('architectural_sub_system')->where('id',$id)->first();
+        //获取子系统材料信息
+        $data['material'] = DB::table('material')->where('architectural_sub_id',$id)->orderby('sort')->get();
+        if(empty($data['sub_architect'])){
+            return redirect('/architectural/index?status=2&notice='.'数据不存在，无法编辑');
+        }
+        $data['guishu_name']=DB::table('architectural_system')->where('id',$data['sub_architect']->architectural_id)->value('system_name');
+        if($data['uid'] != $data['sub_architect']->uid){
+            return redirect('/architectural/index?status=2&notice='.'仅有创建用户才能编辑');
+        }
+        return view('architectural.editMaterial',$data);
+    }
+
+    public function postEditMaterial(Request $request,$id){
+        var_dump($request->all());
+        //子系统工程
+        $material_id =$request->input('material_id',[]);
+        $material_name =$request->input('material_name',[]);
+        $material_code =$request->input('material_code',[]);
+        $material_type =$request->input('material_type',[]);
+        $position =$request->input('position',[]);
+        $purpose=$request->input('purpose',[]);
+        $material_number=$request->input('material_number',[]);
+        $characteristic=$request->input('characteristic',[]);
+        $waste_rate=$request->input('waste_rate',[]);
+        $sort=$request->input('sort',[]);
+        $status=$request->input('status',[]);
+        if(empty($material_id)){
+            return redirect('/architectural/architectureList?status=2&notice='.'材料内容不能为空');
+        }
+        if(count($material_id) != count($material_name) || (count($material_id) != count($material_code))){
+            return redirect('/architectural/architectureList?status=2&notice='.'材料内容不能为空');
+        }elseif(count($material_id) != count($material_type) || (count($material_id) != count($position))){
+            return redirect('/architectural/architectureList?status=2&notice='.'材料内容不能为空');
+        }elseif(count($material_id) != count($purpose) || (count($material_id) != count($material_number))){
+            return redirect('/architectural/architectureList?status=2&notice='.'材料内容不能为空');
+        }elseif(count($material_id) != count($characteristic) || (count($material_id) != count($waste_rate))){
+            return redirect('/architectural/architectureList?status=2&notice='.'材料内容不能为空');
+        }elseif(count($material_id) != count($sort) || (count($material_id) != count($status))){
+            return redirect('/architectural/architectureList?status=2&notice='.'材料内容不能为空');
+        }
+        $uid =$this->user()->id;
+        $username =$this->user()->name;
+        $architectural =DB::table('architectural_sub_system')->where('id',$id)->first();
+        if(empty($architectural) || $architectural->uid != $uid){
+            return redirect('/architectural/architectureList?status=2&notice='.'只有创建人才能编辑');
+        }
+
+        DB::beginTransaction();
+        //保存数据
+        if($material_id){
+            foreach($material_id as $k=>$v){
+                $datalist=[
+                    'architectural_id'=>$architectural->architectural_id,
+                    'architectural_sub_id'=>$id,
+                    'material_name'=>$material_name[$k],
+                    'material_code'=>$material_code[$k],
+                    'material_type'=>$material_type[$k],
+                    'material_number'=>$material_number[$k],
+                    'position'=>$position[$k],
+                    'purpose'=>$purpose[$k],
+                    'characteristic'=>$characteristic[$k],
+                    'waste_rate'=>(float)$waste_rate[$k],
+                    'sort'=>(int)$sort[$k],
+                    'status'=>$status[$k],
+                    'uid'=>(int)$uid,
+                    'updated_at'=>date('Y-m-d'),
+                    'username'=>$username,
+                ];
+
+                if($v == 0){
+                    $datalist['created_at']=date('Y-m-d');
+                    DB::table('material')->insert($datalist);
+                }else{
+                    DB::table('material')->where('id',$v)->update($datalist);
+                }
+            }
+        }
+        DB::commit();
+        return redirect('/architectural/architectureList?status=1&notice='.'编辑关联材料成功');
+    }
+
+    //编辑建筑设计子系统下材料信息
+    public function materialDetail(Request $request,$id){
+
+            //用户权限部分
+            $data['username']   =$this->user()->name;
+            $data['nav']        =$this->user()->nav; //导航页面
+            $data['navid']      =35; //当前导航页面
+            $data['pageauth']   =$this->user()->pageauth; //按钮权限
+            $data['subnavid']   =3502;//当前子导航页
+            $data['manageauth'] =(array)$this->user()->manageauth; //能够查询详情权限
+            $data['uid']        =$this->user()->id;
+            $data['id']         =$id;
+            //获取该用户的建筑系统关联子系统
+            $data['sub_architect']=DB::table('architectural_sub_system')->where('id',$id)->first();
+            //获取子系统材料信息
+            $data['material'] = DB::table('material')->where('architectural_sub_id',$id)->orderby('sort')->get();
+            if(empty($data['sub_architect'])){
+                return redirect('/architectural/index?status=2&notice='.'数据不存在，无法编辑');
+            }
+            $data['guishu_name']=DB::table('architectural_system')->where('id',$data['sub_architect']->architectural_id)->value('system_name');
+            if($data['uid'] != $data['sub_architect']->uid){
+                return redirect('/architectural/index?status=2&notice='.'仅有创建用户才能编辑');
+            }
+            return view('architectural.materialDetail',$data);
+        }
 
 
 

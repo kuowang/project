@@ -1,6 +1,9 @@
 @extends('layouts.web')
 
 @section('content')
+<!-- 你的HTML代码 -->
+<link rel="stylesheet" href="/layui/css/layui.css">
+<script src="/layui/layui.js"></script>
 <div class="left-sidebar">
     <div class="row-fluid">
         <div class="span12">
@@ -121,7 +124,7 @@
                 <button class="btn btn-success" lay-filter="add" type="submit" lay-submit="" onclick='return form_submit()'>确认/保存</button>
             </div>
             <div class="layui-form-item" style="float: right;clear: left">
-                <a href="/architectural/index">
+                <a href="javascript:history.go(-1)">
                 <label for="L_repass" class="layui-form-label"></label>
                     <span class="btn btn-success" lay-filter="add" lay-submit="">返回/取消</span>
                 </a>
@@ -139,9 +142,7 @@
             width: 60%;
         }
     </style>
-    <!-- 你的HTML代码 -->
-    <link rel="stylesheet" href="/layui/css/layui.css">
-    <script src="/layui/layui.js"></script>
+
     <script type="text/javascript">
         //删除事件
         function deleteTrRow(tr){

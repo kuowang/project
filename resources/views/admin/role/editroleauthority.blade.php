@@ -1,7 +1,9 @@
 @extends('layouts.web')
 
 @section('content')
-
+    <!-- 你的HTML代码 -->
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/layui/layui.js"></script>
 <div class="left-sidebar dashboard-wrapper">
     <div class="row-fluid">
         <div class="span12">
@@ -128,9 +130,7 @@
             margin:auto;
         }
     </style>
-    <!-- 你的HTML代码 -->
-    <link rel="stylesheet" href="/layui/css/layui.css">
-    <script src="/layui/layui.js"></script>
+
     <script>
         layui.use(['laydate','form'], function(){
             var laydate = layui.laydate;

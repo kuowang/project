@@ -1,6 +1,9 @@
 @extends('layouts.web')
 
 @section('content')
+    <!-- 你的HTML代码 -->
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/layui/layui.js"></script>
     @if($status == 2)
         <div class="alert alert-block alert-error fade in">
             <button data-dismiss="alert" class="close" type="button">
@@ -142,9 +145,7 @@
             margin:auto;
         }
     </style>
-    <!-- 你的HTML代码 -->
-    <link rel="stylesheet" href="/layui/css/layui.css">
-    <script src="/layui/layui.js"></script>
+
 
 
 @endsection
