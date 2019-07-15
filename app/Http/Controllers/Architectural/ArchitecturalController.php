@@ -255,7 +255,7 @@ class ArchitecturalController extends WebController
         if(empty($data['architect'])){
             return redirect('/architectural/index?status=2&notice='.'数据不存在，无法查看');
         }
-        if($data['uid'] != $data['architect']->uid && !in_array(6,$data['manageauth'])){
+        if($data['uid'] != $data['architect']->uid && !in_array(7,$data['manageauth'])){
             return redirect('/architectural/index?status=2&notice='.'仅有创建用户和管理员才能查看');
         }
         return view('architectural.architectDetail',$data);

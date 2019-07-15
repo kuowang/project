@@ -87,7 +87,7 @@
                                     <td>{{ $val->username }}</td>
                                     <td>{{ $val->created_at }}</td>
                                     <td class="td-manage">
-                                        @if($val->uid == $uid || in_array(6,$manageauth))
+                                        @if($val->uid == $uid || in_array(7,$manageauth))
                                                 <a title="详情" class="btn btn-success"  href='{{ url("/architectural/material_detail/".$val->id) }}'>
                                                     <i class="layui-icon">详情</i>
                                                 </a>
