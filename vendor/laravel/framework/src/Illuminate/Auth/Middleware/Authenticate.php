@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Auth\Factory as Auth;
 use Log;
+use Illuminate\Support\Facades\DB;
 
 class Authenticate
 {
@@ -52,8 +53,15 @@ class Authenticate
             $uid='';
         }
         //记录操作日志
-        Log::info('Request ', ['operator'=>$uid,'url' => $request->decodedPath(),'User-Agent' => $request->header('User-Agent'),'ip' => $ip,'param' => $request->all()]);
-
+       // Log::info('Request ', ['operator'=>$uid,'url' => $request->decodedPath(),'User-Agent' => $request->header('User-Agent'),'ip' => $ip,'param' => $request->all()]);
+        DB::table('system_operation_log')->insert([
+            'uid'=>$uid,
+            'url'=>$request->decodedPath(),
+            'user_agent'=>$request->header('User-Agent'),
+            'ip'=>$ip,
+            'param'=>json_encode($request->all()),
+            'created_at'=>date('Y-m-d H:i:s')
+        ]);
         $this->authenticate($guards);
 
         return $next($request);
