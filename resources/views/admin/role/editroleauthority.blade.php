@@ -104,7 +104,7 @@
                             @php
                                 echo  str_repeat('&nbsp;', 6*($list->level -1));
                             @endphp
-                        @if (in_array($list->id,$rolemanagelist))
+                        @if (in_array($list->manage_id,$rolemanagelist))
                             <input type="checkbox" name="manage_id[]" class="rolemanage" id="manage_{{ $list->manage_id }}" value="{{ $list->manage_id }}" checked="checked" lay-filter="checkall" lay-skin="primary">
                         @else
                             <input type="checkbox" name="manage_id[]" class="rolemanage" id="manage_{{ $list->manage_id }}" value="{{ $list->manage_id }}" lay-filter="checkall" lay-skin="primary">
@@ -140,9 +140,9 @@
             var  form = layui.form;
             // 监听全选
             form.on('checkbox(checkall)', function(data){
+                console.log($(this).val());
                 if($(this).prop('class') == 'rolemanage'){
                     //alert($(this).val());
-                    console.log($(this).val());
                     id =$(this).val();
                     //选择子集默认选中父级
                     len =id.length;

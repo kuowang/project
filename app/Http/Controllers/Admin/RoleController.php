@@ -142,7 +142,7 @@ class RoleController extends WebController
         $data=[];
         DB::beginTransaction();
         //删除数据
-        DB::table('role_authority')->where('role_id',$id)->delete();
+        DB::table('role_authority')->where('role_id',$id)->where('status',1)->update(['status'=>0,'operator'=>$uid,'updated_at'=>$time]);
         //添加数据
         foreach($auth as $val){
             $data[]=[
@@ -162,17 +162,21 @@ class RoleController extends WebController
             return redirect('/admin/role_list?status=2&notice='.'分配权限失败');
         }
         //获取管理权限信息
-        DB::table('role_manage_authority')->where('role_id',$id)->delete();
+        DB::table('role_manage_authority')->where('role_id',$id)->where('status',1)->update(['status'=>0,'operator'=>$uid,'updated_at'=>$time]);
         if($managedata){
             $managelist=$this->getManageAuthority($managedata);
             unset($managedata);
             foreach ($managelist as $value){
                 $datalist[]=[
                     'role_id'=>$id,
-                    'manage_auth_id'=>$value->id,
+                    'manage_auth_id'=>$value->manage_id,
+                    'parent_id'=>$value->parent_id,
+                    'level'=>$value->level,
+                    'operator'=>$uid,
                     'name' =>$value->name,
                     'created_at'=>$time,
                     'updated_at'=>$time,
+                    'status'=>1,
                 ];
             }
             $res = DB::table('role_manage_authority')->insert($datalist);
@@ -195,7 +199,7 @@ class RoleController extends WebController
     }
     //获取管理者权限列表
     public function getManageAuthority($managedata){
-        return ManageAuthority::wherein('id',$managedata)->get();
+        return ManageAuthority::wherein('manage_id',$managedata)->get();
     }
 
 
