@@ -102,8 +102,18 @@
 
 
 </header>
+<style>
+    .imggundong{
+        top:80px;
+        position: absolute;
+        z-index: 999999;
+        width: 300px;
+        margin-left: 80%
+    }
+</style>
 <div class="container-fluid">
     <div class="dashboard-container">
+        <img src="/img/20190716103518.png" class="imggundong" style="">
         <div class="top-nav">
             <ul>
                 <li>

@@ -47,10 +47,10 @@ class Authenticate
         }else {
             $ip = '0.0.0.0';
         }
-        if(isset($this->auth->user()->id)){
+        if(isset($this->auth) && isset($this->auth->user()->id)){
             $uid =      $this->auth->user()->id;
         }else{
-            $uid='';
+            $uid=0;
         }
         //记录操作日志
        // Log::info('Request ', ['operator'=>$uid,'url' => $request->decodedPath(),'User-Agent' => $request->header('User-Agent'),'ip' => $ip,'param' => $request->all()]);

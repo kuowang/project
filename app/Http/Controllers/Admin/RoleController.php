@@ -114,7 +114,7 @@ class RoleController extends WebController
         $data['data']=Authority::where('status',1)->orderby('auth_id')->get();
         $data['auth']=RoleAuthority::where('role_id',$id)->pluck('auth_id')->toarray();
         //管理权限
-        $data['managelist']=ManageAuthority::orderby('id')->get();
+        $data['managelist']=ManageAuthority::orderby('manage_id')->get();
         $data['rolemanagelist']=RoleManageAuthority::where('role_id',$id)->pluck('manage_auth_id')->toarray();
 
         //用户权限部分

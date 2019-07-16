@@ -101,10 +101,13 @@
                     </div>
                     <div class="widget-body" style="margin-left:15px ">
                         @foreach($managelist as $list)
+                            @php
+                                echo  str_repeat('&nbsp;', 6*($list->level -1));
+                            @endphp
                         @if (in_array($list->id,$rolemanagelist))
-                            <input type="checkbox" name="manage_id[]" class="rolemanage" value="{{ $list->id }}" checked="checked" lay-filter="checkall" lay-skin="primary">
+                            <input type="checkbox" name="manage_id[]" class="rolemanage" id="manage_{{ $list->manage_id }}" value="{{ $list->manage_id }}" checked="checked" lay-filter="checkall" lay-skin="primary">
                         @else
-                            <input type="checkbox" name="manage_id[]" class="rolemanage" value="{{ $list->id }}" lay-filter="checkall" lay-skin="primary">
+                            <input type="checkbox" name="manage_id[]" class="rolemanage" id="manage_{{ $list->manage_id }}" value="{{ $list->manage_id }}" lay-filter="checkall" lay-skin="primary">
                         @endif
                             {{ $list->name }}
                             <hr>
@@ -138,37 +141,63 @@
             // 监听全选
             form.on('checkbox(checkall)', function(data){
                 if($(this).prop('class') == 'rolemanage'){
-                    return false;
-                }
-                //alert($(this).val());
-                id =$(this).val();
-                //选择子集默认选中父级
-                len =id.length;
-                if(len > 2){
-                    str=id.substring(0,2);
-                    $("input[class='auth_"+str+"']").prop('checked',true);
-                }
-                if(len > 4){
-                    str=id.substring(0,4);
-                    $("input[class='auth_"+str+"']").prop('checked',true);
-                }
-                if(len > 6){
-                    str=id.substring(0,6);
-                    $("input[class='auth_"+str+"']").prop('checked',true);
-                }
-                if(len > 8){
-                    str=id.substring(0,8);
-                    $("input[class='auth_"+str+"']").prop('checked',true);
-                }
+                    //alert($(this).val());
+                    console.log($(this).val());
+                    id =$(this).val();
+                    //选择子集默认选中父级
+                    len =id.length;
+                    if(len > 2){
+                        str=id.substring(0,2);
+                        $("input[id='manage_"+str+"']").prop('checked',true);
+                    }
+                    if(len > 4){
+                        str=id.substring(0,4);
+                        $("input[id='manage_"+str+"']").prop('checked',true);
+                    }
+                    if(len > 6){
+                        str=id.substring(0,6);
+                        $("input[id='manage_"+str+"']").prop('checked',true);
+                    }
 
-                if(data.elem.checked){
-                    //$('tbody input').prop('checked',true);
-                    $("input[class^='auth_"+id+"']").prop('checked',true);
+                    if(data.elem.checked){
+                        //$('tbody input').prop('checked',true);
+                        $("input[id^='manage_"+id+"']").prop('checked',true);
+                    }else{
+                        //$('tbody input').prop('checked',false);
+                        $("input[id^='manage_"+id+"']").prop('checked',false);
+                    }
+                    form.render('checkbox');
+
                 }else{
-                    //$('tbody input').prop('checked',false);
-                    $("input[class^='auth_"+id+"']").prop('checked',false);
+                    //alert($(this).val());
+                    id =$(this).val();
+                    //选择子集默认选中父级
+                    len =id.length;
+                    if(len > 2){
+                        str=id.substring(0,2);
+                        $("input[class='auth_"+str+"']").prop('checked',true);
+                    }
+                    if(len > 4){
+                        str=id.substring(0,4);
+                        $("input[class='auth_"+str+"']").prop('checked',true);
+                    }
+                    if(len > 6){
+                        str=id.substring(0,6);
+                        $("input[class='auth_"+str+"']").prop('checked',true);
+                    }
+                    if(len > 8){
+                        str=id.substring(0,8);
+                        $("input[class='auth_"+str+"']").prop('checked',true);
+                    }
+                    if(data.elem.checked){
+                        //$('tbody input').prop('checked',true);
+                        $("input[class^='auth_"+id+"']").prop('checked',true);
+                    }else{
+                        //$('tbody input').prop('checked',false);
+                        $("input[class^='auth_"+id+"']").prop('checked',false);
+                    }
+                    form.render('checkbox');
                 }
-                form.render('checkbox');
             });
         });
 
