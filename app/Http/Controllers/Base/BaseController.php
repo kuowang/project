@@ -51,7 +51,7 @@ class BaseController extends WebController
         $data['notice']=$request->input('notice','成功'); //提示信息
         return view('base.notice.index',$data);
     }
-
+    //查询公告信息
     private function  getNoticeList($search,$page,$rows){
 
         $db=DB::table('notice');
@@ -67,5 +67,18 @@ class BaseController extends WebController
 
     }
 
+
+
+//添加角色页面
+    public function addNotice(Request $request){
+        return view('base.notice.addNotice');
+    }
+
+    //编辑角色页面
+    public function editNotice(Request $request,$id){
+        $id =(int)$id;
+        $data=DB::table('notice')->where('id',$id)->first();
+        return view('base.notice.editNotice',['data'=>$data]);
+    }
 
 }

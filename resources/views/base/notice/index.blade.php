@@ -38,7 +38,7 @@
                     <div class="title">
                         公告列表<a id="dynamicTable"></a>
                         @if(in_array(600202,$pageauth))
-                        <a class="btn btn-success" title="新增公告"  onclick="addUser()">
+                        <a class="btn btn-success" title="新增公告"  onclick="addNotice()">
                             <i class="layui-icon">新增公告</i>
                         </a>
                         @endif
@@ -97,8 +97,8 @@
                                         <td>{{ $val->pubdate }}</td>
                                         <td>{{ $val->created_at }}</td>
                                         <td class="td-manage">
-                                            @if(in_array(100103,$pageauth))
-                                            <a title="编辑公告" class="btn btn-success" onclick="editUser({{ $val->id }})" href="javascript:;">
+                                            @if(in_array(600203,$pageauth))
+                                            <a title="编辑公告" class="btn btn-success" onclick="editNotice({{ $val->id }})" href="javascript:;">
                                                 <i class="layui-icon">编辑公告</i>
                                             </a>
                                             @endif
@@ -130,27 +130,27 @@
     <script>
         //一般直接写在一个js文件中
 
-            function editUser(id){
+            function editNotice(id){
                 layui.use(['layer', 'form'], function(){
                     var layer = layui.layer
                         ,form = layui.form;
                     layer.open({
-                        title:'编辑角色',
+                        title:'编辑公告',
                         type: 2,
                         area: ['400px', '200px'],
-                        content: '/admin/edit_role/'+id //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+                        content: '/base/edit_notice/'+id //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
                     });
                 });
             }
-            function addUser(){
+            function addNotice(){
                 layui.use(['layer', 'form'], function(){
                     var layer = layui.layer
                         ,form = layui.form;
                     layer.open({
-                        title:'新增角色',
+                        title:'新增公告',
                         type: 2,
                         area: ['400px', '200px'],
-                        content: '/admin/add_role/' //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+                        content: '/base/add_notice/' //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
                     });
                 });
             }
