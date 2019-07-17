@@ -108,7 +108,7 @@
         position: absolute;
         z-index: 999999;
         width: 300px;
-        margin-left: 80%
+        right: 20px;
     }
 </style>
 <div class="container-fluid">

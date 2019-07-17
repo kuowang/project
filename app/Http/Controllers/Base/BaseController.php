@@ -60,7 +60,7 @@ class BaseController extends WebController
             ->orwhere('title','like','%'.$search.'%');
         }
         $data['count'] =$db->count();
-        $data['data']= $db->orderby('id','desc')
+        $data['data']= $db->orderby('pubdate','desc')
             ->skip(($page-1)*$rows)
             ->take($rows)->get();
         return $data;

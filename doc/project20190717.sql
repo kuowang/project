@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2019-07-17 10:09:22
+Date: 2019-07-17 17:02:25
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -318,6 +318,7 @@ CREATE TABLE `sp_notice` (
   `content` varchar(1000) DEFAULT NULL COMMENT '内容',
   `uid` int(11) DEFAULT NULL COMMENT '操作人id',
   `operator` varchar(100) DEFAULT NULL COMMENT '操作人',
+  `pubdate` datetime DEFAULT NULL COMMENT '发布时间',
   `status` tinyint(1) DEFAULT NULL COMMENT '状态1显示 0不显示',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '修改时间',
@@ -327,6 +328,8 @@ CREATE TABLE `sp_notice` (
 -- ----------------------------
 -- Records of sp_notice
 -- ----------------------------
+INSERT INTO `sp_notice` VALUES ('1', '测试标题', '诶人', '1', '管理员', null, '1', '2019-07-17 16:46:15', '2019-07-17 16:46:19');
+INSERT INTO `sp_notice` VALUES ('2', '标题二', 'dlkfjqwkfjasd而快乐阿阿斯顿发斯蒂芬卡技术', '1', '管理员', null, '1', '2019-07-17 16:49:08', '2019-07-17 16:49:17');
 
 -- ----------------------------
 -- Table structure for sp_password_resets
@@ -913,7 +916,7 @@ CREATE TABLE `sp_system_operation_log` (
   `param` varchar(4000) DEFAULT NULL COMMENT '请求参数',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=115 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=126 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sp_system_operation_log
@@ -1032,6 +1035,17 @@ INSERT INTO `sp_system_operation_log` VALUES ('111', '2', 'base/notice_list', 'M
 INSERT INTO `sp_system_operation_log` VALUES ('112', '2', 'base/notice_list', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 10:03:18');
 INSERT INTO `sp_system_operation_log` VALUES ('113', '2', 'base/notice_list', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 10:05:06');
 INSERT INTO `sp_system_operation_log` VALUES ('114', '2', 'base/notice_list', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 10:07:38');
+INSERT INTO `sp_system_operation_log` VALUES ('115', '2', 'home', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 16:49:53');
+INSERT INTO `sp_system_operation_log` VALUES ('116', '2', 'project/index', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 16:49:55');
+INSERT INTO `sp_system_operation_log` VALUES ('117', '2', 'base/notice_list', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 16:49:57');
+INSERT INTO `sp_system_operation_log` VALUES ('118', '2', 'base/notice_list', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 16:55:03');
+INSERT INTO `sp_system_operation_log` VALUES ('119', '2', 'base/notice_list', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 16:58:20');
+INSERT INTO `sp_system_operation_log` VALUES ('120', '2', 'base/notice_list', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 16:59:03');
+INSERT INTO `sp_system_operation_log` VALUES ('121', '2', 'base/notice_list', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 17:01:25');
+INSERT INTO `sp_system_operation_log` VALUES ('122', '2', 'base/notice_list', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 17:01:33');
+INSERT INTO `sp_system_operation_log` VALUES ('123', '2', 'architectural/index', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 17:01:43');
+INSERT INTO `sp_system_operation_log` VALUES ('124', '2', 'project/index', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 17:01:48');
+INSERT INTO `sp_system_operation_log` VALUES ('125', '2', 'admin/user_role_list', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 17:01:49');
 
 -- ----------------------------
 -- Table structure for sp_system_setting

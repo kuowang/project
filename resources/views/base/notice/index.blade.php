@@ -64,11 +64,12 @@
                             <tr>
                                 <th>ID</th>
                                 <th>标题</th>
-                                <th>内容</th>
+                                <th style="width: 40%">内容</th>
                                 <th>操作人</th>
                                 <th>状态</th>
+                                <th>发布时间</th>
                                 <th>创建时间</th>
-                                <th>操作</th>
+                                <th style="width: 150px">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -83,26 +84,22 @@
                                         <td>
                                             {{ $val->id }}
                                         </td>
-                                        <td>{{ $val->name }}</td>
-                                        <td>{{ $val->created_at }}</td>
-                                        <td>{{ $val->updated_at }}</td>
+                                        <td>{{ $val->title }}</td>
+                                        <td>{{ $val->content }}</td>
+                                        <td>{{ $val->operator }}</td>
                                         <td>
-                                            @if(isset($userlist[$val->id]))
-                                                @foreach($userlist[$val->id] as $item)
-                                                    {{ $item->username }} &nbsp;
-                                                @endforeach
+                                            @if($val->status ==1 )
+                                                显示
+                                            @else
+                                                隐藏
                                             @endif
                                         </td>
+                                        <td>{{ $val->pubdate }}</td>
+                                        <td>{{ $val->created_at }}</td>
                                         <td class="td-manage">
                                             @if(in_array(100103,$pageauth))
-                                            <a title="编辑角色" class="btn btn-success" onclick="editUser({{ $val->id }})" href="javascript:;">
-                                                <i class="layui-icon">编辑角色</i>
-                                            </a>
-                                            @endif
-                                            @if(in_array(100105,$pageauth))
-                                            &nbsp;&nbsp;&nbsp;&nbsp;
-                                            <a title="编辑权限" class="btn btn-success"  href='{{ url("admin/edit_role_authority/".$val->id) }}'>
-                                               <i class="layui-icon">编辑权限</i>
+                                            <a title="编辑公告" class="btn btn-success" onclick="editUser({{ $val->id }})" href="javascript:;">
+                                                <i class="layui-icon">编辑公告</i>
                                             </a>
                                             @endif
                                         </td>
