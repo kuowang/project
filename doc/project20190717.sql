@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2019-07-17 17:02:25
+Date: 2019-07-17 18:09:12
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -215,9 +215,9 @@ INSERT INTO `sp_authority` VALUES ('100', '5505', '55', '0', '2', '查看详情'
 INSERT INTO `sp_authority` VALUES ('101', '60', '0', '1', '1', '基础信息管理', '&#xe052;', '/base/notice_list', '1', '2019-07-04 16:57:25', '2019-07-04 16:57:25', '0');
 INSERT INTO `sp_authority` VALUES ('102', '6001', '60', '1', '2', '地址库查询', '', '', '1', '2019-07-04 16:57:25', '2019-07-04 16:57:25', '1');
 INSERT INTO `sp_authority` VALUES ('103', '6002', '60', '1', '2', '查询公告信息', '', '/base/notice_list', '1', '2019-07-04 16:57:25', '2019-07-04 16:57:25', '1');
-INSERT INTO `sp_authority` VALUES ('104', '600201', '6002', '0', '3', '添加公告', '', '', '1', '2019-07-04 16:57:25', '2019-07-04 16:57:25', '1');
-INSERT INTO `sp_authority` VALUES ('105', '600202', '6002', '0', '3', '编辑公告', '', '', '1', '2019-07-04 16:57:25', '2019-07-04 16:57:25', '1');
-INSERT INTO `sp_authority` VALUES ('106', '600203', '6002', '0', '3', '删除公告', '', '', '1', '2019-07-04 16:57:25', '2019-07-04 16:57:25', '1');
+INSERT INTO `sp_authority` VALUES ('104', '600201', '6002', '0', '3', '查询公告', '', '', '1', '2019-07-04 16:57:25', '2019-07-04 16:57:25', '1');
+INSERT INTO `sp_authority` VALUES ('105', '600202', '6002', '0', '3', '添加公告', '', '', '1', '2019-07-04 16:57:25', '2019-07-04 16:57:25', '1');
+INSERT INTO `sp_authority` VALUES ('106', '600203', '6002', '0', '3', '编辑公告', null, null, '1', '2019-07-17 17:40:35', '2019-07-17 17:40:38', '0');
 INSERT INTO `sp_authority` VALUES ('107', '350104', '3501', '0', '3', '状态更改', null, '/architectural/edit_architect_status', '1', '2019-07-14 17:00:45', '2019-07-14 17:00:48', '0');
 INSERT INTO `sp_authority` VALUES ('108', '350201', '3502', '0', '3', '搜索', null, '/architectural/architectureList', '1', '2019-07-14 17:00:51', '2019-07-14 17:00:55', '1');
 INSERT INTO `sp_authority` VALUES ('109', '350202', '3502', '0', '3', '编辑', null, '/architectural/edit_material', '1', '2019-07-14 17:00:59', '2019-07-14 17:01:01', '1');
@@ -916,7 +916,7 @@ CREATE TABLE `sp_system_operation_log` (
   `param` varchar(4000) DEFAULT NULL COMMENT '请求参数',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=126 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=142 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sp_system_operation_log
@@ -1046,6 +1046,22 @@ INSERT INTO `sp_system_operation_log` VALUES ('122', '2', 'base/notice_list', 'M
 INSERT INTO `sp_system_operation_log` VALUES ('123', '2', 'architectural/index', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 17:01:43');
 INSERT INTO `sp_system_operation_log` VALUES ('124', '2', 'project/index', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 17:01:48');
 INSERT INTO `sp_system_operation_log` VALUES ('125', '2', 'admin/user_role_list', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 17:01:49');
+INSERT INTO `sp_system_operation_log` VALUES ('126', '2', 'admin/user_role_list', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 17:29:27');
+INSERT INTO `sp_system_operation_log` VALUES ('127', '2', 'base/notice_list', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 17:29:31');
+INSERT INTO `sp_system_operation_log` VALUES ('128', '2', 'admin/add_role', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 17:29:34');
+INSERT INTO `sp_system_operation_log` VALUES ('129', '2', 'admin/edit_role/1', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 17:29:38');
+INSERT INTO `sp_system_operation_log` VALUES ('130', '2', 'admin/edit_role/1', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 17:29:42');
+INSERT INTO `sp_system_operation_log` VALUES ('131', '2', 'admin/add_role', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 17:39:04');
+INSERT INTO `sp_system_operation_log` VALUES ('132', '2', 'base/notice_list', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 17:39:07');
+INSERT INTO `sp_system_operation_log` VALUES ('133', '2', 'base/notice_list', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 17:40:03');
+INSERT INTO `sp_system_operation_log` VALUES ('134', '2', 'base/add_notice', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 17:40:05');
+INSERT INTO `sp_system_operation_log` VALUES ('135', '2', 'admin/user_role_list', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 17:40:10');
+INSERT INTO `sp_system_operation_log` VALUES ('136', '2', 'admin/role_list', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 17:40:14');
+INSERT INTO `sp_system_operation_log` VALUES ('137', '2', 'admin/edit_role_authority/2', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 17:40:17');
+INSERT INTO `sp_system_operation_log` VALUES ('138', '2', 'admin/edit_role_authority/2', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 17:40:45');
+INSERT INTO `sp_system_operation_log` VALUES ('139', '2', 'base/notice_list', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 17:40:54');
+INSERT INTO `sp_system_operation_log` VALUES ('140', '2', 'base/edit_notice/2', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 17:42:04');
+INSERT INTO `sp_system_operation_log` VALUES ('141', '2', 'base/edit_notice/2', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', '127.0.0.1', '[]', '2019-07-17 17:42:15');
 
 -- ----------------------------
 -- Table structure for sp_system_setting
