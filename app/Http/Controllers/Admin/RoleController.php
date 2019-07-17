@@ -24,10 +24,6 @@ class RoleController extends WebController
     {
         //该方法验证说明必须登录用户才能操作
         //$this->middleware('auth');
-
-
-
-
     }
 
     /**

@@ -88,3 +88,9 @@ Route::group(['prefix' => 'architectural','namespace' => 'Architectural','middle
     Route::post('/post_edit_material/{id}',     'ArchitecturalController@postEditMaterial'); //提交建筑工程子系统材料信息
 
 });
+//基础信息管理类的控制组 需要登录
+Route::group(['prefix' => 'base','namespace' => 'Base','middleware' => 'auth'], function () {
+    //建筑设计管理系统
+    Route::get('/notice_list',                   'BaseController@noticeList');      //公告列表
+
+});
