@@ -67,18 +67,61 @@ class BaseController extends WebController
 
     }
 
-
-
-//添加角色页面
+    //添加公告页面
     public function addNotice(Request $request){
         return view('base.notice.addNotice');
     }
 
-    //编辑角色页面
+    //编辑公告页面
     public function editNotice(Request $request,$id){
         $id =(int)$id;
         $data=DB::table('notice')->where('id',$id)->first();
         return view('base.notice.editNotice',['data'=>$data]);
     }
+
+    //提交新增公告
+    public function postAddNotice(Request $request){
+        $title =$request->input('title');
+        $content=$request->input('content');
+        $status =(int)$request->input('status',1);
+        $pubdate =$request->input('pubdate');
+        if(empty($title) || empty($content) || empty($pubdate)){
+            return $this->error('内容不能为空');
+        }
+        $data=[
+            'title'=>$title,
+            'content'=>$content,
+            'status'=>$status,
+            'pubdate'=>$pubdate,
+            'uid'=>$this->user()->id,
+            'operator'=>$this->user()->name,
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s'),
+        ];
+        DB::table('notice')->insert($data);
+        return $this->success('提交成功');
+    }
+    //提交编辑公告
+    public function postEditNotice(Request $request,$id){
+        $title =$request->input('title');
+        $content=$request->input('content');
+        $status =(int)$request->input('status',1);
+        $pubdate =$request->input('pubdate');
+        if(empty($title) || empty($content) || empty($pubdate)){
+            return $this->error('内容不能为空');
+        }
+        $data=[
+            'title'=>$title,
+            'content'=>$content,
+            'status'=>$status,
+            'pubdate'=>$pubdate,
+            'uid'=>$this->user()->id,
+            'operator'=>$this->user()->name,
+            'updated_at'=>date('Y-m-d H:i:s'),
+        ];
+        DB::table('notice')->where('id',$id)->update($data);
+        return $this->success('修改成功');
+    }
+
 
 }

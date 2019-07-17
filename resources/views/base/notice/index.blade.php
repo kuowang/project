@@ -137,7 +137,7 @@
                     layer.open({
                         title:'编辑公告',
                         type: 2,
-                        area: ['400px', '200px'],
+                        area: ['500px', '700px'],
                         content: '/base/edit_notice/'+id //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
                     });
                 });
@@ -149,7 +149,7 @@
                     layer.open({
                         title:'新增公告',
                         type: 2,
-                        area: ['400px', '200px'],
+                        area: ['500px', '700px'],
                         content: '/base/add_notice/' //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
                     });
                 });

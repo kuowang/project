@@ -28,43 +28,86 @@
 
                     <div class="layui-form-item">
                         <label for="remark" class="layui-form-label">
-                            <span class="x-red">*</span>角色名称</label>
+                            <span class="x-red">*</span>标题名称</label>
                         <div class="layui-input-inline">
-                            <input type="text" id="name" name="name" required="" lay-verify="name" autocomplete="off" class="layui-input"></div>
+                            <input type="text" id="name" name="title" required="" lay-verify="name" autocomplete="off" class="layui-input"></div>
                     </div>
 
+
+                    <div class="layui-input-inline">
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label">内容</label>
+                                <div class="layui-input-block">
+                                    <textarea name="content" placeholder="请输入内容" class="layui-textarea" style="width: 255px;"></textarea>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="remark" class="layui-form-label">
+                            <span class="x-red">*</span>状态</label>
+                        <div class="layui-input-inline">
+                            <select name="status" id="status" class="span12" style="min-width: 80px">
+                                    <option value="1" selected="selected">有效</option>
+                                    <option value="0">无效</option>
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="remark" class="layui-form-label">
+                            <span class="x-red">*</span>发布日期</label>
+                        <div class="layui-input-inline">
+                            <input type="text"  name="pubdate"  lay-verify="name" placeholder="yyyy-MM-dd H:i:s" class="layui-input"id="pubdate"></div>
+                    </div>
                     <div class="layui-form-item">
                         <label for="L_repass" class="layui-form-label"></label>
-                        <button class="btn btn-success" lay-filter="add" lay-submit="">增加角色</button></div>
+                        <button class="btn btn-success" lay-filter="add" lay-submit="">提 交</button></div>
                 </form>
             </div>
         </div>
 
-        <script>layui.use(['form', 'layer','jquery'],
+        <script>
+            layui.use('laydate', function(){
+                var laydate = layui.laydate;
+                //执行一个laydate实例
+                laydate.render({
+                    elem: '#pubdate' //指定元素
+                    ,type: 'datetime'
+                    ,zIndex:999999
+                });
+            });
+
+            layui.use(['form', 'layer','jquery'],
             function() {
                 $ = layui.jquery;
                 var form = layui.form,
                 layer = layui.layer;
                 //监听提交
                 form.on('submit(add)', function(data) {
+                    $("input").each(function(){
+                        if($(this).val()){
+                        }else{
+                            layer.msg('有信息没有填写完全，请填写完成后，再提交。');
+                            return false;
+                        }
+                    });
+
                     $.ajax({
-                        url:'{{ url("admin/post_role") }}',
+                        url:'{{ url("base/post_add_notice") }}',
                         type:'post',
                         dataType:'text',
                         contentType: 'application/json',
                         data:JSON.stringify(data.field),
                         success:function(data){
-                            datalist =JSON.parse(data);
                             console.log(data);
+                            datalist =JSON.parse(data);
                             if(datalist.status == 1){
                                 //发异步，把数据提交给php
-                                layer.alert("增加成功", {icon: 6},
-                                    function() {
-                                        //关闭当前frame
-                                        xadmin.close();
-                                        // 可以对父窗口进行刷新
-                                        xadmin.father_reload();
-                                    });
+                                //关闭当前frame
+                                var index = parent.layer.getFrameIndex(window.name);
+                                parent.layer.close(index);
+                                // 可以对父窗口进行刷新
+                                parent.location.reload();
                             }else{
                                 layer.msg("提交失败")
                             }
@@ -78,12 +121,7 @@
                 });
 
             });</script>
-        <script>var _hmt = _hmt || []; (function() {
-                var hm = document.createElement("script");
-                hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-                var s = document.getElementsByTagName("script")[0];
-                s.parentNode.insertBefore(hm, s);
-            })();</script>
+
     </body>
 
 </html>

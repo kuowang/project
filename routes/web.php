@@ -93,7 +93,7 @@ Route::group(['prefix' => 'base','namespace' => 'Base','middleware' => 'auth'], 
     //公告管理
     Route::get('/notice_list',                   'BaseController@noticeList');      //公告列表
     Route::get('/add_notice',                   'BaseController@addNotice');      //添加公告
-    Route::get('/edit_notice/{id}',                   'BaseController@editNotice');      //编辑公告
-
-
+    Route::get('/edit_notice/{id}',             'BaseController@editNotice');      //编辑公告
+    Route::post('/post_add_notice',          'BaseController@postAddNotice');      //提交新增公告
+    Route::post('/post_edit_notice/{id}',         'BaseController@postEditNotice');      //提交编辑公告
 });
