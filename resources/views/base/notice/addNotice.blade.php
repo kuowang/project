@@ -38,7 +38,7 @@
                             <div class="layui-form-item layui-form-text">
                                 <label class="layui-form-label">内容</label>
                                 <div class="layui-input-block">
-                                    <textarea name="content" placeholder="请输入内容" class="layui-textarea" style="width: 255px;"></textarea>
+                                    <textarea name="content" placeholder="请输入内容" class="layui-textarea" style="width: 190px;"></textarea>
                                 </div>
                             </div>
                     </div>
@@ -84,38 +84,42 @@
                 layer = layui.layer;
                 //监听提交
                 form.on('submit(add)', function(data) {
+                    var status=0;
                     $("input").each(function(){
                         if($(this).val()){
                         }else{
                             layer.msg('有信息没有填写完全，请填写完成后，再提交。');
+                            status =1;
                             return false;
                         }
                     });
-
-                    $.ajax({
-                        url:'{{ url("base/post_add_notice") }}',
-                        type:'post',
-                        dataType:'text',
-                        contentType: 'application/json',
-                        data:JSON.stringify(data.field),
-                        success:function(data){
-                            console.log(data);
-                            datalist =JSON.parse(data);
-                            if(datalist.status == 1){
-                                //发异步，把数据提交给php
-                                //关闭当前frame
-                                var index = parent.layer.getFrameIndex(window.name);
-                                parent.layer.close(index);
-                                // 可以对父窗口进行刷新
-                                parent.location.reload();
-                            }else{
+                    if(status == 0){
+                        $.ajax({
+                            url:'{{ url("base/post_add_notice") }}',
+                            type:'post',
+                            dataType:'text',
+                            contentType: 'application/json',
+                            data:JSON.stringify(data.field),
+                            success:function(data){
+                                console.log(data);
+                                datalist =JSON.parse(data);
+                                if(datalist.status == 1){
+                                    //发异步，把数据提交给php
+                                    //关闭当前frame
+                                    var index = parent.layer.getFrameIndex(window.name);
+                                    parent.layer.close(index);
+                                    // 可以对父窗口进行刷新
+                                    parent.location.reload();
+                                }else{
+                                    layer.msg("提交失败")
+                                }
+                            },
+                            error:function () {
                                 layer.msg("提交失败")
                             }
-                        },
-                        error:function () {
-                            layer.msg("提交失败")
-                        }
-                    });
+                        });
+                    }
+
                     //发异步，把数据提交给php
                     return false;
                 });
