@@ -202,11 +202,7 @@
                 name: $('#name').val(),
             };
 
-            // datalist['title']=$('#title').val();
-            // datalist['status']=$('#status').val();
-            // datalist['pubdate']=$('#pubdate').val();
-            // datalist['content']=$('#content').val();
-            // console.log(datalist);
+
             var status=0;
             $("input.layui-input").each(function(){
                 if($(this).val()){
