@@ -108,7 +108,7 @@ class BaseController extends WebController
         $status =(int)$request->input('status',1);
         $pubdate =$request->input('pubdate');
         if(empty($title) || empty($content) || empty($pubdate)){
-            return $this->error($title);
+            return json_encode($request->all());
         }
         $data=[
             'title'=>$title,

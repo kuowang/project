@@ -228,67 +228,22 @@
             $('#pubdate').val($.trim($('.notice_pubdate_'+id).html()));
             $('#content').val($.trim($('.notice_content_'+id).html()));
             $('#myModal').modal();
+
         }
 
-        layui.use(['form', 'layer','jquery'],
-            function() {
-                $ = layui.jquery;
-                var form = layui.form,
-                    layer = layui.layer;
-                //监听提交
-                form.on('submit(add1)', function(data) {
-                    console.log(data);
-                    var status=0;
-                    $("input.layui-input").each(function(){
-                        if($(this).val()){
-                        }else{
-                            layer.msg('有信息没有填写完全，请填写完成后，再提交。');
-                            status =1;
-                            return false;
-                        }
-                    });
-                    if(status == 0){
-                        url=$('#noticeform').prop('action');
-                        $.ajax({
-                            url:url,
-                            type:'post',
-                            dataType:'text',
-                            contentType: 'application/json',
-                            data:JSON.stringify(data.field),
-                            success:function(data){
-                                console.log(data);
-                                datalist =JSON.parse(data);
-                                if(datalist.status == 1){
-                                    //发异步，把数据提交给php
-                                    //关闭当前frame
-                                    var index = parent.layer.getFrameIndex(window.name);
-                                    parent.layer.close(index);
-                                    // 可以对父窗口进行刷新
-                                    parent.location.reload();
-                                }else{
-                                    layer.msg("提交失败")
-                                }
-                            },
-                            error:function () {
-                                layer.msg("提交失败")
-                            }
-                        });
-                    }
-
-                    //发异步，把数据提交给php
-                    return false;
-                });
-
-            });
-
-
         function submitform(){
-            var $datalist=[];
-            $datalist['title']=$('#title').val();
-            $datalist['status']=$('#status').val();
-            $datalist['pubdate']=$('#pubdate').val();
-            $datalist['content']=$('#content').val();
-            console.log($datalist);
+            var datalist={
+                title: $('#title').val(),
+                status:  $('#status').val(),
+                pubdate: $('#pubdate').val(),
+                content: $('#content').val()
+            };
+
+            // datalist['title']=$('#title').val();
+            // datalist['status']=$('#status').val();
+            // datalist['pubdate']=$('#pubdate').val();
+            // datalist['content']=$('#content').val();
+            // console.log(datalist);
             var status=0;
             $("input.layui-input").each(function(){
                 if($(this).val()){
@@ -304,14 +259,13 @@
                 $.ajax({
                     url:url,
                     type:'post',
-                    dataType:'text',
-                    contentType: 'application/json',
-                    data:JSON.stringify($datalist),
+                    // contentType: 'application/json',
+                    data:datalist,
                     success:function(data){
                         console.log(data);
-                        datalist =JSON.parse(data);
-                        if(datalist.status == 1){
-
+                        if(data.status == 1){
+                            $('#myModal').modal('hide');
+                            location.href=location.href
                         }else{
                             layer.msg("提交失败")
                         }
