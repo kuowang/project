@@ -38,7 +38,7 @@
                     <div class="title">
                         公告列表<a id="dynamicTable"></a>
                         @if(in_array(600202,$pageauth))
-                        <a class="btn btn-success" title="新增公告" id="addnotice"  onclick="addNotice()">
+                        <a class="btn btn-success" title="新增公告" id="addnotice"  onclick="addNotice('新增公告')">
                             <i class="layui-icon">新增公告</i>
                         </a>
                         @endif
@@ -80,23 +80,22 @@
                                 @else
                                     <tr class="gradeA success">
                                 @endif
-
-                                        <td>
+                                        <td class="notice_id_{{ $val->id }}">
                                             {{ $val->id }}
                                         </td>
-                                        <td>{{ $val->title }}</td>
-                                        <td>{{ $val->content }}</td>
-                                        <td>{{ $val->operator }}</td>
-                                        <td>
+                                        <td class="notice_title_{{ $val->id }}">{{ $val->title }}</td>
+                                        <td class="notice_content_{{ $val->id }}">{{ $val->content }}</td>
+                                        <td class="notice_operator_{{ $val->id }}">{{ $val->operator }}</td>
+                                        <td class="notice_status_{{ $val->id }}">
                                             @if($val->status ==1 )
                                                 显示
                                             @else
                                                 隐藏
                                             @endif
                                         </td>
-                                        <td>{{ $val->pubdate }}</td>
-                                        <td>{{ $val->created_at }}</td>
-                                        <td class="td-manage">
+                                        <td class="notice_pubdate_{{ $val->id }}">{{ $val->pubdate }}</td>
+                                        <td >{{ $val->created_at }}</td>
+                                        <td class="td-manage ">
                                             @if(in_array(600203,$pageauth))
                                             <a title="编辑公告" class="btn btn-success" onclick="editNotice({{ $val->id }})" href="javascript:;">
                                                 <i class="layui-icon">编辑公告</i>
@@ -118,85 +117,213 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">新增</h4>
-                    </div>
-                    <div class="modal-body">
 
-                        <div class="form-group">
-                            <label for="txt_departmentname">部门名称</label>
-                            <input type="text" name="txt_departmentname" class="form-control" id="txt_departmentname" placeholder="部门名称">
+    </div>
+
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        公告
+                    </h4>
+                </div>
+                <form class="form-horizontal no-margin" id="noticeform" action="/base/post_add_notice" method="post">
+
+                <div class="modal-body">
+
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <div class="widget-body">
+
+                                    <div class="control-group">
+                                        <label class="control-label" for="name">
+                                            标题名称:
+                                        </label>
+                                        <div class="controls controls-row">
+                                            <input class="span6 layui-input" type="text" id="title" name="title" placeholder="标题名称">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="email">
+                                            内容:
+                                        </label>
+                                        <div class="controls">
+                                            <textarea name="content" id="content"  placeholder="请输入内容" class="layui-textarea span6" style="width: 190px;"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="password">
+                                            状态:
+                                        </label>
+                                        <div class="controls">
+                                            <select name="status" id="status" class="span6" style="min-width: 80px">
+                                                <option value="1" selected="selected">有效</option>
+                                                <option value="0">无效</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="repPassword">
+                                            发布日期:
+                                        </label>
+                                        <div class="controls">
+                                            <input type="text"  name="pubdate" id="pubdate"  lay-verify="name" placeholder="yyyy-MM-dd H:i:s" class="layui-input span6"id="pubdate">
+                                        </div>
+                                    </div>
+
+                            </div>
+
                         </div>
-                        <div class="form-group">
-                            <label for="txt_parentdepartment">上级部门</label>
-                            <input type="text" name="txt_parentdepartment" class="form-control" id="txt_parentdepartment" placeholder="上级部门">
-                        </div>
-                        <div class="form-group">
-                            <label for="txt_departmentlevel">部门级别</label>
-                            <input type="text" name="txt_departmentlevel" class="form-control" id="txt_departmentlevel" placeholder="部门级别">
-                        </div>
-                        <div class="form-group">
-                            <label for="txt_statu">描述</label>
-                            <input type="text" name="txt_statu" class="form-control" id="txt_statu" placeholder="状态">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
-                        <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
                     </div>
                 </div>
-            </div>
-        </div>
+                </form>
+                <div class="modal-footer layui-form-item" >
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button class="btn btn-success" lay-filter="add" lay-submit="" onclick="submitform()">提 交</button>
+                </div>
+
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
     </div>
 </div>
+
     <style>
         .dashboard-wrapper .left-sidebar {
             margin:auto;
         }
     </style>
 
-
-
-
     <script>
-
-        //注册新增按钮的事件
-
-        function addNotice(){
-            $("#myModalLabel").text("新增");
+        //日期选择框
+        layui.use('laydate', function(){
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#pubdate' //指定元素
+                ,type: 'datetime'
+                ,zIndex:999999
+            });
+        });
+        //新增消息按钮的事件
+        function addNotice(str){
+            $("#myModalLabel").text(str);
+            $('#noticeform').prop('action','/base/post_add_notice');
             $('#myModal').modal();
         }
-        //$('#myModal').modal();
-        //一般直接写在一个js文件中
 
-            function editNotice(id){
-                layui.use(['layer', 'form'], function(){
-                    var layer = layui.layer
-                        ,form = layui.form;
-                    layer.open({
-                        title:'编辑公告',
-                        type: 2,
-                        area: ['500px', '700px'],
-                        content: '/base/edit_notice/'+id //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+        function editNotice(id){
+            $("#myModalLabel").text('编辑公告');
+            $('#noticeform').prop('action','/base/post_edit_notice/'+id);
+            //补充表格数据
+
+            $('#title').val($.trim($('.notice_title_'+id).html()));
+            $('#status').val($.trim($('.notice_status_'+id).html()));
+            $('#pubdate').val($.trim($('.notice_pubdate_'+id).html()));
+            $('#content').val($.trim($('.notice_content_'+id).html()));
+            $('#myModal').modal();
+        }
+
+        layui.use(['form', 'layer','jquery'],
+            function() {
+                $ = layui.jquery;
+                var form = layui.form,
+                    layer = layui.layer;
+                //监听提交
+                form.on('submit(add1)', function(data) {
+                    console.log(data);
+                    var status=0;
+                    $("input.layui-input").each(function(){
+                        if($(this).val()){
+                        }else{
+                            layer.msg('有信息没有填写完全，请填写完成后，再提交。');
+                            status =1;
+                            return false;
+                        }
                     });
+                    if(status == 0){
+                        url=$('#noticeform').prop('action');
+                        $.ajax({
+                            url:url,
+                            type:'post',
+                            dataType:'text',
+                            contentType: 'application/json',
+                            data:JSON.stringify(data.field),
+                            success:function(data){
+                                console.log(data);
+                                datalist =JSON.parse(data);
+                                if(datalist.status == 1){
+                                    //发异步，把数据提交给php
+                                    //关闭当前frame
+                                    var index = parent.layer.getFrameIndex(window.name);
+                                    parent.layer.close(index);
+                                    // 可以对父窗口进行刷新
+                                    parent.location.reload();
+                                }else{
+                                    layer.msg("提交失败")
+                                }
+                            },
+                            error:function () {
+                                layer.msg("提交失败")
+                            }
+                        });
+                    }
+
+                    //发异步，把数据提交给php
+                    return false;
+                });
+
+            });
+
+
+        function submitform(){
+            var $datalist=[];
+            $datalist['title']=$('#title').val();
+            $datalist['status']=$('#status').val();
+            $datalist['pubdate']=$('#pubdate').val();
+            $datalist['content']=$('#content').val();
+            console.log($datalist);
+            var status=0;
+            $("input.layui-input").each(function(){
+                if($(this).val()){
+                }else{
+                    layer.msg('有信息没有填写完全，请填写完成后，再提交。');
+                    status =1;
+                    return false;
+                }
+            });
+
+            if(status == 0){
+                url=$('#noticeform').prop('action');
+                $.ajax({
+                    url:url,
+                    type:'post',
+                    dataType:'text',
+                    contentType: 'application/json',
+                    data:JSON.stringify($datalist),
+                    success:function(data){
+                        console.log(data);
+                        datalist =JSON.parse(data);
+                        if(datalist.status == 1){
+
+                        }else{
+                            layer.msg("提交失败")
+                        }
+                    },
+                    error:function () {
+                        layer.msg("提交失败")
+                    }
                 });
             }
-            function addNotice1(){
-                layui.use(['layer', 'form'], function(){
-                    var layer = layui.layer
-                        ,form = layui.form;
-                    layer.open({
-                        title:'新增公告',
-                        type: 2,
-                        area: ['500px', '700px'],
-                        content: '/base/add_notice/' //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
-                    });
-                });
-            }
+            return false;
+        }
+
     </script>
 
 @endsection
