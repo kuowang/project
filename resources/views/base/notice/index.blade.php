@@ -47,7 +47,7 @@
                     <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                         <label>
                             <form class="form-search" action="/base/notice_list" method="get">
-                                公告名称:<input type="text" name="search" value="{{ $search }}" class="input-medium search-query">
+                                公告名称: &nbsp;<input type="text" name="search" value="{{ $search }}" class="input-medium search-query">
                                 <button type="submit" class="btn">搜索</button>
                             </form></label>
                     </div>
@@ -145,7 +145,7 @@
                                             标题名称:
                                         </label>
                                         <div class="controls controls-row">
-                                            <input class="span6 layui-input" type="text" id="title" name="title" placeholder="标题名称">
+                                            <input class="span12 layui-input" type="text" id="title" name="title" placeholder="标题名称">
                                         </div>
                                     </div>
                                     <div class="control-group">
@@ -153,7 +153,7 @@
                                             内容:
                                         </label>
                                         <div class="controls">
-                                            <textarea name="content" id="content"  placeholder="请输入内容" class="layui-textarea span6" style="width: 190px;"></textarea>
+                                            <textarea name="content" id="content"  placeholder="请输入内容" class="layui-textarea span12" ></textarea>
                                         </div>
                                     </div>
                                     <div class="control-group">
@@ -161,7 +161,7 @@
                                             状态:
                                         </label>
                                         <div class="controls">
-                                            <select name="status" id="status" class="span6" style="min-width: 80px">
+                                            <select name="status" id="status" class="span12" style="min-width: 80px">
                                                 <option value="1" selected="selected">有效</option>
                                                 <option value="0">无效</option>
                                             </select>
@@ -172,7 +172,7 @@
                                             发布日期:
                                         </label>
                                         <div class="controls">
-                                            <input type="text"  name="pubdate" id="pubdate"  lay-verify="name" placeholder="yyyy-MM-dd H:i:s" class="layui-input span6"id="pubdate">
+                                            <input type="text"  name="pubdate" id="pubdate"  lay-verify="name" placeholder="yyyy-MM-dd H:i:s" class="layui-input span12"id="pubdate">
                                         </div>
                                     </div>
 
@@ -214,6 +214,10 @@
         //新增消息按钮的事件
         function addNotice(str){
             $("#myModalLabel").text(str);
+            $('#title').val('');
+            $('#status').val('');
+            $('#pubdate').val('');
+            $('#content').val('');
             $('#noticeform').prop('action','/base/post_add_notice');
             $('#myModal').modal();
         }
@@ -248,7 +252,10 @@
             $("input.layui-input").each(function(){
                 if($(this).val()){
                 }else{
-                    layer.msg('有信息没有填写完全，请填写完成后，再提交。');
+                    layui.use('layer', function(){
+                        var layer = layui.layer;
+                        layer.msg('有信息没有填写完全，请填写完成后，再提交。');
+                    });
                     status =1;
                     return false;
                 }
@@ -267,17 +274,22 @@
                             $('#myModal').modal('hide');
                             location.href=location.href
                         }else{
-                            layer.msg("提交失败")
+                            layui.use('layer', function(){
+                                var layer = layui.layer;
+                                layer.msg(data.info);
+                            });
                         }
                     },
                     error:function () {
-                        layer.msg("提交失败")
+                        layui.use('layer', function(){
+                            var layer = layui.layer;
+                            layer.msg('提交失败，请刷新页面再试');
+                        });
                     }
                 });
             }
             return false;
         }
-
     </script>
 
 @endsection
