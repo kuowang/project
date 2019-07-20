@@ -37,7 +37,7 @@
                 <div class="widget-header">
                     <div class="title">
                         建筑系统<a id="dynamicTable"></a>
-                        @if(in_array(350102,$pageauth))
+                        @if(in_array(350102,$pageauth) || in_array(3502,$manageauth))
                         <a class="btn btn-success" title="创建建筑系统"  href="/architectural/add_architect" >
                             <i class="layui-icon">创建建筑系统</i>
                         </a>
@@ -88,19 +88,19 @@
                                     <td>{{ $val->username }}</td>
                                     <td>{{ $val->created_at }}</td>
                                     <td class="td-manage">
-                                        @if($val->uid == $uid || in_array(7,$manageauth))
+                                        @if(($val->uid == $uid && in_array(350101,$pageauth) )|| in_array(3501,$manageauth))
                                                 <a title="详情" class="btn btn-success"  href='{{ url("/architectural/architect_detail/".$val->id) }}'>
                                                     <i class="layui-icon">详情</i>
                                                 </a>
                                         @endif
 
-                                        @if(in_array(350103,$pageauth) && $val->uid == $uid)
+                                        @if((in_array(350103,$pageauth) && $val->uid == $uid) || in_array(3503,$manageauth))
                                             &nbsp;&nbsp;&nbsp;&nbsp;
                                             <a title="编辑" class="btn btn-success"  href='{{ url("/architectural/edit_architect/".$val->id) }}'>
                                                 <i class="layui-icon">编辑</i>
                                             </a>
                                         @endif
-                                        @if(in_array(350104,$pageauth) && $val->uid == $uid)
+                                        @if((in_array(350104,$pageauth) && $val->uid == $uid) || in_array(3504,$manageauth))
                                             @if ($val->status ==1)
                                                 &nbsp;&nbsp;&nbsp;
                                                 <a title="无效" class="btn btn-warning"  href='{{ url("/architectural/edit_architect_status/".$val->id.'/0') }}'>

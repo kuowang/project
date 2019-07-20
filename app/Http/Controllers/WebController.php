@@ -22,11 +22,11 @@ class WebController extends Controller
         }
         if($user ){
             if( $user->status ==0 ){
-                throw new \Exception('待审核用户，不能访问');
+                throw new \Exception('待审核用户，不能访问 <a href="/logout" style="color:#0000FF">(点击退出)</a>');
             }elseif( $user->status == -1){
-                throw new \Exception('用户申请被禁止，不能访问');
+                throw new \Exception('用户申请被禁止，不能访问 <a href="/logout"  style="color:#0000FF">(点击退出)</a>');
             }elseif( $user->status == -2){
-                throw new \Exception('用户被禁止，不能访问');
+                throw new \Exception('用户被禁止，不能访问 <a href="/logout"  style="color:#0000FF">(点击退出)</a>');
             }
         }
         return  $user;
@@ -50,6 +50,7 @@ class WebController extends Controller
         $manageauth =DB::table('user_role')
             ->join('role_manage_authority','role_manage_authority.role_id','=','user_role.role_id')
             ->where('user_role.status',1)
+            ->where('role_manage_authority.status',1)
             ->where('user_role.uid',$uid)
             ->groupby('manage_auth_id')
             ->pluck('manage_auth_id')
@@ -91,89 +92,6 @@ class WebController extends Controller
      * @return $return html内容
      */
 
-    public function webfenyetest($page,$count,$url){
-        /** 实例
-        <div class="layui-card-body ">
-            <div class="page">
-                <div>
-                    <a class="prev" href="">&lt;&lt;</a>
-                    <a class="num" href="">1</a>
-                    <span class="current">2</span>
-                    <a class="num" href="">3</a>
-                    <a class="num" href="">489</a>
-                    <a class="next" href="">&gt;&gt;</a>
-                </div>
-            </div>
-        </div>
-         */
-        if($count ==1){
-            return '';
-        }
-
-
-        $str ='<div class="layui-card-body ">';
-        $str .='<div class="page">';
-        $str .='<div>';
-        if($count <=10){ //小于10页全部显示
-            for($i=1; $i <= $count; $i++){
-                if($i ==$page){
-                    $str .='<span class="current">'.$i.'</span>';
-                }else{
-                    $str .='<a class="num" href="'.$url.'&page='.$i.'">'.$i.'</a>';
-                }
-            }
-        }else{ //大于10页分类显示
-            if($page !=1){
-                $str .='<a class="prev" href="'.$url.'&page='.($page-1).'">上一页</a>';
-            }
-            if($page < 5 ){
-                for($j=1;$j<=5;$j++){
-                    if($j ==$page){
-                        $str .='<span class="current">'.$j.'</span>';
-                    }else{
-                        $str .='<a class="num" href="'.$url.'&page='.$j.'">'.$j.'</a>';
-                    }
-                }
-            }else{
-                $str .='<a class="num" href="'.$url.'&page=1">1</a>';
-                $str .='<span class="layui-laypage-spr">…</span>';
-            }
-
-            if($page >= 5 && $page <= ($count-5)){
-                for($h =($page-3);$h < $page;$h++){
-                    $str .='<a class="num" href="'.$url.'&page='.$h.'">'.$h.'</a>';
-                }
-
-                $str .='<span class="current">'.$page.'</span>';
-
-                for($h =($page+1);$h < ($page+4);$h++){
-                    $str .='<a class="num" href="'.$url.'&page='.$h.'">'.$h.'</a>';
-                }
-
-            }
-
-            if($page > ($count-5)){
-                for($j=$count-5;$j<= $count;$j++){
-                    if($j ==$page){
-                        $str .='<span class="current">'.$j.'</span>';
-                    }else{
-                        $str .='<a class="num" href="'.$url.'&page='.$j.'">'.$j.'</a>';
-                    }
-                }
-            }else{
-                $str .='<span class="layui-laypage-spr">…</span>';
-                $str .='<a class="num" href="'.$url.'&page='.$count.'">'.$count.'</a>';
-            }
-
-            if($page != $count){
-                $str .='<a class="next" href="'.$url.'&page='.($page+1).'">下一页</a>';
-            }
-        }
-        $str .='</div>';
-        $str .='</div>';
-        $str .=' </div>';
-        return $str;
-    }
     public function webfenye($page,$count,$url){
         /** 实例
         <div class="dataTables_paginate paging_full_numbers" id="data-table_paginate">

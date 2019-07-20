@@ -108,10 +108,14 @@ class RoleController extends WebController
         $data['id']=(int)$id;
         //角色权限
         $data['data']=Authority::where('status',1)->orderby('auth_id')->get();
-        $data['auth']=RoleAuthority::where('role_id',$id)->pluck('auth_id')->toarray();
+        $data['auth']=RoleAuthority::where('role_id',$id)
+            ->where('status',1)
+            ->pluck('auth_id')->toarray();
         //管理权限
         $data['managelist']=ManageAuthority::orderby('manage_id')->get();
-        $data['rolemanagelist']=RoleManageAuthority::where('role_id',$id)->pluck('manage_auth_id')->toarray();
+        $data['rolemanagelist']=RoleManageAuthority::where('role_id',$id)
+            ->where('status',1)
+            ->pluck('manage_auth_id')->toarray();
 
         //用户权限部分
         $data['username']   =$this->user()->name;
@@ -132,6 +136,8 @@ class RoleController extends WebController
         if(empty($authdata)){
             return redirect('/admin/role_list?status=2&notice='.'没有给该角色添加任何权限');
         }
+        echo "<pre>";
+        //var_dump($request->all());exit;
         //获取权限信息
         $auth =$this->getAuthinfo($authdata);
         $time =date('Y-m-d H:i:s');
