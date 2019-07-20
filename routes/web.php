@@ -49,6 +49,9 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => 'auth']
     Route::post('/post_edit_user',             'UserRoleController@postEditUser');                   //提交编辑用户
     Route::get('/ban_user/{id}',                 'UserRoleController@banUser');                        //禁用用户
     Route::get('/no_ban_user/{id}',                 'UserRoleController@noBanUser');                   //开启用户
+    Route::get('/examine_user',                 'UserExamineController@index');                   //审核用户页面
+    Route::get('/examine_status/{id}/{status}',                 'UserExamineController@examineStatus');                   //审核用户页面
+
 
 });
 

@@ -36,22 +36,35 @@
             <div class="widget">
                 <div class="widget-header">
                     <div class="title">
-                        用户列表<a id="dynamicTable"></a>
-                        @if(in_array(100202,$pageauth))
-                        <a class="btn btn-success" title="新增用户"   href="/admin/add_user_info/">
-                            <i class="layui-icon">新增用户</i>
-                        </a>
-                        @endif
+                        审核用户列表<a id="dynamicTable"></a>
                     </div>
-                    @if(in_array(100201,$pageauth))
+
                     <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                         <label>
                             <form class="form-search">
                                 用户名:<input type="text" name="search" value="{{ $search }}" class="input-medium search-query">
+                                &nbsp;&nbsp;&nbsp;
+                                类型：
+                                <select name="type" id="type" class="span2" style="min-width: 80px">
+                                    @if($type == 1)
+                                        <option value="1" selected="selected">审核通过</option>
+                                        <option value="0">待审核</option>
+                                        <option value="-1">审核不通过</option>
+                                    @elseif($type ==0)
+                                        <option value="1" >审核通过</option>
+                                        <option value="0" selected="selected">待审核</option>
+                                        <option value="-1">审核不通过</option>
+                                    @else
+                                        <option value="1" >审核通过</option>
+                                        <option value="0">待审核</option>
+                                        <option value="-1" selected="selected">审核不通过</option>
+                                    @endif
+                                </select>
+
+
                                 <button type="submit" class="btn">搜索</button>
                             </form></label>
                     </div>
-                    @endif
                     <span class="tools">
                       <a class="fs1" aria-hidden="true" data-icon="&#xe090;"></a>
                     </span>
@@ -64,11 +77,13 @@
                             <tr>
                                 <th>用户ID</th>
                                 <th>用户名称</th>
-                                <th>邮箱名</th>
-                                <th>角色</th>
-                                <th>状态</th>
+                                <th>用户权限</th>
+                                <th>创建人</th>
                                 <th>创建时间</th>
-                                <th>修改时间</th>
+                                <th>审核人</th>
+                                <th>审核时间</th>
+                                <th>审核状态</th>
+                                <th>用户状态</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -82,22 +97,25 @@
                                 @endif
 
                                     <td>
-                                        {{ $val->id }}
+                                        {{ $val->uid }}
                                     </td>
                                     <td>{{ $val->name }}</td>
-                                    <td>{{ $val->email }}</td>
                                     <td>
-                                        @if (isset($userRoleList[$val->id]))
-                                            @foreach ($userRoleList[$val->id] as $v)
+                                        @if (isset($userRoleList[$val->uid]))
+                                            @foreach ($userRoleList[$val->uid] as $v)
                                                 {{ $v->role_name }} &nbsp;&nbsp;
                                             @endforeach
                                         @endif
                                     </td>
+                                    <td>{{ $val->creator }}</td>
+                                    <td>{{ $val->created_at }}</td>
+                                    <td>{{ $val->examine_name }}</td>
+                                    <td>{{ $val->updated_at }}</td>
                                     <td>
                                         @if($val->status ==0)
                                             待审核
                                         @elseif($val->status ==1)
-                                            活跃
+                                            审核通过
                                         @elseif($val->status ==-1)
                                             审核未通过
                                         @elseif($val->status ==-2)
@@ -105,29 +123,28 @@
                                         @endif
                                     </td>
 
-                                    <td>{{ $val->created_at }}</td>
-                                    <td>{{ $val->updated_at }}</td>
+                                    <td>
+                                        @if($val->user_status ==0)
+                                            待审核
+                                        @elseif($val->user_status ==1)
+                                            活跃
+                                        @elseif($val->user_status ==-1)
+                                            审核未通过
+                                        @elseif($val->user_status ==-2)
+                                            禁用
+                                        @endif
+                                    </td>
+
                                     <td class="td-manage">
-                                        @if(in_array(100203,$pageauth))
-                                        <a class="btn btn-success" title="编辑用户"  href="/admin/edit_user_info/{{ $val->id }}">
-                                            <i class="layui-icon">编辑用户</i>
+                                        @if($val->status ==0 )
+                                        <a class="btn btn-success" title=""  href="/admin/examine_status/{{ $val->id }}/1">
+                                            <i class="layui-icon">通过</i>
                                         </a>
-                                        @endif
-                                        @if(in_array(100204,$pageauth))
-                                            @if($val->status == 1)
-                                        <a class="btn btn-warning" title="禁用用户"  href="/admin/ban_user/{{ $val->id }}">
-                                            <i class="layui-icon">禁用用户</i>
+                                        <a class="btn btn-warning" title="不通过"  href="/admin/examine_status/{{ $val->id }}/0">
+                                            <i class="layui-icon">不通过</i>
                                         </a>
-                                            @elseif($val->status ==0)
-                                        <a class="btn btn-success" title="待审核用户" >
-                                            <i class="layui-icon">待审核用户</i>
-                                        </a>
-                                            @else
-                                        <a class="btn btn-success" title="开启用户"  href="/admin/no_ban_user/{{ $val->id }}">
-                                            <i class="layui-icon">开启用户</i>
-                                        </a>
-                                            @endif
-                                        @endif
+                                       @endif
+
                                     </td>
                                 </tr>
 

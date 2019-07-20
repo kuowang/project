@@ -20,8 +20,14 @@ class WebController extends Controller
             Auth::user()->manageauth    =$userauth['manageauth'];
             //系统公告
         }
-        if($user && $user->status ==0){
-           throw new \Exception('用户被禁止，不能访问');
+        if($user ){
+            if( $user->status ==0 ){
+                throw new \Exception('待审核用户，不能访问');
+            }elseif( $user->status == -1){
+                throw new \Exception('用户申请被禁止，不能访问');
+            }elseif( $user->status == -2){
+                throw new \Exception('用户被禁止，不能访问');
+            }
         }
         return  $user;
     }

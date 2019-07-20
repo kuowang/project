@@ -72,7 +72,7 @@ class UserRoleController extends WebController
     }
 
     //获取用户的角色名称
-    protected function getUserRoleList($userList){
+    public function getUserRoleList($userList){
         $data =DB::table('user_role')->wherein('uid',$userList)
             ->where('status',1)
             ->select(['uid','role_id','role_name'])
@@ -144,8 +144,10 @@ class UserRoleController extends WebController
             'password' => bcrypt($pwd),
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s'),
+            'status'=>0,
         ];
         $id =DB::table('users')->insertGetId($data);
+        $this->recodeUserExamine($id);
         if(empty($id)){
             DB::rollback();
             return redirect('admin/add_user_info?status=2&notice='.'创建用户失败，请重试');
@@ -199,9 +201,15 @@ class UserRoleController extends WebController
             'email' => $email,
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s'),
+            'status'=>0,
         ];
         if(!empty($pwd)){
             $data['password'] =bcrypt($pwd);
+        }
+        if($id ==1){ //1号员工 不需要审核
+            $data['status']=1;
+        }else{
+            $this->recodeUserExamine($id);
         }
         DB::table('users')->where('id',$id)->update($data);
         DB::table('user_role')->where('uid',$id)->update(['status'=>0,'updated_at'=>date('Y-m-d H:i:s')]);
@@ -229,12 +237,25 @@ class UserRoleController extends WebController
     }
 
     public function banUser(Request $request,$id){
-        DB::table('users')->where('id',$id)->update(['status'=>0,'updated_at'=>date('Y-m-d H:i:s')]);
+        DB::table('users')->where('id',$id)->update(['status'=>-2,'updated_at'=>date('Y-m-d H:i:s')]);
         return redirect('admin/user_role_list?status=1&notice='.'禁用用户成功');
     }
     public function noBanUser(Request $request,$id){
-        DB::table('users')->where('id',$id)->update(['status'=>1,'updated_at'=>date('Y-m-d H:i:s')]);
-        return redirect('admin/user_role_list?status=1&notice='.'开启用户成功');
+        DB::table('users')->where('id',$id)->update(['status'=>0,'updated_at'=>date('Y-m-d H:i:s')]);
+        $this->recodeUserExamine($id);
+        return redirect('admin/user_role_list?status=1&notice='.'开启用户成功,待审核');
+    }
+
+    private function recodeUserExamine($uid){
+        DB::table('examine_user')->where('uid',$uid)->where('status',0)->delete();
+        $data=[
+            'uid'=>$uid,
+            'creator'=>$this->user()->name,
+            'createid'=>$this->user()->id,
+            'created_at'=>date('Y-m_d H:i:s'),
+            'status'=>0,
+        ];
+        DB::table('examine_user')->insert($data);
     }
 
 
