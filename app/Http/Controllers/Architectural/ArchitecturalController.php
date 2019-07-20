@@ -207,9 +207,9 @@ class ArchitecturalController extends WebController
             'engineering_name'=>$engineering_name,
             'system_code'=>$system_code,
             'status'=>(int)$status,
-            'uid'=>$uid,
+            'edit_uid'=>$uid,
             'updated_at'=>date('Y-m-d'),
-            'username'=>$username,
+            'edit_username'=>$username,
         ];
         DB::table('architectural_system')->where('id',$id)->update($data);
 
@@ -222,14 +222,16 @@ class ArchitecturalController extends WebController
                     'work_code'=>$work_code[$k],
                     'status'=>$sub_status[$k],
                     'sort'=>(int)$sort[$k],
-                    'uid'=>(int)$uid,
                     'updated_at'=>date('Y-m-d'),
-                    'username'=>$username,
                 ];
                 if($v == 0){
+                    $datalist['uid']=$uid;
+                    $datalist['username']=$username;
                     $datalist['created_at']=date('Y-m-d');
                     DB::table('architectural_sub_system')->insert($datalist);
                 }else{
+                    $datalist['edit_uid']=$uid;
+                    $datalist['edit_username']=$username;
                     DB::table('architectural_sub_system')->where('id',$v)->update($datalist);
                 }
             }
@@ -256,7 +258,7 @@ class ArchitecturalController extends WebController
         if(empty($data['architect'])){
             return redirect('/architectural/index?status=2&notice='.'数据不存在，无法查看');
         }
-        if($data['uid'] != $data['architect']->uid && !in_array(7,$data['manageauth'])){
+        if($data['uid'] != $data['architect']->uid && !in_array(3501,$data['manageauth'])){
             return redirect('/architectural/index?status=2&notice='.'仅有创建用户和管理员才能查看');
         }
         return view('architectural.architectDetail',$data);
@@ -267,8 +269,8 @@ class ArchitecturalController extends WebController
     public function EditArchitectStatus(Request $request,$id,$staus=1){
 
         $architect=DB::table('architectural_system')->where('id',$id)->first();
-        if($this->user()->id != $architect->uid ){
-            return redirect('/architectural/index?status=2&notice='.'仅有创建用户才能更改状态');
+        if($this->user()->id != $architect->uid && !in_array(3501,(array)$this->user()->manageauth)){
+            return redirect('/architectural/index?status=2&notice='.'仅有创建用户和管理者才能更改状态');
         }
         DB::table('architectural_system')->where('id',$id)->update(['status'=>(int)$staus,'updated_at'=>date('Y-m-d')]);
         return redirect('/architectural/index');
@@ -288,14 +290,14 @@ class ArchitecturalController extends WebController
         $work_code          =$request->input('work_code','');
 
         $page =$request->input('page',1);
-        $rows =$request->input('rows',10);
+        $rows =$request->input('rows',20);
         $data['system_name']      =$system_name;
         $data['sub_system_name'] =$sub_system_name;
         $data['work_code']        =$work_code;
 
         $datalist =$this->getSubArchitecturalList($system_name,$sub_system_name,$work_code,$page,$rows);
         //分页
-        $url='/architectural/index?system_name='.$system_name.'&sub_system_name='.$sub_system_name.'&work_code='.$work_code.'&rows='.$rows;
+        $url='/architectural/architectureList?system_name='.$system_name.'&sub_system_name='.$sub_system_name.'&work_code='.$work_code.'&rows='.$rows;
         $data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
         $data['data']   =$datalist['data'];
 
@@ -317,7 +319,6 @@ class ArchitecturalController extends WebController
         $db=DB::table('architectural_system')
             ->leftjoin('architectural_sub_system','architectural_system.id','=','architectural_sub_system.architectural_id')
             ->where('architectural_system.status',1);
-
 
         if(!empty($system_name)){
             $db->where('system_name','like','%'.$system_name.'%');
@@ -361,14 +362,14 @@ class ArchitecturalController extends WebController
             return redirect('/architectural/index?status=2&notice='.'数据不存在，无法编辑');
         }
         $data['guishu_name']=DB::table('architectural_system')->where('id',$data['sub_architect']->architectural_id)->value('system_name');
-        if($data['uid'] != $data['sub_architect']->uid){
-            return redirect('/architectural/index?status=2&notice='.'仅有创建用户才能编辑');
+        if($data['uid'] != $data['sub_architect']->uid  && !in_array(3506,$data['manageauth'])){
+            return redirect('/architectural/index?status=2&notice='.'仅有创建用户和管理者才能编辑');
         }
         return view('architectural.editMaterial',$data);
     }
 
     public function postEditMaterial(Request $request,$id){
-        var_dump($request->all());
+        //var_dump($request->all());
         //子系统工程
         $material_id =$request->input('material_id',[]);
         $material_name =$request->input('material_name',[]);
@@ -419,15 +420,17 @@ class ArchitecturalController extends WebController
                     'waste_rate'=>(float)$waste_rate[$k],
                     'sort'=>(int)$sort[$k],
                     'status'=>$status[$k],
-                    'uid'=>(int)$uid,
                     'updated_at'=>date('Y-m-d'),
-                    'username'=>$username,
                 ];
 
                 if($v == 0){
+                    $data['uid']=(int)$uid;
+                    $data['username']=$username;
                     $datalist['created_at']=date('Y-m-d');
                     DB::table('material')->insert($datalist);
                 }else{
+                    $data['edit_uid'] =$uid;
+                    $data['edit_username'] =$username;
                     DB::table('material')->where('id',$v)->update($datalist);
                 }
             }
@@ -456,7 +459,7 @@ class ArchitecturalController extends WebController
                 return redirect('/architectural/index?status=2&notice='.'数据不存在，无法编辑');
             }
             $data['guishu_name']=DB::table('architectural_system')->where('id',$data['sub_architect']->architectural_id)->value('system_name');
-            if($data['uid'] != $data['sub_architect']->uid){
+            if($data['uid'] != $data['sub_architect']->uid &&  in_array(3506,$data['manageauth'])){
                 return redirect('/architectural/index?status=2&notice='.'仅有创建用户才能编辑');
             }
             return view('architectural.materialDetail',$data);

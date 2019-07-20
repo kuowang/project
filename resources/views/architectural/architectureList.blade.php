@@ -38,7 +38,7 @@
                     <div class="title">
                         建筑系统<a id="dynamicTable"></a>
                     </div>
-                    @if(in_array(350201,$pageauth))
+                    @if(in_array(350201,$pageauth) || in_array(3505,$manageauth))
                     <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                         <label>
                             <form class="form-search" action="/architectural/architectureList" method="get">
@@ -87,13 +87,13 @@
                                     <td>{{ $val->username }}</td>
                                     <td>{{ $val->created_at }}</td>
                                     <td class="td-manage">
-                                        @if($val->uid == $uid || in_array(7,$manageauth))
+                                        @if(($val->uid == $uid && in_array(350201,$pageauth)) || in_array(3505,$manageauth))
                                                 <a title="详情" class="btn btn-success"  href='{{ url("/architectural/material_detail/".$val->id) }}'>
                                                     <i class="layui-icon">详情</i>
                                                 </a>
                                         @endif
 
-                                        @if(in_array(350202,$pageauth) && $val->uid == $uid)
+                                        @if((in_array(350202,$pageauth) && $val->uid == $uid) || in_array(3506,$manageauth))
                                             &nbsp;&nbsp;&nbsp;&nbsp;
                                             <a title="编辑" class="btn btn-success"  href='{{ url("/architectural/edit_material/".$val->id) }}'>
                                                 <i class="layui-icon">编辑</i>
