@@ -17,8 +17,9 @@ class WebController extends Controller
             Auth::user()->nav           =$userauth['nav']; //导航列表
             Auth::user()->pageauth      =$userauth['authlist']; //权限id
             Auth::user()->system        =$this->getSystem();    //系统参数
-            Auth::user()->manageauth    =$userauth['manageauth'];
+            Auth::user()->manageauth    =$userauth['manageauth']; //管理权限列表
             //系统公告
+            Auth::user()->notice        =DB::table('notice')->where('status',1)->orderby('pubdate','desc')->limit(5)->get()->toarray();
         }
         if($user ){
             if( $user->status ==0 ){

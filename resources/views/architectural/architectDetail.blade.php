@@ -113,10 +113,27 @@
         </div>
     </div>
 </div>
+    <div class="right-sidebar">
+        <div class="wrapper">
+            <ul class="stats">
+                <li>
+                    <h4>
+                        公告
+                    </h4>
+                </li>
+                @if(isset($noticelist) && !empty($noticelist))
+                    @foreach($noticelist as $item)
+                        <li>
+                            <h6>{{$item->title}}</h6>
+                            <p >{{$item->content}}</p>
+                        </li>
+                    @endforeach
+                @endif
+            </ul>
+        </div>
+        <hr class="hr-stylish-1">
+    </div>
     <style>
-        .dashboard-wrapper .left-sidebar {
-            margin:auto;
-        }
         input{
             width: 60%;
         }

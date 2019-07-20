@@ -92,9 +92,7 @@
                                                     <i class="layui-icon">详情</i>
                                                 </a>
                                         @endif
-
                                         @if((in_array(350202,$pageauth) && $val->uid == $uid) || in_array(3506,$manageauth))
-                                            &nbsp;&nbsp;&nbsp;&nbsp;
                                             <a title="编辑" class="btn btn-success"  href='{{ url("/architectural/edit_material/".$val->id) }}'>
                                                 <i class="layui-icon">编辑</i>
                                             </a>
@@ -117,12 +115,25 @@
 
     </div>
 </div>
-    <style>
-        .dashboard-wrapper .left-sidebar {
-            margin:auto;
-        }
-    </style>
-
-
+    <div class="right-sidebar">
+        <div class="wrapper">
+            <ul class="stats">
+                <li>
+                    <h4>
+                        公告
+                    </h4>
+                </li>
+                @if(isset($noticelist) && !empty($noticelist))
+                    @foreach($noticelist as $item)
+                        <li>
+                            <h6>{{$item->title}}</h6>
+                            <p >{{$item->content}}</p>
+                        </li>
+                    @endforeach
+                @endif
+            </ul>
+        </div>
+        <hr class="hr-stylish-1">
+    </div>
 
 @endsection

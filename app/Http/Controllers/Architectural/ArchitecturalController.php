@@ -45,7 +45,8 @@ class ArchitecturalController extends WebController
         $data['subnavid']   =3501;//当前子导航页
         $data['manageauth'] =(array)$this->user()->manageauth; //能够查询详情权限
         $data['uid']        =$this->user()->id;
-
+        $data['noticelist']     =$this->user()->notice;
+        //var_dump($data['notice']);exit;
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
         return view('architectural.index',$data);
@@ -71,6 +72,7 @@ class ArchitecturalController extends WebController
         $data['navid']      =35;
         $data['pageauth']   =$this->user()->pageauth;
         $data['subnavid']   =3501;
+        $data['noticelist']     =$this->user()->notice;
         return view('architectural.addArchitect',$data);
     }
 
@@ -154,6 +156,7 @@ class ArchitecturalController extends WebController
         $data['pageauth']   =$this->user()->pageauth; //按钮权限
         $data['subnavid']   =3501;//当前子导航页
         $data['manageauth'] =(array)$this->user()->manageauth; //能够查询详情权限
+        $data['noticelist']     =$this->user()->notice;
         $data['uid']        =$this->user()->id;
         //获取该用户的建筑系统信息
         $data['architect']=DB::table('architectural_system')->where('id',$id)->first();
@@ -250,6 +253,7 @@ class ArchitecturalController extends WebController
         $data['subnavid']   =3501;//当前子导航页
         $data['manageauth'] =(array)$this->user()->manageauth; //能够查询详情权限
         $data['uid']        =$this->user()->id;
+        $data['noticelist']     =$this->user()->notice;
         //var_dump($data['manageauth']);exit;
         //获取该用户的建筑系统信息
         $data['architect']=DB::table('architectural_system')->where('id',$id)->first();
@@ -261,6 +265,7 @@ class ArchitecturalController extends WebController
         if($data['uid'] != $data['architect']->uid && !in_array(3501,$data['manageauth'])){
             return redirect('/architectural/index?status=2&notice='.'仅有创建用户和管理员才能查看');
         }
+
         return view('architectural.architectDetail',$data);
 
     }
@@ -309,7 +314,7 @@ class ArchitecturalController extends WebController
         $data['subnavid']   =3502;//当前子导航页
         $data['manageauth'] =(array)$this->user()->manageauth; //能够查询详情权限
         $data['uid']        =$this->user()->id;
-
+        $data['noticelist']     =$this->user()->notice;
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
         return view('architectural.architectureList',$data);
@@ -353,6 +358,7 @@ class ArchitecturalController extends WebController
         $data['subnavid']   =3502;//当前子导航页
         $data['manageauth'] =(array)$this->user()->manageauth; //能够查询详情权限
         $data['uid']        =$this->user()->id;
+        $data['noticelist']     =$this->user()->notice;
         $data['id']         =$id;
         //获取该用户的建筑系统关联子系统
         $data['sub_architect']=DB::table('architectural_sub_system')->where('id',$id)->first();
@@ -450,6 +456,7 @@ class ArchitecturalController extends WebController
             $data['subnavid']   =3502;//当前子导航页
             $data['manageauth'] =(array)$this->user()->manageauth; //能够查询详情权限
             $data['uid']        =$this->user()->id;
+           $data['noticelist']     =$this->user()->notice;
             $data['id']         =$id;
             //获取该用户的建筑系统关联子系统
             $data['sub_architect']=DB::table('architectural_sub_system')->where('id',$id)->first();
