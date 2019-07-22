@@ -122,6 +122,7 @@
                         首页
                     </a>
                 </li>
+                @if(isset($nav[0]))
                 @foreach($nav[0] as $item)
                     <li>
                         @if($item->auth_id == $navid)
@@ -134,6 +135,7 @@
                         </a>
                     </li>
                 @endforeach
+                @endif
             </ul>
             <div class="clearfix">
             </div>
