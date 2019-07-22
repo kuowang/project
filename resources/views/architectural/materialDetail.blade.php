@@ -162,6 +162,8 @@
                 @endif
             </ul>
         </div>
+        <span style="float: right;margin-bottom: 10px"><a href="/base/getNoticeInfo" style="color: #0000FF"> 查看更多 >></a></span>
+
         <hr class="hr-stylish-1">
     </div>
     <style>

@@ -122,6 +122,27 @@ class BaseController extends WebController
         DB::table('notice')->where('id',$id)->update($data);
         return $this->success('修改成功');
     }
+    //公告列表
+    public function getNoticeInfo(Request $request){
 
+        $search =$request->input('search','');
+        $page =$request->input('page',1);
+        $rows =$request->input('rows',20);
+        $datalist =$this->getNoticeList($search,$page,$rows);
+        //分页
+        $url='/base/notice_list?search='.$search.'&rows='.$rows;
+        $data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
+        $data['data']   =$datalist['data'];
+        $data['search'] =$search;
+        //用户权限部分
+        $data['username']   =$this->user()->name;
+        $data['nav']        =$this->user()->nav;
+        $data['navid']      =60;
+        $data['subnavid']   =6002;
+        $data['pageauth']   =$this->user()->pageauth;
+        $data['status']=$request->input('status',0); //1成功 2失败
+        $data['notice']=$request->input('notice','成功'); //提示信息
+        return view('base.notice.getNoticeInfo',$data);
+    }
 
 }
