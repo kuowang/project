@@ -39,7 +39,7 @@ class BrandController extends WebController
         $data['navid']      =45;
         $data['subnavid']   =4501;
         $data['pageauth']   =$this->user()->pageauth;
-
+        $data['noticelist']     =$this->user()->notice;
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
         return view('SupplierBrand.brand.index',$data);
@@ -59,6 +59,44 @@ class BrandController extends WebController
 
     }
 
+
+    //提交新增公告
+    public function postAddBrand(Request $request){
+
+        $brand_name=$request->input('brand_name');
+        $status =(int)$request->input('status',1);
+
+        if(empty($brand_name) ){
+            return $this->error('内容不能为空');
+        }
+        $data=[
+            'brand_name'=>$brand_name,
+            'status'=>$status,
+            'create_uid'=>$this->user()->id,
+            'createor'=>$this->user()->name,
+            'created_at'=>date('Y-m-d'),
+        ];
+        DB::table('brand')->insert($data);
+        return $this->success('提交成功');
+    }
+    //提交编辑公告
+    public function postEditBrand(Request $request,$id){
+        $brand_name =$request->input('brand_name');
+        $status =(int)$request->input('status',1);
+
+        if(empty($brand_name) ){
+            return json_encode($request->all());
+        }
+        $data=[
+            'brand_name'=>$brand_name,
+            'status'=>$status,
+            'edit_uid'=>$this->user()->id,
+            'editor'=>$this->user()->name,
+            'updated_at'=>date('Y-m-d'),
+        ];
+        DB::table('notice')->where('id',$id)->update($data);
+        return $this->success('修改成功');
+    }
 
 
 }

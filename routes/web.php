@@ -108,10 +108,8 @@ Route::group(['prefix' => 'base','namespace' => 'Base','middleware' => 'auth'], 
 Route::group(['prefix' => 'supplier','namespace' => 'SupplierBrand','middleware' => 'auth'], function () {
     //品牌管理
     Route::get('/brandList',                   'BrandController@brandList');      //品牌列表
-
-    Route::get('/add_notice',                   'BrandController@addNotice');      //添加公告
-    Route::get('/edit_notice/{id}',             'BrandController@editNotice');      //编辑公告
-    Route::post('/post_add_notice',          'BrandController@postAddNotice');      //提交新增公告
+    Route::post('/post_add_brand',              'BrandController@postAddBrand');      //提交新增品牌
+    Route::post('/post_edit_brand/{id}',         'BrandController@postEditBrand');      //提交编辑品牌
     //供应商管理
 
 

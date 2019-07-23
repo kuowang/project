@@ -37,13 +37,13 @@
                 <div class="widget-header">
                     <div class="title">
                         品牌列表<a id="dynamicTable"></a>
-                        @if(in_array(600202,$pageauth))
-                        <a class="btn btn-success" title="新增品牌" id="addnotice"  onclick="addNotice('新增品牌')">
+                        @if(in_array(450101,$pageauth))
+                        <a class="btn btn-success" title="新增品牌" id="addnotice"  onclick="addBrand('新增品牌')">
                             <i class="layui-icon">新增品牌</i>
                         </a>
                         @endif
                     </div>
-                    @if(in_array(600201,$pageauth))
+                    @if(in_array(450102,$pageauth))
                     <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                         <label>
                             <form class="form-search" action="/base/notice_list" method="get">
@@ -57,7 +57,6 @@
                 <div class="widget-body">
                     <div id="dt_example" class="example_alt_pagination">
                         <table class="table table-condensed table-striped table-hover table-bordered pull-left" id="data-table">
-
                             <thead>
                             <tr>
                                 <th>ID</th>
@@ -78,11 +77,13 @@
                                 @else
                                     <tr class="gradeA success">
                                 @endif
-                                        <td class="notice_id_{{ $val->id }}">
+                                        <td class="brand_id_{{ $val->id }}">
                                             {{ $val->id }}
                                         </td>
-                                        <td class="notice_title_{{ $val->id }}">{{ $val->brand_name }}</td>
-                                        <td class="notice_content_{{ $val->id }}">@if($val->status ==1 )
+                                        <td class="brand_name_{{ $val->id }}">{{ $val->brand_name }}</td>
+                                        <td class="notice_content_{{ $val->id }}">
+                                            <input type="hidden" name="brand_status" class="brand_status_{{$val->id}}" value="{{ $val->status }}">
+                                            @if($val->status ==1 )
                                                 显示
                                             @else
                                                 隐藏
@@ -91,11 +92,11 @@
                                         <td class="notice_status_{{ $val->id }}">
                                             {{ $val->created_at }}
                                         </td>
-                                        <td class="notice_pubdate_{{ $val->id }}">{{ $val->editor }}</td>
+                                        <td >{{ $val->editor }}</td>
                                         <td >{{ $val->updated_at }}</td>
                                         <td class="td-manage ">
-                                            @if(in_array(600203,$pageauth))
-                                            <a title="编辑品牌" class="btn btn-success" onclick="editNotice({{ $val->id }})" href="javascript:;">
+                                            @if(in_array(450103,$pageauth))
+                                            <a title="编辑品牌" class="btn btn-success" onclick="editBrand({{ $val->id }})" href="javascript:;">
                                                 <i class="layui-icon">编辑品牌</i>
                                             </a>
                                             @endif
@@ -130,7 +131,7 @@
                         品牌
                     </h4>
                 </div>
-                <form class="form-horizontal no-margin" id="noticeform" action="/base/post_add_notice" method="post">
+                <form class="form-horizontal no-margin" id="noticeform" action="/supplier/post_add_brand" method="post">
 
                 <div class="modal-body">
 
@@ -143,17 +144,10 @@
                                             品牌名称:
                                         </label>
                                         <div class="controls controls-row">
-                                            <input class="span12 layui-input" type="text" id="title" name="title" placeholder="标题名称">
+                                            <input class="span12 layui-input" type="text" id="brand_name" name="brand_name" placeholder="标题名称">
                                         </div>
                                     </div>
-                                    <div class="control-group">
-                                        <label class="control-label" for="email">
-                                            内容:
-                                        </label>
-                                        <div class="controls">
-                                            <textarea name="content" id="content"  placeholder="请输入内容" class="layui-textarea span12" ></textarea>
-                                        </div>
-                                    </div>
+
                                     <div class="control-group">
                                         <label class="control-label" for="password">
                                             状态:
@@ -165,15 +159,6 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="control-group">
-                                        <label class="control-label" for="repPassword">
-                                            发布日期:
-                                        </label>
-                                        <div class="controls">
-                                            <input type="text"  name="pubdate" id="pubdate"  lay-verify="name" placeholder="yyyy-MM-dd H:i:s" class="layui-input span12"id="pubdate">
-                                        </div>
-                                    </div>
-
                             </div>
 
                         </div>
@@ -191,61 +176,51 @@
         </div><!-- /.modal -->
     </div>
 </div>
+<div class="right-sidebar">
+    <div class="wrapper">
+        <ul class="stats">
+            <li><h4>公告</h4></li>
+            @if(isset($noticelist) && !empty($noticelist))
+                @foreach($noticelist as $item)
+                    <li>
+                        <h6>{{$item->title}}</h6>
+                        <p >{{$item->content}}</p>
+                    </li>
+                @endforeach
+            @endif
+        </ul>
+    </div>
+    <span style="float: right;margin-bottom: 10px"><a href="/base/getNoticeInfo" style="color: #0000FF"> 查看更多 >></a></span>
+    <hr class="hr-stylish-1">
+</div>
 
-    <style>
-        .dashboard-wrapper .left-sidebar {
-            margin:auto;
-        }
-    </style>
 
     <script>
-        //日期选择框
-        layui.use('laydate', function(){
-            var laydate = layui.laydate;
-            //执行一个laydate实例
-            laydate.render({
-                elem: '#pubdate' //指定元素
-                ,type: 'datetime'
-                ,zIndex:999999
-            });
-        });
         //新增消息按钮的事件
-        function addNotice(str){
+        function addBrand(str){
             $("#myModalLabel").text(str);
-            $('#title').val('');
+            $('#brand_name').val('');
             $('#status').val('');
-            $('#pubdate').val('');
-            $('#content').val('');
-            $('#noticeform').prop('action','/base/post_add_notice');
+            $('#noticeform').prop('action','/supplier/post_add_brand');
             $('#myModal').modal();
         }
 
-        function editNotice(id){
+        function editBrand(id){
             $("#myModalLabel").text('编辑品牌');
-            $('#noticeform').prop('action','/base/post_edit_notice/'+id);
+            $('#noticeform').prop('action','/supplier/post_edit_brand/'+id);
             //补充表格数据
-
-            $('#title').val($.trim($('.notice_title_'+id).html()));
-            $('#status').val($.trim($('.notice_status_'+id).html()));
-            $('#pubdate').val($.trim($('.notice_pubdate_'+id).html()));
-            $('#content').val($.trim($('.notice_content_'+id).html()));
+            $('#brand_name').val($.trim($('.brand_name_'+id).html()));
+            $('#status').val($('.brand_status_'+id).val());
             $('#myModal').modal();
 
         }
 
         function submitform(){
             var datalist={
-                title: $('#title').val(),
+                brand_name: $('#brand_name').val(),
                 status:  $('#status').val(),
-                pubdate: $('#pubdate').val(),
-                content: $('#content').val()
             };
 
-            // datalist['title']=$('#title').val();
-            // datalist['status']=$('#status').val();
-            // datalist['pubdate']=$('#pubdate').val();
-            // datalist['content']=$('#content').val();
-            // console.log(datalist);
             var status=0;
             $("input.layui-input").each(function(){
                 if($(this).val()){
