@@ -4,31 +4,7 @@
     <!-- 你的HTML代码 -->
     <link rel="stylesheet" href="/layui/css/layui.css">
     <script src="/layui/layui.js"></script>
-    @if($status == 2)
-    <div class="alert alert-block alert-error fade in">
-        <button data-dismiss="alert" class="close" type="button">
-            ×
-        </button>
-        <h4 class="alert-heading">
-           失败
-        </h4>
-        <p>
-            {{$notice}}
-        </p>
-    </div>
-    @elseif($status ==1)
-    <div class="alert alert-block alert-success fade in">
-        <button data-dismiss="alert" class="close" type="button">
-            ×
-        </button>
-        <h4 class="alert-heading">
-            成功!
-        </h4>
-        <p>
-            {{$notice}}
-        </p>
-    </div>
-    @endif
+
 
 <div class="left-sidebar">
     <div class="row-fluid">
@@ -56,7 +32,7 @@
                 </div>
                 <div class="widget-body">
                     <div id="dt_example" class="example_alt_pagination">
-                        <table class="table table-condensed table-striped table-hover table-bordered pull-left" id="data-table">
+                        <table class="table table-condensed table-striped table-hover layui-table layui-form" id="data-table">
                             <thead>
                             <tr>
                                 <th>ID</th>
@@ -84,9 +60,9 @@
                                         <td class="notice_content_{{ $val->id }}">
                                             <input type="hidden" name="brand_status" class="brand_status_{{$val->id}}" value="{{ $val->status }}">
                                             @if($val->status ==1 )
-                                                显示
+                                                有效
                                             @else
-                                                隐藏
+                                                无效
                                             @endif</td>
                                         <td class="notice_operator_{{ $val->id }}">{{ $val->createor }}</td>
                                         <td class="notice_status_{{ $val->id }}">
@@ -175,6 +151,7 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal -->
     </div>
+
 </div>
 <div class="right-sidebar">
     <div class="wrapper">

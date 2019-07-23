@@ -69,11 +69,11 @@
                                             @endif
                                         </td>
                                         <td>{{ $val->created_at }}</td>
-                                        <td onclick="show({{ $val->auth_id }})" >
+                                        <td onclick="show({{ $val->auth_id }})" style="text-align: center;" >
                                             @if($val->is_leaf == 0 && $val->level ==1)
-                                            <div class="yincang_{{ $val->auth_id }}">显示</div>
+                                            <div class="yincang_{{ $val->auth_id }} btn btn-success">显示</div>
                                             @elseif($val->is_leaf == 0)
-                                            <div class="yincang_{{ $val->auth_id }}">隐藏</div>
+                                            <div class="yincang_{{ $val->auth_id }} btn btn-success">隐藏</div>
                                             @endif
                                         </td>
                                     </tr>
@@ -99,8 +99,16 @@
                                     <a class="fs1" aria-hidden="true" data-icon=""></a>
                         </span>
                     </div>
+
                     <div class="widget-body" style="margin-left:15px ">
                         @foreach($managelist as $list)
+                            @if($list->level ==1)
+                                <div class="manage_show_{{ $list->manage_id }}">
+                            @else
+                                <div class="manage_show_{{ $list->manage_id }}" style="display: none">
+                            @endif
+
+
                             @php
                                 echo  str_repeat('&nbsp;', 6*($list->level -1));
                             @endphp
@@ -110,10 +118,19 @@
                             <input type="checkbox" name="manage_id[]" class="rolemanage" id="manage_{{ $list->manage_id }}" value="{{ $list->manage_id }}" lay-filter="checkall" lay-skin="primary">
                         @endif
                             {{ $list->name }}
+                            <span  style="float:right;    margin-right: 30px;" onclick="manage_show({{ $list->manage_id }})">
+                                @if($list->is_leaf == 0 && $list->level ==1)
+                                    <div class="manage_yincang_{{ $list->manage_id }} btn btn-success">显示</div>
+                                @elseif($list->is_leaf == 0)
+                                    <div class="manage_yincang_{{ $list->manage_id }} btn btn-success">隐藏</div>
+                                @endif
+                            </span>
                             <hr>
+                            </div>
                         @endforeach
 
                     </div>
+
                     <div class="clearfix">
                     </div>
                     <div class="layui-form-item" style="margin: 10px">
@@ -212,6 +229,18 @@
                 $('.yincang_'+id).html('隐藏');
             }
         }
+        function  manage_show(id){
+            htmd =$('.manage_yincang_'+id).html();
+            if(htmd == '隐藏'){
+                $("div[class^='manage_show_"+id+"']").hide();
+                $('.manage_yincang_'+id).html('显示');
+                $("div[class='manage_show_"+id+"']").show();
+            }else{
+                $("div[class^='manage_show_"+id+"']").show();
+                $('.manage_yincang_'+id).html('隐藏');
+            }
+        }
+
 
     </script>
 

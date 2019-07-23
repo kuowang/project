@@ -40,8 +40,7 @@ class BrandController extends WebController
         $data['subnavid']   =4501;
         $data['pageauth']   =$this->user()->pageauth;
         $data['noticelist']     =$this->user()->notice;
-        $data['status']=$request->input('status',0); //1成功 2失败
-        $data['notice']=$request->input('notice','成功'); //提示信息
+
         return view('SupplierBrand.brand.index',$data);
     }
     //查询公告信息
@@ -94,7 +93,7 @@ class BrandController extends WebController
             'editor'=>$this->user()->name,
             'updated_at'=>date('Y-m-d'),
         ];
-        DB::table('notice')->where('id',$id)->update($data);
+        DB::table('brand')->where('id',$id)->update($data);
         return $this->success('修改成功');
     }
 
