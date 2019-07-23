@@ -49,9 +49,7 @@
                             </form></label>
                     </div>
                     @endif
-                    <span class="tools">
-                      <a class="fs1" aria-hidden="true" data-icon="&#xe090;"></a>
-                    </span>
+
                 </div>
                 <div class="widget-body">
                     <div id="dt_example" class="example_alt_pagination">

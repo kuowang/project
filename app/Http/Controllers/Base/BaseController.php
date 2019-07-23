@@ -127,10 +127,10 @@ class BaseController extends WebController
 
         $search =$request->input('search','');
         $page =$request->input('page',1);
-        $rows =$request->input('rows',20);
+        $rows =$request->input('rows',2);
         $datalist =$this->getNoticeList($search,$page,$rows);
         //分页
-        $url='/base/notice_list?search='.$search.'&rows='.$rows;
+        $url='/base/getNoticeInfo?search='.$search.'&rows='.$rows;
         $data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
         $data['data']   =$datalist['data'];
         $data['search'] =$search;
@@ -140,8 +140,6 @@ class BaseController extends WebController
         $data['navid']      =60;
         $data['subnavid']   =6002;
         $data['pageauth']   =$this->user()->pageauth;
-        $data['status']=$request->input('status',0); //1成功 2失败
-        $data['notice']=$request->input('notice','成功'); //提示信息
         return view('base.notice.getNoticeInfo',$data);
     }
 

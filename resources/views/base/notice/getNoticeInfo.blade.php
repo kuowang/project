@@ -20,55 +20,21 @@
                                 <button type="submit" class="btn">搜索</button>
                             </form></label>
                     </div>
-                    <span class="tools">
-                      <a class="fs1" aria-hidden="true" data-icon="&#xe090;"></a>
-                    </span>
+
                 </div>
                 <div class="widget-body">
                     <div id="dt_example" class="example_alt_pagination">
-                        <table class="table table-condensed table-striped table-hover table-bordered pull-left" id="data-table">
-
-                            <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>标题</th>
-                                <th style="width: 40%">内容</th>
-                                <th>操作人</th>
-                                <th>状态</th>
-                                <th>发布时间</th>
-                                <th>创建时间</th>
-
-                            </tr>
-                            </thead>
-                            <tbody>
-
-                            @foreach ($data as $k =>$val)
-                                @if($k%2 ==1)
-                                    <tr class="gradeC">
-                                @else
-                                    <tr class="gradeA success">
-                                @endif
-                                        <td class="notice_id_{{ $val->id }}">
-                                            {{ $val->id }}
-                                        </td>
-                                        <td class="notice_title_{{ $val->id }}">{{ $val->title }}</td>
-                                        <td class="notice_content_{{ $val->id }}">{{ $val->content }}</td>
-                                        <td class="notice_operator_{{ $val->id }}">{{ $val->operator }}</td>
-                                        <td class="notice_status_{{ $val->id }}">
-                                            @if($val->status ==1 )
-                                                显示
-                                            @else
-                                                隐藏
-                                            @endif
-                                        </td>
-                                        <td class="notice_pubdate_{{ $val->id }}">{{ $val->pubdate }}</td>
-                                        <td >{{ $val->created_at }}</td>
-                                </tr>
-
-                            @endforeach
-
-                            </tbody>
-                        </table>
+                        @foreach ($data as $k =>$val)
+                        <div class="layui-col-md12">
+                            <div class="layui-card">
+                                <div class="layui-card-header layui-elem-quote">{{ $val->title }}</div>
+                                <div class="layui-card-body">
+                                    {{ $val->content }}
+                                    <span style="float: right;">发布时间：{{ substr($val->pubdate,0,10) }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
                         @php
                             echo $page;
                         @endphp
