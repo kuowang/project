@@ -5,7 +5,34 @@
     <link rel="stylesheet" href="/layui/css/layui.css">
     <script src="/layui/layui.js"></script>
 
-<div class="left-sidebar">
+    @if($status == 2)
+        <div class="alert alert-block alert-error fade in">
+            <button data-dismiss="alert" class="close" type="button">
+                ×
+            </button>
+            <h4 class="alert-heading">
+                失败
+            </h4>
+            <p>
+                {{$notice}}
+            </p>
+        </div>
+    @elseif($status ==1)
+        <div class="alert alert-block alert-success fade in">
+            <button data-dismiss="alert" class="close" type="button">
+                ×
+            </button>
+            <h4 class="alert-heading">
+                成功!
+            </h4>
+            <p>
+                {{$notice}}
+            </p>
+        </div>
+    @endif
+
+
+    <div class="left-sidebar">
     <div class="row-fluid">
         <div class="span12">
             <div class="widget">
@@ -13,7 +40,7 @@
                     <div class="title">
                         供应商列表<a id="dynamicTable"></a>
                         @if(in_array(450101,$pageauth))
-                        <a class="btn btn-success" title="新增供应商" id="addnotice"  onclick="addBrand('新增供应商')">
+                        <a class="btn btn-success" title="新增供应商" id="addnotice"  href="/supplier/addSupplier">
                             <i class="layui-icon">新增供应商</i>
                         </a>
                         @endif
@@ -42,6 +69,7 @@
                                 <th>联系人</th>
                                 <th>联系人电话</th>
                                 <th>联系人电子邮箱</th>
+                                <th>供应商状态</th>
                                 <th style="width: 150px">操作</th>
                             </tr>
                             </thead>
@@ -57,6 +85,14 @@
                                             {{ $k+1 }}
                                         </td>
                                         <td class="brand_name_{{ $val->id }}">{{ $val->brand_name }}</td>
+                                        <td >{{ $val->manufactor }}</td>
+                                        <td >{{ $val->supplier }}</td>
+                                        <td >{{ $val->address }}</td>
+                                        <td >{{ $val->contacts }}</td>
+                                        <td >{{ $val->telephone }}</td>
+                                        <td >{{ $val->email }}</td>
+
+
                                         <td class="notice_content_{{ $val->id }}">
                                             <input type="hidden" name="brand_status" class="brand_status_{{$val->id}}" value="{{ $val->status }}">
                                             @if($val->status ==1 )
@@ -64,12 +100,7 @@
                                             @else
                                                 隐藏
                                             @endif</td>
-                                        <td class="notice_operator_{{ $val->id }}">{{ $val->createor }}</td>
-                                        <td class="notice_status_{{ $val->id }}">
-                                            {{ $val->created_at }}
-                                        </td>
-                                        <td >{{ $val->editor }}</td>
-                                        <td >{{ $val->updated_at }}</td>
+
                                         <td class="td-manage ">
                                             @if(in_array(450103,$pageauth))
                                             <a title="编辑供应商" class="btn btn-success" onclick="editBrand({{ $val->id }})" href="javascript:;">

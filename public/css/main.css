@@ -606,7 +606,7 @@ a.text-success:hover {
   color: #356635; }
 
 h1, h2, h3, h4, h5, h6 {
-  margin: 10px 0;
+  margin: auto;
   font-family: inherit;
   font-weight: bold;
   line-height: 20px;
@@ -6111,6 +6111,8 @@ header {
             color: #ed6d49;
             text-transform: uppercase;
             margin-bottom: 0; }
+        .dashboard-wrapper .right-sidebar .wrapper .stats li:nth-child(1) {
+          color: #74b749; height: 20px;}
         .dashboard-wrapper .right-sidebar .wrapper .stats li:nth-child(2) p {
           color: #74b749; }
         .dashboard-wrapper .right-sidebar .wrapper .stats li:nth-child(3) p {
