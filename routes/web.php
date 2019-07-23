@@ -91,6 +91,7 @@ Route::group(['prefix' => 'architectural','namespace' => 'Architectural','middle
     Route::post('/post_edit_material/{id}',     'ArchitecturalController@postEditMaterial'); //提交建筑工程子系统材料信息
 
 });
+
 //基础信息管理类的控制组 需要登录
 Route::group(['prefix' => 'base','namespace' => 'Base','middleware' => 'auth'], function () {
     //公告管理
@@ -100,5 +101,18 @@ Route::group(['prefix' => 'base','namespace' => 'Base','middleware' => 'auth'], 
     Route::post('/post_add_notice',          'BaseController@postAddNotice');      //提交新增公告
     Route::post('/post_edit_notice/{id}',         'BaseController@postEditNotice');      //提交编辑公告
     Route::get('/getNoticeInfo',                 'BaseController@getNoticeInfo');      //公告列表所有人能看的页面
+
+});
+
+//供应商品牌管理类的控制组 需要登录
+Route::group(['prefix' => 'supplier','namespace' => 'SupplierBrand','middleware' => 'auth'], function () {
+    //品牌管理
+    Route::get('/brandList',                   'BrandController@brandList');      //品牌列表
+
+    Route::get('/add_notice',                   'BrandController@addNotice');      //添加公告
+    Route::get('/edit_notice/{id}',             'BrandController@editNotice');      //编辑公告
+    Route::post('/post_add_notice',          'BrandController@postAddNotice');      //提交新增公告
+    //供应商管理
+
 
 });

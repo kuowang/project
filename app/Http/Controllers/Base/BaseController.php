@@ -127,7 +127,7 @@ class BaseController extends WebController
 
         $search =$request->input('search','');
         $page =$request->input('page',1);
-        $rows =$request->input('rows',2);
+        $rows =$request->input('rows',20);
         $datalist =$this->getNoticeList($search,$page,$rows);
         //分页
         $url='/base/getNoticeInfo?search='.$search.'&rows='.$rows;

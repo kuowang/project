@@ -65,9 +65,7 @@
                                 <button type="submit" class="btn">搜索</button>
                             </form></label>
                     </div>
-                    <span class="tools">
-                      <a class="fs1" aria-hidden="true" data-icon="&#xe090;"></a>
-                    </span>
+
                 </div>
                 <div class="widget-body">
                     <div id="dt_example" class="example_alt_pagination">
