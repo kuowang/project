@@ -32,6 +32,7 @@ class BrandController extends WebController
         $data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
         $data['data']   =$datalist['data'];
         $data['search'] =$search;
+        $data['uid'] =$this->user()->id;
 
         //用户权限部分
         $data['username']   =$this->user()->name;
@@ -39,6 +40,7 @@ class BrandController extends WebController
         $data['navid']      =45;
         $data['subnavid']   =4501;
         $data['pageauth']   =$this->user()->pageauth;
+        $data['manageauth']   =$this->user()->manageauth;
         $data['noticelist']     =$this->user()->notice;
 
         return view('SupplierBrand.brand.index',$data);

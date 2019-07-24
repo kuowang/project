@@ -13,16 +13,16 @@
                 <div class="widget-header">
                     <div class="title">
                         品牌列表<a id="dynamicTable"></a>
-                        @if(in_array(450101,$pageauth))
+                        @if(in_array(450101,$pageauth) || in_array(4502,$manageauth))
                         <a class="btn btn-success" title="新增品牌" id="addnotice"  onclick="addBrand('新增品牌')">
                             <i class="layui-icon">新增品牌</i>
                         </a>
                         @endif
                     </div>
-                    @if(in_array(450102,$pageauth))
+                    @if(in_array(450102,$pageauth) || in_array(4501,$manageauth))
                     <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                         <label>
-                            <form class="form-search" action="/base/notice_list" method="get">
+                            <form class="form-search" action="/supplier/brandList" method="get">
                                 品牌名称: &nbsp;<input type="text" name="search" value="{{ $search }}" class="input-medium search-query">
                                 <button type="submit" class="btn">搜索</button>
                             </form></label>
@@ -71,7 +71,7 @@
                                         <td >{{ $val->editor }}</td>
                                         <td >{{ $val->updated_at }}</td>
                                         <td class="td-manage ">
-                                            @if(in_array(450103,$pageauth))
+                                            @if((in_array(450103,$pageauth) && $val->edit_uid == $uid) || in_array(4503,$manageauth))
                                             <a title="编辑品牌" class="btn btn-success" onclick="editBrand({{ $val->id }})" href="javascript:;">
                                                 <i class="layui-icon">编辑品牌</i>
                                             </a>
