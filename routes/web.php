@@ -119,7 +119,11 @@ Route::group(['prefix' => 'supplier','namespace' => 'SupplierBrand','middleware'
     Route::post('/postAddSupplier',               'SupplierController@postAddSupplier');      //提交新增供应商
     Route::post('/postEditSupplier/{id}',         'SupplierController@postEditSupplier');      //提交编辑供应商
     Route::get('/deleteSupplierBrand/{id}',         'SupplierController@deleteSupplierBrand');      //提交编辑供应商
+});
 
-
+//部品部件管理类的控制组 需要登录
+Route::group(['prefix' => 'material','namespace' => 'Material','middleware' => 'auth'], function () {
+    //材料管理
+    Route::get('/materialList',                   'MaterialController@materialList');      //部品部件列表
 
 });

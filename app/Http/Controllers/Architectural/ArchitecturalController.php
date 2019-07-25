@@ -405,8 +405,8 @@ class ArchitecturalController extends WebController
         $uid =$this->user()->id;
         $username =$this->user()->name;
         $architectural =DB::table('architectural_sub_system')->where('id',$id)->first();
-        if(empty($architectural) || $architectural->uid != $uid){
-            return redirect('/architectural/architectureList?status=2&notice='.'只有创建人才能编辑');
+        if(empty($architectural) && $architectural->uid != $uid && !in_array(3506,(array)$this->user()->manageauth) ){
+            return redirect('/architectural/architectureList?status=2&notice='.'只有创建人和管理人员才能编辑');
         }
 
         DB::beginTransaction();
