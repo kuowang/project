@@ -49,7 +49,11 @@
                     <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                         <label>
                             <form class="form-search" action="/supplier/supplierList" method="get">
-                                供应商名称: &nbsp;<input type="text" name="search" value="{{ $search }}" class="input-medium search-query">
+                                品牌名称: &nbsp;<input type="text" name="brand_name" value="{{ $brand_name }}" class="input-medium search-query">
+                                厂家名称: &nbsp;<input type="text" name="manufactor" value="{{ $manufactor }}" class="input-medium search-query">
+                                供应商名称: &nbsp;<input type="text" name="supplier" value="{{ $supplier }}" class="input-medium search-query">
+                                地址: &nbsp;<input type="text" name="address" value="{{ $address }}" class="input-medium search-query">
+
                                 <button type="submit" class="btn">搜索</button>
                             </form></label>
                     </div>

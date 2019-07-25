@@ -24,15 +24,22 @@ class SupplierController extends WebController
     //供应商列表
     public function supplierList(Request $request){
 
-        $search =$request->input('search','');
+        $brand_name =$request->input('brand_name','');
+        $manufactor =$request->input('manufactor','');
+        $supplier =$request->input('supplier','');
+        $address =$request->input('address','');
+
         $page =$request->input('page',1);
         $rows =$request->input('rows',20);
-        $datalist =$this->getSupplierList($search,$page,$rows);
+        $datalist =$this->getSupplierList($brand_name,$manufactor,$supplier,$address,$page,$rows);
         //分页
-        $url='/supplier/supplierList?search='.$search.'&rows='.$rows;
+        $url='/supplier/supplierList?brand_name='.$brand_name.'&manufactor='.$manufactor.'&supplier='.$supplier.'&address='.$address.'&rows='.$rows;
         $data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
         $data['data']   =$datalist['data'];
-        $data['search'] =$search;
+        $data['brand_name'] =$brand_name;
+        $data['manufactor'] =$manufactor;
+        $data['supplier'] =$supplier;
+        $data['address'] =$address;
         $data['uid'] =$this->user()->id;
 
         //用户权限部分
@@ -49,7 +56,7 @@ class SupplierController extends WebController
     }
 
     //查询供应商信息
-    private function  getSupplierList($search,$page,$rows){
+    private function  getSupplierList($brand_name='',$manufactor='',$supplier='',$address='',$page,$rows){
 
         $db=DB::table('supplier')
             ->leftjoin('supplier_brand',function($json){
@@ -58,10 +65,20 @@ class SupplierController extends WebController
             })
             ->leftjoin('brand','brand.id','=','supplier_brand.brand_id');
 
-        if(!empty($search)){
-            $db->where('supplier','like','%'.$search.'%')
-            ->orwhere('manufactor','like','%'.$search.'%');
+        if(!empty($brand_name)){
+            $db->where('brand_name','like','%'.$brand_name.'%');
         }
+        if(!empty($manufactor)){
+            $db->where('manufactor','like','%'.$manufactor.'%');
+        }
+        if(!empty($supplier)){
+            $db->where('supplier','like','%'.$supplier.'%');
+        }
+        if(!empty($address)){
+            $db->where('address','like','%'.$address.'%');
+        }
+
+
         $data['count'] =$db->count();
         $data['data']= $db->orderby('brand.id','desc')
             ->skip(($page-1)*$rows)
