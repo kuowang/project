@@ -34,6 +34,8 @@ class BrandController extends WebController
         $data['search'] =$search;
         $data['uid'] =$this->user()->id;
 
+        $data['supplier'] =DB::table('supplier')->where('status',1)->get();
+
         //用户权限部分
         $data['username']   =$this->user()->name;
         $data['nav']        =$this->user()->nav;
@@ -66,7 +68,7 @@ class BrandController extends WebController
 
         $brand_name=$request->input('brand_name');
         $status =(int)$request->input('status',1);
-
+        $supplier =$request->input('supplier',[]);
         if(empty($brand_name) ){
             return $this->error('内容不能为空');
         }
@@ -77,14 +79,28 @@ class BrandController extends WebController
             'createor'=>$this->user()->name,
             'created_at'=>date('Y-m-d'),
         ];
-        DB::table('brand')->insert($data);
+        $id =DB::table('brand')->insertGetId($data);
+        if(!empty($supplier)){
+            $datalist=[];
+            foreach($supplier as $value){
+                $datalist[]=[
+                    'brand_id'=>$id,
+                    'supplier_id'=>$value,
+                    'status'=>$status,
+                    'create_uid'=>$this->user()->id,
+                    'createor'=>$this->user()->name,
+                    'created_at'=>date('Y-m-d'),
+                ];
+            }
+            DB::table('supplier_brand')->insert($datalist);
+        }
         return $this->success('提交成功');
     }
     //提交编辑公告
     public function postEditBrand(Request $request,$id){
         $brand_name =$request->input('brand_name');
         $status =(int)$request->input('status',1);
-
+        $supplier =$request->input('supplier',[]);
         if(empty($brand_name) ){
             return json_encode($request->all());
         }
@@ -96,8 +112,30 @@ class BrandController extends WebController
             'updated_at'=>date('Y-m-d'),
         ];
         DB::table('brand')->where('id',$id)->update($data);
+
+        if(!empty($supplier)){
+            DB::table('supplier_brand')->where('brand_id',$id)
+                ->update(['status'=>0,'editor'=>$this->user()->name,'edit_uid'=>$this->user()->id,'updated_at'=>date('Y-m-d')]);
+            $datalist=[];
+            foreach($supplier as $value){
+                $datalist[]=[
+                    'brand_id'=>$id,
+                    'supplier_id'=>$value,
+                    'status'=>$status,
+                    'create_uid'=>$this->user()->id,
+                    'createor'=>$this->user()->name,
+                    'created_at'=>date('Y-m-d'),
+                ];
+            }
+            DB::table('supplier_brand')->insert($datalist);
+
+        }
         return $this->success('修改成功');
     }
-
+    //品牌对应的供应商列表
+    public function brandSupplierList(Request $request,$id){
+        $data =DB::table('supplier_brand')->where('brand_id',$id)->where('status',1)->pluck('supplier_id');
+        return $this->success($data);
+    }
 
 }

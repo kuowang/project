@@ -71,7 +71,7 @@
                                         <td >{{ $val->editor }}</td>
                                         <td >{{ $val->updated_at }}</td>
                                         <td class="td-manage ">
-                                            @if((in_array(450103,$pageauth) && $val->edit_uid == $uid) || in_array(4503,$manageauth))
+                                            @if((in_array(450103,$pageauth) && $val->create_uid == $uid) || in_array(4503,$manageauth))
                                             <a title="编辑品牌" class="btn btn-success" onclick="editBrand({{ $val->id }})" href="javascript:;">
                                                 <i class="layui-icon">编辑品牌</i>
                                             </a>
@@ -135,8 +135,21 @@
                                             </select>
                                         </div>
                                     </div>
-                            </div>
 
+                                <div class="control-group">
+                                    <label class="control-label" for="role">
+                                        供应商:
+                                    </label>
+                                    <div class="controls">
+                                        @foreach ($supplier as $val )
+                                            <label class="checkbox">
+                                                <input type="checkbox" id="supplier_{{ $val->id }}" class="supplier" name="supplier[]" value="{{ $val->id }}">
+                                                {{ $val->supplier }}({{ $val->manufactor }})
+                                            </label>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -188,16 +201,36 @@
             //补充表格数据
             $('#brand_name').val($.trim($('.brand_name_'+id).html()));
             $('#status').val($('.brand_status_'+id).val());
+            //获取品牌对应的供应商信息
+            $.ajax({
+                url:'/supplier/brandSupplierList/'+id,
+                type:'get',
+                // contentType: 'application/json',
+                success:function(data){
+                    console.log(data);
+                    if(data.status == 1){
+                        arr =data.data;
+                        for(var i=0;i<arr.length;i++){
+                            console.log(arr[i]);
+                            $('#supplier_'+arr[i]).prop('checked',true);
+                        }
+                    }
+                },
+            });
             $('#myModal').modal();
-
         }
 
         function submitform(){
+            var supplier=new Array();
+            $('input[name="supplier[]"]:checked').each(function(){
+                supplier.push($(this).val());//向数组中添加元素
+            });
             var datalist={
                 brand_name: $('#brand_name').val(),
                 status:  $('#status').val(),
+                supplier:supplier,
             };
-
+            console.log(datalist);
             var status=0;
             $("input.layui-input").each(function(){
                 if($(this).val()){
@@ -222,7 +255,7 @@
                         console.log(data);
                         if(data.status == 1){
                             $('#myModal').modal('hide');
-                            location.href=location.href
+                            //location.href=location.href
                         }else{
                             layui.use('layer', function(){
                                 var layer = layui.layer;
