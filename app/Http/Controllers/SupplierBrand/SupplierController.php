@@ -7,7 +7,6 @@ use App\Models\UserManageAuthority;
 use Illuminate\Http\Request;
 use App\Http\Controllers\WebController;
 use Illuminate\Support\Facades\DB;
-use App\Models\SystemSetting;
 
 class SupplierController extends WebController
 {
@@ -52,10 +51,13 @@ class SupplierController extends WebController
     //查询供应商信息
     private function  getSupplierList($search,$page,$rows){
 
-        $db=DB::table('supplier_brand')
-            ->join('supplier','supplier_brand.supplier_id','=','supplier.id')
-            ->join('brand','brand.id','=','supplier_brand.brand_id')
-            ->where('supplier_brand.status',1);
+        $db=DB::table('supplier')
+            ->leftjoin('supplier_brand',function($json){
+                $json->on('supplier_brand.supplier_id','=','supplier.id')
+                    ->where('supplier_brand.status',1);
+            })
+            ->leftjoin('brand','brand.id','=','supplier_brand.brand_id');
+
         if(!empty($search)){
             $db->where('supplier','like','%'.$search.'%')
             ->orwhere('manufactor','like','%'.$search.'%');
@@ -68,7 +70,7 @@ class SupplierController extends WebController
                 'supplier_brand.brand_id','supplier.supplier',
                 'manufactor','address','contacts','telephone','email','supplier.creator',
                 'supplier.creat_user_name','supplier.created_at',
-                'supplier.status','supplier_id'])
+                'supplier.status','supplier.id as supplier_id'])
             ->get();
 
         return $data;
@@ -199,13 +201,9 @@ class SupplierController extends WebController
             'updated_at'=>date('Y-m-d'),
         ];
         DB::beginTransaction();
-        $rst =DB::table('supplier')->where('id',$id)->update($data);
-        if(empty($rst)){
-            DB::rollback();
-            return redirect('/supplier/supplierList?status=2&notice='.'创建供应商失败，请重新填写');
-        }
-        DB::table('supplier_brand')->where('supplier_id',$id)
-            ->update(['status'=>0,'editor'=>$this->user()->name,'edit_uid'=>$this->user()->id,'updated_at'=>date('Y-m-d')]);
+        DB::table('supplier')->where('id',$id)->update($data);
+        DB::table('supplier_brand')->where('supplier_id',$id)->delete();
+        //->update(['status'=>0,'editor'=>$this->user()->name,'edit_uid'=>$this->user()->id,'updated_at'=>date('Y-m-d')]);
         if(!empty($brand) && $id){
             $datalist=[];
             foreach($brand as $value){
@@ -224,7 +222,13 @@ class SupplierController extends WebController
         return redirect('/supplier/supplierList?status=1&notice='.'编辑供应商成功');
     }
 
-
+    //品牌对应的供应商列表
+    public function deleteSupplierBrand(Request $request,$id){
+        $data =DB::table('supplier_brand')
+            ->where('id',$id)
+            ->update(['status'=>0]);
+        return $this->success($data);
+    }
 
 
 }

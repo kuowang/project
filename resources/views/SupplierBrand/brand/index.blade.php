@@ -255,7 +255,7 @@
                         console.log(data);
                         if(data.status == 1){
                             $('#myModal').modal('hide');
-                            //location.href=location.href
+                            location.href=location.href
                         }else{
                             layui.use('layer', function(){
                                 var layer = layui.layer;

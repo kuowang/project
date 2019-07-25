@@ -45,7 +45,7 @@
                         </a>
                         @endif
                     </div>
-                    @if(in_array(450102,$pageauth) || in_array(4510,$manageauth))
+                    @if(in_array(450201,$pageauth) || in_array(4510,$manageauth))
                     <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                         <label>
                             <form class="form-search" action="/supplier/supplierList" method="get">
@@ -96,22 +96,25 @@
                                         <td class="notice_content_{{ $val->id }}">
                                             <input type="hidden" name="brand_status" class="brand_status_{{$val->id}}" value="{{ $val->status }}">
                                             @if($val->status ==1 )
-                                                显示
+                                                有效
                                             @else
-                                                隐藏
-                                            @endif</td>
+                                                无效
+                                            @endif
+                                        </td>
 
                                         <td class="td-manage ">
-                                            @if((in_array(450103,$pageauth) && $val->creator == $uid ) || in_array(4512,$manageauth))
+                                            @if((in_array(450202,$pageauth) && $val->creator == $uid ) || in_array(4512,$manageauth))
                                             <a title="编辑供应商" class="btn btn-success"  href="/supplier/editSupplier/{{ $val->supplier_id }}">
                                                 <i class="layui-icon">编辑</i>
                                             </a>
                                             @endif
-                                                @if((in_array(450103,$pageauth)&& $val->creator == $uid ) || in_array(4513,$manageauth))
-                                                    <a title="删除" class="btn btn-success" onclick="editBrand({{ $val->id }})" href="javascript:;">
-                                                        <i class="layui-icon">删除</i>
-                                                    </a>
+                                            @if((in_array(450203,$pageauth)&& $val->creator == $uid ) || in_array(4513,$manageauth))
+                                                @if(!empty($val->id))
+                                                <a title="删除" class="btn btn-success" onclick="deleteSupplierBrand({{ $val->id }})" href="javascript:;">
+                                                    <i class="layui-icon">删除</i>
+                                                </a>
                                                 @endif
+                                            @endif
                                         </td>
                                 </tr>
 
@@ -149,5 +152,23 @@
     <span style="float: right;margin-bottom: 10px"><a href="/base/getNoticeInfo" style="color: #0000FF"> 查看更多 >></a></span>
     <hr class="hr-stylish-1">
 </div>
-
+<script type="text/javascript">
+    function deleteSupplierBrand(id){
+        $.ajax({
+            url:'/supplier/deleteSupplierBrand/'+id,
+            type:'get',
+            // contentType: 'application/json',
+            success:function(data){
+                console.log(data);
+                if(data.status == 1){
+                    layui.use('layer', function(){
+                        var layer = layui.layer;
+                        layer.msg('删除成功');
+                        setTimeout(function(){ location.href=location.href; }, 1000);
+                    });
+                }
+            },
+        });
+    }
+</script>
 @endsection

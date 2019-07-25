@@ -76,7 +76,7 @@
                                     状态:
                                 </label>
                                 <div class="controls">
-                                    <select name="status[]" id="stateAndCity" class="span6" style="min-width: 80px">
+                                    <select name="status" id="stateAndCity" class="span6" style="min-width: 80px">
                                         @if($supplier->status == 1)
                                             <option value="1" selected="selected">有效</option>
                                             <option value="0">无效</option>

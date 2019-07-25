@@ -118,6 +118,7 @@ Route::group(['prefix' => 'supplier','namespace' => 'SupplierBrand','middleware'
     Route::get('/editSupplier/{id}',              'SupplierController@editSupplier');      //供应商编辑页面
     Route::post('/postAddSupplier',               'SupplierController@postAddSupplier');      //提交新增供应商
     Route::post('/postEditSupplier/{id}',         'SupplierController@postEditSupplier');      //提交编辑供应商
+    Route::get('/deleteSupplierBrand/{id}',         'SupplierController@deleteSupplierBrand');      //提交编辑供应商
 
 
 

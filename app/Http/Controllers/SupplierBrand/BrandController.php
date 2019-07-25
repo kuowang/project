@@ -86,7 +86,7 @@ class BrandController extends WebController
                 $datalist[]=[
                     'brand_id'=>$id,
                     'supplier_id'=>$value,
-                    'status'=>$status,
+                    'status'=>1,
                     'create_uid'=>$this->user()->id,
                     'createor'=>$this->user()->name,
                     'created_at'=>date('Y-m-d'),
@@ -114,14 +114,14 @@ class BrandController extends WebController
         DB::table('brand')->where('id',$id)->update($data);
 
         if(!empty($supplier)){
-            DB::table('supplier_brand')->where('brand_id',$id)
-                ->update(['status'=>0,'editor'=>$this->user()->name,'edit_uid'=>$this->user()->id,'updated_at'=>date('Y-m-d')]);
+            DB::table('supplier_brand')->where('brand_id',$id)->delete();
+                //->update(['status'=>0,'editor'=>$this->user()->name,'edit_uid'=>$this->user()->id,'updated_at'=>date('Y-m-d')]);
             $datalist=[];
             foreach($supplier as $value){
                 $datalist[]=[
                     'brand_id'=>$id,
                     'supplier_id'=>$value,
-                    'status'=>$status,
+                    'status'=>1,
                     'create_uid'=>$this->user()->id,
                     'createor'=>$this->user()->name,
                     'created_at'=>date('Y-m-d'),
