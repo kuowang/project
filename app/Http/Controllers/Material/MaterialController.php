@@ -23,23 +23,20 @@ class MaterialController extends WebController
 
     //供应商列表
     public function materialList(Request $request){
-
-        $brand_name =$request->input('brand_name','');
-        $manufactor =$request->input('manufactor','');
-        $supplier =$request->input('supplier','');
-        $address =$request->input('address','');
+        $system_name =$request->input('system_name','');
+        $sub_system_name =$request->input('sub_system_name','');
+        $material_name =$request->input('material_name','');
 
         $page =$request->input('page',1);
         $rows =$request->input('rows',20);
-        $datalist =$this->getMaterialList($brand_name,$manufactor,$supplier,$address,$page,$rows);
+        $datalist =$this->getMaterialList($system_name,$sub_system_name,$material_name,$page,$rows);
         //分页
-        $url='/material/materialList?brand_name='.$brand_name.'&manufactor='.$manufactor.'&supplier='.$supplier.'&address='.$address.'&rows='.$rows;
+        $url='/material/materialList?system_name='.$system_name.'&sub_system_name='.$sub_system_name.'&material_name='.$material_name.'&rows='.$rows;
         $data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
         $data['data']   =$datalist['data'];;
-        $data['brand_name'] =$brand_name;
-        $data['manufactor'] =$manufactor;
-        $data['supplier'] =$supplier;
-        $data['address'] =$address;
+        $data['system_name'] =$system_name;
+        $data['sub_system_name'] =$sub_system_name;
+        $data['material_name'] =$material_name;
         $data['uid'] =$this->user()->id;
 
         //用户权限部分
@@ -55,8 +52,8 @@ class MaterialController extends WebController
         return view('material.index',$data);
     }
 
-    //查询供应商信息
-    private function  getMaterialList($brand_name='',$manufactor='',$supplier='',$address='',$page,$rows){
+    //查询材料信息
+    private function  getMaterialList($system_name='',$sub_system_name='',$material_name='',$page,$rows){
 
         $db=DB::table('material')
             ->join('architectural_system','architectural_system.id','=','material.architectural_id')
@@ -65,27 +62,30 @@ class MaterialController extends WebController
             ->where('architectural_sub_system.status',1)
             ->where('material.status',1);
 
-        if(!empty($brand_name)){
-            $db->where('brand_name','like','%'.$brand_name.'%');
+        if(!empty($system_name)){
+            $db->where('system_name','like','%'.$system_name.'%');
         }
-        if(!empty($manufactor)){
-            $db->where('manufactor','like','%'.$manufactor.'%');
+        if(!empty($sub_system_name)){
+            $db->where('sub_system_name','like','%'.$sub_system_name.'%');
         }
-        if(!empty($supplier)){
-            $db->where('supplier','like','%'.$supplier.'%');
+        if(!empty($material_name)){
+            $db->where('material_name','like','%'.$material_name.'%');
         }
-        if(!empty($address)){
-            $db->where('address','like','%'.$address.'%');
-        }
-
 
         $data['count'] =$db->count();
         $data['data']= $db->orderby('architectural_system.system_code')
             ->orderby('sub_system_code')
+            ->orderby('material.sort')
+            ->select(['material.id','architectural_system.system_code','system_name','engineering_name',
+                'sub_system_name','sub_system_code','material_name',
+                'material_code','material_type','position',
+                'purpose','material_number','characteristic',
+                'waste_rate','material.sort','material_created_uid',
+                'material_created_at','material_edit_uid','material_updated_at',
+                'budget_unit','purchase_unit','pack_specification','pack_claim'])
             ->skip(($page-1)*$rows)
             ->take($rows)
             ->get();
-
         return $data;
     }
 

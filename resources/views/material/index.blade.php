@@ -45,9 +45,9 @@
                     <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                         <label>
                             <form class="form-search" action="/material/materialList" method="get">
-                                系统工程: &nbsp;<input type="text" name="brand_name" value="{{ $brand_name }}" class="input-medium search-query">
-                                子系统工程: &nbsp;<input type="text" name="manufactor" value="{{ $manufactor }}" class="input-medium search-query">
-                                材料名称: &nbsp;<input type="text" name="supplier" value="{{ $supplier }}" class="input-medium search-query">
+                                系统工程: &nbsp;<input type="text" name="system_name" value="{{ $system_name }}" class="input-medium search-query">
+                                子系统工程: &nbsp;<input type="text" name="sub_system_name" value="{{ $sub_system_name }}" class="input-medium search-query">
+                                材料名称: &nbsp;<input type="text" name="material_name" value="{{ $material_name }}" class="input-medium search-query">
                                 <button type="submit" class="btn">搜索</button>
                             </form></label>
                     </div>
@@ -67,7 +67,7 @@
                                 <th>采购单位</th>
                                 <th>包装规格</th>
                                 <th>包装要求</th>
-                                <th style="width: 150px">操作</th>
+                                <th style="width: 190px">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -107,25 +107,24 @@
                                         </td>
                                         <td class="brand_name_{{ $val->id }}">{{$val->material_name}}</td>
                                         <td >{{$val->material_code}}</td>
-                                        <td style="max-width:10%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{$val->characteristic}}</td>
-                                        <td ></td>
-                                        <td ></td>
-                                        <td ></td>
-                                        <td class="notice_content_{{ $val->id }}">
-                                            @if($val->status ==1 )
-                                                有效
-                                            @else
-                                                <span class="btn btn-warning">无效</span>
-                                            @endif
-                                        </td>
+                                        <td >{{$val->characteristic}}</td>
+                                        <td >{{$val->budget_unit}}</td>
+                                        <td >{{$val->purchase_unit}}</td>
+                                        <td >{{$val->pack_specification}}</td>
+                                        <td >{{$val->pack_claim}}</td>
 
                                         <td class="td-manage ">
-                                            @if((in_array(450202,$pageauth) && $val->uid == $uid ) || in_array(4512,$manageauth))
-                                            <a title="编辑供应商" class="btn btn-success"  href="/supplier/editSupplier/{{ $val->id }}">
+                                        @if((in_array(450202,$pageauth) && $val->material_created_uid == $uid ) || in_array(4512,$manageauth))
+                                            <a title="查看详情" class="btn btn-info"  href="/supplier/editSupplier/{{ $val->id }}">
+                                                <i class="layui-icon">详情</i>
+                                            </a>
+                                        @endif
+                                        @if((in_array(450202,$pageauth) && $val->material_created_uid == $uid ) || in_array(4512,$manageauth))
+                                            <a title="编辑" class="btn btn-success"  href="/supplier/editSupplier/{{ $val->id }}">
                                                 <i class="layui-icon">编辑</i>
                                             </a>
                                             @endif
-                                            @if((in_array(450203,$pageauth)&& $val->uid == $uid ) || in_array(4513,$manageauth))
+                                            @if((in_array(450203,$pageauth)&& $val->material_created_uid == $uid ) || in_array(4513,$manageauth))
                                                 @if(!empty($val->id))
                                                 <a title="删除" class="btn btn-danger" onclick="deleteSupplierBrand({{ $val->id }})" href="javascript:;">
                                                     <i class="layui-icon">删除</i>
