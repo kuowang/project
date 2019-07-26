@@ -430,13 +430,13 @@ class ArchitecturalController extends WebController
                 ];
 
                 if($v == 0){
-                    $data['uid']=(int)$uid;
-                    $data['username']=$username;
+                    $datalist['uid']=(int)$uid;
+                    $datalist['username']=$username;
                     $datalist['created_at']=date('Y-m-d');
                     DB::table('material')->insert($datalist);
                 }else{
-                    $data['edit_uid'] =$uid;
-                    $data['edit_username'] =$username;
+                    $datalist['edit_uid'] =$uid;
+                    $datalist['edit_username'] =$username;
                     DB::table('material')->where('id',$v)->update($datalist);
                 }
             }

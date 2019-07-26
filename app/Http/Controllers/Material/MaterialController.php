@@ -33,7 +33,7 @@ class MaterialController extends WebController
         $rows =$request->input('rows',20);
         $datalist =$this->getMaterialList($brand_name,$manufactor,$supplier,$address,$page,$rows);
         //分页
-        $url='/supplier/supplierList?brand_name='.$brand_name.'&manufactor='.$manufactor.'&supplier='.$supplier.'&address='.$address.'&rows='.$rows;
+        $url='/material/materialList?brand_name='.$brand_name.'&manufactor='.$manufactor.'&supplier='.$supplier.'&address='.$address.'&rows='.$rows;
         $data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
         $data['data']   =$datalist['data'];;
         $data['brand_name'] =$brand_name;
