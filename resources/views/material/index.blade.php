@@ -67,7 +67,7 @@
                                 <th>采购单位</th>
                                 <th>包装规格</th>
                                 <th>包装要求</th>
-                                <th style="width: 190px">操作</th>
+                                <th style="width: 120px">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -123,14 +123,8 @@
                                             <a title="编辑" class="btn btn-success"  href="/supplier/editSupplier/{{ $val->id }}">
                                                 <i class="layui-icon">编辑</i>
                                             </a>
-                                            @endif
-                                            @if((in_array(450203,$pageauth)&& $val->material_created_uid == $uid ) || in_array(4513,$manageauth))
-                                                @if(!empty($val->id))
-                                                <a title="删除" class="btn btn-danger" onclick="deleteSupplierBrand({{ $val->id }})" href="javascript:;">
-                                                    <i class="layui-icon">删除</i>
-                                                </a>
-                                                @endif
-                                            @endif
+                                        @endif
+
                                         </td>
                                 </tr>
 

@@ -42,7 +42,7 @@
                                 <th>创建时间</th>
                                 <th>操作人</th>
                                 <th>编辑时间</th>
-                                <th style="width: 150px">操作</th>
+                                <th style="width: 120px">操作</th>
                             </tr>
                             </thead>
                             <tbody>

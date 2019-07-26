@@ -74,7 +74,7 @@
                                 <th>联系人电话</th>
                                 <th>联系人电子邮箱</th>
                                 <th>供应商状态</th>
-                                <th style="width: 150px">操作</th>
+                                <th style="width: 120px">操作</th>
                             </tr>
                             </thead>
                             <tbody>
