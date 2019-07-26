@@ -43,7 +43,7 @@
                                     @if($sub_architect->status ==1)
                                     有效
                                     @else
-                                        无效
+                                        <span class="btn btn-warning">无效</span>
                                     @endif
                                 </td>
                                 <td>{{ $sub_architect->work_code }}</td>

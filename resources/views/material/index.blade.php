@@ -115,7 +115,7 @@
                                             @if($val->status ==1 )
                                                 有效
                                             @else
-                                                无效
+                                                <span class="btn btn-warning">无效</span>
                                             @endif
                                         </td>
 
@@ -127,7 +127,7 @@
                                             @endif
                                             @if((in_array(450203,$pageauth)&& $val->uid == $uid ) || in_array(4513,$manageauth))
                                                 @if(!empty($val->id))
-                                                <a title="删除" class="btn btn-success" onclick="deleteSupplierBrand({{ $val->id }})" href="javascript:;">
+                                                <a title="删除" class="btn btn-danger" onclick="deleteSupplierBrand({{ $val->id }})" href="javascript:;">
                                                     <i class="layui-icon">删除</i>
                                                 </a>
                                                 @endif

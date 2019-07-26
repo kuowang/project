@@ -80,15 +80,15 @@
                                     <td>@if ($val->status ==1)
                                         有效
                                         @else
-                                        无效
+                                            <span class="btn btn-warning">无效</span>
                                         @endif
                                     </td>
                                     <td>{{ $val->username }}</td>
                                     <td>{{ $val->created_at }}</td>
                                     <td class="td-manage">
                                         @if(($val->uid == $uid && in_array(350101,$pageauth) )|| in_array(3501,$manageauth))
-                                                <a title="详情" class="btn btn-success"  href='{{ url("/architectural/architect_detail/".$val->id) }}'>
-                                                    <i class="layui-icon">详情</i>
+                                                <a title="详情" class=""  href='{{ url("/architectural/architect_detail/".$val->id) }}'>
+                                                    <i class="layui-icon btn btn-info" >详情</i>
                                                 </a>
                                         @endif
 

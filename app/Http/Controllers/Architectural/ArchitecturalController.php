@@ -466,8 +466,8 @@ class ArchitecturalController extends WebController
                 return redirect('/architectural/index?status=2&notice='.'数据不存在，无法编辑');
             }
             $data['guishu_name']=DB::table('architectural_system')->where('id',$data['sub_architect']->architectural_id)->value('system_name');
-            if($data['uid'] != $data['sub_architect']->uid &&  in_array(3506,$data['manageauth'])){
-                return redirect('/architectural/index?status=2&notice='.'仅有创建用户才能编辑');
+            if($data['uid'] != $data['sub_architect']->uid &&  !in_array(3506,$data['manageauth'])){
+                return redirect('/architectural/index?status=2&notice='.'仅有创建用户和管理员才能查看');
             }
             return view('architectural.materialDetail',$data);
         }

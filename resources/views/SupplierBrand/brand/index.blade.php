@@ -62,7 +62,7 @@
                                             @if($val->status ==1 )
                                                 有效
                                             @else
-                                                无效
+                                                <span class="btn btn-warning">无效</span>
                                             @endif</td>
                                         <td class="notice_operator_{{ $val->id }}">{{ $val->createor }}</td>
                                         <td class="notice_status_{{ $val->id }}">

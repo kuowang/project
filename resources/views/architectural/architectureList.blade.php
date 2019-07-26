@@ -78,7 +78,7 @@
                                     <td>@if ($val->status ==1)
                                         有效
                                         @else
-                                        无效
+                                            <span class="btn btn-warning">无效</span>
                                         @endif
                                     </td>
                                     <td>{{ $val->work_code }}</td>
@@ -86,8 +86,8 @@
                                     <td>{{ $val->created_at }}</td>
                                     <td class="td-manage">
                                         @if(($val->uid == $uid && in_array(350201,$pageauth)) || in_array(3505,$manageauth))
-                                                <a title="详情" class="btn btn-success"  href='{{ url("/architectural/material_detail/".$val->id) }}'>
-                                                    <i class="layui-icon">详情</i>
+                                                <a title="详情" class=""  href='{{ url("/architectural/material_detail/".$val->id) }}'>
+                                                    <i class="layui-icon btn btn-info">详情</i>
                                                 </a>
                                         @endif
                                         @if((in_array(350202,$pageauth) && $val->uid == $uid) || in_array(3506,$manageauth))
