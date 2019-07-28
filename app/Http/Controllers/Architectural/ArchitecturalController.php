@@ -89,7 +89,6 @@ class ArchitecturalController extends WebController
         $sub_system_code =$request->input('sub_system_code',[]);
         $work_code =$request->input('work_code',[]);
         $sub_status =$request->input('sub_status',[]);
-        $sort =$request->input('sort',[]);
         if(empty($system_name) || empty($engineering_name)|| empty($system_code)){
             return redirect('/architectural/index?status=2&notice='.'建筑系统内容不能为空');
         }
@@ -98,8 +97,6 @@ class ArchitecturalController extends WebController
         }elseif(count($sub_system_name) != count($work_code)){
             return redirect('/architectural/index?status=2&notice='.'子建筑系统内容不能为空');
         }elseif(count($sub_system_name) != count($sub_status)){
-            return redirect('/architectural/index?status=2&notice='.'子建筑系统内容不能为空');
-        }elseif(count($sub_system_name) != count($sort)){
             return redirect('/architectural/index?status=2&notice='.'子建筑系统内容不能为空');
         }
         $uid =$this->user()->id;
@@ -130,7 +127,6 @@ class ArchitecturalController extends WebController
                     'sub_system_code'=>$sub_system_code[$k],
                     'work_code'=>$work_code[$k],
                     'status'=>(int)$sub_status[$k],
-                    'sort'=>(int)$sort[$k],
                     'uid'=>$uid,
                     'created_at'=>date('Y-m-d'),
                     'updated_at'=>date('Y-m-d'),
@@ -186,7 +182,6 @@ class ArchitecturalController extends WebController
         $sub_system_code =$request->input('sub_system_code',[]);
         $work_code =$request->input('work_code',[]);
         $sub_status =$request->input('sub_status',[]);
-        $sort =$request->input('sort',[]);
         $subid=$request->input('sub_id',[]);
         if(empty($system_name) || empty($engineering_name)|| empty($system_code) || empty($id)){
             return redirect('/architectural/index?status=2&notice='.'建筑系统内容不能为空');
@@ -196,8 +191,6 @@ class ArchitecturalController extends WebController
         }elseif(count($sub_system_name) != count($work_code)){
             return redirect('/architectural/index?status=2&notice='.'子建筑系统内容不能为空');
         }elseif(count($sub_system_name) != count($sub_status)){
-            return redirect('/architectural/index?status=2&notice='.'子建筑系统内容不能为空');
-        }elseif(count($sub_system_name) != count($sort)){
             return redirect('/architectural/index?status=2&notice='.'子建筑系统内容不能为空');
         }
 
@@ -224,7 +217,6 @@ class ArchitecturalController extends WebController
                     'sub_system_code'=>$sub_system_code[$k],
                     'work_code'=>$work_code[$k],
                     'status'=>$sub_status[$k],
-                    'sort'=>(int)$sort[$k],
                     'updated_at'=>date('Y-m-d'),
                 ];
                 if($v == 0){
@@ -337,12 +329,12 @@ class ArchitecturalController extends WebController
 
         $data['count'] =$db->count();
         $data['data']= $db->orderby('system_code','asc')
-                ->orderby('sort','asc')
+                ->orderby('sub_system_code','asc')
             ->skip(($page-1)*$rows)
             ->take($rows)
             ->select(['architectural_sub_system.id','system_name','engineering_name',
                 'system_code','sub_system_name','sub_system_code','work_code'
-                ,'architectural_sub_system.status','sort','architectural_sub_system.username','architectural_sub_system.uid'
+                ,'architectural_sub_system.status','architectural_sub_system.username','architectural_sub_system.uid'
                 ,'architectural_sub_system.created_at','architectural_sub_system.updated_at'])
             ->get();
         return $data;
@@ -363,7 +355,7 @@ class ArchitecturalController extends WebController
         //获取该用户的建筑系统关联子系统
         $data['sub_architect']=DB::table('architectural_sub_system')->where('id',$id)->first();
         //获取子系统材料信息
-        $data['material'] = DB::table('material')->where('architectural_sub_id',$id)->orderby('sort')->get();
+        $data['material'] = DB::table('material')->where('architectural_sub_id',$id)->orderby('material_code')->get();
         if(empty($data['sub_architect'])){
             return redirect('/architectural/index?status=2&notice='.'数据不存在，无法编辑');
         }
@@ -386,7 +378,6 @@ class ArchitecturalController extends WebController
         $material_number=$request->input('material_number',[]);
         $characteristic=$request->input('characteristic',[]);
         $waste_rate=$request->input('waste_rate',[]);
-        $sort=$request->input('sort',[]);
         $status=$request->input('status',[]);
         if(empty($material_id)){
             return redirect('/architectural/architectureList?status=2&notice='.'材料内容不能为空');
@@ -398,8 +389,6 @@ class ArchitecturalController extends WebController
         }elseif(count($material_id) != count($purpose) || (count($material_id) != count($material_number))){
             return redirect('/architectural/architectureList?status=2&notice='.'材料内容不能为空');
         }elseif(count($material_id) != count($characteristic) || (count($material_id) != count($waste_rate))){
-            return redirect('/architectural/architectureList?status=2&notice='.'材料内容不能为空');
-        }elseif(count($material_id) != count($sort) || (count($material_id) != count($status))){
             return redirect('/architectural/architectureList?status=2&notice='.'材料内容不能为空');
         }
         $uid =$this->user()->id;
@@ -424,7 +413,6 @@ class ArchitecturalController extends WebController
                     'purpose'=>$purpose[$k],
                     'characteristic'=>$characteristic[$k],
                     'waste_rate'=>(float)$waste_rate[$k],
-                    'sort'=>(int)$sort[$k],
                     'status'=>$status[$k],
                     'updated_at'=>date('Y-m-d'),
                 ];
@@ -461,7 +449,7 @@ class ArchitecturalController extends WebController
             //获取该用户的建筑系统关联子系统
             $data['sub_architect']=DB::table('architectural_sub_system')->where('id',$id)->first();
             //获取子系统材料信息
-            $data['material'] = DB::table('material')->where('architectural_sub_id',$id)->orderby('sort')->get();
+            $data['material'] = DB::table('material')->where('architectural_sub_id',$id)->orderby('material_code')->get();
             if(empty($data['sub_architect'])){
                 return redirect('/architectural/index?status=2&notice='.'数据不存在，无法编辑');
             }

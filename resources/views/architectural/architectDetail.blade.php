@@ -68,7 +68,6 @@
                                 <th>子系统编码</th>
                                 <th>工况代码</th>
                                 <th>系统状态</th>
-                                <th>排序</th>
 
                             </thead>
                             <tbody id="zixitong">
@@ -90,7 +89,6 @@
                                    <span class="btn btn-warning">无效</span>
                                 @endif
                                 </td>
-                                <td>{{ $v->sort }}</td>
 
                             </tr>
                             @endforeach

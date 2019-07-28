@@ -77,7 +77,6 @@
                                 <th>子系统编码</th>
                                 <th>工况代码</th>
                                 <th>系统状态</th>
-                                <th>排序</th>
                                 <th>操作</th>
                             </thead>
                             <tbody id="zixitong">
@@ -104,8 +103,7 @@
                                         @endif
                                     </select>
                                 </td>
-                                <td><input type="text" name="sort[]"  value="{{ $v->sort }}" lay-skin="primary"></td>
-                                <td>
+                               <td>
 
                                 </td>
 
@@ -174,7 +172,6 @@
             '<td><input type="text" name="work_code[]" lay-skin="primary"></td>'+
             '<td><select name="sub_status[]" id="stateAndCity" class="span12" style="min-width: 80px">'+
             '<option value="1" selected="selected">有效</option><option value="0">无效</option></select></td>'+
-            '<td><input type="text" name="sort[]" lay-skin="primary"></td>'+
             '<td><a  class="btn btn-danger" onclick="deleteTrRow(this)">删除</a></td></tr>';
 
             $("#zixitong").append(str);

@@ -63,7 +63,7 @@
                                 子系统关联材料
                             </div>
                             <span class="title"style="float: right;">
-                        <a class="btn btn-success" onclick="add_xitong()" ><i class="layui-icon">创建新关联材料 +</i></a>
+
                     </span>
                         </div>
                         <div class="widget-body">
@@ -79,9 +79,7 @@
                                         <th>代码</th>
                                         <th>规格特性要求</th>
                                         <th>损耗</th>
-                                        <th>排序</th>
                                         <th>状态</th>
-                                        <th style="width: 60px;">操作</th>
                                     </thead>
                                     <tbody id="zixitong">
                                     @foreach($material as $v)
@@ -110,9 +108,7 @@
                                             <td>
                                             {{ $v->waste_rate }}
                                             </td>
-                                            <td>
-                                               {{ $v->sort }}
-                                            </td>
+
                                             <td>
                                                  @if($v->status ==1)
                                                       有效
@@ -121,7 +117,7 @@
                                                     @endif
 
                                             </td>
-                                            <td></td>
+
                                         </tr>
                                     @endforeach
                                     </tbody>

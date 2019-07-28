@@ -79,7 +79,6 @@
                                 <th>代码</th>
                                 <th>规格特性要求</th>
                                 <th>损耗</th>
-                                <th>排序</th>
                                 <th>状态</th>
                                 <th style="width: 60px;">操作</th>
                             </thead>
@@ -111,9 +110,7 @@
                                 <td>
                                     <input type="text" name="waste_rate[]"   value="{{ $v->waste_rate }}" lay-skin="primary">
                                 </td>
-                                <td>
-                                    <input type="text" name="sort[]"   value="{{ $v->sort }}" lay-skin="primary">
-                                </td>
+
                                 <td>
                                     <select name="status[]" id="stateAndCity" class="span12" style="min-width: 80px">
                                         @if($v->status ==1)
@@ -198,7 +195,6 @@
                 '<td> <input type="text" name="material_number[]"    lay-skin="primary"> </td>'+
                 '<td> <input type="text" name="characteristic[]"    lay-skin="primary"> </td>'+
                 '<td> <input type="text" name="waste_rate[]"    lay-skin="primary"> </td>'+
-                '<td> <input type="text" name="sort[]"    lay-skin="primary"> </td>'+
                 '<td> <select name="status[]" id="stateAndCity" class="span12" style="min-width: 80px">'+
                 '<option value="1" selected="selected">有效</option> <option value="0">无效</option> </select> </td>'+
                 '<td><a  class="btn btn-danger" onclick="deleteTrRow(this)">删除</a>'+
