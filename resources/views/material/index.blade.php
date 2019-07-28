@@ -41,7 +41,7 @@
                         部件集成列表<a id="dynamicTable"></a>
 
                     </div>
-                    @if(in_array(450201,$pageauth) || in_array(4510,$manageauth))
+                    @if(in_array(4001,$pageauth) || in_array(4001,$manageauth))
                     <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                         <label>
                             <form class="form-search" action="/material/materialList" method="get">
@@ -114,13 +114,13 @@
                                         <td >{{$val->pack_claim}}</td>
 
                                         <td class="td-manage ">
-                                        @if((in_array(450202,$pageauth) && $val->material_created_uid == $uid ) || in_array(4512,$manageauth))
-                                            <a title="查看详情" class="btn btn-info"  href="/supplier/editSupplier/{{ $val->id }}">
+                                        @if( empty($val->material_created_uid ) || (in_array(4002,$pageauth) && $val->material_created_uid == $uid ) || in_array(4002,$manageauth))
+                                            <a title="查看详情" class="btn btn-info"  href="/material/materialDetail/{{ $val->id }}">
                                                 <i class="layui-icon">详情</i>
                                             </a>
                                         @endif
-                                        @if((in_array(450202,$pageauth) && $val->material_created_uid == $uid ) || in_array(4512,$manageauth))
-                                            <a title="编辑" class="btn btn-success"  href="/supplier/editSupplier/{{ $val->id }}">
+                                        @if(empty($val->material_created_uid ) ||(in_array(4003,$pageauth) && $val->material_created_uid == $uid ) || in_array(4003,$manageauth))
+                                            <a title="编辑" class="btn btn-success"  href="/material/editMaterial/{{ $val->id }}">
                                                 <i class="layui-icon">编辑</i>
                                             </a>
                                         @endif

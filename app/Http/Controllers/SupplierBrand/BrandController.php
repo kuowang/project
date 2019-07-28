@@ -142,6 +142,17 @@ class BrandController extends WebController
         return $this->success($data);
     }
 
+    public function brandToSupplier(Request $request,$id){
+        $data =DB::table('supplier_brand')
+            ->join('supplier','supplier_id','=','supplier.id')
+            ->where('supplier.status',1)
+            ->where('brand_id',$id)
+            ->where('supplier_brand.status',1)
+            ->select(['supplier.id','manufactor','supplier'])
+            ->get();
+        return $this->success($data);
+    }
+
     //上次图片
     public function uploadImage(Request $request){
 

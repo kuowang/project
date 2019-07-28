@@ -110,8 +110,9 @@ Route::group(['prefix' => 'supplier','namespace' => 'SupplierBrand','middleware'
     Route::get('/brandList',                   'BrandController@brandList');      //品牌列表
     Route::post('/post_add_brand',              'BrandController@postAddBrand');      //提交新增品牌
     Route::post('/post_edit_brand/{id}',         'BrandController@postEditBrand');      //提交编辑品牌
-    Route::get('/brandSupplierList/{id}',       'BrandController@brandSupplierList');   //品牌对应供应商列表
+    Route::get('/brandSupplierList/{id}',       'BrandController@brandSupplierList');   //品牌对应供应商列表（仅供应商ID）
     Route::post('/uploadImage',                 'BrandController@uploadImage');          //上传图片
+    Route::get('/brandToSupplier/{id}',       'BrandController@brandToSupplier');   //品牌对应供应商列表（包括供应商名称和厂址）
 
     //供应商管理
     Route::get('/supplierList',                   'SupplierController@supplierList');      //供应商列表
@@ -126,5 +127,6 @@ Route::group(['prefix' => 'supplier','namespace' => 'SupplierBrand','middleware'
 Route::group(['prefix' => 'material','namespace' => 'Material','middleware' => 'auth'], function () {
     //材料管理
     Route::get('/materialList',                   'MaterialController@materialList');      //部品部件列表
+    Route::get('/editMaterial/{id}',              'MaterialController@editMaterial');      //编辑部品部件
 
 });

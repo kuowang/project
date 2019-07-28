@@ -89,4 +89,49 @@ class MaterialController extends WebController
         return $data;
     }
 
+    public function editMaterial(Request $request,$id){
+        //用户权限部分
+        $data['username']   =$this->user()->name;
+        $data['nav']        =$this->user()->nav;
+        $data['navid']      =40;
+        $data['subnavid']   =4001;
+        $data['pageauth']   =$this->user()->pageauth;
+        $data['noticelist']     =$this->user()->notice;
+        $data['manageauth']   =$this->user()->manageauth;
+        $data['uid']        =$this->user()->id;
+        $data['id']=$id;
+        $material=DB::table('material')->where('material.status',1)
+            ->where('material.id',$id)
+            ->first();
+        if(empty($material)){
+            return redirect('/material/materialList?status=2&notice='.'当前材料不存');
+        }
+        if((!empty($material->material_created_uid ) && $material->material_created_uid != $data['uid'])  && !in_array(4003,$data['manageauth'])){
+            return redirect('/material/materialList?status=2&notice='.'仅有创建用户和管理员才能查看');
+        }
+        $data['material']=$material;
+        $data['architectual_system'] =DB::table('architectural_system')
+            ->where('status',1)
+            ->where('id',$material->architectural_id)
+            ->first();
+
+        $data['architectural_sub_system'] =DB::table('architectural_sub_system')
+            ->where('status',1)
+            ->where('id',$material->architectural_sub_id)
+            ->first();
+
+        $data['material_brand']=DB::table('material_brand_supplier')
+            ->where('material_id',$id)
+            ->get();
+        $data['brand'] =DB::table('brand')
+            ->where('status',1)
+            ->orderby('id','desc')
+            ->select(['id','brand_name','brand_logo'])
+            ->get();
+        return view('material.editMaterialBrand',$data);
+
+
+    }
+
+
 }
