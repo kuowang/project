@@ -110,7 +110,8 @@ Route::group(['prefix' => 'supplier','namespace' => 'SupplierBrand','middleware'
     Route::get('/brandList',                   'BrandController@brandList');      //品牌列表
     Route::post('/post_add_brand',              'BrandController@postAddBrand');      //提交新增品牌
     Route::post('/post_edit_brand/{id}',         'BrandController@postEditBrand');      //提交编辑品牌
-    Route::get('/brandSupplierList/{id}',       'BrandController@brandSupplierList'      );//品牌对应供应商列表
+    Route::get('/brandSupplierList/{id}',       'BrandController@brandSupplierList');   //品牌对应供应商列表
+    Route::post('/uploadImage',                 'BrandController@uploadImage');          //上传图片
 
     //供应商管理
     Route::get('/supplierList',                   'SupplierController@supplierList');      //供应商列表

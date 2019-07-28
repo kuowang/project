@@ -37,6 +37,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>品牌名称</th>
+                                <th>logo</th>
                                 <th>状态</th>
                                 <th>创建人</th>
                                 <th>创建时间</th>
@@ -57,6 +58,10 @@
                                             {{ $val->id }}
                                         </td>
                                         <td class="brand_name_{{ $val->id }}">{{ $val->brand_name }}</td>
+                                        <td>@if($val->brand_logo)
+                                            <img class="brand_logo_{{ $val->id }}" src="{{$val->brand_logo}}" style="width:50px">
+                                            @endif
+                                        </td>
                                         <td class="notice_content_{{ $val->id }}">
                                             <input type="hidden" name="brand_status" class="brand_status_{{$val->id}}" value="{{ $val->status }}">
                                             @if($val->status ==1 )
@@ -115,16 +120,26 @@
                         <div class="span12">
                             <div class="widget-body">
 
-                                    <div class="control-group">
-                                        <label class="control-label" for="name">
-                                            品牌名称:
-                                        </label>
-                                        <div class="controls controls-row">
-                                            <input class="span12 layui-input" type="text" id="brand_name" name="brand_name" placeholder="标题名称">
-                                        </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="name">
+                                        品牌名称:
+                                    </label>
+                                    <div class="controls controls-row">
+                                        <input class="span12 layui-input" type="text" id="brand_name" name="brand_name" placeholder="标题名称">
                                     </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="name">
+                                        品牌LOGO:
+                                    </label>
+                                    <div class="controls controls-row">
+                                        <input type="hidden" id="brand_logo" name="brand_logo" placeholder="logo" >
 
-                                    <div class="control-group">
+                                        <input class="span12 " type="file" id="uploadlogo" name="uploadlogo" placeholder="logo" onchange="submitLogo()">
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
                                         <label class="control-label" for="password">
                                             状态:
                                         </label>
@@ -192,6 +207,7 @@
             $('#brand_name').val('');
             $('#status').val('');
             $('#noticeform').prop('action','/supplier/post_add_brand');
+            $('#brand_logo').val('');
             $('#myModal').modal();
         }
 
@@ -201,6 +217,8 @@
             //补充表格数据
             $('#brand_name').val($.trim($('.brand_name_'+id).html()));
             $('#status').val($('.brand_status_'+id).val());
+            $('#brand_logo').val($('.brand_logo_'+id).prop('src'));
+
             //获取品牌对应的供应商信息
             $.ajax({
                 url:'/supplier/brandSupplierList/'+id,
@@ -229,7 +247,14 @@
                 brand_name: $('#brand_name').val(),
                 status:  $('#status').val(),
                 supplier:supplier,
+                brand_logo:$('#brand_logo').val(),
             };
+            if($('#brand_logo').val()==''){
+                layui.use('layer', function(){
+                    var layer = layui.layer;
+                    layer.msg('没有查询到图片，请补充图片后在提交');
+                });
+            }
             console.log(datalist);
             var status=0;
             $("input.layui-input").each(function(){
@@ -272,6 +297,33 @@
                 });
             }
             return false;
+        }
+
+        function submitLogo() {
+            var formdata=new FormData();
+                formdata.append('file',$('#uploadlogo')[0].files[0]);
+            $.ajax({
+                url:'/supplier/uploadImage',
+                type:"POST",
+                data:formdata,
+                processData:false,
+                contentType:false,
+                success:function(data){
+                    console.log(data);
+                    if(data.status ==1){
+                        layui.use('layer', function(){
+                            var layer = layui.layer;
+                            layer.msg(data.data.msg);
+                            $('#brand_logo').val(data.data.url)
+                        });
+                    }else{
+                        layui.use('layer', function(){
+                            var layer = layui.layer;
+                            layer.msg(data.info);
+                        });
+                    }
+                }
+            })
         }
     </script>
 
