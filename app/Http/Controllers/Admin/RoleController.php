@@ -35,7 +35,7 @@ class RoleController extends WebController
     {
         $search =$request->input('search','');
         $page =$request->input('page',1);
-        $rows =$request->input('rows',20);
+        $rows =$request->input('rows',40);
         $datalist =$this->getRoleList($search,$page,$rows);
         //分页
         $url='/admin/role_list?search='.$search.'&rows='.$rows;
@@ -63,7 +63,7 @@ class RoleController extends WebController
         return view('admin.role.index',$data);
     }
     //获取角色列表
-    protected function getRoleList($search='',$page=1,$rows=20)
+    protected function getRoleList($search='',$page=1,$rows=40)
     {
         $db=DB::table('role');
         if(!empty($search)){

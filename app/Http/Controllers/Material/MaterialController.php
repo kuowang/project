@@ -28,7 +28,7 @@ class MaterialController extends WebController
         $material_name =$request->input('material_name','');
 
         $page =$request->input('page',1);
-        $rows =$request->input('rows',20);
+        $rows =$request->input('rows',40);
         $datalist =$this->getMaterialList($system_name,$sub_system_name,$material_name,$page,$rows);
         //分页
         $url='/material/materialList?system_name='.$system_name.'&sub_system_name='.$sub_system_name.'&material_name='.$material_name.'&rows='.$rows;

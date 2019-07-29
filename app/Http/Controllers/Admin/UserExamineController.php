@@ -36,7 +36,7 @@ class UserExamineController extends WebController
         $search =$request->input('search','');
         $type =$request->input('type',0);
         $page =$request->input('page',1);
-        $rows =$request->input('rows',20);
+        $rows =$request->input('rows',40);
         $datalist =$this->getExamineList($search,$type,$page,$rows);
         //分页
         $url='/admin/examine_user?search='.$search.'&type='.$type.'&rows='.$rows;

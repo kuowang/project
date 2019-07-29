@@ -33,7 +33,7 @@ class UserRoleController extends WebController
     {
         $search =$request->input('search','');
         $page =$request->input('page',1);
-        $rows =$request->input('rows',20);
+        $rows =$request->input('rows',40);
         $datalist =$this->getUserList($search,$page,$rows);
         //分页
         $url='/admin/user_role_list?search='.$search.'&rows='.$rows;

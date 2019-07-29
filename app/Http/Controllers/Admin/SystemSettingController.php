@@ -30,7 +30,7 @@ class SystemSettingController extends WebController
 
         $search =$request->input('search','');
         $page =$request->input('page',1);
-        $rows =$request->input('rows',20);
+        $rows =$request->input('rows',40);
         $datalist =$this->getSystemSetting($search,$page,$rows);
         //分页
         $url='/admin/system_list?search='.$search.'&rows='.$rows;
@@ -51,7 +51,7 @@ class SystemSettingController extends WebController
         return view('admin.system.index',$data);
     }
 
-    protected function getSystemSetting($search='',$page=1,$rows=20)
+    protected function getSystemSetting($search='',$page=1,$rows=40)
     {
         $db=DB::table('system_setting');
         if(!empty($search)){

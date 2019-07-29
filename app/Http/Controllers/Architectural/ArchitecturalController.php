@@ -29,7 +29,7 @@ class ArchitecturalController extends WebController
     {
         $search =$request->input('search','');
         $page =$request->input('page',1);
-        $rows =$request->input('rows',10);
+        $rows =$request->input('rows',40);
         $data['search']        =$search;
         $datalist =$this->getArchitecturalList($search,$page,$rows);
         //分页
@@ -52,7 +52,7 @@ class ArchitecturalController extends WebController
         return view('architectural.index',$data);
     }
     //获取建筑系统表数据
-    protected function getArchitecturalList($search='',$page=1,$rows=20)
+    protected function getArchitecturalList($search='',$page=1,$rows=40)
     {
         $db=DB::table('architectural_system');
         if(!empty($search)){
@@ -287,7 +287,7 @@ class ArchitecturalController extends WebController
         $work_code          =$request->input('work_code','');
 
         $page =$request->input('page',1);
-        $rows =$request->input('rows',20);
+        $rows =$request->input('rows',40);
         $data['system_name']      =$system_name;
         $data['sub_system_name'] =$sub_system_name;
         $data['work_code']        =$work_code;

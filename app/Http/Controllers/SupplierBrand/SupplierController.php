@@ -30,7 +30,7 @@ class SupplierController extends WebController
         $address =$request->input('address','');
 
         $page =$request->input('page',1);
-        $rows =$request->input('rows',20);
+        $rows =$request->input('rows',40);
         $datalist =$this->getSupplierList($brand_name,$manufactor,$supplier,$address,$page,$rows);
         //分页
         $url='/supplier/supplierList?brand_name='.$brand_name.'&manufactor='.$manufactor.'&supplier='.$supplier.'&address='.$address.'&rows='.$rows;

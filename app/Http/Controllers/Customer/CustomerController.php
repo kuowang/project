@@ -25,7 +25,7 @@ class CustomerController extends WebController
 
         $search =$request->input('search','');
         $page =$request->input('page',1);
-        $rows =$request->input('rows',20);
+        $rows =$request->input('rows',40);
         $datalist =$this->getBrandList($search,$page,$rows);
         //分页
         $url='/supplier/brandList?search='.$search.'&rows='.$rows;
