@@ -177,12 +177,12 @@ class MaterialController extends WebController
         $data['material_purchase_unit'] =$request->input('material_purchase_unit');
         $data['pack_specification'] =$request->input('pack_specification');
         $data['pack_claim']         =$request->input('pack_claim');
-        $data['conversion']         =$request->input('conversion');
-        $data['material_length']    =$request->input('material_length');
-        $data['material_width']     =$request->input('material_width');
-        $data['material_height']    =$request->input('material_height');
-        $data['material_thickness'] =$request->input('material_thickness');
-        $data['material_diameter']  =$request->input('material_diameter');
+        $data['conversion']         =(float)$request->input('conversion');
+        $data['material_length']    =(int)$request->input('material_length');
+        $data['material_width']     =(int)$request->input('material_width');
+        $data['material_height']    =(int)$request->input('material_height');
+        $data['material_thickness'] =(int)$request->input('material_thickness');
+        $data['material_diameter']  =(int)$request->input('material_diameter');
         $brand_id           =$request->input('brand_id',[]);
         $manufactor         =$request->input('manufactor',[]);
         $supplier           =$request->input('supplier',[]);
@@ -223,7 +223,7 @@ class MaterialController extends WebController
                 $datalist['brand_id']=$v;
                 $datalist['brand_name']=DB::table('brand')->where('id',$v)->value('brand_name');
                 $datalist['supplier_id']=$manufactor[$k];
-                $datalist['manufactor']=DB::table('supplier')->where('id',$supplier[$k])->value('manufactor');;
+                $datalist['manufactor']=DB::table('supplier')->where('id',$manufactor[$k])->value('manufactor');;
                 $datalist['supplier']=$supplier[$k];
                 $datalist['budget_unit_price']=$budget_unit_price[$k];
                 $datalist['budget_unit']=$budget_unit[$k];
@@ -240,6 +240,86 @@ class MaterialController extends WebController
         //return $this->success($request->all());
     }
 
+    /**
+     * 部品部件详情
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     * @throws \Exception
+     */
+    public function materialDetail(Request $request, $id){
+        //用户权限部分
+        $data['username']   =$this->user()->name;
+        $data['nav']        =$this->user()->nav;
+        $data['navid']      =40;
+        $data['subnavid']   =4001;
+        $data['pageauth']   =$this->user()->pageauth;
+        $data['noticelist']     =$this->user()->notice;
+        $data['manageauth']   =$this->user()->manageauth;
+        $data['uid']        =$this->user()->id;
+        $data['id']=$id;
+        //材料信息
+        $material=DB::table('material')->where('material.status',1)
+            ->where('material.id',$id)
+            ->first();
+        if(empty($material)){
+            return redirect('/material/materialList?status=2&notice='.'当前材料不存');
+        }
+        if((!empty($material->material_created_uid ) && $material->material_created_uid != $data['uid'])  && !in_array(4002,$data['manageauth'])){
+            return redirect('/material/materialList?status=2&notice='.'仅有创建用户和管理员才能查看');
+        }
+        $data['material']=$material;
+        //建筑系统信息
+        $data['architectual_system'] =DB::table('architectural_system')
+            ->where('status',1)
+            ->where('id',$material->architectural_id)
+            ->first();
+        //建筑子系统信息
+        $data['architectural_sub_system'] =DB::table('architectural_sub_system')
+            ->where('status',1)
+            ->where('id',$material->architectural_sub_id)
+            ->first();
+        //材料品牌信息
+        $data['material_brand']=DB::table('material_brand_supplier')
+            ->where('material_id',$id)
+            ->get();
+        //品牌列表
+        $data['brand'] =DB::table('brand')
+            ->where('status',1)
+            ->orderby('id','desc')
+            ->select(['id','brand_name','brand_logo'])
+            ->get();
+        //供应商品牌列表
+        $supplier_brand=DB::table('supplier_brand')->where('status',1)
+            ->select(['brand_id','supplier_id'])
+            ->get();
+        $data['supplier_brand_list']=[];
+        if(!empty($supplier_brand)){
+            foreach ($supplier_brand as $item){
+                $supplier_brand_list[$item->brand_id][]=$item->supplier_id;
+            }
+            $data['supplier_brand_list']=$supplier_brand_list;
+            $data['supplier_brand_json']=json_encode($supplier_brand_list);
+        }else{
+            $data['supplier_brand_json']=null;
+        }
 
+        //供应商信息
+        $supplier =DB::table('supplier')->where('status',1)
+            ->select(['id','supplier','manufactor'])
+            ->get();
+
+        $data['supplier']=[];
+        if(!empty($supplier)){
+            foreach($supplier as $item){
+                $data['supplier'][$item->id]=$item;
+                $supplier_list[$item->id] =$item->supplier;
+            }
+            $data['supplier_list_json']=json_encode($supplier_list);
+        }else{
+            $data['supplier_list_json']=null;
+        }
+        return view('material.materialDetail',$data);
+    }
 
 }

@@ -69,16 +69,16 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td><input type="text"  name="material_budget_unit"      id="budget_unit"        value="{{ $material->material_budget_unit }}" lay-skin="primary" style="width:50px;"></td>
-                                    <td><input type="text"  name="material_purchase_unit"    id="purchase_unit"      value="{{ $material->material_purchase_unit }}" lay-skin="primary" style="width:50px;"></td>
-                                    <td><input type="text"  name="conversion"       id="conversion"         value="{{ $material->conversion }}" lay-skin="primary" style="width:70px;"></td>
-                                    <td><input type="text"  name="pack_specification" id="pack_specification" value="{{ $material->pack_specification }}" lay-skin="primary"></td>
-                                    <td><input type="text"  name="pack_claim"       id="pack_claim"         value="{{ $material->pack_claim }}" lay-skin="primary"></td>
-                                    <td><input type="text"  name="material_length"  id="material_length"    value="{{ $material->material_length }}" lay-skin="primary" style="width:50px;"></td>
-                                    <td><input type="text"  name="material_width"   id="material_width"     value="{{ $material->material_width }}" lay-skin="primary"  style="width:50px;"></td>
-                                    <td><input type="text"  name="material_height"  id="material_height"    value="{{ $material->material_height }}" lay-skin="primary" style="width:50px;"></td>
-                                    <td><input type="text"  name="material_thickness" id="material_thickness" value="{{ $material->material_thickness }}" lay-skin="primary"  style="width:50px;"></td>
-                                    <td><input type="text"  name="material_diameter" id="material_diameter" value="{{ $material->material_diameter }}" lay-skin="primary" style="width:50px;"></td>
+                                    <td>{{ $material->material_budget_unit }}</td>
+                                    <td>{{ $material->material_purchase_unit }}</td>
+                                    <td>{{ $material->conversion }}</td>
+                                    <td>{{ $material->pack_specification }}</td>
+                                    <td>{{ $material->pack_claim }}</td>
+                                    <td>{{ $material->material_length }}</td>
+                                    <td>{{ $material->material_width }}</td>
+                                    <td>{{ $material->material_height }}</td>
+                                    <td>{{ $material->material_thickness }}</td>
+                                    <td>{{ $material->material_diameter }}</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -92,9 +92,7 @@
                     <div class="title">
                         品牌价格信息
                     </div>
-                    <span class="title"style="float: right;">
-                        <a class="btn btn-success" onclick="add_xitong()" ><i class="layui-icon">新增品牌 +</i></a>
-                    </span>
+
                 </div>
                 <div class="widget-body">
                     <div id="dt_example" class="example_alt_pagination">
@@ -108,50 +106,21 @@
                                 <th>预算单位</th>
                                 <th>采购单价</th>
                                 <th>采购单位</th>
-                                <th style="width: 60px;">操作</th>
+
                             </thead>
                             <tbody id="zixitong">
 
                             @foreach($material_brand as $mate)
                             <tr>
-                                <td>
-                                    <select name="brand_id[]" id="brand_id_1" class="span12" style="min-width: 80px;" onchange="selectSupplier(1)">
-                                        <option value="0"  style="display: none"></option>
-                                        @foreach($brand as $v)
-                                            @if($v->id == $mate->brand_id)
-                                            <option value="{{ $v->id }}" selected="selected">{{$v->brand_name}}</option>
-                                            @else
-                                            <option value="{{ $v->id }}" >{{$v->brand_name}}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                </td>
-                                <td>
-                                    <select name="manufactor[]" id="manufactor_1" class="span12" style="min-width: 100px" onchange="selectManufactor(1)">
-                                        <option value="0"  style="display: none"></option>
-                                        @foreach($supplier as $val)
-                                            @if(in_array($val->id,$supplier_brand_list[$mate->brand_id]))
-                                                @if($val->id == $mate->supplier_id)
-                                                <option value="{{ $val->id }}" class="manufa manufa_{{ $val->id }}" selected="selected">{{$val->manufactor}}</option>
-                                                @else
-                                                    <option value="{{ $val->id }}" class="manufa manufa_{{ $val->id }}" >{{$val->manufactor}}</option>
-                                                @endif
-                                            @else
-                                                <option value="{{ $val->id }}" class="manufa manufa_{{ $val->id }}" style="display: none">{{$val->manufactor}}</option>
-                                            @endif
-
-                                        @endforeach
-                                    </select>
-                                </td>
-                                <td><input type="text"  name="supplier[]"          id="supplier_1"         value="{{ $mate->supplier }}" lay-skin="primary"></td>
-                                <td><input type="text"  name="budget_unit_price[]" id="budget_unit_price_1" value="{{ $mate->budget_unit_price }}" lay-skin="primary" placeholder=""style="width:50px;"></td>
-                                <td><input type="text"  name="budget_unit[]"       id="budget_unit_1"         value="{{ $mate->budget_unit }}" lay-skin="primary"  placeholder=""style="width:50px;"></td>
-                                <td><input type="text"  name="purchase_unit_price[]"  id="purchase_unit_price_1"    value="{{ $mate->purchase_unit_price }}" lay-skin="primary" style="width:50px;"></td>
-                                <td><input type="text"  name="purchase_unit[]"      id="purchase_unit_1" value="{{ $mate->purchase_unit }}" lay-skin="primary" style="width:50px;"></td>
-                                <td><a class="btn btn-danger" onclick="deleteTrRow(this)">删除</a></td>
+                                <td>{{ $mate->brand_name}}</td>
+                                <td>{{ $mate->manufactor}}</td>
+                                <td>{{ $mate->supplier }}</td>
+                                <td>{{ $mate->budget_unit_price }}</td>
+                                <td>{{ $mate->budget_unit }}</td>
+                                <td>{{ $mate->purchase_unit_price }}</td>
+                                <td>{{ $mate->purchase_unit }}</td>
                             </tr>
                             @endforeach
-
                             </tbody>
                         </table>
                         <div class="clearfix">
@@ -160,10 +129,7 @@
 
                 </div>
             </div>
-            <div class="layui-form-item" style="float: right;clear: left">
-                <label for="L_repass" class="layui-form-label"></label>
-                <button class="btn btn-success" lay-filter="add" type="submit" lay-submit="" onclick='return form_submit()'>确认/保存</button>
-            </div>
+
             <div class="layui-form-item" style="float: right;clear: left">
                 <a href="javascript:history.go(-1)">
                 <label for="L_repass" class="layui-form-label"></label>
