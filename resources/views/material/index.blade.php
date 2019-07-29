@@ -108,8 +108,8 @@
                                         <td class="brand_name_{{ $val->id }}">{{$val->material_name}}</td>
                                         <td >{{$val->material_code}}</td>
                                         <td >{{$val->characteristic}}</td>
-                                        <td >{{$val->budget_unit}}</td>
-                                        <td >{{$val->purchase_unit}}</td>
+                                        <td >{{$val->material_budget_unit}}</td>
+                                        <td >{{$val->material_purchase_unit}}</td>
                                         <td >{{$val->pack_specification}}</td>
                                         <td >{{$val->pack_claim}}</td>
 

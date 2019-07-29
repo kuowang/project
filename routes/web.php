@@ -128,5 +128,7 @@ Route::group(['prefix' => 'material','namespace' => 'Material','middleware' => '
     //材料管理
     Route::get('/materialList',                   'MaterialController@materialList');      //部品部件列表
     Route::get('/editMaterial/{id}',              'MaterialController@editMaterial');      //编辑部品部件
+    Route::post('/postEditMaterial/{id}',          'MaterialController@postEditMaterial');      //提交编辑部品部件
+
 
 });

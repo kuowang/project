@@ -6,7 +6,7 @@
 <div class="left-sidebar">
     <div class="row-fluid">
         <div class="span12">
-            <form method="post" action="/architectural/post_edit_material/{{ $id }}">
+            <form method="post" action="/material/postEditMaterial/{{ $id }}">
             <div class="widget">
                 <div class="widget-header">
                     <div class="title">
@@ -69,8 +69,8 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td><input type="text"  name="budget_unit"      id="budget_unit"        value="{{ $material->budget_unit }}" lay-skin="primary" style="width:50px;"></td>
-                                    <td><input type="text"  name="purchase_unit"    id="purchase_unit"      value="{{ $material->purchase_unit }}" lay-skin="primary" style="width:50px;"></td>
+                                    <td><input type="text"  name="material_budget_unit"      id="budget_unit"        value="{{ $material->material_budget_unit }}" lay-skin="primary" style="width:50px;"></td>
+                                    <td><input type="text"  name="material_purchase_unit"    id="purchase_unit"      value="{{ $material->material_purchase_unit }}" lay-skin="primary" style="width:50px;"></td>
                                     <td><input type="text"  name="conversion"       id="conversion"         value="{{ $material->conversion }}" lay-skin="primary" style="width:70px;"></td>
                                     <td><input type="text"  name="pack_specification" id="pack_specification" value="{{ $material->pack_specification }}" lay-skin="primary"></td>
                                     <td><input type="text"  name="pack_claim"       id="pack_claim"         value="{{ $material->pack_claim }}" lay-skin="primary"></td>
@@ -112,28 +112,45 @@
                             </thead>
                             <tbody id="zixitong">
 
+                            @foreach($material_brand as $mate)
                             <tr>
                                 <td>
                                     <select name="brand_id[]" id="brand_id_1" class="span12" style="min-width: 80px;" onchange="selectSupplier(1)">
                                         <option value="0"  style="display: none"></option>
                                         @foreach($brand as $v)
+                                            @if($v->id == $mate->brand_id)
+                                            <option value="{{ $v->id }}" selected="selected">{{$v->brand_name}}</option>
+                                            @else
                                             <option value="{{ $v->id }}" >{{$v->brand_name}}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </td>
                                 <td>
                                     <select name="manufactor[]" id="manufactor_1" class="span12" style="min-width: 100px" onchange="selectManufactor(1)">
                                         <option value="0"  style="display: none"></option>
+                                        @foreach($supplier as $val)
+                                            @if(in_array($val->id,$supplier_brand_list[$mate->brand_id]))
+                                                @if($val->id == $mate->supplier_id)
+                                                <option value="{{ $val->id }}" class="manufa manufa_{{ $val->id }}" selected="selected">{{$val->manufactor}}</option>
+                                                @else
+                                                    <option value="{{ $val->id }}" class="manufa manufa_{{ $val->id }}" >{{$val->manufactor}}</option>
+                                                @endif
+                                            @else
+                                                <option value="{{ $val->id }}" class="manufa manufa_{{ $val->id }}" style="display: none">{{$val->manufactor}}</option>
+                                            @endif
+
+                                        @endforeach
                                     </select>
                                 </td>
-                                <td><input type="text"  name="supplier[]"          id="supplier_1"         value="{{ $material->conversion }}" lay-skin="primary"></td>
-                                <td><input type="text"  name="budget_unit_price[]" id="budget_unit_price_1" value="{{ $material->pack_specification }}" lay-skin="primary" placeholder=""style="width:50px;"></td>
-                                <td><input type="text"  name="budget_unit[]"       id="budget_unit_1"         value="{{ $material->pack_claim }}" lay-skin="primary"  placeholder=""style="width:50px;"></td>
-                                <td><input type="text"  name="purchase_unit_price[]"  id="purchase_unit_price_1"    value="{{ $material->material_length }}" lay-skin="primary" style="width:50px;"></td>
-                                <td><input type="text"  name="purchase_unit[]"      id="purchase_unit_1" value="{{ $material->material_diameter }}" lay-skin="primary" style="width:50px;"></td>
+                                <td><input type="text"  name="supplier[]"          id="supplier_1"         value="{{ $mate->supplier }}" lay-skin="primary"></td>
+                                <td><input type="text"  name="budget_unit_price[]" id="budget_unit_price_1" value="{{ $mate->budget_unit_price }}" lay-skin="primary" placeholder=""style="width:50px;"></td>
+                                <td><input type="text"  name="budget_unit[]"       id="budget_unit_1"         value="{{ $mate->budget_unit }}" lay-skin="primary"  placeholder=""style="width:50px;"></td>
+                                <td><input type="text"  name="purchase_unit_price[]"  id="purchase_unit_price_1"    value="{{ $mate->purchase_unit_price }}" lay-skin="primary" style="width:50px;"></td>
+                                <td><input type="text"  name="purchase_unit[]"      id="purchase_unit_1" value="{{ $mate->purchase_unit }}" lay-skin="primary" style="width:50px;"></td>
                                 <td><a class="btn btn-danger" onclick="deleteTrRow(this)">删除</a></td>
                             </tr>
-
+                            @endforeach
 
                             </tbody>
                         </table>
@@ -181,7 +198,6 @@
         <hr class="hr-stylish-1">
     </div>
     <style>
-
         input{
             width: 90%;
         }
@@ -189,18 +205,29 @@
     <!-- 你的HTML代码 -->
 
     <script type="text/javascript">
-        var supplier={};
+        var supplier_brand={!! $supplier_brand_json !!}; //品牌对应供应商列表
+        var supplier={!! $supplier_list_json !!}; //供应商名称列表
         //删除事件
         function deleteTrRow(tr){
             $(tr).parent().parent().remove();
         }
 
         function selectSupplier(id){
-           // id =parseInt(Math.random() * (1000000 )+100);
+            // id =parseInt(Math.random() * (1000000 )+100);
             brand_id =$('#brand_id_'+id).val();
+            console.log(supplier_brand[brand_id]);
             console.log(brand_id);
+            supplier_brand_list =supplier_brand[brand_id];
+            $('.manufa').hide();
+            for(var i=0;i<supplier_brand_list.length;i++){
+                j= supplier_brand_list[i];
+                $('.manufa_'+j).show();
+            }
 
+            //$("#manufactor_"+id).empty();
+            //$("#manufactor_"+id).append("<option value='0' ></option>");
             //获取品牌对于的供应商信息
+            /*
             $.ajax({
                 url:'/supplier/brandToSupplier/'+brand_id,
                 type:'get',
@@ -209,8 +236,6 @@
                     console.log(data);
                     if(data.status == 1){
                         arr =data.data;
-                        $("#manufactor_"+id).empty()
-                        $("#manufactor_"+id).append("<option value='0' ></option>");
                         for(var i=0;i<arr.length;i++){
                             console.log(arr[i]);
                             obj =arr[i];
@@ -220,37 +245,48 @@
                     }
                 },
             });
+            */
         }
 
         function selectManufactor(id){
             sid =$('#manufactor_'+id).val();
             $('#supplier_'+id).val(supplier[sid]);
-            console.log(supplier);
+            console.log(supplier[sid]);
         }
 
 
 
         //添加事件
         function add_xitong() {
-
-           str =' <tr> <td> <input type="hidden" name="material_id[]" value="0" lay-skin="primary">'+
-                '<input type="text" name="material_name[]"  lay-skin="primary"> </td>'+
-                '<td> <input type="text" name="material_code[]"  lay-skin="primary"> </td>'+
-                '<td> <input type="text" name="material_type[]"    lay-skin="primary"> </td>'+
-                '<td> <input type="text" name="position[]"    lay-skin="primary"> </td>'+
-                '<td> <input type="text" name="purpose[]"   lay-skin="primary"> </td>'+
-                '<td> <input type="text" name="material_number[]"    lay-skin="primary"> </td>'+
-                '<td> <input type="text" name="characteristic[]"    lay-skin="primary"> </td>'+
-                '<td> <input type="text" name="waste_rate[]"    lay-skin="primary"> </td>'+
-                '<td> <select name="status[]" id="stateAndCity" class="span12" style="min-width: 80px">'+
-                '<option value="1" selected="selected">有效</option> <option value="0">无效</option> </select> </td>'+
-                '<td><a  class="btn btn-danger" onclick="deleteTrRow(this)">删除</a>'+
-                '</td> </tr>';
+            intid =parseInt(Math.random() * (1000000 )+100);
+           str =' <tr> <td>'+
+               '<select name="brand_id[]" id="brand_id_'+intid+'" class="span12" style="min-width: 80px;" onchange="selectSupplier('+intid+')">'+
+            '<option value="0"  style="display: none"></option>'+
+                    @foreach($brand as $v)
+                        '<option value="{{ $v->id }}" >{{$v->brand_name}}</option>'+
+                    @endforeach
+                '</select>'+
+            '</td> <td>'+
+            '<select name="manufactor[]" id="manufactor_'+intid+'" class="span12" style="min-width: 100px" onchange="selectManufactor('+intid+')">'+
+            '<option value="0"  style="display: none"></option>'+
+                    @foreach($supplier as $val)
+                        '<option value="{{ $val->id }}" class="manufa manufa_{{ $val->id }}" style="display: none">{{$val->manufactor}}</option>'+
+                    @endforeach
+                        '</select>'+
+            '</td>'+
+            '<td><input type="text"  name="supplier[]"          id="supplier_'+intid+'"         value="" lay-skin="primary"></td>'+
+            '<td><input type="text"  name="budget_unit_price[]" id="budget_unit_price_'+intid+'" value="" lay-skin="primary" placeholder=""style="width:50px;"></td>'+
+            '<td><input type="text"  name="budget_unit[]"       id="budget_unit_'+intid+'"         value="" lay-skin="primary"  placeholder=""style="width:50px;"></td>'+
+            '<td><input type="text"  name="purchase_unit_price[]"  id="purchase_unit_price_'+intid+'"    value="" lay-skin="primary" style="width:50px;"></td>'+
+            '<td><input type="text"  name="purchase_unit[]"      id="purchase_unit_'+intid+'" value="" lay-skin="primary" style="width:50px;"></td>'+
+            '<td><a class="btn btn-danger" onclick="deleteTrRow(this)">删除</a></td>'+
+            '</tr>';
 
             $("#zixitong").append(str);
         }
         //提交验证信息
         function form_submit(){
+            $('input').css('background','#fff');
             var sum=0;
             $("input").each(function(){
                 if($(this).val()){

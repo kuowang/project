@@ -82,14 +82,20 @@ class MaterialController extends WebController
                 'purpose','material_number','characteristic',
                 'waste_rate','material_created_uid',
                 'material_created_at','material_edit_uid','material_updated_at',
-                'budget_unit','purchase_unit','pack_specification','pack_claim'])
+                'material_budget_unit','material_purchase_unit','pack_specification','pack_claim'])
             ->skip(($page-1)*$rows)
             ->take($rows)
             ->get();
         return $data;
     }
 
-    public function editMaterial(Request $request,$id){
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     * @throws \Exception
+     */
+    public function editMaterial(Request $request, $id){
         //用户权限部分
         $data['username']   =$this->user()->name;
         $data['nav']        =$this->user()->nav;
@@ -100,6 +106,7 @@ class MaterialController extends WebController
         $data['manageauth']   =$this->user()->manageauth;
         $data['uid']        =$this->user()->id;
         $data['id']=$id;
+        //材料信息
         $material=DB::table('material')->where('material.status',1)
             ->where('material.id',$id)
             ->first();
@@ -110,28 +117,129 @@ class MaterialController extends WebController
             return redirect('/material/materialList?status=2&notice='.'仅有创建用户和管理员才能查看');
         }
         $data['material']=$material;
+        //建筑系统信息
         $data['architectual_system'] =DB::table('architectural_system')
             ->where('status',1)
             ->where('id',$material->architectural_id)
             ->first();
-
+        //建筑子系统信息
         $data['architectural_sub_system'] =DB::table('architectural_sub_system')
             ->where('status',1)
             ->where('id',$material->architectural_sub_id)
             ->first();
-
+        //材料品牌信息
         $data['material_brand']=DB::table('material_brand_supplier')
             ->where('material_id',$id)
             ->get();
+        //品牌列表
         $data['brand'] =DB::table('brand')
             ->where('status',1)
             ->orderby('id','desc')
             ->select(['id','brand_name','brand_logo'])
             ->get();
+        //供应商品牌列表
+        $supplier_brand=DB::table('supplier_brand')->where('status',1)
+            ->select(['brand_id','supplier_id'])
+            ->get();
+        $data['supplier_brand_list']=[];
+        if(!empty($supplier_brand)){
+            foreach ($supplier_brand as $item){
+                $supplier_brand_list[$item->brand_id][]=$item->supplier_id;
+            }
+            $data['supplier_brand_list']=$supplier_brand_list;
+            $data['supplier_brand_json']=json_encode($supplier_brand_list);
+        }else{
+            $data['supplier_brand_json']=null;
+        }
+
+        //供应商信息
+        $supplier =DB::table('supplier')->where('status',1)
+            ->select(['id','supplier','manufactor'])
+            ->get();
+
+        $data['supplier']=[];
+        if(!empty($supplier)){
+            foreach($supplier as $item){
+                $data['supplier'][$item->id]=$item;
+                $supplier_list[$item->id] =$item->supplier;
+            }
+            $data['supplier_list_json']=json_encode($supplier_list);
+        }else{
+            $data['supplier_list_json']=null;
+        }
+
         return view('material.editMaterialBrand',$data);
-
-
     }
+
+    //材料品牌数据提交操作
+    public function postEditMaterial(Request $request, $id){
+        $data['material_budget_unit'] =$request->input('material_budget_unit');
+        $data['material_purchase_unit'] =$request->input('material_purchase_unit');
+        $data['pack_specification'] =$request->input('pack_specification');
+        $data['pack_claim']         =$request->input('pack_claim');
+        $data['conversion']         =$request->input('conversion');
+        $data['material_length']    =$request->input('material_length');
+        $data['material_width']     =$request->input('material_width');
+        $data['material_height']    =$request->input('material_height');
+        $data['material_thickness'] =$request->input('material_thickness');
+        $data['material_diameter']  =$request->input('material_diameter');
+        $brand_id           =$request->input('brand_id',[]);
+        $manufactor         =$request->input('manufactor',[]);
+        $supplier           =$request->input('supplier',[]);
+        $budget_unit_price  =$request->input('budget_unit_price',[]);
+        $budget_unit        =$request->input('budget_unit',[]);
+        $purchase_unit      =$request->input('purchase_unit',[]);
+        $purchase_unit_price=$request->input('purchase_unit_price',[]);
+
+        if(empty($data['pack_specification']) || empty($data['pack_claim']) || empty($data['conversion']) || empty($data['material_length']) ){
+            //return redirect('/material/materialList?status=2&notice='.'编辑失败，材料信息不能为空');
+            echo"<script>alert('编辑失败，材料信息不能为空');history.go(-1);</script>";
+        }
+
+        if(count($brand_id) != count($manufactor) || count($budget_unit_price) !=count($supplier) ||
+            count($budget_unit) !=count($purchase_unit) || count($purchase_unit_price) !=count($purchase_unit)  ){
+            //return redirect('/material/materialList?status=2&notice='.'编辑失败，品牌供应商信息不能为空');
+            echo"<script>alert('编辑失败，品牌供应商信息不能为空');history.go(-1);</script>";
+        }
+
+        //保存材料信息
+        DB::beginTransaction();
+        $material =DB::table('material')->where('id',$id)->first();
+        if(empty($material->material_created_uid)){
+            $data['material_created_uid']=$this->user()->id;
+            $data['material_created_at']=date('Y-m-d');
+        }else{
+            $data['material_edit_uid']=$this->user()->id;
+            $data['material_updated_at']=date('Y-m-d');
+        }
+        DB::table('material')->where('id',$id)->update($data);
+
+        //删除原有的材料品牌供应
+        DB::table('material_brand_supplier')->where('material_id',$id)->delete();
+        //保存品牌供应商信息
+        if(count($brand_id) >0){
+            foreach($brand_id as $k=>$v){
+                $datalist['material_id']=$id;
+                $datalist['brand_id']=$v;
+                $datalist['brand_name']=DB::table('brand')->where('id',$v)->value('brand_name');
+                $datalist['supplier_id']=$manufactor[$k];
+                $datalist['manufactor']=DB::table('supplier')->where('id',$supplier[$k])->value('manufactor');;
+                $datalist['supplier']=$supplier[$k];
+                $datalist['budget_unit_price']=$budget_unit_price[$k];
+                $datalist['budget_unit']=$budget_unit[$k];
+                $datalist['purchase_unit_price']=$purchase_unit_price[$k];
+                $datalist['purchase_unit']=$purchase_unit[$k];
+                $datalist['uid']=$this->user()->id;
+                $datalist['username']=$this->user()->name;
+                $datalist['created_at']=date('Y-m-d');
+                DB::table('material_brand_supplier')->insert($datalist);
+            }
+        }
+        DB::commit();
+        return redirect('/material/materialList?status=1&notice='.'编辑成功。请到详情中查看！');
+        //return $this->success($request->all());
+    }
+
 
 
 }
