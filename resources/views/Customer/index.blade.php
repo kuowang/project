@@ -294,6 +294,36 @@
             return false;
         }
 
+        function deleteBrand(id) {
+            if(confirm("是否需要删除该客户，删除后将无法恢复")){
+                $.ajax({
+                    url:'/customer/postDeleteCustomer/'+id,
+                    type:'post',
+                    success:function(data){
+                        console.log(data);
+                        if(data.status == 1){
+                            location.href=location.href
+                        }else{
+                            layui.use('layer', function(){
+                                var layer = layui.layer;
+                                layer.msg(data.info);
+                            });
+                        }
+                    },
+                    error:function () {
+                        layui.use('layer', function(){
+                            var layer = layui.layer;
+                            layer.msg('提交失败，请刷新页面再试');
+                        });
+                    }
+                });
+            }
+            return false;
+        }
+
+
+
+
     </script>
 
 @endsection

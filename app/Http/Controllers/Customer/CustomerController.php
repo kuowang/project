@@ -134,5 +134,18 @@ class CustomerController extends WebController
         DB::table('customer')->where('id',$id)->update($data);
         return $this->success('修改成功');
     }
+    //删除客户信息
+    public function postDeleteCustomer(Request $request,$id){
+
+        $data=[
+            'status'=>0,
+            'edit_uid'=>$this->user()->id,
+            'updated_at'=>date('Y-m-d'),
+        ];
+        DB::table('customer')->where('id',$id)->update($data);
+        return $this->success('删除成功');
+    }
+
+
 
 }
