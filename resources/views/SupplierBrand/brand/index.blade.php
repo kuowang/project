@@ -58,8 +58,9 @@
                                             {{ $val->id }}
                                         </td>
                                         <td class="brand_name_{{ $val->id }}">{{ $val->brand_name }}</td>
-                                        <td>@if($val->brand_logo)
-                                            <img class="brand_logo_{{ $val->id }}" src="{{$val->brand_logo}}" style="width:100px">
+                                        <td style="text-align: center">
+                                            @if($val->brand_logo)
+                                            <img class="brand_logo_{{ $val->id }}" src="{{$val->brand_logo}}" style="width:75px">
                                             @endif
                                         </td>
                                         <td class="notice_content_{{ $val->id }}">
