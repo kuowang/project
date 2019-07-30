@@ -89,7 +89,7 @@
                                 @if($val->sub_system_code != $syatem_sub_code  )
                                     <tr class="gradeA success odd">
                                         <td></td>
-                                        <td colspan="9">{{$val->sub_system_code}}</td>
+                                        <td colspan="9">{{$val->sub_system_name}}</td>
                                     </tr>
                                     @php
                                         $syatem_sub_code = $val->sub_system_code;
