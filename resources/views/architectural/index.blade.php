@@ -101,7 +101,7 @@
                                         @if((in_array(350104,$pageauth) && $val->uid == $uid) || in_array(3504,$manageauth))
                                             @if ($val->status ==1)
                                                 &nbsp;&nbsp;&nbsp;
-                                                <a title="无效" class="btn btn-warning"  href='{{ url("/architectural/edit_architect_status/".$val->id.'/0') }}'>
+                                                <a title="无效" class="btn btn-warning" onclick="return setstatus()" href='{{ url("/architectural/edit_architect_status/".$val->id.'/0') }}'>
                                                     <i class="layui-icon">无效</i>
                                                 </a>
                                             @else
@@ -149,5 +149,12 @@
     <span style="float: right;margin-bottom: 10px"><a href="/base/getNoticeInfo" style="color: #0000FF"> 查看更多 >></a></span>
     <hr class="hr-stylish-1">
 </div>
-
+<script type="text/javascript">
+    function setstatus() {
+        if(confirm("点击无效后，将导致预算报价列表，材料信息列表，以及创建新项目信息同步不显示？")){
+            return true;
+        }
+        return false;
+    }
+</script>
 @endsection

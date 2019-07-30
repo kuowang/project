@@ -95,7 +95,7 @@
                                 </div>
                             </div>
                             <div class="form-actions no-margin">
-                                <button type="submit" class="btn btn-info pull-right">
+                                <button type="submit" class="btn btn-success pull-right">
                                     创建用户
                                 </button>
                                 <div class="clearfix">

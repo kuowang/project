@@ -145,7 +145,7 @@
                                             状态:
                                         </label>
                                         <div class="controls">
-                                            <select name="status" id="status" class="span12" style="min-width: 80px">
+                                            <select name="status" id="status" class="span12" style="min-width: 80px" onchange="checkStatus(this)">
                                                 <option value="1" selected="selected">有效</option>
                                                 <option value="0">无效</option>
                                             </select>
@@ -337,6 +337,21 @@
                 }
             })
         }
+
+        function checkStatus(it) {
+            status = $(it).val();
+            console.log(status)
+            if(status ==0){
+                layui.use('layer', function(){
+                    var layer = layui.layer;
+                    var index = layer.open({
+                        content: '点击无效后，将导致预算报价列表，材料信息列表，以及创建新项目信息同步不显示？'
+                    });
+                });
+            }
+        }
+
+
     </script>
 
 @endsection

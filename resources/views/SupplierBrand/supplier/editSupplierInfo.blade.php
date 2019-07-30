@@ -76,7 +76,7 @@
                                     状态:
                                 </label>
                                 <div class="controls">
-                                    <select name="status" id="stateAndCity" class="span6" style="min-width: 80px">
+                                    <select name="status" id="stateAndCity" class="span6" style="min-width: 80px" onchange="checkStatus(this)">
                                         @if($supplier->status == 1)
                                             <option value="1" selected="selected">有效</option>
                                             <option value="0">无效</option>
@@ -107,7 +107,7 @@
                                 </div>
                             </div>
                             <div class="form-actions no-margin">
-                                <button type="submit" class="btn btn-info pull-right" >
+                                <button type="submit" class="btn btn-success pull-right" >
                                     提交
                                 </button>
                                 <div class="clearfix">
@@ -167,7 +167,18 @@
             }
             return true;
         });
-
+        function checkStatus(it) {
+            status = $(it).val();
+            console.log(status)
+            if(status ==0){
+                layui.use('layer', function(){
+                    var layer = layui.layer;
+                    var index = layer.open({
+                        content: '点击无效后，将导致预算报价列表，材料信息列表，以及创建新项目信息同步不显示？'
+                    });
+                });
+            }
+        }
 
 
     </script>

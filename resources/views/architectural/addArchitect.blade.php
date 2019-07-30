@@ -56,6 +56,7 @@
                         </table>
                         <div class="clearfix">
                         </div>
+                        <div style="color: orangered">状态无效后，将导致预算报价列表，材料信息列表，以及创建新项目信息同步不显示？请谨慎操作</div>
                     </div>
                 </div>
             </div>
