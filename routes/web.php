@@ -136,8 +136,8 @@ Route::group(['prefix' => 'material','namespace' => 'Material','middleware' => '
 //客户类的控制组 需要登录
 Route::group(['prefix' => 'customer','namespace' => 'Customer','middleware' => 'auth'], function () {
     //材料管理
-    Route::get('/customerList',                   'CustomerController@brandList');             //客户列表
-    Route::post('/postAddCustomer',              'CustomerController@postAddCustomer');        //提交新增客户信息
+    Route::get('/customerList',                   'CustomerController@customerList');             //客户列表
+    Route::post('/postAddCustomer',               'CustomerController@postAddCustomer');        //提交新增客户信息
     Route::post('/postEditCustomer/{id}',         'CustomerController@postEditCustomer');      //提交编辑客户信息
     Route::post('/postDeleteCustomer/{id}',         'CustomerController@postDeleteCustomer');  //删除客户信息
 

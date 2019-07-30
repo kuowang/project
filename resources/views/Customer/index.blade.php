@@ -12,18 +12,21 @@
             <div class="widget">
                 <div class="widget-header">
                     <div class="title">
-                        品牌列表<a id="dynamicTable"></a>
-                        @if(in_array(450101,$pageauth) || in_array(4502,$manageauth))
-                        <a class="btn btn-success" title="新增品牌" id="addnotice"  onclick="addBrand('新增品牌')">
-                            <i class="layui-icon">新增品牌</i>
+                        客户列表<a id="dynamicTable"></a>
+                        @if(in_array(5502,$pageauth) || in_array(5502,$manageauth))
+                        <a class="btn btn-success" title="新增客户" id="addnotice"  onclick="addCustomer('新增客户')">
+                            <i class="layui-icon">新增客户</i>
                         </a>
                         @endif
                     </div>
-                    @if(in_array(450102,$pageauth) || in_array(4501,$manageauth))
+                    @if(in_array(5501,$pageauth) || in_array(5501,$manageauth))
                     <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                         <label>
-                            <form class="form-search" action="/supplier/brandList" method="get">
-                                品牌名称: &nbsp;<input type="text" name="search" value="{{ $search }}" class="input-medium search-query">
+                            <form class="form-search" action="/customer/customerList" method="get">
+                                客户名称: &nbsp;<input type="text" name="customer" value="{{ $customer }}" class="input-medium search-query">
+                                客户性质: &nbsp;<input type="text" name="type" value="{{ $type }}" class="input-medium search-query">
+                                地址: &nbsp;<input type="text" name="address" value="{{ $address }}" class="input-medium search-query">
+
                                 <button type="submit" class="btn">搜索</button>
                             </form></label>
                     </div>
@@ -36,13 +39,13 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>品牌名称</th>
-                                <th>logo</th>
-                                <th>状态</th>
-                                <th>创建人</th>
-                                <th>创建时间</th>
-                                <th>操作人</th>
-                                <th>编辑时间</th>
+                                <th>客户名称</th>
+                                <th>客户性质</th>
+                                <th>客户地址</th>
+                                <th>联系人</th>
+                                <th>联系人电话</th>
+                                <th>联系人电话2</th>
+                                <th>联系人邮箱</th>
                                 <th style="width: 120px">操作</th>
                             </tr>
                             </thead>
@@ -54,32 +57,24 @@
                                 @else
                                     <tr class="gradeA success">
                                 @endif
-                                        <td class="brand_id_{{ $val->id }}">
-                                            {{ $val->id }}
-                                        </td>
-                                        <td class="brand_name_{{ $val->id }}">{{ $val->brand_name }}</td>
-                                        <td>@if($val->brand_logo)
-                                            <img class="brand_logo_{{ $val->id }}" src="{{$val->brand_logo}}" style="width:50px">
-                                            @endif
-                                        </td>
-                                        <td class="notice_content_{{ $val->id }}">
-                                            <input type="hidden" name="brand_status" class="brand_status_{{$val->id}}" value="{{ $val->status }}">
-                                            @if($val->status ==1 )
-                                                有效
-                                            @else
-                                                <span class="btn btn-warning">无效</span>
-                                            @endif</td>
-                                        <td class="notice_operator_{{ $val->id }}">{{ $val->createor }}</td>
-                                        <td class="notice_status_{{ $val->id }}">
-                                            {{ $val->created_at }}
-                                        </td>
-                                        <td >{{ $val->editor }}</td>
-                                        <td >{{ $val->updated_at }}</td>
+                                        <td class="customer_id_{{ $val->id }}">{{ $k+1 }}</td>
+                                        <td class="customer_{{ $val->id }}">{{ $val->customer }}</td>
+                                        <td class="type_{{ $val->id }}">{{ $val->type }}</td>
+                                        <td class="address_{{ $val->id }}">{{ $val->address }}</td>
+                                        <td class="contacts_{{ $val->id }}">{{ $val->contacts }}</td>
+                                        <td class="telephone_{{ $val->id }}">{{ $val->telephone }}</td>
+                                        <td class="phone_{{ $val->id }}">{{ $val->phone }}</td>
+                                        <td class="email_{{ $val->id }}">{{ $val->email }}</td>
                                         <td class="td-manage ">
-                                            @if((in_array(450103,$pageauth) && $val->create_uid == $uid) || in_array(4503,$manageauth))
-                                            <a title="编辑品牌" class="btn btn-success" onclick="editBrand({{ $val->id }})" href="javascript:;">
-                                                <i class="layui-icon">编辑品牌</i>
+                                            @if((in_array(5503,$pageauth) && $val->uid == $uid) || in_array(5503,$manageauth))
+                                            <a title="编辑客户" class="btn btn-success" onclick="editBrand({{ $val->id }})" href="javascript:;">
+                                                <i class="layui-icon">编辑</i>
                                             </a>
+                                            @endif
+                                            @if((in_array(5504,$pageauth) && $val->uid == $uid) || in_array(5504,$manageauth))
+                                                <a title="删除客户" class="btn btn-danger" onclick="deleteBrand({{ $val->id }})" href="javascript:;">
+                                                    <i class="layui-icon">删除</i>
+                                                </a>
                                             @endif
                                         </td>
                                 </tr>
@@ -109,7 +104,7 @@
                         &times;
                     </button>
                     <h4 class="modal-title" id="myModalLabel">
-                        品牌
+                        客户信息
                     </h4>
                 </div>
                 <form class="form-horizontal no-margin" id="noticeform" action="/supplier/post_add_brand" method="post">
@@ -121,47 +116,59 @@
                             <div class="widget-body">
 
                                 <div class="control-group">
-                                    <label class="control-label" for="name">
-                                        品牌名称:
+                                    <label class="control-label" for="customer">
+                                        客户名称:
                                     </label>
                                     <div class="controls controls-row">
-                                        <input class="span12 layui-input" type="text" id="brand_name" name="brand_name" placeholder="标题名称">
+                                        <input class="span12 layui-input" type="text" id="customer" name="customer" placeholder="客户名称">
                                     </div>
                                 </div>
                                 <div class="control-group">
-                                    <label class="control-label" for="name">
-                                        品牌LOGO:
+                                    <label class="control-label" for="type">
+                                        客户性质:
                                     </label>
                                     <div class="controls controls-row">
-                                        <input type="hidden" id="brand_logo" name="brand_logo" placeholder="logo" >
-
-                                        <input class="span12 " type="file" id="uploadlogo" name="uploadlogo" placeholder="logo" onchange="submitLogo()">
+                                        <input class="span12 layui-input" type="text" id="type" name="type" placeholder="客户性质">
                                     </div>
                                 </div>
-
                                 <div class="control-group">
-                                        <label class="control-label" for="password">
-                                            状态:
-                                        </label>
-                                        <div class="controls">
-                                            <select name="status" id="status" class="span12" style="min-width: 80px">
-                                                <option value="1" selected="selected">有效</option>
-                                                <option value="0">无效</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                <div class="control-group">
-                                    <label class="control-label" for="role">
-                                        供应商:
+                                    <label class="control-label" for="address">
+                                        客户地址:
                                     </label>
-                                    <div class="controls">
-                                        @foreach ($supplier as $val )
-                                            <label class="checkbox">
-                                                <input type="checkbox" id="supplier_{{ $val->id }}" class="supplier" name="supplier[]" value="{{ $val->id }}">
-                                                {{ $val->supplier }}({{ $val->manufactor }})
-                                            </label>
-                                        @endforeach
+                                    <div class="controls controls-row">
+                                        <input class="span12 layui-input" type="text" id="address" name="address" placeholder="地址">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="contacts">
+                                        联系人:
+                                    </label>
+                                    <div class="controls controls-row">
+                                        <input class="span12 layui-input" type="text" id="contacts" name="contacts" placeholder="王**">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="telephone">
+                                        联系电话:
+                                    </label>
+                                    <div class="controls controls-row">
+                                        <input class="span12 layui-input" type="text" id="telephone" name="telephone" placeholder="135********">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="phone">
+                                        联系电话2:
+                                    </label>
+                                    <div class="controls controls-row">
+                                        <input class="span12 layui-input" type="text" id="phone" name="phone" placeholder="152********">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="email">
+                                        电子邮箱:
+                                    </label>
+                                    <div class="controls controls-row">
+                                        <input class="span12 layui-input" type="text" id="email" name="email" placeholder="****@163.com">
                                     </div>
                                 </div>
                             </div>
@@ -202,61 +209,49 @@
 
     <script>
         //新增消息按钮的事件
-        function addBrand(str){
+        function addCustomer(str){
             $("#myModalLabel").text(str);
-            $('#brand_name').val('');
-            $('#status').val('');
-            $('#noticeform').prop('action','/supplier/post_add_brand');
-            $('#brand_logo').val('');
+            $('#customer').val('');
+            $('#type').val('');
+            $('#address').val('');
+            $('#contacts').val('');
+            $('#telephone').val('');
+            $('#phone').val('');
+            $('#email').val('');
+            $('#noticeform').prop('action','/customer/postAddCustomer');
             $('#myModal').modal();
         }
 
         function editBrand(id){
-            $("#myModalLabel").text('编辑品牌');
-            $('#noticeform').prop('action','/supplier/post_edit_brand/'+id);
+            $("#myModalLabel").text('编辑客户');
             //补充表格数据
-            $('#brand_name').val($.trim($('.brand_name_'+id).html()));
-            $('#status').val($('.brand_status_'+id).val());
-            $('#brand_logo').val($('.brand_logo_'+id).prop('src'));
-
-            //获取品牌对应的供应商信息
-            $.ajax({
-                url:'/supplier/brandSupplierList/'+id,
-                type:'get',
-                // contentType: 'application/json',
-                success:function(data){
-                    console.log(data);
-                    if(data.status == 1){
-                        arr =data.data;
-                        for(var i=0;i<arr.length;i++){
-                            console.log(arr[i]);
-                            $('#supplier_'+arr[i]).prop('checked',true);
-                        }
-                    }
-                },
-            });
+            $('#customer').val($.trim($('.customer_'+id).html()));
+            $('#type').val($.trim($('.type_'+id).html()));
+            $('#address').val($.trim($('.address_'+id).html()));
+            $('#contacts').val($.trim($('.contacts_'+id).html()));
+            $('#telephone').val($.trim($('.telephone_'+id).html()));
+            $('#phone').val($.trim($('.phone_'+id).html()));
+            $('#email').val($.trim($('.email_'+id).html()));
+            $('#noticeform').prop('action','/customer/postEditCustomer/'+id);
             $('#myModal').modal();
         }
 
         function submitform(){
-            var supplier=new Array();
-            $('input[name="supplier[]"]:checked').each(function(){
-                supplier.push($(this).val());//向数组中添加元素
-            });
+            //提交的数据信息
             var datalist={
                 brand_name: $('#brand_name').val(),
-                status:  $('#status').val(),
-                supplier:supplier,
-                brand_logo:$('#brand_logo').val(),
+                customer:  $('#customer').val(),
+                type:  $('#type').val(),
+                address:  $('#address').val(),
+                contacts:  $('#contacts').val(),
+                telephone:  $('#telephone').val(),
+                phone:  $('#phone').val(),
+                email:  $('#email').val(),
+                myModal:  $('#myModal').val(),
             };
-            if($('#brand_logo').val()==''){
-                layui.use('layer', function(){
-                    var layer = layui.layer;
-                    layer.msg('没有查询到图片，请补充图片后在提交');
-                });
-            }
             console.log(datalist);
             var status=0;
+            //验证数据的有效性
             $("input.layui-input").each(function(){
                 if($(this).val()){
                 }else{
@@ -299,32 +294,6 @@
             return false;
         }
 
-        function submitLogo() {
-            var formdata=new FormData();
-                formdata.append('file',$('#uploadlogo')[0].files[0]);
-            $.ajax({
-                url:'/supplier/uploadImage',
-                type:"POST",
-                data:formdata,
-                processData:false,
-                contentType:false,
-                success:function(data){
-                    console.log(data);
-                    if(data.status ==1){
-                        layui.use('layer', function(){
-                            var layer = layui.layer;
-                            layer.msg(data.data.msg);
-                            $('#brand_logo').val(data.data.url)
-                        });
-                    }else{
-                        layui.use('layer', function(){
-                            var layer = layui.layer;
-                            layer.msg(data.info);
-                        });
-                    }
-                }
-            })
-        }
     </script>
 
 @endsection

@@ -23,15 +23,21 @@ class CustomerController extends WebController
     //客户列表
     public function customerList(Request $request){
 
-        $search =$request->input('search','');
+        $customer =$request->input('customer','');
+        $type =$request->input('type','');
+        $address =$request->input('address','');
+
         $page =$request->input('page',1);
         $rows =$request->input('rows',40);
-        $datalist =$this->getBrandList($search,$page,$rows);
+        $datalist =$this->getCustomerList($customer,$type,$address,$page,$rows);
         //分页
-        $url='/supplier/brandList?search='.$search.'&rows='.$rows;
+        $url='/customer/customerList?customer='.$customer.'&type='.$type.'&address='.$address.'&rows='.$rows;
         $data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
         $data['data']   =$datalist['data'];
-        $data['search'] =$search;
+        $data['customer'] =$customer;
+        $data['type'] =$type;
+        $data['address'] =$address;
+
         $data['uid'] =$this->user()->id;
 
         $data['supplier'] =DB::table('supplier')->where('status',1)->get();
@@ -39,8 +45,8 @@ class CustomerController extends WebController
         //用户权限部分
         $data['username']   =$this->user()->name;
         $data['nav']        =$this->user()->nav;
-        $data['navid']      =45;
-        $data['subnavid']   =4501;
+        $data['navid']      =55;
+        $data['subnavid']   =5501;
         $data['pageauth']   =$this->user()->pageauth;
         $data['manageauth']   =$this->user()->manageauth;
         $data['noticelist']     =$this->user()->notice;
@@ -48,12 +54,19 @@ class CustomerController extends WebController
         return view('Customer.index',$data);
     }
     //查询公告信息
-    private function  getBrandList($search,$page,$rows){
+    private function  getCustomerList($customer,$type,$address,$page,$rows){
 
-        $db=DB::table('brand');
-        if(!empty($search)){
-            $db->where('brand_name','like','%'.$search.'%');
+        $db=DB::table('customer')->where('status',1);
+        if(!empty($customer)){
+            $db->where('customer','like','%'.$customer.'%');
         }
+        if(!empty($type)){
+            $db->where('type','like','%'.$type.'%');
+        }
+        if(!empty($address)){
+            $db->where('address','like','%'.$address.'%');
+        }
+
         $data['count'] =$db->count();
         $data['data']= $db->orderby('id','desc')
             ->skip(($page-1)*$rows)
@@ -63,77 +76,62 @@ class CustomerController extends WebController
     }
 
 
-    //提交新增公告
-    public function postAddBrand(Request $request){
+    //提交新增客户
+    public function postAddCustomer(Request $request){
 
-        $brand_name=$request->input('brand_name');
-        $status =(int)$request->input('status',1);
-        $supplier =$request->input('supplier',[]);
-        $brand_logo=$request->input('brand_logo','');
-        if(empty($brand_name) || empty($brand_logo) ){
+        $customer   =$request->input('customer');
+        $type       =$request->input('type');
+        $address    =$request->input('address');
+        $contacts   =$request->input('contacts');
+        $telephone  =$request->input('telephone');
+        $phone      =$request->input('phone');
+        $email      =$request->input('email');
+
+        if(empty($type) || empty($customer) ){
             return $this->error('内容不能为空');
         }
         $data=[
-            'brand_name'=>$brand_name,
-            'brand_logo'=>$brand_logo,
-            'status'=>$status,
-            'create_uid'=>$this->user()->id,
-            'createor'=>$this->user()->name,
+            'customer'  =>$customer,
+            'type'      =>$type,
+            'address'   =>$address,
+            'contacts'  =>$contacts,
+            'telephone' =>$telephone,
+            'phone'     =>$phone,
+            'email'     =>$email,
+            'uid'=>$this->user()->id,
+            'status'=>1,
+            'username'  =>$this->user()->name,
             'created_at'=>date('Y-m-d'),
         ];
-        $id =DB::table('brand')->insertGetId($data);
-        if(!empty($supplier)){
-            $datalist=[];
-            foreach($supplier as $value){
-                $datalist[]=[
-                    'brand_id'=>$id,
-                    'supplier_id'=>$value,
-                    'status'=>1,
-                    'create_uid'=>$this->user()->id,
-                    'createor'=>$this->user()->name,
-                    'created_at'=>date('Y-m-d'),
-                ];
-            }
-            DB::table('supplier_brand')->insert($datalist);
-        }
+        DB::table('customer')->insert($data);
         return $this->success('提交成功');
     }
     //提交编辑公告
-    public function postEditBrand(Request $request,$id){
-        $brand_name =$request->input('brand_name');
-        $status =(int)$request->input('status',1);
-        $supplier =$request->input('supplier',[]);
-        $brand_logo=$request->input('brand_logo','');
-        if(empty($brand_name) || empty($brand_logo)){
-            return json_encode($request->all());
+    public function postEditCustomer(Request $request,$id){
+        $customer=$request->input('customer');
+        $type=$request->input('type');
+        $address=$request->input('address');
+        $contacts=$request->input('contacts');
+        $telephone=$request->input('telephone');
+        $phone=$request->input('phone');
+        $email=$request->input('email');
+
+        if(empty($type) || empty($customer) ){
+            return $this->error('内容不能为空');
         }
         $data=[
-            'brand_name'=>$brand_name,
-            'brand_logo'=>$brand_logo,
-            'status'=>$status,
+            'customer'=>$customer,
+            'type'=>$type,
+            'address'=>$address,
+            'contacts'=>$contacts,
+            'telephone'=>$telephone,
+            'phone'=>$phone,
+            'email'=>$email,
+            'status'=>1,
             'edit_uid'=>$this->user()->id,
-            'editor'=>$this->user()->name,
             'updated_at'=>date('Y-m-d'),
         ];
-        DB::table('brand')->where('id',$id)->update($data);
-
-        if(!empty($supplier)){
-            DB::table('supplier_brand')->where('brand_id',$id)->delete();
-                //->update(['status'=>0,'editor'=>$this->user()->name,'edit_uid'=>$this->user()->id,'updated_at'=>date('Y-m-d')]);
-            $datalist=[];
-            foreach($supplier as $value){
-                $datalist[]=[
-                    'brand_id'=>$id,
-                    'supplier_id'=>$value,
-                    'status'=>1,
-                    'create_uid'=>$this->user()->id,
-                    'createor'=>$this->user()->name,
-                    'created_at'=>date('Y-m-d'),
-                ];
-            }
-            DB::table('supplier_brand')->insert($datalist);
-
-        }
+        DB::table('customer')->where('id',$id)->update($data);
         return $this->success('修改成功');
     }
 
