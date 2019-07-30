@@ -59,7 +59,7 @@
                                         </td>
                                         <td class="brand_name_{{ $val->id }}">{{ $val->brand_name }}</td>
                                         <td>@if($val->brand_logo)
-                                            <img class="brand_logo_{{ $val->id }}" src="{{$val->brand_logo}}" style="width:50px">
+                                            <img class="brand_logo_{{ $val->id }}" src="{{$val->brand_logo}}" style="width:100px">
                                             @endif
                                         </td>
                                         <td class="notice_content_{{ $val->id }}">
