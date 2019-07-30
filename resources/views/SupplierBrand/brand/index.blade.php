@@ -60,7 +60,7 @@
                                         <td class="brand_name_{{ $val->id }}">{{ $val->brand_name }}</td>
                                         <td style="text-align: center">
                                             @if($val->brand_logo)
-                                            <img class="brand_logo_{{ $val->id }}" src="{{$val->brand_logo}}" style="width:75px">
+                                            <img class="brand_logo_{{ $val->id }}" src="{{$val->brand_logo}}" style="height:75px">
                                             @endif
                                         </td>
                                         <td class="notice_content_{{ $val->id }}">
@@ -199,7 +199,18 @@
     <span style="float: right;margin-bottom: 10px"><a href="/base/getNoticeInfo" style="color: #0000FF"> 查看更多 >></a></span>
     <hr class="hr-stylish-1">
 </div>
-
+    <style type="text/css">
+        .layui-table td {
+            position: relative;
+            padding: 9px 9px;
+            min-height: 75px;
+            line-height: 75px;
+            font-size: 14px;
+        }
+        .layui-table img{
+            max-width: 100%;
+        }
+    </style>
 
     <script>
         //新增消息按钮的事件
