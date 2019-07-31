@@ -112,7 +112,7 @@
                 <div class="modal-body">
 
                     <div class="row-fluid">
-                        <div class="span12">
+                        <div class="span10">
                             <div class="widget-body">
 
                                 <div class="control-group">
@@ -120,7 +120,7 @@
                                         客户名称:
                                     </label>
                                     <div class="controls controls-row">
-                                        <input class="span12 layui-input" type="text" id="customer" name="customer" placeholder="客户名称">
+                                        <input class="span10 layui-input" type="text" id="customer" name="customer" placeholder="客户名称">
                                     </div>
                                 </div>
                                 <div class="control-group">
@@ -128,7 +128,7 @@
                                         客户性质:
                                     </label>
                                     <div class="controls controls-row">
-                                        <input class="span12 layui-input" type="text" id="type" name="type" placeholder="客户性质">
+                                        <input class="span10 layui-input" type="text" id="type" name="type" placeholder="客户性质">
                                     </div>
                                 </div>
                                 <div class="control-group">
@@ -136,7 +136,7 @@
                                         客户地址:
                                     </label>
                                     <div class="controls controls-row">
-                                        <input class="span12 layui-input" type="text" id="address" name="address" placeholder="地址">
+                                        <input class="span10 layui-input" type="text" id="address" name="address" placeholder="地址">
                                     </div>
                                 </div>
                                 <div class="control-group">
@@ -144,7 +144,7 @@
                                         联系人:
                                     </label>
                                     <div class="controls controls-row">
-                                        <input class="span12 layui-input" type="text" id="contacts" name="contacts" placeholder="王**">
+                                        <input class="span10 layui-input" type="text" id="contacts" name="contacts" placeholder="王**">
                                     </div>
                                 </div>
                                 <div class="control-group">
@@ -152,7 +152,7 @@
                                         联系电话:
                                     </label>
                                     <div class="controls controls-row">
-                                        <input class="span12 layui-input" type="text" id="telephone" name="telephone" placeholder="135********">
+                                        <input class="span10 layui-input" type="text" id="telephone" name="telephone" placeholder="135********">
                                     </div>
                                 </div>
                                 <div class="control-group">
@@ -160,7 +160,7 @@
                                         联系电话2:
                                     </label>
                                     <div class="controls controls-row">
-                                        <input class="span12 layui-input" type="text" id="phone" name="phone" placeholder="152********">
+                                        <input class="span10 layui-input" type="text" id="phone" name="phone" placeholder="152********">
                                     </div>
                                 </div>
                                 <div class="control-group">
@@ -168,7 +168,7 @@
                                         电子邮箱:
                                     </label>
                                     <div class="controls controls-row">
-                                        <input class="span12 layui-input" type="text" id="email" name="email" placeholder="****@163.com">
+                                        <input class="span10 layui-input" type="text" id="email" name="email" placeholder="****@163.com">
                                     </div>
                                 </div>
                             </div>
