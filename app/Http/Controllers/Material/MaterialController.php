@@ -23,6 +23,7 @@ class MaterialController extends WebController
 
     //供应商列表
     public function materialList(Request $request){
+        $this->user();
         $system_name =$request->input('system_name','');
         $sub_system_name =$request->input('sub_system_name','');
         $material_name =$request->input('material_name','');
@@ -37,16 +38,11 @@ class MaterialController extends WebController
         $data['system_name'] =$system_name;
         $data['sub_system_name'] =$sub_system_name;
         $data['material_name'] =$material_name;
-        $data['uid'] =$this->user()->id;
 
         //用户权限部分
-        $data['username']   =$this->user()->name;
-        $data['nav']        =$this->user()->nav;
+
         $data['navid']      =40;
         $data['subnavid']   =4001;
-        $data['pageauth']   =$this->user()->pageauth;
-        $data['noticelist']     =$this->user()->notice;
-        $data['manageauth']   =$this->user()->manageauth;
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
         return view('material.index',$data);
@@ -97,14 +93,9 @@ class MaterialController extends WebController
      */
     public function editMaterial(Request $request, $id){
         //用户权限部分
-        $data['username']   =$this->user()->name;
-        $data['nav']        =$this->user()->nav;
+        $this->user();
         $data['navid']      =40;
         $data['subnavid']   =4001;
-        $data['pageauth']   =$this->user()->pageauth;
-        $data['noticelist']     =$this->user()->notice;
-        $data['manageauth']   =$this->user()->manageauth;
-        $data['uid']        =$this->user()->id;
         $data['id']=$id;
         //材料信息
         $material=DB::table('material')->where('material.status',1)
@@ -113,7 +104,7 @@ class MaterialController extends WebController
         if(empty($material)){
             return redirect('/material/materialList?status=2&notice='.'当前材料不存');
         }
-        if((!empty($material->material_created_uid ) && $material->material_created_uid != $data['uid'])  && !in_array(4003,$data['manageauth'])){
+        if((!empty($material->material_created_uid ) && $material->material_created_uid != $this->user()->id)  && !in_array(4003,$this->user()->manageauth)){
             return redirect('/material/materialList?status=2&notice='.'仅有创建用户和管理员才能查看');
         }
         $data['material']=$material;
@@ -248,15 +239,10 @@ class MaterialController extends WebController
      * @throws \Exception
      */
     public function materialDetail(Request $request, $id){
+        $this->user();
         //用户权限部分
-        $data['username']   =$this->user()->name;
-        $data['nav']        =$this->user()->nav;
         $data['navid']      =40;
         $data['subnavid']   =4001;
-        $data['pageauth']   =$this->user()->pageauth;
-        $data['noticelist']     =$this->user()->notice;
-        $data['manageauth']   =$this->user()->manageauth;
-        $data['uid']        =$this->user()->id;
         $data['id']=$id;
         //材料信息
         $material=DB::table('material')->where('material.status',1)
@@ -265,7 +251,7 @@ class MaterialController extends WebController
         if(empty($material)){
             return redirect('/material/materialList?status=2&notice='.'当前材料不存');
         }
-        if((!empty($material->material_created_uid ) && $material->material_created_uid != $data['uid'])  && !in_array(4002,$data['manageauth'])){
+        if((!empty($material->material_created_uid ) && $material->material_created_uid != $this->user()->id)  && !in_array(4002,$this->user()->manageauth)){
             return redirect('/material/materialList?status=2&notice='.'仅有创建用户和管理员才能查看');
         }
         $data['material']=$material;

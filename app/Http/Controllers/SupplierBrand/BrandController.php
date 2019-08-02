@@ -22,7 +22,7 @@ class BrandController extends WebController
 
     //品牌列表
     public function brandList(Request $request){
-
+        $this->user();
         $search =$request->input('search','');
         $page =$request->input('page',1);
         $rows =$request->input('rows',40);
@@ -32,19 +32,11 @@ class BrandController extends WebController
         $data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
         $data['data']   =$datalist['data'];
         $data['search'] =$search;
-        $data['uid'] =$this->user()->id;
-
         $data['supplier'] =DB::table('supplier')->where('status',1)->get();
 
         //用户权限部分
-        $data['username']   =$this->user()->name;
-        $data['nav']        =$this->user()->nav;
         $data['navid']      =45;
         $data['subnavid']   =4501;
-        $data['pageauth']   =$this->user()->pageauth;
-        $data['manageauth']   =$this->user()->manageauth;
-        $data['noticelist']     =$this->user()->notice;
-
         return view('SupplierBrand.brand.index',$data);
     }
     //查询公告信息

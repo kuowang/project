@@ -16,6 +16,7 @@ class ProjectController extends WebController
      */
     public function __construct()
     {
+
         //该方法验证说明必须登录用户才能操作
         //$this->middleware('auth');
     }
@@ -27,21 +28,15 @@ class ProjectController extends WebController
      */
     public function projectStart(Request $request)
     {
-        $uid =$this->user()->id;
+        $this->user();
         $search =$request->input('search','');
         $page =$request->input('page',1);
         $rows =$request->input('rows',40);
         $data['search']        =$search;
         $data['data'] =$this->getProjectList($search,$page,$rows);
-        $data['nav'] =$this->getAuthTopNav($uid,20);
-        //用户权限部分
-        $data['uid'] =$this->user()->id;
-        $data['username']   =$this->user()->name;
-        $data['nav']        =$this->user()->nav;
+
         $data['navid']      =15;
         $data['subnavid']   =1502;
-        $data['pageauth']   =$this->user()->pageauth;
-        $data['manageauth']   =$this->user()->manageauth;
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
 

@@ -33,6 +33,7 @@ class RoleController extends WebController
      */
     public function index(Request $request)
     {
+        $this->user();
         $search =$request->input('search','');
         $page =$request->input('page',1);
         $rows =$request->input('rows',40);
@@ -52,12 +53,8 @@ class RoleController extends WebController
         //exit;
 
         //用户权限部分
-        $data['username']   =$this->user()->name;
-        $data['nav']        =$this->user()->nav;
         $data['navid']      =10;
         $data['subnavid']   =1001;
-        $data['pageauth']   =$this->user()->pageauth;
-
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
         return view('admin.role.index',$data);
@@ -105,6 +102,7 @@ class RoleController extends WebController
 
     //编辑角色权限
     public function editRoleAuthority(Request $request,$id){
+        $this->user();
         $data['id']=(int)$id;
         //角色权限
         $data['data']=Authority::where('status',1)->orderby('auth_id')->get();
@@ -118,12 +116,8 @@ class RoleController extends WebController
             ->pluck('manage_auth_id')->toarray();
 
         //用户权限部分
-        $data['username']   =$this->user()->name;
-        $data['nav']        =$this->user()->nav;
         $data['navid']      =10;
         $data['subnavid']   =1001;
-        $data['pageauth']   =$this->user()->pageauth;
-
         return view('admin.role.editroleauthority',$data);
     }
 

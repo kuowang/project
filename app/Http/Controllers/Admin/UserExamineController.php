@@ -33,6 +33,7 @@ class UserExamineController extends WebController
      */
     public function index(Request $request)
     {
+        $this->user();
         $search =$request->input('search','');
         $type =$request->input('type',0);
         $page =$request->input('page',1);
@@ -53,12 +54,8 @@ class UserExamineController extends WebController
         $data['userRoleList'] =(new UserRoleController())->getUserRoleList($userList);
 
         //用户权限部分
-        $data['username']   =$this->user()->name;
-        $data['nav']        =$this->user()->nav;
         $data['navid']      =10;
         $data['subnavid']   =1005;
-        $data['pageauth']   =$this->user()->pageauth;
-
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
         return view('admin.userexamine.index',$data);

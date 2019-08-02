@@ -28,7 +28,7 @@ class BaseController extends WebController
 
     //公告列表
     public function noticeList(Request $request){
-
+        $this->user();
         $search =$request->input('search','');
         $page =$request->input('page',1);
         $rows =$request->input('rows',40);
@@ -39,14 +39,9 @@ class BaseController extends WebController
         $data['data']   =$datalist['data'];
         $data['search'] =$search;
 
-
         //用户权限部分
-        $data['username']   =$this->user()->name;
-        $data['nav']        =$this->user()->nav;
         $data['navid']      =60;
         $data['subnavid']   =6002;
-        $data['pageauth']   =$this->user()->pageauth;
-
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
         return view('base.notice.index',$data);
@@ -124,7 +119,7 @@ class BaseController extends WebController
     }
     //公告列表
     public function getNoticeInfo(Request $request){
-
+        $this->user();
         $search =$request->input('search','');
         $page =$request->input('page',1);
         $rows =$request->input('rows',40);
@@ -135,11 +130,8 @@ class BaseController extends WebController
         $data['data']   =$datalist['data'];
         $data['search'] =$search;
         //用户权限部分
-        $data['username']   =$this->user()->name;
-        $data['nav']        =$this->user()->nav;
         $data['navid']      =60;
         $data['subnavid']   =6002;
-        $data['pageauth']   =$this->user()->pageauth;
         return view('base.notice.getNoticeInfo',$data);
     }
 

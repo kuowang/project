@@ -27,6 +27,7 @@ class ArchitecturalController extends WebController
      */
     public function index(Request $request)
     {
+
         $search =$request->input('search','');
         $page =$request->input('page',1);
         $rows =$request->input('rows',40);
@@ -38,15 +39,10 @@ class ArchitecturalController extends WebController
         $data['data']   =$datalist['data'];
 
         //用户权限部分
-        $data['username']   =$this->user()->name;
-        $data['nav']        =$this->user()->nav; //导航页面
+        $this->user();
         $data['navid']      =35; //当前导航页面
-        $data['pageauth']   =$this->user()->pageauth; //按钮权限
         $data['subnavid']   =3501;//当前子导航页
-        $data['manageauth'] =(array)$this->user()->manageauth; //能够查询详情权限
-        $data['uid']        =$this->user()->id;
-        $data['noticelist']     =$this->user()->notice;
-        //var_dump($data['notice']);exit;
+       //var_dump($data['notice']);exit;
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
         return view('architectural.index',$data);
@@ -66,13 +62,10 @@ class ArchitecturalController extends WebController
     }
     //创建建筑工程信息
     public function addArchitect(){
+        $this->user();
         //用户权限部分
-        $data['username']   =$this->user()->name;
-        $data['nav']        =$this->user()->nav;
         $data['navid']      =35;
-        $data['pageauth']   =$this->user()->pageauth;
         $data['subnavid']   =3501;
-        $data['noticelist']     =$this->user()->notice;
         return view('architectural.addArchitect',$data);
     }
 
@@ -145,23 +138,18 @@ class ArchitecturalController extends WebController
 
     //编辑建筑工程
     public function editArchitect(Request $request,$id){
+        $this->user();
         //用户权限部分
-        $data['username']   =$this->user()->name;
-        $data['nav']        =$this->user()->nav; //导航页面
         $data['navid']      =35; //当前导航页面
-        $data['pageauth']   =$this->user()->pageauth; //按钮权限
         $data['subnavid']   =3501;//当前子导航页
-        $data['manageauth'] =(array)$this->user()->manageauth; //能够查询详情权限
-        $data['noticelist']     =$this->user()->notice;
-        $data['uid']        =$this->user()->id;
-        //获取该用户的建筑系统信息
+          //获取该用户的建筑系统信息
         $data['architect']=DB::table('architectural_system')->where('id',$id)->first();
         //获取该用户的建筑系统关联子系统
         $data['sub_architect']=DB::table('architectural_sub_system')->where('architectural_id',$id)->get();
         if(empty($data['architect'])){
             return redirect('/architectural/index?status=2&notice='.'数据不存在，无法编辑');
         }
-        if($data['uid'] != $data['architect']->uid  && !in_array(3503,$data['manageauth'])){
+        if($this->user()->id != $data['architect']->uid  && !in_array(3503,$this->user()->manageauth)){
 
             return redirect('/architectural/index?status=2&notice='.'仅有创建用户才能编辑');
         }
@@ -237,15 +225,10 @@ class ArchitecturalController extends WebController
 
     //查看详情建筑工程
     public function architectDetail(Request $request,$id){
+        $this->user();
         //用户权限部分
-        $data['username']   =$this->user()->name;
-        $data['nav']        =$this->user()->nav; //导航页面
         $data['navid']      =35; //当前导航页面
-        $data['pageauth']   =$this->user()->pageauth; //按钮权限
         $data['subnavid']   =3501;//当前子导航页
-        $data['manageauth'] =(array)$this->user()->manageauth; //能够查询详情权限
-        $data['uid']        =$this->user()->id;
-        $data['noticelist']     =$this->user()->notice;
         //var_dump($data['manageauth']);exit;
         //获取该用户的建筑系统信息
         $data['architect']=DB::table('architectural_system')->where('id',$id)->first();
@@ -254,7 +237,7 @@ class ArchitecturalController extends WebController
         if(empty($data['architect'])){
             return redirect('/architectural/index?status=2&notice='.'数据不存在，无法查看');
         }
-        if($data['uid'] != $data['architect']->uid && !in_array(3501,$data['manageauth'])){
+        if($this->user()->id != $data['architect']->uid && !in_array(3501,$this->user()->manageauth)){
             return redirect('/architectural/index?status=2&notice='.'仅有创建用户和管理员才能查看');
         }
 
@@ -282,6 +265,7 @@ class ArchitecturalController extends WebController
 
     public function architectureList(Request $request)
     {
+        $this->user();
         $system_name        =$request->input('system_name','');
         $sub_system_name    =$request->input('sub_system_name','');
         $work_code          =$request->input('work_code','');
@@ -299,14 +283,8 @@ class ArchitecturalController extends WebController
         $data['data']   =$datalist['data'];
 
         //用户权限部分
-        $data['username']   =$this->user()->name;
-        $data['nav']        =$this->user()->nav; //导航页面
         $data['navid']      =35; //当前导航页面
-        $data['pageauth']   =$this->user()->pageauth; //按钮权限
         $data['subnavid']   =3502;//当前子导航页
-        $data['manageauth'] =(array)$this->user()->manageauth; //能够查询详情权限
-        $data['uid']        =$this->user()->id;
-        $data['noticelist']     =$this->user()->notice;
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
         return view('architectural.architectureList',$data);
@@ -343,14 +321,9 @@ class ArchitecturalController extends WebController
     //编辑建筑设计子系统下材料信息
     public function editMaterial(Request $request,$id){
         //用户权限部分
-        $data['username']   =$this->user()->name;
-        $data['nav']        =$this->user()->nav; //导航页面
+        $this->user();
         $data['navid']      =35; //当前导航页面
-        $data['pageauth']   =$this->user()->pageauth; //按钮权限
         $data['subnavid']   =3502;//当前子导航页
-        $data['manageauth'] =(array)$this->user()->manageauth; //能够查询详情权限
-        $data['uid']        =$this->user()->id;
-        $data['noticelist']     =$this->user()->notice;
         $data['id']         =$id;
         //获取该用户的建筑系统关联子系统
         $data['sub_architect']=DB::table('architectural_sub_system')->where('id',$id)->first();
@@ -360,7 +333,7 @@ class ArchitecturalController extends WebController
             return redirect('/architectural/index?status=2&notice='.'数据不存在，无法编辑');
         }
         $data['guishu_name']=DB::table('architectural_system')->where('id',$data['sub_architect']->architectural_id)->value('system_name');
-        if($data['uid'] != $data['sub_architect']->uid  && !in_array(3506,$data['manageauth'])){
+        if($this->user()->id != $data['sub_architect']->uid  && !in_array(3506,$this->user()->manageauth)){
             return redirect('/architectural/index?status=2&notice='.'仅有创建用户和管理者才能编辑');
         }
         return view('architectural.editMaterial',$data);
@@ -435,16 +408,10 @@ class ArchitecturalController extends WebController
 
     //编辑建筑设计子系统下材料信息
     public function materialDetail(Request $request,$id){
-
+            $this->user();
             //用户权限部分
-            $data['username']   =$this->user()->name;
-            $data['nav']        =$this->user()->nav; //导航页面
             $data['navid']      =35; //当前导航页面
-            $data['pageauth']   =$this->user()->pageauth; //按钮权限
             $data['subnavid']   =3502;//当前子导航页
-            $data['manageauth'] =(array)$this->user()->manageauth; //能够查询详情权限
-            $data['uid']        =$this->user()->id;
-           $data['noticelist']     =$this->user()->notice;
             $data['id']         =$id;
             //获取该用户的建筑系统关联子系统
             $data['sub_architect']=DB::table('architectural_sub_system')->where('id',$id)->first();
@@ -454,7 +421,7 @@ class ArchitecturalController extends WebController
                 return redirect('/architectural/index?status=2&notice='.'数据不存在，无法编辑');
             }
             $data['guishu_name']=DB::table('architectural_system')->where('id',$data['sub_architect']->architectural_id)->value('system_name');
-            if($data['uid'] != $data['sub_architect']->uid &&  !in_array(3506,$data['manageauth'])){
+            if($this->user()->id != $data['sub_architect']->uid &&  !in_array(3506,$this->user()->manageauth)){
                 return redirect('/architectural/index?status=2&notice='.'仅有创建用户和管理员才能查看');
             }
             return view('architectural.materialDetail',$data);

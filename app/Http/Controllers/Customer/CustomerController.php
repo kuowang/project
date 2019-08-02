@@ -22,7 +22,7 @@ class CustomerController extends WebController
 
     //客户列表
     public function customerList(Request $request){
-
+        $this->user();
         $customer =$request->input('customer','');
         $type =$request->input('type','');
         $address =$request->input('address','');
@@ -37,20 +37,10 @@ class CustomerController extends WebController
         $data['customer'] =$customer;
         $data['type'] =$type;
         $data['address'] =$address;
-
-        $data['uid'] =$this->user()->id;
-
         $data['supplier'] =DB::table('supplier')->where('status',1)->get();
-
         //用户权限部分
-        $data['username']   =$this->user()->name;
-        $data['nav']        =$this->user()->nav;
         $data['navid']      =55;
         $data['subnavid']   =5501;
-        $data['pageauth']   =$this->user()->pageauth;
-        $data['manageauth']   =$this->user()->manageauth;
-        $data['noticelist']     =$this->user()->notice;
-
         return view('Customer.index',$data);
     }
     //查询公告信息

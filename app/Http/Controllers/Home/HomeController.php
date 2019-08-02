@@ -37,9 +37,9 @@ class HomeController extends WebController
         if(empty($this->user())){ //账号不存在 跳转到登录页面
             return redirect('/login');
         }
-        $data['data']=$this->user()->nav;
+        $auth=$this->getAuthLevel($this->user()->id);
+        $data['data']=$auth['nav'];
         $data['project_name'] =config('app.name');
-        $data['username']=$this->user()->name;
         $data['navList']=[];
         if(isset($data['data'][0])){
             foreach($data['data'][0] as $v){

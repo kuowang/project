@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\View;
 
 class WebController extends Controller
 {
@@ -21,6 +21,18 @@ class WebController extends Controller
             //系统公告
             Auth::user()->notice        =DB::table('notice')->where('status',1)->orderby('pubdate','desc')->limit(5)->get()->toarray();
         }
+
+        if(isset($user->nav)){
+            //每个页面均公用的参数
+            View::share('nav',Auth::user()->nav);
+            View::share('pageauth',Auth::user()->pageauth);
+            View::share('system',Auth::user()->system);
+            View::share('manageauth',Auth::user()->manageauth);
+            View::share('noticelist',Auth::user()->notice);
+            View::share('uid',Auth::user()->id);
+            View::share('username',Auth::user()->name);
+        }
+
         if($user ){
             if( $user->status ==0 ){
                 throw new \Exception('待审核用户，不能访问 <a href="/logout" style="color:#0000FF">(点击退出)</a>');

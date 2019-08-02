@@ -31,6 +31,7 @@ class UserRoleController extends WebController
      */
     public function index(Request $request)
     {
+        $this->user();
         $search =$request->input('search','');
         $page =$request->input('page',1);
         $rows =$request->input('rows',40);
@@ -47,11 +48,8 @@ class UserRoleController extends WebController
         $data['userRoleList'] =$this->getUserRoleList($userList);
         $data['search']=$search;
         //用户权限部分
-        $data['username']   =$this->user()->name;
-        $data['nav']        =$this->user()->nav;
         $data['navid']      =10;
         $data['subnavid']   =1002;
-        $data['pageauth']   =$this->user()->pageauth;
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
         return view('admin.userrole.index',$data);
@@ -85,9 +83,8 @@ class UserRoleController extends WebController
     }
     //添加新用户
     public function addUserInfo(Request $request){
+        $this->user();
         //用户权限部分
-        $data['username']   =$this->user()->name;
-        $data['nav']        =$this->user()->nav;
         $data['navid']      =10;
         $data['subnavid']   =1002;
         $data['status']=$request->input('status',0); //1成功 2失败
@@ -99,8 +96,7 @@ class UserRoleController extends WebController
     //编辑用户
     public function editUserInfo(Request $request,$id){
         //用户权限部分
-        $data['username']   =$this->user()->name;
-        $data['nav']        =$this->user()->nav;
+        $this->user();
         $data['navid']      =10;
         $data['subnavid']   =1002;
         $data['status']=$request->input('status',0); //1成功 2失败

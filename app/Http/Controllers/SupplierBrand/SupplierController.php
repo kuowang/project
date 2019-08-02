@@ -23,7 +23,7 @@ class SupplierController extends WebController
 
     //供应商列表
     public function supplierList(Request $request){
-
+        $this->user();
         $brand_name =$request->input('brand_name','');
         $manufactor =$request->input('manufactor','');
         $supplier =$request->input('supplier','');
@@ -40,16 +40,10 @@ class SupplierController extends WebController
         $data['manufactor'] =$manufactor;
         $data['supplier'] =$supplier;
         $data['address'] =$address;
-        $data['uid'] =$this->user()->id;
 
         //用户权限部分
-        $data['username']   =$this->user()->name;
-        $data['nav']        =$this->user()->nav;
         $data['navid']      =45;
         $data['subnavid']   =4502;
-        $data['pageauth']   =$this->user()->pageauth;
-        $data['noticelist']     =$this->user()->notice;
-        $data['manageauth']   =$this->user()->manageauth;
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
         return view('SupplierBrand.supplier.index',$data);
@@ -95,24 +89,21 @@ class SupplierController extends WebController
 
     //添加供应商
     public function addSupplier(Request $request){
-
+        $this->user();
         $pageauth  =$this->user()->pageauth;
         $manageauth   =$this->user()->manageauth;
         if(!in_array(450101,$pageauth) && !in_array(4511,$manageauth)){
             return redirect('/supplier/supplierList?status=2&notice='.'您没有权限创建供应商');
         }
         //用户权限部分
-        $data['username']   =$this->user()->name;
-        $data['nav']        =$this->user()->nav;
         $data['navid']      =45;
         $data['subnavid']   =4502;
-        $data['pageauth']   =$this->user()->pageauth;
-        $data['noticelist']     =$this->user()->notice;
         $data['brand']  =DB::table('brand')->where('status',1)->get();
         return view('SupplierBrand.supplier.addSupplierInfo',$data);
     }
     //编辑供应商 $id 供应商id
     public function editSupplier(Request $request,$id){
+        $this->user();
         $pageauth  =$this->user()->pageauth;
         $manageauth   =$this->user()->manageauth;
         $data['brand']  =DB::table('brand')->where('status',1)->get();
@@ -123,12 +114,8 @@ class SupplierController extends WebController
             return redirect('/supplier/supplierList?status=2&notice='.'您没有权限编辑供应商');
         }
         //用户权限部分
-        $data['username']   =$this->user()->name;
-        $data['nav']        =$this->user()->nav;
         $data['navid']      =45;
         $data['subnavid']   =4502;
-        $data['pageauth']   =$this->user()->pageauth;
-        $data['noticelist']     =$this->user()->notice;
         //获取用户信息
         return view('SupplierBrand.supplier.editSupplierInfo',$data);
     }
