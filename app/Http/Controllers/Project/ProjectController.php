@@ -25,7 +25,7 @@ class ProjectController extends WebController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function projectStart(Request $request)
     {
         $uid =$this->user()->id;
         $search =$request->input('search','');

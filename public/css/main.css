@@ -5568,7 +5568,7 @@ header {
   display: block;
   float: left;
   height: 70px;
-  width: 14%;
+  width: 20%;
   cursor: pointer;
   text-decoration: none;
   color: white;
@@ -5594,9 +5594,9 @@ header {
     position: absolute;
     font-weight: 400;
     color: white;
-    font-size: 16px;
+    font-size: 24px;
     font-smooth: always;
-    line-height: 16px;
+    line-height: 24px;
     width: 100%; }
   .metro-nav .metro-nav-block.double {
     width: 49%; }

@@ -29,6 +29,41 @@
 
 <div class="left-sidebar">
     <div class="row-fluid">
+        <div class="metro-nav">
+            @if(in_array(1502,$pageauth))
+            <div class="metro-nav-block nav-block-blue">
+                <a href="/project/projectStart">
+                    <div class="fs1" aria-hidden="true" data-icon="">洽谈项目</div>
+                </a>
+            </div>
+            @endif
+            @if(in_array(1503,$pageauth))
+            <div class="metro-nav-block nav-block-green">
+                <a href="/project/projectConduct">
+                    <div class="fs1"  data-icon="">实施项目</div>
+                </a>
+            </div>
+            @endif
+            @if(in_array(1504,$pageauth))
+            <div class="metro-nav-block nav-block-yellow">
+                <a href="/project/projectCompleted">
+                    <div class="fs1" aria-hidden="true" data-icon="">竣工项目</div>
+                </a>
+            </div>
+            @endif
+            @if(in_array(1505,$pageauth))
+            <div class="metro-nav-block nav-block-red">
+                <a href="/project/projectTermination">
+                    <div class="fs1" aria-hidden="true" data-icon="">终止项目</div>
+                </a>
+            </div>
+            @endif
+        </div>
+
+    </div>
+
+
+    <div class="row-fluid">
         <div class="span12">
             <div class="widget">
                 <div class="widget-header">
@@ -43,15 +78,13 @@
                     @if(in_array(100101,$pageauth))
                     <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                         <label>
-                            <form class="form-search" action="/admin/role_list" method="get">
+                            <form class="form-search" action="/project/projectStart" method="get">
                                 项目名称:<input type="text" name="search" value="{{ $search }}" class="input-medium search-query">
                                 <button type="submit" class="btn">搜索</button>
                             </form></label>
                     </div>
                     @endif
-                    <span class="tools">
-                      <a class="fs1" aria-hidden="true" data-icon="&#xe090;"></a>
-                    </span>
+
                 </div>
                 <div class="widget-body">
                     <div id="dt_example" class="example_alt_pagination">
