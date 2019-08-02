@@ -35,8 +35,8 @@
                     <div class="title">
                         项目列表<a id="dynamicTable"></a>
                         @if(in_array(100102,$pageauth))
-                        <a class="btn btn-success" title="新增角色"  onclick="addUser()">
-                            <i class="layui-icon">新增角色</i>
+                        <a class="btn btn-success" title="新增项目"  onclick="addUser()">
+                            <i class="layui-icon">新增项目</i>
                         </a>
                         @endif
                     </div>
@@ -59,42 +59,50 @@
                         <table class="layui-table layui-form">
                             <thead>
                             <tr>
-                                <th>
-                                    <input type="checkbox" name="" lay-skin="primary">
-                                </th>
-                                <th>项目编号</th>
+                                <th>序号</th>
                                 <th>项目名称</th>
-                                <th>地址</th>
-                                <th>项目创建时间</th>
-                                <th>项目类型</th>
-                                <th>手机号</th>
-                                <th>描述</th>
-                                <th>执行阶段</th>
-                                <th>第三方状态</th>
-                                <th>修改时间</th>
-                                <th>操作</th></tr>
+                                <th>工程名称</th>
+                                <th>建筑面积</th>
+                                <th>建筑层数</th>
+                                <th>项目地址</th>
+                                <th>项目负责人</th>
+                                <th>设计支持</th>
+                                <th>预算支持</th>
+                                <th>合约支持</th>
+                                <th>项目状态</th>
+                                <th>洽谈指数</th>
+                                <th>执行操作</th>
+                            </tr>
                             </thead>
                             <tbody>
 
-                            @foreach ($data as $val)
+                            @foreach ($data as $k=>$val)
                                 <tr>
-                                    <td>
-                                        <input type="checkbox" name="" lay-skin="primary"></td>
-                                    <td>{{ $val->uh_project_id }}</td>
+
+                                    <td>{{ $k+1 }}</td>
                                     <td>{{ $val->project_name }}</td>
-                                    <td>{{ $val->province }}{{ $val->city }}{{ $val->county }}</td>
-                                    <td>{{ $val->negotiation_date }}</td>
-                                    <td>{{ $val->project_sub_style }}</td>
-                                    <td>{{ $val->tel }}</td>
-                                    <td>{{ $val->remark }}</td>
-                                    <td>{{ $val->second_status }}</td>
-                                    <td>{{ $val->third_status }}</td>
-                                    <td>{{ $val->changed_at }}</td>
+                                    <td>{{ $val->engineering_name }}</td>
+                                    <td>{{ $val->build_area }}</td>
+                                    <td>{{ $val->build_floor }}</td>
+                                    <td>{{ $val->address_detail }}</td>
+                                    <td>{{ $val->project_leader }}</td>
+                                    <td>{{ $val->design_username }}</td>
+                                    <td>{{ $val->budget_username }}</td>
+                                    <td>{{ $val->technical_username }}</td>
+                                    <td>{{ $val->status }}</td>
+                                    <td>{{ $val->success_level }}</td>
+
                                     <td class="td-manage">
-                                        <a title="查看" onclick="xadmin.open('编辑','order-view.html')" href="javascript:;">
-                                            <i class="layui-icon">&#xe63c;</i></a>
-                                        <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                                            <i class="layui-icon">&#xe640;</i></a>
+                                        @if( (in_array(1501,$pageauth) && $val->created_uid == $uid ) || in_array(1501,$manageauth))
+                                            <a title="查看详情" class="btn btn-info"  href="/material/materialDetail/{{ $val->id }}">
+                                                <i class="layui-icon">详情</i>
+                                            </a>
+                                        @endif
+                                        @if((in_array(1502,$pageauth) && $val->created_uid == $uid ) || in_array(1502,$manageauth))
+                                            <a title="编辑" class="btn btn-success"  href="/material/editMaterial/{{ $val->id }}">
+                                                <i class="layui-icon">编辑</i>
+                                            </a>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
@@ -122,31 +130,7 @@
     <script>
         //一般直接写在一个js文件中
 
-            function editUser(id){
-                layui.use(['layer', 'form'], function(){
-                    var layer = layui.layer
-                        ,form = layui.form;
-                    layer.open({
-                        title:'编辑角色',
-                        type: 2,
-                        area: ['400px', '200px'],
-                        content: '/admin/edit_role/'+id //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
-                    });
-                });
-            }
-            function addUser(){
-                layui.use(['layer', 'form'], function(){
-                    var layer = layui.layer
-                        ,form = layui.form;
-                    layer.open({
-                        title:'新增角色',
-                        type: 2,
-                        area: ['400px', '200px'],
-                        content: '/admin/add_role/' //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
-                    });
-                });
 
-            }
 
 
     </script>

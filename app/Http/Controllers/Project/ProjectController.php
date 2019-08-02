@@ -35,11 +35,13 @@ class ProjectController extends WebController
         $data['data'] =$this->getProjectList($search,$page,$rows);
         $data['nav'] =$this->getAuthTopNav($uid,20);
         //用户权限部分
+        $data['uid'] =$this->user()->id;
         $data['username']   =$this->user()->name;
         $data['nav']        =$this->user()->nav;
         $data['navid']      =15;
         $data['subnavid']   =1502;
         $data['pageauth']   =$this->user()->pageauth;
+        $data['manageauth']   =$this->user()->manageauth;
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
 
@@ -50,14 +52,16 @@ class ProjectController extends WebController
     {
         if(empty($search)){
             return DB::table('project')
-                ->orderby('uh_project_id','desc')
+                ->leftjoin('engineering','project.id','=','project_id')
+                ->orderby('project.id','desc')
                 ->skip(($page-1)*$rows)
                 ->take($rows)
                 ->get();
         }else{
             return DB::table('project')
+                ->leftjoin('engineering','project.id','=','project_id')
                 ->where('project_name','like','%'.$search.'%')
-                ->orderby('uh_project_id','desc')
+                ->orderby('project.id','desc')
                 ->skip(($page-1)*$rows)
                 ->take($rows)
                 ->get();
