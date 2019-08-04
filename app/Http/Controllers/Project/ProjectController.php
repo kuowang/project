@@ -170,6 +170,9 @@ class ProjectController extends WebController
         $data["design_uid"]         =$request->input('design_uid',0);
         $data["budget_uid"]         =$request->input('budget_uid',0);
         $data["technical_uid"]      =$request->input('technical_uid',0);
+        $data["plan_creat_at"]      =$request->input('plan_creat_at',0);
+        $data["project_limit_time"] =$request->input('project_limit_time',0);
+
         foreach($data as $v){
             if(empty($v) && $v =='0'){
                 echo"<script>alert('内容不能为空');history.go(-1);</script>";

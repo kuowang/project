@@ -53,6 +53,7 @@
                             <tr>
                                 <td  class="pro-title">项目地点国内</td>
                                 <td colspan="2">{{$project->province}}{{$project->province}}{{$project->province}}
+                                    {{$project->foreign_address}}
                                  </td>
                                 <td  class="pro-title">详情地址</td>
                                 <td colspan="2">{{$project->address_detail}}</td>
