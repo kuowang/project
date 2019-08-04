@@ -40,7 +40,7 @@
                                     <input type="text" name="system_code" value="{{ $architect->system_code }}" lay-skin="primary">
                                 </td>
                                 <td>
-                                    <select name="status" id="stateAndCity" class="span12" style="min-width: 80px">
+                                    <select name="status" id="stateAndCity" class="span12" onchange="setstatus(this)" style="min-width: 80px">
                                         @if($architect->status ==1)
                                         <option value="1" selected="selected">有效</option>
                                         <option value="0">无效</option>
@@ -94,7 +94,7 @@
                                     <input type="text" name="work_code[]"   value="{{ $v->work_code }}" lay-skin="primary">
                                 </td>
                                 <td>
-                                    <select name="sub_status[]" id="stateAndCity" class="span12" style="min-width: 80px">
+                                    <select name="sub_status[]" id="stateAndCity" class="span12" style="min-width: 80px" onchange="setstatus(this)">
                                         @if($v->status ==1)
                                             <option value="1" selected="selected">有效</option>
                                             <option value="0">无效</option>
@@ -171,7 +171,7 @@
            str ='<tr><td><input type="hidden" name="sub_id[]" value="0" lay-skin="primary"><input type="text" name="sub_system_name[]" lay-skin="primary"></td>'+
                '<td><input type="text" name="sub_system_code[]" lay-skin="primary"></td>'+
             '<td><input type="text" name="work_code[]" lay-skin="primary"></td>'+
-            '<td><select name="sub_status[]" id="stateAndCity" class="span12" style="min-width: 80px">'+
+            '<td><select name="sub_status[]" id="stateAndCity" class="span12" style="min-width: 80px" onchange="setstatus(this)">'+
             '<option value="1" selected="selected">有效</option><option value="0">无效</option></select></td>'+
             '<td><a  class="btn btn-danger" onclick="deleteTrRow(this)">删除</a></td></tr>';
 
@@ -198,6 +198,19 @@
         }
 
 
+        function setstatus(sta) {
+           statu= $(sta).val();
+            console.log(statu);
+            if(statu =='0'){
+                layui.use('layer', function(){
+                    var layer = layui.layer;
+                    layer.open({
+                        title: '提示信息'
+                        ,content: '状态无效后，将导致预算报价列表，材料信息列表，以及创建新项目信息同步不显示？请谨慎操作'
+                    });
+                });
+            }
+        }
     </script>
 
 @endsection
