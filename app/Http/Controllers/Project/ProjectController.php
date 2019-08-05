@@ -231,6 +231,10 @@ class ProjectController extends WebController
         $build_area=$request->input('build_area',[]);
         $build_floor=$request->input('build_floor',[]);
         $build_height=$request->input('build_height',[]);
+
+        if(count($build_height) != count($engineering_name) || count($build_area) != count($build_floor)){
+            return redirect('/project/projectStart?status=2&notice='.'子工程信息缺失');
+        }
         if(!empty($engineering_name)){
             $datalist=[];
             foreach($engineering_name as $k=>$v){
@@ -238,8 +242,8 @@ class ProjectController extends WebController
                     'project_id'=>$project_id,
                     'engineering_name'=>$v,
                     'build_area'=>$build_area[$k],
-                    'build_floor'=>$build_floor[$k],
-                    'build_height'=>$build_height[$k],
+                    'build_floor'=>(int)$build_floor[$k],
+                    'build_height'=>(float)$build_height[$k],
                     'created_uid'=>$this->user()->id,
                     'created_at'=>date('Y-m-d'),
                 ];
@@ -278,11 +282,129 @@ class ProjectController extends WebController
         }
         $data['engineering'] =DB::table('engineering')->where('project_id',$id)->get();
         $data['project']=$project;
-        var_dump($project);
+        $data['id']=$id;
         $data['userList']=DB::table('users')->where('status',1)->orderby('name')->select(['id','name'])->get();
         return view('project.editProject',$data);
     }
 
+    public function postEditProject(Request $request,$id){
+        $this->user();
+        $project=DB::table('project')->where('id',$id)->first();
+        if(empty($project)){
+            return redirect('/project/projectStart?status=2&notice='.'项目不存在');
+        }
+        if((in_array(150201,$this->user()->pageauth) && $project->created_uid == $this->user()->id )|| in_array(150201,$this->user()->manageauth)){
+        }else{
+            return redirect('/project/projectStart?status=2&notice='.'您没有操作该功能权限');
+        }
+
+        $data["project_name"]       =$request->input('project_name','');
+        $data["country"]            =$request->input('country','');
+        $data["type"]               =$request->input('type','');
+        $data["source"]             =$request->input('source','');
+        $data["stage"]              =$request->input('stage','');
+        $data["success_level"]      =$request->input('success_level','');
+        $data["environment"]        =$request->input('environment','');
+        $data["traffic"]            =$request->input('traffic','');
+        $data["material_storage"]   =$request->input('material_storage','');
+        $data["customer_type"]      =$request->input('customer_type','');
+        $data["customer"]           =$request->input('customer','');
+        $data["customer_address"]   =$request->input('customer_address','');
+        $data["customer_email"]     =$request->input('customer_email','');
+        $data["customer_leader"]    =$request->input('customer_leader','');
+        $data["customer_job"]       =$request->input('customer_job','');
+        $data["customer_contact"]   =$request->input('customer_contact','');
+        $data["project_leader"]     =$request->input('project_leader','');
+        $data["project_job"]        =$request->input('project_job','');
+        $data["project_contact"]    =$request->input('project_contact','');
+        $data["design_uid"]         =$request->input('design_uid',0);
+        $data["budget_uid"]         =$request->input('budget_uid',0);
+        $data["technical_uid"]      =$request->input('technical_uid',0);
+        $data["plan_creat_at"]      =$request->input('plan_creat_at',0);
+        $data["project_limit_time"] =$request->input('project_limit_time',0);
+
+        foreach($data as $v){
+            if(empty($v) && $v =='0'){
+                echo"<script>alert('内容不能为空');history.go(-1);</script>";
+            }
+        }
+        $data["province"]           =$request->input('province','');
+        $data["city"]               =$request->input('city','');
+        $data["county"]             =$request->input('county','');
+        $data["address_detail"]     =$request->input('address_detail','');
+        $data["foreign_address"]    =$request->input('foreign_address','');
+        $data["customer_telephone"] =$request->input('customer_telephone','');
+        $data["customer_phone"]     =$request->input('customer_phone','');
+        $data["is_design"]          =$request->input('is_design',0);
+        $data["is_supply"]          =$request->input('is_supply',0);
+        $data["is_guidance"]        =$request->input('is_guidance',0);
+        $data["is_installation"]    =$request->input('is_installation',0);
+        $userlist =DB::table('users')->wherein('id',[$data["design_uid"],$data["budget_uid"],$data["technical_uid"]])->pluck('name','id')->toarray();
+
+        if(isset($userlist[$data["design_uid"]])){
+            $data["design_username"] =$userlist[$data["design_uid"]];
+        }else{
+            return redirect('/project/projectStart?status=2&notice='.'设计人员不存在');
+        }
+        if(isset($userlist[$data["budget_uid"]])){
+            $data["budget_username"] =$userlist[$data["budget_uid"]];
+        }else{
+            return redirect('/project/projectStart?status=2&notice='.'预算人员不存在');
+        }
+        if(isset($userlist[$data["technical_uid"]])){
+            $data["technical_username"] =$userlist[$data["technical_uid"]];
+        }else{
+            return redirect('/project/projectStart?status=2&notice='.'技术支持人员不存在');
+        }
+        $data['created_uid']=$this->user()->id;
+        $data['created_at']=date('Y-m-d');
+        //保存客户信息
+
+        $customer['customer'] =$data["customer"];
+        $customer['type'] =$data["customer_type"];
+        $customer['address'] =$data["customer_address"];
+        $customer['telephone'] =$data["customer_telephone"];
+        $customer['phone'] =$data["customer_phone"];
+        $customer['email'] =$data["customer_email"];
+        $customer['status'] =1;
+        $customer['edit_uid'] =$this->user()->id;
+        $customer['updated_at'] =date('Y-m-d');
+        //更改客户信息
+        DB::table('customer')->where('id',$project->customer_id)->update($customer);
+        //保存项目信息
+        DB::table('project')->where('id',$id)->update($data);
+
+        //保存子工程信息
+        $engineering_id=$request->input('engineering_id',[]);
+        $engineering_name=$request->input('engineering_name',[]);
+        $build_area=$request->input('build_area',[]);
+        $build_floor=$request->input('build_floor',[]);
+        $build_height=$request->input('build_height',[]);
+        if(count($engineering_id) != count($engineering_name) || count($build_area) != count($build_floor)){
+            return redirect('/project/projectStart?status=2&notice='.'子工程信息缺失');
+        }
+        if(!empty($engineering_id)){
+            foreach($engineering_id as $k=>$v){
+                $datalist=[
+                    'project_id'=>$id,
+                    'engineering_name'=>$engineering_name[$k],
+                    'build_area'=>$build_area[$k],
+                    'build_floor'=>$build_floor[$k],
+                    'build_height'=>$build_height[$k],
+                    'created_uid'=>$this->user()->id,
+                    'created_at'=>date('Y-m-d'),
+                ];
+                if($v == 0){
+                    DB::table('engineering')->insert($datalist);
+                }else{
+                    DB::table('engineering')->where('id',$v)->update($datalist);
+                }
+
+            }
+        }
+        return redirect('/project/projectStart?status=1&notice='.'项目修改成功');
+
+    }
 
 
 

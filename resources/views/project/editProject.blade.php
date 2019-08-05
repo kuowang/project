@@ -31,13 +31,13 @@
             <div class="widget">
                 <div class="widget-header">
                     <div class="title">
-                        创建项目<a id="dynamicTable"></a>
+                        编辑项目<a id="dynamicTable"></a>
                     </div>
                 </div>
                 <div class="widget-body">
                     <div id="dt_example" class="example_alt_pagination">
 
-                        <form method="post" action="/project/postAddProject">
+                        <form method="post" action="/project/postEditProject/{{$id}}">
                         <table class="layui-table layui-form">
                             <thead>
                             <tr>

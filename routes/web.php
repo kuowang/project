@@ -64,15 +64,16 @@ Route::group(['namespace' => 'Admin'], function () {
 
 //项目类的控制组 需要登录
 Route::group(['prefix' => 'project','namespace' => 'Project','middleware' => 'auth'], function () {
-    Route::get('/projectStart',                 'ProjectController@projectStart'); //洽谈项目首页
-    Route::get('/projectConduct',                 'ProjectController@projectConduct'); //实施项目列表
-    Route::get('/projectCompleted',                 'ProjectController@projectCompleted'); //竣工项目首页
-    Route::get('/projectTermination',                 'ProjectController@projectTermination'); //终止项目首页
+    Route::get('/projectStart',                     'ProjectController@projectStart');      //洽谈项目首页
+    Route::get('/projectConduct',                   'ProjectController@projectConduct');    //实施项目列表
+    Route::get('/projectCompleted',                 'ProjectController@projectCompleted');  //竣工项目首页
+    Route::get('/projectTermination',               'ProjectController@projectTermination'); //终止项目首页
 
-    Route::get('/createdProject',                 'ProjectController@createdProject'); //创建项目
-    Route::post('/postAddProject',                 'ProjectController@postAddProject'); //提交创建项目信息
-    Route::get('/projectDetail/{id}',                 'ProjectController@projectDetail'); //创建项目
-    Route::get('/editProject/{id}',                 'ProjectController@editProject'); //创建项目
+    Route::get('/createdProject',                    'ProjectController@createdProject');   //创建项目
+    Route::post('/postAddProject',                   'ProjectController@postAddProject');   //提交创建项目信息
+    Route::get('/projectDetail/{id}',                'ProjectController@projectDetail');    //创建项目
+    Route::get('/editProject/{id}',                  'ProjectController@editProject');      //编辑项目
+    Route::post('/postEditProject/{id}',             'ProjectController@postEditProject');  //提交编辑项目信息
 
 
 });
