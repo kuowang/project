@@ -74,6 +74,7 @@ Route::group(['prefix' => 'project','namespace' => 'Project','middleware' => 'au
     Route::get('/projectDetail/{id}',                'ProjectController@projectDetail');    //创建项目
     Route::get('/editProject/{id}',                  'ProjectController@editProject');      //编辑项目
     Route::post('/postEditProject/{id}',             'ProjectController@postEditProject');  //提交编辑项目信息
+    Route::post('/updateProjectStatus/{id}',         'ProjectController@updateProjectStatus');  //提交编辑项目状态
 
 
 });

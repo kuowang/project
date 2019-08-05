@@ -45,7 +45,7 @@
     <div class="row-fluid">
         <div class="metro-nav">
             @if(in_array(1502,$pageauth))
-            <div class="metro-nav-block nav-block-blue">
+            <div class="metro-nav-block nav-block-blue" style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
                 <a href="/project/projectStart">
                     <div class="fs1" aria-hidden="true" data-icon="">洽谈项目</div>
                 </a>
@@ -82,7 +82,7 @@
             <div class="widget">
                 <div class="widget-header">
                     <div class="title">
-                        项目列表<a id="dynamicTable"></a>
+                        洽谈项目列表<a id="dynamicTable"></a>
                         @if(in_array(1501,$pageauth) || in_array(1501,$manageauth))
                         <a class="btn btn-success" title="新增项目"  href="/project/createdProject">
                             <i class="layui-icon">新增项目</i>
@@ -164,12 +164,12 @@
                                     <td>{{ $val->created_at }}</td>
                                     <td class="td-manage">
                                         @if( (in_array(150202,$pageauth) && $val->created_uid == $uid ) || in_array(150202,$manageauth))
-                                            <a title="查看详情" class="btn btn-info"  href="/project/projectDetail/{{ $val->id }}">
+                                            <a title="查看详情" class="btn btn-info"  href="/project/projectDetail/{{ $val->engineering_id }}">
                                                 <i class="layui-icon">详情</i>
                                             </a>
                                         @endif
                                         @if((in_array(150201,$pageauth) && $val->created_uid == $uid ) || in_array(150201,$manageauth))
-                                            <a title="编辑" class="btn btn-success"  href="/project/editProject/{{ $val->id }}">
+                                            <a title="编辑" class="btn btn-success"  href="/project/editProject/{{ $val->engineering_id }}">
                                                 <i class="layui-icon">编辑</i>
                                             </a>
                                         @endif

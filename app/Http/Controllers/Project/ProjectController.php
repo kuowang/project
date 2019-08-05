@@ -44,7 +44,7 @@ class ProjectController extends WebController
         $data=$this->project($request,1);
         $data['subnavid']   =1503;
         if( !(in_array(1503,$this->user()->pageauth)) && !in_array(1503,$this->user()->manageauth)){
-            return redirect('/architectural/index?status=2&notice='.'您没有操作该功能权限');
+            return redirect('/project/projectStart?status=2&notice='.'您没有操作该功能权限');
         }
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
@@ -60,7 +60,7 @@ class ProjectController extends WebController
         $data=$this->project($request,2);
         $data['subnavid']   =1504;
         if( !(in_array(1504,$this->user()->pageauth)) && !in_array(1504,$this->user()->manageauth)){
-            return redirect('/architectural/index?status=2&notice='.'您没有操作该功能权限');
+            return redirect('/project/projectStart?status=2&notice='.'您没有操作该功能权限');
         }
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
@@ -76,7 +76,7 @@ class ProjectController extends WebController
         $data=$this->project($request,3);
         $data['subnavid']   =1505;
         if( !(in_array(1505,$this->user()->pageauth)) && !in_array(1505,$this->user()->manageauth)){
-            return redirect('/architectural/index?status=2&notice='.'您没有操作该功能权限');
+            return redirect('/project/projectStart?status=2&notice='.'您没有操作该功能权限');
         }
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
@@ -88,7 +88,7 @@ class ProjectController extends WebController
     {
         $db=DB::table('project')
             ->leftjoin('engineering','project.id','=','project_id')
-            ->where('project.status',$status);
+            ->where('engineering.status',$status);
 
         if(!empty($project_name)){
             $db->where('project_name','like','%'.$project_name.'%');
@@ -258,35 +258,44 @@ class ProjectController extends WebController
         $this->user();
         $data['navid']      =15;
         $data['subnavid']   =1502;
-        $project =DB::table('project')->where('id',$id)->first();
-
+        $engineering =DB::table('engineering')->where('id',$id)->first();
+        if(empty($engineering)){
+            return redirect('/project/projectStart?status=2&notice='.'该工程不存在');
+        }
+        $project =DB::table('project')->where('id',$engineering->project_id)->first();
         if( (in_array(150202,$this->user()->pageauth) && $project->created_uid == $this->user()->id ) || in_array(150202,$this->user()->manageauth)){
         }else{
             return redirect('/project/projectStart?status=2&notice='.'您没有权限查看该项目信息');
         }
-        $data['engineering'] =DB::table('engineering')->where('project_id',$id)->get();
-        $data['project']=$project;
+        $data['engineering'][0]=$engineering;
+        $data['project']    =$project;
         return view('project.projectDetail',$data);
     }
 
     //编辑项目详情
     public function editProject(Request $request,$id){
         $this->user();
+        $this->user();
         $data['navid']      =15;
         $data['subnavid']   =1502;
-        $project =DB::table('project')->where('id',$id)->first();
-
+        $engineering =DB::table('engineering')->where('id',$id)->first();
+        if(empty($engineering)){
+            return redirect('/project/projectStart?status=2&notice='.'该工程不存在');
+        }
+        $project =DB::table('project')->where('id',$engineering->project_id)->first();
         if( (in_array(150202,$this->user()->pageauth) && $project->created_uid == $this->user()->id ) || in_array(150202,$this->user()->manageauth)){
         }else{
             return redirect('/project/projectStart?status=2&notice='.'您没有权限查看该项目信息');
         }
-        $data['engineering'] =DB::table('engineering')->where('project_id',$id)->get();
-        $data['project']=$project;
-        $data['id']=$id;
+        $data['engineering'][0]=$engineering;
+        $data['project']    =$project;
+        $data['id']=$project->id;
+        $data['engin_id']=$engineering->id;
+
         $data['userList']=DB::table('users')->where('status',1)->orderby('name')->select(['id','name'])->get();
         return view('project.editProject',$data);
     }
-
+    //提交编辑的项目信息
     public function postEditProject(Request $request,$id){
         $this->user();
         $project=DB::table('project')->where('id',$id)->first();
@@ -406,6 +415,37 @@ class ProjectController extends WebController
 
     }
 
+    //编辑项目状态
+    public function updateProjectStatus(Request $request,$id){
+        $engin=DB::table('engineering')->where('id',$id)->first();
+        $status =$request->input('project_status',0);
+        if(empty($engin)){
+            return redirect('/project/projectStart?status=2&notice='.'项目不存在');
+        }
+        if((in_array(150201,$this->user()->pageauth) && $engin->created_uid == $this->user()->id )|| in_array(150201,$this->user()->manageauth)){
+        }else{
+            return redirect('/project/projectStart?status=2&notice='.'您没有操作该功能权限');
+        }
+        if($engin->status == 0 && !in_array($status,[1,4])){
+            echo"<script>alert('状态更改失败，项目状态不可逆，请更改其他状态');history.go(-1);</script>";
+        }elseif($engin->status ==1  && !in_array($status,[2,4])){
+            echo"<script>alert('状态更改失败，项目状态不可逆，请更改其他状态');history.go(-1);</script>";
+        }elseif($engin->status ==2 && $status != 4){
+            echo"<script>alert('状态更改失败，项目状态不可逆，请更改其他状态');history.go(-1);</script>";
+        }
+        DB::table('engineering')->where('id',$id)->update(['status'=>$status,
+            'edit_uid'=>$this->user()->id,
+            'updated_at'=>date('Y-m-d')]);
+        if($status == 1){
+            return redirect('/project/projectConduct?status=1&notice='.'项目状态更改成功！');
+        }elseif($status == 2){
+            return redirect('/project/projectCompleted?status=1&notice='.'项目状态更改成功！');
+        }elseif($status == 4){
+            return redirect('/project/projectTermination?status=1&notice='.'项目状态更改成功！');
+        }else{
+            return redirect('/project/projectStart?status=1&notice='.'项目状态更改成功！');
+        }
+    }
 
 
 }
