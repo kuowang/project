@@ -265,6 +265,24 @@ class ProjectController extends WebController
         return view('project.projectDetail',$data);
     }
 
+    //编辑项目详情
+    public function editProject(Request $request,$id){
+        $this->user();
+        $data['navid']      =15;
+        $data['subnavid']   =1502;
+        $project =DB::table('project')->where('id',$id)->first();
+
+        if( (in_array(150202,$this->user()->pageauth) && $project->created_uid == $this->user()->id ) || in_array(150202,$this->user()->manageauth)){
+        }else{
+            return redirect('/project/projectStart?status=2&notice='.'您没有权限查看该项目信息');
+        }
+        $data['engineering'] =DB::table('engineering')->where('project_id',$id)->get();
+        $data['project']=$project;
+        var_dump($project);
+        $data['userList']=DB::table('users')->where('status',1)->orderby('name')->select(['id','name'])->get();
+        return view('project.editProject',$data);
+    }
+
 
 
 

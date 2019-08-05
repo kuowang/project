@@ -4,6 +4,17 @@
     <!-- 你的HTML代码 -->
     <link rel="stylesheet" href="/layui/css/layui.css">
     <script src="/layui/layui.js"></script>
+    <style type="text/css">
+        .project_name{
+            display: -webkit-box;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+            white-space: normal !important;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+    </style>
     @if($status == 2)
     <div class="alert alert-block alert-error fade in">
         <button data-dismiss="alert" class="close" type="button">
@@ -129,7 +140,15 @@
                                 <tr>
 
                                     <td>{{ $k+1 }}</td>
-                                    <td>{{ $val->project_name }}</td>
+                                    <td class="project_name">
+                                        @if((in_array(150201,$pageauth) && $val->created_uid == $uid ) || in_array(150201,$manageauth))
+                                            <a title="编辑" class="btn btn-success"  href="/project/editProject/{{ $val->id }}">
+                                                {{ $val->project_name }}
+                                            </a>
+                                        @else
+                                            {{ $val->project_name }}
+                                        @endif
+                                    </td>
                                     <td>{{ $val->engineering_name }}</td>
                                     <td>{{ $val->build_area }}</td>
                                     <td>{{ $val->build_floor }}</td>
