@@ -91,7 +91,6 @@
                             </tbody>
                         </table>
 
-
                         <div class="clearfix"></div>
                         <table class="layui-table layui-form">
                             <thead>
@@ -111,6 +110,69 @@
                             </tr>
                             </tbody>
                         </table>
+                        <div class="clearfix"></div>
+                        <table class="layui-table layui-form">
+                            <thead>
+                            <tr>
+                                <th colspan="6">合同签署信息</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td  class="pro-title">合同编号</td>
+                                <td  colspan="2">
+                                    <input type="text"  name="contract_code" class="span8 notempty"  value="{{ $engineering->contract_code }}" lay-skin="primary" >
+                                </td>
+                                <td  class="pro-title">合同签署时间</td>
+                                <td colspan="2">
+                                    <input type="text"  name="contract_at" id="test1" placeholder="yyyy-MM-dd" class="span8 notempty dynamic_date"  value="{{ $engineering->contract_at }}" lay-skin="primary" >
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="pro-title">合同类型</td>
+                                <td colspan="2">
+                                    <input type="text"  name="contract_type" class="span8 notempty"  value="{{ $engineering->contract_type }}" lay-skin="primary" >
+                                </td>
+                                <td class="pro-title">合同份数</td>
+                                <td colspan="2">
+                                    <input type="text"  name="contract_num" class="span8 notempty"  value="{{ $engineering->contract_num }}" lay-skin="primary" >
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="clearfix"></div>
+
+                        <table class="layui-table layui-form">
+                            <thead>
+                            <tr>
+                                <th colspan="2">项目动态信息</th>
+                                <th ><span class="title" style="float: right;">
+                                <a class="btn btn-success" onclick="add_dongtai()"><i class="layui-icon">添加</i></a>
+                            </span>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody style="text-align: center" id="project_dongtai">
+                            <tr>
+                                <td style="width: 20%;">时间</td>
+                                <td style="width: 70%;">动态</td>
+                                <td style="width: 10%;">操作</td>
+                            </tr>
+                            <tr>
+                                <td  class="pro-title">
+                                    <input type="hidden"  name="dynamic_id[]" class="span8"  value="" lay-skin="primary" >
+                                    <input type="text"  name="dynamic_date[]" placeholder="yyyy-MM-dd" class="span8 notempty dynamic_date"  value="" lay-skin="primary" >
+                                </td>
+                                <td >
+                                    <input type="text"  name="dynamic_content[]" class="span12 notempty"  value="" lay-skin="primary" >
+                                </td>
+                                <td></td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
                         <div class="clearfix"></div>
                         <div class="layui-form-item" style="float: right;clear: left">
                             <label for="L_repass" class="layui-form-label"></label>
@@ -151,34 +213,65 @@
 </div>
 
     <script>
-        //一般直接写在一个js文件中
-        //设置省市县默认空
-        $("#distpicker1").distpicker({
-            autoSelect: false
+
+        //日期選擇
+        layui.use('laydate', function() {
+            var laydate = layui.laydate;
+            lay('.dynamic_date').each(function(){
+                laydate.render({
+                    elem: this
+                    ,trigger: 'click'
+                });
+            });
         });
-        //删除子工程
+
+
+        //添加事件
+        function add_dongtai() {
+            str ='<tr>' +
+                '    <td  class="pro-title">' +
+                '        <input type="hidden"  name="dynamic_id[]" class="span8 "  value="0" lay-skin="primary" >' +
+                '        <input type="text"  name="dynamic_date[]"  placeholder="yyyy-MM-dd" class="span8 notempty dynamic_date"  value="" lay-skin="primary" >' +
+                '    </td>' +
+                '    <td >' +
+                '        <input type="text"  name="dynamic_content[]" class="span12 notempty"  value="" lay-skin="primary" >' +
+                '    </td>' +
+                '    <td><a class="btn btn-danger" onclick="deleteTrRow(this)">删除</a></td>' +
+                '</tr>';
+            $("#project_dongtai").append(str);
+            //添加日期点击事件
+            layui.use('laydate', function() {
+                var laydate = layui.laydate;
+                lay('.dynamic_date').each(function(){
+                    laydate.render({
+                        elem: this
+                        ,trigger: 'click'
+                    });
+                });
+            });
+            //点击文本框设置背景色
+            $(".notempty").focus(function(){
+                $(this).css("background-color","#fff");
+            });
+        }
+        //删除动态
         function deleteTrRow(tr){
             $(tr).parent().parent().remove();
         }
-        //添加事件
-        function add_zigongcheng() {
-            intid =parseInt(Math.random() * (1000000 )+100);
-            str ='<tr > <td class="pro-title">子工程名称</td>'+
-                '<td> <input type="text"  name="engineering_name[]" class="span8 notempty "  value="" lay-skin="primary" > </td>'+
-                '<td class="pro-title">建筑面积（平方米）</td>'+
-                '<td> <input type="text"  name="build_area[]" class="span8 notempty"  value="" lay-skin="primary" > </td>'+
-                '<td class="pro-title">建筑层数</td> '+
-                '<td> <input type="text"  name="build_floor[]" class="span8 notempty"  value="" lay-skin="primary" > </td>'+
-                '<td class="pro-title">室内净高（米）</td>'+
-                '<td> <input type="text"  name="build_height[]" class="span8 notempty"  value="" lay-skin="primary" > </td>'+
-                '<td><a class="btn btn-danger" onclick="deleteTrRow(this)">删除</a></td>'+
-            '</tr>';
-            $("#zigongcheng").append(str);
+        function submitStatus() {
+            var stat =$('#project_status').val();
+            if(stat == '1'){
+                layui.use('layer', function(){
+                    var layer = layui.layer;
+                    layer.msg('当前项目已是实施状态，无需更改');
+                });
+                return false;
+            }
+            return true;
         }
         //提交数据时验证数据信息
         function form_submit(){
-            $('input').css('background','#fff');
-            $('.notempty').css('background','#fff');
+            $('input.notempty').css('background','#fff');
             var sum=0;
             $("input.notempty").each(function(){
                 if($(this).val()){
@@ -186,15 +279,6 @@
                     $(this).css('background','orange');
                     sum=1;
                 }else{
-                    $(this).css('background','orange');
-                    sum=1;
-                }
-            });
-
-            $("select.notempty").each(function(){
-                console.log($(this).val())
-                val =$(this).val();
-                if(val == '' || val =='0'){
                     $(this).css('background','orange');
                     sum=1;
                 }
@@ -213,15 +297,9 @@
         $(".notempty").focus(function(){
             $(this).css("background-color","#fff");
         });
-        //日期選擇
-        layui.use('laydate', function() {
-            var laydate = layui.laydate;
 
-            //常规用法
-            laydate.render({
-                elem: '#test1'
-            });
-        });
+
+
     </script>
 
 @endsection

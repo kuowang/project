@@ -452,15 +452,19 @@ class ProjectController extends WebController
         $this->user();
         $data['navid']      =15;
         $data['subnavid']   =1503;
+        //项目子工程
         $engineering =DB::table('engineering')->where('id',$id)->first();
         if(empty($engineering)){
             return redirect('/project/projectConduct?status=2&notice='.'该工程不存在');
         }
+        //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
         if( (in_array(150302,$this->user()->pageauth) && $engineering->created_uid == $this->user()->id ) || in_array(150302,$this->user()->manageauth)){
         }else{
             return redirect('/project/projectStart?status=2&notice='.'您没有权限查看该项目信息');
         }
+        //项目动态信息
+        $data['dynamic'] =DB::table('enginnering_dynamic')->where('enginnering_id',$id)->orderby('id')->get();
         $data['engineering']=$engineering;
         $data['project']    =$project;
         $data['engin_id'] =$id;
