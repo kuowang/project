@@ -73,8 +73,12 @@ Route::group(['prefix' => 'project','namespace' => 'Project','middleware' => 'au
     Route::post('/postAddProject',                   'ProjectController@postAddProject');   //提交创建项目信息
     Route::get('/projectDetail/{id}',                'ProjectController@projectDetail');    //创建项目
     Route::get('/editProject/{id}',                  'ProjectController@editProject');      //编辑项目
-    Route::post('/postEditProject/{id}',             'ProjectController@postEditProject');  //提交编辑项目信息
+    Route::post('/postEditProject/{id}',             'ProjectController@postEditProject');  //提交编辑项目工程信息
     Route::post('/updateProjectStatus/{id}',         'ProjectController@updateProjectStatus');  //提交编辑项目状态
+
+    Route::get('/editConductProject/{id}',           'ProjectController@editConductProject');      //编辑实施项目信息
+    Route::post('/postConductProject/{id}',           'ProjectController@postConductProject');      //提交编辑实施项目信息
+
 
 
 });

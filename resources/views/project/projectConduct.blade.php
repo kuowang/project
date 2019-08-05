@@ -84,28 +84,23 @@
                         <div class="title">
                             实施项目<a id="dynamicTable"></a>
                         </div>
-                        @if(in_array(100101,$pageauth))
-                            <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
-                                <label>
-                                    <form class="form-search" action="/project/projectStart" method="get">
-                                        项目名称:<input type="text" name="project_name" value="{{ $project_name }}" class="input-medium search-query">
-                                        项目地点:<input type="text" name="address" value="{{ $address }}" class="input-medium search-query">
-                                        项目负责人:<input type="text" name="customer_leader" value="{{ $customer_leader }}" class="input-medium search-query">
-                                        洽谈指数:<select name="success_level" id="stateAndCity" class="input-medium search-query" style="min-width: 80px">
-                                            <option value="0" ></option>
-                                            @if($success_level ==1) <option value="1" selected="selected">★</option> @else <option value="1">★</option> @endif
-                                            @if($success_level ==2) <option value="2" selected="selected">★★</option> @else <option value="2">★★</option> @endif
-                                            @if($success_level ==3) <option value="3" selected="selected">★★★</option> @else <option value="3">★★★</option> @endif
-                                            @if($success_level ==4) <option value="4" selected="selected">★★★★</option> @else <option value="4">★★★★</option> @endif
-                                            @if($success_level ==5) <option value="5" selected="selected">★★★★★</option> @else <option value="5">★★★★★</option> @endif
-                                        </select>
-
-
-                                        <button type="submit" class="btn">搜索</button>
-                                    </form></label>
-                            </div>
-                        @endif
-
+                        <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
+                            <label>
+                                <form class="form-search" action="/project/projectStart" method="get">
+                                    项目名称:<input type="text" name="project_name" value="{{ $project_name }}" class="input-medium search-query">
+                                    项目地点:<input type="text" name="address" value="{{ $address }}" class="input-medium search-query">
+                                    项目负责人:<input type="text" name="customer_leader" value="{{ $customer_leader }}" class="input-medium search-query">
+                                    洽谈指数:<select name="success_level" id="stateAndCity" class="input-medium search-query" style="min-width: 80px">
+                                        <option value="0" ></option>
+                                        @if($success_level ==1) <option value="1" selected="selected">★</option> @else <option value="1">★</option> @endif
+                                        @if($success_level ==2) <option value="2" selected="selected">★★</option> @else <option value="2">★★</option> @endif
+                                        @if($success_level ==3) <option value="3" selected="selected">★★★</option> @else <option value="3">★★★</option> @endif
+                                        @if($success_level ==4) <option value="4" selected="selected">★★★★</option> @else <option value="4">★★★★</option> @endif
+                                        @if($success_level ==5) <option value="5" selected="selected">★★★★★</option> @else <option value="5">★★★★★</option> @endif
+                                    </select>
+                                    <button type="submit" class="btn">搜索</button>
+                                </form></label>
+                        </div>
                     </div>
                     <div class="widget-body">
                         <div id="dt_example" class="example_alt_pagination">
@@ -150,13 +145,13 @@
                                         <td>{{ str_repeat('★', $val->success_level) }}</td>
                                         <td>{{ $val->created_at }}</td>
                                         <td class="td-manage">
-                                            @if( (in_array(150202,$pageauth) && $val->created_uid == $uid ) || in_array(150202,$manageauth))
-                                                <a title="查看详情" class="btn btn-info"  href="/project/projectDetail/{{ $val->id }}">
+                                            @if( (in_array(150301,$pageauth) && $val->created_uid == $uid ) || in_array(150301,$manageauth))
+                                                <a title="查看详情" class="btn btn-info"  href="/project/projectConductDetail/{{ $val->engineering_id }}">
                                                     <i class="layui-icon">详情</i>
                                                 </a>
                                             @endif
-                                            @if((in_array(150201,$pageauth) && $val->created_uid == $uid ) || in_array(150201,$manageauth))
-                                                <a title="编辑" class="btn btn-success"  href="/project/editProject/{{ $val->id }}">
+                                            @if((in_array(150302,$pageauth) && $val->created_uid == $uid ) || in_array(150302,$manageauth))
+                                                <a title="编辑" class="btn btn-success"  href="/project/editConductProject/{{ $val->engineering_id }}">
                                                     <i class="layui-icon">编辑</i>
                                                 </a>
                                             @endif

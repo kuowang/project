@@ -89,7 +89,6 @@
                         </a>
                         @endif
                     </div>
-                    @if(in_array(100101,$pageauth))
                     <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                         <label>
                             <form class="form-search" action="/project/projectStart" method="get">
@@ -104,13 +103,10 @@
                                     @if($success_level ==4) <option value="4" selected="selected">★★★★</option> @else <option value="4">★★★★</option> @endif
                                     @if($success_level ==5) <option value="5" selected="selected">★★★★★</option> @else <option value="5">★★★★★</option> @endif
                                 </select>
-
-
                                 <button type="submit" class="btn">搜索</button>
-                            </form></label>
+                            </form>
+                        </label>
                     </div>
-                    @endif
-
                 </div>
                 <div class="widget-body">
                     <div id="dt_example" class="example_alt_pagination">
@@ -163,12 +159,12 @@
                                     <td>{{ str_repeat('★', $val->success_level) }}</td>
                                     <td>{{ $val->created_at }}</td>
                                     <td class="td-manage">
-                                        @if( (in_array(150202,$pageauth) && $val->created_uid == $uid ) || in_array(150202,$manageauth))
+                                        @if( (in_array(150201,$pageauth) && $val->created_uid == $uid ) || in_array(150201,$manageauth))
                                             <a title="查看详情" class="btn btn-info"  href="/project/projectDetail/{{ $val->engineering_id }}">
                                                 <i class="layui-icon">详情</i>
                                             </a>
                                         @endif
-                                        @if((in_array(150201,$pageauth) && $val->created_uid == $uid ) || in_array(150201,$manageauth))
+                                        @if((in_array(150202,$pageauth) && $val->created_uid == $uid ) || in_array(150202,$manageauth))
                                             <a title="编辑" class="btn btn-success"  href="/project/editProject/{{ $val->engineering_id }}">
                                                 <i class="layui-icon">编辑</i>
                                             </a>

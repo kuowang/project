@@ -263,7 +263,7 @@ class ProjectController extends WebController
             return redirect('/project/projectStart?status=2&notice='.'该工程不存在');
         }
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
-        if( (in_array(150202,$this->user()->pageauth) && $project->created_uid == $this->user()->id ) || in_array(150202,$this->user()->manageauth)){
+        if( (in_array(150201,$this->user()->pageauth) && $project->created_uid == $this->user()->id ) || in_array(150201,$this->user()->manageauth)){
         }else{
             return redirect('/project/projectStart?status=2&notice='.'您没有权限查看该项目信息');
         }
@@ -295,6 +295,7 @@ class ProjectController extends WebController
         $data['userList']=DB::table('users')->where('status',1)->orderby('name')->select(['id','name'])->get();
         return view('project.editProject',$data);
     }
+
     //提交编辑的项目信息
     public function postEditProject(Request $request,$id){
         $this->user();
@@ -302,7 +303,7 @@ class ProjectController extends WebController
         if(empty($project)){
             return redirect('/project/projectStart?status=2&notice='.'项目不存在');
         }
-        if((in_array(150201,$this->user()->pageauth) && $project->created_uid == $this->user()->id )|| in_array(150201,$this->user()->manageauth)){
+        if((in_array(150202,$this->user()->pageauth) && $project->created_uid == $this->user()->id )|| in_array(150202,$this->user()->manageauth)){
         }else{
             return redirect('/project/projectStart?status=2&notice='.'您没有操作该功能权限');
         }
@@ -422,7 +423,7 @@ class ProjectController extends WebController
         if(empty($engin)){
             return redirect('/project/projectStart?status=2&notice='.'项目不存在');
         }
-        if((in_array(150201,$this->user()->pageauth) && $engin->created_uid == $this->user()->id )|| in_array(150201,$this->user()->manageauth)){
+        if((in_array(150202,$this->user()->pageauth) && $engin->created_uid == $this->user()->id )|| in_array(150202,$this->user()->manageauth)){
         }else{
             return redirect('/project/projectStart?status=2&notice='.'您没有操作该功能权限');
         }
@@ -446,6 +447,27 @@ class ProjectController extends WebController
             return redirect('/project/projectStart?status=1&notice='.'项目状态更改成功！');
         }
     }
+    //编辑实施项目信息
+    public function editConductProject(Request $request,$id){
+        $this->user();
+        $data['navid']      =15;
+        $data['subnavid']   =1503;
+        $engineering =DB::table('engineering')->where('id',$id)->first();
+        if(empty($engineering)){
+            return redirect('/project/projectConduct?status=2&notice='.'该工程不存在');
+        }
+        $project =DB::table('project')->where('id',$engineering->project_id)->first();
+        if( (in_array(150302,$this->user()->pageauth) && $engineering->created_uid == $this->user()->id ) || in_array(150302,$this->user()->manageauth)){
+        }else{
+            return redirect('/project/projectStart?status=2&notice='.'您没有权限查看该项目信息');
+        }
+        $data['engineering']=$engineering;
+        $data['project']    =$project;
+        $data['engin_id'] =$id;
+        return view('project.editConductProject',$data);
+
+    }
+
 
 
 }

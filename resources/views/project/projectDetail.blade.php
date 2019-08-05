@@ -51,8 +51,8 @@
                                 <td colspan="2">{{$project->country}}</td>
                             </tr>
                             <tr>
-                                <td  class="pro-title">项目地点国内</td>
-                                <td colspan="2">{{$project->province}}{{$project->province}}{{$project->province}}
+                                <td  class="pro-title">项目地点</td>
+                                <td colspan="2">{{$project->province}}{{$project->city}}{{$project->county}}
                                     {{$project->foreign_address}}
                                  </td>
                                 <td  class="pro-title">详情地址</td>
@@ -209,7 +209,7 @@
                         </div>
                         <div class="clearfix">
                         </div>
-                        </form>
+
 
                     </div>
                 </div>
@@ -235,79 +235,5 @@
     <span style="float: right;margin-bottom: 10px"><a href="/base/getNoticeInfo" style="color: #0000FF"> 查看更多 >></a></span>
     <hr class="hr-stylish-1">
 </div>
-
-    <script>
-        //一般直接写在一个js文件中
-        //设置省市县默认空
-        $("#distpicker1").distpicker({
-            autoSelect: false
-        });
-        //删除子工程
-        function deleteTrRow(tr){
-            $(tr).parent().parent().remove();
-        }
-        //添加事件
-        function add_zigongcheng() {
-            intid =parseInt(Math.random() * (1000000 )+100);
-            str ='<tr > <td class="pro-title">子工程名称</td>'+
-                '<td> <input type="text"  name="engineering_name[]" class="span8 notempty "  value="" lay-skin="primary" > </td>'+
-                '<td class="pro-title">建筑面积（平方米）</td>'+
-                '<td> <input type="text"  name="build_area[]" class="span8 notempty"  value="" lay-skin="primary" > </td>'+
-                '<td class="pro-title">建筑层数</td> '+
-                '<td> <input type="text"  name="build_floor[]" class="span8 notempty"  value="" lay-skin="primary" > </td>'+
-                '<td class="pro-title">室内净高（米）</td>'+
-                '<td> <input type="text"  name="build_height[]" class="span8 notempty"  value="" lay-skin="primary" > </td>'+
-                '<td><a class="btn btn-danger" onclick="deleteTrRow(this)">删除</a></td>'+
-            '</tr>';
-            $("#zigongcheng").append(str);
-        }
-        //提交数据时验证数据信息
-        function form_submit(){
-            $('input').css('background','#fff');
-            $('.notempty').css('background','#fff');
-            var sum=0;
-            $("input.notempty").each(function(){
-                if($(this).val()){
-                }else if($(this).val() ==0){
-                    $(this).css('background','orange');
-                    sum=1;
-                }else{
-                    $(this).css('background','orange');
-                    sum=1;
-                }
-            });
-
-            $("select.notempty").each(function(){
-                console.log($(this).val())
-                val =$(this).val();
-                if(val == '' || val =='0'){
-                    $(this).css('background','orange');
-                    sum=1;
-                }
-            });
-
-            if(sum == 1){
-                layui.use('layer', function(){
-                    var layer = layui.layer;
-                    layer.msg('有信息没有填写完全，请填写完成后，再提交。');
-                });
-                return false;
-            }
-            return true;
-        }
-        //点击文本框设置背景色
-        $(".notempty").focus(function(){
-            $(this).css("background-color","#fff");
-        });
-        //日期選擇
-        layui.use('laydate', function() {
-            var laydate = layui.laydate;
-
-            //常规用法
-            laydate.render({
-                elem: '#test1'
-            });
-        });
-    </script>
 
 @endsection
