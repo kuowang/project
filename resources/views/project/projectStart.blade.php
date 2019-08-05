@@ -82,7 +82,7 @@
             <div class="widget">
                 <div class="widget-header">
                     <div class="title">
-                        洽谈项目列表<a id="dynamicTable"></a>
+                        洽谈项目<a id="dynamicTable"></a>
                         @if(in_array(1501,$pageauth) || in_array(1501,$manageauth))
                         <a class="btn btn-success" title="新增项目"  href="/project/createdProject">
                             <i class="layui-icon">新增项目</i>

@@ -82,7 +82,7 @@
                 <div class="widget">
                     <div class="widget-header">
                         <div class="title">
-                            实施项目列表<a id="dynamicTable"></a>
+                            实施项目<a id="dynamicTable"></a>
                         </div>
                         @if(in_array(100101,$pageauth))
                             <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">

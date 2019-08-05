@@ -73,7 +73,7 @@ class ProjectController extends WebController
     public function projectTermination(Request $request)
     {
         $this->user();
-        $data=$this->project($request,3);
+        $data=$this->project($request,4);
         $data['subnavid']   =1505;
         if( !(in_array(1505,$this->user()->pageauth)) && !in_array(1505,$this->user()->manageauth)){
             return redirect('/project/projectStart?status=2&notice='.'您没有操作该功能权限');
