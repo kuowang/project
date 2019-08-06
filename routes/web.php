@@ -79,6 +79,8 @@ Route::group(['prefix' => 'project','namespace' => 'Project','middleware' => 'au
     Route::get('/editConductProject/{id}',           'ProjectController@editConductProject');      //编辑实施项目信息
     Route::post('/postConductProject/{id}',           'ProjectController@postConductProject');      //提交编辑实施项目信息
     Route::get('/projectConductDetail/{id}',           'ProjectController@projectConductDetail');      //查看实施项目信息
+    Route::get('/projectCompletedDetail/{id}',        'ProjectController@projectCompletedDetail');    //查看竣工项目工程信息
+    Route::get('/projectTerminationDetail/{id}',      'ProjectController@projectTerminationDetail');    //查看终止项目工程信息
 
 
 

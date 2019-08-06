@@ -470,7 +470,7 @@ class ProjectController extends WebController
             return redirect('/project/projectStart?status=2&notice='.'您没有权限编辑该工程信息');
         }
         //项目动态信息
-        $data['dynamic'] =DB::table('enginnering_dynamic')->where('enginnering_id',$id)->orderby('id')->get();
+        $data['dynamic'] =DB::table('enginnering_dynamic')->where('enginnering_id',$id)->orderby('dynamic_date')->get();
         $data['engineering']=$engineering;
         $data['project']    =$project;
         $data['engin_id'] =$id;
@@ -538,7 +538,7 @@ class ProjectController extends WebController
             return redirect('/project/projectStart?status=2&notice='.'您没有权限查询该工程信息');
         }
         //项目动态信息
-        $data['dynamic'] =DB::table('enginnering_dynamic')->where('enginnering_id',$id)->orderby('id')->get();
+        $data['dynamic'] =DB::table('enginnering_dynamic')->where('enginnering_id',$id)->orderby('dynamic_date')->get();
         $data['engineering']=$engineering;
         $data['project']    =$project;
         $data['engin_id'] =$id;
@@ -546,5 +546,46 @@ class ProjectController extends WebController
 
     }
 
+    //查看竣工项目工程信息
+    public function projectCompletedDetail(Request $request,$id){
+        $this->user();
+        $data['navid']      =15;
+        $data['subnavid']   =1504;
+        $engineering =DB::table('engineering')->where('id',$id)->first();
+        if(empty($engineering)){
+            return redirect('/project/projectCompleted?status=2&notice='.'该工程不存在');
+        }
+        $project =DB::table('project')->where('id',$engineering->project_id)->first();
+        if( (in_array(150401,$this->user()->pageauth) && $project->created_uid == $this->user()->id ) || in_array(150401,$this->user()->manageauth)){
+        }else{
+            return redirect('/project/projectCompleted?status=2&notice='.'您没有权限查看该项目信息');
+        }
+        //项目动态信息
+        $data['dynamic'] =DB::table('enginnering_dynamic')->where('enginnering_id',$id)->orderby('dynamic_date')->get();
+        $data['engineering']=$engineering;
+        $data['project']    =$project;
+        return view('project.projectCompletedDetail',$data);
+    }
+
+    //查看终止项目工程信息
+    public function projectTerminationDetail(Request $request,$id){
+        $this->user();
+        $data['navid']      =15;
+        $data['subnavid']   =1505;
+        $engineering =DB::table('engineering')->where('id',$id)->first();
+        if(empty($engineering)){
+            return redirect('/project/projectTermination?status=2&notice='.'该工程不存在');
+        }
+        $project =DB::table('project')->where('id',$engineering->project_id)->first();
+        if( (in_array(150501,$this->user()->pageauth) && $project->created_uid == $this->user()->id ) || in_array(150501,$this->user()->manageauth)){
+        }else{
+            return redirect('/project/projectTermination?status=2&notice='.'您没有权限查看该项目信息');
+        }
+        //项目动态信息
+        $data['dynamic'] =DB::table('enginnering_dynamic')->where('enginnering_id',$id)->orderby('dynamic_date')->get();
+        $data['engineering']=$engineering;
+        $data['project']    =$project;
+        return view('project.projectTerminationDetail',$data);
+    }
 
 }

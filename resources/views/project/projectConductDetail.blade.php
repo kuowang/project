@@ -82,7 +82,7 @@
                             </tbody>
                         </table>
                         <div class="clearfix"></div>
-                        <form method="post" action="/project/postConductProject/{{$engin_id}}">
+
                         <table class="layui-table layui-form">
                             <thead>
                             <tr>
@@ -141,7 +141,7 @@
                         </div>
                         <div class="clearfix">
                         </div>
-                        </form>
+
                     </div>
                 </div>
             </div>
