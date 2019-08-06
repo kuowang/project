@@ -139,9 +139,7 @@
                                         <td>{{ $val->design_username }}</td>
                                         <td>{{ $val->budget_username }}</td>
                                         <td>{{ $val->technical_username }}</td>
-                                        <td>
-                                            洽谈
-                                        </td>
+                                        <td>实施</td>
                                         <td>{{ str_repeat('★', $val->success_level) }}</td>
                                         <td>{{ $val->created_at }}</td>
                                         <td class="td-manage">
