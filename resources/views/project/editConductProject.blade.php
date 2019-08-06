@@ -3,9 +3,7 @@
 @section('content')
     <link rel="stylesheet" href="/layui/css/layui.css">
     <script src="/layui/layui.js"></script>
-    <script src="/js/distpicker.data.js"></script>
-    <script src="/js/distpicker.js"></script>
-    <script src="/js/main.js"></script>
+
     <style type="text/css">
         .layui-form input[type=checkbox], .layui-form input[type=radio], .layui-form select {
             display: inline;
@@ -111,6 +109,7 @@
                             </tbody>
                         </table>
                         <div class="clearfix"></div>
+                        <form method="post" action="/project/postConductProject/{{$engin_id}}">
                         <table class="layui-table layui-form">
                             <thead>
                             <tr>
@@ -159,17 +158,18 @@
                                 <td style="width: 70%;">动态</td>
                                 <td style="width: 10%;">操作</td>
                             </tr>
+                            @foreach($dynamic as $item)
                             <tr>
                                 <td  class="pro-title">
-                                    <input type="hidden"  name="dynamic_id[]" class="span8"  value="" lay-skin="primary" >
-                                    <input type="text"  name="dynamic_date[]" placeholder="yyyy-MM-dd" class="span8 notempty dynamic_date"  value="" lay-skin="primary" >
+                                    <input type="hidden"  name="dynamic_id[]" class="span8"  value="{{$item->id}}" lay-skin="primary" >
+                                    <input type="text"  name="dynamic_date[]" placeholder="yyyy-MM-dd" class="span8 notempty dynamic_date"  value="{{$item->dynamic_date}}" lay-skin="primary" >
                                 </td>
                                 <td >
-                                    <input type="text"  name="dynamic_content[]" class="span12 notempty"  value="" lay-skin="primary" >
+                                    <input type="text"  name="dynamic_content[]" class="span12 notempty"  value="{{$item->dynamic_content}}" lay-skin="primary" >
                                 </td>
                                 <td></td>
                             </tr>
-
+                            @endforeach
                             </tbody>
                         </table>
 
@@ -186,7 +186,7 @@
                         </div>
                         <div class="clearfix">
                         </div>
-
+                        </form>
                     </div>
                 </div>
             </div>

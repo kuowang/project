@@ -434,9 +434,15 @@ class ProjectController extends WebController
         }elseif($engin->status ==2 && $status != 4){
             echo"<script>alert('状态更改失败，项目状态不可逆，请更改其他状态');history.go(-1);</script>";
         }
-        DB::table('engineering')->where('id',$id)->update(['status'=>$status,
+        $data=['status'=>$status,
             'edit_uid'=>$this->user()->id,
-            'updated_at'=>date('Y-m-d')]);
+            'updated_at'=>date('Y-m-d')];
+        if($status == 2){
+            $data['completed_at'] =date('Y-m-d'); //竣工时间
+        }elseif($status ==4){
+            $data['termination_at'] =date('Y-m-d');//终止时间
+        }
+        DB::table('engineering')->where('id',$id)->update($data);
         if($status == 1){
             return redirect('/project/projectConduct?status=1&notice='.'项目状态更改成功！');
         }elseif($status == 2){
@@ -461,7 +467,7 @@ class ProjectController extends WebController
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
         if( (in_array(150302,$this->user()->pageauth) && $engineering->created_uid == $this->user()->id ) || in_array(150302,$this->user()->manageauth)){
         }else{
-            return redirect('/project/projectStart?status=2&notice='.'您没有权限查看该项目信息');
+            return redirect('/project/projectStart?status=2&notice='.'您没有权限编辑该工程信息');
         }
         //项目动态信息
         $data['dynamic'] =DB::table('enginnering_dynamic')->where('enginnering_id',$id)->orderby('id')->get();
@@ -472,6 +478,73 @@ class ProjectController extends WebController
 
     }
 
+    //保存实施项目的数据
+    public function postConductProject(Request $request,$id){
+        $engineering =DB::table('engineering')->where('id',$id)->first();
+        if(empty($engineering)){
+            return redirect('/project/projectConduct?status=2&notice='.'该工程不存在');
+        }
+        if( (in_array(150302,$this->user()->pageauth) && $engineering->created_uid == $this->user()->id ) || in_array(150302,$this->user()->manageauth)){
+        }else{
+            return redirect('/project/projectConduct?status=2&notice='.'您没有权限编辑该工程信息');
+        }
+        $data['contract_code']  =$request->input('contract_code','');
+        $data['contract_at']    =$request->input('contract_at','');
+        $data['contract_type']  =$request->input('contract_type','');
+        $data['contract_num']   =(int)$request->input('contract_num',1);
+        if($data['contract_num'] > 100){
+            $data['contract_num'] =100;
+        }
+        DB::table('engineering')->where('id',$id)->update($data);
+
+        $dynamic_id   =$request->input('dynamic_id',[]);
+        $dynamic_date   =$request->input('dynamic_date',[]);
+        $dynamic_content   =$request->input('dynamic_content',[]);
+        if(count($dynamic_id) >0){
+            foreach($dynamic_id as $k=>$v){
+                $datalist=[
+                    'project_id'=>$engineering->project_id,
+                    'enginnering_id'=>$id,
+                    'dynamic_date'=>$dynamic_date[$k],
+                    'dynamic_content'=>$dynamic_content[$k],
+                ];
+                if($v == 0){
+                    $datalist['created_uid'] =$this->user()->id;
+                    $datalist['created_at'] =date('Y-m-d');
+                    DB::table('enginnering_dynamic')->insert($datalist);
+                }else{
+                    $datalist['edit_uid'] =$this->user()->id;
+                    $datalist['updated_at'] =date('Y-m-d');
+                    DB::table('enginnering_dynamic')->where('id',(int)$v)->update($datalist);
+                }
+            }
+        }
+        return redirect('/project/projectConduct?status=1&notice='.'编辑项目工程信息成功');
+    }
+//编辑实施项目信息
+    public function projectConductDetail(Request $request,$id){
+        $this->user();
+        $data['navid']      =15;
+        $data['subnavid']   =1503;
+        //项目子工程
+        $engineering =DB::table('engineering')->where('id',$id)->first();
+        if(empty($engineering)){
+            return redirect('/project/projectConduct?status=2&notice='.'该工程不存在');
+        }
+        //项目信息
+        $project =DB::table('project')->where('id',$engineering->project_id)->first();
+        if( (in_array(150301,$this->user()->pageauth) && $engineering->created_uid == $this->user()->id ) || in_array(150301,$this->user()->manageauth)){
+        }else{
+            return redirect('/project/projectStart?status=2&notice='.'您没有权限查询该工程信息');
+        }
+        //项目动态信息
+        $data['dynamic'] =DB::table('enginnering_dynamic')->where('enginnering_id',$id)->orderby('id')->get();
+        $data['engineering']=$engineering;
+        $data['project']    =$project;
+        $data['engin_id'] =$id;
+        return view('project.projectConductDetail',$data);
+
+    }
 
 
 }

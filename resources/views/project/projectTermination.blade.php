@@ -52,21 +52,21 @@
                     </div>
                 @endif
                 @if(in_array(1503,$pageauth))
-                    <div class="metro-nav-block nav-block-green" >
+                    <div class="metro-nav-block nav-block-green">
                         <a href="/project/projectConduct">
                             <div class="fs1"  data-icon="">实施项目</div>
                         </a>
                     </div>
                 @endif
                 @if(in_array(1504,$pageauth))
-                    <div class="metro-nav-block nav-block-yellow">
+                    <div class="metro-nav-block nav-block-yellow" style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
                         <a href="/project/projectCompleted">
                             <div class="fs1" aria-hidden="true" data-icon="">竣工项目</div>
                         </a>
                     </div>
                 @endif
                 @if(in_array(1505,$pageauth))
-                    <div class="metro-nav-block nav-block-red" style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
+                    <div class="metro-nav-block nav-block-red">
                         <a href="/project/projectTermination">
                             <div class="fs1" aria-hidden="true" data-icon="">终止项目</div>
                         </a>
@@ -82,30 +82,25 @@
                 <div class="widget">
                     <div class="widget-header">
                         <div class="title">
-                            终止项目<a id="dynamicTable"></a>
+                            竣工项目<a id="dynamicTable"></a>
                         </div>
-                        @if(in_array(100101,$pageauth))
-                            <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
-                                <label>
-                                    <form class="form-search" action="/project/projectStart" method="get">
-                                        项目名称:<input type="text" name="project_name" value="{{ $project_name }}" class="input-medium search-query">
-                                        项目地点:<input type="text" name="address" value="{{ $address }}" class="input-medium search-query">
-                                        项目负责人:<input type="text" name="customer_leader" value="{{ $customer_leader }}" class="input-medium search-query">
-                                        洽谈指数:<select name="success_level" id="stateAndCity" class="input-medium search-query" style="min-width: 80px">
-                                            <option value="0" ></option>
-                                            @if($success_level ==1) <option value="1" selected="selected">★</option> @else <option value="1">★</option> @endif
-                                            @if($success_level ==2) <option value="2" selected="selected">★★</option> @else <option value="2">★★</option> @endif
-                                            @if($success_level ==3) <option value="3" selected="selected">★★★</option> @else <option value="3">★★★</option> @endif
-                                            @if($success_level ==4) <option value="4" selected="selected">★★★★</option> @else <option value="4">★★★★</option> @endif
-                                            @if($success_level ==5) <option value="5" selected="selected">★★★★★</option> @else <option value="5">★★★★★</option> @endif
-                                        </select>
-
-
-                                        <button type="submit" class="btn">搜索</button>
-                                    </form></label>
-                            </div>
-                        @endif
-
+                        <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
+                            <label>
+                                <form class="form-search" action="/project/projectStart" method="get">
+                                    项目名称:<input type="text" name="project_name" value="{{ $project_name }}" class="input-medium search-query">
+                                    项目地点:<input type="text" name="address" value="{{ $address }}" class="input-medium search-query">
+                                    项目负责人:<input type="text" name="customer_leader" value="{{ $customer_leader }}" class="input-medium search-query">
+                                    洽谈指数:<select name="success_level" id="success_level" class="input-medium search-query" style="min-width: 80px;border-radius: 15px;">
+                                        <option value="0" >全部</option>
+                                        @if($success_level ==1) <option value="1" selected="selected">★</option> @else <option value="1">★</option> @endif
+                                        @if($success_level ==2) <option value="2" selected="selected">★★</option> @else <option value="2">★★</option> @endif
+                                        @if($success_level ==3) <option value="3" selected="selected">★★★</option> @else <option value="3">★★★</option> @endif
+                                        @if($success_level ==4) <option value="4" selected="selected">★★★★</option> @else <option value="4">★★★★</option> @endif
+                                        @if($success_level ==5) <option value="5" selected="selected">★★★★★</option> @else <option value="5">★★★★★</option> @endif
+                                    </select>
+                                    <button type="submit" class="btn">搜索</button>
+                                </form></label>
+                        </div>
                     </div>
                     <div class="widget-body">
                         <div id="dt_example" class="example_alt_pagination">
@@ -150,16 +145,12 @@
                                         <td>{{ str_repeat('★', $val->success_level) }}</td>
                                         <td>{{ $val->created_at }}</td>
                                         <td class="td-manage">
-                                            @if( (in_array(150202,$pageauth) && $val->created_uid == $uid ) || in_array(150202,$manageauth))
-                                                <a title="查看详情" class="btn btn-info"  href="/project/projectDetail/{{ $val->id }}">
+                                            @if( (in_array(150501,$pageauth) && $val->created_uid == $uid ) || in_array(150501,$manageauth))
+                                                <a title="查看详情" class="btn btn-info"  href="/project/projectConductDetail/{{ $val->engineering_id }}">
                                                     <i class="layui-icon">详情</i>
                                                 </a>
                                             @endif
-                                            @if((in_array(150201,$pageauth) && $val->created_uid == $uid ) || in_array(150201,$manageauth))
-                                                <a title="编辑" class="btn btn-success"  href="/project/editProject/{{ $val->id }}">
-                                                    <i class="layui-icon">编辑</i>
-                                                </a>
-                                            @endif
+
                                         </td>
                                     </tr>
                                 @endforeach
@@ -198,13 +189,5 @@
         <span style="float: right;margin-bottom: 10px"><a href="/base/getNoticeInfo" style="color: #0000FF"> 查看更多 >></a></span>
         <hr class="hr-stylish-1">
     </div>
-
-    <script>
-        //一般直接写在一个js文件中
-
-
-
-
-    </script>
 
 @endsection
