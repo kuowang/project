@@ -59,14 +59,14 @@
                     </div>
                 @endif
                 @if(in_array(1504,$pageauth))
-                    <div class="metro-nav-block nav-block-yellow" style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
+                    <div class="metro-nav-block nav-block-yellow">
                         <a href="/project/projectCompleted">
                             <div class="fs1" aria-hidden="true" data-icon="">竣工项目</div>
                         </a>
                     </div>
                 @endif
                 @if(in_array(1505,$pageauth))
-                    <div class="metro-nav-block nav-block-red">
+                    <div class="metro-nav-block nav-block-red" style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
                         <a href="/project/projectTermination">
                             <div class="fs1" aria-hidden="true" data-icon="">终止项目</div>
                         </a>
@@ -82,7 +82,7 @@
                 <div class="widget">
                     <div class="widget-header">
                         <div class="title">
-                            竣工项目<a id="dynamicTable"></a>
+                            终止项目<a id="dynamicTable"></a>
                         </div>
                         <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                             <label>
