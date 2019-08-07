@@ -33,30 +33,30 @@
 <div class="left-sidebar">
     <div class="row-fluid">
         <div class="metro-nav">
-            @if(in_array(1502,$pageauth))
+            @if(in_array(350301,$pageauth))
             <div class="metro-nav-block nav-block-blue" style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
-                <a href="/project/projectStart">
+                <a href="/architectural/enginStart">
                     <div class="fs1" aria-hidden="true" data-icon="">洽谈项目</div>
                 </a>
             </div>
             @endif
-            @if(in_array(1503,$pageauth))
+            @if(in_array(350302,$pageauth))
             <div class="metro-nav-block nav-block-green">
-                <a href="/project/projectConduct">
+                <a href="/architectural/enginConduct">
                     <div class="fs1"  data-icon="">实施项目</div>
                 </a>
             </div>
             @endif
-            @if(in_array(1504,$pageauth))
+            @if(in_array(350303,$pageauth))
             <div class="metro-nav-block nav-block-yellow">
-                <a href="/project/projectCompleted">
+                <a href="/architectural/enginCompleted">
                     <div class="fs1" aria-hidden="true" data-icon="">竣工项目</div>
                 </a>
             </div>
             @endif
-            @if(in_array(1505,$pageauth))
+            @if(in_array(350304,$pageauth))
             <div class="metro-nav-block nav-block-red">
-                <a href="/project/projectTermination">
+                <a href="/architectural/enginTermination">
                     <div class="fs1" aria-hidden="true" data-icon="">终止项目</div>
                 </a>
             </div>
@@ -72,11 +72,6 @@
                 <div class="widget-header">
                     <div class="title">
                         洽谈项目<a id="dynamicTable"></a>
-                        @if(in_array(1501,$pageauth) || in_array(1501,$manageauth))
-                        <a class="btn btn-success" title="新增项目"  href="/project/createdProject">
-                            <i class="layui-icon">新增项目</i>
-                        </a>
-                        @endif
                     </div>
                     <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                         <label>
@@ -134,18 +129,16 @@
                                     <td>{{ $val->design_username }}</td>
                                     <td>{{ $val->budget_username }}</td>
                                     <td>{{ $val->technical_username }}</td>
-                                    <td>
-                                        洽谈
-                                    </td>
+                                    <td>洽谈</td>
                                     <td>{{ str_repeat('★', $val->success_level) }}</td>
                                     <td>{{ $val->created_at }}</td>
                                     <td class="td-manage">
-                                        @if( (in_array(150201,$pageauth) && $val->created_uid == $uid ) || in_array(150201,$manageauth))
+                                        @if( (in_array(35030101,$pageauth) && $val->created_uid == $uid ) || in_array(35030101,$manageauth))
                                             <a title="查看详情" class="btn btn-info"  href="/project/projectDetail/{{ $val->engineering_id }}">
                                                 <i class="layui-icon">详情</i>
                                             </a>
                                         @endif
-                                        @if((in_array(150202,$pageauth) && $val->created_uid == $uid ) || in_array(150202,$manageauth))
+                                        @if((in_array(35030102,$pageauth) && $val->created_uid == $uid ) || in_array(35030102,$manageauth))
                                             <a title="编辑" class="btn btn-success"  href="/project/editProject/{{ $val->engineering_id }}">
                                                 <i class="layui-icon">编辑</i>
                                             </a>

@@ -109,6 +109,12 @@ Route::group(['prefix' => 'architectural','namespace' => 'Architectural','middle
     Route::get('/material_detail/{id}',     'ArchitecturalController@materialDetail'); //查看建筑工程子系统材料信息
     Route::post('/post_edit_material/{id}',     'ArchitecturalController@postEditMaterial'); //提交建筑工程子系统材料信息
 
+    //工程中建筑设计管理
+    Route::get('/enginStart',                     'EnginneringController@enginStart');      //洽谈项目首页
+    Route::get('/enginConduct',                   'EnginneringController@enginConduct');    //实施项目列表
+    Route::get('/enginCompleted',                 'EnginneringController@enginCompleted');  //竣工项目首页
+    Route::get('/enginTermination',               'EnginneringController@enginTermination'); //终止项目首页
+
 });
 
 //基础信息管理类的控制组 需要登录

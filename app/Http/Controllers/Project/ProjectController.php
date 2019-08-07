@@ -124,7 +124,18 @@ class ProjectController extends WebController
         $data['customer_leader']=$customer_leader;
         $data['success_level']  =$success_level;
         $datalist=$this->getProjectList($status,$project_name,$address,$customer_leader,$success_level,$page,$rows);
-        $url='/project/projectStart?project_name='.$project_name.'&address='.$address.'&customer_leader='.$customer_leader.'&success_level='.$success_level;
+        if($status == 0){
+            $url='/project/projectStart?project_name='.$project_name.'&address='.$address.'&customer_leader='.$customer_leader.'&success_level='.$success_level;
+        }elseif($status == 1){
+            $url='/project/projectConduct?project_name='.$project_name.'&address='.$address.'&customer_leader='.$customer_leader.'&success_level='.$success_level;
+        }elseif($status == 2){
+            $url='/project/projectCompleted?project_name='.$project_name.'&address='.$address.'&customer_leader='.$customer_leader.'&success_level='.$success_level;
+        }elseif($status == 4){
+            $url='/project/projectTermination?project_name='.$project_name.'&address='.$address.'&customer_leader='.$customer_leader.'&success_level='.$success_level;
+        }else{
+            $url='/project/projectStart?project_name='.$project_name.'&address='.$address.'&customer_leader='.$customer_leader.'&success_level='.$success_level;
+        }
+
         $data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
         $data['data']   =$datalist['data'];
         $data['navid']      =15;
