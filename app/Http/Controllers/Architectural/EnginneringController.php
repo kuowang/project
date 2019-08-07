@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Architectural;
 use Illuminate\Http\Request;
 use App\Http\Controllers\WebController;
 use Illuminate\Support\Facades\DB;
-use App\Models\SystemSetting;
+
 
 class EnginneringController extends WebController
 {
