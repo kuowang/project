@@ -143,13 +143,13 @@
                                         <td>{{ str_repeat('★', $val->success_level) }}</td>
                                         <td>{{ $val->created_at }}</td>
                                         <td class="td-manage">
-                                            @if( (in_array(150301,$pageauth) && $val->created_uid == $uid ) || in_array(150301,$manageauth))
-                                                <a title="查看详情" class="btn btn-info"  href="/project/projectConductDetail/{{ $val->engineering_id }}">
+                                            @if( (in_array(35030201,$pageauth) && $val->created_uid == $uid ) || in_array(350703,$manageauth))
+                                                <a title="查看详情" class="btn btn-info"  href="/architectural/enginConductDetail/{{ $val->engineering_id }}">
                                                     <i class="layui-icon">详情</i>
                                                 </a>
                                             @endif
-                                            @if((in_array(150302,$pageauth) && $val->created_uid == $uid ) || in_array(150302,$manageauth))
-                                                <a title="编辑" class="btn btn-success"  href="/project/editConductProject/{{ $val->engineering_id }}">
+                                            @if((in_array(35030202,$pageauth) && $val->created_uid == $uid ) || in_array(350704,$manageauth))
+                                                <a title="编辑" class="btn btn-success"  href="/architectural/editConductEngin/{{ $val->engineering_id }}">
                                                     <i class="layui-icon">编辑</i>
                                                 </a>
                                             @endif

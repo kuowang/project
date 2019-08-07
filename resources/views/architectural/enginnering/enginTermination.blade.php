@@ -143,8 +143,8 @@
                                         <td>{{ str_repeat('★', $val->success_level) }}</td>
                                         <td>{{ $val->created_at }}</td>
                                         <td class="td-manage">
-                                            @if( (in_array(150501,$pageauth) && $val->created_uid == $uid ) || in_array(150501,$manageauth))
-                                                <a title="查看详情" class="btn btn-info"  href="/project/projectTerminationDetail/{{ $val->engineering_id }}">
+                                            @if( (in_array(35030401,$pageauth) && $val->created_uid == $uid ) || in_array(350706,$manageauth))
+                                                <a title="查看详情" class="btn btn-info"  href="/architectural/enginTerminationDetail/{{ $val->engineering_id }}">
                                                     <i class="layui-icon">详情</i>
                                                 </a>
                                             @endif
