@@ -61,7 +61,8 @@ class ArchitecturalController extends WebController
         return $data;
     }
     //创建建筑工程信息
-    public function addArchitect(){
+    public function addArchitect()
+    {
         $this->user();
         //用户权限部分
         $data['navid']      =35;
@@ -70,7 +71,8 @@ class ArchitecturalController extends WebController
     }
 
     //提交创建建筑工程信息
-    public function postAddArchitect(Request $request){
+    public function postAddArchitect(Request $request)
+    {
         //var_dump($request->all());
         //系统工程
         $system_name =$request->input('system_name','');
@@ -137,7 +139,8 @@ class ArchitecturalController extends WebController
     }
 
     //编辑建筑工程
-    public function editArchitect(Request $request,$id){
+    public function editArchitect(Request $request,$id)
+    {
         $this->user();
         //用户权限部分
         $data['navid']      =35; //当前导航页面
@@ -158,7 +161,8 @@ class ArchitecturalController extends WebController
     }
 
     //提交创建建筑工程信息
-    public function postEditArchitect(Request $request){
+    public function postEditArchitect(Request $request)
+    {
         //系统工程
         $id =$request->input('id',0);
         $system_name =$request->input('system_name','');
@@ -224,7 +228,8 @@ class ArchitecturalController extends WebController
     }
 
     //查看详情建筑工程
-    public function architectDetail(Request $request,$id){
+    public function architectDetail(Request $request,$id)
+    {
         $this->user();
         //用户权限部分
         $data['navid']      =35; //当前导航页面
@@ -246,7 +251,8 @@ class ArchitecturalController extends WebController
     }
 
     //更改建筑系统状态
-    public function EditArchitectStatus(Request $request,$id,$staus=1){
+    public function EditArchitectStatus(Request $request,$id,$staus=1)
+    {
 
         $architect=DB::table('architectural_system')->where('id',$id)->first();
         if($this->user()->id != $architect->uid && !in_array(3501,(array)$this->user()->manageauth)){
@@ -290,7 +296,8 @@ class ArchitecturalController extends WebController
         return view('architectural.architectureList',$data);
     }
     //获取子系统列表
-    private function getSubArchitecturalList($system_name='',$sub_system_name='',$work_code='',$page=1,$rows=100){
+    private function getSubArchitecturalList($system_name='',$sub_system_name='',$work_code='',$page=1,$rows=100)
+    {
         $db=DB::table('architectural_system')
             ->leftjoin('architectural_sub_system','architectural_system.id','=','architectural_sub_system.architectural_id')
             ->where('architectural_system.status',1);
@@ -319,7 +326,8 @@ class ArchitecturalController extends WebController
     }
 
     //编辑建筑设计子系统下材料信息
-    public function editMaterial(Request $request,$id){
+    public function editMaterial(Request $request,$id)
+    {
         //用户权限部分
         $this->user();
         $data['navid']      =35; //当前导航页面
@@ -339,7 +347,8 @@ class ArchitecturalController extends WebController
         return view('architectural.editMaterial',$data);
     }
 
-    public function postEditMaterial(Request $request,$id){
+    public function postEditMaterial(Request $request,$id)
+    {
         //var_dump($request->all());
         //子系统工程
         $material_id =$request->input('material_id',[]);
@@ -407,7 +416,8 @@ class ArchitecturalController extends WebController
     }
 
     //编辑建筑设计子系统下材料信息
-    public function materialDetail(Request $request,$id){
+    public function materialDetail(Request $request,$id)
+    {
             $this->user();
             //用户权限部分
             $data['navid']      =35; //当前导航页面

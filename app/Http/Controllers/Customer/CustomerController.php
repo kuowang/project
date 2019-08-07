@@ -21,7 +21,8 @@ class CustomerController extends WebController
     }
 
     //客户列表
-    public function customerList(Request $request){
+    public function customerList(Request $request)
+    {
         $this->user();
         $customer =$request->input('customer','');
         $type =$request->input('type','');
@@ -44,7 +45,8 @@ class CustomerController extends WebController
         return view('Customer.index',$data);
     }
     //查询公告信息
-    private function  getCustomerList($customer,$type,$address,$page,$rows){
+    private function  getCustomerList($customer,$type,$address,$page,$rows)
+    {
 
         $db=DB::table('customer')->where('status',1);
         if(!empty($customer)){
@@ -67,7 +69,8 @@ class CustomerController extends WebController
 
 
     //提交新增客户
-    public function postAddCustomer(Request $request){
+    public function postAddCustomer(Request $request)
+    {
 
         $customer   =$request->input('customer');
         $type       =$request->input('type');
@@ -97,7 +100,8 @@ class CustomerController extends WebController
         return $this->success('提交成功');
     }
     //提交编辑公告
-    public function postEditCustomer(Request $request,$id){
+    public function postEditCustomer(Request $request,$id)
+    {
         $customer=$request->input('customer');
         $type=$request->input('type');
         $address=$request->input('address');
@@ -125,7 +129,8 @@ class CustomerController extends WebController
         return $this->success('修改成功');
     }
     //删除客户信息
-    public function postDeleteCustomer(Request $request,$id){
+    public function postDeleteCustomer(Request $request,$id)
+    {
 
         $data=[
             'status'=>0,

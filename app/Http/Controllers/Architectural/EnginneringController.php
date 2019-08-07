@@ -114,7 +114,8 @@ class EnginneringController extends WebController
         return $data;
     }
     //工程信息列表
-    private function enginnering($request,$status=0){
+    private function enginnering($request,$status=0)
+    {
         $project_name       =$request->input('project_name','');
         $address            =$request->input('address','');
         $customer_leader    =$request->input('customer_leader','');
@@ -141,4 +142,50 @@ class EnginneringController extends WebController
         $data['navid']      =35;
         return $data;
     }
+    //查看工程设计详情
+    public function enginDetail(Request $request)
+    {
+
+    }
+    //编辑工程设计详情
+    public function editEngin(Request $request)
+    {
+
+    }
+
+    //提交编辑工程设计详情
+    public function postEditEngin(Request $request)
+    {
+
+    }
+    //编辑实施工程设计详情
+    public function editConductEngin(Request $request)
+    {
+
+    }
+    //提交编辑实施工程设计详情
+    public function postConductEngin(Request $request)
+    {
+
+    }
+    //查看实施工程设计详情
+    public function enginConductDetail(Request $request)
+    {
+
+    }
+    //查看竣工工程设计信息
+    public function enginCompletedDetail(Request $request)
+    {
+
+    }
+    //查看终止项目工程设计信息
+    public function enginTerminationDetail(Request $request)
+    {
+
+    }
+
+
+
+
+
 }

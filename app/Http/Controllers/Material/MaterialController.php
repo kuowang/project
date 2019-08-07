@@ -22,7 +22,8 @@ class MaterialController extends WebController
     }
 
     //供应商列表
-    public function materialList(Request $request){
+    public function materialList(Request $request)
+    {
         $this->user();
         $system_name =$request->input('system_name','');
         $sub_system_name =$request->input('sub_system_name','');
@@ -49,7 +50,8 @@ class MaterialController extends WebController
     }
 
     //查询材料信息
-    private function  getMaterialList($system_name='',$sub_system_name='',$material_name='',$page,$rows){
+    private function  getMaterialList($system_name='',$sub_system_name='',$material_name='',$page,$rows)
+    {
 
         $db=DB::table('material')
             ->join('architectural_system','architectural_system.id','=','material.architectural_id')
@@ -91,7 +93,8 @@ class MaterialController extends WebController
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      * @throws \Exception
      */
-    public function editMaterial(Request $request, $id){
+    public function editMaterial(Request $request, $id)
+    {
         //用户权限部分
         $this->user();
         $data['navid']      =40;
@@ -163,7 +166,8 @@ class MaterialController extends WebController
     }
 
     //材料品牌数据提交操作
-    public function postEditMaterial(Request $request, $id){
+    public function postEditMaterial(Request $request, $id)
+    {
         $data['material_budget_unit'] =$request->input('material_budget_unit');
         $data['material_purchase_unit'] =$request->input('material_purchase_unit');
         $data['pack_specification'] =$request->input('pack_specification');
@@ -238,7 +242,8 @@ class MaterialController extends WebController
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      * @throws \Exception
      */
-    public function materialDetail(Request $request, $id){
+    public function materialDetail(Request $request, $id)
+    {
         $this->user();
         //用户权限部分
         $data['navid']      =40;

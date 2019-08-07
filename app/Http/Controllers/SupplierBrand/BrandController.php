@@ -21,7 +21,8 @@ class BrandController extends WebController
     }
 
     //品牌列表
-    public function brandList(Request $request){
+    public function brandList(Request $request)
+    {
         $this->user();
         $search =$request->input('search','');
         $page =$request->input('page',1);
@@ -40,7 +41,8 @@ class BrandController extends WebController
         return view('SupplierBrand.brand.index',$data);
     }
     //查询公告信息
-    private function  getBrandList($search,$page,$rows){
+    private function  getBrandList($search,$page,$rows)
+    {
 
         $db=DB::table('brand');
         if(!empty($search)){
@@ -56,7 +58,8 @@ class BrandController extends WebController
 
 
     //提交新增公告
-    public function postAddBrand(Request $request){
+    public function postAddBrand(Request $request)
+    {
 
         $brand_name=$request->input('brand_name');
         $status =(int)$request->input('status',1);
@@ -91,7 +94,8 @@ class BrandController extends WebController
         return $this->success('提交成功');
     }
     //提交编辑公告
-    public function postEditBrand(Request $request,$id){
+    public function postEditBrand(Request $request,$id)
+    {
         $brand_name =$request->input('brand_name');
         $status =(int)$request->input('status',1);
         $supplier =$request->input('supplier',[]);
@@ -129,12 +133,14 @@ class BrandController extends WebController
         return $this->success('修改成功');
     }
     //品牌对应的供应商列表
-    public function brandSupplierList(Request $request,$id){
+    public function brandSupplierList(Request $request,$id)
+    {
         $data =DB::table('supplier_brand')->where('brand_id',$id)->where('status',1)->pluck('supplier_id');
         return $this->success($data);
     }
 
-    public function brandToSupplier(Request $request,$id){
+    public function brandToSupplier(Request $request,$id)
+    {
         $data =DB::table('supplier_brand')
             ->join('supplier','supplier_id','=','supplier.id')
             ->where('supplier.status',1)
@@ -146,7 +152,8 @@ class BrandController extends WebController
     }
 
     //上次图片
-    public function uploadImage(Request $request){
+    public function uploadImage(Request $request)
+    {
 
         if(empty($_FILES)){
             return $this->error( '请选择图片');

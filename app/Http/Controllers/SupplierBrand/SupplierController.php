@@ -22,7 +22,8 @@ class SupplierController extends WebController
     }
 
     //供应商列表
-    public function supplierList(Request $request){
+    public function supplierList(Request $request)
+    {
         $this->user();
         $brand_name =$request->input('brand_name','');
         $manufactor =$request->input('manufactor','');
@@ -50,7 +51,8 @@ class SupplierController extends WebController
     }
 
     //查询供应商信息
-    private function  getSupplierList($brand_name='',$manufactor='',$supplier='',$address='',$page,$rows){
+    private function  getSupplierList($brand_name='',$manufactor='',$supplier='',$address='',$page,$rows)
+    {
 
         $db=DB::table('supplier')
             ->leftjoin('supplier_brand',function($json){
@@ -88,7 +90,8 @@ class SupplierController extends WebController
     }
 
     //添加供应商
-    public function addSupplier(Request $request){
+    public function addSupplier(Request $request)
+    {
         $this->user();
         $pageauth  =$this->user()->pageauth;
         $manageauth   =$this->user()->manageauth;
@@ -102,7 +105,8 @@ class SupplierController extends WebController
         return view('SupplierBrand.supplier.addSupplierInfo',$data);
     }
     //编辑供应商 $id 供应商id
-    public function editSupplier(Request $request,$id){
+    public function editSupplier(Request $request,$id)
+    {
         $this->user();
         $pageauth  =$this->user()->pageauth;
         $manageauth   =$this->user()->manageauth;
@@ -120,7 +124,8 @@ class SupplierController extends WebController
         return view('SupplierBrand.supplier.editSupplierInfo',$data);
     }
 
-    public function postAddSupplier(Request $request){
+    public function postAddSupplier(Request $request)
+    {
         var_dump($request->all());
         $manufactor     =$request->input('manufactor');
         $supplier       =$request->input('supplier');
@@ -171,7 +176,8 @@ class SupplierController extends WebController
         return redirect('/supplier/supplierList?status=1&notice='.'创建供应商成功');
     }
 
-    public function postEditSupplier(Request $request,$id){
+    public function postEditSupplier(Request $request,$id)
+    {
         $pageauth  =$this->user()->pageauth;
         $manageauth   =$this->user()->manageauth;
         $supplierinfo =DB::table('supplier')->where('id',$id)->first();
@@ -227,7 +233,8 @@ class SupplierController extends WebController
     }
 
     //品牌对应的供应商列表
-    public function deleteSupplierBrand(Request $request,$id){
+    public function deleteSupplierBrand(Request $request,$id)
+    {
         $data =DB::table('supplier_brand')
             ->where('id',$id)
             ->update(['status'=>0]);

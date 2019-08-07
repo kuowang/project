@@ -143,7 +143,8 @@ class ProjectController extends WebController
         return $data;
     }
     //创建项目页面
-    public function createdProject(){
+    public function createdProject()
+    {
         $this->user();
         $data['navid']      =15;
         $data['subnavid']   =1502;
@@ -154,7 +155,8 @@ class ProjectController extends WebController
         return view('project.createdProject',$data);
     }
     //创建项目提交页面
-    public function postAddProject(Request $request){
+    public function postAddProject(Request $request)
+    {
         $this->user();
         if( !(in_array(1501,$this->user()->pageauth)) && !in_array(1501,$this->user()->manageauth)){
             return redirect('/project/projectStart?status=2&notice='.'您没有操作该功能权限');
@@ -265,7 +267,8 @@ class ProjectController extends WebController
 
     }
     //查询项目详情
-    public function projectDetail(Request $request,$id){
+    public function projectDetail(Request $request,$id)
+    {
         $this->user();
         $data['navid']      =15;
         $data['subnavid']   =1502;
@@ -284,7 +287,8 @@ class ProjectController extends WebController
     }
 
     //编辑项目详情
-    public function editProject(Request $request,$id){
+    public function editProject(Request $request,$id)
+    {
         $this->user();
         $this->user();
         $data['navid']      =15;
@@ -308,7 +312,8 @@ class ProjectController extends WebController
     }
 
     //提交编辑的项目信息
-    public function postEditProject(Request $request,$id){
+    public function postEditProject(Request $request,$id)
+    {
         $this->user();
         $project=DB::table('project')->where('id',$id)->first();
         if(empty($project)){
@@ -428,7 +433,8 @@ class ProjectController extends WebController
     }
 
     //编辑项目状态
-    public function updateProjectStatus(Request $request,$id){
+    public function updateProjectStatus(Request $request,$id)
+    {
         $engin=DB::table('engineering')->where('id',$id)->first();
         $status =$request->input('project_status',0);
         if(empty($engin)){
@@ -465,7 +471,8 @@ class ProjectController extends WebController
         }
     }
     //编辑实施项目信息
-    public function editConductProject(Request $request,$id){
+    public function editConductProject(Request $request,$id)
+    {
         $this->user();
         $data['navid']      =15;
         $data['subnavid']   =1503;
@@ -490,7 +497,8 @@ class ProjectController extends WebController
     }
 
     //保存实施项目的数据
-    public function postConductProject(Request $request,$id){
+    public function postConductProject(Request $request,$id)
+    {
         $engineering =DB::table('engineering')->where('id',$id)->first();
         if(empty($engineering)){
             return redirect('/project/projectConduct?status=2&notice='.'该工程不存在');
@@ -533,7 +541,8 @@ class ProjectController extends WebController
         return redirect('/project/projectConduct?status=1&notice='.'编辑项目工程信息成功');
     }
 //编辑实施项目信息
-    public function projectConductDetail(Request $request,$id){
+    public function projectConductDetail(Request $request,$id)
+    {
         $this->user();
         $data['navid']      =15;
         $data['subnavid']   =1503;
@@ -558,7 +567,8 @@ class ProjectController extends WebController
     }
 
     //查看竣工项目工程信息
-    public function projectCompletedDetail(Request $request,$id){
+    public function projectCompletedDetail(Request $request,$id)
+    {
         $this->user();
         $data['navid']      =15;
         $data['subnavid']   =1504;
@@ -579,7 +589,8 @@ class ProjectController extends WebController
     }
 
     //查看终止项目工程信息
-    public function projectTerminationDetail(Request $request,$id){
+    public function projectTerminationDetail(Request $request,$id)
+    {
         $this->user();
         $data['navid']      =15;
         $data['subnavid']   =1505;

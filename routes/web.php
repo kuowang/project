@@ -71,7 +71,7 @@ Route::group(['prefix' => 'project','namespace' => 'Project','middleware' => 'au
 
     Route::get('/createdProject',                    'ProjectController@createdProject');   //创建项目
     Route::post('/postAddProject',                   'ProjectController@postAddProject');   //提交创建项目信息
-    Route::get('/projectDetail/{id}',                'ProjectController@projectDetail');    //创建项目
+    Route::get('/projectDetail/{id}',                'ProjectController@projectDetail');    //项目详情信息
     Route::get('/editProject/{id}',                  'ProjectController@editProject');      //编辑项目
     Route::post('/postEditProject/{id}',             'ProjectController@postEditProject');  //提交编辑项目工程信息
     Route::post('/updateProjectStatus/{id}',         'ProjectController@updateProjectStatus');  //提交编辑项目状态
@@ -110,10 +110,19 @@ Route::group(['prefix' => 'architectural','namespace' => 'Architectural','middle
     Route::post('/post_edit_material/{id}',     'ArchitecturalController@postEditMaterial'); //提交建筑工程子系统材料信息
 
     //工程中建筑设计管理
-    Route::get('/enginStart',                     'EnginneringController@enginStart');      //洽谈项目首页
-    Route::get('/enginConduct',                   'EnginneringController@enginConduct');    //实施项目列表
-    Route::get('/enginCompleted',                 'EnginneringController@enginCompleted');  //竣工项目首页
-    Route::get('/enginTermination',               'EnginneringController@enginTermination'); //终止项目首页
+    Route::get('/enginStart',                     'EnginneringController@enginStart');      //洽谈项目首页 工程中建筑设计
+    Route::get('/enginConduct',                   'EnginneringController@enginConduct');    //实施项目列表 工程中建筑设计
+    Route::get('/enginCompleted',                 'EnginneringController@enginCompleted');  //竣工项目首页 工程中建筑设计
+    Route::get('/enginTermination',               'EnginneringController@enginTermination'); //终止项目首页 工程中建筑设计
+
+    Route::get('/enginDetail/{id}',                'EnginneringController@enginDetail');    //工程设计详情
+    Route::get('/editEngin/{id}',                  'EnginneringController@editEngin');      //编辑工程设计详情
+    Route::post('/postEditEngin/{id}',             'EnginneringController@postEditEngin');  //提交编辑工程设计详情
+    Route::get('/editConductEngin/{id}',           'EnginneringController@editConductEngin');      //编辑实施工程设计详情
+    Route::post('/postConductEngin/{id}',          'EnginneringController@postConductEngin');      //提交编辑实施工程设计详情
+    Route::get('/enginConductDetail/{id}',         'EnginneringController@enginConductDetail');      //查看实施工程设计详情
+    Route::get('/enginCompletedDetail/{id}',       'EnginneringController@enginCompletedDetail');    //查看竣工工程设计信息
+    Route::get('/enginTerminationDetail/{id}',     'EnginneringController@enginTerminationDetail');    //查看终止项目工程设计信息
 
 });
 
