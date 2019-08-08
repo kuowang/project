@@ -148,9 +148,45 @@ class EnginneringController extends WebController
 
     }
     //编辑工程设计详情
-    public function editEngin(Request $request)
+    public function editEngin(Request $request,$id)
     {
+        $this->user();
+        $data['navid']      =35;
+        $data['subnavid']   =3501;
+        //项目子工程
+        $engineering =DB::table('engineering')->where('id',$id)->first();
+        if(empty($engineering)){
+            return redirect('/architectural/enginStart?status=2&notice='.'该工程不存在');
+        }
+        //项目信息
+        $project =DB::table('project')->where('id',$engineering->project_id)->first();
+        if( (in_array(35030102,$this->user()->pageauth) && $project->design_uid == $this->user()->id ) || in_array(350702,$this->user()->manageauth)){
+        }else{
+            //设计人员可以操作更改工程设计详情
+            return redirect('/architectural/enginStart?status=2&notice='.'您没有权限编辑该工程信息');
+        }
+        //建筑系统信息 以及项目对应的子系统信息
 
+        $engin_system=DB::table('architectural_sub_system as sub_s')
+                       ->join('architectural_system as a','a.id','=','sub_s.architectural_id')
+                       ->leftjoin('enginnering_architectural as ea',function ($join)use($id){
+                           $join->where('ea.sub_arch_id','=','sub_s.id')
+                               ->where('ea.engin_id',$id);
+                       })
+            ->where('sub_s.status',1)
+            ->where('a.status',1)
+            ->select(['project_id','engin_id','a.id as arch_id',
+                'a.system_name','a.engineering_name as engin_name','a.system_code',
+                'sub_s.id as sub_arch_id','sub_s.sub_system_name','sub_s.sub_system_code','sub_s.work_code',
+                'ea.id','ea.work_code as engin_work_code'])
+            ->orderby('a.system_code')
+            ->orderby('sub_s.sub_system_code')
+            ->get();
+        $data['engineering']=$engineering;
+        $data['project']    =$project;
+        $data['engin_id'] =$id;
+        $data['engin_system']=$engin_system;
+        return view('architectural.enginnering.editEngin',$data);
     }
 
     //提交编辑工程设计详情
