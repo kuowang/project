@@ -101,7 +101,7 @@
                 </div>
                 <div class="widget-body">
                     <div id="dt_example" class="example_alt_pagination">
-                        <form method="post" action="/architectural/postEditEngin/{{ $engin_id }}">
+                        <form method="post" action="/architectural/postConductEngin/{{ $engin_id }}">
                         <table class="layui-table layui-form">
                             <thead>
                             <tr>

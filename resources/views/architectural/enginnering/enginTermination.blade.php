@@ -86,7 +86,7 @@
                         </div>
                         <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                             <label>
-                                <form class="form-search" action="/project/projectStart" method="get">
+                                <form class="form-search" action="/architectural/enginTermination" method="get">
                                     项目名称:<input type="text" name="project_name" value="{{ $project_name }}" class="input-medium search-query">
                                     项目地点:<input type="text" name="address" value="{{ $address }}" class="input-medium search-query">
                                     项目负责人:<input type="text" name="customer_leader" value="{{ $customer_leader }}" class="input-medium search-query">
@@ -143,7 +143,7 @@
                                         <td>{{ str_repeat('★', $val->success_level) }}</td>
                                         <td>{{ $val->created_at }}</td>
                                         <td class="td-manage">
-                                            @if( (in_array(35030401,$pageauth) && $val->created_uid == $uid ) || in_array(350706,$manageauth))
+                                            @if( (in_array(35030401,$pageauth) && $val->design_uid == $uid ) || in_array(350706,$manageauth))
                                                 <a title="查看详情" class="btn btn-info"  href="/architectural/enginTerminationDetail/{{ $val->engineering_id }}">
                                                     <i class="layui-icon">详情</i>
                                                 </a>

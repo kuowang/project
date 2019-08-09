@@ -75,7 +75,7 @@
                     </div>
                     <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                         <label>
-                            <form class="form-search" action="/project/projectStart" method="get">
+                            <form class="form-search" action="/architectural/enginStart" method="get">
                                 项目名称:<input type="text" name="project_name" value="{{ $project_name }}" class="input-medium search-query">
                                 项目地点:<input type="text" name="address" value="{{ $address }}" class="input-medium search-query">
                                 项目负责人:<input type="text" name="customer_leader" value="{{ $customer_leader }}" class="input-medium search-query">
