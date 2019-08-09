@@ -44,28 +44,28 @@
     <div class="left-sidebar">
         <div class="row-fluid">
             <div class="metro-nav">
-                @if(in_array(350301,$pageauth))
+                @if(in_array(350001,$pageauth))
                     <div class="metro-nav-block nav-block-blue" >
                         <a href="/architectural/enginStart">
                             <div class="fs1" aria-hidden="true" data-icon="">洽谈项目</div>
                         </a>
                     </div>
                 @endif
-                @if(in_array(350302,$pageauth))
+                @if(in_array(350002,$pageauth))
                     <div class="metro-nav-block nav-block-green" style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
                         <a href="/architectural/enginConduct">
                             <div class="fs1"  data-icon="">实施项目</div>
                         </a>
                     </div>
                 @endif
-                @if(in_array(350303,$pageauth))
+                @if(in_array(350003,$pageauth))
                     <div class="metro-nav-block nav-block-yellow">
                         <a href="/architectural/enginCompleted">
                             <div class="fs1" aria-hidden="true" data-icon="">竣工项目</div>
                         </a>
                     </div>
                 @endif
-                @if(in_array(350304,$pageauth))
+                @if(in_array(350004,$pageauth))
                     <div class="metro-nav-block nav-block-red">
                         <a href="/architectural/enginTermination">
                             <div class="fs1" aria-hidden="true" data-icon="">终止项目</div>
@@ -143,12 +143,12 @@
                                         <td>{{ str_repeat('★', $val->success_level) }}</td>
                                         <td>{{ $val->created_at }}</td>
                                         <td class="td-manage">
-                                            @if( (in_array(35030201,$pageauth) && $val->design_uid == $uid ) || in_array(350703,$manageauth))
+                                            @if( (in_array(35000201,$pageauth) && $val->design_uid == $uid ) || in_array(350703,$manageauth))
                                                 <a title="查看详情" class="btn btn-info"  href="/architectural/enginConductDetail/{{ $val->engineering_id }}">
                                                     <i class="layui-icon">详情</i>
                                                 </a>
                                             @endif
-                                            @if((in_array(35030202,$pageauth) && $val->design_uid == $uid ) || in_array(350704,$manageauth))
+                                            @if((in_array(35000202,$pageauth) && $val->design_uid == $uid ) || in_array(350704,$manageauth))
                                                 <a title="编辑" class="btn btn-success"  href="/architectural/editConductEngin/{{ $val->engineering_id }}">
                                                     <i class="layui-icon">编辑</i>
                                                 </a>

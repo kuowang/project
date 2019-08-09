@@ -28,8 +28,8 @@ class EnginneringController extends WebController
     {
         $this->user();
         $data=$this->enginnering($request,0);
-        $data['subnavid']   =3503;
-        if( !(in_array(3502,$this->user()->pageauth)) && !in_array(3502,$this->user()->manageauth)){
+        $data['subnavid']   =3500;
+        if( !(in_array(350001,$this->user()->pageauth)) && !in_array(350701,$this->user()->manageauth)){
             return redirect('/home');
         }
         $data['status']=$request->input('status',0); //1成功 2失败
@@ -44,8 +44,8 @@ class EnginneringController extends WebController
     {
         $this->user();
         $data=$this->enginnering($request,1);
-        $data['subnavid']   =3503;
-        if( !(in_array(3503,$this->user()->pageauth)) && !in_array(3503,$this->user()->manageauth)){
+        $data['subnavid']   =3500;
+        if( !(in_array(350002,$this->user()->pageauth)) && !in_array(350703,$this->user()->manageauth)){
             return redirect('/architectural/enginStart?status=2&notice='.'您没有操作该功能权限');
         }
         $data['status']=$request->input('status',0); //1成功 2失败
@@ -60,8 +60,8 @@ class EnginneringController extends WebController
     {
         $this->user();
         $data=$this->enginnering($request,2);
-        $data['subnavid']   =3503;
-        if( !(in_array(3504,$this->user()->pageauth)) && !in_array(3504,$this->user()->manageauth)){
+        $data['subnavid']   =3500;
+        if( !(in_array(350003,$this->user()->pageauth)) && !in_array(350705,$this->user()->manageauth)){
             return redirect('/architectural/enginStart?status=2&notice='.'您没有操作该功能权限');
         }
         $data['status']=$request->input('status',0); //1成功 2失败
@@ -76,8 +76,8 @@ class EnginneringController extends WebController
     {
         $this->user();
         $data=$this->enginnering($request,4);
-        $data['subnavid']   =3503;
-        if( !(in_array(3505,$this->user()->pageauth)) && !in_array(3505,$this->user()->manageauth)){
+        $data['subnavid']   =3500;
+        if( !(in_array(350004,$this->user()->pageauth)) && !in_array(350706,$this->user()->manageauth)){
             return redirect('/architectural/enginStart?status=2&notice='.'您没有操作该功能权限');
         }
         $data['status']=$request->input('status',0); //1成功 2失败
@@ -148,7 +148,7 @@ class EnginneringController extends WebController
     {
         $this->user();
         $data['navid']      =35;
-        $data['subnavid']   =3503;
+        $data['subnavid']   =3500;
         //项目子工程
         $engineering =DB::table('engineering')->where('id',$id)->first();
         if(empty($engineering)){
@@ -156,7 +156,7 @@ class EnginneringController extends WebController
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
-        if( (in_array(35030102,$this->user()->pageauth) && $project->design_uid == $this->user()->id ) || in_array(350702,$this->user()->manageauth)){
+        if( (in_array(35000102,$this->user()->pageauth) && $project->design_uid == $this->user()->id ) || in_array(350702,$this->user()->manageauth)){
         }else{
             //设计人员可以操作更改工程设计详情
             return redirect('/architectural/enginStart?status=2&notice='.'您没有权限编辑该工程信息');
@@ -199,7 +199,7 @@ class EnginneringController extends WebController
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
-        if( (in_array(35030102,$this->user()->pageauth) && $project->design_uid == $this->user()->id ) || in_array(350702,$this->user()->manageauth)){
+        if( (in_array(35000102,$this->user()->pageauth) && $project->design_uid == $this->user()->id ) || in_array(350702,$this->user()->manageauth)){
         }else{
             //设计人员和管理者可以操作更改工程设计详情
             return redirect('/architectural/enginStart?status=2&notice='.'您没有权限编辑该工程信息');
@@ -251,7 +251,7 @@ class EnginneringController extends WebController
     {
         $this->user();
         $data['navid']      =35;
-        $data['subnavid']   =3503;
+        $data['subnavid']   =3500;
         //项目子工程
         $engineering =DB::table('engineering')->where('id',$id)->first();
         if(empty($engineering)){
@@ -259,7 +259,7 @@ class EnginneringController extends WebController
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
-        if( (in_array(35030202,$this->user()->pageauth) && $project->design_uid == $this->user()->id ) || in_array(350704,$this->user()->manageauth)){
+        if( (in_array(35000202,$this->user()->pageauth) && $project->design_uid == $this->user()->id ) || in_array(350704,$this->user()->manageauth)){
         }else{
             //设计人员可以操作更改工程设计详情
             return redirect('/architectural/enginConduct?status=2&notice='.'您没有权限编辑该工程信息');
@@ -300,7 +300,7 @@ class EnginneringController extends WebController
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
-        if( (in_array(35030202,$this->user()->pageauth) && $project->design_uid == $this->user()->id ) || in_array(350704,$this->user()->manageauth)){
+        if( (in_array(35000202,$this->user()->pageauth) && $project->design_uid == $this->user()->id ) || in_array(350704,$this->user()->manageauth)){
         }else{
             //设计人员和管理者可以操作更改工程设计详情
             return redirect('/architectural/enginConduct?status=2&notice='.'您没有权限编辑该工程信息');
@@ -358,7 +358,7 @@ class EnginneringController extends WebController
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
-        if( (in_array(35030101,$this->user()->pageauth) && $project->design_uid == $this->user()->id ) || in_array(350701,$this->user()->manageauth)){
+        if( (in_array(35000101,$this->user()->pageauth) && $project->design_uid == $this->user()->id ) || in_array(350701,$this->user()->manageauth)){
         }else{
             //设计人员可以操作更改工程设计详情
             return redirect('/architectural/enginStart?status=2&notice='.'您没有权限查看该工程信息');
@@ -376,7 +376,7 @@ class EnginneringController extends WebController
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
-        if( (in_array(35030201,$this->user()->pageauth) && $project->design_uid == $this->user()->id ) || in_array(350703,$this->user()->manageauth)){
+        if( (in_array(35000201,$this->user()->pageauth) && $project->design_uid == $this->user()->id ) || in_array(350703,$this->user()->manageauth)){
         }else{
             //设计人员可以操作更改工程设计详情
             return redirect('/architectural/enginStart?status=2&notice='.'您没有权限查看该工程信息');
@@ -394,7 +394,7 @@ class EnginneringController extends WebController
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
-        if( (in_array(35030301,$this->user()->pageauth) && $project->design_uid == $this->user()->id ) || in_array(350705,$this->user()->manageauth)){
+        if( (in_array(35000301,$this->user()->pageauth) && $project->design_uid == $this->user()->id ) || in_array(350705,$this->user()->manageauth)){
         }else{
             //设计人员可以操作更改工程设计详情
             return redirect('/architectural/enginStart?status=2&notice='.'您没有权限查看该工程信息');
@@ -412,7 +412,7 @@ class EnginneringController extends WebController
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
-        if( (in_array(35030401,$this->user()->pageauth) && $project->design_uid == $this->user()->id ) || in_array(350706,$this->user()->manageauth)){
+        if( (in_array(35000401,$this->user()->pageauth) && $project->design_uid == $this->user()->id ) || in_array(350706,$this->user()->manageauth)){
         }else{
             //设计人员可以操作更改工程设计详情
             return redirect('/architectural/enginStart?status=2&notice='.'您没有权限查看该工程信息');
@@ -423,7 +423,7 @@ class EnginneringController extends WebController
     protected function enginDetail($engineering,$project,$id)
     {
         $data['navid']      =35;
-        $data['subnavid']   =3503;
+        $data['subnavid']   =3500;
         //建筑系统信息 以及项目对应的子系统信息
         $data['engin_system']=DB::table('enginnering_architectural')
             ->where('engin_id',$id)
