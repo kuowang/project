@@ -66,9 +66,9 @@
                     </div>
                 @endif
                 @if(in_array(350304,$pageauth))
-                    <div class="metro-nav-block nav-block-red">
+                    <div class="metro-nav-block nav-block-red" style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
                         <a href="/architectural/enginTermination">
-                            <div class="fs1" aria-hidden="true" data-icon="" style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">终止项目</div>
+                            <div class="fs1" aria-hidden="true" data-icon="" >终止项目</div>
                         </a>
                     </div>
                 @endif

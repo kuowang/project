@@ -115,7 +115,7 @@ Route::group(['prefix' => 'architectural','namespace' => 'Architectural','middle
     Route::get('/enginCompleted',                 'EnginneringController@enginCompleted');  //竣工项目首页 工程中建筑设计
     Route::get('/enginTermination',               'EnginneringController@enginTermination'); //终止项目首页 工程中建筑设计
 
-    Route::get('/enginDetail/{id}',                'EnginneringController@enginDetail');    //工程设计详情
+    Route::get('/enginStartDetail/{id}',          'EnginneringController@enginStartDetail');    //工程设计详情
     Route::get('/editEngin/{id}',                  'EnginneringController@editEngin');      //编辑工程设计详情
     Route::post('/postEditEngin/{id}',             'EnginneringController@postEditEngin');  //提交编辑工程设计详情
     Route::get('/editConductEngin/{id}',           'EnginneringController@editConductEngin');      //编辑实施工程设计详情

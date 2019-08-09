@@ -134,7 +134,7 @@
                                     <td>{{ $val->created_at }}</td>
                                     <td class="td-manage">
                                         @if( (in_array(35030101,$pageauth) && $val->design_uid == $uid ) || in_array(350701,$manageauth))
-                                            <a title="查看详情" class="btn btn-info"  href="/architectural/enginDetail/{{ $val->engineering_id }}">
+                                            <a title="查看详情" class="btn btn-info"  href="/architectural/enginStartDetail/{{ $val->engineering_id }}">
                                                 <i class="layui-icon">详情</i>
                                             </a>
                                         @endif

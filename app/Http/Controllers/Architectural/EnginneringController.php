@@ -142,11 +142,7 @@ class EnginneringController extends WebController
         $data['navid']      =35;
         return $data;
     }
-    //查看工程设计详情
-    public function enginDetail(Request $request)
-    {
 
-    }
     //编辑工程设计详情
     public function editEngin(Request $request,$id)
     {
@@ -350,24 +346,94 @@ class EnginneringController extends WebController
         DB::commit();
         return redirect('/architectural/enginConduct?status=1&notice='.'编辑工程对应的建筑设计信息成功');
     }
-    //查看实施工程设计详情
-    public function enginConductDetail(Request $request)
-    {
 
+    //查看洽谈工程设计详情
+    public function enginStartDetail(Request $request,$id)
+    {
+        $this->user();
+        //项目子工程
+        $engineering =DB::table('engineering')->where('id',$id)->first();
+        if(empty($engineering)){
+            return redirect('/architectural/enginStart?status=2&notice='.'该工程不存在');
+        }
+        //项目信息
+        $project =DB::table('project')->where('id',$engineering->project_id)->first();
+        if( (in_array(35030101,$this->user()->pageauth) && $project->design_uid == $this->user()->id ) || in_array(350701,$this->user()->manageauth)){
+        }else{
+            //设计人员可以操作更改工程设计详情
+            return redirect('/architectural/enginStart?status=2&notice='.'您没有权限查看该工程信息');
+        }
+        return $this->enginDetail($engineering,$project,$id);
+    }
+    //查看实施工程设计详情
+    public function enginConductDetail(Request $request,$id)
+    {
+        $this->user();
+        //项目子工程
+        $engineering =DB::table('engineering')->where('id',$id)->first();
+        if(empty($engineering)){
+            return redirect('/architectural/enginStart?status=2&notice='.'该工程不存在');
+        }
+        //项目信息
+        $project =DB::table('project')->where('id',$engineering->project_id)->first();
+        if( (in_array(35030201,$this->user()->pageauth) && $project->design_uid == $this->user()->id ) || in_array(350703,$this->user()->manageauth)){
+        }else{
+            //设计人员可以操作更改工程设计详情
+            return redirect('/architectural/enginStart?status=2&notice='.'您没有权限查看该工程信息');
+        }
+        return $this->enginDetail($engineering,$project,$id);
     }
     //查看竣工工程设计信息
-    public function enginCompletedDetail(Request $request)
+    public function enginCompletedDetail(Request $request,$id)
     {
-
+        $this->user();
+        //项目子工程
+        $engineering =DB::table('engineering')->where('id',$id)->first();
+        if(empty($engineering)){
+            return redirect('/architectural/enginStart?status=2&notice='.'该工程不存在');
+        }
+        //项目信息
+        $project =DB::table('project')->where('id',$engineering->project_id)->first();
+        if( (in_array(35030301,$this->user()->pageauth) && $project->design_uid == $this->user()->id ) || in_array(350705,$this->user()->manageauth)){
+        }else{
+            //设计人员可以操作更改工程设计详情
+            return redirect('/architectural/enginStart?status=2&notice='.'您没有权限查看该工程信息');
+        }
+        return $this->enginDetail($engineering,$project,$id);
     }
     //查看终止项目工程设计信息
-    public function enginTerminationDetail(Request $request)
+    public function enginTerminationDetail(Request $request,$id)
     {
-
+        $this->user();
+        //项目子工程
+        $engineering =DB::table('engineering')->where('id',$id)->first();
+        if(empty($engineering)){
+            return redirect('/architectural/enginStart?status=2&notice='.'该工程不存在');
+        }
+        //项目信息
+        $project =DB::table('project')->where('id',$engineering->project_id)->first();
+        if( (in_array(35030401,$this->user()->pageauth) && $project->design_uid == $this->user()->id ) || in_array(350706,$this->user()->manageauth)){
+        }else{
+            //设计人员可以操作更改工程设计详情
+            return redirect('/architectural/enginStart?status=2&notice='.'您没有权限查看该工程信息');
+        }
+        return $this->enginDetail($engineering,$project,$id);
     }
-
-
-
+    //查询详情
+    protected function enginDetail($engineering,$project,$id)
+    {
+        $data['navid']      =35;
+        $data['subnavid']   =3503;
+        //建筑系统信息 以及项目对应的子系统信息
+        $data['engin_system']=DB::table('enginnering_architectural')
+            ->where('engin_id',$id)
+            ->orderby('system_code')
+            ->orderby('sub_system_code')
+            ->get();
+        $data['engineering']=$engineering;
+        $data['project']    =$project;
+        return view('architectural.enginnering.enginArchitectDetail',$data);
+    }
 
 
 }
