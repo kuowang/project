@@ -254,7 +254,7 @@ class ProjectController extends WebController
                 $datalist[]=[
                     'project_id'=>$project_id,
                     'engineering_name'=>$v,
-                    'build_area'=>$build_area[$k],
+                    'build_area'=>(float)$build_area[$k],
                     'build_floor'=>(int)$build_floor[$k],
                     'build_height'=>(float)$build_height[$k],
                     'created_uid'=>$this->user()->id,
@@ -414,9 +414,9 @@ class ProjectController extends WebController
                 $datalist=[
                     'project_id'=>$id,
                     'engineering_name'=>$engineering_name[$k],
-                    'build_area'=>$build_area[$k],
-                    'build_floor'=>$build_floor[$k],
-                    'build_height'=>$build_height[$k],
+                    'build_area'=>(float)$build_area[$k],
+                    'build_floor'=>(int)$build_floor[$k],
+                    'build_height'=>(float)$build_height[$k],
                     'created_uid'=>$this->user()->id,
                     'created_at'=>date('Y-m-d'),
                 ];
