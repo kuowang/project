@@ -176,3 +176,14 @@ Route::group(['prefix' => 'customer','namespace' => 'Customer','middleware' => '
     Route::post('/postDeleteCustomer/{id}',         'CustomerController@postDeleteCustomer');  //删除客户信息
 
 });
+
+//预算管理类的控制组 需要登录
+Route::group(['prefix' => 'budget','namespace' => 'Budget','middleware' => 'auth'], function () {
+    //工程中建筑设计管理
+    Route::get('/budgetStart',                     'BudgetController@budgetStart');      //洽谈工程列表
+    Route::get('/budgetConduct',                   'BudgetController@budgetConduct');    //实施工程列表
+    Route::get('/budgetCompleted',                 'BudgetController@budgetCompleted');  //竣工工程列表
+    Route::get('/budgetTermination',               'BudgetController@budgetTermination'); //终止工程列表
+
+
+});

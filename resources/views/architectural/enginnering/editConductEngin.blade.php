@@ -84,7 +84,7 @@
                             </tbody>
                         </table>
                         <div class="clearfix"></div>
-                        @if($engineering->is_conf_budge == 1)
+                        @if($engineering->budget_id > 0)
                         <div class="layui-form-item" style="color:orange">
                             当前工程已经设置过预算信息 ，工况信息只能增加，不能取消
                         </div>
@@ -128,7 +128,7 @@
                                 @endif
                             <tr style="display: none" class="system_code_{{$v->system_code}}">
                                 <td>
-                                    @if($engineering->is_conf_budge == 1 && isset($engin_system[$v->sub_arch_id]))
+                                    @if($engineering->budget_id > 0 && isset($engin_system[$v->sub_arch_id]))
                                         <input type="hidden" name="sub_arch_id[{{$v->sub_arch_id}}]" value="{{$v->sub_arch_id}}" checked="checked" >
                                     @elseif(isset($engin_system[$v->sub_arch_id]))
                                         <input type="checkbox" name="sub_arch_id[{{$v->sub_arch_id}}]" value="{{$v->sub_arch_id}}" checked="checked" onclick="checkboxarch(this)" >

@@ -84,7 +84,7 @@
                             </tbody>
                         </table>
                         <div class="clearfix"></div>
-                        @if($engineering->is_conf_budge == 1)
+                        @if($engineering->budget_id > 0)
                         <div class="layui-form-item" style="color:orange">
                             当前工程已经设置过预算信息 ，工况信息只能增加，不能取消
                         </div>
