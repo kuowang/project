@@ -143,6 +143,7 @@
         </div>
         <div class="sub-nav">
             <ul>
+                @if(isset($nav[$navid]))
                 @foreach($nav[$navid] as $item)
                     <li>
                         @if($item->auth_id == $subnavid && $item->is_show ==1)
@@ -152,6 +153,7 @@
                         @endif
                     </li>
                 @endforeach
+                @endif
             </ul>
 
         </div>
