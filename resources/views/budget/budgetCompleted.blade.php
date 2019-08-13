@@ -86,12 +86,13 @@
                         </div>
                         <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                             <label>
-                                <form class="form-search" action="/architectural/enginCompleted" method="get">
+                                <form class="form-search" action="/budget/budgetCompleted" method="get">
                                     项目名称:<input type="text" name="project_name" value="{{ $project_name }}" class="input-medium search-query">
                                     项目地点:<input type="text" name="address" value="{{ $address }}" class="input-medium search-query">
-                                    项目负责人:<input type="text" name="customer_leader" value="{{ $customer_leader }}" class="input-medium search-query">
+                                    预算负责人:<input type="text" name="budget_username" value="{{ $budget_username }}" class="input-medium search-query">
                                     <button type="submit" class="btn">搜索</button>
-                                </form></label>
+                                </form>
+                            </label>
                         </div>
                     </div>
                     <div class="widget-body">

@@ -86,8 +86,9 @@ class BudgetController extends WebController
     }
 
     //查询项目信息
-    protected function getBudgetList($status,$project_name='',$address='',$customer_leader='',$page=1,$rows=20)
+    protected function getBudgetList($status,$project_name='',$address='',$budget_username='',$page=1,$rows=20)
     {
+        //DB::connection()->enableQueryLog();
         $db=DB::table('engineering')
             ->join('project','project.id','=','project_id')
             ->leftjoin('budget','engineering.id','=','budget.engin_id')
@@ -97,10 +98,17 @@ class BudgetController extends WebController
             $db->where('project_name','like','%'.$project_name.'%');
         }
         if(!empty($address)){
-            $db->where('address','like','%'.$address.'%');
+            $db->Where(function ($query)use($address) {
+                $query->where('province', 'like','%'.$address.'%')
+                    ->orwhere('city', 'like','%'.$address.'%')
+                    ->orwhere('county', 'like','%'.$address.'%')
+                    ->orwhere('address_detail', 'like','%'.$address.'%')
+                    ->orwhere('foreign_address', 'like','%'.$address.'%')
+                ;
+            });
         }
-        if(!empty($customer_leader)){
-            $db->where('customer_leader','like','%'.$customer_leader.'%');
+        if(!empty($budget_username)){
+            $db->where('budget_username','like','%'.$budget_username.'%');
         }
 
         $data['count'] =$db->count();
@@ -112,6 +120,9 @@ class BudgetController extends WebController
             ->skip(($page-1)*$rows)
             ->take($rows)
             ->get();
+        //$queries = DB::getQueryLog();
+        //var_dump($queries);
+        //exit;
         return $data;
     }
 
@@ -120,29 +131,63 @@ class BudgetController extends WebController
     {
         $project_name       =$request->input('project_name','');
         $address            =$request->input('address','');
-        $customer_leader    =$request->input('customer_leader','');
-        $success_level      =$request->input('success_level',0);
+        $budget_username    =$request->input('budget_username','');
         $page               =$request->input('page',1);
         $rows               =$request->input('rows',40);
         $data['project_name']   =$project_name;
         $data['address']        =$address;
-        $data['customer_leader']=$customer_leader;
+        $data['budget_username']=$budget_username;
 
-        $datalist=$this->getBudgetList($status,$project_name,$address,$customer_leader,$page,$rows);
+        $datalist=$this->getBudgetList($status,$project_name,$address,$budget_username,$page,$rows);
         if($status == 0){
-            $url='/budget/budgetStart?project_name='.$project_name.'&address='.$address.'&customer_leader='.$customer_leader.'&success_level='.$success_level;
+            $url='/budget/budgetStart?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
         }elseif($status == 1){
-            $url='/budget/budgetConduct?project_name='.$project_name.'&address='.$address.'&customer_leader='.$customer_leader.'&success_level='.$success_level;
+            $url='/budget/budgetConduct?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
         }elseif($status == 2){
-            $url='/budget/budgetCompleted?project_name='.$project_name.'&address='.$address.'&customer_leader='.$customer_leader.'&success_level='.$success_level;
+            $url='/budget/budgetCompleted?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
         }elseif($status == 4){
-            $url='/budget/budgetTermination?project_name='.$project_name.'&address='.$address.'&customer_leader='.$customer_leader.'&success_level='.$success_level;
+            $url='/budget/budgetTermination?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
         }else{
-            $url='/budget/budgetStart?project_name='.$project_name.'&address='.$address.'&customer_leader='.$customer_leader.'&success_level='.$success_level;
-        }$data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
+            $url='/budget/budgetStart?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
+        }
+        $data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
         $data['data']   =$datalist['data'];
         $data['navid']      =20;
         return $data;
     }
+
+    /**
+     * @param Request $request
+     * @param $id 工程id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function editBudget(Request $request,$id){
+        $this->user();
+        $data['navid']      =20;
+        $data['subnavid']   =2001;
+        //项目子工程
+        $engineering =DB::table('engineering')->where('id',$id)->first();
+        if(empty($engineering)){
+            return redirect('/architectural/enginStart?status=2&notice='.'该工程不存在');
+        }
+        //项目信息
+        $project =DB::table('project')->where('id',$engineering->project_id)->first();
+        if( (in_array(20010101,$this->user()->pageauth) && $project->budget_uid == $this->user()->id ) || in_array(200102,$this->user()->manageauth)){
+        }else{
+            //设计人员可以操作更改工程设计详情
+            return redirect('/architectural/enginStart?status=2&notice='.'您没有权限编辑该工程信息');
+        }
+        //建筑系统信息 以及项目对应的子系统信息
+
+        $data['engin_system']=DB::table('enginnering_architectural')
+            ->where('engin_id',$id)
+            ->get();
+        $data['engineering']=$engineering;
+        $data['project']    =$project;
+        $data['engin_id'] =$id;
+
+        return view('budget.editBudget',$data);
+    }
+
 
 }

@@ -94,7 +94,14 @@ class ProjectController extends WebController
             $db->where('project_name','like','%'.$project_name.'%');
         }
         if(!empty($address)){
-            $db->where('address','like','%'.$address.'%');
+            $db->Where(function ($query)use($address) {
+                $query->where('province', 'like','%'.$address.'%')
+                    ->orwhere('city', 'like','%'.$address.'%')
+                    ->orwhere('county', 'like','%'.$address.'%')
+                    ->orwhere('address_detail', 'like','%'.$address.'%')
+                    ->orwhere('foreign_address', 'like','%'.$address.'%')
+                ;
+            });
         }
         if(!empty($customer_leader)){
             $db->where('customer_leader','like','%'.$customer_leader.'%');
