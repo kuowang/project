@@ -92,26 +92,26 @@
                             </tr>
 
                             <tr>
-                                <td class="pro-title">建筑面积（平方米）</td>
+                                <td class="pro-title">建筑面积(平方米)</td>
                                 <td >{{$engineering->build_area}}</td>
-                                <td class="pro-title">建筑楼层（层数）</td>
+                                <td class="pro-title">建筑楼层(层数)</td>
                                 <td >{{$engineering->build_floor}}</td>
-                                <td class="pro-title">建筑高度（米）</td>
+                                <td class="pro-title">建筑高度(米)</td>
                                 <td >{{$engineering->build_height}}</td>
                             </tr>
 
                             <tr>
                                 <td class="pro-title">报价日期</td>
                                 <td ><input type="text" name="quotation_date" id="quotation_date"  lay-skin="primary" class="notempty span8"></td>
-                                <td class="pro-title">报价有效期限（天）</td>
+                                <td class="pro-title">报价有效期限(天)</td>
                                 <td ><input type="text" name="quotation_limit_day" id="quotation_limit_day" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
-                                <td class="pro-title">使用时长（年）</td>
+                                <td class="pro-title">使用时长(年)</td>
                                 <td ><input type="text" name="use_time" id="use_time" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
                             </tr>
                             <tr>
-                                <td class="pro-title">抗震等级（级）</td>
+                                <td class="pro-title">抗震等级(级)</td>
                                 <td ><input type="text" name="seismic_grade" id="seismic_grade" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
-                                <td class="pro-title">抗风等级（级）</td>
+                                <td class="pro-title">抗风等级(级)</td>
                                 <td ><input type="text" name="wind_grade" id="wind_grade" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
                                 <td class="pro-title">保温构造形式</td>
                                 <td ><input type="text" name="keep_warm" id="keep_warm" lay-skin="primary" class="notempty span8"></td>
@@ -142,8 +142,8 @@
                             @for($i =1;$i <= $engineering->build_floor;$i++ )
                             <tr >
                                 <td class="pro-title">第{{$i}}层</td>
-                                <td><input type="text" class="span4" name="storey_height[]" onclick="key(this)">米</td>
-                                <td><input type="text" class="span4" name="house_height[]"  onclick="key(this)">米</td>
+                                <td><input type="text" class="span4 notempty" name="storey_height[]" onclick="key(this)">米</td>
+                                <td><input type="text" class="span4 notempty" name="house_height[]"  onclick="key(this)">米</td>
                             </tr>
                             @endfor
 
@@ -153,17 +153,17 @@
                         <table class="layui-table layui-form table111">
                             <thead>
                             <tr>
-                                <th >序号</th>
-                                <th >材料名称</th>
-                                <th >规格特性要求</th>
-                                <th >预算单位</th>
-                                <th >工程量（图纸）</th>
-                                <th >损耗（%）</th>
-                                <th >工程量（实际）</th>
-                                <th >品牌</th>
-                                <th >单价</th>
-                                <th >合计</th>
-                                <th>操作</th>
+                                <th style="width:5%">序号</th>
+                                <th style="width:15%">材料名称</th>
+                                <th style="width:15%">规格特性要求</th>
+                                <th style="width:6%">预算单位</th>
+                                <th style="width:9%">工程量(图纸)</th>
+                                <th style="width:7%">损耗(%)</th>
+                                <th style="width:8%">工程量(实际)</th>
+                                <th style="width:14%">品牌</th>
+                                <th style="width:8%">单价</th>
+                                <th style="width:6%">合计</th>
+                                <th style="width:8%">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -189,25 +189,25 @@
 
                             <tr>
                                 <td class="pro-title" colspan="3">运输费</td>
-                                <td class="pro-title" colspan="2">（元/平方米）</td>
+                                <td class="pro-title" colspan="2">(元/平方米)</td>
                                 <td colspan="3"></td>
-                                <td ><input type="text" name="freight_price" id="freight_price" lay-skin="primary" class="notempty span8" onchange="return selectPrice(this)"></td>
+                                <td ><input type="text" name="freight_price" id="freight_price" lay-skin="primary" class="notempty span12" onchange="return selectPrice(this)"></td>
                                 <td id="freight_price_sum"></td>
                                 <td></td>
                             </tr>
                             <tr>
                                 <td class="pro-title" colspan="3">包装费</td>
-                                <td class="pro-title" colspan="2">（元/平方米）</td>
+                                <td class="pro-title" colspan="2">(元/平方米)</td>
                                 <td colspan="3"></td>
-                                <td ><input type="text" name="package_price" id="package_price" lay-skin="primary" class="notempty span8" onchange="return selectPrice(this)"></td>
+                                <td ><input type="text" name="package_price" id="package_price" lay-skin="primary" class="notempty span12" onchange="return selectPrice(this)"></td>
                                 <td id="package_price_sum"></td>
                                 <td></td>
                             </tr>
                             <tr>
                                 <td class="pro-title" colspan="3">装箱费</td>
-                                <td class="pro-title" colspan="2">（元/平方米）</td>
+                                <td class="pro-title" colspan="2">(元/平方米)</td>
                                 <td colspan="3"></td>
-                                <td ><input type="text" name="packing_price" id="packing_price" lay-skin="primary" class="notempty span8" onchange="return selectPrice(this)"></td>
+                                <td ><input type="text" name="packing_price" id="packing_price" lay-skin="primary" class="notempty span12" onchange="return selectPrice(this)"></td>
                                 <td  id="packing_price_sum"></td>
                                 <td></td>
                             </tr>
@@ -220,14 +220,14 @@
 
                             <tr>
                                 <td class="pro-title" colspan="3">施工安装费</td>
-                                <td class="pro-title" colspan="2">（元/平方米）</td>
+                                <td class="pro-title" colspan="2">(元/平方米)</td>
                                 <td colspan="3"></td>
-                                <td ><input type="text" name="construction_price" id="construction_price" lay-skin="primary" class="notempty span8" onchange="return selectPrice(this)"></td>
-                                <td ><input type="text" name="construction_charge" id="construction_charge" lay-skin="primary" class="notempty span8" disabled></td>
+                                <td ><input type="text" name="construction_price" id="construction_price" lay-skin="primary" class="notempty span12" onchange="return selectPrice(this)"></td>
+                                <td ><input type="text" name="construction_charge" id="construction_charge" lay-skin="primary" class="span12" disabled></td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td colspan="9" class="pro-title" style="text-align: center;font-weight: bold;">工程造价（直接）</td>
+                                <td colspan="9" class="pro-title" style="text-align: center;font-weight: bold;">工程造价(直接)</td>
                                 <td><input type="text" name="direct_project_cost" readonly='readonly' id="direct_project_cost"  value="" style='width:100px;background: #f0f0f0;'/></td>
                                 <td></td>
                             </tr>
@@ -236,8 +236,8 @@
                                 <td class="pro-title" colspan="2">元</td>
                                 <td colspan="2"></td>
                                 <td >%</td>
-                                <td ><input type="text" name="profit_ratio" id="profit_ratio" lay-skin="primary" class="notempty span8"  onchange="return selectPrice(this)"></td>
-                                <td ><input type="text" name="profit" id="profit" lay-skin="primary" disabled></td>
+                                <td ><input type="text" name="profit_ratio" id="profit_ratio" lay-skin="primary" class="notempty span12"  onchange="return selectPrice(this)"></td>
+                                <td ><input type="text" name="profit" id="profit" lay-skin="primary" class="span12" disabled></td>
                                 <td></td>
                             </tr>
                             <tr>
@@ -245,18 +245,18 @@
                                 <td class="pro-title" colspan="2">元</td>
                                 <td colspan="2"></td>
                                 <td >%</td>
-                                <td ><input type="text" name="tax_ratio" id="tax_ratio" lay-skin="primary" class="notempty span8"  onchange="return selectPrice(this)"></td>
-                                <td ><input type="text" name="tax" id="tax" lay-skin="primary" class="notempty span8" disabled></td>
+                                <td ><input type="text" name="tax_ratio" id="tax_ratio" lay-skin="primary" class="notempty span12"  onchange="return selectPrice(this)"></td>
+                                <td ><input type="text" name="tax" id="tax" lay-skin="primary" class="span12" disabled></td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td class="pro-title" colspan="9" style="text-align: center;font-weight: bold;">工程单价（元/平方米）</td>
+                                <td class="pro-title" colspan="9" style="text-align: center;font-weight: bold;">工程单价(元/平方米)</td>
                                 <td id="unit_price"></td>
                                 <td ></td>
                             </tr>
                             <tr>
-                                <td class="pro-title" colspan="9" style="text-align: center;font-weight: bold;">工程总价（元）</td>
-                                <td ><input type="text" name="total_budget_price" id="total_budget_price" lay-skin="primary" class="notempty span8" disabled></td>
+                                <td class="pro-title" colspan="9" style="text-align: center;font-weight: bold;">工程总价(元)</td>
+                                <td ><input type="text" name="total_budget_price" id="total_budget_price" lay-skin="primary" class=" span12" disabled></td>
                                 <td></td>
                             </tr>
                             </tbody>
@@ -278,16 +278,16 @@
                             <hr>
                         <div style="margin: 10px">
                             <div>预算说明：</div>
-                            <div>1、工程量=图质量*（100+损耗）/100</div>
+                            <div>1、工程量=图质量*(100+损耗)/100</div>
                             <div>2、品牌来源于材料基础信息材料详细</div>
                             <div>3、单价有材料基本信息详情中填写</div>
                             <div>4、合价=工程量*单价</div>
                             <div>5、材料费合计=运输费+包装费+装箱费+材料费用</div>
                             <div>6、施工安装费=施工单价*建筑面积</div>
-                            <div>7、工程造价（直接）=材料费合计+施工安装费</div>
-                            <div> 8、利润=工程造价（直接）* 利润费比率</div>
-                            <div>9、税费=（工程造价（直接）+利润）* 税费比率</div>
-                            <div>10、工程造价总计=工程造价（直接）+利润+税费</div>
+                            <div>7、工程造价(直接)=材料费合计+施工安装费</div>
+                            <div> 8、利润=工程造价(直接)* 利润费比率</div>
+                            <div>9、税费=(工程造价(直接)+利润)* 税费比率</div>
+                            <div>10、工程造价总计=工程造价(直接)+利润+税费</div>
                             <div>11、工程单价=工程造价总计/建筑面积</div>
                         </div>
                             <div class="clearfix"></div>
@@ -344,25 +344,25 @@
         //添加材料信息
         function addmaterialDetail(id,option){
             intid =parseInt(Math.random() * (100000000 )+1000);
-            mater=`<select name="material_id[]" onchange="selectMaterial(`+intid+`,this)" class=" notempty material_id" >
+            mater=`<select name="material_id[]" onchange="selectMaterial(`+intid+`,this)" class=" notempty material_id span12" >
                             <option value="0" ></option>
                             `+option+`
                            </select>`;
-            brand =`<select name="brand_id[]" onchange="selectbrand(`+intid+`,this)" class=" notempty brand_id" >
+            brand =`<select name="brand_id[]" onchange="selectbrand(`+intid+`,this)" class=" notempty brand_id  span12" >
                             <option value="0" ></option>
                            </select>`;
 
             str =`<tr class="materialList sub_arch_`+id+`" id="mater_`+intid+`">
                     <td class="sub_arch_material_`+id+`">1</td>
                     <td>`+mater+`</td>
-                    <td><input type="text" lay-skin="primary" class="notempty span8 characteristic"       disabled   name="characteristic[]" id="characteristic" ></td>
-                    <td><input type="text" lay-skin="primary" class="notempty span8 material_budget_unit" disabled  name="material_budget_unit[]" id="material_budget_unit" ></td>
-                    <td><input type="text" lay-skin="primary" class="notempty span8 drawing_quantity"       name="drawing_quantity[]" id="drawing_quantity" onclick="selectDrawing(`+intid+`,this)" ></td>
-                    <td><input type="text" lay-skin="primary" class="notempty span8 loss_ratio"           disabled   name="loss_ratio[]" id="loss_ratio" ></td>
-                    <td><input type="text" lay-skin="primary" class="notempty span8 engineering_quantity" disabled  name="engineering_quantity[]" id="engineering_quantity" ></td>
+                    <td><input type="text" lay-skin="primary" class=" span12 characteristic"       disabled   name="characteristic[]" id="characteristic" ></td>
+                    <td><input type="text" lay-skin="primary" class=" span12 material_budget_unit" disabled  name="material_budget_unit[]" id="material_budget_unit" ></td>
+                    <td><input type="text" lay-skin="primary" class="notempty span12 drawing_quantity"       name="drawing_quantity[]" id="drawing_quantity" onclick="selectDrawing(`+intid+`,this)" ></td>
+                    <td><input type="text" lay-skin="primary" class=" span12 loss_ratio"           disabled   name="loss_ratio[]" id="loss_ratio" ></td>
+                    <td><input type="text" lay-skin="primary" class=" span12 engineering_quantity" disabled  name="engineering_quantity[]" id="engineering_quantity" ></td>
                     <td>`+brand+`</td>
-                    <td><input type="text" lay-skin="primary" class="notempty span8 budget_price"         disabled  name="budget_price[]" id="budget_price" ></td>
-                    <td><input type="text" lay-skin="primary" class="notempty span8 total_material_price" disabled  name="total_material_price[]" id="total_material_price" ></td>
+                    <td><input type="text" lay-skin="primary" class=" span12 budget_price"         disabled  name="budget_price[]" id="budget_price" ></td>
+                    <td><input type="text" lay-skin="primary" class=" span12 total_material_price" disabled  name="total_material_price[]" id="total_material_price" ></td>
                     <td ><span class="btn" onclick="deleteTrRow(this)">删除</span></td>
                 </tr>`;
             //添加材料到指定位置
@@ -371,6 +371,10 @@
             //更改材料序号
             $(".sub_arch_material_"+id).each(function(index,element){
                 $(this).html(index +1);
+            });
+            //点击文本框设置背景色
+            $("input").focus(function(){
+                $(this).css("background-color","#fff");
             });
         }
 
@@ -507,7 +511,7 @@
             sum =sum*1+freight_price*floor_area+package_price*floor_area+packing_price*floor_area;
             $('#total_material').html(sum.toFixed(2)) ;
 
-            //工程造价（直接）
+            //工程造价(直接)
             sum =  sum *1+ construction_price*floor_area;
             $('#direct_project_cost').val(sum.toFixed(2));
 
@@ -517,14 +521,13 @@
             $("#profit").val(profit.toFixed(2));
             $('#profit_ratio').css('background','#fff');
 
-            //税费=（工程造价（直接）+利润额）*税率
+            //税费=(工程造价(直接)+利润额)*税率
             tax_ratio=$("#tax_ratio").val();
             tax=(sum +profit)* tax_ratio/100;
             $("#tax").val(tax.toFixed(2));
             $('#tax_ratio').css('background','#fff');
 
-            //工程造价总计（元）
-
+            //工程造价总计(元)
             sum =sum+tax+profit;
             $('#total_budget_price').val(sum.toFixed(2));
             //工程单价
@@ -532,17 +535,10 @@
             $('#unit_price').html(unit_price.toFixed(2));
 
         }
-
-
-
-
-
-
-        // 以下内容暂时不用
-
+        //提交时的数据验证
         function form_submit(){
             var sum=0;
-            $("input").each(function(){
+            $(".notempty").each(function(){
                 if($(this).val()){
                 }else{
                     $(this).css('background','orange');
@@ -550,18 +546,7 @@
                 }
             });
             if(sum == 1){
-                layui.use('layer', function(){
-                    var layer = layui.layer;
-                    layer.msg('请将对应的工况填写完，再提交。');
-                });
-                return false;
-            }
-            //验证个数
-            if($("input:text").length ==0){
-                layui.use('layer', function(){
-                    var layer = layui.layer;
-                    layer.msg('您没有选中任何子工程信息。');
-                });
+                showMsg('请将内容补充完全再提交')
                 return false;
             }
             return true;
