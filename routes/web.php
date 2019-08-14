@@ -188,7 +188,7 @@ Route::group(['prefix' => 'budget','namespace' => 'Budget','middleware' => 'auth
     Route::get('/editBudget/{id}',                  'BudgetController@editBudget');             //编辑工程预算详情
     Route::get('/budgetStartDetail/{id}',           'BudgetController@budgetStartDetail');      //洽谈工程预算详情
     Route::post('/postEditBudget/{id}',             'BudgetController@postEditBudget');         //提交编辑工程预算详情
-    Route::post('/examineStartBudget/{id}/{status}',     'BudgetController@examineBudget');         //审核洽谈工程预算
+    Route::post('/examineStartBudget/{id}/{status}', 'BudgetController@examineBudget');         //审核洽谈工程预算
 
     Route::get('/editConductBudget/{id}',           'BudgetController@editConductBudget');      //编辑实施工程预算详情
     Route::post('/postConductBudget/{id}',          'BudgetController@postConductBudget');      //提交编辑实施工程预算详情
@@ -199,6 +199,11 @@ Route::group(['prefix' => 'budget','namespace' => 'Budget','middleware' => 'auth
     Route::get('/budgetTerminationDetail/{id}',     'BudgetController@budgetTerminationDetail');    //查看终止项目工程预算信息
 
 
-
+});
+//预算管理类的控制组 不需要登录
+Route::group(['prefix' => 'budget','namespace' => 'Budget'], function () {
+    //工程中建筑设计管理
+    Route::get('/getEnginMaterialList/{id}',        'BudgetController@getEnginMaterialList');   //获取工程下面的材料信息列表
+    Route::get('/getMaterialBrandList/{id}',        'BudgetController@getMaterialBrandList');   //获取工程下面的材料信息和品牌列表
 
 });

@@ -178,16 +178,75 @@ class BudgetController extends WebController
             return redirect('/architectural/enginStart?status=2&notice='.'您没有权限编辑该工程信息');
         }
         //建筑系统信息 以及项目对应的子系统信息
-
         $data['engin_system']=DB::table('enginnering_architectural')
             ->where('engin_id',$id)
             ->get();
         $data['engineering']=$engineering;
         $data['project']    =$project;
         $data['engin_id'] =$id;
-
+        $ids =[];
+        //获取工程id数组
+        if($data['engin_system']){
+            foreach($data['engin_system'] as $v){
+                $ids[]=$v->sub_arch_id;
+            }
+        }
+        //获取工程对应的材料数据
+        $material =DB::table('material')
+            ->where('status',1)
+            ->wherein('architectural_sub_id',$ids)
+            ->select(['id','architectural_sub_id','material_name','material_code',
+                'material_type','characteristic','waste_rate','material_budget_unit',])
+            ->orderby('material_code')
+            ->get();
+        $materlist=[];
+        foreach($material as $v){
+            $materlist[$v->architectural_sub_id][$v->id]=$v;
+        }
+        $data['materlist'] =$materlist;
         return view('budget.editBudget',$data);
     }
+    //获取工程下的材料信息
+    public function getEnginMaterialList($id){
+        $material =DB::table('material')
+            ->where('status',1)
+            ->where('architectural_sub_id',$id)
+            ->pluck('material_name','id')->toarray();
+        if(empty($material)){
+            return $this->error('');
+        }else{
+            return $this->success($material);
+        }
+    }
+    //获取材料信息和对应的品牌信息
+    public function getMaterialBrandList(Request $request ,$id){
+        $material =DB::table('material')
+            ->where('status',1)
+            ->where('id',$id)
+            ->select(['id','architectural_sub_id','material_name','material_code',
+                'material_type','characteristic','waste_rate','material_budget_unit',])
+            ->first();
+        if(empty($material)){
+            return $this->error('材料不存在');
+        }
+        $brand =DB::table('material_brand_supplier')
+                    ->where('material_id',$id)
+                    ->orderby('brand_name')
+                    ->select(['material_id','brand_id','brand_name','budget_unit_price','budget_unit'])
+                    ->get()->toarray();
+        if(empty($brand)){
+            return $this->error('材料对应品牌部存在，请选择其他材料');
+        }
+        $data['material']=$material;
+        $data['brand']=$brand;
+        return $this->success($data);
+    }
+
+    public function postEditBudget(Request $request,$id){
+        $data=$request->all();
+        return $this->success($data);
+    }
+
 
 
 }
