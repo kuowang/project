@@ -102,27 +102,27 @@
 
                             <tr>
                                 <td class="pro-title">报价日期</td>
-                                <td ><input type="text" name="quotation_date" id="quotation_date"  lay-skin="primary" class="notempty span8"></td>
+                                <td ><input type="text" name="quotation_date" id="quotation_date" value="{{isset($budget->quotation_date)?$budget->quotation_date:''}}"  lay-skin="primary" class="notempty span8"></td>
                                 <td class="pro-title">报价有效期限(天)</td>
-                                <td ><input type="text" name="quotation_limit_day" id="quotation_limit_day" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
+                                <td ><input type="text" name="quotation_limit_day" id="quotation_limit_day" value="{{isset($budget->quotation_limit_day)?$budget->quotation_limit_day:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
                                 <td class="pro-title">使用时长(年)</td>
-                                <td ><input type="text" name="use_time" id="use_time" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
+                                <td ><input type="text" name="use_time" id="use_time" value="{{isset($budget->use_time)?$budget->use_time:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
                             </tr>
                             <tr>
                                 <td class="pro-title">抗震等级(级)</td>
-                                <td ><input type="text" name="seismic_grade" id="seismic_grade" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
+                                <td ><input type="text" name="seismic_grade" id="seismic_grade" value="{{isset($budget->seismic_grade)?$budget->seismic_grade:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
                                 <td class="pro-title">抗风等级(级)</td>
-                                <td ><input type="text" name="wind_grade" id="wind_grade" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
+                                <td ><input type="text" name="wind_grade" id="wind_grade" value="{{isset($budget->wind_grade)?$budget->wind_grade:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
                                 <td class="pro-title">保温构造形式</td>
-                                <td ><input type="text" name="keep_warm" id="keep_warm" lay-skin="primary" class="notempty span8"></td>
+                                <td ><input type="text" name="keep_warm" id="keep_warm" value="{{isset($budget->keep_warm)?$budget->keep_warm:''}}" lay-skin="primary" class="notempty span8"></td>
                             </tr>
                             <tr>
                                 <td class="pro-title">屋面防水等级</td>
-                                <td ><input type="text" name="waterproof_grade" id="waterproof_grade" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
+                                <td ><input type="text" name="waterproof_grade" id="waterproof_grade" value="{{isset($budget->waterproof_grade)?$budget->waterproof_grade:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
                                 <td class="pro-title">结构主体形式</td>
-                                <td ><input type="text" name="structural_style" id="structural_style" lay-skin="primary" class="notempty span8"></td>
+                                <td ><input type="text" name="structural_style" id="structural_style" value="{{isset($budget->structural_style)?$budget->structural_style:''}}" lay-skin="primary" class="notempty span8"></td>
                                 <td class="pro-title">主体钢材材质</td>
-                                <td ><input type="text" name="steel_material" id="steel_material" lay-skin="primary" class="notempty span8"></td>
+                                <td ><input type="text" name="steel_material" id="steel_material" value="{{isset($budget->steel_material)?$budget->steel_material:''}}" lay-skin="primary" class="notempty span8"></td>
                             </tr>
 
                             </tbody>
@@ -142,8 +142,8 @@
                             @for($i =1;$i <= $engineering->build_floor;$i++ )
                             <tr >
                                 <td class="pro-title">第{{$i}}层</td>
-                                <td><input type="text" class="span4 notempty" name="storey_height[]" onclick="key(this)">米</td>
-                                <td><input type="text" class="span4 notempty" name="house_height[]"  onclick="key(this)">米</td>
+                                <td><input type="text" class="span4 notempty" value="{{isset($storey_height[$i-1])?$storey_height[$i-1]:''}}" name="storey_height[]" onclick="key(this)">米</td>
+                                <td><input type="text" class="span4 notempty" value="{{isset($house_height[$i-1])?$house_height[$i-1]:''}}"  name="house_height[]"  onclick="key(this)">米</td>
                             </tr>
                             @endfor
 
@@ -169,6 +169,7 @@
                             <tbody>
                             @php
                             $system_code ='';
+                            $xuhao=0;
                             @endphp
                             @foreach($engin_system as $v)
                                 @if($system_code != $v->system_code)
@@ -181,7 +182,55 @@
                                 <td  colspan="10"> &nbsp;&nbsp;&nbsp;{{$v->sub_system_name}} <span style="color:#1d52f6">工况：{{$v->work_code}}</span> 编码：{{$v->sub_system_code}}</td>
                                 <td > <span class="btn btn-success" onclick="addMaterial('{{ $v->sub_arch_id }}')">选择材料</span></td>
                             </tr>
+                            @if(isset($budget_item[$v->sub_arch_id]))
+                                @foreach($budget_item[$v->sub_arch_id] as $k=>$mate)
+                                    @php
+                                    $xuhao++;
+                                    @endphp
+                                <tr class="materialList sub_arch_{{$mate->sub_arch_id}}" id="mater_{{$xuhao}}">
+                                    <td class="sub_arch_material_{{$mate->sub_arch_id}}">{{$k+1}}</td>
+                                    <td>
 
+                                        <select name="material_id[]" onchange="selectMaterial({{$xuhao}} ,this)" class=" notempty material_id span12" >
+                                            <option value="0" ></option>
+                                            @if(isset($materlist[$mate->sub_arch_id]))
+                                                @foreach($materlist[$mate->sub_arch_id] as $list)
+                                                    @if($list->id == $mate->material_id)
+                                                        <option value="{{$list->id}}" selected="selected" >{{$list->material_name}}</option>
+                                                    @else
+                                                        <option value="{{$list->id}}" >{{$list->material_name}}</option>
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </select>
+
+                                    </td>
+                                    <td><input type="text" lay-skin="primary" class=" span12 characteristic"       disabled  value="{{ $mate->characteristic }}"  name="characteristic[]" id="characteristic" ></td>
+                                    <td><input type="text" lay-skin="primary" class=" span12 material_budget_unit" disabled value="{{ $mate->material_budget_unit }}"  name="material_budget_unit[]" id="material_budget_unit" ></td>
+                                    <td><input type="text" lay-skin="primary" class="notempty span12 drawing_quantity"      value="{{ $mate->drawing_quantity }}"  name="drawing_quantity[]" id="drawing_quantity" onclick="selectDrawing(`+intid+`,this)" ></td>
+                                    <td><input type="text" lay-skin="primary" class=" span12 loss_ratio"           disabled  value="{{ $mate->loss_ratio }}"  name="loss_ratio[]" id="loss_ratio" ></td>
+                                    <td><input type="text" lay-skin="primary" class=" span12 engineering_quantity" disabled value="{{ $mate->engineering_quantity }}"  name="engineering_quantity[]" id="engineering_quantity" ></td>
+                                    <td>
+                                        <select  name="brand_id[]" onchange="selectbrand({{$xuhao}},this)" class=" notempty brand_id  span12" >
+                                            <option value="0" ></option>
+                                            @if(isset($brandlist[$mate->material_id]))
+                                                @foreach($brandlist[$mate->material_id] as $list)
+                                                    @if($list->brand_id == $mate->brand_id)
+                                                        <option value="{{$list->brand_id}}" selected="selected" class="brand_id_{{$list->brand_id}}" budget_unit_price="{{$list->budget_unit_price}}" >{{$list->brand_name}}</option>
+                                                    @else
+                                                        <option value="{{$list->brand_id}}" class="brand_id_{{$list->brand_id}}" budget_unit_price="{{$list->budget_unit_price}}"  >{{$list->brand_name}}</option>
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                    </td>
+                                    <td><input type="text" lay-skin="primary" class=" span12 budget_price"         disabled value="{{ $mate->budget_price }}"  name="budget_price[]" id="budget_price" ></td>
+                                    <td><input type="text" lay-skin="primary" class=" span12 total_material_price" disabled value="{{ $mate->total_material_price }}"  name="total_material_price[]" id="total_material_price" ></td>
+                                    <td ><span class="btn btn-danger" onclick="deleteTrRow(this)">删除</span></td>
+                                </tr>
+
+                                @endforeach
+                            @endif
                             @endforeach
                             <tr>
                                 <td colspan="11" class="pro-title">其他费用</td>
@@ -191,30 +240,30 @@
                                 <td class="pro-title" colspan="3">运输费</td>
                                 <td class="pro-title" colspan="2">(元/平方米)</td>
                                 <td colspan="3"></td>
-                                <td ><input type="text" name="freight_price" id="freight_price" lay-skin="primary" class="notempty span12" onchange="return selectPrice(this)"></td>
-                                <td id="freight_price_sum"></td>
+                                <td ><input type="text" name="freight_price" value="{{isset($budget->freight_price)?$budget->freight_price:''}}" id="freight_price" lay-skin="primary" class="notempty span12" onchange="return selectPrice(this)"></td>
+                                <td id="freight_price_sum">{{isset($budget->freight_charge)?$budget->freight_charge:''}}</td>
                                 <td></td>
                             </tr>
                             <tr>
                                 <td class="pro-title" colspan="3">包装费</td>
                                 <td class="pro-title" colspan="2">(元/平方米)</td>
                                 <td colspan="3"></td>
-                                <td ><input type="text" name="package_price" id="package_price" lay-skin="primary" class="notempty span12" onchange="return selectPrice(this)"></td>
-                                <td id="package_price_sum"></td>
+                                <td ><input type="text" name="package_price" value="{{isset($budget->package_price)?$budget->package_price:''}}" id="package_price" lay-skin="primary" class="notempty span12" onchange="return selectPrice(this)"></td>
+                                <td id="package_price_sum">{{isset($budget->package_charge)?$budget->package_charge:''}}</td>
                                 <td></td>
                             </tr>
                             <tr>
                                 <td class="pro-title" colspan="3">装箱费</td>
                                 <td class="pro-title" colspan="2">(元/平方米)</td>
                                 <td colspan="3"></td>
-                                <td ><input type="text" name="packing_price" id="packing_price" lay-skin="primary" class="notempty span12" onchange="return selectPrice(this)"></td>
-                                <td  id="packing_price_sum"></td>
+                                <td ><input type="text" name="packing_price" value="{{isset($budget->packing_price)?$budget->packing_price:''}}" id="packing_price" lay-skin="primary" class="notempty span12" onchange="return selectPrice(this)"></td>
+                                <td  id="packing_price_sum">{{isset($budget->packing_charge)?$budget->packing_charge:''}}</td>
                                 <td></td>
                             </tr>
                             <tr>
                                 <td class="pro-title" colspan="9" style="text-align: center;font-weight: bold;">材料费合计</td>
 
-                                <td  id="total_material"></td>
+                                <td  id="total_material">{{isset($budget->material_total_price)?$budget->material_total_price:''}}</td>
                                 <td></td>
                             </tr>
 
@@ -222,13 +271,13 @@
                                 <td class="pro-title" colspan="3">施工安装费</td>
                                 <td class="pro-title" colspan="2">(元/平方米)</td>
                                 <td colspan="3"></td>
-                                <td ><input type="text" name="construction_price" id="construction_price" lay-skin="primary" class="notempty span12" onchange="return selectPrice(this)"></td>
-                                <td ><input type="text" name="construction_charge" id="construction_charge" lay-skin="primary" class="span12" disabled></td>
+                                <td ><input type="text" name="construction_price" value="{{isset($budget->construction_price)?$budget->construction_price:''}}" id="construction_price" lay-skin="primary" class="notempty span12" onchange="return selectPrice(this)"></td>
+                                <td ><input type="text" name="construction_charge" value="{{isset($budget->construction_charge)?$budget->construction_charge:''}}" id="construction_charge" lay-skin="primary" class="span12" disabled></td>
                                 <td></td>
                             </tr>
                             <tr>
                                 <td colspan="9" class="pro-title" style="text-align: center;font-weight: bold;">工程造价(直接)</td>
-                                <td><input type="text" name="direct_project_cost" readonly='readonly' id="direct_project_cost"  value="" style='width:100px;background: #f0f0f0;'/></td>
+                                <td><input type="text" name="direct_project_cost" value="{{isset($budget->direct_project_cost)?$budget->direct_project_cost:''}}" readonly='readonly' id="direct_project_cost"  value="" style='width:100px;background: #f0f0f0;'/></td>
                                 <td></td>
                             </tr>
                             <tr>
@@ -236,8 +285,8 @@
                                 <td class="pro-title" colspan="2">元</td>
                                 <td colspan="2"></td>
                                 <td >%</td>
-                                <td ><input type="text" name="profit_ratio" id="profit_ratio" lay-skin="primary" class="notempty span12"  onchange="return selectPrice(this)"></td>
-                                <td ><input type="text" name="profit" id="profit" lay-skin="primary" class="span12" disabled></td>
+                                <td ><input type="text" name="profit_ratio" value="{{isset($budget->profit_ratio)?$budget->profit_ratio:''}}" id="profit_ratio" lay-skin="primary" class="notempty span12"  onchange="return selectPrice(this)"></td>
+                                <td ><input type="text" name="profit" value="{{isset($budget->profit)?$budget->profit:''}}" id="profit" lay-skin="primary" class="span12" disabled></td>
                                 <td></td>
                             </tr>
                             <tr>
@@ -245,8 +294,8 @@
                                 <td class="pro-title" colspan="2">元</td>
                                 <td colspan="2"></td>
                                 <td >%</td>
-                                <td ><input type="text" name="tax_ratio" id="tax_ratio" lay-skin="primary" class="notempty span12"  onchange="return selectPrice(this)"></td>
-                                <td ><input type="text" name="tax" id="tax" lay-skin="primary" class="span12" disabled></td>
+                                <td ><input type="text" name="tax_ratio" value="{{isset($budget->tax_ratio)?$budget->tax_ratio:''}}" id="tax_ratio" lay-skin="primary" class="notempty span12"  onchange="return selectPrice(this)"></td>
+                                <td ><input type="text" name="tax" value="{{isset($budget->tax)?$budget->tax:''}}" id="tax" lay-skin="primary" class="span12" disabled></td>
                                 <td></td>
                             </tr>
                             <tr>
@@ -256,7 +305,7 @@
                             </tr>
                             <tr>
                                 <td class="pro-title" colspan="9" style="text-align: center;font-weight: bold;">工程总价(元)</td>
-                                <td ><input type="text" name="total_budget_price" id="total_budget_price" lay-skin="primary" class=" span12" disabled></td>
+                                <td ><input type="text" name="total_budget_price" value="{{isset($budget->total_budget_price)?$budget->total_budget_price:''}}" id="total_budget_price" lay-skin="primary" class=" span12" disabled></td>
                                 <td></td>
                             </tr>
                             </tbody>
@@ -343,7 +392,7 @@
         }
         //添加材料信息
         function addmaterialDetail(id,option){
-            intid =parseInt(Math.random() * (100000000 )+1000);
+            intid =parseInt(Math.random() * (100000000 )+100000);
             mater=`<select name="material_id[]" onchange="selectMaterial(`+intid+`,this)" class=" notempty material_id span12" >
                             <option value="0" ></option>
                             `+option+`
@@ -363,7 +412,7 @@
                     <td>`+brand+`</td>
                     <td><input type="text" lay-skin="primary" class=" span12 budget_price"         disabled  name="budget_price[]" id="budget_price" ></td>
                     <td><input type="text" lay-skin="primary" class=" span12 total_material_price" disabled  name="total_material_price[]" id="total_material_price" ></td>
-                    <td ><span class="btn" onclick="deleteTrRow(this)">删除</span></td>
+                    <td ><span class="btn btn-danger" onclick="deleteTrRow(this)">删除</span></td>
                 </tr>`;
             //添加材料到指定位置
             $(".sub_arch_"+id+":last").after(str);
@@ -386,7 +435,6 @@
                 elem: '#quotation_date'
             });
         });
-
         //点击只能输入数字
         function key(th){
             $(th).keyup(function(){
@@ -394,6 +442,10 @@
             }).bind("paste",function(){  //CTR+V事件处理
                 $(this).val($(this).val().replace(/[^0-9.]/g,''));
             }).css("ime-mode", "disabled"); //CSS设置输入法不可用
+            va =$(th).val();
+            if(va > 1000000000 || va < 0) {
+                $(th).val(0);
+            }
         }
         //删除材料
         function deleteTrRow(tr){
@@ -479,7 +531,7 @@
                 return false;
             }
             //实际工程量
-            engineering_quantity = drawing_quantity *(100 + loss_ratio)/100
+            engineering_quantity = drawing_quantity *(100 * 1 + loss_ratio * 1)/100
             $('#mater_'+intid+' .engineering_quantity').val(engineering_quantity.toFixed(2));
             //实际预算金额
             total_material_price = engineering_quantity * budget_price;
