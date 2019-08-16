@@ -116,7 +116,7 @@ class BudgetController extends WebController
             ->orderby('engineering.id','asc')
             ->select(['project.project_name','engineering.project_id','engineering.id as engin_id',
                 'engineering.engineering_name','build_area','budget.total_budget_price','budget.budget_order_number',
-                'project.budget_uid','project.budget_username','budget.budget_status'])
+                'project.budget_uid','project.budget_username','budget.budget_status','is_conf_architectural'])
             ->skip(($page-1)*$rows)
             ->take($rows)
             ->get();
@@ -126,7 +126,7 @@ class BudgetController extends WebController
         return $data;
     }
 
-    //工程信息列表
+    //工程预算信息列表
     private function budget($request,$status=0)
     {
         $project_name       =$request->input('project_name','');
@@ -155,28 +155,75 @@ class BudgetController extends WebController
         $data['navid']      =20;
         return $data;
     }
-
-    /**
-     * @param Request $request
-     * @param $id 工程id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function editBudget(Request $request,$id){
+    //编辑洽谈工程预算详情
+    public function editStartBudget(Request $request,$id)
+    {
         $this->user();
         $data['navid']      =20;
         $data['subnavid']   =2001;
         //项目子工程
         $engineering =DB::table('engineering')->where('id',$id)->first();
         if(empty($engineering)){
-            return redirect('/architectural/enginStart?status=2&notice='.'该工程不存在');
+            return redirect('/budget/budgetStart?status=2&notice='.'该工程不存在');
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
         if( (in_array(20010101,$this->user()->pageauth) && $project->budget_uid == $this->user()->id ) || in_array(200102,$this->user()->manageauth)){
+            if($engineering->status !=0){
+                return redirect('/budget/budgetStart?status=2&notice='.'您没有权限编辑该工程信息');
+            }
         }else{
             //设计人员可以操作更改工程设计详情
-            return redirect('/architectural/enginStart?status=2&notice='.'您没有权限编辑该工程信息');
+            return redirect('/budget/budgetStart?status=2&notice='.'您没有权限编辑该工程信息');
         }
+        //预算信息
+        $budget =DB::table('budget')->where('engin_id',$id)->first();
+        if(isset($budget->budget_status) && $budget->budget_status==1 ){
+            return redirect('/budget/budgetStart?status=2&notice='.'预算单已审核通过，不能编辑');
+        }
+         return $this->editBudget($id,$data,$project,$engineering,$budget);
+    }
+
+
+
+    //编辑实施工程预算详情
+    public function editConductBudget(Request $request,$id)
+    {
+        $this->user();
+        $data['navid']      =20;
+        $data['subnavid']   =2001;
+        //项目子工程
+        $engineering =DB::table('engineering')->where('id',$id)->first();
+        if(empty($engineering)){
+            return redirect('/budget/budgetConduct?status=2&notice='.'该工程不存在');
+        }
+        //项目信息
+        $project =DB::table('project')->where('id',$engineering->project_id)->first();
+        if( (in_array(20010201,$this->user()->pageauth) && $project->budget_uid == $this->user()->id ) || in_array(200105,$this->user()->manageauth)){
+            if($engineering->status !=1){
+                return redirect('/budget/budgetConduct?status=2&notice='.'您没有权限编辑该工程信息');
+            }
+        }else{
+            //设计人员可以操作更改工程设计详情
+            return redirect('/budget/budgetConduct?status=2&notice='.'您没有权限编辑该工程信息');
+        }
+        //预算信息
+        $budget =DB::table('budget')->where('engin_id',$id)->first();
+        if(isset($budget->budget_status) && $budget->budget_status==1 ){
+            return redirect('/budget/budgetConduct?status=2&notice='.'预算单已审核通过，不能编辑');
+        }
+        return $this->editBudget($id,$data,$project,$engineering,$budget);
+    }
+
+
+
+    /**
+     * @param Request $request
+     * @param $id 工程id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    protected function editBudget($id,$data,$project,$engineering,$budget)
+    {
         //建筑系统信息 以及项目对应的子系统信息
         $data['engin_system']=DB::table('enginnering_architectural')
             ->where('engin_id',$id)
@@ -219,8 +266,6 @@ class BudgetController extends WebController
             $data['brandlist'] =$brandlist;
 
         }
-        //预算信息
-        $budget =DB::table('budget')->where('engin_id',$id)->first();
         $data['budget'] =$budget;
         $data['budget_item']=[];
         //预算材料信息
@@ -237,6 +282,47 @@ class BudgetController extends WebController
         }
         return view('budget.editBudget',$data);
     }
+
+    //编辑项目状态
+    public function updateProjectStatus(Request $request,$id)
+    {
+        $engin=DB::table('engineering')->where('id',$id)->first();
+        $status =$request->input('project_status',0);
+        if(empty($engin)){
+            return redirect('/budget/budgetStart?status=2&notice='.'项目不存在');
+        }
+        if((in_array(150202,$this->user()->pageauth) && $engin->created_uid == $this->user()->id )|| in_array(150202,$this->user()->manageauth)){
+        }else{
+            return redirect('/budget/budgetStart?status=2&notice='.'您没有操作该功能权限');
+        }
+        if($engin->status == 0 && !in_array($status,[1,4])){
+            echo"<script>alert('状态更改失败，项目状态不可逆，请更改其他状态');history.go(-1);</script>";
+        }elseif($engin->status ==1  && !in_array($status,[2,4])){
+            echo"<script>alert('状态更改失败，项目状态不可逆，请更改其他状态');history.go(-1);</script>";
+        }elseif($engin->status ==2 && $status != 4){
+            echo"<script>alert('状态更改失败，项目状态不可逆，请更改其他状态');history.go(-1);</script>";
+        }
+        $data=['status'=>$status,
+            'edit_uid'=>$this->user()->id,
+            'updated_at'=>date('Y-m-d')];
+        if($status == 2){
+            $data['completed_at'] =date('Y-m-d'); //竣工时间
+        }elseif($status ==4){
+            $data['termination_at'] =date('Y-m-d');//终止时间
+        }
+        DB::table('engineering')->where('id',$id)->update($data);
+        if($status == 1){
+            return redirect('/budget/budgetConduct?status=1&notice='.'项目状态更改成功！');
+        }elseif($status == 2){
+            return redirect('/budget/budgetCompleted?status=1&notice='.'项目状态更改成功！');
+        }elseif($status == 4){
+            return redirect('/budget/budgetTermination?status=1&notice='.'项目状态更改成功！');
+        }else{
+            return redirect('/budget/budgetStart?status=1&notice='.'项目状态更改成功！');
+        }
+    }
+
+
     //获取工程下的材料信息
     public function getEnginMaterialList($id){
         $material =DB::table('material')
@@ -303,7 +389,7 @@ class BudgetController extends WebController
         //工程信息
         $engineering =DB::table('engineering')->where('id',$id)->first();
         if(empty($engineering)){
-            return redirect('/architectural/enginStart?status=2&notice='.'该工程不存在');
+            return redirect('/budget/budgetStart?status=2&notice='.'该工程不存在');
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
@@ -315,8 +401,9 @@ class BudgetController extends WebController
         foreach ($material_id as $k=>$v){
             //材料信息
             $mater =DB::table('material')->where('id',$v)->first();
-            $brand =DB::table('material_brand_supplier')->where('material_id',$v)->where('brand_id',$brand_id[$k])->first();
             //材料对应品牌信息
+            $brand =DB::table('material_brand_supplier')->where('material_id',$v)->where('brand_id',$brand_id[$k])->first();
+
             $engineering_quantity= round($drawing_quantity[$k] *(100 + $mater->waste_rate) /100,2);
             $budget_price =$brand->budget_unit_price;
             $total_material_price = round($engineering_quantity * $budget_price,2);
@@ -326,12 +413,14 @@ class BudgetController extends WebController
                 'arch_id'         =>$mater->architectural_id,
                 'sub_arch_id'     =>$mater->architectural_sub_id,
                 'material_id'     =>$v,
+                'material_name'   =>$mater->material_name,
                 'characteristic'  =>$mater->characteristic,
                 'material_budget_unit'=>$mater->material_budget_unit,
                 'drawing_quantity'=>$drawing_quantity[$k],
                 'loss_ratio'      =>$mater->waste_rate,
                 'engineering_quantity'=> $engineering_quantity,
                 'brand_id'        =>$brand_id[$k],
+                'brand_name'      =>$brand->brand_name,
                 'budget_price'    =>$budget_price,
                 'total_material_price'=>$total_material_price,
                 'created_uid'=>$uid,
@@ -398,5 +487,128 @@ class BudgetController extends WebController
     }
 
 
+    //审核洽谈工程预算
+    public function examineStartBudget(Request $request)
+    {
+
+    }
+    //审核实施工程预算
+    public function examineConductBudget(Request $request)
+    {
+
+    }
+
+
+    //洽谈工程预算详情
+    public function budgetStartDetail(Request $request,$id)
+    {
+        $this->user();
+        $data['navid']      =20;
+        $data['subnavid']   =2001;
+        //项目子工程
+        $engineering =DB::table('engineering')->where('id',$id)->first();
+        if(empty($engineering)){
+            return redirect('/budget/budgetStart?status=2&notice='.'该工程不存在');
+        }
+        //项目信息
+        $project =DB::table('project')->where('id',$engineering->project_id)->first();
+        if( (in_array(20010101,$this->user()->pageauth) && $project->budget_uid == $this->user()->id ) || in_array(200101,$this->user()->manageauth)){
+        }else{
+            //设计人员可以操作更改工程设计详情
+            return redirect('/budget/budgetStart?status=2&notice='.'您没有权限编辑该工程信息');
+        }
+        return $this->budgetDetail($id,$data,$project,$engineering);
+    }
+
+    //查看实施工程预算详情
+    public function budgetConductDetail(Request $request,$id)
+    {
+        $this->user();
+        $data['navid']      =20;
+        $data['subnavid']   =2001;
+        //项目子工程
+        $engineering =DB::table('engineering')->where('id',$id)->first();
+        if(empty($engineering)){
+            return redirect('/budget/budgetConduct?status=2&notice='.'该工程不存在');
+        }
+        //项目信息
+        $project =DB::table('project')->where('id',$engineering->project_id)->first();
+        if( (in_array(20010202,$this->user()->pageauth) && $project->budget_uid == $this->user()->id ) || in_array(200104,$this->user()->manageauth)){
+        }else{
+            //设计人员可以操作更改工程设计详情
+            return redirect('/budget/budgetConduct?status=2&notice='.'您没有权限编辑该工程信息');
+        }
+        return $this->budgetDetail($id,$data,$project,$engineering);
+    }
+
+    //查看竣工工程预算信息
+    public function budgetCompletedDetail(Request $request,$id)
+    {
+        $this->user();
+        $data['navid']      =20;
+        $data['subnavid']   =2001;
+        //项目子工程
+        $engineering =DB::table('engineering')->where('id',$id)->first();
+        if(empty($engineering)){
+            return redirect('/budget/budgetCompleted?status=2&notice='.'该工程不存在');
+        }
+        //项目信息
+        $project =DB::table('project')->where('id',$engineering->project_id)->first();
+        if( (in_array(20010301,$this->user()->pageauth) && $project->budget_uid == $this->user()->id ) || in_array(200107,$this->user()->manageauth)){
+        }else{
+            //设计人员可以操作更改工程设计详情
+            return redirect('/budget/budgetCompleted?status=2&notice='.'您没有权限编辑该工程信息');
+        }
+        return $this->budgetDetail($id,$data,$project,$engineering);
+    }
+    //查看终止项目工程预算信息
+    public function budgetTerminationDetail(Request $request,$id)
+    {
+        $this->user();
+        $data['navid']      =20;
+        $data['subnavid']   =2001;
+        //项目子工程
+        $engineering =DB::table('engineering')->where('id',$id)->first();
+        if(empty($engineering)){
+            return redirect('/budget/budgetTermination?status=2&notice='.'该工程不存在');
+        }
+        //项目信息
+        $project =DB::table('project')->where('id',$engineering->project_id)->first();
+        if( (in_array(20010401,$this->user()->pageauth) && $project->budget_uid == $this->user()->id ) || in_array(200108,$this->user()->manageauth)){
+        }else{
+            //设计人员可以操作更改工程设计详情
+            return redirect('/budget/budgetTermination?status=2&notice='.'您没有权限编辑该工程信息');
+        }
+        return $this->budgetDetail($id,$data,$project,$engineering);
+    }
+
+    //预算详情信息
+    protected function budgetDetail($id,$data,$project,$engineering){
+        //建筑系统信息 以及项目对应的子系统信息
+        $data['engin_system']=DB::table('enginnering_architectural')
+            ->where('engin_id',$id)
+            ->get();
+        $data['engineering']=$engineering;
+        $data['project']    =$project;
+        $data['engin_id'] =$id;
+
+        //预算信息
+        $budget =DB::table('budget')->where('engin_id',$id)->first();
+        $data['budget'] =$budget;
+        $data['budget_item']=[];
+        //预算材料信息
+        if(!empty($budget)){
+            $data['storey_height'] =json_decode($budget->storey_height,true);
+            $data['house_height'] =json_decode($budget->house_height,true);
+            //预算详情
+            $budget_item =DB::table('budget_item')->where('budget_id',$budget->id)->get();
+            if($budget_item){
+                foreach($budget_item as $item){
+                    $data['budget_item'][$item->sub_arch_id][]=$item;
+                }
+            }
+        }
+        return view('budget.budgetDetail',$data);
+    }
 
 }

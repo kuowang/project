@@ -137,7 +137,7 @@
 
                                         <td class="td-manage">
                                             @if( (in_array(20010401,$pageauth) && $val->budget_uid == $uid ) || in_array(200108,$manageauth))
-                                                <a title="查看详情" class="btn btn-info"  href="/architectural/enginTerminationDetail/{{ $val->engin_id }}">
+                                                <a title="查看详情" class="btn btn-info"  href="/budget/budgetTerminationDetail/{{ $val->engin_id }}">
                                                     <i class="layui-icon">详情</i>
                                                 </a>
                                             @endif

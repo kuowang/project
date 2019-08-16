@@ -140,14 +140,16 @@
                                     @endif
                                     <td class="td-manage">
                                         @if( (in_array(20010102,$pageauth) && $val->budget_uid == $uid ) || in_array(200101,$manageauth))
-                                            <a title="查看详情" class="btn btn-info"  href="/budget/BudgetStartDetail/{{ $val->engin_id }}">
+                                            <a title="查看详情" class="btn btn-info"  href="/budget/budgetStartDetail/{{ $val->engin_id }}">
                                                 <i class="layui-icon">详情</i>
                                             </a>
                                         @endif
                                         @if((in_array(20010101,$pageauth) && $val->budget_uid == $uid ) || in_array(200102,$manageauth))
-                                            <a title="编辑" class="btn btn-success"  href="/budget/editBudget/{{ $val->engin_id }}">
+                                            @if($val->budget_status != 1)
+                                            <a title="编辑" class="btn btn-success"  href="/budget/editStartBudget/{{ $val->engin_id }}" onclick="return checkStatus({{$val->is_conf_architectural}})">
                                                 <i class="layui-icon">编辑</i>
                                             </a>
+                                            @endif
                                         @endif
                                     </td>
                                 </tr>
@@ -191,7 +193,16 @@
     <script>
         //一般直接写在一个js文件中
 
-
+    function checkStatus(status) {
+        if(status ==0){
+            layui.use('layer', function(){
+                var layer = layui.layer;
+                layer.msg('请到建筑设计模块中配置材料信息，再配置预算');
+            });
+            return false;
+        }
+        return true;
+    }
 
 
     </script>
