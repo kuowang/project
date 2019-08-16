@@ -34,8 +34,8 @@
                 </div>
                 <div class="widget-body">
                     <div id="dt_example" class="example_alt_pagination">
-
-                        <form method="post" action="/project/updateProjectStatus/{{$engin_id}}">
+                        @if(in_array($engineering->status,[0,1]))
+                        <form method="post" action="/budget/updateProjectStatus/{{$engin_id}}">
                             <table class="layui-table layui-form">
 
                                 <tbody>
@@ -71,9 +71,7 @@
                                 </tbody>
                             </table>
                         </form>
-
-
-
+                        @endif
                         <div class="clearfix"></div>
                     </div>
                 </div>
@@ -337,247 +335,21 @@
 </div>
 
     <script>
-        var floor_area = {{$engineering->build_area}} ; //建筑面积
-        var material_list=[];
-
-        function addMaterial(id) {
-            $.ajax({
-                url:'/budget/getEnginMaterialList/'+id,
-                type:'get',
-                // contentType: 'application/json',
-                success:function(data){
-                    console.log(data);
-                    if(data.status == 1){
-                        var option ='';
-                        $.each( data.data, function(index,content){
-                            option +='<option value="'+index+'" class="material_id_'+index+'" > '+content+'</option>';
-                        })
-                        addmaterialDetail(id,option);
-                    }else{
-                        showMsg('该工程下没有材料信息，不能添加材料');
-                        return false;
-                    }
-                },
-            });
-        }
-        //添加材料信息
-        function addmaterialDetail(id,option){
-            intid =parseInt(Math.random() * (100000000 )+100000);
-            mater=`<select name="material_id[]" onchange="selectMaterial(`+intid+`,this)" class=" notempty material_id span12" >
-                            <option value="0" ></option>
-                            `+option+`
-                           </select>`;
-            brand =`<select name="brand_id[]" onchange="selectbrand(`+intid+`,this)" class=" notempty brand_id  span12" >
-                            <option value="0" ></option>
-                           </select>`;
-
-            str =`<tr class="materialList sub_arch_`+id+`" id="mater_`+intid+`">
-                    <td class="sub_arch_material_`+id+`">1</td>
-                    <td>`+mater+`</td>
-                    <td><input type="text" lay-skin="primary" class=" span12 characteristic"       disabled   name="characteristic[]" id="characteristic" ></td>
-                    <td><input type="text" lay-skin="primary" class=" span12 material_budget_unit" disabled  name="material_budget_unit[]" id="material_budget_unit" ></td>
-                    <td><input type="text" lay-skin="primary" class="notempty span12 drawing_quantity"       name="drawing_quantity[]" id="drawing_quantity" onclick="selectDrawing(`+intid+`,this)" ></td>
-                    <td><input type="text" lay-skin="primary" class=" span12 loss_ratio"           disabled   name="loss_ratio[]" id="loss_ratio" ></td>
-                    <td><input type="text" lay-skin="primary" class=" span12 engineering_quantity" disabled  name="engineering_quantity[]" id="engineering_quantity" ></td>
-                    <td>`+brand+`</td>
-                    <td><input type="text" lay-skin="primary" class=" span12 budget_price"         disabled  name="budget_price[]" id="budget_price" ></td>
-                    <td><input type="text" lay-skin="primary" class=" span12 total_material_price" disabled  name="total_material_price[]" id="total_material_price" ></td>
-                    <td ><span class="btn btn-danger" onclick="deleteTrRow(this)">删除</span></td>
-                </tr>`;
-            //添加材料到指定位置
-            $(".sub_arch_"+id+":last").after(str);
-            //key(this);
-            //更改材料序号
-            $(".sub_arch_material_"+id).each(function(index,element){
-                $(this).html(index +1);
-            });
-            //点击文本框设置背景色
-            $("input").focus(function(){
-                $(this).css("background-color","#fff");
-            });
-        }
-
-        //日期选择器
-        layui.use('laydate', function() {
-            var laydate = layui.laydate;
-            //常规用法
-            laydate.render({
-                elem: '#quotation_date'
-            });
-        });
-        //点击只能输入数字
-        function key(th){
-            $(th).keyup(function(){
-                $(this).val($(this).val().replace(/[^0-9.]/g,''));
-            }).bind("paste",function(){  //CTR+V事件处理
-                $(this).val($(this).val().replace(/[^0-9.]/g,''));
-            }).css("ime-mode", "disabled"); //CSS设置输入法不可用
-            va =$(th).val();
-            if(va > 1000000000 || va < 0) {
-                $(th).val(0);
-            }
-        }
-        //删除材料
-        function deleteTrRow(tr){
-            $(tr).parent().parent().remove();
-            total_price();
-        }
-
-        //选择材料
-        function selectMaterial(id,th) {
-            console.log($(th).val());
-            material_id =$(th).val();
-            if(material_id == 0 || material_id ==''){
-                showMsg('请选择材料');
-                $('#mater_'+id+' input').val('');
+        function submitStatus() {
+            sta =$('#project_status').val();
+            if(sta == 1){
+                showMsg('当前状态未更改，不能提交')
                 return false;
             }
-            //获取材料信息和品牌信息
-            $.ajax({
-                url:'/budget/getMaterialBrandList/'+material_id,
-                type:'get',
-                // contentType: 'application/json',
-                success:function(data){
-                    console.log(data);
-                    if(data.status == 1){
-                        //填充材料和品牌信息
-                        fillMaterialBrand(id,data.data.material,data.data.brand);
-                        $('#mater_'+intid+' .budget_price').val('');
-                        $('#mater_'+intid+' .total_material_price').val('');
-                    }else{
-                        showMsg('该材料下没有品牌信息，请选择其他材料');
-                        return false;
-                    }
-                },
-            });
+            return true;
         }
-        //补充对应的材料和品牌信息
-        function fillMaterialBrand(intid,material,brand) {
-            $('#mater_'+intid+' .brand_id').empty();
-            $('#mater_'+intid+' .characteristic').val(material.characteristic);
-            $('#mater_'+intid+' .material_budget_unit').val(material.material_budget_unit);
-            $('#mater_'+intid+' .loss_ratio').val(material.waste_rate);
-            var option ='<option value="0" ></option>';
-            $.each( brand, function(index,content){
-                option +='<option value="'+content.brand_id+'" class="brand_id_'+content.brand_id+'" budget_unit_price="'+content.budget_unit_price+'"> '+content.brand_name +'</option>';
-            });
-            $('#mater_'+intid+' .brand_id').append(option);
-            jisuanprice(intid);
-        }
-        //显示提示信息
         function showMsg(str){
             layui.use('layer', function(){
                 var layer = layui.layer;
                 layer.msg(str);
             });
         }
-        //选择品牌
-        function selectbrand(intid,th){
-            brand_id =$(th).val();
-            budget_unit_price =$('.brand_id_'+brand_id).attr('budget_unit_price');
-            $('#mater_'+intid+' .budget_price').val(budget_unit_price);
-            console.log(budget_unit_price);
-            jisuanprice(intid);
-            total_price();
-        }
-        //填写工程量
-        function selectDrawing(intid,th) {
-            key(th); //只能输入数字和小数点
-            $(th).blur(function(){
-              //计算实际工程量
-                jisuanprice(intid);
-            })
-            total_price();
-        }
 
-        //计算当前材料的金额
-        function jisuanprice(intid){
-            drawing_quantity = $('#mater_'+intid+' .drawing_quantity').val();
-            loss_ratio      = $('#mater_'+intid+' .loss_ratio').val();
-            budget_price    = $('#mater_'+intid+' .budget_price').val();
-            if(drawing_quantity =='' ||loss_ratio =='' ||budget_price ==''){
-                $('#mater_'+intid+' .engineering_quantity').val('');
-                $('#mater_'+intid+' .total_material_price').val('');
-                return false;
-            }
-            //实际工程量
-            engineering_quantity = drawing_quantity *(100 * 1 + loss_ratio * 1)/100
-            $('#mater_'+intid+' .engineering_quantity').val(engineering_quantity.toFixed(2));
-            //实际预算金额
-            total_material_price = engineering_quantity * budget_price;
-            $('#mater_'+intid+' .total_material_price').val(total_material_price.toFixed(2));
-            total_price();
-        }
-        //选择金额
-        function selectPrice(th) {
-            key(th);
-            total_price();
-        }
-        //计算金额
-        function total_price(){
-            console.log('aaa');
-            freight_price= $("#freight_price").val();
-            package_price= $("#package_price").val();
-            packing_price= $("#packing_price").val();
-            //施工安装费
-            construction_price=$("#construction_price").val();
-            $("#freight_price_sum").html((freight_price*floor_area).toFixed(2));
-            $("#package_price_sum").html((package_price*floor_area).toFixed(2));
-            $("#packing_price_sum").html((packing_price*floor_area).toFixed(2));
-            $("#construction_charge").val((construction_price*floor_area).toFixed(2));
-            var sum='';
-            $(".total_material_price").each(function(){
-                sum =sum *1 + $(this).val() * 1;
-            });
-            //材料总计费用
-            sum =sum*1+freight_price*floor_area+package_price*floor_area+packing_price*floor_area;
-            $('#total_material').html(sum.toFixed(2)) ;
-
-            //工程造价(直接)
-            sum =  sum *1+ construction_price*floor_area;
-            $('#direct_project_cost').val(sum.toFixed(2));
-
-            //利润额
-            profit_ratio=$("#profit_ratio").val();
-            profit=sum * profit_ratio/100;
-            $("#profit").val(profit.toFixed(2));
-            $('#profit_ratio').css('background','#fff');
-
-            //税费=(工程造价(直接)+利润额)*税率
-            tax_ratio=$("#tax_ratio").val();
-            tax=(sum +profit)* tax_ratio/100;
-            $("#tax").val(tax.toFixed(2));
-            $('#tax_ratio').css('background','#fff');
-
-            //工程造价总计(元)
-            sum =sum+tax+profit;
-            $('#total_budget_price').val(sum.toFixed(2));
-            //工程单价
-            unit_price=sum/floor_area;
-            $('#unit_price').html(unit_price.toFixed(2));
-
-        }
-        //提交时的数据验证
-        function form_submit(){
-            var sum=0;
-            $(".notempty").each(function(){
-                if($(this).val()){
-                }else{
-                    $(this).css('background','orange');
-                    sum=1;
-                }
-            });
-            if(sum == 1){
-                showMsg('请将内容补充完全再提交')
-                return false;
-            }
-            return true;
-        }
-
-        //点击文本框设置背景色
-        $("input").focus(function(){
-            $(this).css("background-color","#fff");
-        });
     </script>
 
 @endsection

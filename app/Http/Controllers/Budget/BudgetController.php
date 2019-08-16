@@ -44,7 +44,7 @@ class BudgetController extends WebController
     {
         $this->user();
         $data=$this->budget($request,1);
-        $data['subnavid']   =2002;
+        $data['subnavid']   =2001;
         if( !(in_array(200102,$this->user()->pageauth)) && !in_array(200104,$this->user()->manageauth)){
             return redirect('/budget/budgetStart?status=2&notice='.'您没有操作该功能权限');
         }
@@ -60,7 +60,7 @@ class BudgetController extends WebController
     {
         $this->user();
         $data=$this->budget($request,2);
-        $data['subnavid']   =2003;
+        $data['subnavid']   =2001;
         if( !(in_array(200103,$this->user()->pageauth)) && !in_array(200107,$this->user()->manageauth)){
             return redirect('/budget/budgetStart?status=2&notice='.'您没有操作该功能权限');
         }
@@ -76,7 +76,7 @@ class BudgetController extends WebController
     {
         $this->user();
         $data=$this->budget($request,4);
-        $data['subnavid']   =2004;
+        $data['subnavid']   =2001;
         if( !(in_array(200104,$this->user()->pageauth)) && !in_array(200108,$this->user()->manageauth)){
             return redirect('/budget/budgetStart?status=2&notice='.'您没有操作该功能权限');
         }
@@ -116,7 +116,7 @@ class BudgetController extends WebController
             ->orderby('engineering.id','asc')
             ->select(['project.project_name','engineering.project_id','engineering.id as engin_id',
                 'engineering.engineering_name','build_area','budget.total_budget_price','budget.budget_order_number',
-                'project.budget_uid','project.budget_username','budget.budget_status','is_conf_architectural'])
+                'project.budget_uid','project.budget_username','budget.budget_status','is_conf_architectural','budget.id as budget_id'])
             ->skip(($page-1)*$rows)
             ->take($rows)
             ->get();
@@ -488,14 +488,37 @@ class BudgetController extends WebController
 
 
     //审核洽谈工程预算
-    public function examineStartBudget(Request $request)
+    public function examineStartBudget(Request $request,$id,$status)
     {
+        $this->user();
+        if(!in_array(200103,$this->user()->manageauth)){
+            return $this->error('您没有更改权限');
+        }
+        if(!in_array($status,[0,1])){
+            return $this->error('状态不正确');
+        }
+        $data['budget_status'] =$status;
+        $data['edit_uid'] =$this->user()->id;
+        $data['updated_at'] =date('Y-m-d');
+        DB::table('budget')->where('id',$id)->update($data);
+        return $this->success('更改成功');
 
     }
     //审核实施工程预算
-    public function examineConductBudget(Request $request)
+    public function examineConductBudget(Request $request,$id,$status)
     {
-
+        $this->user();
+        if(!in_array(200106,$this->user()->manageauth)){
+            return $this->error('您没有更改权限');
+        }
+        if(!in_array($status,[0,1])){
+            return $this->error('状态不正确');
+        }
+        $data['budget_status'] =$status;
+        $data['edit_uid'] =$this->user()->id;
+        $data['updated_at'] =date('Y-m-d');
+        DB::table('budget')->where('id',$id)->update($data);
+        return $this->success('更改成功');
     }
 
 

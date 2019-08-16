@@ -188,12 +188,12 @@ Route::group(['prefix' => 'budget','namespace' => 'Budget','middleware' => 'auth
     Route::get('/editStartBudget/{id}',             'BudgetController@editStartBudget');             //编辑工程预算详情
     Route::get('/budgetStartDetail/{id}',           'BudgetController@budgetStartDetail');      //洽谈工程预算详情
     Route::post('/postEditBudget/{id}',             'BudgetController@postEditBudget');         //提交编辑工程预算详情
-    Route::post('/examineStartBudget/{id}/{status}', 'BudgetController@examineBudget');         //审核洽谈工程预算
+    Route::post('/examineStartBudget/{id}/{status}', 'BudgetController@examineStartBudget');         //审核洽谈工程预算
     Route::post('/updateProjectStatus/{id}',         'BudgetController@updateProjectStatus');  //提交编辑项目状态
 
     Route::get('/editConductBudget/{id}',           'BudgetController@editConductBudget');      //编辑实施工程预算详情
     Route::get('/budgetConductDetail/{id}',         'BudgetController@budgetConductDetail');      //查看实施工程预算详情
-    Route::post('/examineConductBudget/{id}/{status}','BudgetController@examineBudget');         //审核实施工程预算
+    Route::post('/examineConductBudget/{id}/{status}','BudgetController@examineConductBudget');         //审核实施工程预算
 
     Route::get('/budgetCompletedDetail/{id}',       'BudgetController@budgetCompletedDetail');    //查看竣工工程预算信息
     Route::get('/budgetTerminationDetail/{id}',     'BudgetController@budgetTerminationDetail');    //查看终止项目工程预算信息

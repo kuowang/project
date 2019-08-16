@@ -131,9 +131,9 @@
                                     <td>
                                     @if(!empty($val->budget_order_number))
                                         @if($val->budget_status ==1)
-                                            <div class="btn btn-warning">取消审核</div>
+                                            <div class="btn btn-warning" onclick="emainStatus({{$val->budget_id}},0)">取消审核</div>
                                         @else
-                                            <div class="btn btn-success">审核通过</div>
+                                            <div class="btn btn-success" onclick="emainStatus({{$val->budget_id}},1)">审核通过</div>
                                         @endif
                                     @endif
                                     </td>
@@ -195,16 +195,36 @@
 
     function checkStatus(status) {
         if(status ==0){
-            layui.use('layer', function(){
-                var layer = layui.layer;
-                layer.msg('请到建筑设计模块中配置材料信息，再配置预算');
-            });
+            showMsg('请到建筑设计模块中配置材料信息，再配置预算')
             return false;
         }
         return true;
     }
+    //审核状态修改
+    function emainStatus(id,status) {
 
+        $.ajax({
+            url:'/budget/examineStartBudget/'+id+'/'+status,
+            type:'post',
+            // contentType: 'application/json',
+            success:function(data){
+                console.log(data);
+                if(data.status ==1){
+                    showMsg('审核更改成功');
+                }else{
+                    showMsg(data.info)
+                }
+                setTimeout(function(){ location.href=location.href; }, 1000);
+            },
+        });
+    }
 
+   function showMsg(str){
+       layui.use('layer', function(){
+           var layer = layui.layer;
+           layer.msg(str);
+       });
+   }
     </script>
 
 @endsection

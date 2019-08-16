@@ -110,7 +110,7 @@
                                     <th>预算负责人</th>
                                     <th>预算状态</th>
                                     <th>审核状态</th>
-                                    @if(in_array(200103,$manageauth))
+                                    @if(in_array(200106,$manageauth))
                                         <th>审核操作</th>
                                     @endif
                                     <th>执行操作</th>
@@ -141,9 +141,9 @@
                                             <td>
                                                 @if(!empty($val->budget_order_number))
                                                     @if($val->budget_status ==1)
-                                                        <div class="btn btn-warning">取消审核</div>
+                                                        <div class="btn btn-warning" onclick="emainStatus({{$val->budget_id}},0)">取消审核</div>
                                                     @else
-                                                        <div class="btn btn-success">审核通过</div>
+                                                        <div class="btn btn-success" onclick="emainStatus({{$val->budget_id}},1)">审核通过</div>
                                                     @endif
                                                 @endif
                                             </td>
@@ -155,7 +155,7 @@
                                                 </a>
                                             @endif
                                             @if((in_array(20010201,$pageauth) && $val->budget_uid == $uid ) || in_array(200105,$manageauth))
-                                                <a title="编辑" class="btn btn-success"  href="/budget/editConductBudget/{{ $val->engin_id }}">
+                                                <a title="编辑" class="btn btn-success"  href="/budget/editConductBudget/{{ $val->engin_id }}" onclick="return checkStatus({{$val->is_conf_architectural}})">
                                                     <i class="layui-icon">编辑</i>
                                                 </a>
                                             @endif
@@ -200,7 +200,38 @@
 
     <script>
         //一般直接写在一个js文件中
+        function checkStatus(status) {
+            if(status ==0){
+                showMsg('请到建筑设计模块中配置材料信息，再配置预算')
+                return false;
+            }
+            return true;
+        }
+        //审核状态修改
+        function emainStatus(id,status) {
 
+            $.ajax({
+                url:'/budget/examineStartBudget/'+id+'/'+status,
+                type:'post',
+                // contentType: 'application/json',
+                success:function(data){
+                    console.log(data);
+                    if(data.status ==1){
+                        showMsg('审核更改成功');
+                    }else{
+                        showMsg(data.info)
+                    }
+                    setTimeout(function(){ location.href=location.href; }, 1000);
+                },
+            });
+        }
+
+        function showMsg(str){
+            layui.use('layer', function(){
+                var layer = layui.layer;
+                layer.msg(str);
+            });
+        }
 
 
 
