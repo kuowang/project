@@ -143,14 +143,18 @@
                                             <a title="查看详情" class="btn btn-info"  href="/offer/offerStartDetail/{{ $val->engin_id }}">
                                                 <i class="layui-icon">详情</i>
                                             </a>
+                                            <a title="导出" class="btn btn-success"  href="/offer/offerDownload/{{ $val->engin_id }}" onclick="return checkStatus({{$val->is_conf_architectural}})">
+                                                <i class="layui-icon">导出</i>
+                                            </a>
                                         @endif
                                         @if((in_array(20020101,$pageauth) && $val->budget_uid == $uid ) || in_array(200202,$manageauth))
                                             @if($val->budget_status != 1)
-                                            <a title="编辑" class="btn btn-success"  href="/budget/editStartBudget/{{ $val->engin_id }}" onclick="return checkStatus({{$val->is_conf_architectural}})">
+                                            <a title="编辑" class="btn btn-success"  href="/offer/editStartOffer/{{ $val->engin_id }}" onclick="return checkStatus({{$val->is_conf_architectural}})">
                                                 <i class="layui-icon">编辑</i>
                                             </a>
                                             @endif
                                         @endif
+
                                     </td>
                                 </tr>
                             @endforeach

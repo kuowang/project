@@ -542,7 +542,12 @@ class BudgetController extends WebController
             //设计人员可以操作更改工程设计详情
             return redirect('/budget/budgetStart?status=2&notice='.'您没有权限编辑该工程信息');
         }
-        return $this->budgetDetail($id,$data,$project,$engineering);
+        if($request->input('download',0) == 1){
+            return $this->budgetDownload($id,$data,$project,$engineering);
+        }else{
+            return $this->budgetDetail($id,$data,$project,$engineering);
+        }
+
     }
 
     //查看实施工程预算详情
@@ -563,7 +568,11 @@ class BudgetController extends WebController
             //设计人员可以操作更改工程设计详情
             return redirect('/budget/budgetConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
-        return $this->budgetDetail($id,$data,$project,$engineering);
+        if($request->input('download',0) == 1){
+            return $this->budgetDownload($id,$data,$project,$engineering);
+        }else{
+            return $this->budgetDetail($id,$data,$project,$engineering);
+        }
     }
 
     //查看竣工工程预算信息
@@ -584,7 +593,11 @@ class BudgetController extends WebController
             //设计人员可以操作更改工程设计详情
             return redirect('/budget/budgetCompleted?status=2&notice='.'您没有权限编辑该工程信息');
         }
-        return $this->budgetDetail($id,$data,$project,$engineering);
+        if($request->input('download',0) == 1){
+            return $this->budgetDownload($id,$data,$project,$engineering);
+        }else{
+            return $this->budgetDetail($id,$data,$project,$engineering);
+        }
     }
     //查看终止项目工程预算信息
     public function budgetTerminationDetail(Request $request,$id)
@@ -604,7 +617,11 @@ class BudgetController extends WebController
             //设计人员可以操作更改工程设计详情
             return redirect('/budget/budgetTermination?status=2&notice='.'您没有权限编辑该工程信息');
         }
-        return $this->budgetDetail($id,$data,$project,$engineering);
+        if($request->input('download',0) == 1){
+            return $this->budgetDownload($id,$data,$project,$engineering);
+        }else{
+            return $this->budgetDetail($id,$data,$project,$engineering);
+        }
     }
 
     //预算详情信息
@@ -636,4 +653,40 @@ class BudgetController extends WebController
         return view('budget.budgetDetail',$data);
     }
 
+    //预算单导出
+    protected function budgetDownload($id,$data,$project,$engineering)
+    {
+        //建筑系统信息 以及项目对应的子系统信息
+        $data['engin_system']=DB::table('enginnering_architectural')
+            ->where('engin_id',$id)
+            ->get();
+        $data['engineering']=$engineering;
+        $data['project']    =$project;
+        $data['engin_id'] =$id;
+        //预算信息
+        $budget =DB::table('budget')->where('engin_id',$id)->first();
+        $data['budget'] =$budget;
+        $data['budget_item']=[];
+        //预算材料信息
+        if(!empty($budget)){
+            $data['storey_height'] =json_decode($budget->storey_height,true);
+            $data['house_height'] =json_decode($budget->house_height,true);
+            //预算详情
+            $budget_item =DB::table('budget_item')->where('budget_id',$budget->id)->get();
+            if($budget_item){
+                foreach($budget_item as $item){
+                    $data['budget_item'][$item->sub_arch_id][]=$item;
+                }
+            }
+        }else{
+            echo"<script>alert('当前工程没有预算单，无法导出');history.go(-1);</script>";
+            exit;
+        }
+        $a =view('offer.offerDownload',$data);
+        header("Content-type:application/vnd.ms-excel");
+        header("Content-Disposition:filename=".$budget->budget_order_number.".xls");
+        $strexport=iconv('UTF-8',"GB2312//IGNORE",$a);
+        echo "<script>history.go(-1);</script>"; //返回上一页
+        exit($strexport); //导出数据
+    }
 }

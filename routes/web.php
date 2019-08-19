@@ -197,9 +197,7 @@ Route::group(['prefix' => 'budget','namespace' => 'Budget','middleware' => 'auth
 
     Route::get('/budgetCompletedDetail/{id}',       'BudgetController@budgetCompletedDetail');    //查看竣工工程预算信息
     Route::get('/budgetTerminationDetail/{id}',     'BudgetController@budgetTerminationDetail');    //查看终止项目工程预算信息
-
-    Route::get('/budgetUploading/{id}',             'BudgetController@budgetUploading');         //导出预算单
-
+    Route::get('/budgetDownload/{id}',             'BudgetController@budgetDownload');         //导出预算单 （能够查询的预算单都能导出）
 
 
 });
@@ -232,4 +230,5 @@ Route::group(['prefix' => 'offer','namespace' => 'Offer','middleware' => 'auth']
     Route::get('/offerCompletedDetail/{id}',       'OfferController@offerCompletedDetail');    //查看竣工工程预算信息
     Route::get('/offerTerminationDetail/{id}',     'OfferController@offerTerminationDetail');    //查看终止项目工程预算信息
 
+    Route::get('/offerDownload/{id}',             'OfferController@offerDownload');         //导出预算单
 });
