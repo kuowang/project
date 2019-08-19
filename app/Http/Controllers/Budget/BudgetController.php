@@ -430,7 +430,7 @@ class BudgetController extends WebController
             $direct_project_cost = $direct_project_cost +$total_material_price;
         }
         $area =$engineering->build_area;
-        $budgetdata['budget_order_number']  ='YS'.date('Ymd').mt_rand(100000,999999);
+        $budgetdata['budget_order_number']  ='YS'.date('YmdHis').mt_rand(100000,999999);
         $budgetdata['project_id']           = $project->id;              //```project_id` int(11) DEFAULT NULL COMMENT '项目id',
         $budgetdata['engin_id']             =$id;                 //```engin_id` int(11) DEFAULT NULL COMMENT '工程id',
         $budgetdata['budget_status']        =0 ;               //```budget_status` tinyint(4) DEFAULT '0' COMMENT '预算审核状态 1已审核 0未审核',
