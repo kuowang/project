@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Budget;
+namespace App\Http\Controllers\Offer;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\WebController;
 use Illuminate\Support\Facades\DB;
 
 
-class BudgetController extends WebController
+class OfferController extends WebController
 {
     /**
      * 建筑设计人员选择对应项目的建筑设计系统信息
@@ -24,69 +24,69 @@ class BudgetController extends WebController
      *洽谈项目列表
      * @return \Illuminate\Http\Response
      */
-    public function budgetStart(Request $request)
+    public function offerStart(Request $request)
     {
         $this->user();
-        $data=$this->budget($request,0);
-        $data['subnavid']   =2001;
-        if( !(in_array(200101,$this->user()->pageauth)) && !in_array(200101,$this->user()->manageauth)){
+        $data=$this->offer($request,0);
+        $data['subnavid']   =2002;
+        if( !(in_array(200201,$this->user()->pageauth)) && !in_array(200201,$this->user()->manageauth)){
             return redirect('/home');
         }
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
-        return view('budget.budgetStart',$data);
+        return view('offer.offerStart',$data);
     }
     /**
      *实施项目列表
      * @return \Illuminate\Http\Response
      */
-    public function budgetConduct(Request $request)
+    public function offerConduct(Request $request)
     {
         $this->user();
-        $data=$this->budget($request,1);
-        $data['subnavid']   =2001;
-        if( !(in_array(200102,$this->user()->pageauth)) && !in_array(200104,$this->user()->manageauth)){
-            return redirect('/budget/budgetStart?status=2&notice='.'您没有操作该功能权限');
+        $data=$this->offer($request,1);
+        $data['subnavid']   =2002;
+        if( !(in_array(200202,$this->user()->pageauth)) && !in_array(200204,$this->user()->manageauth)){
+            return redirect('/offer/offerStart?status=2&notice='.'您没有操作该功能权限');
         }
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
-        return view('budget.budgetConduct',$data);
+        return view('offer.offerConduct',$data);
     }
     /**
      *竣工项目列表
      * @return \Illuminate\Http\Response
      */
-    public function budgetCompleted(Request $request)
+    public function offerCompleted(Request $request)
     {
         $this->user();
-        $data=$this->budget($request,2);
-        $data['subnavid']   =2001;
-        if( !(in_array(200103,$this->user()->pageauth)) && !in_array(200107,$this->user()->manageauth)){
-            return redirect('/budget/budgetStart?status=2&notice='.'您没有操作该功能权限');
+        $data=$this->offer($request,2);
+        $data['subnavid']   =2002;
+        if( !(in_array(200203,$this->user()->pageauth)) && !in_array(200207,$this->user()->manageauth)){
+            return redirect('/offer/offerStart?status=2&notice='.'您没有操作该功能权限');
         }
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
-        return view('budget.budgetCompleted',$data);
+        return view('offer.offerCompleted',$data);
     }
     /**
      *终止项目列表
      * @return \Illuminate\Http\Response
      */
-    public function budgetTermination(Request $request)
+    public function offerTermination(Request $request)
     {
         $this->user();
-        $data=$this->budget($request,4);
-        $data['subnavid']   =2001;
-        if( !(in_array(200104,$this->user()->pageauth)) && !in_array(200108,$this->user()->manageauth)){
-            return redirect('/budget/budgetStart?status=2&notice='.'您没有操作该功能权限');
+        $data=$this->offer($request,4);
+        $data['subnavid']   =2002;
+        if( !(in_array(200204,$this->user()->pageauth)) && !in_array(200208,$this->user()->manageauth)){
+            return redirect('/offer/offerStart?status=2&notice='.'您没有操作该功能权限');
         }
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
-        return view('budget.budgetTermination',$data);
+        return view('offer.offerTermination',$data);
     }
 
     //查询项目信息
-    protected function getBudgetList($status,$project_name='',$address='',$budget_username='',$page=1,$rows=20)
+    protected function getOfferList($status,$project_name='',$address='',$budget_username='',$page=1,$rows=20)
     {
         //DB::connection()->enableQueryLog();
         $db=DB::table('engineering')
@@ -127,7 +127,7 @@ class BudgetController extends WebController
     }
 
     //工程预算信息列表
-    private function budget($request,$status=0)
+    private function offer($request,$status=0)
     {
         $project_name       =$request->input('project_name','');
         $address            =$request->input('address','');
@@ -138,17 +138,17 @@ class BudgetController extends WebController
         $data['address']        =$address;
         $data['budget_username']=$budget_username;
 
-        $datalist=$this->getBudgetList($status,$project_name,$address,$budget_username,$page,$rows);
+        $datalist=$this->getOfferList($status,$project_name,$address,$budget_username,$page,$rows);
         if($status == 0){
-            $url='/budget/budgetStart?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
+            $url='/offer/offerStart?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
         }elseif($status == 1){
-            $url='/budget/budgetConduct?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
+            $url='/offer/offerConduct?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
         }elseif($status == 2){
-            $url='/budget/budgetCompleted?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
+            $url='/offer/offerCompleted?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
         }elseif($status == 4){
-            $url='/budget/budgetTermination?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
+            $url='/offer/offerTermination?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
         }else{
-            $url='/budget/budgetStart?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
+            $url='/offer/offerStart?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
         }
         $data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
         $data['data']   =$datalist['data'];
@@ -156,63 +156,63 @@ class BudgetController extends WebController
         return $data;
     }
     //编辑洽谈工程预算详情
-    public function editStartBudget(Request $request,$id)
+    public function editStartOffer(Request $request,$id)
     {
         $this->user();
         $data['navid']      =20;
-        $data['subnavid']   =2001;
+        $data['subnavid']   =2002;
         //项目子工程
         $engineering =DB::table('engineering')->where('id',$id)->first();
         if(empty($engineering)){
-            return redirect('/budget/budgetStart?status=2&notice='.'该工程不存在');
+            return redirect('/offer/offerStart?status=2&notice='.'该工程不存在');
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
-        if( (in_array(20010101,$this->user()->pageauth) && $project->budget_uid == $this->user()->id ) || in_array(200102,$this->user()->manageauth)){
+        if( (in_array(20020101,$this->user()->pageauth) && $project->budget_uid == $this->user()->id ) || in_array(200202,$this->user()->manageauth)){
             if($engineering->status !=0){
-                return redirect('/budget/budgetStart?status=2&notice='.'您没有权限编辑该工程信息');
+                return redirect('/offer/offerStart?status=2&notice='.'您没有权限编辑该工程信息');
             }
         }else{
             //设计人员可以操作更改工程设计详情
-            return redirect('/budget/budgetStart?status=2&notice='.'您没有权限编辑该工程信息');
+            return redirect('/offer/offerStart?status=2&notice='.'您没有权限编辑该工程信息');
         }
         //预算信息
         $budget =DB::table('budget')->where('engin_id',$id)->first();
         if(isset($budget->budget_status) && $budget->budget_status==1 ){
-            return redirect('/budget/budgetStart?status=2&notice='.'预算单已审核通过，不能编辑');
+            return redirect('/offer/offerStart?status=2&notice='.'预算单已审核通过，不能编辑');
         }
-         return $this->editBudget($id,$data,$project,$engineering,$budget);
+         return $this->editOffer($id,$data,$project,$engineering,$budget);
     }
 
 
 
     //编辑实施工程预算详情
-    public function editConductBudget(Request $request,$id)
+    public function editConductOffer(Request $request,$id)
     {
         $this->user();
         $data['navid']      =20;
-        $data['subnavid']   =2001;
+        $data['subnavid']   =2002;
         //项目子工程
         $engineering =DB::table('engineering')->where('id',$id)->first();
         if(empty($engineering)){
-            return redirect('/budget/budgetConduct?status=2&notice='.'该工程不存在');
+            return redirect('/offer/offerConduct?status=2&notice='.'该工程不存在');
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
-        if( (in_array(20010201,$this->user()->pageauth) && $project->budget_uid == $this->user()->id ) || in_array(200105,$this->user()->manageauth)){
+        if( (in_array(20020201,$this->user()->pageauth) && $project->budget_uid == $this->user()->id ) || in_array(200205,$this->user()->manageauth)){
             if($engineering->status !=1){
-                return redirect('/budget/budgetConduct?status=2&notice='.'您没有权限编辑该工程信息');
+                return redirect('/offer/offerConduct?status=2&notice='.'您没有权限编辑该工程信息');
             }
         }else{
             //设计人员可以操作更改工程设计详情
-            return redirect('/budget/budgetConduct?status=2&notice='.'您没有权限编辑该工程信息');
+            return redirect('/offer/offerConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
         //预算信息
         $budget =DB::table('budget')->where('engin_id',$id)->first();
         if(isset($budget->budget_status) && $budget->budget_status==1 ){
-            return redirect('/budget/budgetConduct?status=2&notice='.'预算单已审核通过，不能编辑');
+            return redirect('/offer/offerConduct?status=2&notice='.'预算单已审核通过，不能编辑');
         }
-        return $this->editBudget($id,$data,$project,$engineering,$budget);
+        return $this->editOffer($id,$data,$project,$engineering,$budget);
     }
 
 
@@ -222,7 +222,7 @@ class BudgetController extends WebController
      * @param $id 工程id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    protected function editBudget($id,$data,$project,$engineering,$budget)
+    protected function editOffer($id,$data,$project,$engineering,$budget)
     {
         //建筑系统信息 以及项目对应的子系统信息
         $data['engin_system']=DB::table('enginnering_architectural')
@@ -280,7 +280,7 @@ class BudgetController extends WebController
                 }
             }
         }
-        return view('budget.editBudget',$data);
+        return view('budget.editOffer',$data);
     }
 
     //编辑项目状态
@@ -289,11 +289,11 @@ class BudgetController extends WebController
         $engin=DB::table('engineering')->where('id',$id)->first();
         $status =$request->input('project_status',0);
         if(empty($engin)){
-            return redirect('/budget/budgetStart?status=2&notice='.'项目不存在');
+            return redirect('/offer/offerStart?status=2&notice='.'项目不存在');
         }
         if((in_array(150202,$this->user()->pageauth) && $engin->created_uid == $this->user()->id )|| in_array(150202,$this->user()->manageauth)){
         }else{
-            return redirect('/budget/budgetStart?status=2&notice='.'您没有操作该功能权限');
+            return redirect('/offer/offerStart?status=2&notice='.'您没有操作该功能权限');
         }
         if($engin->status == 0 && !in_array($status,[1,4])){
             echo"<script>alert('状态更改失败，项目状态不可逆，请更改其他状态');history.go(-1);</script>";
@@ -312,13 +312,13 @@ class BudgetController extends WebController
         }
         DB::table('engineering')->where('id',$id)->update($data);
         if($status == 1){
-            return redirect('/budget/budgetConduct?status=1&notice='.'项目状态更改成功！');
+            return redirect('/offer/offerConduct?status=1&notice='.'项目状态更改成功！');
         }elseif($status == 2){
-            return redirect('/budget/budgetCompleted?status=1&notice='.'项目状态更改成功！');
+            return redirect('/offer/offerCompleted?status=1&notice='.'项目状态更改成功！');
         }elseif($status == 4){
-            return redirect('/budget/budgetTermination?status=1&notice='.'项目状态更改成功！');
+            return redirect('/offer/offerTermination?status=1&notice='.'项目状态更改成功！');
         }else{
-            return redirect('/budget/budgetStart?status=1&notice='.'项目状态更改成功！');
+            return redirect('/offer/offerStart?status=1&notice='.'项目状态更改成功！');
         }
     }
 
@@ -359,7 +359,7 @@ class BudgetController extends WebController
         return $this->success($data);
     }
     //保存预算信息
-    public function postEditBudget(Request $request,$id){
+    public function postEditOffer(Request $request,$id){
         $quotation_date     =$request->input('quotation_date');  //报价日期
         $quotation_limit_day =(int)$request->input('quotation_limit_day');  //报价有效期限（天）
         $use_time           =$request->input('use_time');  //使用时长（年）
@@ -389,13 +389,13 @@ class BudgetController extends WebController
         //工程信息
         $engineering =DB::table('engineering')->where('id',$id)->first();
         if(empty($engineering)){
-            return redirect('/budget/budgetStart?status=2&notice='.'该工程不存在');
+            return redirect('/offer/offerStart?status=2&notice='.'该工程不存在');
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
         $uid =$this->user()->id;
         $time =date('Y-m-d');
-        $budgetdata=[]; //预算内容
+        $offerdata=[]; //预算内容
         $budgetitemdata =[]; //预算材料详情
         $direct_project_cost =0;
         foreach ($material_id as $k=>$v){
@@ -430,53 +430,52 @@ class BudgetController extends WebController
             $direct_project_cost = $direct_project_cost +$total_material_price;
         }
         $area =$engineering->build_area;
-        $budgetdata['budget_order_number']  ='YS'.date('Ymd').mt_rand(100000,999999);
-        $budgetdata['project_id']           = $project->id;              //```project_id` int(11) DEFAULT NULL COMMENT '项目id',
-        $budgetdata['engin_id']             =$id;                 //```engin_id` int(11) DEFAULT NULL COMMENT '工程id',
-        $budgetdata['budget_status']        =0 ;               //```budget_status` tinyint(4) DEFAULT '0' COMMENT '预算审核状态 1已审核 0未审核',
-        $budgetdata['quotation_date']       =$quotation_date;               //```quotation_date` date DEFAULT NULL COMMENT '报价日期',
-        $budgetdata['quotation_limit_day']  =$quotation_limit_day;              //```quotation_limit_day` varchar(255) DEFAULT NULL COMMENT '报价有效期限（天）',
-        $budgetdata['use_time']             = $use_time ;               //```use_time` varchar(255) DEFAULT NULL COMMENT '使用时长（年）',
-        $budgetdata['seismic_grade']        =$seismic_grade;                //```seismic_grade` varchar(255) DEFAULT NULL COMMENT '抗震等级（级）',
-        $budgetdata['wind_grade']           =$wind_grade;               //```wind_grade` varchar(255) DEFAULT NULL COMMENT '抗风等级（级）',
-        $budgetdata['keep_warm']            =$keep_warm;                //```keep_warm` varchar(255) DEFAULT NULL COMMENT '保温构造形式',
-        $budgetdata['waterproof_grade']     =$waterproof_grade;                 //```waterproof_grade` varchar(255) DEFAULT NULL COMMENT '屋面防水等级',
-        $budgetdata['structural_style']     =$structural_style;                 //```structural_style` varchar(255) DEFAULT NULL COMMENT '结构形式',
-        $budgetdata['steel_material']       =$steel_material;               //```steel_material` varchar(255) DEFAULT NULL COMMENT '主体钢材材质',
-        $budgetdata['storey_height']        =json_encode($storey_height);                //```storey_height` varchar(1000) DEFAULT NULL COMMENT '每层楼的高度（json）',
-        $budgetdata['house_height']         =json_encode($house_height);                 //```house_height` varchar(1000) DEFAULT NULL COMMENT '室内净高',
-        $budgetdata['freight_price']        =$freight_price;                //```freight_price` float(10,2) DEFAULT NULL COMMENT '运输单价',
-        $budgetdata['freight_charge']       =round($freight_price * $area,2);               //```freight_charge` varchar(250) DEFAULT NULL COMMENT '运输费',
-        $budgetdata['package_price']        =$package_price;                //```package_price` float(10,2) DEFAULT NULL COMMENT '包装单价',
-        $budgetdata['package_charge']       = round($package_price * $area,2);              //```package_charge` varchar(250) DEFAULT NULL COMMENT '包装费',
-        $budgetdata['packing_price']        =  $packing_price;              //```packing_price` float(10,2) DEFAULT NULL COMMENT '包装费单价',
-        $budgetdata['packing_charge']       =  round($packing_price * $area,2);             //```packing_charge` varchar(250) DEFAULT NULL COMMENT '装箱费',
-        $budgetdata['material_total_price'] =$direct_project_cost + $budgetdata['freight_charge'] +$budgetdata['package_charge'] + $budgetdata['packing_charge'];
+        $offerdata['budget_order_number']  ='YS'.date('Ymd').mt_rand(100000,999999);
+        $offerdata['project_id']           = $project->id;              //```project_id` int(11) DEFAULT NULL COMMENT '项目id',
+        $offerdata['engin_id']             =$id;                 //```engin_id` int(11) DEFAULT NULL COMMENT '工程id',
+        $offerdata['budget_status']        =0 ;               //```budget_status` tinyint(4) DEFAULT '0' COMMENT '预算审核状态 1已审核 0未审核',
+        $offerdata['quotation_date']       =$quotation_date;               //```quotation_date` date DEFAULT NULL COMMENT '报价日期',
+        $offerdata['quotation_limit_day']  =$quotation_limit_day;              //```quotation_limit_day` varchar(255) DEFAULT NULL COMMENT '报价有效期限（天）',
+        $offerdata['use_time']             = $use_time ;               //```use_time` varchar(255) DEFAULT NULL COMMENT '使用时长（年）',
+        $offerdata['seismic_grade']        =$seismic_grade;                //```seismic_grade` varchar(255) DEFAULT NULL COMMENT '抗震等级（级）',
+        $offerdata['wind_grade']           =$wind_grade;               //```wind_grade` varchar(255) DEFAULT NULL COMMENT '抗风等级（级）',
+        $offerdata['keep_warm']            =$keep_warm;                //```keep_warm` varchar(255) DEFAULT NULL COMMENT '保温构造形式',
+        $offerdata['waterproof_grade']     =$waterproof_grade;                 //```waterproof_grade` varchar(255) DEFAULT NULL COMMENT '屋面防水等级',
+        $offerdata['structural_style']     =$structural_style;                 //```structural_style` varchar(255) DEFAULT NULL COMMENT '结构形式',
+        $offerdata['steel_material']       =$steel_material;               //```steel_material` varchar(255) DEFAULT NULL COMMENT '主体钢材材质',
+        $offerdata['storey_height']        =json_encode($storey_height);                //```storey_height` varchar(1000) DEFAULT NULL COMMENT '每层楼的高度（json）',
+        $offerdata['house_height']         =json_encode($house_height);                 //```house_height` varchar(1000) DEFAULT NULL COMMENT '室内净高',
+        $offerdata['freight_price']        =$freight_price;                //```freight_price` float(10,2) DEFAULT NULL COMMENT '运输单价',
+        $offerdata['freight_charge']       =round($freight_price * $area,2);               //```freight_charge` varchar(250) DEFAULT NULL COMMENT '运输费',
+        $offerdata['package_price']        =$package_price;                //```package_price` float(10,2) DEFAULT NULL COMMENT '包装单价',
+        $offerdata['package_charge']       = round($package_price * $area,2);              //```package_charge` varchar(250) DEFAULT NULL COMMENT '包装费',
+        $offerdata['packing_price']        =  $packing_price;              //```packing_price` float(10,2) DEFAULT NULL COMMENT '包装费单价',
+        $offerdata['packing_charge']       =  round($packing_price * $area,2);             //```packing_charge` varchar(250) DEFAULT NULL COMMENT '装箱费',
+        $offerdata['material_total_price'] =$direct_project_cost + $offerdata['freight_charge'] +$offerdata['package_charge'] + $offerdata['packing_charge'];
 
-        $budgetdata['construction_price']   = $construction_price   ;           //```construction_price` varchar(250) DEFAULT NULL COMMENT '施工安装单价',
-        $budgetdata['construction_charge']  =  round($construction_price * $area,2);            //```construction_charge` varchar(250) DEFAULT NULL COMMENT '施工安装费',
+        $offerdata['construction_price']   = $construction_price   ;           //```construction_price` varchar(250) DEFAULT NULL COMMENT '施工安装单价',
+        $offerdata['construction_charge']  =  round($construction_price * $area,2);            //```construction_charge` varchar(250) DEFAULT NULL COMMENT '施工安装费',
 
-        $budgetdata['direct_project_cost']  = $budgetdata['material_total_price'] +$budgetdata['construction_charge'];            //```direct_project_cost` decimal(10,2) DEFAULT NULL COMMENT '工程造价（直接）',
-        $budgetdata['profit_ratio']         = $profit_ratio;                //```profit_ratio` varchar(250) DEFAULT NULL COMMENT '预估利润占比',
-        $budgetdata['profit']               = round($budgetdata['direct_project_cost'] * $profit_ratio /100,2);              //```profit` varchar(250) DEFAULT NULL COMMENT '预估利润额',
-        $budgetdata['tax_ratio']            = $tax_ratio;              //```tax_ratio` varchar(250) DEFAULT NULL COMMENT '税费占比',
-        $budgetdata['tax']                  =  round(($budgetdata['direct_project_cost'] + $budgetdata['profit'])   * $tax_ratio /100 ,2);        //```tax` varchar(250) DEFAULT NULL COMMENT '税费额',
-        $budgetdata['total_budget_price']   = $budgetdata['direct_project_cost'] +  $budgetdata['profit']  + $budgetdata['tax'] ;           //```total_budget_price` varchar(250) DEFAULT NULL COMMENT '工程造价总计（元）',
-        $budgetdata['purchase_status']      = 0;             //```purchase_status` varchar(250) DEFAULT NULL COMMENT '是否已生成采购单',
+        $offerdata['direct_project_cost']  = $offerdata['material_total_price'] +$offerdata['construction_charge'];            //```direct_project_cost` decimal(10,2) DEFAULT NULL COMMENT '工程造价（直接）',
+        $offerdata['profit_ratio']         = $profit_ratio;                //```profit_ratio` varchar(250) DEFAULT NULL COMMENT '预估利润占比',
+        $offerdata['profit']               = round($offerdata['direct_project_cost'] * $profit_ratio /100,2);              //```profit` varchar(250) DEFAULT NULL COMMENT '预估利润额',
+        $offerdata['tax_ratio']            = $tax_ratio;              //```tax_ratio` varchar(250) DEFAULT NULL COMMENT '税费占比',
+        $offerdata['tax']                  =  round(($offerdata['direct_project_cost'] + $offerdata['profit'])   * $tax_ratio /100 ,2);        //```tax` varchar(250) DEFAULT NULL COMMENT '税费额',
+        $offerdata['total_budget_price']   = $offerdata['direct_project_cost'] +  $offerdata['profit']  + $offerdata['tax'] ;           //```total_budget_price` varchar(250) DEFAULT NULL COMMENT '工程造价总计（元）',
+        $offerdata['purchase_status']      = 0;             //```purchase_status` varchar(250) DEFAULT NULL COMMENT '是否已生成采购单',
+        $offerdata['edit_uid']             = $uid;               //```edit_uid` int(11) DEFAULT NULL COMMENT '编辑者',
+        $offerdata['updated_at']           = $time;              //```updated_at` date DEFAULT NULL COMMENT '编辑时间',
         DB::beginTransaction();
         //开启事务
         if($engineering->budget_id){ //存在 不为0 则更改
-            $budgetdata['edit_uid']             = $uid;               //```edit_uid` int(11) DEFAULT NULL COMMENT '编辑者',
-            $budgetdata['updated_at']           = $time;              //```updated_at` date DEFAULT NULL COMMENT '编辑时间',
 
-            DB::table('budget')->where('id',$engineering->budget_id)->update($budgetdata);
+            DB::table('budget')->where('id',$engineering->budget_id)->update($offerdata);
             $budget_id =$engineering->budget_id;
             DB::table('budget_item')->where('budget_id',$budget_id)->delete();
         }else{
-            $budgetdata['created_uid']          = $uid;             //```created_uid` int(11) DEFAULT NULL COMMENT '创建者',
-            $budgetdata['created_at']           = $time;              //```created_at` date DEFAULT NULL COMMENT '创建时间',
-
-            $budget_id= DB::table('budget')->insertGetId($budgetdata);
+            $offerdata['created_uid']          = $uid;             //```created_uid` int(11) DEFAULT NULL COMMENT '创建者',
+            $offerdata['created_at']           = $time;              //```created_at` date DEFAULT NULL COMMENT '创建时间',
+            $budget_id= DB::table('budget')->insertGetId($offerdata);
             DB::table('engineering')->where('id',$id)->update(['budget_id'=>$budget_id]);
         }
         foreach($budgetitemdata as &$bud){
@@ -485,15 +484,15 @@ class BudgetController extends WebController
         DB::table('budget_item')->insert($budgetitemdata);
         DB::commit();
 
-        return redirect('/budget/budgetStart?status=1&notice='.'编辑预算成功');
+        return redirect('/offer/offerStart?status=1&notice='.'编辑预算成功');
     }
 
 
     //审核洽谈工程预算
-    public function examineStartBudget(Request $request,$id,$status)
+    public function examineStartOffer(Request $request,$id,$status)
     {
         $this->user();
-        if(!in_array(200103,$this->user()->manageauth)){
+        if(!in_array(200203,$this->user()->manageauth)){
             return $this->error('您没有更改权限');
         }
         if(!in_array($status,[0,1])){
@@ -507,10 +506,10 @@ class BudgetController extends WebController
 
     }
     //审核实施工程预算
-    public function examineConductBudget(Request $request,$id,$status)
+    public function examineConductOffer(Request $request,$id,$status)
     {
         $this->user();
-        if(!in_array(200106,$this->user()->manageauth)){
+        if(!in_array(200206,$this->user()->manageauth)){
             return $this->error('您没有更改权限');
         }
         if(!in_array($status,[0,1])){
@@ -525,90 +524,90 @@ class BudgetController extends WebController
 
 
     //洽谈工程预算详情
-    public function budgetStartDetail(Request $request,$id)
+    public function offerStartDetail(Request $request,$id)
     {
         $this->user();
         $data['navid']      =20;
-        $data['subnavid']   =2001;
+        $data['subnavid']   =2002;
         //项目子工程
         $engineering =DB::table('engineering')->where('id',$id)->first();
         if(empty($engineering)){
-            return redirect('/budget/budgetStart?status=2&notice='.'该工程不存在');
+            return redirect('/offer/offerStart?status=2&notice='.'该工程不存在');
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
-        if( (in_array(20010101,$this->user()->pageauth) && $project->budget_uid == $this->user()->id ) || in_array(200101,$this->user()->manageauth)){
+        if( (in_array(20020101,$this->user()->pageauth) && $project->budget_uid == $this->user()->id ) || in_array(200201,$this->user()->manageauth)){
         }else{
             //设计人员可以操作更改工程设计详情
-            return redirect('/budget/budgetStart?status=2&notice='.'您没有权限编辑该工程信息');
+            return redirect('/offer/offerStart?status=2&notice='.'您没有权限编辑该工程信息');
         }
-        return $this->budgetDetail($id,$data,$project,$engineering);
+        return $this->offerDetail($id,$data,$project,$engineering);
     }
 
     //查看实施工程预算详情
-    public function budgetConductDetail(Request $request,$id)
+    public function offerConductDetail(Request $request,$id)
     {
         $this->user();
         $data['navid']      =20;
-        $data['subnavid']   =2001;
+        $data['subnavid']   =2002;
         //项目子工程
         $engineering =DB::table('engineering')->where('id',$id)->first();
         if(empty($engineering)){
-            return redirect('/budget/budgetConduct?status=2&notice='.'该工程不存在');
+            return redirect('/offer/offerConduct?status=2&notice='.'该工程不存在');
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
-        if( (in_array(20010202,$this->user()->pageauth) && $project->budget_uid == $this->user()->id ) || in_array(200104,$this->user()->manageauth)){
+        if( (in_array(20020202,$this->user()->pageauth) && $project->budget_uid == $this->user()->id ) || in_array(200204,$this->user()->manageauth)){
         }else{
             //设计人员可以操作更改工程设计详情
-            return redirect('/budget/budgetConduct?status=2&notice='.'您没有权限编辑该工程信息');
+            return redirect('/offer/offerConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
-        return $this->budgetDetail($id,$data,$project,$engineering);
+        return $this->offerDetail($id,$data,$project,$engineering);
     }
 
     //查看竣工工程预算信息
-    public function budgetCompletedDetail(Request $request,$id)
+    public function offerCompletedDetail(Request $request,$id)
     {
         $this->user();
         $data['navid']      =20;
-        $data['subnavid']   =2001;
+        $data['subnavid']   =2002;
         //项目子工程
         $engineering =DB::table('engineering')->where('id',$id)->first();
         if(empty($engineering)){
-            return redirect('/budget/budgetCompleted?status=2&notice='.'该工程不存在');
+            return redirect('/offer/offerCompleted?status=2&notice='.'该工程不存在');
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
-        if( (in_array(20010301,$this->user()->pageauth) && $project->budget_uid == $this->user()->id ) || in_array(200107,$this->user()->manageauth)){
+        if( (in_array(20020301,$this->user()->pageauth) && $project->budget_uid == $this->user()->id ) || in_array(200207,$this->user()->manageauth)){
         }else{
             //设计人员可以操作更改工程设计详情
-            return redirect('/budget/budgetCompleted?status=2&notice='.'您没有权限编辑该工程信息');
+            return redirect('/offer/offerCompleted?status=2&notice='.'您没有权限编辑该工程信息');
         }
-        return $this->budgetDetail($id,$data,$project,$engineering);
+        return $this->offerDetail($id,$data,$project,$engineering);
     }
     //查看终止项目工程预算信息
-    public function budgetTerminationDetail(Request $request,$id)
+    public function offerTerminationDetail(Request $request,$id)
     {
         $this->user();
         $data['navid']      =20;
-        $data['subnavid']   =2001;
+        $data['subnavid']   =2002;
         //项目子工程
         $engineering =DB::table('engineering')->where('id',$id)->first();
         if(empty($engineering)){
-            return redirect('/budget/budgetTermination?status=2&notice='.'该工程不存在');
+            return redirect('/offer/offerTermination?status=2&notice='.'该工程不存在');
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
-        if( (in_array(20010401,$this->user()->pageauth) && $project->budget_uid == $this->user()->id ) || in_array(200108,$this->user()->manageauth)){
+        if( (in_array(20020401,$this->user()->pageauth) && $project->budget_uid == $this->user()->id ) || in_array(200208,$this->user()->manageauth)){
         }else{
             //设计人员可以操作更改工程设计详情
-            return redirect('/budget/budgetTermination?status=2&notice='.'您没有权限编辑该工程信息');
+            return redirect('/offer/offerTermination?status=2&notice='.'您没有权限编辑该工程信息');
         }
-        return $this->budgetDetail($id,$data,$project,$engineering);
+        return $this->offerDetail($id,$data,$project,$engineering);
     }
 
     //预算详情信息
-    protected function budgetDetail($id,$data,$project,$engineering){
+    protected function offerDetail($id,$data,$project,$engineering){
         //建筑系统信息 以及项目对应的子系统信息
         $data['engin_system']=DB::table('enginnering_architectural')
             ->where('engin_id',$id)
@@ -633,7 +632,7 @@ class BudgetController extends WebController
                 }
             }
         }
-        return view('budget.budgetDetail',$data);
+        return view('offer.offerDetail',$data);
     }
 
 }

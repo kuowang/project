@@ -44,28 +44,28 @@
     <div class="left-sidebar">
         <div class="row-fluid">
             <div class="metro-nav">
-                @if(in_array(350001,$pageauth))
+                @if(in_array(200101,$pageauth))
                     <div class="metro-nav-block nav-block-blue" >
                         <a href="/budget/budgetStart">
                             <div class="fs1" aria-hidden="true" data-icon="">洽谈项目</div>
                         </a>
                     </div>
                 @endif
-                @if(in_array(350002,$pageauth))
+                @if(in_array(200102,$pageauth))
                     <div class="metro-nav-block nav-block-green">
                         <a href="/budget/budgetConduct">
                             <div class="fs1"  data-icon="">实施项目</div>
                         </a>
                     </div>
                 @endif
-                @if(in_array(350003,$pageauth))
+                @if(in_array(200103,$pageauth))
                     <div class="metro-nav-block nav-block-yellow" style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
                         <a href="/budget/budgetCompleted">
                             <div class="fs1" aria-hidden="true" data-icon="" >竣工项目</div>
                         </a>
                     </div>
                 @endif
-                @if(in_array(350004,$pageauth))
+                @if(in_array(200104,$pageauth))
                     <div class="metro-nav-block nav-block-red">
                         <a href="/budget/budgetTermination">
                             <div class="fs1" aria-hidden="true" data-icon="">终止项目</div>

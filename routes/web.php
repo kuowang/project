@@ -207,3 +207,26 @@ Route::group(['prefix' => 'budget','namespace' => 'Budget'], function () {
     Route::get('/getMaterialBrandList/{id}',        'BudgetController@getMaterialBrandList');   //获取工程下面的材料信息和品牌列表
 
 });
+
+//报价管理类的控制组 需要登录
+Route::group(['prefix' => 'offer','namespace' => 'Offer','middleware' => 'auth'], function () {
+    //工程中建筑设计管理
+    Route::get('/offerStart',                     'OfferController@offerStart');      //洽谈工程列表
+    Route::get('/offerConduct',                   'OfferController@offerConduct');    //实施工程列表
+    Route::get('/offerCompleted',                 'OfferController@offerCompleted');  //竣工工程列表
+    Route::get('/offerTermination',               'OfferController@offerTermination'); //终止工程列表
+
+    Route::get('/editStartOffer/{id}',             'OfferController@editStartOffer');             //编辑工程预算详情
+    Route::get('/offerStartDetail/{id}',           'OfferController@offerStartDetail');      //洽谈工程预算详情
+    Route::post('/postEditOffer/{id}',             'OfferController@postEditOffer');         //提交编辑工程预算详情
+    Route::post('/examineStartOffer/{id}/{status}','OfferController@examineStartOffer');         //审核洽谈工程预算
+    Route::post('/updateProjectStatus/{id}',        'OfferController@updateProjectStatus');  //提交编辑项目状态
+
+    Route::get('/editConductOffer/{id}',           'OfferController@editConductOffer');      //编辑实施工程预算详情
+    Route::get('/offerConductDetail/{id}',         'OfferController@offerConductDetail');      //查看实施工程预算详情
+    Route::post('/examineConductOffer/{id}/{status}','OfferController@examineConductOffer');         //审核实施工程预算
+
+    Route::get('/offerCompletedDetail/{id}',       'OfferController@offerCompletedDetail');    //查看竣工工程预算信息
+    Route::get('/offerTerminationDetail/{id}',     'OfferController@offerTerminationDetail');    //查看终止项目工程预算信息
+
+});

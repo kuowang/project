@@ -44,30 +44,30 @@
     <div class="left-sidebar">
         <div class="row-fluid">
             <div class="metro-nav">
-                @if(in_array(200101,$pageauth))
+                @if(in_array(200201,$pageauth))
                     <div class="metro-nav-block nav-block-blue" >
-                        <a href="/budget/budgetStart">
+                        <a href="/offer/offerStart">
                             <div class="fs1" aria-hidden="true" data-icon="">洽谈项目</div>
                         </a>
                     </div>
                 @endif
-                @if(in_array(200102,$pageauth))
+                @if(in_array(200202,$pageauth))
                     <div class="metro-nav-block nav-block-green" style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
-                        <a href="/budget/budgetConduct">
+                        <a href="/offer/offerConduct">
                             <div class="fs1"  data-icon="">实施项目</div>
                         </a>
                     </div>
                 @endif
-                @if(in_array(200103,$pageauth))
+                @if(in_array(200203,$pageauth))
                     <div class="metro-nav-block nav-block-yellow">
-                        <a href="/budget/budgetCompleted">
+                        <a href="/offer/offerCompleted">
                             <div class="fs1" aria-hidden="true" data-icon="">竣工项目</div>
                         </a>
                     </div>
                 @endif
-                @if(in_array(200104,$pageauth))
+                @if(in_array(200204,$pageauth))
                     <div class="metro-nav-block nav-block-red">
-                        <a href="/budget/budgetTermination">
+                        <a href="/offer/offerTermination">
                             <div class="fs1" aria-hidden="true" data-icon="">终止项目</div>
                         </a>
                     </div>
@@ -86,7 +86,7 @@
                         </div>
                         <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                             <label>
-                                <form class="form-search" action="/budget/budgetConduct" method="get">
+                                <form class="form-search" action="/offer/offerConduct" method="get">
                                     项目名称:<input type="text" name="project_name" value="{{ $project_name }}" class="input-medium search-query">
                                     项目地点:<input type="text" name="address" value="{{ $address }}" class="input-medium search-query">
                                     预算负责人:<input type="text" name="budget_username" value="{{ $budget_username }}" class="input-medium search-query">
@@ -110,7 +110,7 @@
                                     <th>预算负责人</th>
                                     <th>预算状态</th>
                                     <th>审核状态</th>
-                                    @if(in_array(200106,$manageauth))
+                                    @if(in_array(200206,$manageauth))
                                         <th>审核操作</th>
                                     @endif
                                     <th>执行操作</th>
@@ -137,7 +137,7 @@
                                         @else
                                             <td>待审核</td>
                                         @endif
-                                        @if(in_array(200106,$manageauth))
+                                        @if(in_array(200206,$manageauth))
                                             <td>
                                                 @if(!empty($val->budget_order_number))
                                                     @if($val->budget_status ==1)
@@ -149,12 +149,12 @@
                                             </td>
                                         @endif
                                         <td class="td-manage">
-                                            @if( (in_array(20010202,$pageauth) && $val->budget_uid == $uid ) || in_array(200104,$manageauth))
-                                                <a title="查看详情" class="btn btn-info"  href="/budget/budgetConductDetail/{{ $val->engin_id }}">
+                                            @if( (in_array(20020202,$pageauth) && $val->budget_uid == $uid ) || in_array(200204,$manageauth))
+                                                <a title="查看详情" class="btn btn-info"  href="/offer/offerConductDetail/{{ $val->engin_id }}">
                                                     <i class="layui-icon">详情</i>
                                                 </a>
                                             @endif
-                                            @if((in_array(20010201,$pageauth) && $val->budget_uid == $uid ) || in_array(200105,$manageauth))
+                                            @if((in_array(20020201,$pageauth) && $val->budget_uid == $uid ) || in_array(200205,$manageauth))
                                                 <a title="编辑" class="btn btn-success"  href="/budget/editConductBudget/{{ $val->engin_id }}" onclick="return checkStatus({{$val->is_conf_architectural}})">
                                                     <i class="layui-icon">编辑</i>
                                                 </a>
