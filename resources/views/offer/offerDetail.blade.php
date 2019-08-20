@@ -28,58 +28,8 @@
         <div class="span12">
             <div class="widget">
                 <div class="widget-header" style="text-align: center">
-                    <div  style="text-align: center;clear: both;font-size: 16px;" >
-                        <b>{{$project->project_name}}</b>
-                    </div>
-                </div>
-                <div class="widget-body">
-                    <div id="dt_example" class="example_alt_pagination">
-                        @if(in_array($engineering->status,[0,1]))
-                        <form method="post" action="/budget/updateProjectStatus/{{$engin_id}}">
-                            <table class="layui-table layui-form">
-
-                                <tbody>
-                                <tr>
-                                    <td  class="pro-title">项目(子工程)状态</td>
-                                    <td>
-                                        <select name="project_status" id="project_status" class="input-medium span8" style="min-width: 80px">
-                                            @if($engineering->status ==0)
-                                                <option value="0" >洽谈项目</option>
-                                                <option value="1" >实施项目</option>
-                                                <option value="2" >竣工项目</option>
-                                                <option value="4" >终止项目</option>
-                                            @elseif($engineering->status == 1)
-                                                <option value="1" >实施项目</option>
-                                                <option value="2" >竣工项目</option>
-                                                <option value="4" >终止项目</option>
-                                            @endif
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <div  style="float: left;margin-right:10% ">
-                                            <label for="L_repass" ></label>
-                                            <button class="btn btn-success" lay-filter="add" type="submit" onclick='return submitStatus()'  lay-submit="">确认/保存</button>
-                                        </div>
-                                        <div  style="float: left;">
-                                            <a href="javascript:history.go(-1)">
-                                                <label for="L_repass" ></label>
-                                                <span class="btn btn-success" lay-filter="add" lay-submit="">返回/取消</span>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </form>
-                        @endif
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="widget">
-                <div class="widget-header" style="text-align: center">
                     <div  style="font-size: 16px;" >
-                        <b>工程预算清单</b>
+                        <b>{{$project->project_name}}</b>（工程预算清单）
                     </div>
                 </div>
                 <div class="widget-body">
@@ -113,27 +63,27 @@
 
                             <tr>
                                 <td class="pro-title">报价日期</td>
-                                <td >{{isset($budget->quotation_date)?$budget->quotation_date:''}}</td>
+                                <td >{{isset($offer->quotation_date)?$offer->quotation_date:''}}</td>
                                 <td class="pro-title">报价有效期限(天)</td>
-                                <td >{{isset($budget->quotation_limit_day)?$budget->quotation_limit_day:''}}</td>
+                                <td >{{isset($offer->quotation_limit_day)?$offer->quotation_limit_day:''}}</td>
                                 <td class="pro-title">使用时长(年)</td>
-                                <td >{{isset($budget->use_time)?$budget->use_time:''}}</td>
+                                <td >{{isset($offer->use_time)?$offer->use_time:''}}</td>
                             </tr>
                             <tr>
                                 <td class="pro-title">抗震等级(级)</td>
-                                <td >{{isset($budget->seismic_grade)?$budget->seismic_grade:''}}</td>
+                                <td >{{isset($offer->seismic_grade)?$offer->seismic_grade:''}}</td>
                                 <td class="pro-title">抗风等级(级)</td>
-                                <td >{{isset($budget->wind_grade)?$budget->wind_grade:''}}</td>
+                                <td >{{isset($offer->wind_grade)?$offer->wind_grade:''}}</td>
                                 <td class="pro-title">保温构造形式</td>
-                                <td >{{isset($budget->keep_warm)?$budget->keep_warm:''}}</td>
+                                <td >{{isset($offer->keep_warm)?$offer->keep_warm:''}}</td>
                             </tr>
                             <tr>
                                 <td class="pro-title">屋面防水等级</td>
-                                <td >{{isset($budget->waterproof_grade)?$budget->waterproof_grade:''}}</td>
+                                <td >{{isset($offer->waterproof_grade)?$offer->waterproof_grade:''}}</td>
                                 <td class="pro-title">结构主体形式</td>
-                                <td >{{isset($budget->structural_style)?$budget->structural_style:''}}</td>
+                                <td >{{isset($offer->structural_style)?$offer->structural_style:''}}</td>
                                 <td class="pro-title">主体钢材材质</td>
-                                <td >{{isset($budget->steel_material)?$budget->steel_material:''}}</td>
+                                <td >{{isset($offer->steel_material)?$offer->steel_material:''}}</td>
                             </tr>
 
                             </tbody>
@@ -192,8 +142,8 @@
                                 <td  colspan="10"> &nbsp;&nbsp;&nbsp;{{$v->sub_system_name}} <span style="color:#1d52f6">工况：{{$v->work_code}}</span> 编码：{{$v->sub_system_code}}</td>
 
                             </tr>
-                            @if(isset($budget_item[$v->sub_arch_id]))
-                                @foreach($budget_item[$v->sub_arch_id] as $k=>$mate)
+                            @if(isset($offer_item[$v->sub_arch_id]))
+                                @foreach($offer_item[$v->sub_arch_id] as $k=>$mate)
                                     @php
                                     $xuhao++;
                                     @endphp
@@ -220,64 +170,64 @@
                                 <td class="pro-title" colspan="3">运输费</td>
                                 <td class="pro-title" colspan="2">(元/平方米)</td>
                                 <td colspan="3"></td>
-                                <td >{{isset($budget->freight_price)?$budget->freight_price:''}}</td>
-                                <td id="freight_price_sum">{{isset($budget->freight_charge)?$budget->freight_charge:''}}</td>
+                                <td >{{isset($offer->freight_price)?$offer->freight_price:''}}</td>
+                                <td id="freight_price_sum">{{isset($offer->freight_charge)?$offer->freight_charge:''}}</td>
                             </tr>
                             <tr>
                                 <td class="pro-title" colspan="3">包装费</td>
                                 <td class="pro-title" colspan="2">(元/平方米)</td>
                                 <td colspan="3"></td>
-                                <td >{{isset($budget->package_price)?$budget->package_price:''}}</td>
-                                <td id="package_price_sum">{{isset($budget->package_charge)?$budget->package_charge:''}}</td>
+                                <td >{{isset($offer->package_price)?$offer->package_price:''}}</td>
+                                <td id="package_price_sum">{{isset($offer->package_charge)?$offer->package_charge:''}}</td>
                             </tr>
                             <tr>
                                 <td class="pro-title" colspan="3">装箱费</td>
                                 <td class="pro-title" colspan="2">(元/平方米)</td>
                                 <td colspan="3"></td>
-                                <td >{{isset($budget->packing_price)?$budget->packing_price:''}}</td>
-                                <td  id="packing_price_sum">{{isset($budget->packing_charge)?$budget->packing_charge:''}}</td>
+                                <td >{{isset($offer->packing_price)?$offer->packing_price:''}}</td>
+                                <td  id="packing_price_sum">{{isset($offer->packing_charge)?$offer->packing_charge:''}}</td>
                             </tr>
                             <tr>
                                 <td class="pro-title" colspan="9" style="text-align: center;font-weight: bold;">材料费合计</td>
 
-                                <td  id="total_material">{{isset($budget->material_total_price)?$budget->material_total_price:''}}</td>
+                                <td  id="total_material">{{isset($offer->material_total_price)?$offer->material_total_price:''}}</td>
                             </tr>
 
                             <tr>
                                 <td class="pro-title" colspan="3">施工安装费</td>
                                 <td class="pro-title" colspan="2">(元/平方米)</td>
                                 <td colspan="3"></td>
-                                <td >{{isset($budget->construction_price)?$budget->construction_price:''}}</td>
-                                <td >{{isset($budget->construction_charge)?$budget->construction_charge:''}}</td>
+                                <td >{{isset($offer->construction_price)?$offer->construction_price:''}}</td>
+                                <td >{{isset($offer->construction_charge)?$offer->construction_charge:''}}</td>
                             </tr>
                             <tr>
                                 <td colspan="9" class="pro-title" style="text-align: center;font-weight: bold;">工程造价(直接)</td>
-                                <td>{{isset($budget->direct_project_cost)?$budget->direct_project_cost:''}}</td>
+                                <td>{{isset($offer->direct_project_cost)?$offer->direct_project_cost:''}}</td>
                             </tr>
                             <tr>
                                 <td class="pro-title" colspan="3">利润</td>
                                 <td class="pro-title" colspan="2">元</td>
                                 <td colspan="2"></td>
                                 <td >%</td>
-                                <td >{{isset($budget->profit_ratio)?$budget->profit_ratio:''}}</td>
-                                <td >{{isset($budget->profit)?$budget->profit:''}}</td>
+                                <td >{{isset($offer->profit_ratio)?$offer->profit_ratio:''}}</td>
+                                <td >{{isset($offer->profit)?$offer->profit:''}}</td>
                             </tr>
                             <tr>
                                 <td class="pro-title" colspan="3">税费</td>
                                 <td class="pro-title" colspan="2">元</td>
                                 <td colspan="2"></td>
                                 <td >%</td>
-                                <td >{{isset($budget->tax_ratio)?$budget->tax_ratio:''}}</td>
-                                <td >{{isset($budget->tax)?$budget->tax:''}}</td>
+                                <td >{{isset($offer->tax_ratio)?$offer->tax_ratio:''}}</td>
+                                <td >{{isset($offer->tax)?$offer->tax:''}}</td>
                             </tr>
                             <tr>
                                 <td class="pro-title" colspan="9" style="text-align: center;font-weight: bold;">工程单价(元/平方米)</td>
-                                <td id="unit_price">{{isset($budget->total_budget_price)?round($budget->total_budget_price/$engineering->build_area,2):''}}</td>
+                                <td id="unit_price">{{isset($offer->total_offer_price)?round($offer->total_offer_price/$engineering->build_area,2):''}}</td>
 
                             </tr>
                             <tr>
                                 <td class="pro-title" colspan="9" style="text-align: center;font-weight: bold;">工程总价(元)</td>
-                                <td >{{isset($budget->total_budget_price)?$budget->total_budget_price:''}}</td>
+                                <td >{{isset($offer->total_offer_price)?$offer->total_offer_price:''}}</td>
                             </tr>
                             </tbody>
                         </table>

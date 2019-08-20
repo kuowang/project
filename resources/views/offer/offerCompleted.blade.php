@@ -4,17 +4,6 @@
     <!-- 你的HTML代码 -->
     <link rel="stylesheet" href="/layui/css/layui.css">
     <script src="/layui/layui.js"></script>
-    <style type="text/css">
-        .project_name{
-            display: -webkit-box;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            word-wrap: break-word;
-            white-space: normal !important;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-        }
-    </style>
     @if($status == 2)
         <div class="alert alert-block alert-error fade in">
             <button data-dismiss="alert" class="close" type="button">
@@ -105,12 +94,16 @@
                                     <th>项目名称</th>
                                     <th>工程名称</th>
                                     <th>建筑面积(平方米)</th>
-                                    <th>预算金额(元)</th>
-                                    <th>预算单编号</th>
+                                    <th>预算金额(万元)</th>
+                                    <th>报价金额(万元)</th>
+                                    <th>毛利润（万元）<br/>(预算/报价)</th>
+                                    <th>毛利率(%)<br/>(预算/报价)</th>
+                                    <th>税费(万元)<br/>(预算/报价)</th>
+                                    <th>税率(%)<br/>(预算/报价)</th>
                                     <th>预算负责人</th>
-                                    <th>预算状态</th>
-                                    <th>审核状态</th>
-                                    <th>执行操作</th>
+                                    <th>报价状态</th>
+                                    <th>报价审核状态</th>
+                                    <th>操作</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -121,28 +114,36 @@
                                         <td>{{ $val->engineering_name }}</td>
                                         <td>{{ $val->build_area }}</td>
 
-                                        <td>{{ $val->total_budget_price }}</td>
-                                        <td>{{ $val->budget_order_number }}</td>
+                                        <td>{{ empty($val->total_budget_price)?'':round($val->total_budget_price/10000,4) }}</td>
+                                        <td>{{ empty($val->total_offer_price)?'':round($val->total_offer_price/10000,4) }}</td>
+                                        <td>{{ empty($val->budget_profit)?'':round($val->budget_profit/10000,4)}}/{{empty($val->offer_profit)?'':round($val->offer_profit/10000,4)}}</td>
+                                        <td >{{empty($val->budget_profit_ratio)?'':$val->budget_profit_ratio}}/{{empty($val->offer_profit_ratio)?'':$val->offer_profit_ratio}}</td>
+                                        <td>{{ empty($val->budget_tax)?'':round($val->budget_tax/10000,4)}}/{{empty($val->offer_tax)?'':round($val->offer_tax/10000,4)}}</td>
+                                        <td >{{empty($val->budget_tax_ratio)?'':$val->budget_tax_ratio}}/{{empty($val->offer_tax_ratio)?'':$val->offer_tax_ratio}}</td>
+
                                         <td>{{ $val->budget_username }}</td>
-                                        @if(empty($val->budget_order_number))
+                                        @if(empty($val->offer_order_number))
                                             <td>未完成</td>
                                         @else
                                             <td>已完成</td>
                                         @endif
-                                        @if($val->budget_status ==1)
+                                        @if($val->offer_status ==1)
                                             <td>已审核</td>
-                                        @else
+                                        @elseif($val->offer_status ==0)
                                             <td>待审核</td>
+                                        @elseif($val->offer_status == -1)
+                                            <td>已取消</td>
                                         @endif
-
                                         <td class="td-manage">
                                             @if( (in_array(20020301,$pageauth) && $val->budget_uid == $uid ) || in_array(200207,$manageauth))
+                                                @if(!empty($val->offer_order_number))
                                                 <a title="查看详情" class="btn btn-info"  href="/offer/offerCompletedDetail/{{ $val->engin_id }}">
                                                     <i class="layui-icon">详情</i>
                                                 </a>
-                                                <a title="导出" class="btn btn-success"  href="/offer/offerDownload/{{ $val->engin_id }}" >
+                                                <a title="导出" class="btn btn-success"  href="/offer/offerCompletedDetail/{{ $val->engin_id }}?download=1" >
                                                     <i class="layui-icon">导出</i>
                                                 </a>
+                                                @endif
                                             @endif
 
                                         </td>
