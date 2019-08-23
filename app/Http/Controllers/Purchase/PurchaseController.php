@@ -238,7 +238,10 @@ class PurchaseController extends WebController
         }
         DB::beginTransaction();
         //删除不在批次数组中的批次
-        DB::table('purchase_batch')->where('engin_id',$id)->wherenotin('id',$batch_id)->delete();
+        DB::table('purchase_batch')->where('engin_id',$id)
+            ->wherenotin('id',$batch_id)
+            ->where('purchase_order_status',0)
+            ->delete();
 
         DB::table('purchase')->where('engin_id',$id)
             ->update(['batch_status'=>1,'edit_uid'=>$this->user()->id,'updated_at'=>date('Y-m-d')]);
@@ -255,14 +258,13 @@ class PurchaseController extends WebController
                 'deliver_time' => $deliver_time[$k],
                 'arrive_time' => $arrive_time[$k],
                 'transport_type' => $transport_type[$k],
-                'load_height' => $load_height[$k],
+                'load_height' => (float)$load_height[$k],
                 'load_mode' => $load_mode[$k],
                 'container_size' => $container_size[$k],
-                'container_number' => $container_number[$k],
+                'container_number' => (float)$container_number[$k],
                 'van_specs' => $van_specs[$k],
-                'van_number' => $van_number[$k],
+                'van_number' => (float)$van_number[$k],
                 'deliver_address' => $deliver_address[$k],
-                'purchase_order_status' => 0,
             ];
             if ($v == 0) {
                 $data['created_uid'] = $uid;
@@ -275,7 +277,6 @@ class PurchaseController extends WebController
             }
         }
         DB::commit();
-
         return redirect('/purchase/purchaseConduct?status=1&notice='.'设置批次成功');
 
     }

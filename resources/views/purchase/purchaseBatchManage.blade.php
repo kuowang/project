@@ -98,26 +98,27 @@
 
                                 </thead>
                                 <tbody id="batchmanage">
-                                @foreach($batchList as $val)
-                                    <tr class="hiddenitem">
+                                @foreach($batchList as $k=>$val)
+                                    <tr  class="hiddenitem_{{$k}}">
                                         <td><input type="hidden" name="batch_id[]" value="{{$val->id}}" class="span12 brach_id" >
-                                            <input type="text" name="purchase_number[]" value="{{$val->purchase_number}}" class="span12 purchase_number" ></td>
+                                            <input type="text" name="purchase_number[]" value="{{$val->purchase_number}}" class="span12 purchase_number" onclick="key(this)"></td>
                                         <td><input type="text" name="deliver_properties[]" value="{{$val->deliver_properties}}" class="span12 deliver_properties" ></td>
-                                        <td><input type="text" name="purchase_at[]" value="{{$val->purchase_at}}" class="span12 purchase_at selecttime" ></td>
-                                        <td><input type="text" name="deliver_time[]" value="{{$val->deliver_time}}" class="span12 deliver_time selecttime" ></td>
-                                        <td><input type="text" name="arrive_time[]" value="{{$val->arrive_time}}" class="span12 arrive_time selecttime" ></td>
-                                        <td><input type="text" name="transport_type[]" value="{{$val->transport_type}}" class="span12 transport_type" ></td>
-                                        <td><input type="text" name="load_height[]" value="{{$val->load_height}}" class="span12 load_height" ></td>
+                                        <td><input type="text" name="purchase_at[]" value="{{$val->purchase_at}}" class="span12 purchase_at purchase_at_{{$k}}"  ></td>
+                                        <td><input type="text" name="deliver_time[]" value="{{$val->deliver_time}}" class="span12 deliver_time deliver_time_{{$k}}" ></td>
+                                        <td><input type="text" name="arrive_time[]" value="{{$val->arrive_time}}" class="span12 arrive_time arrive_time_{{$k}}" ></td>
+                                        <td><input type="text" name="transport_type[]" value="{{$val->transport_type}}" class="span12 transport_type"  ></td>
+                                        <td><input type="text" name="load_height[]" value="{{$val->load_height}}" class="span12 load_height"  onclick="key(this)"></td>
                                         <td><input type="text" name="load_mode[]" value="{{$val->load_mode}}" class="span12 load_mode" ></td>
                                         <td><input type="text" name="container_size[]" value="{{$val->container_size}}" class="span12 container_size" ></td>
-                                        <td><input type="text" name="container_number[]" value="{{$val->container_number}}" class="span12 container_number" ></td>
+                                        <td><input type="text" name="container_number[]" value="{{$val->container_number}}" class="span12 container_number" onclick="key(this)"></td>
                                         <td><input type="text" name="van_specs[]" value="{{$val->van_specs}}" class="span12 van_specs" ></td>
-                                        <td><input type="text" name="van_number[]" value="{{$val->van_number}}" class="span12 van_number" ></td>
+                                        <td><input type="text" name="van_number[]" value="{{$val->van_number}}" class="span12 van_number" onclick="key(this)"></td>
                                         <td><input type="text" name="deliver_address[]" value="{{$val->deliver_address}}" class="span12 deliver_address" ></td>
-                                        <td></td>
-                                        <td> <a title="删除" class="btn btn-danger1" onclick="deleteSupplierBrand()" href="javascript:;">
+                                        <td> @if($val->purchase_order_status == 1)已创建@else 未创建 @endif </td>
+                                        <td> <a title="删除" class="btn btn-danger1" onclick="deleteTrRow('{{$k}}',this)" href="javascript:;">
                                                 <i class="layui-icon">删除</i>
-                                            </a></td>
+                                            </a>
+                                        </td>
                                     </tr>
                                 @endforeach
 
@@ -173,18 +174,18 @@
         var timestamp = (new Date()).valueOf();
         str =`<tr  class="hiddenitem_`+timestamp+`">
                 <td><input type="hidden" name="batch_id[]" value="0" class="span12 brach_id" >
-                    <input type="text" name="purchase_number[]" class="span12 purchase_number" ></td>
+                    <input type="text" name="purchase_number[]" class="span12 purchase_number" onclick="key(this)"></td>
                 <td><input type="text" name="deliver_properties[]" class="span12 deliver_properties" ></td>
                 <td><input type="text" name="purchase_at[]" class="span12 purchase_at purchase_at_`+timestamp+`" ></td>
                 <td><input type="text" name="deliver_time[]" class="span12 deliver_time deliver_time_`+timestamp+`" ></td>
                 <td><input type="text" name="arrive_time[]" class="span12 arrive_time arrive_time_`+timestamp+`" ></td>
                 <td><input type="text" name="transport_type[]" class="span12 transport_type" ></td>
-                <td><input type="text" name="load_height[]" class="span12 load_height" ></td>
+                <td><input type="text" name="load_height[]" class="span12 load_height"  onclick="key(this)"></td>
                 <td><input type="text" name="load_mode[]" class="span12 load_mode" ></td>
                 <td><input type="text" name="container_size[]" class="span12 container_size" ></td>
-                <td><input type="text" name="container_number[]" class="span12 container_number" ></td>
+                <td><input type="text" name="container_number[]" class="span12 container_number"  onclick="key(this)"></td>
                 <td><input type="text" name="van_specs[]" class="span12 van_specs" ></td>
-                <td><input type="text" name="van_number[]" class="span12 van_number" ></td>
+                <td><input type="text" name="van_number[]" class="span12 van_number"  onclick="key(this)"></td>
                 <td><input type="text" name="deliver_address[]" class="span12 deliver_address" ></td>
                 <td></td>
                 <td> <a title="删除" class="btn btn-danger1" onclick="deleteTrRow('`+timestamp+`',this)" href="javascript:;">
@@ -245,17 +246,31 @@
     layui.use('laydate', function() {
         var laydate = layui.laydate;
         //常规用法
+        @foreach($batchList as $k=>$val)
         laydate.render({
-            elem: '.purchase_at'
+            elem: '.purchase_at_{{$k}}'
         });
         laydate.render({
-            elem: '.deliver_time'
+            elem: '.deliver_time_{{$k}}'
         });
         laydate.render({
-            elem: '.arrive_time'
+            elem: '.arrive_time_{{$k}}'
         });
+        @endforeach
     });
 
+    //点击只能输入数字
+    function key(th){
+        $(th).keyup(function(){
+            $(this).val($(this).val().replace(/[^0-9.]/g,''));
+        }).bind("paste",function(){  //CTR+V事件处理
+            $(this).val($(this).val().replace(/[^0-9.]/g,''));
+        }).css("ime-mode", "disabled"); //CSS设置输入法不可用
+        va =$(th).val();
+        if(va > 1000000000 || va < 0) {
+            $(th).val(0);
+        }
+    }
 
 </script>
 
