@@ -3,7 +3,15 @@
 @section('content')
     <style>
         body{
-            background-color:#0076A6
+            background-position: center 0;
+            background-repeat: no-repeat;
+            background-color: #0076A6;
+            background-image: url(/img/login.jpg);
+            background-size: cover;
+            -webkit-background-size: cover;
+            height: 100%;
+            width: 100%;
+            background-attachment: fixed;
         }
     </style>
 <div class="container" style="margin-top: 200px;">

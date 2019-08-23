@@ -291,10 +291,7 @@ class BudgetController extends WebController
         if(empty($engin)){
             return redirect('/budget/budgetStart?status=2&notice='.'项目不存在');
         }
-        if((in_array(150202,$this->user()->pageauth) && $engin->created_uid == $this->user()->id )|| in_array(150202,$this->user()->manageauth)){
-        }else{
-            return redirect('/budget/budgetStart?status=2&notice='.'您没有操作该功能权限');
-        }
+
         if($engin->status == 0 && !in_array($status,[1,4])){
             echo"<script>alert('状态更改失败，项目状态不可逆，请更改其他状态');history.go(-1);</script>";
         }elseif($engin->status ==1  && !in_array($status,[2,4])){
