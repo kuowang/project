@@ -282,10 +282,23 @@ class PurchaseController extends WebController
     }
 
 
-    //发货地址订单管理
+    //采购单管理
     public function purchaseOrderManage(Request $request,$id){
 
+
+
+
     }
+    //创建采购单
+    public function createPurchaseOrder(Request $request,$id){
+
+    }
+
+    //编辑采购单
+    public function editPurchaseOrder(Request $request,$id){
+
+    }
+
     //物流管理
     public function purchaseLogisticsManage(Request $request,$id){
     }
