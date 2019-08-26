@@ -224,14 +224,14 @@
                                     <td><input type="text" lay-skin="primary" class=" span12 loss_ratio"           disabled  value="{{ $mate->loss_ratio }}"  name="loss_ratio[]" id="loss_ratio" ></td>
                                     <td><input type="text" lay-skin="primary" class=" span12 engineering_quantity" disabled value="{{ $mate->engineering_quantity }}"  name="engineering_quantity[]" id="engineering_quantity" ></td>
                                     <td>
-                                        <select  name="brand_id[]" onchange="selectbrand({{$xuhao}},this)" class=" notempty brand_id  span12" >
+                                        <select  name="mbs_id[]" onchange="selectbrand({{$xuhao}},this)" class=" notempty mbs_id  span12" >
                                             <option value="0" ></option>
                                             @if(isset($brandlist[$mate->material_id]))
                                                 @foreach($brandlist[$mate->material_id] as $list)
-                                                    @if($list->brand_id == $mate->brand_id)
-                                                        <option value="{{$list->brand_id}}" selected="selected" class="brand_id_{{$list->brand_id}}" budget_unit_price="{{$list->budget_unit_price}}" >{{$list->brand_name}}</option>
+                                                    @if($list->mbs_id == $mate->mbs_id)
+                                                        <option value="{{$list->mbs_id}}" selected="selected" class="mbs_id_{{$list->mbs_id}}" budget_unit_price="{{$list->budget_unit_price}}" >{{$list->brand_name}}</option>
                                                     @else
-                                                        <option value="{{$list->brand_id}}" class="brand_id_{{$list->brand_id}}" budget_unit_price="{{$list->budget_unit_price}}"  >{{$list->brand_name}}</option>
+                                                        <option value="{{$list->mbs_id}}" class="mbs_id_{{$list->mbs_id}}" budget_unit_price="{{$list->budget_unit_price}}"  >{{$list->brand_name}}</option>
                                                     @endif
                                                 @endforeach
                                             @endif
@@ -410,7 +410,7 @@
                             <option value="0" ></option>
                             `+option+`
                            </select>`;
-            brand =`<select name="brand_id[]" onchange="selectbrand(`+intid+`,this)" class=" notempty brand_id  span12" >
+            brand =`<select name="mbs_id[]" onchange="selectbrand(`+intid+`,this)" class=" notempty mbs_id  span12" >
                             <option value="0" ></option>
                            </select>`;
 
@@ -496,15 +496,15 @@
         }
         //补充对应的材料和品牌信息
         function fillMaterialBrand(intid,material,brand) {
-            $('#mater_'+intid+' .brand_id').empty();
+            $('#mater_'+intid+' .mbs_id').empty();
             $('#mater_'+intid+' .characteristic').val(material.characteristic);
             $('#mater_'+intid+' .material_budget_unit').val(material.material_budget_unit);
             $('#mater_'+intid+' .loss_ratio').val(material.waste_rate);
             var option ='<option value="0" ></option>';
             $.each( brand, function(index,content){
-                option +='<option value="'+content.brand_id+'" class="brand_id_'+content.brand_id+'" budget_unit_price="'+content.budget_unit_price+'"> '+content.brand_name +'</option>';
+                option +='<option value="'+content.mbs_id+'" class="mbs_id_'+content.mbs_id+'" budget_unit_price="'+content.budget_unit_price+'"> '+content.brand_name +'</option>';
             });
-            $('#mater_'+intid+' .brand_id').append(option);
+            $('#mater_'+intid+' .mbs_id').append(option);
             jisuanprice(intid);
         }
         //显示提示信息
@@ -516,8 +516,8 @@
         }
         //选择品牌
         function selectbrand(intid,th){
-            brand_id =$(th).val();
-            budget_unit_price =$('.brand_id_'+brand_id).attr('budget_unit_price');
+            mbs_id =$(th).val();
+            budget_unit_price =$('.mbs_id_'+mbs_id).attr('budget_unit_price');
             $('#mater_'+intid+' .budget_price').val(budget_unit_price);
             console.log(budget_unit_price);
             jisuanprice(intid);

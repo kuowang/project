@@ -257,7 +257,7 @@ class BudgetController extends WebController
         if($materialids){
             $brand=DB::table('material_brand_supplier')
                 ->wherein('material_id',$materialids)
-                ->select(['material_id','brand_id','brand_name','budget_unit_price'])
+                ->select(['id as mbs_id','material_id','brand_id','brand_name','budget_unit_price'])
                 ->get();
             $brandlist=[];
             foreach ($brand as $value){
@@ -346,10 +346,10 @@ class BudgetController extends WebController
         $brand =DB::table('material_brand_supplier')
                     ->where('material_id',$id)
                     ->orderby('brand_name')
-                    ->select(['material_id','brand_id','brand_name','budget_unit_price','budget_unit'])
+                    ->select(['id','material_id','brand_id','brand_name','budget_unit_price','budget_unit'])
                     ->get()->toarray();
         if(empty($brand)){
-            return $this->error('材料对应品牌部存在，请选择其他材料');
+            return $this->error('材料对应品牌不存在，请选择其他材料');
         }
         $data['material']=$material;
         $data['brand']=$brand;
@@ -378,7 +378,7 @@ class BudgetController extends WebController
 
         $material_id        =$request->input('material_id',[]);  // 材料id
         $drawing_quantity   =$request->input('drawing_quantity',[]);  //工程量（图纸）
-        $brand_id           =$request->input('brand_id',[]);  //品牌id
+        $mbs_id           =$request->input('mbs_id',[]);       //材料品牌供应商表id
 
         if(empty($material_id) || !is_array($material_id)){
             echo"<script>alert('您没有选中材料信息，请重新填写后再提交');history.go(-1);</script>";
@@ -399,10 +399,10 @@ class BudgetController extends WebController
             //材料信息
             $mater =DB::table('material')->where('id',$v)->first();
             //材料对应品牌信息
-            $brand =DB::table('material_brand_supplier')->where('material_id',$v)->where('brand_id',$brand_id[$k])->first();
+            $mbsinfo =DB::table('material_brand_supplier')->where('id',$mbs_id[$k])->first();
 
             $engineering_quantity= round($drawing_quantity[$k] *(100 + $mater->waste_rate) /100,2);
-            $budget_price =$brand->budget_unit_price;
+            $budget_price =$mbsinfo->budget_unit_price;
             $total_material_price = round($engineering_quantity * $budget_price,2);
             $budgetitemdata[]=[
                 'project_id'      =>$project->id,
@@ -416,10 +416,13 @@ class BudgetController extends WebController
                 'drawing_quantity'=>$drawing_quantity[$k],
                 'loss_ratio'      =>$mater->waste_rate,
                 'engineering_quantity'=> $engineering_quantity,
-                'brand_id'        =>$brand_id[$k],
-                'brand_name'      =>$brand->brand_name,
+                'brand_id'        =>$mbsinfo->brand_id,
+                'brand_name'      =>$mbsinfo->brand_name,
                 'budget_price'    =>$budget_price,
                 'total_material_price'=>$total_material_price,
+                'mbs_id'          =>$mbs_id[$k],
+                'supplier_id'     =>$mbsinfo->supplier_id,
+                'supplier'        =>$mbsinfo->supplier,
                 'created_uid'=>$uid,
                 'created_at'=>$time,
                 'budget_id'=>0, //后面补上
