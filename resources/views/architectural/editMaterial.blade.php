@@ -108,7 +108,7 @@
                                     <input type="text" name="characteristic[]"   value="{{ $v->characteristic }}" lay-skin="primary">
                                 </td>
                                 <td>
-                                    <input type="text" name="waste_rate[]"   value="{{ $v->waste_rate }}" lay-skin="primary">
+                                    <input type="text" name="waste_rate[]"   value="{{ $v->waste_rate }}"  onclick="key(this)" lay-skin="primary"  class="waste_rate">
                                 </td>
 
                                 <td>
@@ -195,7 +195,7 @@
                 '<td> <input type="text" name="purpose[]"   lay-skin="primary"> </td>'+
                 '<td> <input type="text" name="material_number[]"    lay-skin="primary"> </td>'+
                 '<td> <input type="text" name="characteristic[]"    lay-skin="primary"> </td>'+
-                '<td> <input type="text" name="waste_rate[]"    lay-skin="primary"> </td>'+
+                '<td> <input type="text" name="waste_rate[]"  class="waste_rate"  onclick="key(this)" lay-skin="primary"> </td>'+
                 '<td> <select name="status[]" id="stateAndCity" class="span12" style="min-width: 80px">'+
                 '<option value="1" selected="selected">有效</option> <option value="0">无效</option> </select> </td>'+
                 '<td><a  class="btn btn-danger" onclick="deleteTrRow(this)">删除</a>'+
@@ -222,7 +222,18 @@
             }
             return true;
         }
-
+        //点击只能输入数字
+        function key(th){
+            $(th).keyup(function(){
+                $(this).val($(this).val().replace(/[^0-9.]/g,''));
+            }).bind("paste",function(){  //CTR+V事件处理
+                $(this).val($(this).val().replace(/[^0-9.]/g,''));
+            }).css("ime-mode", "disabled"); //CSS设置输入法不可用
+            va =$(th).val();
+            if(va > 1000000000 || va < 0) {
+                $(th).val(0);
+            }
+        }
 
     </script>
 

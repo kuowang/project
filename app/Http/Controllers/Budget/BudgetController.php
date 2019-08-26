@@ -257,7 +257,7 @@ class BudgetController extends WebController
         if($materialids){
             $brand=DB::table('material_brand_supplier')
                 ->wherein('material_id',$materialids)
-                ->select(['id as mbs_id','material_id','brand_id','brand_name','budget_unit_price'])
+                ->select(['id as mbs_id','material_id','brand_id','brand_name','budget_unit_price','supplier'])
                 ->get();
             $brandlist=[];
             foreach ($brand as $value){
@@ -346,7 +346,7 @@ class BudgetController extends WebController
         $brand =DB::table('material_brand_supplier')
                     ->where('material_id',$id)
                     ->orderby('brand_name')
-                    ->select(['id','material_id','brand_id','brand_name','budget_unit_price','budget_unit'])
+                    ->select(['id as mbs_id','material_id','brand_id','brand_name','budget_unit_price','budget_unit','supplier'])
                     ->get()->toarray();
         if(empty($brand)){
             return $this->error('材料对应品牌不存在，请选择其他材料');
@@ -378,7 +378,7 @@ class BudgetController extends WebController
 
         $material_id        =$request->input('material_id',[]);  // 材料id
         $drawing_quantity   =$request->input('drawing_quantity',[]);  //工程量（图纸）
-        $mbs_id           =$request->input('mbs_id',[]);       //材料品牌供应商表id
+        $mbs_id             =$request->input('mbs_id',[]);       //材料品牌供应商表id
 
         if(empty($material_id) || !is_array($material_id)){
             echo"<script>alert('您没有选中材料信息，请重新填写后再提交');history.go(-1);</script>";
@@ -402,7 +402,7 @@ class BudgetController extends WebController
             $mbsinfo =DB::table('material_brand_supplier')->where('id',$mbs_id[$k])->first();
 
             $engineering_quantity= round($drawing_quantity[$k] *(100 + $mater->waste_rate) /100,2);
-            $budget_price =$mbsinfo->budget_unit_price;
+            $budget_price = $mbsinfo->budget_unit_price;
             $total_material_price = round($engineering_quantity * $budget_price,2);
             $budgetitemdata[]=[
                 'project_id'      =>$project->id,

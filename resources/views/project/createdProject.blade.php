@@ -218,7 +218,7 @@
                                 <td>
                                     <input type="text"  name="build_floor[]" class="span8 notempty"  value="" lay-skin="primary" >
                                 </td>
-                                <td class="pro-title">室内净高（米）</td>
+                                <td class="pro-title">建筑高度（米）</td>
                                 <td>
                                     <input type="text"  name="build_height[]" class="span8 notempty"  value="" lay-skin="primary" >
                                 </td>
@@ -358,7 +358,7 @@
                 '<td> <input type="text"  name="build_area[]" class="span8 notempty"  value="" lay-skin="primary" > </td>'+
                 '<td class="pro-title">建筑层数</td> '+
                 '<td> <input type="text"  name="build_floor[]" class="span8 notempty"  value="" lay-skin="primary" > </td>'+
-                '<td class="pro-title">室内净高（米）</td>'+
+                '<td class="pro-title">建筑高度（米）</td>'+
                 '<td> <input type="text"  name="build_height[]" class="span8 notempty"  value="" lay-skin="primary" > </td>'+
                 '<td><a class="btn btn-danger" onclick="deleteTrRow(this)">删除</a></td>'+
             '</tr>';

@@ -152,7 +152,7 @@
                                 <td>{{$item->build_area}}</td>
                                 <td class="pro-title">建筑层数</td>
                                 <td>{{$item->build_floor}}</td>
-                                <td class="pro-title">室内净高（米）</td>
+                                <td class="pro-title">建筑高度（米）</td>
                                 <td>{{$item->build_height}}</td>
 
                             </tr>

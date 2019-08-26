@@ -229,9 +229,9 @@
                                             @if(isset($brandlist[$mate->material_id]))
                                                 @foreach($brandlist[$mate->material_id] as $list)
                                                     @if($list->mbs_id == $mate->mbs_id)
-                                                        <option value="{{$list->mbs_id}}" selected="selected" class="mbs_id_{{$list->mbs_id}}" budget_unit_price="{{$list->budget_unit_price}}" >{{$list->brand_name}}</option>
+                                                        <option value="{{$list->mbs_id}}" selected="selected" class="mbs_id_{{$list->mbs_id}}" budget_unit_price="{{$list->budget_unit_price}}" title="{{$list->supplier}}" >{{$list->brand_name}}({{$list->supplier}})</option>
                                                     @else
-                                                        <option value="{{$list->mbs_id}}" class="mbs_id_{{$list->mbs_id}}" budget_unit_price="{{$list->budget_unit_price}}"  >{{$list->brand_name}}</option>
+                                                        <option value="{{$list->mbs_id}}" class="mbs_id_{{$list->mbs_id}}" budget_unit_price="{{$list->budget_unit_price}}"  title="{{$list->supplier}}"  >{{$list->brand_name}}({{$list->supplier}})</option>
                                                     @endif
                                                 @endforeach
                                             @endif
@@ -502,7 +502,7 @@
             $('#mater_'+intid+' .loss_ratio').val(material.waste_rate);
             var option ='<option value="0" ></option>';
             $.each( brand, function(index,content){
-                option +='<option value="'+content.mbs_id+'" class="mbs_id_'+content.mbs_id+'" budget_unit_price="'+content.budget_unit_price+'"> '+content.brand_name +'</option>';
+                option +='<option value="'+content.mbs_id+'" class="mbs_id_'+content.mbs_id+'" budget_unit_price="'+content.budget_unit_price+'"> '+content.brand_name +'('+content.supplier+')</option>';
             });
             $('#mater_'+intid+' .mbs_id').append(option);
             jisuanprice(intid);
