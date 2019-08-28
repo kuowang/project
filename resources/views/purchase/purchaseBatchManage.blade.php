@@ -8,8 +8,14 @@
         .pro-title{
             background: #e6e6e6;
         }
+        /*
          .hiddenitem input[type="text"]{
             border: 1px solid #fff;
+        }
+        */
+
+        .layui-table td, .layui-table th {
+            border: solid 1px #ccc;
         }
         input[type="text"]{
             width: auto;
@@ -99,7 +105,7 @@
                                 </thead>
                                 <tbody id="batchmanage">
                                 @foreach($batchList as $k=>$val)
-                                    <tr  class="hiddenitem_{{$k}}">
+                                    <tr  class="hiddenitem hiddenitem_{{$k}}">
                                         <td><input type="hidden" name="batch_id[]" value="{{$val->id}}" class="span12 brach_id" >
                                             <input type="text" name="purchase_number[]" value="{{$val->purchase_number}}" class="span12 purchase_number" onclick="key(this)"></td>
                                         <td><input type="text" name="deliver_properties[]" value="{{$val->deliver_properties}}" class="span12 deliver_properties" ></td>

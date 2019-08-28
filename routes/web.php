@@ -243,6 +243,8 @@ Route::group(['prefix' => 'purchase','namespace' => 'Purchase','middleware' => '
     Route::post('/postEditPurchaseBatch/{id}',  'PurchaseController@postEditPurchaseBatch');  //提交采购批次信息
 
     Route::get('/purchaseOrderManage/{id}',     'PurchaseController@purchaseOrderManage');  //实施项目订单管理
+    Route::get('/createPurchaseOrder/{id}',     'PurchaseController@createPurchaseOrder');  //实施项目创建采购单
+
 
 
 

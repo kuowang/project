@@ -125,8 +125,11 @@
                                               @else
                                                 批次管理
                                             @endif</td>
-                                        <td>@if($val->batch_status ==1 && ((in_array(250103,$pageauth) && $val->purchase_uid == $uid ) || in_array(250103,$manageauth)))
+                                        <td>
+                                            @if($val->batch_status ==1 && ((in_array(250103,$pageauth) && $val->purchase_uid == $uid ) || in_array(250103,$manageauth)))
+                                                <a href="/purchase/purchaseOrderManage/{{$val->engin_id}}">
                                                 <div class="btn btn-success">订单管理</div>
+                                                </a>
                                             @else
                                                 订单管理
                                             @endif

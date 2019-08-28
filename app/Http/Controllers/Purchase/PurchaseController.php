@@ -284,14 +284,68 @@ class PurchaseController extends WebController
 
     //采购单管理
     public function purchaseOrderManage(Request $request,$id){
+        $this->user();
+        $data['navid']      =25;
+        $data['subnavid']   =2501;
+        //项目子工程
+        $engineering =DB::table('engineering')->where('id',$id)->first();
+        if(empty($engineering)){
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'该工程不存在');
+        }
+        //项目信息
+        $project =DB::table('project')->where('id',$engineering->project_id)->first();
+        if( !(in_array(250102,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(250102,$this->user()->manageauth)){
+            //采购人员可以操作更改工程设计详情
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
+        }
+        if($engineering->budget_id ==0){
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'请先创建预算单，再创建采购批次？');
+        }
+        $data['project'] =$project;
+        $data['engineering'] =$engineering;
+        $data['engin_id']=$id;
+        //获取批次列表
+        $data['batchList']= DB::table('purchase_batch')->where('engin_id',$id)->get();
 
-
-
+        return view('purchase.purchaseOrderManage',$data);
 
     }
-    //创建采购单
+    //创建采购单 $id 为采购批次id
     public function createPurchaseOrder(Request $request,$id){
-
+        $this->user();
+        $data['navid']      =25;
+        $data['subnavid']   =2501;
+        //采购批次信息
+        $batchList= DB::table('purchase_batch')->where('id',$id)->first();
+        if(empty($batchList)){
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'批次信息不存在');
+        }
+        //项目子工程
+        $engineering =DB::table('engineering')->where('id',$batchList->engin_id)->first();
+        if(empty($engineering)){
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'该工程不存在');
+        }
+        //项目信息
+        $project =DB::table('project')->where('id',$engineering->project_id)->first();
+        if( !(in_array(250102,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(250102,$this->user()->manageauth)){
+            //采购人员可以操作更改工程设计详情
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
+        }
+        if($engineering->budget_id ==0){
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'请先创建预算单，再创建采购批次？');
+        }
+        $data['project'] =$project; //项目信息
+        $data['engineering'] =$engineering; //工程信息
+        $data['batch_id']=$id; //批次id
+        //获取批次列表
+        $data['batchList']= $batchList;
+        //获取预算中的供应商信息
+        $data['supplierList'] = DB::table('budget_item')
+            ->where('engin_id',$batchList->engin_id)
+            ->where('budget_id',$engineering->budget_id)
+            ->orderby('supplier')
+            ->pluck('supplier','supplier_id');
+        return view('purchase.createPurchaseOrder',$data);
     }
 
     //编辑采购单
