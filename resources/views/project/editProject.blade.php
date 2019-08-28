@@ -121,9 +121,9 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="pro-title">工期要求</td>
+                                <td class="pro-title">项目工期（天）</td>
                                 <td>
-                                    <input type="text"  name="project_limit_time" class="span8 notempty"  value="{{ $project->project_limit_time }}" lay-skin="primary" >
+                                    <input type="text"  name="project_limit_time" class="span8 notempty"  value="{{ $project->project_limit_time }}"  onclick="key(this)" lay-skin="primary" >
                                 </td>
                                 <td class="pro-title">洽谈指数</td>
                                 <td>
@@ -478,7 +478,18 @@
             }
             return true;
         }
-
+        //点击只能输入数字
+        function key(th){
+            $(th).keyup(function(){
+                $(this).val($(this).val().replace(/[^0-9.]/g,''));
+            }).bind("paste",function(){  //CTR+V事件处理
+                $(this).val($(this).val().replace(/[^0-9.]/g,''));
+            }).css("ime-mode", "disabled"); //CSS设置输入法不可用
+            va =$(th).val();
+            if(va > 1000000000 || va < 0) {
+                $(th).val(0);
+            }
+        }
     </script>
 
 @endsection

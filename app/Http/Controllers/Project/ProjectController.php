@@ -173,7 +173,7 @@ class ProjectController extends WebController
         $data["type"]               =$request->input('type','');
         $data["source"]             =$request->input('source','');
         $data["stage"]              =$request->input('stage','');
-        $data["success_level"]      =$request->input('success_level','');
+        $data["success_level"]      =(int)$request->input('success_level',1);
         $data["environment"]        =$request->input('environment','');
         $data["traffic"]            =$request->input('traffic','');
         $data["material_storage"]   =$request->input('material_storage','');
@@ -191,7 +191,7 @@ class ProjectController extends WebController
         $data["budget_uid"]         =$request->input('budget_uid',0);
         $data["technical_uid"]      =$request->input('technical_uid',0);
         $data["plan_creat_at"]      =$request->input('plan_creat_at',0);
-        $data["project_limit_time"] =$request->input('project_limit_time',0);
+        $data["project_limit_time"] =(int)$request->input('project_limit_time',0);
 
         foreach($data as $v){
             if(empty($v) && $v =='0'){
