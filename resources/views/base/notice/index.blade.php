@@ -95,10 +95,16 @@
                                         <td >{{ $val->created_at }}</td>
                                         <td class="td-manage ">
                                             @if(in_array(600203,$pageauth))
-                                            <a title="编辑公告" class="btn btn-success" onclick="editNotice({{ $val->id }})" href="javascript:;">
-                                                <i class="layui-icon">编辑公告</i>
+                                            <a title="编辑" class="btn btn-success" onclick="editNotice({{ $val->id }})" href="javascript:;">
+                                                <i class="layui-icon">编辑</i>
                                             </a>
                                             @endif
+                                            @if(in_array(600204,$pageauth))
+                                                <a title="删除" class="btn btn-success" onclick="deleteNotice({{ $val->id }})" href="javascript:;">
+                                                    <i class="layui-icon">删除</i>
+                                                </a>
+                                            @endif
+
                                         </td>
                                 </tr>
 
@@ -250,10 +256,7 @@
             $("input.layui-input").each(function(){
                 if($(this).val()){
                 }else{
-                    layui.use('layer', function(){
-                        var layer = layui.layer;
-                        layer.msg('有信息没有填写完全，请填写完成后，再提交。');
-                    });
+                    showmsg('有信息没有填写完全，请填写完成后，再提交。');
                     status =1;
                     return false;
                 }
@@ -269,25 +272,51 @@
                     success:function(data){
                         console.log(data);
                         if(data.status == 1){
+                            showmsg('编辑成功');
                             $('#myModal').modal('hide');
-                            location.href=location.href
+                            setTimeout(function(){
+                                location.href=location.href;
+                            },100)
                         }else{
-                            layui.use('layer', function(){
-                                var layer = layui.layer;
-                                layer.msg(data.info);
-                            });
+                            showmsg('编辑失败');
                         }
                     },
                     error:function () {
-                        layui.use('layer', function(){
-                            var layer = layui.layer;
-                            layer.msg('提交失败，请刷新页面再试');
-                        });
+                        showmsg('提交失败，请刷新页面再试');
                     }
                 });
             }
             return false;
         }
+        function deleteNotice(id) {
+            $.ajax({
+                url:'/base/delete_notice/'+id,
+                type:'post',
+                // contentType: 'application/json',
+                success:function(data){
+                    console.log(data);
+                    if(data.status == 1){
+                        showmsg('删除成功');
+                        setTimeout(function(){
+                            location.href=location.href;
+                        },100)
+                    }
+                },
+                error:function () {
+                    showmsg('提交失败，请刷新页面再试');
+                }
+            });
+        }
+
+        function showmsg(str) {
+            layui.use('layer', function(){
+                var layer = layui.layer;
+                layer.msg(str);
+            });
+        }
+
+
+
     </script>
 
 @endsection

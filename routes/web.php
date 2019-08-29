@@ -135,6 +135,7 @@ Route::group(['prefix' => 'base','namespace' => 'Base','middleware' => 'auth'], 
     Route::post('/post_add_notice',          'BaseController@postAddNotice');      //提交新增公告
     Route::post('/post_edit_notice/{id}',         'BaseController@postEditNotice');      //提交编辑公告
     Route::get('/getNoticeInfo',                 'BaseController@getNoticeInfo');      //公告列表所有人能看的页面
+    Route::post('/delete_notice/{id}',             'BaseController@deleteNotice');      //删除公告
 
 });
 

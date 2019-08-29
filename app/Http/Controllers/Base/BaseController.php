@@ -117,6 +117,13 @@ class BaseController extends WebController
         DB::table('notice')->where('id',$id)->update($data);
         return $this->success('修改成功');
     }
+
+    //删除公告
+    public function deleteNotice(Request $request,$id){
+        DB::table('notice')->where('id',$id)->delete();
+        return $this->success('修改成功');
+    }
+
     //公告列表
     public function getNoticeInfo(Request $request){
         $this->user();
