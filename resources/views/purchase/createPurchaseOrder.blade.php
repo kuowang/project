@@ -31,7 +31,7 @@
                             <table class="layui-table layui-form">
                                 <thead>
                                     <tr>
-                                        <th colspan="6">项目基本信息</th>
+                                        <th colspan="6"><span class="btn btn-info">项目基本信息</span></th>
                                     </tr>
                                 </thead>
                                 <tbody>

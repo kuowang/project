@@ -64,7 +64,7 @@
                         <table class="layui-table layui-form">
                             <thead>
                             <tr>
-                                <th colspan="6">项目概况</th>
+                                <th colspan="6"><span class="btn btn-info">项目概况</span></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -142,7 +142,7 @@
                         <div class="clearfix"></div>
                         <table class="layui-table layui-form">
                             <thead>
-                                <tr><th colspan="6">建设场地概况</th></tr>
+                            <tr><th colspan="6"><span class="btn btn-info">建设场地概况</span></th></tr>
                             </thead>
                             <tbody>
                             <tr>
@@ -164,7 +164,7 @@
                         <div class="clearfix"></div>
                         <table class="layui-table layui-form">
                             <thead>
-                            <tr><th colspan="6">客户信息</th></tr>
+                            <tr><th colspan="6"><span class="btn btn-info">客户信息</span></th></tr>
                             </thead>
                             <tbody>
                             <tr>
@@ -237,7 +237,7 @@
                         <div class="clearfix"></div>
                         <table class="layui-table layui-form">
                             <thead>
-                            <tr><th colspan="4">项目子工程信息</th>
+                            <tr><th colspan="4"><span class="btn btn-info">项目子工程信息</span></th>
                             <th colspan="5"><span class="title" style="float: right;">
                                 <a class="btn btn-success" onclick="add_zigongcheng()"><i class="layui-icon">添加子工程 +</i></a>
                             </span>
@@ -273,7 +273,7 @@
                         <div class="clearfix"></div>
                         <table class="layui-table layui-form">
                             <thead>
-                            <tr><th colspan="6">项目负责人信息</th></tr>
+                            <tr><th colspan="6"><span class="btn btn-info">项目负责人信息</span></th></tr>
                             </thead>
                             <tbody>
                             <tr>
@@ -309,7 +309,7 @@
                         <div class="clearfix"></div>
                         <table class="layui-table layui-form">
                             <thead>
-                            <tr><th colspan="6">项目支持人员信息</th></tr>
+                            <tr><th colspan="6"><span class="btn btn-info">项目支持人员信息</span></th></tr>
                             </thead>
                             <tbody>
                             <tr>

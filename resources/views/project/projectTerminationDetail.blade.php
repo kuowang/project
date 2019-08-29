@@ -38,7 +38,7 @@
                         <table class="layui-table layui-form">
                             <thead>
                             <tr>
-                                <th colspan="6">项目概况</th>
+                                <th colspan="6"><span class="btn btn-info">项目概况</span></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -81,7 +81,7 @@
                         <div class="clearfix"></div>
                         <table class="layui-table layui-form">
                             <thead>
-                                <tr><th colspan="6">建设场地概况</th></tr>
+                            <tr><th colspan="6"><span class="btn btn-info">建设场地概况</span></th></tr>
                             </thead>
                             <tbody>
                             <tr>
@@ -97,7 +97,7 @@
                         <div class="clearfix"></div>
                         <table class="layui-table layui-form">
                             <thead>
-                            <tr><th colspan="6">客户信息</th></tr>
+                            <tr><th colspan="6"><span class="btn btn-info">客户信息</span></th></tr>
                             </thead>
                             <tbody>
                             <tr>
@@ -138,7 +138,7 @@
                         <div class="clearfix"></div>
                         <table class="layui-table layui-form">
                             <thead>
-                            <tr><th colspan="8">项目子工程信息</th>
+                            <tr><th colspan="8"><span class="btn btn-info">项目子工程信息</span></th>
                             </tr>
                             </thead>
                             <tbody id="zigongcheng">
@@ -160,7 +160,7 @@
                         <div class="clearfix"></div>
                         <table class="layui-table layui-form">
                             <thead>
-                            <tr><th colspan="6">项目负责人信息</th></tr>
+                            <tr><th colspan="6"><span class="btn btn-info">项目负责人信息</span></th></tr>
                             </thead>
                             <tbody>
                             <tr>
@@ -184,7 +184,7 @@
                         <div class="clearfix"></div>
                         <table class="layui-table layui-form">
                             <thead>
-                            <tr><th colspan="6">项目支持人员信息</th></tr>
+                            <tr><th colspan="6"><span class="btn btn-info">项目支持人员信息</span></th></tr>
                             </thead>
                             <tbody>
                             <tr>
@@ -201,7 +201,7 @@
                         <table class="layui-table layui-form">
                             <thead>
                             <tr>
-                                <th colspan="6">合同签署信息</th>
+                                <th colspan="6"><span class="btn btn-info">合同签署信息</span></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -228,7 +228,7 @@
                         <table class="layui-table layui-form">
                             <thead>
                             <tr>
-                                <th colspan="3">项目动态信息</th>
+                                <th colspan="3"><span class="btn btn-info">项目动态信息</span></th>
 
                             </tr>
                             </thead>
