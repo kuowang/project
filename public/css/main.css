@@ -4135,7 +4135,7 @@ a.thumbnail:hover {
     transition: top 0.3s ease-out, top 0.3s ease-out;
     top: -25%; }
     .modal.fade.in {
-      top: 10%; }
+      top: 40%; }
 
 .modal-header {
   padding: 9px 15px;

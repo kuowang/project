@@ -52,6 +52,8 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => 'auth']
     Route::get('/examine_user',                 'UserExamineController@index');                   //审核用户页面
     Route::get('/examine_status/{id}/{status}',                 'UserExamineController@examineStatus');                   //审核用户页面
 
+    Route::get('/departmentList',             'DepartmentController@index');                       //部门列表
+    Route::post('/postDepartment',              'DepartmentController@postDepartment');                   //提交部门信息
 
 });
 
