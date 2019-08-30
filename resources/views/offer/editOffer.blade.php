@@ -150,16 +150,20 @@
                                     $xuhao++;
                                     @endphp
                                 <tr class="materialList sub_arch_{{$mate->sub_arch_id}}" id="mater_{{$xuhao}}">
-                                    <td class="sub_arch_material_{{$mate->sub_arch_id}}">{{$k+1}}</td>
+                                    <td class="sub_arch_material_{{$mate->sub_arch_id}}">{{$k+1}}
+                                        <input type="hidden" name="budget_item_id[]" value ="{{$mate->budget_item_id}}">
+                                        <input type="hidden" name="offer_unit[]" value ="{{$mate->offer_unit}}">
+
+                                    </td>
                                     <td>{{$mate->material_name}}<input type="hidden" name="material_id[]" value="{{ $mate->material_id }}"  ></td>
                                     <td>{{ $mate->characteristic }}</td>
-                                    <td>{{ $mate->material_budget_unit }}</td>
+                                    <td>{{ $mate->offer_unit }}</td>
                                     <td><input type="text" lay-skin="primary" class="notempty span12 drawing_quantity"     value="{{ $mate->drawing_quantity }}"  name="drawing_quantity[]" id="drawing_quantity" onchange="selectDrawing({{$xuhao}},this)" ></td>
                                     <td><input type="text" lay-skin="primary" class=" span12 loss_ratio"             value="{{ $mate->loss_ratio }}"  name="loss_ratio[]" id="loss_ratio" onchange="selectDrawing({{$xuhao}},this)" ></td>
                                     <td><input type="text" lay-skin="primary" class=" span12 engineering_quantity" disabled value="{{ $mate->engineering_quantity }}"  name="engineering_quantity[]" id="engineering_quantity" ></td>
                                     <td>{{$mate->brand_name}}<input type="hidden" name="brand_id[]" value="{{ $mate->brand_id }}"  ></td>
-                                    <td><input type="text" lay-skin="primary" class=" span12 budget_price"          value="{{ $mate->budget_price }}"  name="budget_price[]" id="budget_price" onchange="selectDrawing({{$xuhao}},this)"  ></td>
-                                    <td><input type="text" lay-skin="primary" class=" span12 total_material_price" disabled value="{{ $mate->total_material_price }}"  name="total_material_price[]" id="total_material_price" ></td>
+                                    <td><input type="text" lay-skin="primary" class=" span12 offer_price"          value="{{ $mate->offer_price }}"  name="offer_price[]" id="offer_price" onchange="selectDrawing({{$xuhao}},this)"  ></td>
+                                    <td><input type="text" lay-skin="primary" class=" span12 total_material_price" disabled value="{{ $mate->engineering_quantity * $mate->offer_price}}"  name="total_material_price[]" id="total_material_price" ></td>
                                     <td ></td>
                                 </tr>
 
@@ -197,7 +201,7 @@
                             <tr>
                                 <td class="pro-title" colspan="9" style="text-align: center;font-weight: bold;">材料费合计</td>
 
-                                <td  id="total_material">{{isset($offer->material_total_price)?$offer->material_total_price:''}}</td>
+                                <td  id="total_material"></td>
                                 <td></td>
                             </tr>
 
@@ -234,12 +238,12 @@
                             </tr>
                             <tr>
                                 <td class="pro-title" colspan="9" style="text-align: center;font-weight: bold;">工程单价(元/平方米)</td>
-                                <td id="unit_price">{{isset($offer->total_offer_price)?round($offer->total_offer_price/$engineering->build_area,2):''}}</td>
+                                <td id="unit_price"></td>
                                 <td ></td>
                             </tr>
                             <tr>
                                 <td class="pro-title" colspan="9" style="text-align: center;font-weight: bold;">工程总价(元)</td>
-                                <td ><input type="text" name="total_budget_price" value="{{isset($offer->total_offer_price)?$offer->total_offer_price:''}}" id="total_budget_price" lay-skin="primary" class=" span12" disabled></td>
+                                <td ><input type="text" name="total_offer_price" value="" id="total_offer_price" lay-skin="primary" class=" span12" disabled></td>
                                 <td></td>
                             </tr>
                             </tbody>
@@ -337,9 +341,9 @@
         //选择品牌
         function selectbrand(intid,th){
             brand_id =$(th).val();
-            budget_unit_price =$('.brand_id_'+brand_id).attr('budget_unit_price');
-            $('#mater_'+intid+' .budget_price').val(budget_unit_price);
-            console.log(budget_unit_price);
+            offer_price =$('.brand_id_'+brand_id).attr('offer_price');
+            $('#mater_'+intid+' .offer_price').val(offer_price);
+            console.log(offer_price);
             jisuanprice(intid);
             total_price();
         }
@@ -357,8 +361,8 @@
         function jisuanprice(intid){
             drawing_quantity = $('#mater_'+intid+' .drawing_quantity').val();
             loss_ratio      = $('#mater_'+intid+' .loss_ratio').val();
-            budget_price    = $('#mater_'+intid+' .budget_price').val();
-            if(drawing_quantity =='' ||loss_ratio =='' ||budget_price ==''){
+            offer_price    = $('#mater_'+intid+' .offer_price').val();
+            if(drawing_quantity =='' ||loss_ratio =='' ||offer_price ==''){
                 $('#mater_'+intid+' .engineering_quantity').val('');
                 $('#mater_'+intid+' .total_material_price').val('');
                 return false;
@@ -366,8 +370,8 @@
             //实际工程量
             engineering_quantity = drawing_quantity *(100 * 1 + loss_ratio * 1)/100
             $('#mater_'+intid+' .engineering_quantity').val(engineering_quantity.toFixed(2));
-            //实际预算金额
-            total_material_price = engineering_quantity * budget_price;
+            //实际报价基恩
+            total_material_price = engineering_quantity * offer_price;
             $('#mater_'+intid+' .total_material_price').val(total_material_price.toFixed(2));
             total_price();
         }
@@ -414,7 +418,7 @@
 
             //工程造价总计(元)
             sum =sum+tax+profit;
-            $('#total_budget_price').val(sum.toFixed(2));
+            $('#total_offer_price').val(sum.toFixed(2));
             //工程单价
             unit_price=sum/floor_area;
             $('#unit_price').html(unit_price.toFixed(2));
@@ -451,6 +455,9 @@
             }
             return true;
         }
+        $().ready(function(){
+            total_price();
+        })
     </script>
 
 @endsection

@@ -272,7 +272,11 @@ class OfferController extends WebController
             $data['storey_height'] =json_decode($budget->storey_height,true);
             $data['house_height'] =json_decode($budget->house_height,true);
             //报价详情
-            $offer_item =DB::table('budget_item')->where('budget_id',$budget->id)->get();
+            $offer_item =DB::table('budget_item')
+                ->join('material_brand_supplier','material_brand_supplier.id','=','budget_item.mbs_id')
+                ->where('budget_id',$budget->id)
+                ->select(['budget_item.*','budget_item.id as budget_item_id','material_brand_supplier.offer_unit_price as offer_price','material_brand_supplier.offer_unit'])
+                ->get();
             if($offer_item){
                 foreach($offer_item as $item){
                     $data['offer_item'][$item->sub_arch_id][]=$item;
@@ -310,7 +314,9 @@ class OfferController extends WebController
         $drawing_quantity   =$request->input('drawing_quantity',[]);  //工程量（图纸）
         $brand_id           =$request->input('brand_id',[]);  //品牌id
         $loss_ratio         =$request->input('loss_ratio',[]); //损耗百分比
-        $budget_price        =$request->input('budget_price',[]); //报价单价 该价格可以更改
+        $offer_price        =$request->input('offer_price',[]); //报价单价 该价格可以更改
+        $offer_unit        =$request->input('offer_unit',[]); //报价单位
+        $budget_item_id       =$request->input('budget_item_id',[]); //预算详情id
 
         if(empty($material_id) || !is_array($material_id)){
             echo"<script>alert('您没有选中材料信息，请重新填写后再提交');history.go(-1);</script>";
@@ -323,7 +329,7 @@ class OfferController extends WebController
         }
         $budget_id =DB::table('budget')->where('engin_id',$id)->value('id');
         $offer =DB::table('offer')->where('engin_id',$id)->first();
-        if(!empty($offer) && $offer->status ==1){
+        if(!empty($offer) && $offer->offer_status ==1){
             if($engineering->status == 0){
                 return redirect('/offer/offerStart?status=2&notice='.'报价单已审核通过，不能编辑');
             }elseif($engineering->status ==1){
@@ -341,9 +347,17 @@ class OfferController extends WebController
             //材料信息
             $mater =DB::table('material')->where('id',$v)->first();
             //材料对应品牌信息
-            $brand =DB::table('material_brand_supplier')->where('material_id',$v)->where('brand_id',$brand_id[$k])->first();
+            if(!isset($budget_item_id[$k])){
+                echo"<script>alert('预算信息有误，请刷新页面再试');history.go(-1);</script>";
+                exit;
+            }
+            $brand =DB::table('budget_item')->where('id',$budget_item_id[$k])->first();
+            if(empty($brand)){
+                echo"<script>alert('没有查询到预算材料，请刷新页面再试');history.go(-1);</script>";
+                exit;
+            }
             $engineering_quantity= round($drawing_quantity[$k] *(100 + $loss_ratio[$k]) /100,2);
-            $total_material_price = round($engineering_quantity * $budget_price[$k],2);
+            $total_material_price = round($engineering_quantity * $offer_price[$k],2);
             $offeritemdata[]=[
                 'project_id'      =>$project->id,
                 'engin_id'        =>$id,
@@ -353,13 +367,14 @@ class OfferController extends WebController
                 'material_id'     =>$v,
                 'material_name'   =>$mater->material_name,
                 'characteristic'  =>$mater->characteristic,
-                'material_budget_unit'=>$mater->material_budget_unit,
+                'offer_unit'      =>$offer_unit[$k],
+                'budget_item_id'  =>$budget_item_id[$k],
                 'drawing_quantity'=>$drawing_quantity[$k],
                 'loss_ratio'      =>$loss_ratio[$k],
                 'engineering_quantity'=> $engineering_quantity,
                 'brand_id'        =>$brand_id[$k],
                 'brand_name'      =>$brand->brand_name,
-                'budget_price'    =>$budget_price[$k],
+                'offer_price'    =>$offer_price[$k],
                 'total_material_price'=>$total_material_price,
                 'created_uid'=>$uid,
                 'created_at'=>$time,
