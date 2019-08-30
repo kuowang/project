@@ -108,6 +108,9 @@
                                 <th>预算单位</th>
                                 <th>采购单价</th>
                                 <th>采购单位</th>
+                                <th>报价单价</th>
+                                <th>报价单位</th>
+
                                 <th style="width: 60px;">操作</th>
                             </thead>
                             <tbody id="zixitong">
@@ -129,7 +132,7 @@
                                 <td>
                                     <select name="manufactor[]" id="manufactor_1" class="span12" style="min-width: 100px" onchange="selectManufactor(1)">
                                         <option value="0"  style="display: none"></option>
-                                        @foreach($supplier as $val)
+                                        @foreach($supplier as $k=>$val)
                                             @if(in_array($val->id,$supplier_brand_list[$mate->brand_id]))
                                                 @if($val->id == $mate->supplier_id)
                                                 <option value="{{ $val->id }}" class="manufa manufa_{{ $val->id }}" selected="selected">{{$val->manufactor}}</option>
@@ -143,11 +146,14 @@
                                         @endforeach
                                     </select>
                                 </td>
-                                <td><input type="text"  name="supplier[]"          id="supplier_1"         value="{{ $mate->supplier }}" lay-skin="primary"></td>
-                                <td><input type="text"  name="budget_unit_price[]" id="budget_unit_price_1" value="{{ $mate->budget_unit_price }}" lay-skin="primary" placeholder=""style="width:50px;"></td>
-                                <td><input type="text"  name="budget_unit[]"       id="budget_unit_1"         value="{{ $mate->budget_unit }}" lay-skin="primary"  placeholder=""style="width:50px;"></td>
-                                <td><input type="text"  name="purchase_unit_price[]"  id="purchase_unit_price_1"    value="{{ $mate->purchase_unit_price }}" lay-skin="primary" style="width:50px;"></td>
-                                <td><input type="text"  name="purchase_unit[]"      id="purchase_unit_1" value="{{ $mate->purchase_unit }}" lay-skin="primary" style="width:50px;"></td>
+                                <td><input type="text"  name="supplier[]"          id="supplier_{{$k}}"         value="{{ $mate->supplier }}" lay-skin="primary"></td>
+                                <td><input type="text"  name="budget_unit_price[]" id="budget_unit_price_{{$k}}" value="{{ $mate->budget_unit_price }}" lay-skin="primary" placeholder=""style="width:50px;"></td>
+                                <td><input type="text"  name="budget_unit[]"       id="budget_unit_{{$k}}"         value="{{ $mate->budget_unit }}" lay-skin="primary"  placeholder=""style="width:50px;"></td>
+                                <td><input type="text"  name="purchase_unit_price[]"  id="purchase_unit_price_{{$k}}"    value="{{ $mate->purchase_unit_price }}" lay-skin="primary" style="width:50px;"></td>
+                                <td><input type="text"  name="purchase_unit[]"      id="purchase_unit_{{$k}}" value="{{ $mate->purchase_unit }}" lay-skin="primary" style="width:50px;"></td>
+                                <td><input type="text"  name="offer_unit_price[]"      id="offer_unit_price_{{$k}}" value="{{ $mate->offer_unit_price }}" lay-skin="primary" style="width:50px;"></td>
+                                <td><input type="text"  name="offer_unit[]"      id="offer_unit_{{$k}}" value="{{ $mate->offer_unit }}" lay-skin="primary" style="width:50px;"></td>
+
                                 <td><a class="btn btn-danger" onclick="deleteTrRow(this)">删除</a></td>
                             </tr>
                             @endforeach
@@ -279,6 +285,8 @@
             '<td><input type="text"  name="budget_unit[]"       id="budget_unit_'+intid+'"         value="" lay-skin="primary"  placeholder=""style="width:50px;"></td>'+
             '<td><input type="text"  name="purchase_unit_price[]"  id="purchase_unit_price_'+intid+'"    value="" lay-skin="primary" style="width:50px;"></td>'+
             '<td><input type="text"  name="purchase_unit[]"      id="purchase_unit_'+intid+'" value="" lay-skin="primary" style="width:50px;"></td>'+
+            '<td><input type="text"  name="offer_unit_price[]"      id="offer_unit_price_'+intid+'"  lay-skin="primary" style="width:50px;"></td>'+
+            '<td><input type="text"  name="offer_unit[]"      id="offer_unit_'+intid+'"  lay-skin="primary" style="width:50px;"></td>'+
             '<td><a class="btn btn-danger" onclick="deleteTrRow(this)">删除</a></td>'+
             '</tr>';
 

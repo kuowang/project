@@ -185,6 +185,8 @@ class MaterialController extends WebController
         $budget_unit        =$request->input('budget_unit',[]);
         $purchase_unit      =$request->input('purchase_unit',[]);
         $purchase_unit_price=$request->input('purchase_unit_price',[]);
+        $offer_unit      =$request->input('offer_unit',[]);
+        $offer_unit_price      =$request->input('offer_unit_price',[]);
 
         if(empty($data['pack_specification']) || empty($data['pack_claim']) || empty($data['conversion']) || empty($data['material_length']) ){
             //return redirect('/material/materialList?status=2&notice='.'编辑失败，材料信息不能为空');
@@ -220,10 +222,12 @@ class MaterialController extends WebController
                 $datalist['supplier_id']=$manufactor[$k];
                 $datalist['manufactor']=DB::table('supplier')->where('id',$manufactor[$k])->value('manufactor');;
                 $datalist['supplier']=$supplier[$k];
-                $datalist['budget_unit_price']=$budget_unit_price[$k];
+                $datalist['budget_unit_price']=(float)$budget_unit_price[$k];
                 $datalist['budget_unit']=$budget_unit[$k];
-                $datalist['purchase_unit_price']=$purchase_unit_price[$k];
+                $datalist['purchase_unit_price']=(float)$purchase_unit_price[$k];
                 $datalist['purchase_unit']=$purchase_unit[$k];
+                $datalist['offer_unit']=$offer_unit[$k];
+                $datalist['offer_unit_price']= (float)$offer_unit_price[$k];
                 $datalist['uid']=$this->user()->id;
                 $datalist['username']=$this->user()->name;
                 $datalist['created_at']=date('Y-m-d');

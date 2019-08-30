@@ -309,11 +309,11 @@
                         <div class="clearfix"></div>
                         <table class="layui-table layui-form">
                             <thead>
-                            <tr><th colspan="6"><span class="btn btn-info">项目支持人员信息</span></th></tr>
+                            <tr><th colspan="6"><span class="btn btn-info">项目支持信息</span></th></tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td class="pro-title">设计支持</td>
+                                <td class="pro-title">设计负责人</td>
                                 <td>
                                     <select name="design_uid" id="design_uid" class="input-medium search-query notempty" style="min-width: 80px">
                                         <option value="0" ></option>
@@ -326,7 +326,7 @@
                                         @endforeach
                                     </select>
                                 </td>
-                                <td class="pro-title">预算支持</td>
+                                <td class="pro-title">预算负责人</td>
                                 <td>
                                     <select name="budget_uid" id="budget_uid" class="input-medium search-query notempty" style="min-width: 80px">
                                         <option value="0" ></option>
@@ -339,7 +339,7 @@
                                         @endforeach
                                     </select>
                                 </td>
-                                <td class="pro-title">合约支持</td>
+                                <td class="pro-title">合约负责人</td>
                                 <td>
                                     <select name="technical_uid" id="technical_uid" class="input-medium search-query  notempty" style="min-width: 80px">
                                         <option value="0" ></option>

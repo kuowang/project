@@ -78,8 +78,8 @@
                             @foreach ($data as $k =>$val)
                                 <!--补充系统工程-->
                                 @if($val->system_code != $syatem_code  )
-                                <tr class="gradeX warning odd">
-                                    <td colspan="10">{{$val->system_name}}</td>
+                                <tr class="gradeX  odd">
+                                    <td colspan="10"><span class="btn btn-info" >{{$val->system_name}}</span></td>
                                 </tr>
                                 @php
                                 $syatem_code = $val->system_code;

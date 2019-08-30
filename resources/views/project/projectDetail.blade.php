@@ -191,11 +191,11 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <td class="pro-title">设计支持</td>
+                                <td class="pro-title">设计负责人</td>
                                 <td>{{$project->design_username}}</td>
-                                <td class="pro-title">预算支持</td>
+                                <td class="pro-title">预算负责人</td>
                                 <td>{{$project->budget_username}}</td>
-                                <td class="pro-title">合约支持</td>
+                                <td class="pro-title">合约负责人</td>
                                 <td>{{$project->technical_username}}</td>
                             </tr>
                             </tbody>
