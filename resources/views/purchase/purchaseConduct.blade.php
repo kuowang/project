@@ -113,9 +113,9 @@
                                             @endif
                                         </td>
                                         <td>
-                                            @if($val->purchase_status == 0)<span class="btn btn-danger">未发货</span>
-                                            @elseif($val->purchase_status == 1)<span class="btn btn-success">运输中</span>
-                                            @elseif($val->purchase_status == 2)<span class="btn btn-info">已到达</span>
+                                            @if($val->logistics_status == 0)<span class="btn btn-danger">未发货</span>
+                                            @elseif($val->logistics_status == 1)<span class="btn btn-success">运输中</span>
+                                            @elseif($val->logistics_status == 2)<span class="btn btn-info">已到达</span>
                                             @endif
                                         </td>
                                         <td>@if($val->budget_id != 0 && ((in_array(250102,$pageauth) && $val->purchase_uid == $uid ) || in_array(250102,$manageauth)))

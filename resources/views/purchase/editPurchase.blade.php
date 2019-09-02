@@ -144,7 +144,7 @@
 
                             <div class="layui-form-item" style="float: right;clear: left">
                                 <label for="L_repass" class="layui-form-label"></label>
-                                <button class="btn btn-success" lay-filter="add" type="submit" lay-submit="" onclick='return form_submit()'>确认/保存</button>
+                                <button class="btn btn-success" lay-filter="add" type="submit" lay-submit="" >确认/保存</button>
                             </div>
                             <div class="layui-form-item" style="float: right;clear: left">
                                 <a href="javascript:history.go(-1)">

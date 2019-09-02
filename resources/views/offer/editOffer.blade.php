@@ -30,7 +30,7 @@
             <div class="widget">
                 <div class="widget-header" style="text-align: center">
                     <div  style="font-size: 16px;" >
-                        <b>{{$project->project_name}}</b>（工程预算清单）
+                        <b>{{$project->project_name}}</b>（工程报价清单）
                     </div>
                 </div>
                 <div class="widget-body">
