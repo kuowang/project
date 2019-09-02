@@ -73,7 +73,7 @@
                                         </td>
                                         <td class="sort_{{ $val->id }}">{{$val->sort}}</td>
                                         <td class="td-manage">
-                                            @if(in_array(100602,$pageauth) && $val->banedit ==1)
+                                            @if(in_array(100602,$pageauth))
                                             <a title="编辑部门" class="btn btn-success" onclick="editDepartment({{ $val->id }})" href="javascript:;">
                                                 <i class="layui-icon">编辑</i>
                                             </a>

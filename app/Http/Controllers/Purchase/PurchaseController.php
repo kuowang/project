@@ -100,7 +100,7 @@ class PurchaseController extends WebController
         }
 
         if(in_array(250105,$this->user()->manageauth)){ //有指定项目的采购人员权限
-            $data['userList']=DB::table('users')->where('status',1)->orderby('name')->select(['id','name'])->get();
+            $data['userList']=DB::table('users')->where('status',1)->where('department_id',4)->orderby('name')->select(['id','name'])->get();
         }
         $data['project']=$project;
         $data['engineering']=$engineering;

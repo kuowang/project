@@ -89,6 +89,7 @@ class DepartmentController extends WebController
     public function deleteDepartment(Request $request,$id){
         $list =DB::table('department')
             ->where('id',$id)
+            ->where('banedit','!=',2)
             ->update(['status'=>0]);
         return $this->success('删除成功');
     }

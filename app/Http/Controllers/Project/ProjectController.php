@@ -315,7 +315,7 @@ class ProjectController extends WebController
         $data['id']=$project->id;
         $data['engin_id']=$engineering->id;
 
-        $data['userList']=DB::table('users')->where('status',1)->orderby('name')->select(['id','name'])->get();
+        $data['userList']=DB::table('users')->where('status',1)->orderby('name')->select(['id','name','department_id'])->get();
         return view('project.editProject',$data);
     }
 
