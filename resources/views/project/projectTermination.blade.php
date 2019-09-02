@@ -130,7 +130,7 @@
                                         <td>{{ $val->design_username }}</td>
                                         <td>{{ $val->budget_username }}</td>
                                         <td>{{ $val->technical_username }}</td>
-                                        <td>终止</td>
+                                        <td><span class="btn btn-danger">终止</span></td>
                                         <td>{{ $val->created_at }}</td>
                                         <td class="td-manage">
                                             @if( (in_array(150501,$pageauth) && $val->created_uid == $uid ) || in_array(150501,$manageauth))

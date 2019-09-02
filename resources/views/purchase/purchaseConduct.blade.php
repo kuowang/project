@@ -107,15 +107,15 @@
                                         <td>{{ $val->contract_code }}</td>
                                         <td>{{$val->purchase_username}}</td>
                                         <td>
-                                            @if($val->purchase_status == 0)未采购
-                                            @elseif($val->purchase_status == 1)采购中
-                                            @elseif($val->purchase_status == 2)采购完
+                                            @if($val->purchase_status == 0)<span class="btn btn-danger">未采购</span>
+                                            @elseif($val->purchase_status == 1)<span class="btn btn-success">采购中</span>
+                                            @elseif($val->purchase_status == 2)<span class="btn btn-info">采购完</span>
                                             @endif
                                         </td>
                                         <td>
-                                            @if($val->purchase_status == 0)未发货
-                                            @elseif($val->purchase_status == 1)运输中
-                                            @elseif($val->purchase_status == 2)已到达
+                                            @if($val->purchase_status == 0)<span class="btn btn-danger">未发货</span>
+                                            @elseif($val->purchase_status == 1)<span class="btn btn-success">运输中</span>
+                                            @elseif($val->purchase_status == 2)<span class="btn btn-info">已到达</span>
                                             @endif
                                         </td>
                                         <td>@if($val->budget_id != 0 && ((in_array(250102,$pageauth) && $val->purchase_uid == $uid ) || in_array(250102,$manageauth)))

@@ -134,16 +134,16 @@
 
                                         <td>{{ $val->budget_username }}</td>
                                         @if(empty($val->offer_order_number))
-                                            <td>未完成</td>
+                                            <td><span class="btn btn-danger">未完成</span></td>
                                         @else
-                                            <td>已完成</td>
+                                            <td><span class="btn btn-info">已完成</span></td>
                                         @endif
                                         @if($val->offer_status ==1)
-                                            <td>已审核</td>
+                                            <td><span class="btn btn-info">已审核</span></td>
                                         @elseif($val->offer_status ==0)
-                                            <td>待审核</td>
+                                            <td><span class="btn btn-success">待审核</span></td>
                                         @elseif($val->offer_status == -1)
-                                            <td>已取消</td>
+                                            <td><span class="btn btn-danger">已取消</span></td>
                                         @endif
                                         @if(in_array(200206,$manageauth))
                                             <td>

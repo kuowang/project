@@ -150,16 +150,18 @@
                                         @endif
                                         <td class="td-manage">
                                             @if( (in_array(20010202,$pageauth) && $val->budget_uid == $uid ) || in_array(200104,$manageauth))
+                                                @if(!empty($val->budget_id))
                                                 <a title="查看详情" class="btn btn-info"  href="/budget/budgetConductDetail/{{ $val->engin_id }}">
                                                     <i class="layui-icon">详情</i>
                                                 </a>
                                                 <a title="导出" class="btn btn-success"  href="/budget/budgetConductDetail/{{ $val->engin_id }}?download=1" onclick="return checkStatus({{$val->is_conf_architectural}})">
                                                     <i class="layui-icon">导出</i>
                                                 </a>
+                                                @endif
                                             @endif
                                             @if((in_array(20010201,$pageauth) && $val->budget_uid == $uid ) || in_array(200105,$manageauth))
                                                 <a title="编辑" class="btn btn-success"  href="/budget/editConductBudget/{{ $val->engin_id }}" onclick="return checkStatus({{$val->is_conf_architectural}})">
-                                                    <i class="layui-icon">编辑</i>
+                                                    <i class="layui-icon">@if(!empty($val->budget_id))编辑@else 创建 @endif</i>
                                                 </a>
                                             @endif
                                         </td>

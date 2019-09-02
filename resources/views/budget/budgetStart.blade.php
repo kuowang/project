@@ -118,14 +118,14 @@
                                     <td>{{ $val->budget_order_number }}</td>
                                     <td>{{ $val->budget_username }}</td>
                                     @if(empty($val->budget_order_number))
-                                        <td>未完成</td>
+                                        <td><span class="btn btn-danger">未完成</span></td>
                                     @else
-                                        <td>已完成</td>
+                                        <td><span class="btn btn-info">已完成</span></td>
                                     @endif
                                     @if($val->budget_status ==1)
-                                        <td>已审核</td>
+                                        <td><span class="btn btn-info">已审核</span></td>
                                     @else
-                                        <td>待审核</td>
+                                        <td><span class="btn btn-danger">待审核</span></td>
                                     @endif
                                     @if(in_array(200103,$manageauth))
                                     <td>
@@ -139,19 +139,28 @@
                                     </td>
                                     @endif
                                     <td class="td-manage">
+
                                         @if( (in_array(20010102,$pageauth) && $val->budget_uid == $uid ) || in_array(200101,$manageauth))
+                                            @if(!empty($val->budget_id))
                                             <a title="查看详情" class="btn btn-info"  href="/budget/budgetStartDetail/{{ $val->engin_id }}">
                                                 <i class="layui-icon">详情</i>
                                             </a>
                                             <a title="导出" class="btn btn-success"  href="/budget/budgetStartDetail/{{ $val->engin_id }}?download=1" onclick="return checkStatus({{$val->is_conf_architectural}})">
                                                 <i class="layui-icon">导出</i>
                                             </a>
+                                            @endif
                                         @endif
                                         @if((in_array(20010101,$pageauth) && $val->budget_uid == $uid ) || in_array(200102,$manageauth))
                                             @if($val->budget_status != 1)
-                                            <a title="编辑" class="btn btn-success"  href="/budget/editStartBudget/{{ $val->engin_id }}" onclick="return checkStatus({{$val->is_conf_architectural}})">
-                                                <i class="layui-icon">编辑</i>
-                                            </a>
+                                                @if(empty($val->budget_id))
+                                                    <a title="创建" class="btn btn-success"  href="/budget/editStartBudget/{{ $val->engin_id }}" onclick="return checkStatus({{$val->is_conf_architectural}})">
+                                                        <i class="layui-icon">创建</i>
+                                                    </a>
+                                                @else
+                                                    <a title="编辑" class="btn btn-success"  href="/budget/editStartBudget/{{ $val->engin_id }}" onclick="return checkStatus({{$val->is_conf_architectural}})">
+                                                        <i class="layui-icon">编辑</i>
+                                                    </a>
+                                                @endif
                                             @endif
                                         @endif
                                     </td>

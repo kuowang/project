@@ -135,7 +135,7 @@
                                     <td>{{ $val->budget_username }}</td>
                                     <td>{{ $val->technical_username }}</td>
                                     <td>
-                                        洽谈
+                                        <span class="btn btn-info">洽谈</span>
                                     </td>
                                     <td style="color:red">{{ str_repeat('★', $val->success_level) }}</td>
                                     <td>{{ $val->created_at }}</td>

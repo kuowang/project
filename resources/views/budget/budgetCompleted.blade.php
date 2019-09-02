@@ -125,14 +125,14 @@
                                         <td>{{ $val->budget_order_number }}</td>
                                         <td>{{ $val->budget_username }}</td>
                                         @if(empty($val->budget_order_number))
-                                            <td>未完成</td>
+                                            <td><span class="btn btn-danger">未完成</span></td>
                                         @else
-                                            <td>已完成</td>
+                                            <td><span class="btn btn-info">已完成</span></td>
                                         @endif
                                         @if($val->budget_status ==1)
-                                            <td>已审核</td>
+                                            <td><span class="btn btn-info">已审核</span></td>
                                         @else
-                                            <td>待审核</td>
+                                            <td><span class="btn btn-danger">待审核</span></td>
                                         @endif
 
                                         <td class="td-manage">
