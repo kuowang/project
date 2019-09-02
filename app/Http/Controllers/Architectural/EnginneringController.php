@@ -441,6 +441,68 @@ class EnginneringController extends WebController
         $data['project']    =$project;
         return view('architectural.enginnering.enginArchitectDetail',$data);
     }
+    //项目设计参数
+    public function editEnginParam(Request $request,$id){
+        $this->user();
+        $data['navid']      =35;
+        $data['subnavid']   =3500;
+        //项目子工程
+        $engineering =DB::table('engineering')->where('id',$id)->first();
+        if(empty($engineering)){
+            return redirect('/architectural/enginStart?status=2&notice='.'该工程不存在');
+        }
+        //项目信息
+        $project =DB::table('project')->where('id',$engineering->project_id)->first();
+        if( (in_array(35000102,$this->user()->pageauth) && $project->design_uid == $this->user()->id ) || in_array(350702,$this->user()->manageauth)){
+        }else{
+            //设计人员可以操作更改工程设计详情
+            return redirect('/architectural/enginStart?status=2&notice='.'您没有权限编辑该工程信息');
+        }
+        $data['project'] =$project;
+        $data['engineering']=$engineering;
+        $data['engin_id'] =$id;
+
+        return view('architectural.enginnering.editEnginParam',$data);
+    }
+    //提交建筑设计参数配置
+    public function postEditEnginParam(Request $request,$id){
+
+        $use_time =$request->input('use_time',0);                   //"use_time": "70",
+		$seismic_grade =$request->input('seismic_grade',0);                 //"seismic_grade": "7",
+		$waterproof_grade =$request->input('waterproof_grade',0);                   //"waterproof_grade": "6",
+		$refractory_grade =$request->input('refractory_grade',0);                   //"refractory_grade": "6",
+		$insulation_sound_grade =$request->input('insulation_sound_grade',0);                   //"insulation_sound_grade": "5",
+		$energy_grade =$request->input('energy_grade',0);                   //"energy_grade": "6",
+		$basic_wind_pressure =$request->input('basic_wind_pressure',0);                 //"basic_wind_pressure": "21",
+		$basic_snow_pressure =$request->input('basic_snow_pressure',0);                 //"basic_snow_pressure": "31",
+		$roof_load =$request->input('roof_load',0);                 //"roof_load": "123",
+		$floor_load =$request->input('floor_load',0);                   //"floor_load": "223",
+		$floors =$request->input('floors',0);                   //"floors": "55",
+		$total_area =$request->input('total_area',0);                   //"total_area": "600",
+		$floor_height =$request->input('floor_height',0);                   //"floor_height": "12",
+		$floor_width =$request->input('floor_width',0);                 //"floor_width": "15",
+		$storey_height =$request->input('storey_height',0);                 //"storey_height": ["3", "4", "5", "4"],
+		$house_height =$request->input('house_height',0);                   //"house_height": ["3", "3", "3", "3"],
+		$house_area =$request->input('house_area',0);                   //"house_area": ["43", "22", "332", "44"],
+		$room_position =$request->input('position',0);                   //"position": ["2314"],
+		$room_name =$request->input('roomname',0);                   //"roomname": ["13412341"],
+		$room_area =$request->input('room_area',0);                 //"room_area": ["12341234"]
+
+
+
+
+
+
+    return $this->success($request->all());
+
+
+
+
+    }
+
+
+
+
 
 
 }

@@ -127,6 +127,11 @@ Route::group(['prefix' => 'architectural','namespace' => 'Architectural','middle
     Route::get('/enginCompletedDetail/{id}',       'EnginneringController@enginCompletedDetail');    //查看竣工工程设计信息
     Route::get('/enginTerminationDetail/{id}',     'EnginneringController@enginTerminationDetail');    //查看终止项目工程设计信息
 
+    Route::get('/editEnginParam/{id}',             'EnginneringController@editEnginParam');    //配置工程设计参数
+    Route::post('/postEditEnginParam/{id}',        'EnginneringController@postEditEnginParam');    //提交配置工程设计参数
+
+
+
 });
 
 //基础信息管理类的控制组 需要登录

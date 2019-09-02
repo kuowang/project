@@ -127,12 +127,12 @@
                                     <td>{{ $val->created_at }}</td>
                                     <td class="td-manage">
                                         @if( (in_array(35000101,$pageauth) && $val->design_uid == $uid ) || in_array(350701,$manageauth))
-                                            <a title="查看详情" class="btn btn-info"  href="/architectural/enginStartDetail/{{ $val->engineering_id }}">
+                                            <a title="查看详情" class="btn btn-info"  href="/architectural/enginStartParamDetail/{{ $val->engineering_id }}">
                                                 <i class="layui-icon">详情</i>
                                             </a>
                                         @endif
                                         @if((in_array(35000102,$pageauth) && $val->design_uid == $uid ) || in_array(350702,$manageauth))
-                                            <a title="编辑" class="btn btn-success"  href="/architectural/editEngin/{{ $val->engineering_id }}">
+                                            <a title="编辑" class="btn btn-success"  href="/architectural/editEnginParam/{{ $val->engineering_id }}">
                                                 <i class="layui-icon">编辑</i>
                                             </a>
                                         @endif
