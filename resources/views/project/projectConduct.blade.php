@@ -119,7 +119,6 @@
                                     <th>预算负责人</th>
                                     <th>合约负责人</th>
                                     <th>项目状态</th>
-                                    <th>洽谈指数</th>
                                     <th>合同编号</th>
                                     <th>创建时间</th>
                                     <th>执行操作</th>
@@ -141,7 +140,6 @@
                                         <td>{{ $val->budget_username }}</td>
                                         <td>{{ $val->technical_username }}</td>
                                         <td>实施</td>
-                                        <td style="color:red">{{ str_repeat('★', $val->success_level) }}</td>
                                         <td>{{$val->contract_code}}</td>
                                         <td>{{ $val->created_at }}</td>
                                         <td class="td-manage">

@@ -100,7 +100,7 @@
                                             </a>
                                             @endif
                                             @if(in_array(600204,$pageauth))
-                                                <a title="删除" class="btn btn-success" onclick="deleteNotice({{ $val->id }})" href="javascript:;">
+                                                <a title="删除" class="btn btn-danger" onclick="return deleteNotice({{ $val->id }})" href="javascript:;">
                                                     <i class="layui-icon">删除</i>
                                                 </a>
                                             @endif
@@ -289,6 +289,13 @@
             return false;
         }
         function deleteNotice(id) {
+
+            var r = confirm("确认删除");
+            if (r == true) {
+
+            }else{
+                return false;
+            }
             $.ajax({
                 url:'/base/delete_notice/'+id,
                 type:'post',

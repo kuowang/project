@@ -21,7 +21,7 @@
 
                     <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                         <label>
-                            <form class="form-search" action="/admin/role_list" method="get">
+                            <form class="form-search" action="/admin/departmentList" method="get">
                                 部门名称:<input type="text" name="search" value="{{ $search }}" class="input-medium search-query">
                                 <button type="submit" class="btn">搜索</button>
                             </form></label>
@@ -73,14 +73,14 @@
                                         </td>
                                         <td class="sort_{{ $val->id }}">{{$val->sort}}</td>
                                         <td class="td-manage">
-                                            @if(in_array(100103,$pageauth))
+                                            @if(in_array(100602,$pageauth) && $val->banedit ==1)
                                             <a title="编辑部门" class="btn btn-success" onclick="editDepartment({{ $val->id }})" href="javascript:;">
                                                 <i class="layui-icon">编辑</i>
                                             </a>
                                             @endif
-                                            @if(in_array(100105,$pageauth))
+                                            @if(in_array(100603,$pageauth) && $val->banedit ==1)
                                             &nbsp;&nbsp;&nbsp;&nbsp;
-                                            <a title="编辑" class="btn btn-success"  onclick="deleteDepartment({{ $val->id }})">
+                                            <a title="删除" class="btn btn-danger"  onclick="return deleteDepartment({{ $val->id }})" href="javascript:;">
                                                <i class="layui-icon">删除</i>
                                             </a>
                                             @endif
@@ -169,7 +169,7 @@
             $("#myModalLabel").text('新增部门');
             $('#name').val('');
             $('#department_id').val('0');
-            $('#sort').val('0');
+            $('#sort').val('');
             $('#noticeform').prop('action','/admin/postDepartment');
             $('#myModal').modal();
         }
@@ -190,8 +190,8 @@
             var datalist={
                 id:$('#department_id').val(),
                 name: $('#name').val(),
+                sort:$("#sort").val(),
             };
-
 
             var status=0;
             $("input.layui-input").each(function(){
@@ -219,23 +219,47 @@
                             $('#myModal').modal('hide');
                             location.href=location.href
                         }else{
-                            layui.use('layer', function(){
-                                var layer = layui.layer;
-                                layer.msg(data.info);
-                            });
+                            showmsg(data.info);
                         }
                     },
                     error:function () {
-                        layui.use('layer', function(){
-                            var layer = layui.layer;
-                            layer.msg('提交失败，请刷新页面再试');
-                        });
+                        showmsg('提交失败，请刷新页面再试');
                     }
                 });
             }
             return false;
         }
 
+        function deleteDepartment(id) {
+            var r = confirm("确认删除");
+            if (r == true) {
+                $.ajax({
+                    url:'/admin/deleteDepartment/'+id,
+                    type:'post',
+                    // contentType: 'application/json',
+                    success:function(data){
+                        console.log(data);
+                        if(data.status == 1){
+                            location.href=location.href;
+                        }else{
+                            showmsg(data.info)
+                        }
+                    },
+                    error:function () {
+                       showmsg('提交失败，请刷新页面再试');
+                    }
+                });
+
+            } else {
+                return false;
+            }
+        }
+        function showmsg(str) {
+            layui.use('layer', function(){
+                var layer = layui.layer;
+                layer.msg(str);
+            });
+        }
     </script>
 
 @endsection

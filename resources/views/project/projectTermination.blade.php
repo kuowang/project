@@ -119,7 +119,6 @@
                                     <th>预算负责人</th>
                                     <th>合约负责人</th>
                                     <th>项目状态</th>
-                                    <th>洽谈指数</th>
                                     <th>创建时间</th>
                                     <th>执行操作</th>
                                 </tr>
@@ -140,7 +139,6 @@
                                         <td>{{ $val->budget_username }}</td>
                                         <td>{{ $val->technical_username }}</td>
                                         <td>终止</td>
-                                        <td>{{ str_repeat('★', $val->success_level) }}</td>
                                         <td>{{ $val->created_at }}</td>
                                         <td class="td-manage">
                                             @if( (in_array(150501,$pageauth) && $val->created_uid == $uid ) || in_array(150501,$manageauth))

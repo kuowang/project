@@ -54,6 +54,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => 'auth']
 
     Route::get('/departmentList',             'DepartmentController@index');                       //部门列表
     Route::post('/postDepartment',              'DepartmentController@postDepartment');                   //提交部门信息
+    Route::post('/deleteDepartment/{id}',              'DepartmentController@deleteDepartment');                   //提交部门信息
 
 });
 
