@@ -318,10 +318,12 @@
                                     <select name="design_uid" id="design_uid" class="input-medium search-query notempty" style="min-width: 80px">
                                         <option value="0" ></option>
                                         @foreach($userList as $u)
-                                        @if($u->id == $project->design_uid)
-                                        <option value="{{$u->id}}" selected="selected">{{$u->name}}</option>
-                                        @else
-                                        <option value="{{$u->id}}" >{{$u->name}}</option>
+                                        @if($u->department_id == 6)
+                                            @if($u->id == $project->design_uid)
+                                            <option value="{{$u->id}}" selected="selected">{{$u->name}}</option>
+                                            @else
+                                            <option value="{{$u->id}}" >{{$u->name}}</option>
+                                            @endif
                                         @endif
                                         @endforeach
                                     </select>
@@ -331,11 +333,13 @@
                                     <select name="budget_uid" id="budget_uid" class="input-medium search-query notempty" style="min-width: 80px">
                                         <option value="0" ></option>
                                         @foreach($userList as $u)
+                                        @if($u->department_id == 3)
                                             @if($u->id == $project->budget_uid)
                                                 <option value="{{$u->id}}" selected="selected">{{$u->name}}</option>
                                             @else
                                                 <option value="{{$u->id}}" >{{$u->name}}</option>
                                             @endif
+                                        @endif
                                         @endforeach
                                     </select>
                                 </td>
@@ -344,11 +348,13 @@
                                     <select name="technical_uid" id="technical_uid" class="input-medium search-query  notempty" style="min-width: 80px">
                                         <option value="0" ></option>
                                         @foreach($userList as $u)
+                                        @if($u->department_id == 8)
                                             @if($u->id == $project->technical_uid)
                                                 <option value="{{$u->id}}" selected="selected">{{$u->name}}</option>
                                             @else
                                                 <option value="{{$u->id}}" >{{$u->name}}</option>
                                             @endif
+                                        @endif
                                         @endforeach
                                     </select>
                                 </td>

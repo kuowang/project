@@ -80,6 +80,19 @@
                                     <input type="password" name="repPassword" id="repPassword" class="span6" placeholder="再输一次">
                                 </div>
                             </div>
+                            <div class="control-group">
+                                <label class="control-label" for="role">
+                                    部门:
+                                </label>
+                                <div class="controls">
+
+                                    <select class="span6 " name="department" >
+                                        @foreach ($departmentList as $val )
+                                            <option value="{{$val->id}}"> {{$val->department}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
 
                             <div class="control-group">
                                 <label class="control-label" for="role">

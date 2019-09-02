@@ -64,6 +64,7 @@
                                 <th>用户名称</th>
                                 <th>邮箱名</th>
                                 <th>角色</th>
+                                <th>部门</th>
                                 <th>状态</th>
                                 <th>创建时间</th>
                                 <th>修改时间</th>
@@ -89,6 +90,11 @@
                                             @foreach ($userRoleList[$val->id] as $v)
                                                 {{ $v->role_name }} &nbsp;&nbsp;
                                             @endforeach
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if(isset($department[$val->department_id]))
+                                        {{$department[$val->department_id]}}
                                         @endif
                                     </td>
                                     <td>

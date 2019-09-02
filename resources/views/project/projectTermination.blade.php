@@ -90,14 +90,6 @@
                                     项目名称:<input type="text" name="project_name" value="{{ $project_name }}" class="input-medium search-query">
                                     项目地点:<input type="text" name="address" value="{{ $address }}" class="input-medium search-query">
                                     项目负责人:<input type="text" name="customer_leader" value="{{ $customer_leader }}" class="input-medium search-query">
-                                    洽谈指数:<select name="success_level" id="success_level" class="input-medium search-query" style="min-width: 80px;border-radius: 15px;">
-                                        <option value="0" >全部</option>
-                                        @if($success_level ==1) <option value="1" selected="selected">★</option> @else <option value="1">★</option> @endif
-                                        @if($success_level ==2) <option value="2" selected="selected">★★</option> @else <option value="2">★★</option> @endif
-                                        @if($success_level ==3) <option value="3" selected="selected">★★★</option> @else <option value="3">★★★</option> @endif
-                                        @if($success_level ==4) <option value="4" selected="selected">★★★★</option> @else <option value="4">★★★★</option> @endif
-                                        @if($success_level ==5) <option value="5" selected="selected">★★★★★</option> @else <option value="5">★★★★★</option> @endif
-                                    </select>
                                     <button type="submit" class="btn">搜索</button>
                                 </form></label>
                         </div>

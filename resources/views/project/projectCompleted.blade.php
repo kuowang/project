@@ -90,14 +90,7 @@
                                     项目名称:<input type="text" name="project_name" value="{{ $project_name }}" class="input-medium search-query">
                                     项目地点:<input type="text" name="address" value="{{ $address }}" class="input-medium search-query">
                                     项目负责人:<input type="text" name="customer_leader" value="{{ $customer_leader }}" class="input-medium search-query">
-                                    洽谈指数:<select name="success_level" id="success_level" class="input-medium search-query" style="min-width: 80px;border-radius: 15px;">
-                                        <option value="0" >全部</option>
-                                        @if($success_level ==1) <option value="1" selected="selected">★</option> @else <option value="1">★</option> @endif
-                                        @if($success_level ==2) <option value="2" selected="selected">★★</option> @else <option value="2">★★</option> @endif
-                                        @if($success_level ==3) <option value="3" selected="selected">★★★</option> @else <option value="3">★★★</option> @endif
-                                        @if($success_level ==4) <option value="4" selected="selected">★★★★</option> @else <option value="4">★★★★</option> @endif
-                                        @if($success_level ==5) <option value="5" selected="selected">★★★★★</option> @else <option value="5">★★★★★</option> @endif
-                                    </select>
+
                                     <button type="submit" class="btn">搜索</button>
                                 </form></label>
                         </div>
@@ -119,7 +112,6 @@
                                     <th>预算负责人</th>
                                     <th>合约负责人</th>
                                     <th>项目状态</th>
-                                    <th>洽谈指数</th>
                                     <th>创建时间</th>
                                     <th>执行操作</th>
                                 </tr>
@@ -140,7 +132,6 @@
                                         <td>{{ $val->budget_username }}</td>
                                         <td>{{ $val->technical_username }}</td>
                                         <td>竣工</td>
-                                        <td>{{ str_repeat('★', $val->success_level) }}</td>
                                         <td>{{ $val->created_at }}</td>
                                         <td class="td-manage">
                                             @if( (in_array(150401,$pageauth) && $val->created_uid == $uid ) || in_array(150401,$manageauth))

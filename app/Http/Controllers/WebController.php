@@ -72,8 +72,11 @@ class WebController extends Controller
         $auth['authlist']=[];
         $auth['manageauth']=[];
         foreach($datalist as $value){
-            $auth['nav'][$value->parent_id][]=$value;
+            $auth['nav'][$value->parent_id][$value->sort]=$value;
             $auth['authlist'][]=$value->auth_id;
+        }
+        foreach($auth['nav'] as &$val){
+            ksort($val);
         }
         if($manageauth){
             $auth['manageauth']=$manageauth;

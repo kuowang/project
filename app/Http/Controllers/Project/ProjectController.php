@@ -159,7 +159,7 @@ class ProjectController extends WebController
         if( !(in_array(1501,$this->user()->pageauth)) && !in_array(1501,$this->user()->manageauth)){
             return redirect('/project/projectStart?status=2&notice='.'您没有操作该功能权限');
         }
-        $data['userList']=DB::table('users')->where('status',1)->orderby('name')->select(['id','name'])->get();
+        $data['userList']=DB::table('users')->where('status',1)->orderby('name')->select(['id','name','department_id'])->get();
         return view('project.createdProject',$data);
     }
     //创建项目提交页面

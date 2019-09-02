@@ -50,6 +50,8 @@ class UserRoleController extends WebController
         //用户权限部分
         $data['navid']      =10;
         $data['subnavid']   =1002;
+        $data['department'] =DB::table('department')->where('status',1)->pluck('department','id');
+
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
         return view('admin.userrole.index',$data);
@@ -91,6 +93,7 @@ class UserRoleController extends WebController
         $data['notice']=$request->input('notice','成功'); //提示信息
         //获取角色列表
         $data['role_list']=Role::where('status',1)->get();
+        $data['departmentList']=DB::table('department')->where('status',1)->orderby('sort')->get();
         return view('admin.userrole.adduserinfo',$data);
     }
     //编辑用户
@@ -108,6 +111,7 @@ class UserRoleController extends WebController
         $data['user_role']=UserRole::where('uid',$id)->where('status',1)->pluck('role_id')->toarray();
         //获取角色列表
         $data['role_list']=Role::where('status',1)->get();
+        $data['departmentList']=DB::table('department')->where('status',1)->orderby('sort')->get();
         return view('admin.userrole.edituserinfo',$data);
     }
     //保存新用户信息
@@ -118,6 +122,8 @@ class UserRoleController extends WebController
         $pwd =$request->input('password','');
         $checkpwd =$request->input('repPassword','');
         $roleid =$request->input('roleid',[]);
+        $department_id =(int)$request->input('department',0);
+
         if((empty($pwd) || empty($checkpwd))){
             return redirect('admin/add_user_info?status=2&notice='.'密码不能为空');
         }elseif($pwd != $checkpwd){
@@ -140,6 +146,7 @@ class UserRoleController extends WebController
             'password' => bcrypt($pwd),
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s'),
+            'department_id'=>$department_id,
             'status'=>0,
         ];
         $id =DB::table('users')->insertGetId($data);
@@ -179,7 +186,7 @@ class UserRoleController extends WebController
         $pwd =$request->input('pwd','');
         $checkpwd =$request->input('checkpwd','');
         $roleid =$request->input('roleid',[]);
-
+        $department_id =(int)$request->input('department',0);
         if($pwd != $checkpwd){
             return redirect('admin/edit_user_info/'.$id.'?status=2&notice='.'两次密码不一致');
             //return $this->error('两次密码不一致');
@@ -195,9 +202,9 @@ class UserRoleController extends WebController
         $data =[
             'name' => $username,
             'email' => $email,
-            'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s'),
             'status'=>0,
+            'department_id'=>$department_id,
         ];
         if(!empty($pwd)){
             $data['password'] =bcrypt($pwd);

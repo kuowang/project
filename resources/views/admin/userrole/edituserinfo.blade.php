@@ -83,6 +83,27 @@
 
                             <div class="control-group">
                                 <label class="control-label" for="role">
+                                    部门:
+                                </label>
+                                <div class="controls">
+
+                                    <select class="span6 " name="department" >
+                                        <option value="0"> </option>
+                                        @foreach ($departmentList as $val )
+                                            @if ($val->id == $user->department_id)
+                                                <option value="{{$val->id}}" selected="selected"> {{$val->department}}</option>
+                                            @else
+                                                <option value="{{$val->id}}"> {{$val->department}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+
+
+                            <div class="control-group">
+                                <label class="control-label" for="role">
                                     角色:
                                 </label>
                                 <div class="controls">
