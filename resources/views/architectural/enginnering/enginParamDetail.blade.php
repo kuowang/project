@@ -14,14 +14,8 @@
         .layui-table td, .layui-table th {
             border: solid 1px #ccc;
         }
-        select{
-            width: auto;
-        }
-        .radio, .checkbox {
-            min-height: 20px;
-            float: left;
-            padding:0 20px;
-        }
+
+
     </style>
 <div class="left-sidebar">
     <div class="row-fluid">
@@ -35,8 +29,8 @@
                 </div>
                 <div class="widget-body">
                     <div id="dt_example" class="example_alt_pagination">
-                        <form method="post" action="/architectural/postEditEnginParam/{{ $engin_id }}">
-                                                   <table class="layui-table layui-form">
+
+                      <table class="layui-table layui-form">
                                 <thead>
                                 <tr>
                                     <th colspan="6"><span class="btn btn-info">项目概况</span></th>
@@ -74,19 +68,19 @@
 
                                 <tr>
                                     <td class="pro-title">建筑使用寿命(年)</td>
-                                    <td ><input type="text" name="use_time" id="use_time" value="{{isset($param->use_time)?$param->use_time:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
+                                    <td >{{isset($param->use_time)?$param->use_time:''}}</td>
                                     <td class="pro-title">抗震设防烈度(级)</td>
-                                    <td ><input type="text" name="seismic_grade" id="seismic_grade" value="{{isset($param->seismic_grade)?$param->seismic_grade:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
+                                    <td >{{isset($param->seismic_grade)?$param->seismic_grade:''}}</td>
                                     <td class="pro-title">屋面防水等级</td>
-                                    <td ><input type="text" name="waterproof_grade" id="waterproof_grade" value="{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
+                                    <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
                                 </tr>
                                 <tr>
                                     <td class="pro-title">建筑耐火等级</td>
-                                    <td ><input type="text" name="refractory_grade" id="waterproof_grade" value="{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
+                                    <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
                                     <td class="pro-title">建筑隔声等级</td>
-                                    <td ><input type="text" name="insulation_sound_grade" id="waterproof_grade" value="{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
+                                    <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
                                     <td class="pro-title">建筑节能等级</td>
-                                    <td ><input type="text" name="energy_grade" id="waterproof_grade" value="{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
+                                    <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -101,15 +95,15 @@
 
                                 <tr>
                                     <td class="pro-title">设计基本风压(千牛/平方米)</td>
-                                    <td ><input type="text" name="basic_wind_pressure" id="use_time" value="{{isset($param->use_time)?$param->use_time:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
+                                    <td >{{isset($param->use_time)?$param->use_time:''}}</td>
                                     <td class="pro-title">设计基本雪压(千牛/平方米)</td>
-                                    <td ><input type="text" name="basic_snow_pressure" id="seismic_grade" value="{{isset($param->seismic_grade)?$param->seismic_grade:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
+                                    <td >{{isset($param->seismic_grade)?$param->seismic_grade:''}}</td>
                                 </tr>
                                 <tr>
                                     <td class="pro-title">屋面活载荷(千牛/平方米)</td>
-                                    <td ><input type="text" name="roof_load" id="waterproof_grade" value="{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
+                                    <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
                                     <td class="pro-title">楼面活载荷(千牛/平方米)</td>
-                                    <td ><input type="text" name="floor_load" id="waterproof_grade" value="{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
+                                    <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -124,15 +118,14 @@
                             <tr>
                                 <td  class="pro-title">建筑层数：{{$engineering->build_floor}}层</td>
                                 <td class="pro-title">总建筑面积（平方米）</td>
-                                <td><span id="all_house_area">{{$engineering->build_area}}</span>
-                                    <input type="hidden" class="span8 total_area" value="{{$engineering->build_area}}" name="total_area" onclick="key(this)"></td>
+                                <td><span id="all_house_area">{{$engineering->build_area}}</span></td>
                                 <td><span class="area_content" style="color: red"></span></td>
                             </tr>
                             <tr>
                                 <td  class="pro-title">占地尺寸 长（米）</td>
-                                <td><input type="text" class="span8 notempty" value="{{isset($param->floor_height)?$param->floor_height:''}}" name="floor_height" onclick="key(this)"></td>
+                                <td>{{isset($param->floor_height)?$param->floor_height:''}}</td>
                                 <td class="pro-title">占地尺寸 宽（米）</td>
-                                <td><input type="text" class="span8 notempty" value="{{isset($param->floor_width)?$param->floor_width:''}}" name="floor_width" onclick="key(this)"></td>
+                                <td>{{isset($param->floor_width)?$param->floor_width:''}}</td>
                             </tr>
                             <tr>
                                 <td  class="pro-title">楼层信息</td>
@@ -144,9 +137,9 @@
                             @for($i =1;$i <= $engineering->build_floor;$i++ )
                             <tr >
                                 <td class="pro-title">第{{$i}}层</td>
-                                <td><input type="text" class="span8 notempty" value="{{ isset($storey_height[$i-1])?$storey_height[$i-1]:'' }}" name="storey_height[]" onclick="key(this)"></td>
-                                <td><input type="text" class="span8 notempty" value="{{ isset($house_height[$i-1])?$house_height[$i-1]:'' }}"  name="house_height[]"  onclick="key(this)"></td>
-                                <td><input type="text" class="span8 notempty house_area" value="{{ isset($house_area[$i-1])?$house_area[$i-1]:'' }}"  name="house_area[]" onclick="key(this)"  onchange="add_total_area(this)"></td>
+                                <td>{{ isset($storey_height[$i-1])?$storey_height[$i-1]:'' }}</td>
+                                <td>{{ isset($house_height[$i-1])?$house_height[$i-1]:'' }}</td>
+                                <td>{{ isset($house_area[$i-1])?$house_area[$i-1]:'' }}</td>
                             </tr>
                             @endfor
 
@@ -158,11 +151,8 @@
                         <table class="layui-table layui-form">
                             <thead>
                             <tr>
-                                <th colspan="4">
+                                <th colspan="3">
                                     <span class="btn btn-info">建筑房间功能布局</span>
-                                    <span class="title"style="float: right;">
-                                        <a class="btn btn-success" onclick="add_room()" ><i class="layui-icon">添加房间 +</i></a>
-                                    </span>
                                 </th>
                             </tr>
                             </thead>
@@ -170,17 +160,14 @@
                             <tr>
                                 <td class="pro-title">位置</td>
                                 <td class="pro-title">房间名称</td>
-                                <td  class="pro-title">面积</td>
-                                <td class="pro-title">操作</td>
+                                <td  class="pro-title">面积</td>>
                             </tr>
                             @if(isset($room_position) && is_array($room_position))
                             @foreach($room_position as $k=>$v)
                             <tr>
-                                <td ><input type="text" name="room_position[]" value="{{$v}}" id="waterproof_grade"  lay-skin="primary" class="notempty span8" ></td>
-                                <td ><input type="text" name="room_name[]" value="{{isset($room_name[$k])?$room_name[$k]:''}}" id="waterproof_grade"  lay-skin="primary" class="notempty span8" ></td>
-                                <td ><input type="text" name="room_area[]" value="{{isset($room_area[$k])?$room_area[$k]:''}}" id="waterproof_grade"  lay-skin="primary" class="notempty span8" ></td>
-                                <td><a  class="btn btn-danger delete_zixitong" onclick="deleteTrRow(this)">删除</a>
-                                </td>
+                                <td >{{$v}}</td>
+                                <td >{{isset($room_name[$k])?$room_name[$k]:''}}</td>
+                                <td >{{isset($room_area[$k])?$room_area[$k]:''}}</td>
                             </tr>
                             @endforeach
                             @endif
@@ -188,10 +175,7 @@
                             </tbody>
                         </table>
                         <div class="clearfix"></div>
-                        <div class="layui-form-item" style="float: right;clear: left">
-                            <label for="L_repass" class="layui-form-label"></label>
-                            <button class="btn btn-success" lay-filter="add" type="submit" lay-submit="" onclick='return form_submit()'>确认/保存</button>
-                        </div>
+
                         <div class="layui-form-item" style="float: right;clear: left">
                             <a href="javascript:history.go(-1)">
                                 <label for="L_repass" class="layui-form-label"></label>
@@ -201,7 +185,7 @@
 
                         <div class="clearfix"></div>
 
-                        </form>
+
                     </div>
                 </div>
             </div>
@@ -226,89 +210,4 @@
     <span style="float: right;margin-bottom: 10px"><a href="/base/getNoticeInfo" style="color: #0000FF"> 查看更多 >></a></span>
     <hr class="hr-stylish-1">
 </div>
-
-    <script>
-
-        var buildarea = {{$engineering->build_area}};
-        function add_room() {
-            //添加事件
-            str =`<tr>
-                    <td ><input type="text" name="room_position[]" id="waterproof_grade"  lay-skin="primary" class="notempty span8" ></td>
-                    <td ><input type="text" name="room_name[]" id="waterproof_grade"  lay-skin="primary" class="notempty span8" ></td>
-                    <td ><input type="text" name="room_area[]" id="waterproof_grade"  lay-skin="primary" class="notempty span8"></td>
-                    <td><a  class="btn btn-danger delete_zixitong" onclick="deleteTrRow(this)">删除</a>
-                    </td>
-                </tr>`;
-            $("#addroom").append(str);
-
-        }
-
-        function add_total_area(th) {
-            sum=0;
-            $(".house_area").each(function(){
-                sum =sum *1 + $(this).val() * 1;
-            });
-            console.log(sum);
-            $('#all_house_area').html(sum)
-            $('.total_area').val(sum);
-
-            if(buildarea != sum){
-                $('.area_content').html('建筑总面积已发生变化<br>保存后将覆盖工程中的建筑面积')
-            }else{
-                $('.area_content').html('');
-            }
-
-        }
-
-
-        //点击只能输入数字
-        function key(th){
-            $(th).keyup(function(){
-                $(this).val($(this).val().replace(/[^0-9.]/g,''));
-            }).bind("paste",function(){  //CTR+V事件处理
-                $(this).val($(this).val().replace(/[^0-9.]/g,''));
-            }).css("ime-mode", "disabled"); //CSS设置输入法不可用
-            va =$(th).val();
-            if(va > 1000000000 || va < 0) {
-                $(th).val(0);
-            }
-        }
-        //删除材料
-        function deleteTrRow(tr){
-            $(tr).parent().parent().remove();
-        }
-
-
-        //显示提示信息
-        function showMsg(str){
-            layui.use('layer', function(){
-                var layer = layui.layer;
-                layer.msg(str);
-            });
-        }
-
-        //提交时的数据验证
-        function form_submit(){
-            var sum=0;
-            $(".notempty").each(function(){
-                if($(this).val()){
-                }else{
-                    $(this).css('background','orange');
-                    sum=1;
-                }
-            });
-            if(sum == 1){
-                showMsg('请将内容补充完全再提交')
-                return false;
-            }
-            return true;
-        }
-
-        //点击文本框设置背景色
-        $("input").focus(function(){
-            $(this).css("background-color","#fff");
-        });
-
-    </script>
-
 @endsection

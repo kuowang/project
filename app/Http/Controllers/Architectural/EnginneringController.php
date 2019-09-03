@@ -114,7 +114,8 @@ class EnginneringController extends WebController
         $data['count'] =$db->count();
         $data['data']= $db->orderby('project.id','desc')
             ->orderby('engineering.id','asc')
-            ->select(['project.*','engineering.id as engineering_id','engineering_name','build_area','build_floor','build_height'])
+            ->select(['project.*','engineering.id as engineering_id','engineering_name',
+                'build_area','build_floor','build_height','is_conf_param','is_conf_architectural','budget_id'])
             ->skip(($page-1)*$rows)
             ->take($rows)
             ->get();
@@ -458,10 +459,19 @@ class EnginneringController extends WebController
             //设计人员可以操作更改工程设计详情
             return redirect('/architectural/enginStart?status=2&notice='.'您没有权限编辑该工程信息');
         }
+        $data['param'] =DB::table('engineering_param')->where('engin_id',$id)->first();
         $data['project'] =$project;
         $data['engineering']=$engineering;
         $data['engin_id'] =$id;
 
+        if($data['param']){
+            $data['storey_height']  =json_decode($data['param']->storey_height,true) ;
+            $data['house_height']   =json_decode($data['param']->house_height,true) ;
+            $data['house_area']     =json_decode($data['param']->house_area,true) ;
+            $data['room_position']  =json_decode($data['param']->room_position,true) ;
+            $data['room_name']      =json_decode($data['param']->room_name,true);
+            $data['room_area']      =json_decode($data['param']->room_area,true);
+        }
         return view('architectural.enginnering.editEnginParam',$data);
     }
     //提交建筑设计参数配置
@@ -480,36 +490,101 @@ class EnginneringController extends WebController
 		$floors             =(int)$request->input('floors',0);                   //"floors": "55",
 		$total_area         =(float)$request->input('total_area',0);                   //"total_area": "600",
 		$floor_height       =(float)$request->input('floor_height',0);                   //"floor_height": "12",
-		$floor_width        =$request->input('floor_width',[]);                 //"floor_width": "15",
+		$floor_width        =$request->input('floor_width',0);                 //"floor_width": "15",
 		$storey_height      =$request->input('storey_height',[]);                 //"storey_height": ["3", "4", "5", "4"],
 		$house_height       =$request->input('house_height',[]);                   //"house_height": ["3", "3", "3", "3"],
 		$house_area         =$request->input('house_area',[]);                   //"house_area": ["43", "22", "332", "44"],
-		$room_position      =$request->input('position',[]);                   //"position": ["2314"],
-		$room_name          =$request->input('roomname',[]);                   //"roomname": ["13412341"],
+		$room_position      =$request->input('room_position',[]);                   //"position": ["2314"],
+		$room_name          =$request->input('room_name',[]);                   //"roomname": ["13412341"],
 		$room_area          =$request->input('room_area',[]);                 //"room_area": ["12341234"]
 
+        $info =DB::table('engineering_param')->where('engin_id',$id)->first();
+        $engin =DB::table('engineering')->where('id',$id)->first();
+        if(empty($engin)){
+            echo "<script>alert('系统工程不存在');history.go(-2);</script>";
+            exit;
+        }
+        $data['project_id'] =$engin->project_id;
+        $data['engin_id']   =$id;
+        $data['use_time']           =$use_time;
+        $data['seismic_grade']      =$seismic_grade;
+        $data['waterproof_grade']   =$waterproof_grade;
+        $data['refractory_grade']   =$refractory_grade;
+        $data['insulation_sound_grade']=$insulation_sound_grade;
+        $data['energy_grade']       =$energy_grade;
+        $data['basic_wind_pressure']=$basic_wind_pressure;
+        $data['basic_snow_pressure']=$basic_snow_pressure;
+        $data['roof_load']          =$roof_load;
+        $data['floor_load']         =$floor_load;
+        $data['floors']             =$floors;
+        $data['total_area']         =$total_area;
+        $data['floor_height']       =$floor_height;
+        $data['floor_width']        =json_encode($floor_width);
+        $data['storey_height']      =json_encode($storey_height);
+        $data['house_height']       =json_encode($house_height);
+        $data['house_area']         =json_encode($house_area);
+        $data['room_position']      =json_encode($room_position);
+        $data['room_name']          =json_encode($room_name);
+        $data['room_area']          =json_encode($room_area);
+        DB::beginTransaction();
+        //保存数据到设计参数中
+        if($info){
+            $data['edit_uid'] =$this->user()->id;
+            $data['updated_at'] =date('Y-m-d');
+            DB::table('engineering_param')->where('engin_id',$id)->update($data);
+        }else{
+            $data['created_uid'] =$this->user()->id;
+            $data['created_at'] =date('Y-m-d');
+            DB::table('engineering_param')->insert($data);
+        }
 
+        //更改工程信息的面积和配置信息
+        $build_area =array_sum($house_area);
 
+        DB::table('engineering')->where('id',$id)->update(['build_area'=>$build_area,'is_conf_param'=>1]);
+        DB::commit();
 
-
-
-
-
-
-
-
-
-
-    return $this->success($request->all());
-
-
-
-
+        if($engin->status ==0){
+            return redirect('/architectural/enginStart?status=1&notice='.'更改成功');
+        }elseif($engin->status == 1){
+            return redirect('/architectural/enginConduct?status=1&notice='.'更改成功');
+        }else{
+            return redirect('/architectural/enginStart?status=1&notice='.'更改成功');
+        }
     }
 
+//项目设计参数详情
+    public function enginParamDetail(Request $request,$id){
+        $this->user();
+        $data['navid']      =35;
+        $data['subnavid']   =3500;
+        //项目子工程
+        $engineering =DB::table('engineering')->where('id',$id)->first();
+        if(empty($engineering)){
+            return redirect('/architectural/enginStart?status=2&notice='.'该工程不存在');
+        }
+        //项目信息
+        $project =DB::table('project')->where('id',$engineering->project_id)->first();
+        if( (in_array(35000102,$this->user()->pageauth) && $project->design_uid == $this->user()->id ) || in_array(350702,$this->user()->manageauth)){
+        }else{
+            //设计人员可以操作更改工程设计详情
+            return redirect('/architectural/enginStart?status=2&notice='.'您没有权限编辑该工程信息');
+        }
+        $data['param'] =DB::table('engineering_param')->where('engin_id',$id)->first();
+        $data['project'] =$project;
+        $data['engineering']=$engineering;
+        $data['engin_id'] =$id;
 
-
-
+        if($data['param']){
+            $data['storey_height']  =json_decode($data['param']->storey_height,true) ;
+            $data['house_height']   =json_decode($data['param']->house_height,true) ;
+            $data['house_area']     =json_decode($data['param']->house_area,true) ;
+            $data['room_position']  =json_decode($data['param']->room_position,true) ;
+            $data['room_name']      =json_decode($data['param']->room_name,true);
+            $data['room_area']      =json_decode($data['param']->room_area,true);
+        }
+        return view('architectural.enginnering.enginParamDetail',$data);
+    }
 
 
 }

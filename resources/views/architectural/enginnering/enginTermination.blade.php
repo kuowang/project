@@ -107,37 +107,41 @@
                                     <th>建筑面积</th>
                                     <th>建筑层数</th>
                                     <th>项目地址</th>
-                                    <th>项目负责人</th>
                                     <th>设计负责人</th>
-                                    <th>预算负责人</th>
-                                    <th>合约负责人</th>
                                     <th>项目状态</th>
                                     <th>创建时间</th>
-                                    <th>执行操作</th>
+                                    <th>设计参数管理</th>
+                                    <th>设计工况管理</th>
                                 </tr>
                                 </thead>
                                 <tbody>
 
                                 @foreach ($data as $k=>$val)
-                                    <tr>
-
-                                        <td>{{ $k+1 }}</td>
+                                    <tr><td>{{ $k+1 }}</td>
                                         <td >{{ $val->project_name }}</td>
                                         <td>{{ $val->engineering_name }}</td>
                                         <td>{{ $val->build_area }}</td>
                                         <td>{{ $val->build_floor }}</td>
                                         <td>{{ $val->address_detail }}</td>
-                                        <td>{{ $val->project_leader }}</td>
                                         <td>{{ $val->design_username }}</td>
-                                        <td>{{ $val->budget_username }}</td>
-                                        <td>{{ $val->technical_username }}</td>
-                                        <td>终止</td>
+                                        <td><span class="btn btn-danger">终止</span></td>
                                         <td>{{ $val->created_at }}</td>
+                                        <td>
+                                            @if( (in_array(35000401,$pageauth) && $val->design_uid == $uid ) || in_array(350706,$manageauth))
+                                                @if($val->is_conf_param ==1)
+                                                    <a title="查看详情" class="btn btn-info"  href="/architectural/enginParamDetail/{{ $val->engineering_id }}">
+                                                        <i class="layui-icon">详情</i>
+                                                    </a>
+                                                @endif
+                                            @endif
+                                        </td>
                                         <td class="td-manage">
                                             @if( (in_array(35000401,$pageauth) && $val->design_uid == $uid ) || in_array(350706,$manageauth))
+                                                @if($val->is_conf_architectural ==1)
                                                 <a title="查看详情" class="btn btn-info"  href="/architectural/enginTerminationDetail/{{ $val->engineering_id }}">
                                                     <i class="layui-icon">详情</i>
                                                 </a>
+                                                @endif
                                             @endif
 
                                         </td>

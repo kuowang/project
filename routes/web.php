@@ -129,7 +129,7 @@ Route::group(['prefix' => 'architectural','namespace' => 'Architectural','middle
 
     Route::get('/editEnginParam/{id}',             'EnginneringController@editEnginParam');    //配置工程设计参数
     Route::post('/postEditEnginParam/{id}',        'EnginneringController@postEditEnginParam');    //提交配置工程设计参数
-
+    Route::get('/enginParamDetail/{id}',           'EnginneringController@enginParamDetail');     //查看工程设计参数详情
 
 
 });
