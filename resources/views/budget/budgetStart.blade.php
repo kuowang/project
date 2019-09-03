@@ -153,11 +153,11 @@
                                         @if((in_array(20010101,$pageauth) && $val->budget_uid == $uid ) || in_array(200102,$manageauth))
                                             @if($val->budget_status != 1)
                                                 @if(empty($val->budget_id))
-                                                    <a title="创建" class="btn btn-success"  href="/budget/editStartBudget/{{ $val->engin_id }}" onclick="return checkStatus({{$val->is_conf_architectural}})">
+                                                    <a title="创建" class="btn btn-success"  href="/budget/editStartBudget/{{ $val->engin_id }}" onclick="return checkStatus({{$val->is_conf_architectural}},{{$val->is_conf_param}})">
                                                         <i class="layui-icon">创建</i>
                                                     </a>
                                                 @else
-                                                    <a title="编辑" class="btn btn-success"  href="/budget/editStartBudget/{{ $val->engin_id }}" onclick="return checkStatus({{$val->is_conf_architectural}})">
+                                                    <a title="编辑" class="btn btn-success"  href="/budget/editStartBudget/{{ $val->engin_id }}" >
                                                         <i class="layui-icon">编辑</i>
                                                     </a>
                                                 @endif
@@ -205,8 +205,8 @@
     <script>
         //一般直接写在一个js文件中
 
-    function checkStatus(status) {
-        if(status ==0){
+    function checkStatus(status ,paramstatus) {
+        if(status ==0 || paramstatus ==0){
             showMsg('请到建筑设计模块中配置材料信息，再配置预算')
             return false;
         }

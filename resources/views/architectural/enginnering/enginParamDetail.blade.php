@@ -30,7 +30,7 @@
                 <div class="widget-body">
                     <div id="dt_example" class="example_alt_pagination">
 
-                      <table class="layui-table layui-form">
+                        <table class="layui-table layui-form">
                                 <thead>
                                 <tr>
                                     <th colspan="6"><span class="btn btn-info">项目概况</span></th>
@@ -57,57 +57,57 @@
                                 </tr>
                                 </tbody>
                             </table>
-                            <div class="clearfix"></div>
-                            <table class="layui-table layui-form">
-                                <thead>
-                                <tr>
-                                    <th colspan="6"><span class="btn btn-info">建筑设计指标</span></th>
-                                </tr>
-                                </thead>
-                                <tbody>
+                        <div class="clearfix"></div>
+                        <table class="layui-table layui-form">
+                            <thead>
+                            <tr>
+                                <th colspan="6"><span class="btn btn-info">建筑设计指标</span></th>
+                            </tr>
+                            </thead>
+                            <tbody>
 
-                                <tr>
-                                    <td class="pro-title">建筑使用寿命(年)</td>
-                                    <td >{{isset($param->use_time)?$param->use_time:''}}</td>
-                                    <td class="pro-title">抗震设防烈度(级)</td>
-                                    <td >{{isset($param->seismic_grade)?$param->seismic_grade:''}}</td>
-                                    <td class="pro-title">屋面防水等级</td>
-                                    <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
-                                </tr>
-                                <tr>
-                                    <td class="pro-title">建筑耐火等级</td>
-                                    <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
-                                    <td class="pro-title">建筑隔声等级</td>
-                                    <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
-                                    <td class="pro-title">建筑节能等级</td>
-                                    <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <div class="clearfix"></div>
-                            <table class="layui-table layui-form">
-                                <thead>
-                                <tr>
-                                    <th colspan="4"><span class="btn btn-info">建筑荷载设计指标</span></th>
-                                </tr>
-                                </thead>
-                                <tbody>
+                            <tr>
+                                <td class="pro-title">建筑使用寿命(年)</td>
+                                <td >{{isset($param->use_time)?$param->use_time:''}}</td>
+                                <td class="pro-title">抗震设防烈度(级)</td>
+                                <td >{{isset($param->seismic_grade)?$param->seismic_grade:''}}</td>
+                                <td class="pro-title">屋面防水等级</td>
+                                <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
+                            </tr>
+                            <tr>
+                                <td class="pro-title">建筑耐火等级</td>
+                                <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
+                                <td class="pro-title">建筑隔声等级</td>
+                                <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
+                                <td class="pro-title">建筑节能等级</td>
+                                <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="clearfix"></div>
+                        <table class="layui-table layui-form">
+                            <thead>
+                            <tr>
+                                <th colspan="4"><span class="btn btn-info">建筑荷载设计指标</span></th>
+                            </tr>
+                            </thead>
+                            <tbody>
 
-                                <tr>
-                                    <td class="pro-title">设计基本风压(千牛/平方米)</td>
-                                    <td >{{isset($param->use_time)?$param->use_time:''}}</td>
-                                    <td class="pro-title">设计基本雪压(千牛/平方米)</td>
-                                    <td >{{isset($param->seismic_grade)?$param->seismic_grade:''}}</td>
+                            <tr>
+                                <td class="pro-title">设计基本风压(千牛/平方米)</td>
+                                <td >{{isset($param->use_time)?$param->use_time:''}}</td>
+                                <td class="pro-title">设计基本雪压(千牛/平方米)</td>
+                                <td >{{isset($param->seismic_grade)?$param->seismic_grade:''}}</td>
+                            </tr>
+                            <tr>
+                                <td class="pro-title">屋面活载荷(千牛/平方米)</td>
+                                <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
+                                <td class="pro-title">楼面活载荷(千牛/平方米)</td>
+                                <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
                                 </tr>
-                                <tr>
-                                    <td class="pro-title">屋面活载荷(千牛/平方米)</td>
-                                    <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
-                                    <td class="pro-title">楼面活载荷(千牛/平方米)</td>
-                                    <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="clearfix"></div>
+                            </tbody>
+                        </table>
+                        <div class="clearfix"></div>
                         <table class="layui-table layui-form">
                             <thead>
                             <tr>
@@ -145,47 +145,41 @@
 
                             </tbody>
                         </table>
-
                         <div class="clearfix"></div>
-
                         <table class="layui-table layui-form">
                             <thead>
-                            <tr>
-                                <th colspan="3">
-                                    <span class="btn btn-info">建筑房间功能布局</span>
-                                </th>
-                            </tr>
+                                <tr>
+                                    <th colspan="3">
+                                        <span class="btn btn-info">建筑房间功能布局</span>
+                                    </th>
+                                </tr>
                             </thead>
-                            <tbody id="addroom">
+                            <tbody >
                             <tr>
                                 <td class="pro-title">位置</td>
                                 <td class="pro-title">房间名称</td>
-                                <td  class="pro-title">面积</td>>
+                                <td class="pro-title">面积</td>
                             </tr>
                             @if(isset($room_position) && is_array($room_position))
-                            @foreach($room_position as $k=>$v)
-                            <tr>
-                                <td >{{$v}}</td>
-                                <td >{{isset($room_name[$k])?$room_name[$k]:''}}</td>
-                                <td >{{isset($room_area[$k])?$room_area[$k]:''}}</td>
-                            </tr>
-                            @endforeach
+                                @foreach($room_position as $k=>$v)
+                                    <tr>
+                                        <td >{{$v}}</td>
+                                        <td >{{isset($room_name[$k])?$room_name[$k]:''}}</td>
+                                        <td >{{isset($room_area[$k])?$room_area[$k]:''}}</td>
+                                    </tr>
+                                @endforeach
                             @endif
 
                             </tbody>
                         </table>
                         <div class="clearfix"></div>
-
                         <div class="layui-form-item" style="float: right;clear: left">
                             <a href="javascript:history.go(-1)">
                                 <label for="L_repass" class="layui-form-label"></label>
                                 <span class="btn btn-success" lay-filter="add" lay-submit="">返回/取消</span>
                             </a>
                         </div>
-
                         <div class="clearfix"></div>
-
-
                     </div>
                 </div>
             </div>

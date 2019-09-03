@@ -137,12 +137,14 @@
 
                                         <td class="td-manage">
                                             @if( (in_array(20010301,$pageauth) && $val->budget_uid == $uid ) || in_array(200107,$manageauth))
+                                                @if(!empty($val->budget_id))
                                                 <a title="查看详情" class="btn btn-info"  href="/budget/budgetCompletedDetail/{{ $val->engin_id }}">
                                                     <i class="layui-icon">详情</i>
                                                 </a>
                                                 <a title="导出" class="btn btn-success"  href="/budget/budgetCompletedDetail/{{ $val->engin_id }}?download=1" onclick="return checkStatus({{$val->is_conf_architectural}})">
                                                     <i class="layui-icon">导出</i>
                                                 </a>
+                                                @endif
                                             @endif
 
                                         </td>

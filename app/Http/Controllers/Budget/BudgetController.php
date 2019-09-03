@@ -116,7 +116,8 @@ class BudgetController extends WebController
             ->orderby('engineering.id','asc')
             ->select(['project.project_name','engineering.project_id','engineering.id as engin_id',
                 'engineering.engineering_name','build_area','budget.total_budget_price','budget.budget_order_number',
-                'project.budget_uid','project.budget_username','budget.budget_status','is_conf_architectural','budget.id as budget_id'])
+                'project.budget_uid','project.budget_username','budget.budget_status',
+                'is_conf_architectural','budget.id as budget_id','is_conf_param'])
             ->skip(($page-1)*$rows)
             ->take($rows)
             ->get();
@@ -280,6 +281,16 @@ class BudgetController extends WebController
                 }
             }
         }
+        //建筑设计配置参数
+        $data['param']=DB::table('engineering_param')->where('engin_id',$id)->first();
+        if($data['param']){
+            $data['storey_height']  =json_decode($data['param']->storey_height,true) ;
+            $data['house_height']   =json_decode($data['param']->house_height,true) ;
+            $data['house_area']     =json_decode($data['param']->house_area,true) ;
+            $data['room_position']  =json_decode($data['param']->room_position,true) ;
+            $data['room_name']      =json_decode($data['param']->room_name,true);
+            $data['room_area']      =json_decode($data['param']->room_area,true);
+        }
         return view('budget.editBudget',$data);
     }
 
@@ -359,15 +370,6 @@ class BudgetController extends WebController
     public function postEditBudget(Request $request,$id){
         $quotation_date     =$request->input('quotation_date');  //报价日期
         $quotation_limit_day =(int)$request->input('quotation_limit_day');  //报价有效期限（天）
-        $use_time           =$request->input('use_time');  //使用时长（年）
-        $seismic_grade      =$request->input('seismic_grade');  //抗震等级（级）
-        $wind_grade         =$request->input('wind_grade');  //抗风等级（级）
-        $keep_warm          =$request->input('keep_warm');  //保温构造形式
-        $waterproof_grade   =$request->input('waterproof_grade');  //屋面防水等级
-        $structural_style   =$request->input('structural_style');  //结构形式
-        $steel_material     =$request->input('steel_material');  //主体钢材材质
-        $storey_height      =$request->input('storey_height',[]);  //每层楼的高度（json）
-        $house_height       =$request->input('house_height',[]);  //室内净高
 
         $freight_price      =$request->input('freight_price');  //运输单价
         $package_price      =$request->input('package_price');  //包装单价
@@ -436,15 +438,6 @@ class BudgetController extends WebController
         $budgetdata['budget_status']        =0 ;               //```budget_status` tinyint(4) DEFAULT '0' COMMENT '预算审核状态 1已审核 0未审核',
         $budgetdata['quotation_date']       =$quotation_date;               //```quotation_date` date DEFAULT NULL COMMENT '报价日期',
         $budgetdata['quotation_limit_day']  =$quotation_limit_day;              //```quotation_limit_day` varchar(255) DEFAULT NULL COMMENT '报价有效期限（天）',
-        $budgetdata['use_time']             = $use_time ;               //```use_time` varchar(255) DEFAULT NULL COMMENT '使用时长（年）',
-        $budgetdata['seismic_grade']        =$seismic_grade;                //```seismic_grade` varchar(255) DEFAULT NULL COMMENT '抗震等级（级）',
-        $budgetdata['wind_grade']           =$wind_grade;               //```wind_grade` varchar(255) DEFAULT NULL COMMENT '抗风等级（级）',
-        $budgetdata['keep_warm']            =$keep_warm;                //```keep_warm` varchar(255) DEFAULT NULL COMMENT '保温构造形式',
-        $budgetdata['waterproof_grade']     =$waterproof_grade;                 //```waterproof_grade` varchar(255) DEFAULT NULL COMMENT '屋面防水等级',
-        $budgetdata['structural_style']     =$structural_style;                 //```structural_style` varchar(255) DEFAULT NULL COMMENT '结构形式',
-        $budgetdata['steel_material']       =$steel_material;               //```steel_material` varchar(255) DEFAULT NULL COMMENT '主体钢材材质',
-        $budgetdata['storey_height']        =json_encode($storey_height);                //```storey_height` varchar(1000) DEFAULT NULL COMMENT '每层楼的高度（json）',
-        $budgetdata['house_height']         =json_encode($house_height);                 //```house_height` varchar(1000) DEFAULT NULL COMMENT '室内净高',
         $budgetdata['freight_price']        =$freight_price;                //```freight_price` float(10,2) DEFAULT NULL COMMENT '运输单价',
         $budgetdata['freight_charge']       =round($freight_price * $area,2);               //```freight_charge` varchar(250) DEFAULT NULL COMMENT '运输费',
         $budgetdata['package_price']        =$package_price;                //```package_price` float(10,2) DEFAULT NULL COMMENT '包装单价',
@@ -654,6 +647,17 @@ class BudgetController extends WebController
                 }
             }
         }
+        //建筑设计配置参数
+        $data['param']=DB::table('engineering_param')->where('engin_id',$id)->first();
+        if($data['param']){
+            $data['storey_height']  =json_decode($data['param']->storey_height,true) ;
+            $data['house_height']   =json_decode($data['param']->house_height,true) ;
+            $data['house_area']     =json_decode($data['param']->house_area,true) ;
+            $data['room_position']  =json_decode($data['param']->room_position,true) ;
+            $data['room_name']      =json_decode($data['param']->room_name,true);
+            $data['room_area']      =json_decode($data['param']->room_area,true);
+        }
+
         return view('budget.budgetDetail',$data);
     }
 
@@ -686,6 +690,20 @@ class BudgetController extends WebController
             echo"<script>alert('当前工程没有预算单，无法导出');history.go(-1);</script>";
             exit;
         }
+        //建筑设计配置参数
+        $data['param']=DB::table('engineering_param')->where('engin_id',$id)->first();
+        if($data['param']){
+            $data['storey_height']  =json_decode($data['param']->storey_height,true) ;
+            $data['house_height']   =json_decode($data['param']->house_height,true) ;
+            $data['house_area']     =json_decode($data['param']->house_area,true) ;
+            $data['room_position']  =json_decode($data['param']->room_position,true) ;
+            $data['room_name']      =json_decode($data['param']->room_name,true);
+            $data['room_area']      =json_decode($data['param']->room_area,true);
+        }
+
+
+
+
         $a =view('offer.offerDownload',$data);
         header("Content-type:application/vnd.ms-excel");
         header("Content-Disposition:filename=".$budget->budget_order_number.".xls");
