@@ -252,7 +252,7 @@ class ProjectController extends WebController
         $build_area=$request->input('build_area',[]);
         $build_floor=$request->input('build_floor',[]);
         $build_height=$request->input('build_height',[]);
-
+        $indoor_height =$request->input('indoor_height',[]);
         if(count($build_height) != count($engineering_name) || count($build_area) != count($build_floor)){
             return redirect('/project/projectStart?status=2&notice='.'子工程信息缺失');
         }
@@ -265,6 +265,7 @@ class ProjectController extends WebController
                     'build_area'=>(float)$build_area[$k],
                     'build_floor'=>(int)$build_floor[$k],
                     'build_height'=>(float)$build_height[$k],
+                    'indoor_height'=>(float)$indoor_height[$k],
                     'created_uid'=>$this->user()->id,
                     'created_at'=>date('Y-m-d'),
                 ];
@@ -414,6 +415,7 @@ class ProjectController extends WebController
         $build_area=$request->input('build_area',[]);
         $build_floor=$request->input('build_floor',[]);
         $build_height=$request->input('build_height',[]);
+        $indoor_height =$request->input('indoor_height',[]);
         if(count($engineering_id) != count($engineering_name) || count($build_area) != count($build_floor)){
             return redirect('/project/projectStart?status=2&notice='.'子工程信息缺失');
         }
@@ -425,6 +427,7 @@ class ProjectController extends WebController
                     'build_area'=>(float)$build_area[$k],
                     'build_floor'=>(int)$build_floor[$k],
                     'build_height'=>(float)$build_height[$k],
+                    'indoor_height'=>(float)$indoor_height[$k],
                     'created_uid'=>$this->user()->id,
                     'created_at'=>date('Y-m-d'),
                 ];

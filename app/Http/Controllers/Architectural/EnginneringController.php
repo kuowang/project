@@ -467,26 +467,33 @@ class EnginneringController extends WebController
     //提交建筑设计参数配置
     public function postEditEnginParam(Request $request,$id){
 
-        $use_time =$request->input('use_time',0);                   //"use_time": "70",
-		$seismic_grade =$request->input('seismic_grade',0);                 //"seismic_grade": "7",
-		$waterproof_grade =$request->input('waterproof_grade',0);                   //"waterproof_grade": "6",
-		$refractory_grade =$request->input('refractory_grade',0);                   //"refractory_grade": "6",
-		$insulation_sound_grade =$request->input('insulation_sound_grade',0);                   //"insulation_sound_grade": "5",
-		$energy_grade =$request->input('energy_grade',0);                   //"energy_grade": "6",
-		$basic_wind_pressure =$request->input('basic_wind_pressure',0);                 //"basic_wind_pressure": "21",
-		$basic_snow_pressure =$request->input('basic_snow_pressure',0);                 //"basic_snow_pressure": "31",
-		$roof_load =$request->input('roof_load',0);                 //"roof_load": "123",
-		$floor_load =$request->input('floor_load',0);                   //"floor_load": "223",
-		$floors =$request->input('floors',0);                   //"floors": "55",
-		$total_area =$request->input('total_area',0);                   //"total_area": "600",
-		$floor_height =$request->input('floor_height',0);                   //"floor_height": "12",
-		$floor_width =$request->input('floor_width',0);                 //"floor_width": "15",
-		$storey_height =$request->input('storey_height',0);                 //"storey_height": ["3", "4", "5", "4"],
-		$house_height =$request->input('house_height',0);                   //"house_height": ["3", "3", "3", "3"],
-		$house_area =$request->input('house_area',0);                   //"house_area": ["43", "22", "332", "44"],
-		$room_position =$request->input('position',0);                   //"position": ["2314"],
-		$room_name =$request->input('roomname',0);                   //"roomname": ["13412341"],
-		$room_area =$request->input('room_area',0);                 //"room_area": ["12341234"]
+        $use_time           =(int)$request->input('use_time',0);                   //"use_time": "70",
+		$seismic_grade      =(float)$request->input('seismic_grade',0);                 //"seismic_grade": "7",
+		$waterproof_grade   =(float)$request->input('waterproof_grade',0);                   //"waterproof_grade": "6",
+		$refractory_grade   =(float)$request->input('refractory_grade',0);                   //"refractory_grade": "6",
+		$insulation_sound_grade =(float)$request->input('insulation_sound_grade',0);                   //"insulation_sound_grade": "5",
+		$energy_grade       =(float)$request->input('energy_grade',0);                   //"energy_grade": "6",
+		$basic_wind_pressure =(float)$request->input('basic_wind_pressure',0);                 //"basic_wind_pressure": "21",
+		$basic_snow_pressure =(float)$request->input('basic_snow_pressure',0);                 //"basic_snow_pressure": "31",
+		$roof_load          =(float)$request->input('roof_load',0);                 //"roof_load": "123",
+		$floor_load         =(float)$request->input('floor_load',0);                   //"floor_load": "223",
+		$floors             =(int)$request->input('floors',0);                   //"floors": "55",
+		$total_area         =(float)$request->input('total_area',0);                   //"total_area": "600",
+		$floor_height       =(float)$request->input('floor_height',0);                   //"floor_height": "12",
+		$floor_width        =$request->input('floor_width',[]);                 //"floor_width": "15",
+		$storey_height      =$request->input('storey_height',[]);                 //"storey_height": ["3", "4", "5", "4"],
+		$house_height       =$request->input('house_height',[]);                   //"house_height": ["3", "3", "3", "3"],
+		$house_area         =$request->input('house_area',[]);                   //"house_area": ["43", "22", "332", "44"],
+		$room_position      =$request->input('position',[]);                   //"position": ["2314"],
+		$room_name          =$request->input('roomname',[]);                   //"roomname": ["13412341"],
+		$room_area          =$request->input('room_area',[]);                 //"room_area": ["12341234"]
+
+
+
+
+
+
+
 
 
 

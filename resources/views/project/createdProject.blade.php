@@ -52,7 +52,7 @@
                                 </td>
                                 <td  class="pro-title">项目所在国</td>
                                 <td colspan="2">
-                                    <input type="text"  name="country" class="span8 notempty"  value="" lay-skin="primary" >
+                                    <input type="text"  name="country" class="span8 notempty"  value="" lay-skin="primary" placeholder="国内/国外">
                                 </td>
                             </tr>
                             <tr>
@@ -72,7 +72,7 @@
                             <tr>
                                 <td class="pro-title">项目地点国外</td>
                                 <td colspan="5">
-                                    <input type="text"  name="foreign_address" class="span8"  value="" lay-skin="primary" >
+                                    <input type="text"  name="foreign_address" class="span8"  value="" lay-skin="primary"  >
                                 </td>
                             </tr>
                             <tr>
@@ -197,8 +197,8 @@
                         <div class="clearfix"></div>
                         <table class="layui-table layui-form">
                             <thead>
-                            <tr><th colspan="4"><span class="btn btn-info">项目子工程信息</span></th>
-                            <th colspan="5"><span class="title" style="float: right;">
+                            <tr><th colspan="5"><span class="btn btn-info">项目子工程信息</span></th>
+                            <th colspan="6"><span class="title" style="float: right;">
                                 <a class="btn btn-success" onclick="add_zigongcheng()"><i class="layui-icon">添加子工程 +</i></a>
                             </span>
                             </th>
@@ -222,6 +222,8 @@
                                 <td>
                                     <input type="text"  name="build_height[]" class="span8 notempty"  value="" lay-skin="primary" >
                                 </td>
+                                <td class="pro-title">室内净高（米）</td>
+                                <td><input type="text"  name="indoor_height[]" class="span8 notempty"  value="" lay-skin="primary" ></td>
                                 <td></td>
                             </tr>
                             </tbody>
@@ -366,6 +368,8 @@
                 '<td> <input type="text"  name="build_floor[]" class="span8 notempty"  value="" lay-skin="primary" > </td>'+
                 '<td class="pro-title">建筑高度（米）</td>'+
                 '<td> <input type="text"  name="build_height[]" class="span8 notempty"  value="" lay-skin="primary" > </td>'+
+                '<td class="pro-title">室内净高（米）</td>'+
+                '<td><input type="text"  name="indoor_height[]" class="span8 notempty"  value="" lay-skin="primary" ></td>'+
                 '<td><a class="btn btn-danger" onclick="deleteTrRow(this)">删除</a></td>'+
             '</tr>';
             $("#zigongcheng").append(str);

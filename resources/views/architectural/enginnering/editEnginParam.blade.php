@@ -81,7 +81,7 @@
             <div class="widget">
                 <div class="widget-header" style="text-align: center">
                     <div  style="font-size: 16px;" >
-                        <b>工程预算清单</b>
+                        <b>建筑设计参数配置</b>
                     </div>
                 </div>
                 <div class="widget-body">
@@ -179,14 +179,14 @@
                                 <td><input type="text" class="span4 notempty" value="{{isset($storey_height)?$storey_height:''}}" name="total_area" onclick="key(this)"></td>
                             </tr>
                             <tr>
-                                <td  class="pro-title">长（米）</td>
+                                <td  class="pro-title">占地尺寸 长（米）</td>
                                 <td><input type="text" class="span4 notempty" value="{{isset($storey_height)?$storey_height:''}}" name="floor_height" onclick="key(this)"></td>
-                                <td class="pro-title">宽（米）</td>
+                                <td class="pro-title">占地尺寸 宽（米）</td>
                                 <td><input type="text" class="span4 notempty" value="{{isset($storey_height)?$storey_height:''}}" name="floor_width" onclick="key(this)"></td>
                             </tr>
                             <tr>
                                 <td  class="pro-title">楼层信息</td>
-                                <td class="pro-title">建筑高度（米）</td>
+                                <td class="pro-title">建筑层高（米）</td>
                                 <td class="pro-title">室内净高（米）</td>
                                 <td class="pro-title">建筑面积（平方米）</td>
                             </tr>

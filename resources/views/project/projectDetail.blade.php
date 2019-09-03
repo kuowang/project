@@ -140,7 +140,7 @@
                         <div class="clearfix"></div>
                         <table class="layui-table layui-form">
                             <thead>
-                            <tr><th colspan="8"><span class="btn btn-info">项目子工程信息</span></th>
+                            <tr><th colspan="10"><span class="btn btn-info">项目子工程信息</span></th>
                             </tr>
                             </thead>
                             <tbody id="zigongcheng">
@@ -154,7 +154,8 @@
                                 <td>{{$item->build_floor}}</td>
                                 <td class="pro-title">建筑高度（米）</td>
                                 <td>{{$item->build_height}}</td>
-
+                                <td class="pro-title">建筑净高（米）</td>
+                                <td>{{$item->indoor_height}}</td>
                             </tr>
                             @endforeach
 
