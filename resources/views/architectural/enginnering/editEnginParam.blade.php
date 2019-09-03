@@ -174,15 +174,15 @@
                             <tbody>
                             <tr>
                                 <td  class="pro-title">建筑层数</td>
-                                <td><input type="text" class="span4 notempty" value="{{isset($storey_height)?$storey_height:''}}" name="floors" onclick="key(this)"></td>
                                 <td class="pro-title">总建筑面积（平方米）</td>
-                                <td><input type="text" class="span4 notempty" value="{{isset($storey_height)?$storey_height:''}}" name="total_area" onclick="key(this)"></td>
+                                <td><span id="all_house_area"></span><input type="hidden" class="span8 notempty total_area" value="{{isset($storey_height)?$storey_height:''}}" name="total_area" onclick="key(this)"></td>
+                                <td><span class="area_content" style="color: red"></span></td>
                             </tr>
                             <tr>
                                 <td  class="pro-title">占地尺寸 长（米）</td>
-                                <td><input type="text" class="span4 notempty" value="{{isset($storey_height)?$storey_height:''}}" name="floor_height" onclick="key(this)"></td>
+                                <td><input type="text" class="span8 notempty" value="{{isset($storey_height)?$storey_height:''}}" name="floor_height" onclick="key(this)"></td>
                                 <td class="pro-title">占地尺寸 宽（米）</td>
-                                <td><input type="text" class="span4 notempty" value="{{isset($storey_height)?$storey_height:''}}" name="floor_width" onclick="key(this)"></td>
+                                <td><input type="text" class="span8 notempty" value="{{isset($storey_height)?$storey_height:''}}" name="floor_width" onclick="key(this)"></td>
                             </tr>
                             <tr>
                                 <td  class="pro-title">楼层信息</td>
@@ -194,9 +194,9 @@
                             @for($i =1;$i <= $engineering->build_floor;$i++ )
                             <tr >
                                 <td class="pro-title">第{{$i}}层</td>
-                                <td><input type="text" class="span4 notempty" value="{{isset($storey_height[$i-1])?$storey_height[$i-1]:''}}" name="storey_height[]" onclick="key(this)"></td>
-                                <td><input type="text" class="span4 notempty" value="{{isset($house_height[$i-1])?$house_height[$i-1]:''}}"  name="house_height[]"  onclick="key(this)"></td>
-                                <td><input type="text" class="span4 notempty" value="{{isset($house_area[$i-1])?$house_area[$i-1]:''}}"  name="house_area[]"  onclick="key(this)"></td>
+                                <td><input type="text" class="span8 notempty" value="{{isset($storey_height[$i-1])?$storey_height[$i-1]:''}}" name="storey_height[]" onclick="key(this)"></td>
+                                <td><input type="text" class="span8 notempty" value="{{isset($house_height[$i-1])?$house_height[$i-1]:''}}"  name="house_height[]"  onclick="key(this)"></td>
+                                <td><input type="text" class="span8 notempty house_area" value="{{isset($house_area[$i-1])?$house_area[$i-1]:''}}"  name="house_area[]"  onclick="add_total_area(this)"></td>
                             </tr>
                             @endfor
 
@@ -273,6 +273,8 @@
 </div>
 
     <script>
+
+        var buildarea = {{$engineering->build_area}};
         function add_room() {
             //添加事件
             str =`<tr>
@@ -286,6 +288,23 @@
 
         }
 
+        function add_total_area(th) {
+            key(th);
+            sum=0;
+            $(".house_area").each(function(){
+                sum =sum *1 + $(this).val() * 1;
+            });
+            console.log(sum);
+            $('#all_house_area').html(sum)
+            $('.total_area').val(sum);
+
+            if(buildarea != sum){
+                $('.area_content').html('建筑总面积已发生变化<br>保存后将覆盖工程中的建筑面积')
+            }else{
+                $('.area_content').html('');
+            }
+
+        }
 
 
         //点击只能输入数字
