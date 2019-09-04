@@ -400,7 +400,9 @@
                             </tbody>
                         </table>
                         <div class="clearfix"></div>
-
+                        @if($budget)
+                            <div style="color: red;float:left"> 数据发生变化,将导致已生成的报价单失效，请谨慎操作？ </div>
+                        @endif
                         <div class="layui-form-item" style="float: right;clear: left">
                             <label for="L_repass" class="layui-form-label"></label>
                             <button class="btn btn-success" lay-filter="add" type="submit" lay-submit="" onclick='return form_submit()'>确认/保存</button>

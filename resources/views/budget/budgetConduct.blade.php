@@ -159,11 +159,7 @@
                                                 </a>
                                                 @endif
                                             @endif
-                                            @if((in_array(20010201,$pageauth) && $val->budget_uid == $uid ) || in_array(200105,$manageauth))
-                                                <a title="编辑" class="btn btn-success"  href="/budget/editConductBudget/{{ $val->engin_id }}" onclick="return checkStatus({{$val->is_conf_architectural}},{{$val->is_conf_param}})">
-                                                    <i class="layui-icon">@if(!empty($val->budget_id))编辑@else 创建 @endif</i>
-                                                </a>
-                                            @endif
+
                                         </td>
                                     </tr>
                                 @endforeach

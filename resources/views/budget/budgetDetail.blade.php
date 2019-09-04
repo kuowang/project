@@ -112,9 +112,9 @@
                             </tr>
                             <tr>
                                 <td class="pro-title">报价日期</td>
-                                <td ><input type="text" name="quotation_date" id="quotation_date" value="{{isset($budget->quotation_date)?$budget->quotation_date:''}}"  lay-skin="primary" class="notempty span8"></td>
+                                <td >{{isset($budget->quotation_date)?$budget->quotation_date:''}}</td>
                                 <td class="pro-title">报价有效期限(天)</td>
-                                <td ><input type="text" name="quotation_limit_day" id="quotation_limit_day" value="{{isset($budget->quotation_limit_day)?$budget->quotation_limit_day:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
+                                <td >{{isset($budget->quotation_limit_day)?$budget->quotation_limit_day:''}}</td>
                                 <td colspan="2"></td>
                             </tr>
                             </tbody>
