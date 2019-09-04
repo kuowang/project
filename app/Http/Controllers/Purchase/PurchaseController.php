@@ -316,12 +316,12 @@ class PurchaseController extends WebController
         $data['navid']      =25;
         $data['subnavid']   =2501;
         //采购批次信息
-        $batchList= DB::table('purchase_batch')->where('id',$id)->first();
-        if(empty($batchList)){
+        $batchinfo= DB::table('purchase_batch')->where('id',$id)->first();
+        if(empty($batchinfo)){
             return redirect('/purchase/purchaseConduct?status=2&notice='.'批次信息不存在');
         }
         //项目子工程
-        $engineering =DB::table('engineering')->where('id',$batchList->engin_id)->first();
+        $engineering =DB::table('engineering')->where('id',$batchinfo->engin_id)->first();
         if(empty($engineering)){
             return redirect('/purchase/purchaseConduct?status=2&notice='.'该工程不存在');
         }
@@ -338,13 +338,19 @@ class PurchaseController extends WebController
         $data['engineering'] =$engineering; //工程信息
         $data['batch_id']=$id; //批次id
         //获取批次列表
-        $data['batchList']= $batchList;
+        $data['batchinfo']= $batchinfo;
         //获取预算中的供应商信息
         $data['supplierList'] = DB::table('budget_item')
-            ->where('engin_id',$batchList->engin_id)
+            ->where('engin_id',$batchinfo->engin_id)
             ->where('budget_id',$engineering->budget_id)
             ->orderby('supplier')
             ->pluck('supplier','supplier_id');
+
+        $data['engin_system']=DB::table('enginnering_architectural')
+            ->where('engin_id',$batchinfo->engin_id)
+            ->get();
+        //print_R($data['engin_system']);exit;
+
         return view('purchase.createPurchaseOrder',$data);
     }
 
