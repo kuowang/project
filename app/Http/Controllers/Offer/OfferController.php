@@ -116,7 +116,7 @@ class OfferController extends WebController
         $data['data']= $db->orderby('project.id','desc')
             ->orderby('engineering.id','asc')
             ->select(['project.project_name','engineering.project_id','engineering.id as engin_id',
-                'engineering.engineering_name','build_area','budget.total_budget_price','budget.budget_order_number',
+                'engineering.engineering_name','engineering.offer_id','build_area','budget.total_budget_price','budget.budget_order_number',
                 'project.budget_uid','project.budget_username','budget.budget_status','is_conf_architectural',
                 'budget.id as budget_id','budget.profit_ratio as budget_profit_ratio',
                 'budget.profit as budget_profit','budget.tax_ratio as budget_tax_ratio','budget.tax as budget_tax',
@@ -256,8 +256,7 @@ class OfferController extends WebController
         $data['offer_item']=[];
         //报价材料信息
         if(!empty($offer)){ //报价材料存在使用报价信息 不存在使用预算信息
-            $data['storey_height'] =json_decode($offer->storey_height,true);
-            $data['house_height'] =json_decode($offer->house_height,true);
+
             //报价详情
             $offer_item =DB::table('offer_item')->where('offer_id',$offer->id)->get();
             if($offer_item){
@@ -269,8 +268,6 @@ class OfferController extends WebController
             //查询预算信息
             $budget->total_offer_price =$budget->total_budget_price;
             $offer =$budget;
-            $data['storey_height'] =json_decode($budget->storey_height,true);
-            $data['house_height'] =json_decode($budget->house_height,true);
             //报价详情
             $offer_item =DB::table('budget_item')
                 ->join('material_brand_supplier','material_brand_supplier.id','=','budget_item.mbs_id')
@@ -285,23 +282,25 @@ class OfferController extends WebController
         }
 
         $data['offer'] =$offer;
+
+        //建筑设计配置参数
+        $data['param']=DB::table('engineering_param')->where('engin_id',$id)->first();
+        if($data['param']){
+            $data['storey_height']  =json_decode($data['param']->storey_height,true) ;
+            $data['house_height']   =json_decode($data['param']->house_height,true) ;
+            $data['house_area']     =json_decode($data['param']->house_area,true) ;
+            $data['room_position']  =json_decode($data['param']->room_position,true) ;
+            $data['room_name']      =json_decode($data['param']->room_name,true);
+            $data['room_area']      =json_decode($data['param']->room_area,true);
+        }
         return view('offer.editOffer',$data);
     }
 
     //保存报价信息
     public function postEditOffer(Request $request,$id){
-        //return $this->success($request->all());
+       // return $this->success($request->all());
         $quotation_date     =$request->input('quotation_date');  //报价日期
         $quotation_limit_day =(int)$request->input('quotation_limit_day');  //报价有效期限（天）
-        $use_time           =$request->input('use_time');  //使用时长（年）
-        $seismic_grade      =$request->input('seismic_grade');  //抗震等级（级）
-        $wind_grade         =$request->input('wind_grade');  //抗风等级（级）
-        $keep_warm          =$request->input('keep_warm');  //保温构造形式
-        $waterproof_grade   =$request->input('waterproof_grade');  //屋面防水等级
-        $structural_style   =$request->input('structural_style');  //结构形式
-        $steel_material     =$request->input('steel_material');  //主体钢材材质
-        $storey_height      =$request->input('storey_height',[]);  //每层楼的高度（json）
-        $house_height       =$request->input('house_height',[]);  //室内净高
 
         $freight_price      =$request->input('freight_price');  //运输单价
         $package_price      =$request->input('package_price');  //包装单价
@@ -390,15 +389,6 @@ class OfferController extends WebController
         $offerdata['offer_status']        =0 ;               //```offer_status` tinyint(4) DEFAULT '0' COMMENT '报价审核状态 1已审核 0未审核',
         $offerdata['quotation_date']       =$quotation_date;               //```quotation_date` date DEFAULT NULL COMMENT '报价日期',
         $offerdata['quotation_limit_day']  =$quotation_limit_day;              //```quotation_limit_day` varchar(255) DEFAULT NULL COMMENT '报价有效期限（天）',
-        $offerdata['use_time']             = $use_time ;               //```use_time` varchar(255) DEFAULT NULL COMMENT '使用时长（年）',
-        $offerdata['seismic_grade']        =$seismic_grade;                //```seismic_grade` varchar(255) DEFAULT NULL COMMENT '抗震等级（级）',
-        $offerdata['wind_grade']           =$wind_grade;               //```wind_grade` varchar(255) DEFAULT NULL COMMENT '抗风等级（级）',
-        $offerdata['keep_warm']            =$keep_warm;                //```keep_warm` varchar(255) DEFAULT NULL COMMENT '保温构造形式',
-        $offerdata['waterproof_grade']     =$waterproof_grade;                 //```waterproof_grade` varchar(255) DEFAULT NULL COMMENT '屋面防水等级',
-        $offerdata['structural_style']     =$structural_style;                 //```structural_style` varchar(255) DEFAULT NULL COMMENT '结构形式',
-        $offerdata['steel_material']       =$steel_material;               //```steel_material` varchar(255) DEFAULT NULL COMMENT '主体钢材材质',
-        $offerdata['storey_height']        =json_encode($storey_height);                //```storey_height` varchar(1000) DEFAULT NULL COMMENT '每层楼的高度（json）',
-        $offerdata['house_height']         =json_encode($house_height);                 //```house_height` varchar(1000) DEFAULT NULL COMMENT '室内净高',
         $offerdata['freight_price']        =$freight_price;                //```freight_price` float(10,2) DEFAULT NULL COMMENT '运输单价',
         $offerdata['freight_charge']       =round($freight_price * $area,2);               //```freight_charge` varchar(250) DEFAULT NULL COMMENT '运输费',
         $offerdata['package_price']        =$package_price;                //```package_price` float(10,2) DEFAULT NULL COMMENT '包装单价',
@@ -427,6 +417,7 @@ class OfferController extends WebController
         }
         DB::table('offer_item')->where('engin_id',$id)->delete();
         DB::table('offer_item')->insert($offeritemdata);
+        DB::table('engineering')->where('id',$id)->update(['offer_id'=>$offer_id]);
         DB::commit();
         if($engineering->status == 0){
             return redirect('/offer/offerStart?status=1&notice='.'编辑报价成功');
@@ -489,7 +480,6 @@ class OfferController extends WebController
             //设计人员可以操作更改工程设计详情
             return redirect('/offer/offerStart?status=2&notice='.'您没有权限编辑该工程信息');
         }
-
         if($request->input('download',0) == 1){
             return $this->offerDownload($id,$data,$project,$engineering);
         }else{
@@ -595,8 +585,6 @@ class OfferController extends WebController
         $data['offer_item']=[];
         //报价材料信息
         if(!empty($offer)){
-            $data['storey_height'] =json_decode($offer->storey_height,true);
-            $data['house_height'] =json_decode($offer->house_height,true);
             //报价详情
             $offer_item =DB::table('offer_item')->where('offer_id',$offer->id)->get();
             if($offer_item){
@@ -604,6 +592,16 @@ class OfferController extends WebController
                     $data['offer_item'][$item->sub_arch_id][]=$item;
                 }
             }
+        }
+        //建筑设计配置参数
+        $data['param']=DB::table('engineering_param')->where('engin_id',$id)->first();
+        if($data['param']){
+            $data['storey_height']  =json_decode($data['param']->storey_height,true) ;
+            $data['house_height']   =json_decode($data['param']->house_height,true) ;
+            $data['house_area']     =json_decode($data['param']->house_area,true) ;
+            $data['room_position']  =json_decode($data['param']->room_position,true) ;
+            $data['room_name']      =json_decode($data['param']->room_name,true);
+            $data['room_area']      =json_decode($data['param']->room_area,true);
         }
 
         return view('offer.offerDetail',$data);
@@ -625,8 +623,6 @@ class OfferController extends WebController
         $data['offer_item']=[];
         //报价材料信息
         if(!empty($offer)){
-            $data['storey_height'] =json_decode($offer->storey_height,true);
-            $data['house_height'] =json_decode($offer->house_height,true);
             //报价详情
             $offer_item =DB::table('offer_item')->where('offer_id',$offer->id)->get();
             if($offer_item){
@@ -639,6 +635,17 @@ class OfferController extends WebController
             exit;
         }
 
+        //建筑设计配置参数
+        $data['param']=DB::table('engineering_param')->where('engin_id',$id)->first();
+        if($data['param']){
+            $data['storey_height']  =json_decode($data['param']->storey_height,true) ;
+            $data['house_height']   =json_decode($data['param']->house_height,true) ;
+            $data['house_area']     =json_decode($data['param']->house_area,true) ;
+            $data['room_position']  =json_decode($data['param']->room_position,true) ;
+            $data['room_name']      =json_decode($data['param']->room_name,true);
+            $data['room_area']      =json_decode($data['param']->room_area,true);
+        }
+        //return view('offer.offerDownload',$data);
         $a =view('offer.offerDownload',$data);
         header("Content-type:application/vnd.ms-excel");
         header("Content-Disposition:filename=".$offer->offer_order_number.".xls");

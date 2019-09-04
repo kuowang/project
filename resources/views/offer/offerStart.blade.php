@@ -174,7 +174,11 @@
                                         @if((in_array(20020101,$pageauth) && $val->budget_uid == $uid ) || in_array(200202,$manageauth))
                                             @if($val->offer_status != 1)
                                             <a title="编辑" class="btn btn-success"  href="/offer/editStartOffer/{{ $val->engin_id }}" onclick="return checkStatus({{$val->is_conf_architectural}})">
+                                                @if($val->offer_id ==0)
+                                                <i class="layui-icon">创建</i>
+                                                @else
                                                 <i class="layui-icon">编辑</i>
+                                                @endif
                                             </a>
                                             @endif
                                         @endif

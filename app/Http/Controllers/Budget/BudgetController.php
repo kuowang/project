@@ -271,8 +271,7 @@ class BudgetController extends WebController
         $data['budget_item']=[];
         //预算材料信息
         if(!empty($budget)){
-            $data['storey_height'] =json_decode($budget->storey_height,true);
-            $data['house_height'] =json_decode($budget->house_height,true);
+
             //预算详情
             $budget_item =DB::table('budget_item')->where('budget_id',$budget->id)->get();
             if($budget_item){
@@ -465,17 +464,20 @@ class BudgetController extends WebController
             DB::table('budget')->where('id',$engineering->budget_id)->update($budgetdata);
             $budget_id =$engineering->budget_id;
             DB::table('budget_item')->where('budget_id',$budget_id)->delete();
+            //编辑预算需要 把对应的报价单删除
+            DB::table('offer')->where('engin_id',$id)->delete();
+            DB::table('offer_item')->where('engin_id',$id)->delete();
         }else{
             $budgetdata['created_uid']          = $uid;             //```created_uid` int(11) DEFAULT NULL COMMENT '创建者',
             $budgetdata['created_at']           = $time;              //```created_at` date DEFAULT NULL COMMENT '创建时间',
-
             $budget_id= DB::table('budget')->insertGetId($budgetdata);
-            DB::table('engineering')->where('id',$id)->update(['budget_id'=>$budget_id]);
         }
+        DB::table('engineering')->where('id',$id)->update(['budget_id'=>$budget_id,'offer_id'=>0]);
         foreach($budgetitemdata as &$bud){
             $bud['budget_id']=$budget_id;
         }
         DB::table('budget_item')->insert($budgetitemdata);
+
         DB::commit();
         if($engineering->status == 0){
             return redirect('/budget/budgetStart?status=1&notice='.'编辑预算成功');
@@ -637,8 +639,6 @@ class BudgetController extends WebController
         $data['budget_item']=[];
         //预算材料信息
         if(!empty($budget)){
-            $data['storey_height'] =json_decode($budget->storey_height,true);
-            $data['house_height'] =json_decode($budget->house_height,true);
             //预算详情
             $budget_item =DB::table('budget_item')->where('budget_id',$budget->id)->get();
             if($budget_item){
@@ -657,7 +657,6 @@ class BudgetController extends WebController
             $data['room_name']      =json_decode($data['param']->room_name,true);
             $data['room_area']      =json_decode($data['param']->room_area,true);
         }
-
         return view('budget.budgetDetail',$data);
     }
 
@@ -676,9 +675,10 @@ class BudgetController extends WebController
         $data['budget'] =$budget;
         $data['budget_item']=[];
         //预算材料信息
-        if(!empty($budget)){
-            $data['storey_height'] =json_decode($budget->storey_height,true);
-            $data['house_height'] =json_decode($budget->house_height,true);
+        if(empty($budget)){
+            echo"<script>alert('当前工程没有预算单，无法导出');history.go(-1);</script>";
+            exit;
+        }else{
             //预算详情
             $budget_item =DB::table('budget_item')->where('budget_id',$budget->id)->get();
             if($budget_item){
@@ -686,9 +686,6 @@ class BudgetController extends WebController
                     $data['budget_item'][$item->sub_arch_id][]=$item;
                 }
             }
-        }else{
-            echo"<script>alert('当前工程没有预算单，无法导出');history.go(-1);</script>";
-            exit;
         }
         //建筑设计配置参数
         $data['param']=DB::table('engineering_param')->where('engin_id',$id)->first();
@@ -701,10 +698,8 @@ class BudgetController extends WebController
             $data['room_area']      =json_decode($data['param']->room_area,true);
         }
 
-
-
-
-        $a =view('offer.offerDownload',$data);
+       // return view('budget.budgetDownload',$data);
+        $a =view('budget.budgetDownload',$data);
         header("Content-type:application/vnd.ms-excel");
         header("Content-Disposition:filename=".$budget->budget_order_number.".xls");
         $strexport=iconv('UTF-8',"GB2312//IGNORE",$a);
