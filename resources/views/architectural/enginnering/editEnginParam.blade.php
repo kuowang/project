@@ -129,9 +129,9 @@
                                 <td><span class="area_content" style="color: red"></span></td>
                             </tr>
                             <tr>
-                                <td  class="pro-title">占地尺寸 长（m）</td>
+                                <td  class="pro-title">建筑占地尺寸 长（m）</td>
                                 <td><input type="text" class="span8 notempty" value="{{isset($param->floor_height)?$param->floor_height:''}}" name="floor_height" onclick="key(this)"></td>
-                                <td class="pro-title">占地尺寸 宽（m）</td>
+                                <td class="pro-title">宽（m）</td>
                                 <td><input type="text" class="span8 notempty" value="{{isset($param->floor_width)?$param->floor_width:''}}" name="floor_width" onclick="key(this)"></td>
                             </tr>
                             <tr>
@@ -170,7 +170,7 @@
                             <tr>
                                 <td class="pro-title">位置</td>
                                 <td class="pro-title">房间名称</td>
-                                <td  class="pro-title">面积</td>
+                                <td  class="pro-title">室内净建筑面积要求(m²)</td>
                                 <td class="pro-title">操作</td>
                             </tr>
                             @if(isset($room_position) && is_array($room_position))

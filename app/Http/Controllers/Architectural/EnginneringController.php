@@ -243,7 +243,7 @@ class EnginneringController extends WebController
                     'sub_arch_id'=>$engin->sub_arch_id,
                     'sub_system_name'=>$engin->sub_system_name,
                     'sub_system_code'=>$engin->sub_system_code,
-                    'work_code'=>$engin_work_code[$engin->sub_arch_id],
+                    'work_code'=>$engin->work_code,
                     'uid'=>$this->user()->id,
                     'created_at'=>$time,
                 ];

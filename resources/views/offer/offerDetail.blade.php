@@ -133,9 +133,9 @@
                                 <td><span class="area_content" style="color: red"></span></td>
                             </tr>
                             <tr>
-                                <td  class="pro-title">占地尺寸 长（m）</td>
+                                <td  class="pro-title">建筑占地尺寸 长（m）</td>
                                 <td>{{isset($param->floor_height)?$param->floor_height:''}}</td>
-                                <td class="pro-title">占地尺寸 宽（m）</td>
+                                <td class="pro-title">宽（m）</td>
                                 <td>{{isset($param->floor_width)?$param->floor_width:''}}</td>
                             </tr>
                             <tr>
@@ -169,7 +169,7 @@
                             <tr>
                                 <td class="pro-title">位置</td>
                                 <td class="pro-title">房间名称</td>
-                                <td  class="pro-title">面积</td>
+                                <td  class="pro-title">室内净建筑面积要求(m²)</td>
                             </tr>
                             @if(isset($room_position) && is_array($room_position))
                                 @foreach($room_position as $k=>$v)

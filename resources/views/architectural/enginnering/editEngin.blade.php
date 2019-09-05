@@ -109,7 +109,6 @@
                                 <th >建筑子系统</th>
                                 <th >建筑子系统编码</th>
                                 <th >默认工况</th>
-                                <th style="min-width: 210px">工况</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -120,7 +119,7 @@
                             @foreach($arch_system as $v)
                                 @if($system_code != $v->system_code)
                                     <tr class="pro-title">
-                                        <td colspan="5">{{$v->system_name}}({{$v->engin_name}})</td>
+                                        <td colspan="4">{{$v->system_name}}({{$v->engin_name}})</td>
                                         <td > <span class="btn btn-success" onclick="showcontent('{{$v->system_code}}')" id="show_{{$v->system_code}}">显示</span>
                                         </td>
                                     </tr>
@@ -139,11 +138,6 @@
                                 <td  >{{$v->sub_system_name}}</td>
                                 <td  >{{$v->sub_system_code}}</td>
                                 <td  >{{$v->work_code}}</td>
-                                <td  style="" id="engin_work_code_{{$v->sub_arch_id}}">
-                                @if(isset($engin_system[$v->sub_arch_id]))
-                                        <input type="text" name="engin_work_code[{{$v->sub_arch_id}}]" value="{{$engin_system[$v->sub_arch_id]}}" >
-                                @endif
-                                </td>
                                 <td class=""></td>
                             </tr>
                             @endforeach
@@ -232,14 +226,7 @@
                 });
                 return false;
             }
-            //验证个数
-            if($("input:text").length ==0){
-                layui.use('layer', function(){
-                    var layer = layui.layer;
-                    layer.msg('您没有选中任何子工程信息。');
-                });
-                return false;
-            }
+
             return true;
         }
 
