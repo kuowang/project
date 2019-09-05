@@ -86,7 +86,7 @@ class EnginneringController extends WebController
     }
 
     //查询项目信息
-    protected function getEngineList($status,$project_name='',$address='',$customer_leader='',$success_level=1,$page=1,$rows=20)
+    protected function getEngineList($status,$project_name='',$address='',$project_leader='',$success_level=1,$page=1,$rows=20)
     {
         $db=DB::table('project')
             ->leftjoin('engineering','project.id','=','project_id')
@@ -105,8 +105,8 @@ class EnginneringController extends WebController
                 ;
             });
         }
-        if(!empty($customer_leader)){
-            $db->where('customer_leader','like','%'.$customer_leader.'%');
+        if(!empty($project_leader)){
+            $db->where('project_leader','like','%'.$project_leader.'%');
         }
         if(!empty($success_level)){
             $db->where('success_level','like','%'.$success_level.'%');
@@ -126,25 +126,25 @@ class EnginneringController extends WebController
     {
         $project_name       =$request->input('project_name','');
         $address            =$request->input('address','');
-        $customer_leader    =$request->input('customer_leader','');
+        $project_leader     =$request->input('project_leader','');
         $success_level      =$request->input('success_level',0);
         $page               =$request->input('page',1);
         $rows               =$request->input('rows',40);
         $data['project_name']   =$project_name;
         $data['address']        =$address;
-        $data['customer_leader']=$customer_leader;
+        $data['project_leader']=$project_leader;
         $data['success_level']  =$success_level;
-        $datalist=$this->getEngineList($status,$project_name,$address,$customer_leader,$success_level,$page,$rows);
+        $datalist=$this->getEngineList($status,$project_name,$address,$project_leader,$success_level,$page,$rows);
         if($status == 0){
-            $url='/architectural/enginStart?project_name='.$project_name.'&address='.$address.'&customer_leader='.$customer_leader.'&success_level='.$success_level;
+            $url='/architectural/enginStart?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader.'&success_level='.$success_level;
         }elseif($status == 1){
-            $url='/architectural/enginConduct?project_name='.$project_name.'&address='.$address.'&customer_leader='.$customer_leader.'&success_level='.$success_level;
+            $url='/architectural/enginConduct?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader.'&success_level='.$success_level;
         }elseif($status == 2){
-            $url='/architectural/enginCompleted?project_name='.$project_name.'&address='.$address.'&customer_leader='.$customer_leader.'&success_level='.$success_level;
+            $url='/architectural/enginCompleted?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader.'&success_level='.$success_level;
         }elseif($status == 4){
-            $url='/architectural/enginTermination?project_name='.$project_name.'&address='.$address.'&customer_leader='.$customer_leader.'&success_level='.$success_level;
+            $url='/architectural/enginTermination?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader.'&success_level='.$success_level;
         }else{
-            $url='/architectural/enginStart?project_name='.$project_name.'&address='.$address.'&customer_leader='.$customer_leader.'&success_level='.$success_level;
+            $url='/architectural/enginStart?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader.'&success_level='.$success_level;
         }$data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
         $data['data']   =$datalist['data'];
         $data['navid']      =35;

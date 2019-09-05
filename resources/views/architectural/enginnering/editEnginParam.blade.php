@@ -75,7 +75,7 @@
                                 <tr>
                                     <td class="pro-title">建筑使用寿命(年)</td>
                                     <td ><input type="text" name="use_time" id="use_time" value="{{isset($param->use_time)?$param->use_time:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
-                                    <td class="pro-title">抗震设防烈度(级)</td>
+                                    <td class="pro-title">抗震设防烈度(度)</td>
                                     <td ><input type="text" name="seismic_grade" id="seismic_grade" value="{{isset($param->seismic_grade)?$param->seismic_grade:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
                                     <td class="pro-title">屋面防水等级</td>
                                     <td ><input type="text" name="waterproof_grade" id="waterproof_grade" value="{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
@@ -85,7 +85,7 @@
                                     <td ><input type="text" name="refractory_grade" id="waterproof_grade" value="{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
                                     <td class="pro-title">建筑隔声等级</td>
                                     <td ><input type="text" name="insulation_sound_grade" id="waterproof_grade" value="{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
-                                    <td class="pro-title">建筑节能等级</td>
+                                    <td class="pro-title">建筑节能标准(%)</td>
                                     <td ><input type="text" name="energy_grade" id="waterproof_grade" value="{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
                                 </tr>
                                 </tbody>

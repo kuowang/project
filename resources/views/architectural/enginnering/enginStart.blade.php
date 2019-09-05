@@ -78,7 +78,7 @@
                             <form class="form-search" action="/architectural/enginStart" method="get">
                                 项目名称:<input type="text" name="project_name" value="{{ $project_name }}" class="input-medium search-query">
                                 项目地点:<input type="text" name="address" value="{{ $address }}" class="input-medium search-query">
-                                项目负责人:<input type="text" name="customer_leader" value="{{ $customer_leader }}" class="input-medium search-query">
+                                项目负责人:<input type="text" name="project_leader" value="{{ $project_leader }}" class="input-medium search-query">
                                 洽谈指数:<select name="success_level" id="stateAndCity" class="input-medium search-query" style="min-width: 80px;border-radius: 15px;color:red;">
                                     <option value="0" ></option>
                                     @if($success_level ==1) <option value="1" selected="selected">★</option> @else <option value="1">★</option> @endif

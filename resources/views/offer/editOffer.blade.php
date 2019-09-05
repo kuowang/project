@@ -83,7 +83,7 @@
                                 <tr>
                                     <td class="pro-title">建筑使用寿命(年)</td>
                                     <td >{{isset($param->use_time)?$param->use_time:''}}</td>
-                                    <td class="pro-title">抗震设防烈度(级)</td>
+                                    <td class="pro-title">抗震设防烈度(度)</td>
                                     <td >{{isset($param->seismic_grade)?$param->seismic_grade:''}}</td>
                                     <td class="pro-title">屋面防水等级</td>
                                     <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
@@ -93,7 +93,7 @@
                                     <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
                                     <td class="pro-title">建筑隔声等级</td>
                                     <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
-                                    <td class="pro-title">建筑节能等级</td>
+                                    <td class="pro-title">建筑节能标准(%)</td>
                                     <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
                                 </tr>
                                 </tbody>
