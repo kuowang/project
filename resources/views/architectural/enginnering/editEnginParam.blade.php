@@ -58,7 +58,7 @@
                                     <td >{{$engineering->build_area}}</td>
                                     <td class="pro-title">建筑楼层(层数)</td>
                                     <td >{{$engineering->build_floor}}</td>
-                                    <td class="pro-title">建筑高度(米)</td>
+                                    <td class="pro-title">建筑高度(m)</td>
                                     <td >{{$engineering->build_height}}</td>
                                 </tr>
                                 </tbody>
@@ -129,15 +129,15 @@
                                 <td><span class="area_content" style="color: red"></span></td>
                             </tr>
                             <tr>
-                                <td  class="pro-title">占地尺寸 长（米）</td>
+                                <td  class="pro-title">占地尺寸 长（m）</td>
                                 <td><input type="text" class="span8 notempty" value="{{isset($param->floor_height)?$param->floor_height:''}}" name="floor_height" onclick="key(this)"></td>
-                                <td class="pro-title">占地尺寸 宽（米）</td>
+                                <td class="pro-title">占地尺寸 宽（m）</td>
                                 <td><input type="text" class="span8 notempty" value="{{isset($param->floor_width)?$param->floor_width:''}}" name="floor_width" onclick="key(this)"></td>
                             </tr>
                             <tr>
                                 <td  class="pro-title">楼层信息</td>
-                                <td class="pro-title">建筑层高（米）</td>
-                                <td class="pro-title">室内净高（米）</td>
+                                <td class="pro-title">建筑层高（m）</td>
+                                <td class="pro-title">室内净高（m）</td>
                                 <td class="pro-title">建筑面积（平方米）</td>
                             </tr>
 

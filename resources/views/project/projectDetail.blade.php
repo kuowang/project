@@ -152,9 +152,9 @@
                                 <td>{{$item->build_area}}</td>
                                 <td class="pro-title">建筑层数</td>
                                 <td>{{$item->build_floor}}</td>
-                                <td class="pro-title">建筑高度（米）</td>
+                                <td class="pro-title">建筑高度（m）</td>
                                 <td>{{$item->build_height}}</td>
-                                <td class="pro-title">建筑净高（米）</td>
+                                <td class="pro-title">建筑净高（m）</td>
                                 <td>{{$item->indoor_height}}</td>
                             </tr>
                             @endforeach

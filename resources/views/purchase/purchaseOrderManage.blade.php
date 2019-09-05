@@ -50,7 +50,7 @@
                                     <td >{{$engineering->build_area}}</td>
                                     <td class="pro-title">建筑楼层(层数)</td>
                                     <td >{{$engineering->build_floor}}</td>
-                                    <td class="pro-title">建筑高度(米)</td>
+                                    <td class="pro-title">建筑高度(m)</td>
                                     <td >{{$engineering->build_height}}</td>
                                 </tr>
                                 <tr>

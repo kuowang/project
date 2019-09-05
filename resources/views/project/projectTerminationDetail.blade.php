@@ -150,9 +150,9 @@
                                 <td>{{$engineering->build_area}}</td>
                                 <td class="pro-title">建筑层数</td>
                                 <td>{{$engineering->build_floor}}</td>
-                                <td class="pro-title">建筑高度（米）</td>
+                                <td class="pro-title">建筑高度（m）</td>
                                 <td>{{$engineering->build_height}}</td>
-                                <td class="pro-title">建筑净高（米）</td>
+                                <td class="pro-title">建筑净高（m）</td>
                                 <td>{{$engineering->indoor_height}}</td>
                             </tr>
                             </tbody>
