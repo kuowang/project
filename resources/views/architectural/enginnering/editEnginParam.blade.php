@@ -54,7 +54,7 @@
                                 </tr>
 
                                 <tr>
-                                    <td class="pro-title">建筑面积(平方米)</td>
+                                    <td class="pro-title">建筑面积(m²)</td>
                                     <td >{{$engineering->build_area}}</td>
                                     <td class="pro-title">建筑楼层(层数)</td>
                                     <td >{{$engineering->build_floor}}</td>
@@ -100,15 +100,15 @@
                                 <tbody>
 
                                 <tr>
-                                    <td class="pro-title">设计基本风压(千牛/平方米)</td>
+                                    <td class="pro-title">设计基本风压(kN/m²)</td>
                                     <td ><input type="text" name="basic_wind_pressure" id="use_time" value="{{isset($param->use_time)?$param->use_time:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
-                                    <td class="pro-title">设计基本雪压(千牛/平方米)</td>
+                                    <td class="pro-title">设计基本雪压(kN/m²)</td>
                                     <td ><input type="text" name="basic_snow_pressure" id="seismic_grade" value="{{isset($param->seismic_grade)?$param->seismic_grade:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
                                 </tr>
                                 <tr>
-                                    <td class="pro-title">屋面活载荷(千牛/平方米)</td>
+                                    <td class="pro-title">屋面活载荷(kN/m²)</td>
                                     <td ><input type="text" name="roof_load" id="waterproof_grade" value="{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
-                                    <td class="pro-title">楼面活载荷(千牛/平方米)</td>
+                                    <td class="pro-title">楼面活载荷(kN/m²)</td>
                                     <td ><input type="text" name="floor_load" id="waterproof_grade" value="{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
                                     </tr>
                                 </tbody>
@@ -123,7 +123,7 @@
                             <tbody>
                             <tr>
                                 <td  class="pro-title">建筑层数：{{$engineering->build_floor}}层</td>
-                                <td class="pro-title">总建筑面积（平方米）</td>
+                                <td class="pro-title">总建筑面积（m²）</td>
                                 <td><span id="all_house_area">{{$engineering->build_area}}</span>
                                     <input type="hidden" class="span8 total_area" value="{{$engineering->build_area}}" name="total_area" onclick="key(this)"></td>
                                 <td><span class="area_content" style="color: red"></span></td>
@@ -138,7 +138,7 @@
                                 <td  class="pro-title">楼层信息</td>
                                 <td class="pro-title">建筑层高（m）</td>
                                 <td class="pro-title">室内净高（m）</td>
-                                <td class="pro-title">建筑面积（平方米）</td>
+                                <td class="pro-title">建筑面积（m²）</td>
                             </tr>
 
                             @for($i =1;$i <= $engineering->build_floor;$i++ )

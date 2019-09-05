@@ -103,7 +103,7 @@
                             </tr>
 
                             <tr>
-                                <td class="pro-title">建筑面积(平方米)</td>
+                                <td class="pro-title">建筑面积(m²)</td>
                                 <td >{{$engineering->build_area}}</td>
                                 <td class="pro-title">建筑楼层(层数)</td>
                                 <td >{{$engineering->build_floor}}</td>
@@ -156,15 +156,15 @@
                             <tbody>
 
                             <tr>
-                                <td class="pro-title">设计基本风压(千牛/平方米)</td>
+                                <td class="pro-title">设计基本风压(kN/m²)</td>
                                 <td >{{isset($param->use_time)?$param->use_time:''}}</td>
-                                <td class="pro-title">设计基本雪压(千牛/平方米)</td>
+                                <td class="pro-title">设计基本雪压(kN/m²)</td>
                                 <td >{{isset($param->seismic_grade)?$param->seismic_grade:''}}</td>
                             </tr>
                             <tr>
-                                <td class="pro-title">屋面活载荷(千牛/平方米)</td>
+                                <td class="pro-title">屋面活载荷(kN/m²)</td>
                                 <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
-                                <td class="pro-title">楼面活载荷(千牛/平方米)</td>
+                                <td class="pro-title">楼面活载荷(kN/m²)</td>
                                 <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
                             </tr>
                             </tbody>
@@ -179,7 +179,7 @@
                             <tbody>
                             <tr>
                                 <td  class="pro-title">建筑层数：{{$engineering->build_floor}}层</td>
-                                <td class="pro-title">总建筑面积（平方米）</td>
+                                <td class="pro-title">总建筑面积（m²）</td>
                                 <td><span id="all_house_area">{{$engineering->build_area}}</span></td>
                                 <td><span class="area_content" style="color: red"></span></td>
                             </tr>
@@ -193,7 +193,7 @@
                                 <td  class="pro-title">楼层信息</td>
                                 <td class="pro-title">建筑层高（m）</td>
                                 <td class="pro-title">室内净高（m）</td>
-                                <td class="pro-title">建筑面积（平方米）</td>
+                                <td class="pro-title">建筑面积（m²）</td>
                             </tr>
 
                             @for($i =1;$i <= $engineering->build_floor;$i++ )
@@ -294,21 +294,21 @@
 
                             <tr>
                                 <td class="pro-title" colspan="3">运输费</td>
-                                <td class="pro-title" colspan="2">(元/平方米)</td>
+                                <td class="pro-title" colspan="2">(元/m²)</td>
                                 <td colspan="3"></td>
                                 <td >{{isset($budget->freight_price)?$budget->freight_price:''}}</td>
                                 <td id="freight_price_sum">{{isset($budget->freight_charge)?$budget->freight_charge:''}}</td>
                             </tr>
                             <tr>
                                 <td class="pro-title" colspan="3">包装费</td>
-                                <td class="pro-title" colspan="2">(元/平方米)</td>
+                                <td class="pro-title" colspan="2">(元/m²)</td>
                                 <td colspan="3"></td>
                                 <td >{{isset($budget->package_price)?$budget->package_price:''}}</td>
                                 <td id="package_price_sum">{{isset($budget->package_charge)?$budget->package_charge:''}}</td>
                             </tr>
                             <tr>
                                 <td class="pro-title" colspan="3">装箱费</td>
-                                <td class="pro-title" colspan="2">(元/平方米)</td>
+                                <td class="pro-title" colspan="2">(元/m²)</td>
                                 <td colspan="3"></td>
                                 <td >{{isset($budget->packing_price)?$budget->packing_price:''}}</td>
                                 <td  id="packing_price_sum">{{isset($budget->packing_charge)?$budget->packing_charge:''}}</td>
@@ -321,7 +321,7 @@
 
                             <tr>
                                 <td class="pro-title" colspan="3">施工安装费</td>
-                                <td class="pro-title" colspan="2">(元/平方米)</td>
+                                <td class="pro-title" colspan="2">(元/m²)</td>
                                 <td colspan="3"></td>
                                 <td >{{isset($budget->construction_price)?$budget->construction_price:''}}</td>
                                 <td >{{isset($budget->construction_charge)?$budget->construction_charge:''}}</td>
@@ -347,7 +347,7 @@
                                 <td >{{isset($budget->tax)?$budget->tax:''}}</td>
                             </tr>
                             <tr>
-                                <td class="pro-title" colspan="9" style="text-align: center;font-weight: bold;">工程单价(元/平方米)</td>
+                                <td class="pro-title" colspan="9" style="text-align: center;font-weight: bold;">工程单价(元/m²)</td>
                                 <td id="unit_price">{{isset($budget->total_budget_price)?round($budget->total_budget_price/$engineering->build_area,2):''}}</td>
 
                             </tr>

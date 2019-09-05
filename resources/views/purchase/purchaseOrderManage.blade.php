@@ -46,7 +46,7 @@
                                 </tr>
 
                                 <tr>
-                                    <td class="pro-title">建筑面积(平方米)</td>
+                                    <td class="pro-title">建筑面积(m²)</td>
                                     <td >{{$engineering->build_area}}</td>
                                     <td class="pro-title">建筑楼层(层数)</td>
                                     <td >{{$engineering->build_floor}}</td>

@@ -148,7 +148,7 @@
                             <tr >
                                 <td class="pro-title">子工程名称</td>
                                 <td>{{$item->engineering_name}}</td>
-                                <td class="pro-title">建筑面积（平方米）</td>
+                                <td class="pro-title">建筑面积（m²）</td>
                                 <td>{{$item->build_area}}</td>
                                 <td class="pro-title">建筑层数</td>
                                 <td>{{$item->build_floor}}</td>

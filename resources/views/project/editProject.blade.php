@@ -254,7 +254,7 @@
                                 <td>
                                     <input type="text"  name="engineering_name[]" class="span8 notempty"  value="{{ $engin->engineering_name }}" lay-skin="primary" >
                                 </td>
-                                <td class="pro-title">建筑面积（平方米）</td>
+                                <td class="pro-title">建筑面积（m²）</td>
                                 <td>
                                     <input type="text"  name="build_area[]" class="span8  notempty"  value="{{ $engin->build_area }}" lay-skin="primary" >
                                 </td>
@@ -422,7 +422,7 @@
             intid =parseInt(Math.random() * (1000000 )+100);
             str ='<tr > <td class="pro-title">子工程名称<input type="hidden"  name="engineering_id[]" value="0" class="span8 notempty " lay-skin="primary" ></td>'+
                 '<td> <input type="text"  name="engineering_name[]" class="span8 notempty "  value="" lay-skin="primary" > </td>'+
-                '<td class="pro-title">建筑面积（平方米）</td>'+
+                '<td class="pro-title">建筑面积（m²）</td>'+
                 '<td> <input type="text"  name="build_area[]" class="span8 notempty"  value="" lay-skin="primary" > </td>'+
                 '<td class="pro-title">建筑层数</td> '+
                 '<td> <input type="text"  name="build_floor[]" class="span8 notempty"  value="" lay-skin="primary" > </td>'+
