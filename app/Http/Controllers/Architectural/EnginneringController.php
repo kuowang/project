@@ -519,7 +519,7 @@ class EnginneringController extends WebController
         $data['floors']             =$floors;
         $data['total_area']         =$total_area;
         $data['floor_height']       =$floor_height;
-        $data['floor_width']        =json_encode($floor_width);
+        $data['floor_width']        =$floor_width;
         $data['storey_height']      =json_encode($storey_height);
         $data['house_height']       =json_encode($house_height);
         $data['house_area']         =json_encode($house_area);

@@ -253,7 +253,7 @@
             $('.total_area').val(sum);
 
             if(buildarea != sum){
-                $('.area_content').html('建筑总面积已发生变化<br>保存后将覆盖工程中的建筑面积')
+                $('.area_content').html('建筑面积设计发生变化，将覆盖工程中原有数据')
             }else{
                 $('.area_content').html('');
             }
@@ -301,6 +301,14 @@
                 showMsg('请将内容补充完全再提交')
                 return false;
             }
+
+            if(buildarea != $('.total_area').val()){
+                if(confirm("建筑面积设计发生变化，将覆盖工程中原有数据，是否继续？")){
+                    return true;
+                }
+                return false;
+            }
+
             return true;
         }
 
