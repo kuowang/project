@@ -96,7 +96,7 @@
             <div class="widget">
                 <div class="widget-header" style="text-align: center">
                     <div  style="font-size: 16px;" >
-                        <b>建筑工程配置</b>
+                        <b>建筑工况配置</b>
                     </div>
                 </div>
                 <div class="widget-body">

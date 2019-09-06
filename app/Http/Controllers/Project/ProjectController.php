@@ -199,6 +199,10 @@ class ProjectController extends WebController
                 echo"<script>alert('内容不能为空');history.go(-1);</script>";
             }
         }
+        $data['summer_avg_temperature']=$request->input('summer_avg_temperature','');
+        $data['summer_max_temperature']=$request->input('summer_max_temperature','');
+        $data['winter_avg_temperature']=$request->input('winter_avg_temperature','');
+        $data['winter_min_temperature']=$request->input('winter_min_temperature','');
         $data["province"]           =$request->input('province','');
         $data["city"]               =$request->input('city','');
         $data["county"]             =$request->input('county','');
@@ -363,6 +367,11 @@ class ProjectController extends WebController
                 echo"<script>alert('内容不能为空');history.go(-1);</script>";
             }
         }
+
+        $data['summer_avg_temperature']=$request->input('summer_avg_temperature','');
+        $data['summer_max_temperature']=$request->input('summer_max_temperature','');
+        $data['winter_avg_temperature']=$request->input('winter_avg_temperature','');
+        $data['winter_min_temperature']=$request->input('winter_min_temperature','');
         $data["province"]           =$request->input('province','');
         $data["city"]               =$request->input('city','');
         $data["county"]             =$request->input('county','');

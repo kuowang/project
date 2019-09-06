@@ -159,6 +159,29 @@
                                     <input type="text"  name="material_storage" class="span8 notempty"  value="{{ $project->material_storage }}" lay-skin="primary" >
                                 </td>
                             </tr>
+                            <tr>
+                                <td class="pro-title">夏季平均气温（摄氏度）</td>
+                                <td>
+                                    <input type="text"  name="summer_avg_temperature" class="span8 notempty"  value="{{$project->summer_avg_temperature}}" lay-skin="primary" >
+                                </td>
+                                <td class="pro-title">夏季最高气温（摄氏度）</td>
+                                <td>
+                                    <input type="text"  name="summer_max_temperature" class="span8 notempty"  value="{{$project->summer_max_temperature}}" lay-skin="primary" >
+                                </td>
+                                <td class="pro-title">冬季平均气温（摄氏度）</td>
+                                <td>
+                                    <input type="text"  name="winter_avg_temperature" class="span8 notempty"  value="{{$project->winter_avg_temperature}}" lay-skin="primary" >
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pro-title">冬季最低气温（摄氏度）</td>
+                                <td>
+                                    <input type="text"  name="winter_min_temperature" class="span8 notempty"  value="{{$project->winter_min_temperature}}" lay-skin="primary" >
+                                </td>
+                                <td colspan="4"></td>
+
+                            </tr>
+
                             </tbody>
                         </table>
                         <div class="clearfix"></div>
