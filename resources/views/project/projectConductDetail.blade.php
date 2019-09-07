@@ -59,6 +59,16 @@
                                 <td class="pro-title">材料存储条件</td>
                                 <td colspan="2">{{$project->material_storage}}</td>
                             </tr>
+                            <tr>
+                                <td class="pro-title">夏季最高气温（摄氏度）</td>
+                                <td colspan="2">
+                                    {{$project->summer_max_temperature}}
+                                </td>
+                                <td class="pro-title">冬季最低气温（摄氏度）</td>
+                                <td colspan="2">
+                                    {{$project->winter_min_temperature}}
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
 

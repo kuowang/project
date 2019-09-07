@@ -214,17 +214,60 @@
 
     function selectsuppler(th){
         id =$(th).val();
-
-
-
-
-
-
-
+        //获取供应商对应的信息以及所属的材料信息
+        $.ajax({
+            url:'/purchase/getSupplierOrMaterial/'+batch_id+'/'+id,
+            type:'get',
+            success:function(data){
+                console.log(data);
+                if(data.status == 1){
+                    //补充供应商信息
+                    add_supplier(data.data.supplier);
+                    addMaterial(data.data.budgetitem)
+                }else{
+                    showMsg(data.info);
+                    return false;
+                }
+            },
+        });
 
 
         console.log(id);
     }
+
+    function add_supplier(supplier) {
+        $('#supplier').html(supplier.supplier);
+        $('#manufactor').html(supplier.manufactor);
+        $('#address').html(supplier.address);
+        $('#contacts').html(supplier.contacts);
+        $('#telephone').html(supplier.telephone);
+        $('#email').html(supplier.email);
+    }
+
+    function addMaterial(budgetitem) {
+        $.each(budgetitem,function(index,item){
+
+            var str ='<tr class=" supplier '+item.sub_arch_id+'">';
+            str +='<td>'+ (index * 1 + 1) +'<input type="hidden" name="budget_item_id[]" value="'+item.id+'"></td>'
+            str +='<td>'+item.material_name+'</td>'
+            str +='<td>'+item.characteristic+'</td>'
+            str +='<td>'+item.purchase_unit+'</td>'
+            str +='<td>'+item.engineering_quantity+'</td>'
+            str +='<td>'+item.brand_name+'</td>'
+            str +='<td>'+item.purchase_unit_price+'</td>'
+            str +='<td>'+(item.total_purchase_price)+'</td>'
+            str +='<td>'+(item.already_purchased_quantity)+'</td>'
+            str +='<td>'+(item.wait_purchased_quantity)+'</td>'
+            str +='<td><input type="text" class="span12" name="actual_purchase_quantity[]"></td>'
+            str +='<td><input type="text"  class="span12" name="actual_total_fee[]"></td>'
+            str +='<td></td>'
+            str +='</tr>'
+
+        $('.sub_arch_'+item.sub_arch_id).after(str);
+            console.log(item);
+        });
+    }
+
 </script>
 
 @endsection

@@ -253,11 +253,12 @@ Route::group(['prefix' => 'purchase','namespace' => 'Purchase','middleware' => '
 
     Route::get('/purchaseOrderManage/{id}',     'PurchaseController@purchaseOrderManage');  //实施项目订单管理
     Route::get('/createPurchaseOrder/{id}',     'PurchaseController@createPurchaseOrder');  //实施项目创建采购单
+    Route::get('/getSupplierOrMaterial/{id}',     'PurchaseController@getSupplierOrMaterial');  //单个批次下的供应商信息和材料采购信息
 
 
 
 
-    Route::get('/purchaseLogisticsManage/{id}', 'PurchaseController@purchaseLogisticsManage'); //实施项目物流管理
+    Route::get('/getSupplierOrMaterial/{batch_id}/{id}', 'PurchaseController@getSupplierOrMaterial'); //实施项目物流管理
 
 
 });

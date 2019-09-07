@@ -354,6 +354,74 @@ class PurchaseController extends WebController
         return view('purchase.createPurchaseOrder',$data);
     }
 
+    //采购批次下的供应商信息 和采购信息
+    public function getSupplierOrMaterial(Request $request,$brach_id,$id){
+        $this->user();
+        //采购批次信息
+        $batchinfo= DB::table('purchase_batch')->where('id',$brach_id)->first();
+        if(empty($batchinfo)){
+            return $this->error('批次信息不存在');
+        }
+        //项目子工程
+        $engineering =DB::table('engineering')->where('id',$batchinfo->engin_id)->first();
+        if(empty($engineering)){
+            return $this->error('该工程不存在');
+        }
+        //项目信息
+        $project =DB::table('project')->where('id',$engineering->project_id)->first();
+        if( !(in_array(250102,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(250102,$this->user()->manageauth)){
+            //采购人员可以操作更改工程设计详情
+            return $this->error('您没有权限编辑该工程信息');
+        }
+        if($engineering->budget_id ==0){
+            return $this->error('请先创建预算单，再创建采购批次？');
+        }
+
+        $supplier =DB::table('supplier')->where('id',$id)
+            ->select(['id','supplier', 'manufactor','address', 'contacts','telephone','email','status'])
+            ->first();
+
+        if(empty($supplier)){
+            return $this->error('没有查询到供应商信息');
+        }elseif($supplier->status ==0){
+            return $this->error('该供应商已被禁用，请选择其他供应商');
+        }
+        $data['supplier']=$supplier;
+        //获取预算工程信息材料
+
+        $budgetitem=DB::table('budget_item')
+            ->join('material_brand_supplier','material_brand_supplier.id','=','mbs_id')
+            ->where('budget_item.engin_id',$batchinfo->engin_id)
+            ->where('budget_item.supplier_id',$id)
+            ->select(['budget_item.id','budget_item.supplier_id','budget_item.sub_arch_id',
+                'budget_item.material_name','budget_item.characteristic',
+                'budget_item.engineering_quantity','budget_item.brand_name',
+                'purchase_unit','purchase_unit_price'
+                ])
+            ->get();
+
+        $data['budgetitem']=$budgetitem;
+        $itemids =[];
+        foreach($budgetitem as $value){
+            $itemids[]=$value->id;
+        }
+        //获取已采购的量
+        $purchaselist=DB::table('purchase_order_item')
+            ->wherein('budget_item_id',$itemids)
+            ->where('engin_id',$batchinfo->engin_id)
+            ->pluck('actual_purchase_quantity','budget_item_id');
+        foreach($budgetitem as &$list){
+            $list->total_purchase_price = $list->engineering_quantity * $list->purchase_unit_price; //采购总金额
+            if(isset($purchaselist[$list->id])){
+                $list->already_purchased_quantity = $purchaselist[$list->id];
+                $list->wait_purchased_quantity = $list->engineering_quantity - $purchaselist[$list->id];
+            }else{
+                $list->already_purchased_quantity =0;
+                $list->wait_purchased_quantity =$list->engineering_quantity;
+            }
+        }
+        return $this->success($data);
+    }
     //编辑采购单
     public function editPurchaseOrder(Request $request,$id){
 
