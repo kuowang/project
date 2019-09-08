@@ -254,6 +254,8 @@ Route::group(['prefix' => 'purchase','namespace' => 'Purchase','middleware' => '
     Route::get('/purchaseOrderManage/{id}',     'PurchaseController@purchaseOrderManage');  //实施项目订单管理
     Route::get('/createPurchaseOrder/{id}',     'PurchaseController@createPurchaseOrder');  //实施项目创建采购单
     Route::get('/getSupplierOrMaterial/{id}',     'PurchaseController@getSupplierOrMaterial');  //单个批次下的供应商信息和材料采购信息
+    Route::post('/postAddPurchaseOrder/{id}',     'PurchaseController@postAddPurchaseOrder');  //保存采购单信息
+
 
 
 

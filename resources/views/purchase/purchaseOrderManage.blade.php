@@ -90,21 +90,48 @@
                                 <thead>
                                     <th>批次</th>
                                     <th>采购单编号</th>
-                                    <th>采购时间</th>
-                                    <th>供应商名称</th>
-                                    <th>订单状态</th>
-                                    <th>发送状态</th>
-                                    <th>采购总金额</th>
-                                    <th>订单操作</th>
-                                    <th>发送操作</th>
+                                    <th>计划发货时间</th>
+                                    <th>计划到达时间</th>
+                                    <th>采购人员</th>
+                                    <th>采购单审核状态</th>
+                                    <th>采购单发送状态</th>
+                                    <th>审核操作</th>
                                     <th>执行操作</th>
 
                                 </thead>
                                 <tbody id="batchmanage">
-                                    <tr  class="hiddenitem_{{$k}}">
+                                    @if(isset($batchOrderList[$val->id]))
+                                    @foreach($batchOrderList[$val->id] as $list)
+                                        <tr  class="hiddenitem_{{$k}}">
+                                            <td>{{$val->purchase_number}}</td>
+                                            <td>{{$list->purchase_order_number}}</td>
+                                            <td>{{$val->deliver_time}}</td>
+                                            <td>{{$val->arrive_time}}</td>
+                                            <td>{{$list->created_user_name}}</td>
+                                            <td>
+                                                @if($list->order_status ==0)
+                                                    <span class="btn btn-danger">未审核</span>
+                                                @else
+                                                    <span class="btn btn-success">已审核</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($list->send_number == 0)
+                                                    <span class="btn btn-danger">未发送</span>
+                                                @else
+                                                    <span class="btn btn-success">已发送</span>
+                                                @endif
+                                            </td>
+                                            <td>
 
-
-                                    </tr>
+                                            </td>
+                                            <td><span class="btn btn-success">查看</span>
+                                                <span  class="btn btn-success">编辑</span>
+                                                <span  class="btn btn-danger">删除</span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    @endif
                                 </tbody>
                             </table>
 

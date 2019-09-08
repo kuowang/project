@@ -57,10 +57,24 @@
                             </table>
 
                             <div class="clearfix"></div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="widget">
+                    <div class="widget-header">
+                        <div class="title">
+                            采购单
+                        </div>
+                    </div>
+                    <div class="widget-body">
+                        <div id="dt_example" class="example_alt_pagination">
+                            <form method="post" action="/purchase/postAddPurchaseOrder/{{ $batch_id }}">
+
                             <table class="layui-table layui-form">
                                 <thead>
                                 <tr>
-                                    <th colspan="6"><span class="btn btn-info">采购物流信息</span></th>
+                                    <th colspan="8"><span class="btn btn-info">采购物流信息</span></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -70,7 +84,7 @@
                                     <td  class="pro-title">到达方式</td>
                                     <td ><input type="text" name="arrival_mode"         id="arrival_mode" class="span8 notempty" ></td>
                                     <td  class="pro-title">中转站</td>
-                                    <td ><input type="text" name="transfer_address"     id="transfer_address" class="span8 notempty" ></td>
+                                    <td ><input type="text" name="transfer_address"     id="transfer_address" class="span8" ></td>
                                     <td  class="pro-title">直达地址</td>
                                     <td ><input type="text" name="direct_address"       id="direct_address" class="span8 notempty" ></td>
                                 </tr>
@@ -87,7 +101,7 @@
                                 </tr>
                                 <tr>
                                     <td  class="pro-title">车辆数量</td>
-                                    <td ><input type="text" name="vehicle_number"       id="vehicle_number" class="span8 notempty" ></td>
+                                    <td ><input type="text" name="vehicle_number"       id="vehicle_number" class="span8 notempty" onclick="key(this)" ></td>
                                     <td class="pro-title">包装要求</td>
                                     <td ><input type="text" name="packing_mode"         id="packing_mode" class="span8 notempty" ></td>
                                     <td class="pro-title">订单采购地点</td>
@@ -105,9 +119,9 @@
 
                                 <tr>
                                     <td  class="pro-title">买方联系人</td>
-                                    <td ><input type="text" name="" class="span8 notempty" ></td>
+                                    <td ><input type="text" name="purchaser" class="span8 notempty" ></td>
                                     <td  class="pro-title">买方联系电话</td>
-                                    <td ><input type="text" name="" class="span8 notempty" ></td>
+                                    <td ><input type="text" name="purchaser_phone" class="span8 notempty" ></td>
                                     <td  class="pro-title">供应商名称</td>
                                     <td id="supplier"></td>
                                     <td  class="pro-title">厂家名称</td>
@@ -123,22 +137,14 @@
                                     <td  class="pro-title">电子邮箱</td>
                                     <td id="email"></td>
                                 </tr>
+                                <tr>
+                                    <td  class="pro-title">备注</td>
+                                    <td id="remark" colspan="7"> <input type="text" name="remark"         id="remark" class="span12" ></td>
+                                </tr>
                                 </tbody>
                             </table>
 
                             <div class="clearfix"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="widget">
-                    <div class="widget-header">
-                        <div class="title">
-                            采购单
-                        </div>
-                    </div>
-                    <div class="widget-body">
-                        <div id="dt_example" class="example_alt_pagination">
-
                             <table class="layui-table layui-form table111">
                                 <thead>
                                     <th>序号</th>
@@ -176,6 +182,20 @@
                             </table>
                             <div class="clearfix"></div>
 
+                            <div class="layui-form-item" style="float: right;clear: left">
+                                <label for="L_repass" class="layui-form-label"></label>
+                                <button class="btn btn-success" lay-filter="add" type="submit" lay-submit="" onclick='return form_submit()'>确认/保存</button>
+                            </div>
+                            <div class="layui-form-item" style="float: right;clear: left">
+                                <a href="javascript:history.go(-1)">
+                                    <label for="L_repass" class="layui-form-label"></label>
+                                    <span class="btn btn-success" lay-filter="add" lay-submit="">返回/取消</span>
+                                </a>
+                            </div>
+                            <div class="clearfix"></div>
+
+                            </form>
+
                         </div>
                     </div>
 
@@ -211,7 +231,7 @@
             elem: '#order_created_date'
         });
     });
-
+    //选择供应商
     function selectsuppler(th){
         id =$(th).val();
         //获取供应商对应的信息以及所属的材料信息
@@ -245,28 +265,95 @@
     }
 
     function addMaterial(budgetitem) {
+        $('.supplier').remove();
         $.each(budgetitem,function(index,item){
-
-            var str ='<tr class=" supplier '+item.sub_arch_id+'">';
-            str +='<td>'+ (index * 1 + 1) +'<input type="hidden" name="budget_item_id[]" value="'+item.id+'"></td>'
+            var xuhao =index *1 +1;
+            var str ='<tr class="supplier sub_arch_'+item.sub_arch_id+'" id="budget_item_'+item.id+'">';
+            str +='<td>'+ xuhao +'<input type="hidden" name="budget_item_id[]" value="'+item.id+'"></td>'
             str +='<td>'+item.material_name+'</td>'
             str +='<td>'+item.characteristic+'</td>'
             str +='<td>'+item.purchase_unit+'</td>'
             str +='<td>'+item.engineering_quantity+'</td>'
             str +='<td>'+item.brand_name+'</td>'
-            str +='<td>'+item.purchase_unit_price+'</td>'
+            str +='<td>'+item.purchase_unit_price+'<input type="hidden" id="purchase_price_'+item.id+'" name="purchase_unit_price[]" value="'+item.purchase_unit_price+'"></td>'
             str +='<td>'+(item.total_purchase_price)+'</td>'
             str +='<td>'+(item.already_purchased_quantity)+'</td>'
-            str +='<td>'+(item.wait_purchased_quantity)+'</td>'
-            str +='<td><input type="text" class="span12" name="actual_purchase_quantity[]"></td>'
-            str +='<td><input type="text"  class="span12" name="actual_total_fee[]"></td>'
-            str +='<td></td>'
+            str +='<td id="wait_purchased_quantity_'+item.id+'">'+(item.wait_purchased_quantity)+'</td>'
+            str +='<td><input type="text" class="span12 notempty actual_purchase_quantity" name="actual_purchase_quantity['+item.id+']" onclick="key(this)" onchange="totalPrice('+item.id+',this)"></td>'
+            str +='<td id="actual_total_fee_'+item.id+'"></td>'
+            if(item.already_purchased_quantity == 0){
+                str +='<td><span class="btn btn-danger">未下单</span></td>'
+            }else if(item.already_purchased_quantity == item.engineering_quantity){
+                str +='<td><span class="btn btn-success">已完成</span></td>'
+            }else{
+                str +='<td><span class="btn btn-info">进行中</span></td>'
+            }
             str +='</tr>'
 
-        $('.sub_arch_'+item.sub_arch_id).after(str);
+        $('.sub_arch_'+item.sub_arch_id+":last").after(str);
             console.log(item);
         });
+        //点击文本框设置背景色
+        $("input").focus(function(){
+            $(this).css("background-color","#fff");
+        });
+
     }
+    //计算采购价格
+    function totalPrice(id,th) {
+        var wait_purchased_quantity =$('#wait_purchased_quantity_'+id).html();
+        var actual_quantity =$(th).val();
+        var purchase_price = $('#purchase_price_'+id).val();
+        if(actual_quantity*1 > wait_purchased_quantity*1){
+            showMsg('采购数量超出待采购数量，请核实');
+        }
+        $("#actual_total_fee_"+id).html(actual_quantity * purchase_price );
+        console.log(wait_purchased_quantity);
+    }
+
+    //显示提示信息
+    function showMsg(str){
+        layui.use('layer', function(){
+            var layer = layui.layer;
+            layer.msg(str);
+        });
+    }
+    //点击只能输入数字
+    function key(th){
+        $(th).keyup(function(){
+            $(this).val($(this).val().replace(/[^0-9.]/g,''));
+        }).bind("paste",function(){  //CTR+V事件处理
+            $(this).val($(this).val().replace(/[^0-9.]/g,''));
+        }).css("ime-mode", "disabled"); //CSS设置输入法不可用
+        va =$(th).val();
+        if(va > 1000000000 || va < 0) {
+            $(th).val(0);
+        }
+    }
+
+    //提交时的数据验证
+    function form_submit(){
+        var sum=0;
+        $(".notempty").each(function(){
+            if($(this).val()){
+            }else{
+                $(this).css('background','orange');
+                sum=1;
+            }
+        });
+        if(sum == 1){
+            showMsg('请将内容补充完全再提交')
+            return false;
+        }
+        return true;
+    }
+
+    //点击文本框设置背景色
+    $("input").focus(function(){
+        $(this).css("background-color","#fff");
+    });
+
+
 
 </script>
 

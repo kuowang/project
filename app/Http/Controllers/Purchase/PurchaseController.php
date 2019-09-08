@@ -299,7 +299,7 @@ class PurchaseController extends WebController
             return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
         if($engineering->budget_id ==0){
-            return redirect('/purchase/purchaseConduct?status=2&notice='.'请先创建预算单，再创建采购批次？');
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'请先创建预算单，再创建采购批次？1');
         }
         $data['project'] =$project;
         $data['engineering'] =$engineering;
@@ -307,6 +307,11 @@ class PurchaseController extends WebController
         //获取批次列表
         $data['batchList']= DB::table('purchase_batch')->where('engin_id',$id)->get();
 
+        $orderList =DB::table('purchase_order')->where('engin_id',$id)->get();
+        $data['batchOrderList']=[];
+        foreach ($orderList as $v){
+            $data['batchOrderList'][$v->batch_id][]=$v;
+        }
         return view('purchase.purchaseOrderManage',$data);
 
     }
@@ -332,7 +337,7 @@ class PurchaseController extends WebController
             return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
         if($engineering->budget_id ==0){
-            return redirect('/purchase/purchaseConduct?status=2&notice='.'请先创建预算单，再创建采购批次？');
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'请先创建预算单，再创建采购批次？3');
         }
         $data['project'] =$project; //项目信息
         $data['engineering'] =$engineering; //工程信息
@@ -374,7 +379,7 @@ class PurchaseController extends WebController
             return $this->error('您没有权限编辑该工程信息');
         }
         if($engineering->budget_id ==0){
-            return $this->error('请先创建预算单，再创建采购批次？');
+            return $this->error('请先创建预算单，再创建采购批次4');
         }
 
         $supplier =DB::table('supplier')->where('id',$id)
@@ -388,7 +393,6 @@ class PurchaseController extends WebController
         }
         $data['supplier']=$supplier;
         //获取预算工程信息材料
-
         $budgetitem=DB::table('budget_item')
             ->join('material_brand_supplier','material_brand_supplier.id','=','mbs_id')
             ->where('budget_item.engin_id',$batchinfo->engin_id)
@@ -410,11 +414,16 @@ class PurchaseController extends WebController
             ->wherein('budget_item_id',$itemids)
             ->where('engin_id',$batchinfo->engin_id)
             ->pluck('actual_purchase_quantity','budget_item_id');
+
         foreach($budgetitem as &$list){
             $list->total_purchase_price = $list->engineering_quantity * $list->purchase_unit_price; //采购总金额
             if(isset($purchaselist[$list->id])){
                 $list->already_purchased_quantity = $purchaselist[$list->id];
-                $list->wait_purchased_quantity = $list->engineering_quantity - $purchaselist[$list->id];
+                if($list->engineering_quantity - $purchaselist[$list->id] < 0){
+                    $list->wait_purchased_quantity = 0;
+                }else{
+                    $list->wait_purchased_quantity = $list->engineering_quantity - $purchaselist[$list->id];
+                }
             }else{
                 $list->already_purchased_quantity =0;
                 $list->wait_purchased_quantity =$list->engineering_quantity;
@@ -422,6 +431,164 @@ class PurchaseController extends WebController
         }
         return $this->success($data);
     }
+    /*
+     * /保存采购单信息
+     * $id 为采购批次id
+     */
+
+    public function postAddPurchaseOrder(Request $request,$id){
+
+        $deliver_mode       =$request->input('deliver_mode','');          //deliver_mode: "asd",
+        $arrival_mode       =$request->input('arrival_mode','');          //arrival_mode: "ss",
+        $transfer_address   =$request->input('transfer_address','');          //transfer_address: "d",
+        $direct_address     =$request->input('direct_address','');          //direct_address: "fasdf",
+        $order_created_date =$request->input('order_created_date','');          //order_created_date: "2019-09-08",
+        $transport_mode     =$request->input('transport_mode','');          //transport_mode: "asdf",
+        $load_mode          =$request->input('load_mode','');            //load_mode: "as",
+        $vehicle_mode       =$request->input('vehicle_mode','');          //vehicle_mode: "asddf",
+        $vehicle_number     =(int)$request->input('vehicle_number','');          //vehicle_number: "sadf",
+        $packing_mode       =$request->input('packing_mode','');          //packing_mode: "sdasdf",
+        $purchaser          =$request->input('purchaser','');          //$purchaser: "asdf",
+        $purchaser_phone      =$request->input('purchaser_phone','');          //purchaser_phone: "asdf",
+        $purchase_address   =$request->input('purchase_address','');          //purchase_address: "asdf",
+        $supplier           =$request->input('supplier','');          //supplier: "1",
+        $remark             =$request->input('remark','');          //remark: "",
+
+        $budget_item_id     =$request->input('budget_item_id',[]);          //budget_item_id: ["61","62"],
+        $actual_purchase_quantity =$request->input('actual_purchase_quantity',[]);          //actual_purchase_quantity: ["12312", "234132.44"]
+        if(empty($budget_item_id) || count($budget_item_id) != count($actual_purchase_quantity)){
+            echo"<script>alert('该供应商没有材料信息或者材料不对应');history.go(-1);</script>";
+            exit;
+        }
+        $batchinfo= DB::table('purchase_batch')->where('id',$id)->first();
+        if(empty($batchinfo)){
+            echo"<script>alert('批次信息不存在');history.go(-1);</script>";
+            exit;
+        }
+        //项目子工程
+        $engineering =DB::table('engineering')->where('id',$batchinfo->engin_id)->first();
+        if(empty($engineering)){
+            echo"<script>alert('该工程不存在');history.go(-1);</script>";
+            exit;
+        }
+        //项目信息
+        $project =DB::table('project')->where('id',$engineering->project_id)->first();
+        if( !(in_array(250102,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(250102,$this->user()->manageauth)){
+            //采购人员可以操作更改工程设计详情
+            echo"<script>alert('您没有权限编辑该工程信息');history.go(-1);</script>";
+            exit;
+        }
+        if($engineering->budget_id ==0){
+            echo"<script>alert('请先创建预算单,再创建采购批次');history.go(-1);</script>";
+            exit;
+        }
+
+        $data['project_id']=$project->id;    //`project_id` int(11) DEFAULT NULL COMMENT '项目id',
+        $data['engin_id']=$batchinfo->engin_id;    //`engin_id` int(11) DEFAULT NULL COMMENT '工程id',
+        $data['purchase_id']=$batchinfo->purchase_id;    //`purchase_id` int(11) DEFAULT NULL COMMENT '采购id',
+        $data['budget_id']=$engineering->budget_id;    //`budget_id` int(11) DEFAULT NULL COMMENT '预算单id',
+        $data['batch_id']=$id;    //`batch_id` int(11) DEFAULT NULL COMMENT '批次id',
+        $data['purchase_order_number']='CGD'.date('YmdHis').mt_rand(100000,999999);    //`purchase_order_number` varchar(255) DEFAULT NULL COMMENT '采购单单号',
+        $data['order_created_date']=$order_created_date;    //`order_created_date` date DEFAULT NULL COMMENT '下单日期',
+        $data['deliver_mode']=$deliver_mode;    //`deliver_mode` varchar(255) DEFAULT NULL COMMENT '送货方式',
+        $data['arrival_mode']=$arrival_mode;    //`arrival_mode` varchar(255) DEFAULT NULL COMMENT '到达方式',
+        $data['transfer_address']=$transfer_address;    //`transfer_address` varchar(255) DEFAULT NULL COMMENT '中转站',
+        $data['direct_address']=$direct_address;    //`direct_address` varchar(255) DEFAULT NULL COMMENT '直达地址',
+        $data['transport_mode']=$transport_mode;    //`transport_mode` varchar(255) DEFAULT NULL COMMENT '运输方式',
+        $data['load_mode']=$load_mode;    //`load_mode` varchar(255) DEFAULT NULL COMMENT '装载方式',
+        $data['vehicle_mode']=$vehicle_mode;    //`vehicle_mode` varchar(255) DEFAULT NULL COMMENT '车辆规格',
+        $data['vehicle_number']=$vehicle_number;    //`vehicle_number` int(10) DEFAULT '1' COMMENT '车辆数量',
+        $data['packing_mode']=$packing_mode;    //`packing_mode` varchar(255) DEFAULT NULL COMMENT '包装要求',
+        $data['purchase_address']=$purchase_address;    //`purchase_address` varchar(1000) DEFAULT NULL COMMENT '订单采购地点',
+        $data['purchaser']=$purchaser;    //`purchaser` varchar(255) DEFAULT NULL COMMENT '买方联系人',
+        $data['purchaser_phone']=$purchaser_phone;    //`purchaser_phone` varchar(255) DEFAULT NULL COMMENT '买方联系人电话',
+        $data['supplier_id']=$supplier;    //`supplier_id` int(11) DEFAULT NULL COMMENT '供应商id',
+        $data['order_status']=0;    //`order_status` tinyint(4) DEFAULT '0' COMMENT '订单状态 0未审核 1已审核',
+        $data['send_number']=0;    //`send_number` tinyint(4) DEFAULT '0' COMMENT '发送邮件到供应商次数 默认0',
+        $data['remark']=$remark;    //`remark` varchar(2000) DEFAULT NULL COMMENT '采购单备注',
+        $data['purchase_total_fee']=0;    //`purchase_total_fee` float(15,0) DEFAULT NULL COMMENT '采购总金额',
+        $data['created_uid']=$this->user()->id;
+        $data['created_user_name'] =$this->user()->name;
+        $data['created_at'] =date('Y-m-d');
+        $budgetitem=DB::table('budget_item')
+            ->join('material_brand_supplier','material_brand_supplier.id','=','mbs_id')
+            ->where('budget_item.engin_id',$batchinfo->engin_id)
+            ->where('budget_item.supplier_id',$supplier)
+            ->wherein('budget_item.id',$budget_item_id)
+            ->select(['budget_item.id','budget_item.supplier_id','budget_item.sub_arch_id',
+                'budget_item.material_name','budget_item.characteristic',
+                'budget_item.engineering_quantity','budget_item.brand_name',
+                'purchase_unit','purchase_unit_price','budget_item.mbs_id','budget_item.material_id',
+                'budget_item.brand_id'
+            ])
+            ->get();
+        if(count($budgetitem) != count($budget_item_id)){
+            echo"<script>alert('您选择的材料和预算单的材料不匹配,请重新选择');history.go(-1);</script>";
+            exit;
+        }
+        //获取已采购的量
+        $purchaselist=DB::table('purchase_order_item')
+            ->wherein('budget_item_id',$budget_item_id)
+            ->where('engin_id',$batchinfo->engin_id)
+            ->pluck('actual_purchase_quantity','budget_item_id');
+        foreach($budgetitem as &$list){
+            $list->total_purchase_price = $list->engineering_quantity * $list->purchase_unit_price; //采购总金额
+            if(isset($purchaselist[$list->id])){
+                $list->already_purchased_quantity = $purchaselist[$list->id];
+                if($list->engineering_quantity - $purchaselist[$list->id] < 0){
+                    $list->wait_purchased_quantity = 0;
+                }else{
+                    $list->wait_purchased_quantity = $list->engineering_quantity - $purchaselist[$list->id];
+                }
+            }else{
+                $list->already_purchased_quantity =0;
+                $list->wait_purchased_quantity =$list->engineering_quantity;
+            }
+        }
+        $purchaseitem=[];
+         foreach($budgetitem as $item){
+             $datalist['project_id']             =$project->id;                //`project_id` int(11) DEFAULT NULL COMMENT '项目id',
+             $datalist['engin_id']               =$batchinfo->engin_id;                //`engin_id` int(11) DEFAULT NULL COMMENT '工程id',
+             $datalist['purchase_id']            =$batchinfo->purchase_id;              //`purchase_id` int(11) DEFAULT NULL COMMENT '采购id',
+             $datalist['budget_id']              =$engineering->budget_id;               //`budget_id` int(11) DEFAULT NULL COMMENT '预算单id',
+             $datalist['budget_item_id']         =$item->id;                //`budget_item_id` int(11) DEFAULT NULL COMMENT '预算详情id',
+             $datalist['batch_id']               =$id;                //`batch_id` int(11) DEFAULT NULL COMMENT '批次id',
+
+             $datalist['mbs_id']                 =$item->mbs_id;                //`mbs_id` int(11) DEFAULT NULL COMMENT '材料品牌供应商id',
+             $datalist['material_id']            =$item->material_id;              //`material_id` int(11) DEFAULT NULL COMMENT '材料id',
+             $datalist['material_name']          =$item->material_name;              //`material_name` varchar(255) DEFAULT NULL COMMENT '材料名称',
+             $datalist['characteristic']         =$item->characteristic;                //`characteristic` varchar(1000) DEFAULT NULL COMMENT '规格特征要求',
+             $datalist['brand_id']               =$item->brand_id;                //`brand_id` int(11) DEFAULT NULL COMMENT '品牌id',
+             $datalist['brand_name']             =$item->brand_name;                //`brand_name` varchar(255) DEFAULT NULL COMMENT '品牌名称',
+             $datalist['engineering_quantity']   =$item->engineering_quantity;                //`engineering_quantity` varchar(255) DEFAULT NULL COMMENT '总工程量',
+             $datalist['already_purchased_quantity'] =$item->already_purchased_quantity;                //`already_purchased_quantity` varchar(255) DEFAULT NULL COMMENT '已经采购量',
+             $datalist['wait_purchased_quantity'] =$item->wait_purchased_quantity;              //`wait_purchased_quantity` varchar(255) DEFAULT NULL COMMENT '待采购量',
+             $datalist['actual_purchase_quantity'] =$actual_purchase_quantity[$item->id];                //`actual_purchase_quantity` varchar(255) DEFAULT NULL COMMENT '实际采购量',
+             $datalist['total_purchase_price']   =$item->total_purchase_price;                //`total_purchase_price` varchar(10) DEFAULT NULL COMMENT '总采购价',
+             $datalist['actual_total_fee']       =$datalist['actual_purchase_quantity'] * $item->purchase_unit_price ;                //`actual_total_fee` varchar(255) DEFAULT NULL COMMENT '实际采购金额',
+             $datalist['purchase_unit']          =$item->purchase_unit;              //`purchase_unit` varchar(255) DEFAULT NULL COMMENT '采购单位',
+             $datalist['purchase_price']         =$item->purchase_unit_price;                //`purchase_price` decimal(10,2) DEFAULT NULL COMMENT '采购价格',
+             $datalist['uid']                   =$this->user()->id;                //`purchase_price` decimal(10,2) DEFAULT NULL COMMENT '采购价格',
+             $datalist['created_at']            =date('Y-m-d');                //`purchase_price` decimal(10,2) DEFAULT NULL COMMENT '采购价格',
+
+             $data['purchase_total_fee'] +=$datalist['actual_total_fee'];
+             $purchaseitem[]=$datalist;
+         }
+
+
+        DB::beginTransaction();
+        $order_id =DB::table('purchase_order')->insertGetId($data);
+        foreach($purchaseitem as &$item){
+            $item['order_id'] =$order_id;
+        }
+        DB::table('purchase_order_item')->insert($purchaseitem);
+        DB::commit();
+        return redirect('/purchase/purchaseOrderManage/'.$batchinfo->engin_id.'?status=1&notice='.'采购单创建成功');
+    }
+
+
+
+
     //编辑采购单
     public function editPurchaseOrder(Request $request,$id){
 
