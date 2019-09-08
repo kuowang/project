@@ -69,7 +69,7 @@
                     </div>
                     <div class="widget-body">
                         <div id="dt_example" class="example_alt_pagination">
-                            <form method="post" action="/purchase/postAddPurchaseOrder/{{ $batch_id }}">
+                            <form method="post" action="/purchase/postEditPurchaseOrder/{{ $order_id }}">
 
                             <table class="layui-table layui-form">
                                 <thead>
@@ -80,66 +80,61 @@
                                 <tbody>
                                 <tr>
                                     <td  class="pro-title">送货方式</td>
-                                    <td ><input type="text" name="deliver_mode"         id="deliver_mode" class="span8 notempty" ></td>
+                                    <td ><input type="text" name="deliver_mode" value="{{ $orderinfo->deliver_mode }}"         id="deliver_mode" class="span8 notempty" ></td>
                                     <td  class="pro-title">到达方式</td>
-                                    <td ><input type="text" name="arrival_mode"         id="arrival_mode" class="span8 notempty" ></td>
+                                    <td ><input type="text" name="arrival_mode" value="{{ $orderinfo->arrival_mode }}"         id="arrival_mode" class="span8 notempty" ></td>
                                     <td  class="pro-title">中转站</td>
-                                    <td ><input type="text" name="transfer_address"     id="transfer_address" class="span8" ></td>
+                                    <td ><input type="text" name="transfer_address" value="{{ $orderinfo->transfer_address }}"     id="transfer_address" class="span8" ></td>
                                     <td  class="pro-title">直达地址</td>
-                                    <td ><input type="text" name="direct_address"       id="direct_address" class="span8 notempty" ></td>
+                                    <td ><input type="text" name="direct_address" value="{{ $orderinfo->direct_address }}"       id="direct_address" class="span8 notempty" ></td>
                                 </tr>
 
                                 <tr>
                                     <td  class="pro-title">下单日期</td>
-                                    <td ><input type="text" name="order_created_date"   id="order_created_date" class="span8 notempty" ></td>
+                                    <td ><input type="text" name="order_created_date" value="{{ $orderinfo->order_created_date }}"   id="order_created_date" class="span8 notempty" ></td>
                                     <td class="pro-title">运输方式</td>
-                                    <td ><input type="text" name="transport_mode"       id="transport_mode" class="span8 notempty" ></td>
+                                    <td ><input type="text" name="transport_mode" value="{{ $orderinfo->transport_mode }}"       id="transport_mode" class="span8 notempty" ></td>
                                     <td class="pro-title">装载方式</td>
-                                    <td ><input type="text" name="load_mode"            id="load_mode" class="span8 notempty" ></td>
+                                    <td ><input type="text" name="load_mode" value="{{ $orderinfo->load_mode }}"            id="load_mode" class="span8 notempty" ></td>
                                     <td class="pro-title">车辆规格</td>
-                                    <td ><input type="text" name="vehicle_mode"         id="vehicle_mode" class="span8 notempty" ></td>
+                                    <td ><input type="text" name="vehicle_mode" value="{{ $orderinfo->vehicle_mode }}"         id="vehicle_mode" class="span8 notempty" ></td>
                                 </tr>
                                 <tr>
                                     <td  class="pro-title">车辆数量</td>
-                                    <td ><input type="text" name="vehicle_number"       id="vehicle_number" class="span8 notempty" onclick="key(this)" ></td>
+                                    <td ><input type="text" name="vehicle_number" value="{{ $orderinfo->vehicle_number }}"       id="vehicle_number" class="span8 notempty" onclick="key(this)" ></td>
                                     <td class="pro-title">包装要求</td>
-                                    <td ><input type="text" name="packing_mode"         id="packing_mode" class="span8 notempty" ></td>
+                                    <td ><input type="text" name="packing_mode" value="{{ $orderinfo->packing_mode }}"         id="packing_mode" class="span8 notempty" ></td>
                                     <td class="pro-title">订单采购地点</td>
-                                    <td ><input type="text" name="purchase_address"     id="purchase_address" class="span8 notempty" ></td>
-                                    <td class="pro-title">供应商</td>
+                                    <td ><input type="text" name="purchase_address" value="{{ $orderinfo->purchase_address }}"     id="purchase_address" class="span8 notempty" ></td>
+                                    <td class="pro-title"></td>
                                     <td >
-                                        <select name="supplier" onchange="selectsuppler(this)">
-                                            <option value="0"></option>
-                                            @foreach($supplierList as $k=>$v)
-                                                <option value="{{$k}}">{{$v}}</option>
-                                            @endforeach
-                                        </select>
+
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td  class="pro-title">买方联系人</td>
-                                    <td ><input type="text" name="purchaser" class="span8 notempty" ></td>
+                                    <td ><input type="text" name="purchaser" value="{{ $orderinfo->purchaser }}" class="span8 notempty" ></td>
                                     <td  class="pro-title">买方联系电话</td>
-                                    <td ><input type="text" name="purchaser_phone" class="span8 notempty" ></td>
+                                    <td ><input type="text" name="purchaser_phone" value="{{ $orderinfo->purchaser_phone }}" class="span8 notempty" ></td>
                                     <td  class="pro-title">供应商名称</td>
-                                    <td id="supplier"></td>
+                                    <td id="supplier">{{$supplier->supplier}}</td>
                                     <td  class="pro-title">厂家名称</td>
-                                    <td id="manufactor"></td>
+                                    <td id="manufactor">{{$supplier->manufactor}}</td>
                                 </tr>
                                 <tr>
                                     <td  class="pro-title">供应商地址</td>
-                                    <td id="address"></td>
+                                    <td id="address">{{$supplier->address}}</td>
                                     <td  class="pro-title">联系人</td>
-                                    <td id="contacts"></td>
+                                    <td id="contacts">{{$supplier->contacts}}</td>
                                     <td  class="pro-title">联系电话</td>
-                                    <td id="telephone"></td>
+                                    <td id="telephone">{{$supplier->telephone}}</td>
                                     <td  class="pro-title">电子邮箱</td>
-                                    <td id="email"></td>
+                                    <td id="email">{{$supplier->email}}</td>
                                 </tr>
                                 <tr>
                                     <td  class="pro-title">备注</td>
-                                    <td id="remark" colspan="7"> <input type="text" name="remark"         id="remark" class="span12" ></td>
+                                    <td id="remark" colspan="7"> <input type="text" name="remark" value="{{ $orderinfo->remark }}"         id="remark" class="span12" ></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -164,7 +159,7 @@
                                 <tbody id="">
                                 @php
                                     $system_code ='';
-                                    $xuhao=0;
+                                    $xuhao=1;
                                 @endphp
                                 @foreach($engin_system as $v)
                                     @if($system_code != $v->system_code)
@@ -176,6 +171,35 @@
                                     <tr class="sub_arch_{{$v->sub_arch_id}} gradeA success odd">
                                         <td  colspan="13"> &nbsp;&nbsp;&nbsp;{{$v->sub_system_name}} <span style="color:#1d52f6">工况：{{$v->work_code}}</span> 编码：{{$v->sub_system_code}}</td>
                                     </tr>
+
+                                    @if(isset($itemlist[$v->sub_arch_id]))
+                                    @foreach($itemlist[$v->sub_arch_id] as $key=>$item)
+
+                                            <tr class="supplier sub_arch_'+item.sub_arch_id+'" id="budget_item_{{$item->id}}">
+                                            <td>{{$xuhao++}}<input type="hidden" name="order_item_id[]" value="{{$item->id}}"></td>
+                                            <td>{{$item->material_name}}</td>
+                                            <td>{{$item->characteristic}}</td>
+                                            <td>{{$item->purchase_unit}}</td>
+                                            <td>{{$item->engineering_quantity}}</td>
+                                            <td>{{$item->brand_name}}</td>
+                                            <td>{{$item->purchase_price}}<input type="hidden" id="purchase_price_{{$item->id}}" name="purchase_price[]" value="{{$item->purchase_price}}"></td>
+                                            <td>{{$item->total_purchase_price}}</td>
+                                            <td>{{$item->already_purchased_quantity}}</td>
+                                            <td id="wait_purchased_quantity_{{$item->id}}">{{$item->wait_purchased_quantity}}</td>
+                                            <td><input type="text" class="span12 notempty actual_purchase_quantity" name="actual_purchase_quantity[]" value="{{$item->actual_purchase_quantity}}" onclick="key(this)" onchange="totalPrice({{$item->id}},this)"></td>
+                                            <td id="actual_total_fee_{{$item->id}}">{{$item->actual_total_fee}}</td>
+                                            @if($item->already_purchased_quantity == 0)
+                                            <td><span class="btn btn-danger">未下单</span></td>
+                                            @elseif($item->already_purchased_quantity == $item->engineering_quantity)
+                                            <td><span class="btn btn-success">已完成</span></td>
+                                            @else
+                                            <td><span class="btn btn-info">剩余下单</span></td>
+                                            @endif
+                                            </tr>
+
+                                    @endforeach
+                                    @endif
+
                                 @endforeach
 
                                 </tbody>
@@ -223,7 +247,7 @@
     </div>
 
 <script type="text/javascript">
-    var batch_id ={{$batch_id}};
+    var order_id ={{$order_id}};
     //日期选择器
     layui.use('laydate', function() {
         var laydate = layui.laydate;
@@ -231,74 +255,7 @@
             elem: '#order_created_date'
         });
     });
-    //选择供应商
-    function selectsuppler(th){
-        id =$(th).val();
-        //获取供应商对应的信息以及所属的材料信息
-        $.ajax({
-            url:'/purchase/getSupplierOrMaterial/'+batch_id+'/'+id,
-            type:'get',
-            success:function(data){
-                console.log(data);
-                if(data.status == 1){
-                    //补充供应商信息
-                    add_supplier(data.data.supplier);
-                    addMaterial(data.data.budgetitem)
-                }else{
-                    showMsg(data.info);
-                    return false;
-                }
-            },
-        });
 
-
-        console.log(id);
-    }
-
-    function add_supplier(supplier) {
-        $('#supplier').html(supplier.supplier);
-        $('#manufactor').html(supplier.manufactor);
-        $('#address').html(supplier.address);
-        $('#contacts').html(supplier.contacts);
-        $('#telephone').html(supplier.telephone);
-        $('#email').html(supplier.email);
-    }
-
-    function addMaterial(budgetitem) {
-        $('.supplier').remove();
-        $.each(budgetitem,function(index,item){
-            var xuhao =index *1 +1;
-            var str ='<tr class="supplier sub_arch_'+item.sub_arch_id+'" id="budget_item_'+item.id+'">';
-            str +='<td>'+ xuhao +'<input type="hidden" name="budget_item_id[]" value="'+item.id+'"></td>'
-            str +='<td>'+item.material_name+'</td>'
-            str +='<td>'+item.characteristic+'</td>'
-            str +='<td>'+item.purchase_unit+'</td>'
-            str +='<td>'+item.engineering_quantity+'</td>'
-            str +='<td>'+item.brand_name+'</td>'
-            str +='<td>'+item.purchase_unit_price+'<input type="hidden" id="purchase_price_'+item.id+'" name="purchase_unit_price[]" value="'+item.purchase_unit_price+'"></td>'
-            str +='<td>'+(item.total_purchase_price)+'</td>'
-            str +='<td>'+(item.already_purchased_quantity)+'</td>'
-            str +='<td id="wait_purchased_quantity_'+item.id+'">'+(item.wait_purchased_quantity)+'</td>'
-            str +='<td><input type="text" class="span12 notempty actual_purchase_quantity" name="actual_purchase_quantity['+item.id+']" onclick="key(this)" onchange="totalPrice('+item.id+',this)"></td>'
-            str +='<td id="actual_total_fee_'+item.id+'"></td>'
-            if(item.already_purchased_quantity == 0){
-                str +='<td><span class="btn btn-danger">未下单</span></td>'
-            }else if(item.already_purchased_quantity == item.engineering_quantity){
-                str +='<td><span class="btn btn-success">已完成</span></td>'
-            }else{
-                str +='<td><span class="btn btn-info">剩余下单</span></td>'
-            }
-            str +='</tr>'
-
-        $('.sub_arch_'+item.sub_arch_id+":last").after(str);
-            console.log(item);
-        });
-        //点击文本框设置背景色
-        $("input").focus(function(){
-            $(this).css("background-color","#fff");
-        });
-
-    }
     //计算采购价格
     function totalPrice(id,th) {
         var wait_purchased_quantity =$('#wait_purchased_quantity_'+id).html();

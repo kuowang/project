@@ -4,18 +4,6 @@
     <link rel="stylesheet" href="/layui/css/layui.css">
     <script src="/layui/layui.js"></script>
 
-    <style type="text/css">
-        .layui-form input[type=checkbox], .layui-form input[type=radio], .layui-form select {
-            display: inline;
-        }
-        .pro-title{
-            background: #e6e6e6;
-        }
-        .layui-table td, .layui-table th {
-            border: solid 1px #ccc;
-        }
-
-    </style>
     <div class="left-sidebar">
         <div class="row-fluid">
             <div class="span12">
@@ -77,28 +65,19 @@
                                  <span style="font-weight: normal;font-size: 14px">发货时间：{{$val->purchase_at}}
                             到达时间：{{$val->arrive_time}}</span>
                         </div>
-                        @if( (in_array(25010304,$pageauth) && $val->created_uid == $uid ) || in_array(25010304,$manageauth))
-                        <span class="title"style="float: right;">
-                        <a class="btn btn-success" href="/purchase/createPurchaseOrder/{{$val->id}}">
-                            <i class="layui-icon">创建采购单 +</i>
-                        </a>
-                        </span>
-                        @endif
                     </div>
                     <div class="widget-body">
                         <div id="dt_example" class="example_alt_pagination">
-
                             <table class="layui-table layui-form">
                                 <thead>
-                                    <th>批次</th>
                                     <th>采购单编号</th>
-                                    <th>计划发货时间</th>
-                                    <th>计划到达时间</th>
-                                    <th>供应商名称</th>
-                                    <th>采购人员</th>
-                                    <th>采购单审核状态</th>
+                                    <th>采购地点</th>
+                                    <th>订单到货地点（中转）</th>
+                                    <th>批次到货地点</th>
+                                    <th>车牌号</th>
                                     <th>采购单发送状态</th>
-                                    <th>审核操作</th>
+                                    <th>物流状态</th>
+                                    <th>物流状态操作</th>
                                     <th>执行操作</th>
 
                                 </thead>
@@ -106,19 +85,12 @@
                                     @if(isset($batchOrderList[$val->id]))
                                     @foreach($batchOrderList[$val->id] as $list)
                                         <tr  class="hiddenitem_{{$k}}">
-                                            <td>{{$val->purchase_number}}</td>
                                             <td>{{$list->purchase_order_number}}</td>
-                                            <td>{{$val->deliver_time}}</td>
-                                            <td>{{$val->arrive_time}}</td>
+                                            <td>{{$list->transfer_address}}</td>
+                                            <td>{{$list->direct_address}}</td>
                                             <td>{{$list->supplier}}</td>
-                                            <td>{{$list->created_user_name}}</td>
-                                            <td>
-                                                @if($list->order_status ==0)
-                                                    <span class="btn btn-danger">未审核</span>
-                                                @else
-                                                    <span class="btn btn-success">已审核</span>
-                                                @endif
-                                            </td>
+                                            <td>{{$list->chepaihao}}</td>
+
                                             <td>
                                                 @if($list->send_number == 0)
                                                     <span class="btn btn-danger">未发送</span>
@@ -126,37 +98,36 @@
                                                     <span class="btn btn-success">已发送</span>
                                                 @endif
                                             </td>
-
-                                            @if( in_array(25010305,$manageauth))
                                             <td>
-                                                @if($list->order_status == 0)
-                                                    <div class="btn btn-success" onclick="emainStatus({{$list->id}},1)">通过</div>
-                                                @elseif($list->order_status ==1)
-                                                    <div class="btn btn-warning" onclick="emainStatus({{$list->id}},0)">取消</div>
-                                               @endif
+                                                @if($list->logistics_status == 1)
+                                                    <div class="btn btn-success" >已到达</div>
+                                                @elseif($list->logistics_status ==0)
+                                                    <div class="btn btn-warning" >未到达</div>
+                                                @endif
 
                                             </td>
-
-                                            @endif
-
                                             <td>
-                                                @if( (in_array(25010301,$pageauth) && $val->created_uid == $uid ) || in_array(25010301,$manageauth))
-                                                    <a href ='/purchase/purchaseOrderDetail/{{$list->id}}'>
+                                            @if( (in_array(25010403,$pageauth) && $val->created_uid == $uid ) || in_array(25010403,$manageauth))
+
+                                                @if($list->logistics_status == 0)
+                                                    <div class="btn btn-success" onclick="emainStatus({{$list->id}},1)">已到达</div>
+                                                @elseif($list->logistics_status ==1)
+                                                    <div class="btn btn-warning" onclick="emainStatus({{$list->id}},0)">未到达</div>
+                                               @endif
+                                            @endif
+                                            </td>
+                                            <td>
+                                                @if( (in_array(25010401,$pageauth) && $val->created_uid == $uid ) || in_array(25010401,$manageauth))
+                                                    <a href ='/purchase/purchaseLogisDetail/{{$list->id}}'>
                                                     <span class="btn btn-success">查看</span>
                                                     </a>
                                                 @endif
-                                                @if($list->order_status ==0)
-                                                    @if( (in_array(25010302,$pageauth) && $val->created_uid == $uid ) || in_array(25010302,$manageauth))
-                                                        <a href ='/purchase/editPurchaseOrder/{{$list->id}}'>
+
+                                                @if($list->logistics_status ==0)
+                                                    @if( (in_array(25010402,$pageauth) && $val->created_uid == $uid ) || in_array(25010402,$manageauth))
+                                                        <a href ='/purchase/editPurchaseLogis/{{$list->id}}'>
                                                             <span  class="btn btn-success">编辑</span>
                                                         </a>
-                                                    @endif
-                                                    @if((in_array(25010303,$pageauth) && $val->created_uid == $uid ) || in_array(25010303,$manageauth))
-                                                        <span  class="btn btn-danger" onclick="deletePurchaseOrder({{$list->id}})">删除</span>
-                                                    @endif
-                                                @else
-                                                    @if((in_array(25010306,$pageauth) && $val->created_uid == $uid ) || in_array(25010306,$manageauth))
-                                                        <span  class="btn btn-danger" onclick="sendOrderToSupplier({{$list->id}})">发送供应商</span>
                                                     @endif
                                                 @endif
                                             </td>
@@ -197,9 +168,8 @@
 <script type="text/javascript">
     //审核状态修改
     function emainStatus(id,status) {
-
         $.ajax({
-            url:'/purchase/examinePurchaseOrder/'+id+'/'+status,
+            url:'/purchase/examinePurchaseLogis/'+id+'/'+status,
             type:'post',
             // contentType: 'application/json',
             success:function(data){

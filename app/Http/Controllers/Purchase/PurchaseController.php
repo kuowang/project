@@ -91,7 +91,7 @@ class PurchaseController extends WebController
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
         if( (in_array(250101,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) || in_array(250101,$this->user()->manageauth)){
-            if($engineering->status != 1){
+            if(!in_array($engineering->status,[1,2])){
                 return redirect('/purchase/purchaseConduct?status=2&notice='.'只有实施项目才能更改采购状态');
             }
         }else{
@@ -299,7 +299,7 @@ class PurchaseController extends WebController
             return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
         if($engineering->budget_id ==0){
-            return redirect('/purchase/purchaseConduct?status=2&notice='.'请先创建预算单，再创建采购批次？1');
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'请先创建预算单，再创建采购批次？');
         }
         $data['project'] =$project;
         $data['engineering'] =$engineering;
@@ -332,7 +332,7 @@ class PurchaseController extends WebController
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
-        if( !(in_array(250102,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(250102,$this->user()->manageauth)){
+        if( !(in_array(25010304,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(25010304,$this->user()->manageauth)){
             //采购人员可以操作更改工程设计详情
             return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
@@ -374,10 +374,7 @@ class PurchaseController extends WebController
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
-        if( !(in_array(250102,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(250102,$this->user()->manageauth)){
-            //采购人员可以操作更改工程设计详情
-            return $this->error('您没有权限编辑该工程信息');
-        }
+
         if($engineering->budget_id ==0){
             return $this->error('请先创建预算单，再创建采购批次4');
         }
@@ -473,7 +470,7 @@ class PurchaseController extends WebController
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
-        if( !(in_array(250102,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(250102,$this->user()->manageauth)){
+        if( !(in_array(25010304,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(25010304,$this->user()->manageauth)){
             //采购人员可以操作更改工程设计详情
             echo"<script>alert('您没有权限编辑该工程信息');history.go(-1);</script>";
             exit;
@@ -503,6 +500,7 @@ class PurchaseController extends WebController
         $data['purchaser']=$purchaser;    //`purchaser` varchar(255) DEFAULT NULL COMMENT '买方联系人',
         $data['purchaser_phone']=$purchaser_phone;    //`purchaser_phone` varchar(255) DEFAULT NULL COMMENT '买方联系人电话',
         $data['supplier_id']=$supplier;    //`supplier_id` int(11) DEFAULT NULL COMMENT '供应商id',
+        $data['supplier'] =DB::table('supplier')->where('id',$supplier)->value('supplier');
         $data['order_status']=0;    //`order_status` tinyint(4) DEFAULT '0' COMMENT '订单状态 0未审核 1已审核',
         $data['send_number']=0;    //`send_number` tinyint(4) DEFAULT '0' COMMENT '发送邮件到供应商次数 默认0',
         $data['remark']=$remark;    //`remark` varchar(2000) DEFAULT NULL COMMENT '采购单备注',
@@ -519,7 +517,7 @@ class PurchaseController extends WebController
                 'budget_item.material_name','budget_item.characteristic',
                 'budget_item.engineering_quantity','budget_item.brand_name',
                 'purchase_unit','purchase_unit_price','budget_item.mbs_id','budget_item.material_id',
-                'budget_item.brand_id'
+                'budget_item.brand_id','budget_item.arch_id','budget_item.sub_arch_id'
             ])
             ->get();
         if(count($budgetitem) != count($budget_item_id)){
@@ -553,6 +551,8 @@ class PurchaseController extends WebController
              $datalist['budget_id']              =$engineering->budget_id;               //`budget_id` int(11) DEFAULT NULL COMMENT '预算单id',
              $datalist['budget_item_id']         =$item->id;                //`budget_item_id` int(11) DEFAULT NULL COMMENT '预算详情id',
              $datalist['batch_id']               =$id;                //`batch_id` int(11) DEFAULT NULL COMMENT '批次id',
+             $datalist['arch_id']                =$item->arch_id;                //`arch_id` int(11) DEFAULT NULL COMMENT '建筑工程id',
+             $datalist['sub_arch_id']            =$item->sub_arch_id;                //`sub_arch_id` int(11) DEFAULT NULL COMMENT '建筑子工程id',
 
              $datalist['mbs_id']                 =$item->mbs_id;                //`mbs_id` int(11) DEFAULT NULL COMMENT '材料品牌供应商id',
              $datalist['material_id']            =$item->material_id;              //`material_id` int(11) DEFAULT NULL COMMENT '材料id',
@@ -574,37 +574,330 @@ class PurchaseController extends WebController
              $data['purchase_total_fee'] +=$datalist['actual_total_fee'];
              $purchaseitem[]=$datalist;
          }
-
-
         DB::beginTransaction();
         $order_id =DB::table('purchase_order')->insertGetId($data);
         foreach($purchaseitem as &$item){
             $item['order_id'] =$order_id;
         }
         DB::table('purchase_order_item')->insert($purchaseitem);
+
+        DB::table('purchase_batch')->where('id',$id)->update(['purchase_order_status'=>1]);
         DB::commit();
         return redirect('/purchase/purchaseOrderManage/'.$batchinfo->engin_id.'?status=1&notice='.'采购单创建成功');
     }
+    //更改采购单审核状态
+    public function examinePurchaseOrder($id,$status){
+        $this->user();
+        if(!in_array(25010305,$this->user()->manageauth)){
+            return $this->error('您没有权限更改状态');
+        }
+        if(!in_array($status,[0,1])){
+            return $this->error('采购单审核状态错误');
+        }
+        DB::table('purchase_order')->where('id',$id)->update(['order_status'=>$status,'edit_uid'=>$this->user()->id]);
+        return $this->success('审核状态更改完成');
+    }
+    //删除采购单
+    public function deletePurchaseOrder($id){
+        $this->user();
+        $orderinfo =DB::table('purchase_order')->where('id',$id)->first();
+        if(empty($orderinfo)){
+            return $this->error('采购单不存在');
+        }
+        if($orderinfo->order_status == 1){
+            return $this->error('已审核通过采购单不能删除');
+        }
 
+        if((in_array(25010303,$this->user()->pageauth) && $orderinfo->created_uid == $this->user()->id ) || in_array(25010303,$this->user()->manageauth)){
+            DB::table('purchase_order')->where('id',$id)->delete();
+            DB::table('purchase_order_item')->where('order_id',$id)->delete();
+            return $this->success('采购单删除成功');
 
+        }else{
+            return $this->error('您没有删除该采购单权限');
+        }
+    }
 
-
-    //编辑采购单
+    //编辑采购单 id 采购单id
     public function editPurchaseOrder(Request $request,$id){
+        $this->user();
+        $data['navid']      =25;
+        $data['subnavid']   =2501;
+        $orderinfo=DB::table('purchase_order')->where('id',$id)->first();
+        if(empty($orderinfo)){
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'采购单不存在');
+        }
+        //采购批次信息
+        $batchinfo= DB::table('purchase_batch')->where('id',$orderinfo->batch_id)->first();
+        if(empty($batchinfo)){
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'批次信息不存在');
+        }
+        //项目子工程
+        $engineering =DB::table('engineering')->where('id',$orderinfo->engin_id)->first();
+        if(empty($engineering)){
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'该工程不存在');
+        }
+        //项目信息
+        $project =DB::table('project')->where('id',$orderinfo->project_id)->first();
+        if( !(in_array(25010302,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(25010302,$this->user()->manageauth)){
+            //采购人员可以操作更改工程设计详情
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
+        }
+        if($engineering->budget_id ==0){
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'请先创建预算单，再创建采购批次？');
+        }
+
+        $data['project'] =$project; //项目信息
+        $data['engineering'] =$engineering; //工程信息
+        $data['order_id']=$id; //订单id
+        $data['batchinfo']= $batchinfo; //获取批次列表
+        $data['orderinfo']=$orderinfo;//订单信息
+        //获取供应商信息
+        $data['supplier'] =DB::table('supplier')->where('id',$orderinfo->supplier_id)->first();
+        $data['engin_system']=DB::table('enginnering_architectural')
+            ->where('engin_id',$orderinfo->engin_id)
+            ->get();
+
+        $orderitem =DB::table('purchase_order_item')->where('order_id',$id)->get();
+        $itemlist=[];
+        foreach($orderitem as $v){
+            $itemlist[$v->sub_arch_id][]=$v;
+        }
+        $data['itemlist']=$itemlist;
+        return view('purchase.editPurchaseOrder',$data);
+    }
+    //保存编辑的采购单
+    public function postEditPurchaseOrder(Request $request,$id){
+
+        $deliver_mode       =$request->input('deliver_mode','');          //deliver_mode: "asd",
+        $arrival_mode       =$request->input('arrival_mode','');          //arrival_mode: "ss",
+        $transfer_address   =$request->input('transfer_address','');          //transfer_address: "d",
+        $direct_address     =$request->input('direct_address','');          //direct_address: "fasdf",
+        $order_created_date =$request->input('order_created_date','');          //order_created_date: "2019-09-08",
+        $transport_mode     =$request->input('transport_mode','');          //transport_mode: "asdf",
+        $load_mode          =$request->input('load_mode','');            //load_mode: "as",
+        $vehicle_mode       =$request->input('vehicle_mode','');          //vehicle_mode: "asddf",
+        $vehicle_number     =(int)$request->input('vehicle_number','');          //vehicle_number: "sadf",
+        $packing_mode       =$request->input('packing_mode','');          //packing_mode: "sdasdf",
+        $purchaser          =$request->input('purchaser','');          //$purchaser: "asdf",
+        $purchaser_phone      =$request->input('purchaser_phone','');          //purchaser_phone: "asdf",
+        $purchase_address   =$request->input('purchase_address','');          //purchase_address: "asdf",
+        $remark             =$request->input('remark','');          //remark: "",
+
+        $order_item_id     =$request->input('order_item_id',[]);          //budget_item_id: ["61","62"],
+        $actual_purchase_quantity =$request->input('actual_purchase_quantity',[]);          //actual_purchase_quantity: ["12312", "234132.44"]
+        if(empty($order_item_id) || count($order_item_id) != count($actual_purchase_quantity)){
+            echo"<script>alert('该供应商没有材料信息或者材料不对应');history.go(-1);</script>";
+            exit;
+        }
+        $orderinfo= DB::table('purchase_order')->where('id',$id)->first();
+        if(empty($orderinfo)){
+            echo"<script>alert('采购单不存在');history.go(-1);</script>";
+            exit;
+        }
+        //项目子工程
+        $engineering =DB::table('engineering')->where('id',$orderinfo->engin_id)->first();
+        if(empty($engineering)){
+            echo"<script>alert('该工程不存在');history.go(-1);</script>";
+            exit;
+        }
+        //项目信息
+        $project =DB::table('project')->where('id',$orderinfo->project_id)->first();
+        if( !(in_array(25010302,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(25010302,$this->user()->manageauth)){
+            //采购人员可以操作更改工程设计详情
+            echo"<script>alert('您没有权限编辑该工程信息');history.go(-1);</script>";
+            exit;
+        }
+        if($engineering->budget_id ==0){
+            echo"<script>alert('请先创建预算单,再创建采购批次');history.go(-1);</script>";
+            exit;
+        }
+        $data['order_created_date']     =$order_created_date;    //`order_created_date` date DEFAULT NULL COMMENT '下单日期',
+        $data['deliver_mode']           =$deliver_mode;    //`deliver_mode` varchar(255) DEFAULT NULL COMMENT '送货方式',
+        $data['arrival_mode']           =$arrival_mode;    //`arrival_mode` varchar(255) DEFAULT NULL COMMENT '到达方式',
+        $data['transfer_address']           =$transfer_address;    //`transfer_address` varchar(255) DEFAULT NULL COMMENT '中转站',
+        $data['direct_address']         =$direct_address;    //`direct_address` varchar(255) DEFAULT NULL COMMENT '直达地址',
+        $data['transport_mode']         =$transport_mode;    //`transport_mode` varchar(255) DEFAULT NULL COMMENT '运输方式',
+        $data['load_mode']              =$load_mode;    //`load_mode` varchar(255) DEFAULT NULL COMMENT '装载方式',
+        $data['vehicle_mode']           =$vehicle_mode;    //`vehicle_mode` varchar(255) DEFAULT NULL COMMENT '车辆规格',
+        $data['vehicle_number']         =$vehicle_number;    //`vehicle_number` int(10) DEFAULT '1' COMMENT '车辆数量',
+        $data['packing_mode']           =$packing_mode;    //`packing_mode` varchar(255) DEFAULT NULL COMMENT '包装要求',
+        $data['purchase_address']       =$purchase_address;    //`purchase_address` varchar(1000) DEFAULT NULL COMMENT '订单采购地点',
+        $data['purchaser']              =$purchaser;    //`purchaser` varchar(255) DEFAULT NULL COMMENT '买方联系人',
+        $data['purchaser_phone']        =$purchaser_phone;    //`purchaser_phone` varchar(255) DEFAULT NULL COMMENT '买方联系人电话',
+        $data['order_status']           =0;    //`order_status` tinyint(4) DEFAULT '0' COMMENT '订单状态 0未审核 1已审核',
+        $data['send_number']            =0;    //`send_number` tinyint(4) DEFAULT '0' COMMENT '发送邮件到供应商次数 默认0',
+        $data['remark']                 =$remark;    //`remark` varchar(2000) DEFAULT NULL COMMENT '采购单备注',
+        $data['edit_uid']=$this->user()->id;
+        $data['updated_at'] =date('Y-m-d');
+        DB::beginTransaction();
+        //更改详情信息
+        foreach ($order_item_id as $k=>$v){
+            $orderItem =DB::table('purchase_order_item')->where('id',$v)->first();
+            $list['actual_purchase_quantity'] =$actual_purchase_quantity[$k];
+            $list['actual_total_fee'] =$actual_purchase_quantity[$k]*$orderItem->purchase_price;
+            DB::table('purchase_order_item')->where('id',$v)->update($list);
+        }
+        $sum = DB::table('purchase_order_item')->where('order_id',$id)->sum('actual_total_fee');
+        $data['purchase_total_fee'] =$sum;
+        //更改订单信息
+        DB::table('purchase_order')->where('id',$id)->update($data);
+
+        DB::commit();
+        return redirect('/purchase/purchaseOrderManage/'.$orderinfo->engin_id.'?status=1&notice='.'编辑成功');
 
     }
+
+    //采购单详情
+    public function purchaseOrderDetail(Request $request,$id){
+        $this->user();
+        $data['navid']      =25;
+        $data['subnavid']   =2501;
+        $orderinfo=DB::table('purchase_order')->where('id',$id)->first();
+        if(empty($orderinfo)){
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'采购单不存在');
+        }
+        //采购批次信息
+        $batchinfo= DB::table('purchase_batch')->where('id',$orderinfo->batch_id)->first();
+        if(empty($batchinfo)){
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'批次信息不存在');
+        }
+        //项目子工程
+        $engineering =DB::table('engineering')->where('id',$orderinfo->engin_id)->first();
+        if(empty($engineering)){
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'该工程不存在');
+        }
+        //项目信息
+        $project =DB::table('project')->where('id',$orderinfo->project_id)->first();
+        if( !(in_array(25010302,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(25010302,$this->user()->manageauth)){
+            //采购人员可以操作更改工程设计详情
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
+        }
+        if($engineering->budget_id ==0){
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'请先创建预算单，再创建采购批次？');
+        }
+
+        $data['project'] =$project; //项目信息
+        $data['engineering'] =$engineering; //工程信息
+        $data['order_id']=$id; //订单id
+        $data['batchinfo']= $batchinfo; //获取批次列表
+        $data['orderinfo']=$orderinfo;//订单信息
+        //获取供应商信息
+        $data['supplier'] =DB::table('supplier')->where('id',$orderinfo->supplier_id)->first();
+        $data['engin_system']=DB::table('enginnering_architectural')
+            ->where('engin_id',$orderinfo->engin_id)
+            ->get();
+
+        $orderitem =DB::table('purchase_order_item')->where('order_id',$id)->get();
+        $itemlist=[];
+        foreach($orderitem as $v){
+            $itemlist[$v->sub_arch_id][]=$v;
+        }
+        $data['itemlist']=$itemlist;
+        return view('purchase.purchaseOrderDetail',$data);
+    }
+
+
 
     //物流管理
     public function purchaseLogisticsManage(Request $request,$id){
-    }
+        $this->user();
+        $data['navid']      =25;
+        $data['subnavid']   =2501;
+        //项目子工程
+        $engineering =DB::table('engineering')->where('id',$id)->first();
+        if(empty($engineering)){
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'该工程不存在');
+        }
+        //项目信息
+        $project =DB::table('project')->where('id',$engineering->project_id)->first();
+        if( !(in_array(250102,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(250102,$this->user()->manageauth)){
+            //采购人员可以操作更改工程设计详情
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
+        }
+        if($engineering->budget_id ==0){
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'请先创建预算单，再创建采购批次？');
+        }
+        $data['project'] =$project;
+        $data['engineering'] =$engineering;
+        $data['engin_id']=$id;
+        //获取批次列表
+        $data['batchList']= DB::table('purchase_batch')->where('engin_id',$id)->get();
 
+        $orderList =DB::table('purchase_order')->where('engin_id',$id)->get();
+        $data['batchOrderList']=[];
+        foreach ($orderList as $v){
+            $data['batchOrderList'][$v->batch_id][]=$v;
+        }
+        return view('purchase.purchaseLogisticsManage',$data);
+    }
+    //更改采购单物流审核状态
+    public function examinePurchaseLogis($id,$status){
+        $this->user();
+        if(!in_array($status,[0,1])){
+            return $this->error('物流单审核状态错误');
+        }
+        DB::table('purchase_order')->where('id',$id)->update(['logistics_status'=>$status,'edit_uid'=>$this->user()->id]);
+        return $this->success('物流状态更改完成');
+    }
 
 
 
 
     //实施项目采购列表
     public function purchaseCompleted(Request $request){
+        $this->user();
 
+        $project_name       =$request->input('project_name','');
+        $engineering_name   =$request->input('engineering_name','');
+        $purchase_username    =$request->input('purchase_username','');
+        $page               =$request->input('page',1);
+        $rows               =$request->input('rows',40);
+        $data['project_name']   =$project_name;
+        $data['engineering_name']        =$engineering_name;
+        $data['purchase_username']=$purchase_username;
+
+        $db=DB::table('engineering')
+            ->join('project','project.id','=','project_id')
+            ->leftjoin('purchase','engineering.id','=','purchase.engin_id')
+            ->where('engineering.status',2); //竣工项目工程
+
+        if(!empty($project_name)){
+            $db->where('project_name','like','%'.$project_name.'%');
+        }
+        if(!empty($engineering_name)){
+            $db->where('engineering_name','like','%'.$engineering_name.'%');
+        }
+        if(!empty($purchase_username)){
+            $db->where('purchase_username','like','%'.$purchase_username.'%');
+        }
+
+        $data['count'] =$db->count();
+        $data['data']= $db->orderby('project.id','desc')
+            ->orderby('engineering.id','asc')
+            ->select(['project.project_name','project.budget_uid','project.budget_username','purchase_uid','purchase_username','is_conf_architectural',
+                'engineering.project_id','engineering.id as engin_id', 'engineering.engineering_name','engineering.budget_id',
+                'build_area', 'engineering.status as engin_status', 'contract_code',
+                'purchase_status','logistics_status','batch_status','purchase.remark'
+            ])
+            ->skip(($page-1)*$rows)
+            ->take($rows)
+            ->get();
+        //$queries = DB::getQueryLog();
+        //var_dump($queries);
+
+        $url='/purchase/purchaseConduct?project_name='.$project_name.'&engineering_name='.$engineering_name.'&purchase_username='.$purchase_username;
+        $data['page']   =$this->webfenye($page,ceil($data['count']/$rows),$url);
+
+        $data['navid']      =25;
+        $data['subnavid']   =2502;
+        if( !(in_array(2502,$this->user()->pageauth)) && !in_array(2502,$this->user()->manageauth)){
+            return redirect('/home');
+        }
+
+        $data['status']=$request->input('status',0); //1成功 2失败
+        $data['notice']=$request->input('notice','成功'); //提示信息
+        return view('purchase.purchaseCompleted',$data);
     }
 
 

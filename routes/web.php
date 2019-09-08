@@ -253,14 +253,17 @@ Route::group(['prefix' => 'purchase','namespace' => 'Purchase','middleware' => '
 
     Route::get('/purchaseOrderManage/{id}',     'PurchaseController@purchaseOrderManage');  //实施项目订单管理
     Route::get('/createPurchaseOrder/{id}',     'PurchaseController@createPurchaseOrder');  //实施项目创建采购单
-    Route::get('/getSupplierOrMaterial/{id}',     'PurchaseController@getSupplierOrMaterial');  //单个批次下的供应商信息和材料采购信息
     Route::post('/postAddPurchaseOrder/{id}',     'PurchaseController@postAddPurchaseOrder');  //保存采购单信息
+    Route::post('/examinePurchaseOrder/{id}/{status}','PurchaseController@examinePurchaseOrder');  //更改采购单审核状态
+    Route::post('/deletePurchaseOrder/{id}',     'PurchaseController@deletePurchaseOrder');  //删除采购单
+    Route::get('/editPurchaseOrder/{id}',        'PurchaseController@editPurchaseOrder');    //编辑采购单
+    Route::post('/postEditPurchaseOrder/{id}',    'PurchaseController@postEditPurchaseOrder');    //保存编辑的采购单
+    Route::get('/purchaseOrderDetail/{id}',        'PurchaseController@purchaseOrderDetail');    //采购单详情
+    Route::get('/getSupplierOrMaterial/{batch_id}/{id}', 'PurchaseController@getSupplierOrMaterial'); //单个批次下的供应商信息和材料采购信息
 
+    Route::get('/purchaseLogisticsManage/{id}',     'PurchaseController@purchaseLogisticsManage'); //实施项目物流管理
+    Route::post('/examinePurchaseLogis/{id}/{status}','PurchaseController@examinePurchaseLogis');  //更改采购单审核状态
 
-
-
-
-    Route::get('/getSupplierOrMaterial/{batch_id}/{id}', 'PurchaseController@getSupplierOrMaterial'); //实施项目物流管理
 
 
 });

@@ -8,11 +8,11 @@
         .pro-title{
             background: #e6e6e6;
         }
-        /*
+        /* */
          .hiddenitem input[type="text"]{
             border: 1px solid #fff;
         }
-        */
+
 
         .layui-table td, .layui-table th {
             border: solid 1px #ccc;
@@ -79,7 +79,7 @@
                         </div>
                         <span class="title"style="float: right;">
                         <a class="btn btn-success" onclick="add_pici()" ><i class="layui-icon">创建新批次 +</i></a>
-                    </span>
+                        </span>
                     </div>
                     <div class="widget-body">
                         <div id="dt_example" class="example_alt_pagination">
@@ -121,9 +121,12 @@
                                         <td><input type="text" name="van_number[]" value="{{$val->van_number}}" class="span12 van_number" onclick="key(this)"></td>
                                         <td><input type="text" name="deliver_address[]" value="{{$val->deliver_address}}" class="span12 deliver_address" ></td>
                                         <td> @if($val->purchase_order_status == 1)已创建@else 未创建 @endif </td>
-                                        <td> <a title="删除" class="btn btn-danger1" onclick="deleteTrRow('{{$k}}',this)" href="javascript:;">
+                                        <td>
+                                            @if($val->purchase_order_status == 0)
+                                            <a title="删除" class="btn btn-danger" onclick="deleteTrRow('{{$k}}',this)" href="javascript:;">
                                                 <i class="layui-icon">删除</i>
                                             </a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -194,7 +197,7 @@
                 <td><input type="text" name="van_number[]" class="span12 van_number"  onclick="key(this)"></td>
                 <td><input type="text" name="deliver_address[]" class="span12 deliver_address" ></td>
                 <td></td>
-                <td> <a title="删除" class="btn btn-danger1" onclick="deleteTrRow('`+timestamp+`',this)" href="javascript:;">
+                <td> <a title="删除" class="btn btn-danger" onclick="deleteTrRow('`+timestamp+`',this)" href="javascript:;">
                         <i class="layui-icon">删除</i>
                     </a></td>
             </tr>`;

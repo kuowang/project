@@ -41,14 +41,14 @@
             <div class="metro-nav">
 
                 @if(in_array(200102,$pageauth))
-                    <div class="metro-nav-block nav-block-green" style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
+                    <div class="metro-nav-block nav-block-green" >
                         <a href="/purchase/purchaseConduct">
                             <div class="fs1"  data-icon="">实施项目</div>
                         </a>
                     </div>
                 @endif
                 @if(in_array(200103,$pageauth))
-                    <div class="metro-nav-block nav-block-yellow">
+                    <div class="metro-nav-block nav-block-yellow" style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
                         <a href="/purchase/purchaseCompleted">
                             <div class="fs1" aria-hidden="true" data-icon="">竣工项目</div>
                         </a>
@@ -137,9 +137,7 @@
                                         </td>
                                         <td>
                                             @if($val->batch_status ==1 && ((in_array(250104,$pageauth) && $val->purchase_uid == $uid ) || in_array(250104,$manageauth)))
-                                                <a href="/purchase/purchaseLogisticsManage/{{$val->engin_id}}">
                                                 <div class="btn btn-success">物流管理</div>
-                                                </a>
                                             @else
                                                 物流管理
                                             @endif
