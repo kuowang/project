@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Base;
+namespace App\Http\Controllers\Test;
 
 use App\Models\Authority;
 use App\Models\ManageAuthority;
@@ -12,8 +12,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\WebController;
 use Illuminate\Support\Facades\DB;
 use App\Models\SystemSetting;
+use PDF;
 
-class BaseController extends WebController
+class TestController  extends WebController
 {
     /**
      * Create a new controller instance.
@@ -26,10 +27,10 @@ class BaseController extends WebController
 
     //公告列表
     public function testPdf(Request $request){
-        $data =[];
-
-
-        return view('test.testPdf',$data);
+        $data=[];
+        $pdf = PDF::loadView('test.testPdf', $data);
+        return $pdf->stream();
+        //return $pdf->download('invoice.pdf');
     }
 
 }

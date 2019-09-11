@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Budget;
 use Illuminate\Http\Request;
 use App\Http\Controllers\WebController;
 use Illuminate\Support\Facades\DB;
-
+use PDF;
 
 class BudgetController extends WebController
 {
@@ -697,6 +697,10 @@ class BudgetController extends WebController
             $data['room_name']      =json_decode($data['param']->room_name,true);
             $data['room_area']      =json_decode($data['param']->room_area,true);
         }
+
+
+        $pdf = PDF::loadView('budget.budgetDownload', $data);
+        return $pdf->stream();
 
        // return view('budget.budgetDownload',$data);
         $a =view('budget.budgetDownload',$data);

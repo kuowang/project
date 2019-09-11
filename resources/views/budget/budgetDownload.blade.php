@@ -1,8 +1,20 @@
-
+<style>
+    @font-face {
+        font-family: 'msyh';
+        font-style: normal;
+        font-weight: normal;
+        src: url(http://127.0.0.1/fonts/msyh.ttf) format('truetype');
+    }
+    body {  margin: 0;  padding: 0;  width: 100%;
+        font-weight: 100;  font-family: 'msyh';  }
+    table{
+        width:100%;
+    }
+</style>
 <table  border="1" cellspacing="0" cellpadding="0">
     <thead>
     <tr>
-        <th colspan="10"><span class="btn btn-info">项目概况</span></th>
+        <td colspan="10"><span class="btn btn-info">项目概况</span></td>
     </tr>
     </thead>
     <tbody>
@@ -26,7 +38,7 @@
     </tr>
     <tr>
         <td class="pro-title">报价日期</td>
-        <td colspan="2">{{isset($budget->quotation_date)?$budget->quotation_date:''}}</td>
+        <td colspan="2" style="width: 20%">{{isset($budget->quotation_date)?$budget->quotation_date:''}}</td>
         <td class="pro-title">报价有效期限(天)</td>
         <td colspan="3">{{isset($budget->quotation_limit_day)?$budget->quotation_limit_day:''}}</td>
         <td colspan="3"></td>
@@ -37,7 +49,7 @@
 <table  border="1" cellspacing="0" cellpadding="0">
     <thead>
     <tr>
-        <th colspan="10"><span class="btn btn-info">建筑设计指标</span></th>
+        <td colspan="10"><span class="btn btn-info">建筑设计指标</span></td>
     </tr>
     </thead>
     <tbody>
@@ -64,7 +76,7 @@
 <table  border="1" cellspacing="0" cellpadding="0">
     <thead>
     <tr>
-        <th colspan="10"><span class="btn btn-info">建筑荷载设计指标</span></th>
+        <td colspan="10"><span class="btn btn-info">建筑荷载设计指标</span></td>
     </tr>
     </thead>
     <tbody>
@@ -87,7 +99,7 @@
 <table  border="1" cellspacing="0" cellpadding="0">
     <thead>
     <tr>
-        <th colspan="10"><span class="btn btn-info">建筑尺寸设计参数</span></th>
+        <td colspan="10"><span class="btn btn-info">建筑尺寸设计参数</span></td>
     </tr>
     </thead>
     <tbody>
@@ -95,7 +107,7 @@
         <td  colspan="2" class="pro-title">建筑层数：{{$engineering->build_floor}}层</td>
         <td  colspan="3" class="pro-title">总建筑面积（m²）</td>
         <td  colspan="2"><span id="all_house_area">{{$engineering->build_area}}</span></td>
-        <td  colspan="3"><span class="area_content" style="color: red"></span></td>
+        <td  colspan="3"><span class="area_content" ></span></td>
     </tr>
     <tr>
         <td  colspan="2" class="pro-title">建筑占地尺寸 长（m）</td>
@@ -125,9 +137,9 @@
 <table  border="1" cellspacing="0" cellpadding="0">
     <thead>
     <tr>
-        <th colspan="10">
+        <td colspan="10">
             <span class="btn btn-info">建筑房间功能布局</span>
-        </th>
+        </td>
     </tr>
     </thead>
     <tbody id="addroom">
@@ -153,16 +165,16 @@
 <table  border="1" cellspacing="0" cellpadding="0">
     <thead>
     <tr>
-        <th style="width:5%">序号</th>
-        <th style="width:15%">材料名称</th>
-        <th style="width:15%">规格特性要求</th>
-        <th style="width:6%">预算单位</th>
-        <th style="width:9%">工程量(图纸)</th>
-        <th style="width:7%">损耗(%)</th>
-        <th style="width:8%">工程量(实际)</th>
-        <th style="width:14%">品牌</th>
-        <th style="width:8%">单价</th>
-        <th style="width:6%">合计</th>
+        <td style="width:5%">序号</td>
+        <td style="width:15%">材料名称</td>
+        <td style="width:15%">规格特性要求</td>
+        <td style="width:6%">预算单位</td>
+        <td style="width:9%">工程量(图纸)</td>
+        <td style="width:7%">损耗(%)</td>
+        <td style="width:8%">工程量(实际)</td>
+        <td style="width:14%">品牌</td>
+        <td style="width:8%">单价</td>
+        <td style="width:6%">合计</td>
     </tr>
     </thead>
     <tbody>
@@ -227,7 +239,7 @@
         <td  id="packing_price_sum">{{isset($budget->packing_charge)?$budget->packing_charge:''}}</td>
     </tr>
     <tr>
-        <td class="pro-title" colspan="9" style="text-align: center;font-weight: bold;">材料费合计</td>
+        <td class="pro-title" colspan="9" >材料费合计</td>
 
         <td  id="total_material">{{isset($budget->material_total_price)?$budget->material_total_price:''}}</td>
     </tr>
@@ -240,7 +252,7 @@
         <td >{{isset($budget->construction_charge)?$budget->construction_charge:''}}</td>
     </tr>
     <tr>
-        <td colspan="9" class="pro-title" style="text-align: center;font-weight: bold;">工程造价(直接)</td>
+        <td colspan="9" class="pro-title" >工程造价(直接)</td>
         <td>{{isset($budget->direct_project_cost)?$budget->direct_project_cost:''}}</td>
     </tr>
     <tr>
@@ -260,12 +272,12 @@
         <td >{{isset($budget->tax)?$budget->tax:''}}</td>
     </tr>
     <tr>
-        <td class="pro-title" colspan="9" style="text-align: center;font-weight: bold;">工程单价(元/m²)</td>
+        <td class="pro-title" colspan="9" >工程单价(元/m²)</td>
         <td id="unit_price">{{isset($budget->total_budget_price)?round($budget->total_budget_price/$engineering->build_area,2):''}}</td>
 
     </tr>
     <tr>
-        <td class="pro-title" colspan="9" style="text-align: center;font-weight: bold;">工程总价(元)</td>
+        <td class="pro-title" colspan="9" >工程总价(元)</td>
         <td >{{isset($budget->total_budget_price)?$budget->total_budget_price:''}}</td>
     </tr>
     </tbody>
