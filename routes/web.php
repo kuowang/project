@@ -268,3 +268,8 @@ Route::group(['prefix' => 'purchase','namespace' => 'Purchase','middleware' => '
 
 });
 
+Route::group(['prefix' => 'Test','namespace' => 'Test'], function () {
+
+
+
+});
