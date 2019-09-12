@@ -1020,6 +1020,98 @@ class PurchaseController extends WebController
         $data['itemlist']=$itemlist;
         return view('purchase.purchaseLogisDetail',$data);
     }
+    //竣工批次管理
+    public function purchaseCompletedBatchManage(Request $request,$id){
+        $this->user();
+        $data['navid']      =25;
+        $data['subnavid']   =2502;
+        //项目子工程
+        $engineering =DB::table('engineering')->where('id',$id)->first();
+        if(empty($engineering)){
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'该工程不存在');
+        }
+        //项目信息
+        $project =DB::table('project')->where('id',$engineering->project_id)->first();
+        if( !(in_array(250202,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(250202,$this->user()->manageauth)){
+            //采购人员可以操作更改工程设计详情
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
+        }
+        if($engineering->budget_id ==0){
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'请先创建预算单，再创建采购批次？');
+        }
+        $data['project'] =$project;
+        $data['engineering'] =$engineering;
+        $data['engin_id']=$id;
+        //获取批次列表
+        $data['batchList']= DB::table('purchase_batch')->where('engin_id',$id)->get();
 
+        return view('purchase.purchaseCompletedBatchManage',$data);
 
+    }
+    //竣工采购单管理
+    public function purchaseCompletedOrderManage(Request $request,$id){
+        $this->user();
+        $data['navid']      =25;
+        $data['subnavid']   =2502;
+        //项目子工程
+        $engineering =DB::table('engineering')->where('id',$id)->first();
+        if(empty($engineering)){
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'该工程不存在');
+        }
+        //项目信息
+        $project =DB::table('project')->where('id',$engineering->project_id)->first();
+        if( !(in_array(250202,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(250202,$this->user()->manageauth)){
+            //采购人员可以操作更改工程设计详情
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
+        }
+        if($engineering->budget_id ==0){
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'请先创建预算单，再创建采购批次？');
+        }
+        $data['project'] =$project;
+        $data['engineering'] =$engineering;
+        $data['engin_id']=$id;
+        //获取批次列表
+        $data['batchList']= DB::table('purchase_batch')->where('engin_id',$id)->get();
+
+        $orderList =DB::table('purchase_order')->where('engin_id',$id)->get();
+        $data['batchOrderList']=[];
+        foreach ($orderList as $v){
+            $data['batchOrderList'][$v->batch_id][]=$v;
+        }
+        return view('purchase.purchaseCompletedOrderManage',$data);
+
+    }
+
+    //竣工物流管理
+    public function purchaseCompletedLogisticsManage(Request $request,$id){
+        $this->user();
+        $data['navid']      =25;
+        $data['subnavid']   =2502;
+        //项目子工程
+        $engineering =DB::table('engineering')->where('id',$id)->first();
+        if(empty($engineering)){
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'该工程不存在');
+        }
+        //项目信息
+        $project =DB::table('project')->where('id',$engineering->project_id)->first();
+        if( !(in_array(250202,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(250202,$this->user()->manageauth)){
+            //采购人员可以操作更改工程设计详情
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
+        }
+        if($engineering->budget_id ==0){
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'请先创建预算单，再创建采购批次？');
+        }
+        $data['project'] =$project;
+        $data['engineering'] =$engineering;
+        $data['engin_id']=$id;
+        //获取批次列表
+        $data['batchList']= DB::table('purchase_batch')->where('engin_id',$id)->get();
+
+        $orderList =DB::table('purchase_order')->where('engin_id',$id)->get();
+        $data['batchOrderList']=[];
+        foreach ($orderList as $v){
+            $data['batchOrderList'][$v->batch_id][]=$v;
+        }
+        return view('purchase.purchaseCompletedLogisticsManage',$data);
+    }
 }

@@ -69,7 +69,7 @@
                         </div>
                         <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                             <label>
-                                <form class="form-search" action="/budget/budgetConduct" method="get">
+                                <form class="form-search" action="/purchase/purchaseConduct" method="get">
                                     项目名称:<input type="text" name="project_name" value="{{ $project_name }}" class="input-medium search-query">
                                     工程名称:<input type="text" name="engineering_name" value="{{ $engineering_name }}" class="input-medium search-query">
                                     采购负责人:<input type="text" name="purchase_username" value="{{ $purchase_username }}" class="input-medium search-query">
