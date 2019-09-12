@@ -175,7 +175,7 @@
             success:function(data){
                 console.log(data);
                 if(data.status ==1){
-                    showMsg('审核更改成功');
+                    showMsg('物流状态更改成功');
                 }else{
                     showMsg(data.info)
                 }

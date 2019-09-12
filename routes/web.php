@@ -239,7 +239,7 @@ Route::group(['prefix' => 'offer','namespace' => 'Offer','middleware' => 'auth']
     Route::get('/offerDownload/{id}',             'OfferController@offerDownload');         //导出预算单
 });
 
-//预算管理类的控制组 不需要登录
+//采购管理类的控制组 不需要登录
 Route::group(['prefix' => 'purchase','namespace' => 'Purchase','middleware' => 'auth'], function () {
     Route::get('/purchaseConduct',              'PurchaseController@purchaseConduct');    //实施项目采购列表
     Route::get('/purchaseCompleted',            'PurchaseController@purchaseCompleted');   //竣工项目采购列表
@@ -263,7 +263,9 @@ Route::group(['prefix' => 'purchase','namespace' => 'Purchase','middleware' => '
 
     Route::get('/purchaseLogisticsManage/{id}',     'PurchaseController@purchaseLogisticsManage'); //实施项目物流管理
     Route::post('/examinePurchaseLogis/{id}/{status}','PurchaseController@examinePurchaseLogis');  //更改采购单审核状态
-
+    Route::get('/editPurchaseLogis/{id}',           'PurchaseController@editPurchaseLogis');        //编辑物流管理
+    Route::post('/postEditPurchaselogis/{id}/',     'PurchaseController@postEditPurchaselogis');    //提交物流管理信息
+    Route::get('/purchaseLogisDetail/{id}',           'PurchaseController@purchaseLogisDetail');    //查询物流信息
 
 
 });

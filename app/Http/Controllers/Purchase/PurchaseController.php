@@ -899,9 +899,127 @@ class PurchaseController extends WebController
         $data['notice']=$request->input('notice','成功'); //提示信息
         return view('purchase.purchaseCompleted',$data);
     }
+    //编辑物流单
+    public function editPurchaseLogis(Request $request,$id){
+        $this->user();
+        $data['navid']      =25;
+        $data['subnavid']   =2501;
+        $orderinfo=DB::table('purchase_order')->where('id',$id)->first();
+        if(empty($orderinfo)){
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'采购单不存在');
+        }
+        //采购批次信息
+        $batchinfo= DB::table('purchase_batch')->where('id',$orderinfo->batch_id)->first();
+        if(empty($batchinfo)){
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'批次信息不存在');
+        }
+        //项目子工程
+        $engineering =DB::table('engineering')->where('id',$orderinfo->engin_id)->first();
+        if(empty($engineering)){
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'该工程不存在');
+        }
+        //项目信息
+        $project =DB::table('project')->where('id',$orderinfo->project_id)->first();
+        if( !(in_array(25010302,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(25010302,$this->user()->manageauth)){
+            //采购人员可以操作更改工程设计详情
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
+        }
+        if($engineering->budget_id ==0){
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'请先创建预算单，再创建采购批次？');
+        }
 
+        $data['project'] =$project; //项目信息
+        $data['engineering'] =$engineering; //工程信息
+        $data['order_id']=$id; //订单id
+        $data['batchinfo']= $batchinfo; //获取批次列表
+        $data['orderinfo']=$orderinfo;//订单信息
+        //获取供应商信息
+        $data['supplier'] =DB::table('supplier')->where('id',$orderinfo->supplier_id)->first();
+        $data['engin_system']=DB::table('enginnering_architectural')
+            ->where('engin_id',$orderinfo->engin_id)
+            ->get();
 
+        $orderitem =DB::table('purchase_order_item')
+            ->leftjoin('material','material.id','=','purchase_order_item.material_id')
+            ->where('order_id',$id)
+            ->select(['purchase_order_item.*','material.pack_claim'])
+            ->get();
+        $itemlist=[];
+        foreach($orderitem as $v){
+            $itemlist[$v->sub_arch_id][]=$v;
+        }
+        $data['itemlist']=$itemlist;
+        return view('purchase.editPurchaseLogis',$data);
+    }
+    //保存物流信息
+    public function postEditPurchaselogis(Request $request,$id){
+        $orderinfo=DB::table('purchase_order')->where('id',$id)->first();
+        if(empty($orderinfo)){
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'采购单不存在');
+        }
+        $data['vehicle_type'] =$request->input('vehicle_type','');
+        $data['driver_name'] =$request->input('driver_name','');
+        $data['shenfenzheng'] =$request->input('shenfenzheng','');
+        $data['chepaihao'] =$request->input('chepaihao','');
 
+        $data['edit_uid']=$this->user()->id;
+        $data['updated_at'] =date('Y-m-d');
+        DB::table('purchase_order')->where('id',$id)->update($data);
+        return redirect('/purchase/purchaseLogisticsManage/'.$orderinfo->engin_id.'?status=1&notice='.'保存成功');
+    }
+
+    //编辑物流单
+    public function purchaseLogisDetail(Request $request,$id){
+        $this->user();
+        $data['navid']      =25;
+        $data['subnavid']   =2501;
+        $orderinfo=DB::table('purchase_order')->where('id',$id)->first();
+        if(empty($orderinfo)){
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'采购单不存在');
+        }
+        //采购批次信息
+        $batchinfo= DB::table('purchase_batch')->where('id',$orderinfo->batch_id)->first();
+        if(empty($batchinfo)){
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'批次信息不存在');
+        }
+        //项目子工程
+        $engineering =DB::table('engineering')->where('id',$orderinfo->engin_id)->first();
+        if(empty($engineering)){
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'该工程不存在');
+        }
+        //项目信息
+        $project =DB::table('project')->where('id',$orderinfo->project_id)->first();
+        if( !(in_array(25010302,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(25010302,$this->user()->manageauth)){
+            //采购人员可以操作更改工程设计详情
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
+        }
+        if($engineering->budget_id ==0){
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'请先创建预算单，再创建采购批次？');
+        }
+
+        $data['project'] =$project; //项目信息
+        $data['engineering'] =$engineering; //工程信息
+        $data['order_id']=$id; //订单id
+        $data['batchinfo']= $batchinfo; //获取批次列表
+        $data['orderinfo']=$orderinfo;//订单信息
+        //获取供应商信息
+        $data['supplier'] =DB::table('supplier')->where('id',$orderinfo->supplier_id)->first();
+        $data['engin_system']=DB::table('enginnering_architectural')
+            ->where('engin_id',$orderinfo->engin_id)
+            ->get();
+
+        $orderitem =DB::table('purchase_order_item')
+            ->leftjoin('material','material.id','=','purchase_order_item.material_id')
+            ->where('order_id',$id)
+            ->select(['purchase_order_item.*','material.pack_claim'])
+            ->get();
+        $itemlist=[];
+        foreach($orderitem as $v){
+            $itemlist[$v->sub_arch_id][]=$v;
+        }
+        $data['itemlist']=$itemlist;
+        return view('purchase.purchaseLogisDetail',$data);
+    }
 
 
 }
