@@ -272,9 +272,22 @@ Route::group(['prefix' => 'purchase','namespace' => 'Purchase','middleware' => '
     Route::get('/purchaseCompletedLogisticsManage/{id}', 'PurchaseController@purchaseCompletedLogisticsManage'); //竣工项目物流管理
 
 });
-
+//测试下载文档接口
 Route::group(['prefix' => 'test','namespace' => 'Test'], function () {
 
     Route::get('/testPdf',     'TestController@testPdf'); //测试pdf文件
+
+});
+
+//财务管理类的控制组
+Route::group(['prefix' => 'finance','namespace' => 'Finance','middleware' => 'auth'], function () {
+    Route::get('/financeStart',                 'FinanceController@financeStart');    //洽谈项目财务列表
+    Route::post('/postEditFinanceStart/{id}',   'FinanceController@postEditFinanceStart');    //洽谈项目财务列表
+    Route::get('/financeConduct',               'FinanceController@financeConduct');    //实施项目财务列表
+    Route::get('/financeCompleted',             'FinanceController@financeCompleted');    //竣工项目财务列表
+    Route::get('/editFinanceInfo/{id}',         'FinanceController@editFinanceInfo');    //编辑财务表数据
+    Route::post('/postEditFinanceInfo/{id}',    'FinanceController@postEditFinanceInfo');    //提交编辑数据
+    Route::get('/getFinanceInfo/{id}',         'FinanceController@getFinanceInfo');    //查看财务表数据
+
 
 });
