@@ -110,6 +110,8 @@
                                     <th>设计负责人</th>
                                     <th>项目状态</th>
                                     <th>创建时间</th>
+                                    <th>设计参数状态</th>
+                                    <th>设计工况状态</th>
                                     <th>设计参数管理</th>
                                     <th>设计工况管理</th>
                                 </tr>
@@ -127,6 +129,20 @@
                                         <td>{{ $val->design_username }}</td>
                                         <td><span class="btn btn-info">实施</span></td>
                                         <td>{{ $val->created_at }}</td>
+                                        <td>
+                                            @if($val->is_conf_param ==1)
+                                                <i class="layui-icon btn btn-info">已创建</i>
+                                            @else
+                                                <i class="layui-icon btn btn-danger">未创建</i>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($val->is_conf_architectural ==1)
+                                                <i class="layui-icon btn btn-info">已创建</i>
+                                            @else
+                                                <i class="layui-icon btn btn-danger">未创建</i>
+                                            @endif
+                                        </td>
 
                                         <td class="td-manage">
                                             @if( (in_array(35000201,$pageauth) && $val->design_uid == $uid ) || in_array(350703,$manageauth))

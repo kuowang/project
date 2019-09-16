@@ -107,6 +107,8 @@
                                 <th>设计负责人</th>
                                 <th>项目状态</th>
                                 <th>创建时间</th>
+                                <th>设计参数状态</th>
+                                <th>设计工况状态</th>
                                 <th>设计参数管理</th>
                                 <th>设计工况管理</th>
                             </tr>
@@ -124,14 +126,32 @@
                                     <td>{{ $val->design_username }}</td>
                                     <td><span class="btn btn-info">洽谈</span></td>
                                     <td>{{ $val->created_at }}</td>
-                                    <td class="td-manage">
-                                        @if( (in_array(35000101,$pageauth) && $val->design_uid == $uid ) || in_array(350701,$manageauth))
-                                            @if($val->is_conf_param ==1)
-                                            <a title="查看详情" class="btn btn-info"  href="/architectural/enginParamDetail/{{ $val->engineering_id }}">
-                                                <i class="layui-icon">详情</i>
-                                            </a>
+                                    <td>
+                                        @if($val->is_conf_param ==1)
+                                            <i class="layui-icon btn btn-info">已创建</i>
+                                            @if( (in_array(35000101,$pageauth) && $val->design_uid == $uid ) || in_array(350701,$manageauth))
+                                                <a title="查看详情" class="btn btn-info"  href="/architectural/enginParamDetail/{{ $val->engineering_id }}">
+                                                    <i class="layui-icon">详情</i>
+                                                </a>
                                             @endif
+                                        @else
+                                            <i class="layui-icon btn btn-danger">未创建</i>
                                         @endif
+                                    </td>
+                                    <td>
+                                        @if($val->is_conf_architectural ==1)
+                                            <i class="layui-icon btn btn-info">已创建</i>
+                                            @if( (in_array(35000101,$pageauth) && $val->design_uid == $uid ) || in_array(350701,$manageauth))
+                                                <a title="查看详情" class="btn btn-info"  href="/architectural/enginStartDetail/{{ $val->engineering_id }}">
+                                                    <i class="layui-icon">详情</i>
+                                                </a>
+                                            @endif
+                                        @else
+                                            <i class="layui-icon btn btn-danger">未创建</i>
+                                        @endif
+                                    </td>
+                                    <td class="td-manage">
+
                                         @if((in_array(35000102,$pageauth) && $val->design_uid == $uid ) || in_array(350702,$manageauth))
                                             <a title="编辑" class="btn btn-success"  href="/architectural/editEnginParam/{{ $val->engineering_id }}">
                                                 @if($val->is_conf_param ==1)
@@ -143,13 +163,7 @@
                                         @endif
                                     </td>
                                     <td class="td-manage">
-                                        @if( (in_array(35000101,$pageauth) && $val->design_uid == $uid ) || in_array(350701,$manageauth))
-                                            @if($val->is_conf_architectural ==1)
-                                            <a title="查看详情" class="btn btn-info"  href="/architectural/enginStartDetail/{{ $val->engineering_id }}">
-                                                <i class="layui-icon">详情</i>
-                                            </a>
-                                            @endif
-                                        @endif
+
                                         @if((in_array(35000102,$pageauth) && $val->design_uid == $uid ) || in_array(350702,$manageauth))
                                             <a title="编辑" class="btn btn-success"  href="/architectural/editEngin/{{ $val->engineering_id }}">
                                                 @if($val->is_conf_architectural ==1)
