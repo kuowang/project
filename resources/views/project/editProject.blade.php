@@ -277,19 +277,19 @@
                                 <td>
                                     <input type="text"  name="engineering_name[]" class="span8 notempty"  value="{{ $engin->engineering_name }}" lay-skin="primary" >
                                 </td>
-                                <td class="pro-title">建筑面积（m²）</td>
+                                <td class="pro-title">建筑总面积（m²）</td>
                                 <td>
                                     <input type="text"  name="build_area[]" class="span8  notempty"  value="{{ $engin->build_area }}" lay-skin="primary" >
                                 </td>
-                                <td class="pro-title">建筑层数</td>
+                                <td class="pro-title">建筑总层数</td>
                                 <td>
                                     <input type="text"  name="build_floor[]" class="span8 notempty"  value="{{ $engin->build_floor }}" lay-skin="primary" >
                                 </td>
-                                <td class="pro-title">建筑高度（m）</td>
+                                <td class="pro-title">建筑总高度（m）</td>
                                 <td>
                                     <input type="text"  name="build_height[]" class="span8 notempty"  value="{{ $engin->build_height }}" lay-skin="primary" >
                                 </td>
-                                <td class="pro-title">室内净高（m）</td>
+                                <td class="pro-title">室内净高（最小）（m）</td>
                                 <td>
                                     <input type="text"  name="indoor_height[]" class="span8 notempty"  value="{{ $engin->indoor_height }}" lay-skin="primary" >
                                 </td>

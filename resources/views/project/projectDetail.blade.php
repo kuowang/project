@@ -169,13 +169,13 @@
                             <tr >
                                 <td class="pro-title">子工程名称</td>
                                 <td>{{$item->engineering_name}}</td>
-                                <td class="pro-title">建筑面积（m²）</td>
+                                <td class="pro-title">建筑总面积（m²）</td>
                                 <td>{{$item->build_area}}</td>
-                                <td class="pro-title">建筑层数</td>
+                                <td class="pro-title">建筑总层数</td>
                                 <td>{{$item->build_floor}}</td>
-                                <td class="pro-title">建筑高度（m）</td>
+                                <td class="pro-title">建筑总高度（m）</td>
                                 <td>{{$item->build_height}}</td>
-                                <td class="pro-title">建筑净高（m）</td>
+                                <td class="pro-title">建筑净高（最小）（m）</td>
                                 <td>{{$item->indoor_height}}</td>
                             </tr>
                             @endforeach
