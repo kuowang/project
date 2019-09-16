@@ -83,72 +83,13 @@
     </tbody>
 </table>
 
-<table border="1" cellspacing="0" cellpadding="0">
-    <thead>
-    <tr>
-        <th colspan="10"><span class="btn btn-info">建筑尺寸设计参数</span></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td colspan="2" class="pro-title">建筑层数：{{$engineering->build_floor}}层</td>
-        <td colspan="3"class="pro-title">总建筑面积（m²）</td>
-        <td colspan="2"><span id="all_house_area">{{$engineering->build_area}}</span></td>
-        <td colspan="3"><span class="area_content" style="color: red"></span></td>
-    </tr>
-    <tr>
-        <td colspan="2" class="pro-title">建筑占地尺寸 长（m）</td>
-        <td colspan="3">{{isset($param->floor_height)?$param->floor_height:''}}</td>
-        <td colspan="2" class="pro-title">宽（m）</td>
-        <td colspan="3" >{{isset($param->floor_width)?$param->floor_width:''}}</td>
-    </tr>
-    <tr>
-        <td colspan="2" class="pro-title">楼层信息</td>
-        <td colspan="3" class="pro-title">建筑层高（m）</td>
-        <td colspan="2" class="pro-title">室内净高（m）</td>
-        <td colspan="3" class="pro-title">建筑面积（m²）</td>
-    </tr>
-
-    @for($i =1;$i <= $engineering->build_floor;$i++ )
-        <tr >
-            <td colspan="2" class="pro-title">第{{$i}}层</td>
-            <td colspan="3">{{ isset($storey_height[$i-1])?$storey_height[$i-1]:'' }}</td>
-            <td colspan="2">{{ isset($house_height[$i-1])?$house_height[$i-1]:'' }}</td>
-            <td colspan="3">{{ isset($house_area[$i-1])?$house_area[$i-1]:'' }}</td>
-        </tr>
-    @endfor
-
-    </tbody>
-</table>
 
 <table border="1" cellspacing="0" cellpadding="0">
     <thead>
     <tr>
-        <th colspan="10">
-            <span class="btn btn-info">建筑房间功能布局</span>
-        </th>
+        <th colspan="10"><span class="btn btn-info">报价清单列表</span></th>
     </tr>
     </thead>
-    <tbody id="addroom">
-    <tr>
-        <td colspan="3" class="pro-title">位置</td>
-        <td colspan="3"class="pro-title">房间名称</td>
-        <td colspan="4" class="pro-title">室内净建筑面积要求(m²)</td>
-    </tr>
-    @if(isset($room_position) && is_array($room_position))
-        @foreach($room_position as $k=>$v)
-            <tr>
-                <td colspan="3">{{$v}}</td>
-                <td colspan="3">{{isset($room_name[$k])?$room_name[$k]:''}}</td>
-                <td colspan="4">{{isset($room_area[$k])?$room_area[$k]:''}}</td>
-            </tr>
-        @endforeach
-    @endif
-
-    </tbody>
-</table>
-
-<table border="1" cellspacing="0" cellpadding="0">
     <thead>
     <tr>
         <th style="width:5%">序号</th>
