@@ -72,11 +72,13 @@
                                     <thead>
                                     <tr>
                                         <th>关联材料名称</th>
-                                        <th>关联材料编码</th>
+
                                         <th>种类</th>
                                         <th>位置</th>
                                         <th>用途</th>
                                         <th>代码</th>
+                                        <th>关联材料编码</th>
+                                        <th>排序</th>
                                         <th>规格特性要求</th>
                                         <th>损耗</th>
                                         <th>状态</th>
@@ -84,38 +86,22 @@
                                     <tbody id="zixitong">
                                     @foreach($material as $v)
                                         <tr>
-                                            <td>
-                                               {{ $v->material_name }}
-                                            </td>
-                                            <td>
-                                             {{ $v->material_code }}
-                                            </td>
-                                            <td>
-                                               {{ $v->material_type }}
-                                            </td>
-                                            <td>
-                                          {{ $v->position }}
-                                            </td>
-                                            <td>
-                                               {{ $v->purpose }}
-                                            </td>
-                                            <td>
-                                               {{ $v->material_number }}
-                                            </td>
-                                            <td>
-                                               {{ $v->characteristic }}
-                                            </td>
-                                            <td>
-                                            {{ $v->waste_rate }}
-                                            </td>
+                                            <td>{{ $v->material_name }}</td>
+                                            <td>{{ $v->material_type }}</td>
+                                            <td>{{ $v->position }}</td>
+                                            <td>{{ $v->purpose }}</td>
+                                            <td>{{ $v->material_number }}</td>
+                                            <td>{{ $v->material_code }}</td>
+                                            <td>{{$v->material_sort}}</td>
+                                            <td>{{ $v->characteristic }}</td>
+                                            <td>{{ $v->waste_rate }}</td>
 
                                             <td>
-                                                 @if($v->status ==1)
+                                                @if($v->status ==1)
                                                       有效
-                                                    @else
+                                                @else
                                                     <span class="btn btn-warning">无效</span>
-                                                    @endif
-
+                                                @endif
                                             </td>
 
                                         </tr>
@@ -135,7 +121,6 @@
                             <span class="btn btn-success" lay-filter="add" lay-submit="">返回/取消</span>
                         </a>
                     </div>
-
 
             </div>
         </div>

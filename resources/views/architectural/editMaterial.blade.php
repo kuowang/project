@@ -62,8 +62,12 @@
                     <div class="title">
                         子系统关联材料
                     </div>
-                    <span class="title"style="float: right;">
+
+                    <span class="title"style="float: right;margin-left: 15px;">
                         <a class="btn btn-success" onclick="add_xitong()" ><i class="layui-icon">创建新关联材料 +</i></a>
+                    </span>
+                    <span class="title"style="float: right;margin-left: 15px;">
+                        <a class="btn btn-success" onclick="selectModel()" ><i class="layui-icon">选择关联模板</i></a>
                     </span>
                 </div>
                 <div class="widget-body">
@@ -77,6 +81,7 @@
                                 <th>用途</th>
                                 <th>代码</th>
                                 <th>关联材料编码</th>
+                                <th>排序</th>
                                 <th>规格特性要求</th>
                                 <th>损耗</th>
                                 <th>状态</th>
@@ -104,6 +109,9 @@
                                 </td>
                                 <td>
                                     <input type="text" name="material_code[]" class="material_code" value="{{ $v->material_code }}" lay-skin="primary">
+                                </td>
+                                <td>
+                                    <input type="text" name="material_sort[]" class="material_sort" value="{{ $v->material_sort }}"  onclick="key(this)" lay-skin="primary">
                                 </td>
                                 <td>
                                     <input type="text" name="characteristic[]" class="notempty"  value="{{ $v->characteristic }}" lay-skin="primary">
@@ -172,6 +180,62 @@
 
         <hr class="hr-stylish-1">
     </div>
+
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        建筑子工程模板信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <div class="widget-body">
+                                <div class="control-group">
+                                    <table class="layui-table layui-form">
+                                        <tr>
+                                            <td>选择</td>
+                                            <td>建筑子工程名称</td>
+                                            <td>材料数量</td>
+                                        </tr>
+                                        @if(!empty($subarchitectList))
+                                            @foreach($subarchitectList as $item)
+                                            <tr>
+                                                <td>
+                                                    @if($item->material_num !=0)
+                                                    <label style="width: 100%;height: 100%">
+                                                        <input type="radio" name="subArchitectID" class="subArchitectID" value="{{$item->id}}" style="display: block">
+                                                    </label>
+                                                    @else
+                                                        <input type="radio" name="subArchitectID" class="subArchitectID" value="{{$item->id}}" disabled="" style="display: block">
+                                                    @endif
+                                                </td>
+                                                <td>{{$item->sub_system_name}}</td>
+                                                <td>{{$item->material_num}}</td>
+                                            </tr>
+                                            @endforeach
+                                        @endif
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer layui-form-item" >
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button class="btn btn-success" lay-filter="add" lay-submit="" onclick="querenModel()">确认</button>
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
     <style>
 
         input{
@@ -195,6 +259,8 @@
                 '<td> <input type="text" name="purpose[]" class="purpose" onchange="setcode('+intid+')"   lay-skin="primary"> </td>'+
                 '<td> <input type="text" name="material_number[]" class="material_number" onchange="setcode('+intid+')"    lay-skin="primary"> </td>'+
                 '<td> <input type="text" name="material_code[]" class="material_code" lay-skin="primary"> </td>'+
+                '<td> <input type="text" name="material_sort[]" class="material_sort" onclick="key(this)" lay-skin="primary"> </td> '+
+
                 '<td> <input type="text" name="characteristic[]" class="notempty"   lay-skin="primary"> </td>'+
                 '<td> <input type="text" name="waste_rate[]"  class="waste_rate notempty"  onclick="key(this)" lay-skin="primary"> </td>'+
                 '<td> <select name="status[]" id="stateAndCity" class="span12" style="min-width: 80px">'+
@@ -216,10 +282,7 @@
                 }
             });
             if(sum == 1){
-                layui.use('layer', function(){
-                    var layer = layui.layer;
-                    layer.msg('有信息没有填写完全，请填写完成后，再提交。');
-                });
+                showMsg('有信息没有填写完全，请填写完成后，再提交。')
                 return false;
             }
             return true;
@@ -260,6 +323,77 @@
 
             $('#code_'+id+' .material_code').val(str);
         }
+        //显示模拟框
+        function selectModel(){
+            $('#myModal').modal();
+        }
+        //使用模板数据
+        function querenModel() {
+            id =$('.subArchitectID').val();
+            var val=$('input:radio[name="subArchitectID"]:checked').val();
+            if(val==null){
+                showMsg('什么都没有选？');
+                return false;
+            } else{
+                buchongMaterial(val);
+            }
+            console.log(val);
+        }
+        function showMsg(str) {
+            layui.use('layer', function(){
+                var layer = layui.layer;
+                layer.msg(str);
+            });
+        }
+        //补充选择模板对应的材料信息
+        function buchongMaterial(id) {
+            $('#myModal').modal('hide');
+            //获取材料信息和品牌信息
+            $.ajax({
+                url:'/architectural/getMaterialList/'+id,
+                type:'get',
+                // contentType: 'application/json',
+                success:function(data){
+                    console.log(data);
+                    if(data.status == 1){
+                        //填充材料
+                        //fillMaterialBrand(id,data.data.material,data.data.brand);
+                        $.each( data.data, function(index,content){
+                            addMaterial(content);
+                            //console.log(content);
+                        });
+                    }else{
+                        showMsg('该工程没有材料信息');
+                        return false;
+                    }
+                },
+            });
+        }
+        //通过模型添加材料
+        function addMaterial(content) {
+            intid =content.id * 1+1000;
+            str =' <tr id="code_'+intid+'"> <td> <input type="hidden" name="material_id[]" value="0" lay-skin="primary">'+
+                '<input type="text" name="material_name[]" value="'+content.material_name+'" class="notempty" lay-skin="primary"> </td>'+
+                '<td> <input type="text" name="material_type[]" value="'+content.material_type+'" class="material_type"  onchange="setcode('+intid+')"   lay-skin="primary"> </td>'+
+                '<td> <input type="text" name="position[]" value="'+content.position+'" class="position" onchange="setcode('+intid+')"    lay-skin="primary"> </td>'+
+                '<td> <input type="text" name="purpose[]" value="'+content.purpose+'" class="purpose" onchange="setcode('+intid+')"   lay-skin="primary"> </td>'+
+                '<td> <input type="text" name="material_number[]" value="'+content.material_number+'" class="material_number" onchange="setcode('+intid+')"    lay-skin="primary"> </td>'+
+                '<td> <input type="text" name="material_code[]" value="'+content.material_code+'" class="material_code" lay-skin="primary"> </td>'+
+                '<td> <input type="text" name="material_sort[]" value="'+content.material_sort+'" class="material_sort" onclick="key(this)" lay-skin="primary"> </td> '+
+                '<td> <input type="text" name="characteristic[]" value="'+content.characteristic+'" class="notempty"   lay-skin="primary"> </td>'+
+                '<td> <input type="text" name="waste_rate[]" value="'+content.waste_rate+'"  class="waste_rate notempty"  onclick="key(this)" lay-skin="primary"> </td>'+
+
+                '<td> <select name="status[]" id="stateAndCity" class="span12" style="min-width: 80px">'+
+                '<option value="1" selected="selected">有效</option> <option value="0">无效</option> </select> </td>'+
+
+                '<td><a  class="btn btn-danger" onclick="deleteTrRow(this)">删除</a>'+
+                '</td> </tr>';
+
+            $("#zixitong").append(str);
+            setcode(intid)
+        }
+
+
     </script>
 
 @endsection

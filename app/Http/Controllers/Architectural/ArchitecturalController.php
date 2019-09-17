@@ -334,9 +334,12 @@ class ArchitecturalController extends WebController
         $data['subnavid']   =3502;//当前子导航页
         $data['id']         =$id;
         //获取该用户的建筑系统关联子系统
-        $data['sub_architect']=DB::table('architectural_sub_system')->where('id',$id)->first();
+        $sub_architect=DB::table('architectural_sub_system')->where('id',$id)->first();
+        $data['sub_architect']=$sub_architect;
         //获取子系统材料信息
-        $data['material'] = DB::table('material')->where('architectural_sub_id',$id)->orderby('material_code')->get();
+        $data['material'] = DB::table('material')
+            ->where('architectural_sub_id',$id)
+            ->orderby('material_sort')->get();
         if(empty($data['sub_architect'])){
             return redirect('/architectural/index?status=2&notice='.'数据不存在，无法编辑');
         }
@@ -344,6 +347,11 @@ class ArchitecturalController extends WebController
         if($this->user()->id != $data['sub_architect']->uid  && !in_array(3506,$this->user()->manageauth)){
             return redirect('/architectural/index?status=2&notice='.'仅有创建用户和管理者才能编辑');
         }
+        $subarchitectList =DB::table('architectural_sub_system')
+            ->where('architectural_id',$sub_architect->architectural_id)
+            ->where('id','!=',$sub_architect->id)
+            ->select('id','sub_system_name','material_num')->get();
+        $data['subarchitectList']=$subarchitectList;
         return view('architectural.editMaterial',$data);
     }
 
@@ -360,6 +368,7 @@ class ArchitecturalController extends WebController
         $material_number=$request->input('material_number',[]);
         $characteristic=$request->input('characteristic',[]);
         $waste_rate=$request->input('waste_rate',[]);
+        $material_sort=$request->input('material_sort',[]);
         $status=$request->input('status',[]);
         if(empty($material_id)){
             return redirect('/architectural/architectureList?status=2&notice='.'材料内容不能为空');
@@ -387,14 +396,15 @@ class ArchitecturalController extends WebController
                 $datalist=[
                     'architectural_id'=>$architectural->architectural_id,
                     'architectural_sub_id'=>$id,
-                    'material_name'=>$material_name[$k],
-                    'material_code'=>$material_code[$k],
-                    'material_type'=>$material_type[$k],
-                    'material_number'=>$material_number[$k],
-                    'position'=>$position[$k],
-                    'purpose'=>$purpose[$k],
-                    'characteristic'=>$characteristic[$k],
+                    'material_name'=>trim($material_name[$k]),
+                    'material_code'=>trim($material_code[$k]),
+                    'material_type'=>trim($material_type[$k]),
+                    'material_number'=>trim($material_number[$k]),
+                    'position'=>trim($position[$k]),
+                    'purpose'=>trim($purpose[$k]),
+                    'characteristic'=>trim($characteristic[$k]),
                     'waste_rate'=>(float)$waste_rate[$k],
+                    'material_sort'=>isset($material_sort[$k])?$material_sort[$k]:1,
                     'status'=>$status[$k],
                     'updated_at'=>date('Y-m-d'),
                 ];
@@ -411,8 +421,18 @@ class ArchitecturalController extends WebController
                 }
             }
         }
+        $num =count($material_id);
+        DB::table('architectural_sub_system')->where('id',$id)->update(['material_num'=>$num]);
         DB::commit();
         return redirect('/architectural/architectureList?status=1&notice='.'编辑关联材料成功');
+    }
+    //获取指定子系统工程的材料信息
+    public function getMaterialList(Request $request,$id){
+        $material = DB::table('material')
+            ->where('architectural_sub_id',$id)
+            ->orderby('material_sort')
+            ->get();
+        return $this->success($material);
     }
 
     //编辑建筑设计子系统下材料信息
@@ -426,7 +446,7 @@ class ArchitecturalController extends WebController
             //获取该用户的建筑系统关联子系统
             $data['sub_architect']=DB::table('architectural_sub_system')->where('id',$id)->first();
             //获取子系统材料信息
-            $data['material'] = DB::table('material')->where('architectural_sub_id',$id)->orderby('material_code')->get();
+            $data['material'] = DB::table('material')->where('architectural_sub_id',$id)->orderby('material_sort')->get();
             if(empty($data['sub_architect'])){
                 return redirect('/architectural/index?status=2&notice='.'数据不存在，无法编辑');
             }
