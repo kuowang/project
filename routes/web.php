@@ -293,3 +293,8 @@ Route::group(['prefix' => 'finance','namespace' => 'Finance','middleware' => 'au
 
 
 });
+//项目施工的控制组
+Route::group(['prefix' => 'progress','namespace' => 'Progress','middleware' => 'auth'], function () {
+    Route::get('/progressConduct',                 'ProgressController@progressConduct');    //实施项目施工列表
+
+});
