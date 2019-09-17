@@ -87,7 +87,7 @@
                             <tr id="code_{{$k}}">
                                 <td>
                                     <input type="hidden" name="material_id[]" value="{{ $v->id }}" lay-skin="primary">
-                                    <input type="text" name="material_name[]" value="{{ $v->material_name }}" lay-skin="primary">
+                                    <input type="text" name="material_name[]"  class="notempty" value="{{ $v->material_name }}" lay-skin="primary">
                                 </td>
 
                                 <td>
@@ -106,10 +106,10 @@
                                     <input type="text" name="material_code[]" class="material_code" value="{{ $v->material_code }}" lay-skin="primary">
                                 </td>
                                 <td>
-                                    <input type="text" name="characteristic[]"   value="{{ $v->characteristic }}" lay-skin="primary">
+                                    <input type="text" name="characteristic[]" class="notempty"  value="{{ $v->characteristic }}" lay-skin="primary">
                                 </td>
                                 <td>
-                                    <input type="text" name="waste_rate[]"   value="{{ $v->waste_rate }}"  onclick="key(this)" lay-skin="primary"  class="waste_rate">
+                                    <input type="text" name="waste_rate[]" class="notempty"  value="{{ $v->waste_rate }}"  onclick="key(this)" lay-skin="primary"  class="waste_rate">
                                 </td>
 
                                 <td>
@@ -189,14 +189,14 @@
         function add_xitong() {
             intid =parseInt(Math.random() * (100000000 )+10000);
            str =' <tr id="code_'+intid+'"> <td> <input type="hidden" name="material_id[]" value="0" lay-skin="primary">'+
-                '<input type="text" name="material_name[]"  lay-skin="primary"> </td>'+
+                '<input type="text" name="material_name[]" class="notempty" lay-skin="primary"> </td>'+
                 '<td> <input type="text" name="material_type[]" class="material_type"  onchange="setcode('+intid+')"   lay-skin="primary"> </td>'+
                 '<td> <input type="text" name="position[]" class="position" onchange="setcode('+intid+')"    lay-skin="primary"> </td>'+
                 '<td> <input type="text" name="purpose[]" class="purpose" onchange="setcode('+intid+')"   lay-skin="primary"> </td>'+
                 '<td> <input type="text" name="material_number[]" class="material_number" onchange="setcode('+intid+')"    lay-skin="primary"> </td>'+
                 '<td> <input type="text" name="material_code[]" class="material_code" lay-skin="primary"> </td>'+
-                '<td> <input type="text" name="characteristic[]"    lay-skin="primary"> </td>'+
-                '<td> <input type="text" name="waste_rate[]"  class="waste_rate"  onclick="key(this)" lay-skin="primary"> </td>'+
+                '<td> <input type="text" name="characteristic[]" class="notempty"   lay-skin="primary"> </td>'+
+                '<td> <input type="text" name="waste_rate[]"  class="waste_rate notempty"  onclick="key(this)" lay-skin="primary"> </td>'+
                 '<td> <select name="status[]" id="stateAndCity" class="span12" style="min-width: 80px">'+
                 '<option value="1" selected="selected">有效</option> <option value="0">无效</option> </select> </td>'+
                 '<td><a  class="btn btn-danger" onclick="deleteTrRow(this)">删除</a>'+
@@ -208,7 +208,7 @@
         //提交验证信息
         function form_submit(){
             var sum=0;
-            $("input").each(function(){
+            $(".notempty").each(function(){
                 if($(this).val()){
                 }else{
                     $(this).css('background','orange');
@@ -243,9 +243,22 @@
             purpose         =$('#code_'+id+' .purpose').val();
             material_number =$('#code_'+id+' .material_number').val();
             console.log(material_type);
-            var str =material_type +'-'+position+'-'+purpose+'-'+material_number;
-            $('#code_'+id+' .material_code').val(str);
+            var str='';
+            if(material_type !='0' && material_type !='' ){
+                str =str +material_type+'-';
+            }
+            if(position !='0' && position !=''){
+                str =str +position+'-';
+            }
+            if(purpose !='0' && purpose !=''){
+                str =str +purpose+'-';
+            }
+            if(material_number !='0' && material_number !=''){
+                str =str +material_number+'-';
+            }
+            str = str.substring(0, str.lastIndexOf('-'));
 
+            $('#code_'+id+' .material_code').val(str);
         }
     </script>
 
