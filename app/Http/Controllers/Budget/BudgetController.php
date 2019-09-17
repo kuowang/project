@@ -245,7 +245,7 @@ class BudgetController extends WebController
             ->wherein('architectural_sub_id',$ids)
             ->select(['id','architectural_sub_id','material_name','material_code',
                 'material_type','characteristic','waste_rate','material_budget_unit',])
-            ->orderby('material_code')
+            ->orderby('material_sort')
             ->get();
         $materlist=[];
         $materialids=[];
@@ -347,6 +347,7 @@ class BudgetController extends WebController
         $material =DB::table('material')
             ->where('status',1)
             ->where('id',$id)
+            ->orderby('material_sort')
             ->select(['id','architectural_sub_id','material_name','material_code',
                 'material_type','characteristic','waste_rate','material_budget_unit',])
             ->first();

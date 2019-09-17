@@ -73,7 +73,7 @@ class MaterialController extends WebController
         $data['count'] =$db->count();
         $data['data']= $db->orderby('architectural_system.system_code')
             ->orderby('sub_system_code')
-            ->orderby('material.material_code')
+            ->orderby('material.material_sort')
             ->select(['material.id','architectural_system.system_code','system_name','engineering_name',
                 'sub_system_name','sub_system_code','material_name',
                 'material_code','material_type','position',
