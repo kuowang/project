@@ -72,37 +72,38 @@
                             <thead>
                             <tr>
                                 <th>关联材料名称</th>
-                                <th>关联材料编码</th>
                                 <th>种类</th>
                                 <th>位置</th>
                                 <th>用途</th>
                                 <th>代码</th>
+                                <th>关联材料编码</th>
                                 <th>规格特性要求</th>
                                 <th>损耗</th>
                                 <th>状态</th>
                                 <th style="width: 60px;">操作</th>
                             </thead>
                             <tbody id="zixitong">
-                            @foreach($material as $v)
-                            <tr>
+                            @foreach($material as $k=>$v)
+                            <tr id="code_{{$k}}">
                                 <td>
                                     <input type="hidden" name="material_id[]" value="{{ $v->id }}" lay-skin="primary">
                                     <input type="text" name="material_name[]" value="{{ $v->material_name }}" lay-skin="primary">
                                 </td>
+
                                 <td>
-                                    <input type="text" name="material_code[]" value="{{ $v->material_code }}" lay-skin="primary">
+                                    <input type="text" name="material_type[]" class="material_type" onchange="setcode({{$k}})" value="{{ $v->material_type }}" lay-skin="primary">
                                 </td>
                                 <td>
-                                    <input type="text" name="material_type[]"   value="{{ $v->material_type }}" lay-skin="primary">
+                                    <input type="text" name="position[]" class="position"  onchange="setcode({{$k}})"   value="{{ $v->position }}" lay-skin="primary">
                                 </td>
                                 <td>
-                                    <input type="text" name="position[]"   value="{{ $v->position }}" lay-skin="primary">
+                                    <input type="text" name="purpose[]" class="purpose"   onchange="setcode({{$k}})"  value="{{ $v->purpose }}" lay-skin="primary">
                                 </td>
                                 <td>
-                                    <input type="text" name="purpose[]"   value="{{ $v->purpose }}" lay-skin="primary">
+                                    <input type="text" name="material_number[]" class="material_number"  onchange="setcode({{$k}})"   value="{{ $v->material_number }}" lay-skin="primary">
                                 </td>
                                 <td>
-                                    <input type="text" name="material_number[]"   value="{{ $v->material_number }}" lay-skin="primary">
+                                    <input type="text" name="material_code[]" class="material_code" value="{{ $v->material_code }}" lay-skin="primary">
                                 </td>
                                 <td>
                                     <input type="text" name="characteristic[]"   value="{{ $v->characteristic }}" lay-skin="primary">
@@ -186,14 +187,14 @@
         }
         //添加事件
         function add_xitong() {
-
-           str =' <tr> <td> <input type="hidden" name="material_id[]" value="0" lay-skin="primary">'+
+            intid =parseInt(Math.random() * (100000000 )+10000);
+           str =' <tr id="code_'+intid+'"> <td> <input type="hidden" name="material_id[]" value="0" lay-skin="primary">'+
                 '<input type="text" name="material_name[]"  lay-skin="primary"> </td>'+
-                '<td> <input type="text" name="material_code[]"  lay-skin="primary"> </td>'+
-                '<td> <input type="text" name="material_type[]"    lay-skin="primary"> </td>'+
-                '<td> <input type="text" name="position[]"    lay-skin="primary"> </td>'+
-                '<td> <input type="text" name="purpose[]"   lay-skin="primary"> </td>'+
-                '<td> <input type="text" name="material_number[]"    lay-skin="primary"> </td>'+
+                '<td> <input type="text" name="material_type[]" class="material_type"  onchange="setcode('+intid+')"   lay-skin="primary"> </td>'+
+                '<td> <input type="text" name="position[]" class="position" onchange="setcode('+intid+')"    lay-skin="primary"> </td>'+
+                '<td> <input type="text" name="purpose[]" class="purpose" onchange="setcode('+intid+')"   lay-skin="primary"> </td>'+
+                '<td> <input type="text" name="material_number[]" class="material_number" onchange="setcode('+intid+')"    lay-skin="primary"> </td>'+
+                '<td> <input type="text" name="material_code[]" class="material_code" lay-skin="primary"> </td>'+
                 '<td> <input type="text" name="characteristic[]"    lay-skin="primary"> </td>'+
                 '<td> <input type="text" name="waste_rate[]"  class="waste_rate"  onclick="key(this)" lay-skin="primary"> </td>'+
                 '<td> <select name="status[]" id="stateAndCity" class="span12" style="min-width: 80px">'+
@@ -202,6 +203,7 @@
                 '</td> </tr>';
 
             $("#zixitong").append(str);
+            setcode(intid)
         }
         //提交验证信息
         function form_submit(){
@@ -235,6 +237,16 @@
             }
         }
 
+        function setcode(id) {
+            material_type   =$('#code_'+id+' .material_type').val();
+            position        =$('#code_'+id+' .position').val();
+            purpose         =$('#code_'+id+' .purpose').val();
+            material_number =$('#code_'+id+' .material_number').val();
+            console.log(material_type);
+            var str =material_type +'-'+position+'-'+purpose+'-'+material_number;
+            $('#code_'+id+' .material_code').val(str);
+
+        }
     </script>
 
 @endsection
