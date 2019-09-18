@@ -123,6 +123,7 @@ class UserRoleController extends WebController
         $checkpwd =$request->input('repPassword','');
         $roleid =$request->input('roleid',[]);
         $department_id =(int)$request->input('department',0);
+        $email_password =$request->input('email_password','');
 
         if((empty($pwd) || empty($checkpwd))){
             return redirect('admin/add_user_info?status=2&notice='.'密码不能为空');
@@ -149,6 +150,9 @@ class UserRoleController extends WebController
             'department_id'=>$department_id,
             'status'=>0,
         ];
+        if(!empty($email_password)){
+            $data['email_password']=$email_password;
+        }
         $id =DB::table('users')->insertGetId($data);
         $this->recodeUserExamine($id);
         if(empty($id)){
@@ -187,6 +191,7 @@ class UserRoleController extends WebController
         $checkpwd =$request->input('checkpwd','');
         $roleid =$request->input('roleid',[]);
         $department_id =(int)$request->input('department',0);
+        $email_password =$request->input('email_password','');
         if($pwd != $checkpwd){
             return redirect('admin/edit_user_info/'.$id.'?status=2&notice='.'两次密码不一致');
             //return $this->error('两次密码不一致');
@@ -208,6 +213,9 @@ class UserRoleController extends WebController
         ];
         if(!empty($pwd)){
             $data['password'] =bcrypt($pwd);
+        }
+        if(!empty($email_password)){
+            $data['email_password']=$email_password;
         }
         if($id ==1){ //1号员工 不需要审核
             $data['status']=1;
