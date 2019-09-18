@@ -75,21 +75,21 @@
                         <table class="layui-table layui-form">
                             <thead>
                             <tr>
-                                <th>关联材料名称</th>
-                                <th>种类</th>
-                                <th>位置</th>
-                                <th>用途</th>
-                                <th>代码</th>
-                                <th>关联材料编码</th>
-                                <th>排序</th>
-                                <th>规格特性要求</th>
-                                <th>损耗</th>
-                                <th>状态</th>
-                                <th style="width: 60px;">操作</th>
+                                <th style="width: 14%">关联材料名称</th>
+                                <th style="width: 6%">种类</th>
+                                <th style="width: 6%">位置</th>
+                                <th style="width: 6%">用途</th>
+                                <th style="width: 6%">代码</th>
+                                <th style="width: 19%">关联材料编码</th>
+                                <th style="width: 5%">排序</th>
+                                <th style="width: 19%;">规格特性要求</th>
+                                <th style="width: 6%">损耗</th>
+                                <th style="width: 6%">状态</th>
+                                <th style="width: 6%;">操作</th>
                             </thead>
                             <tbody id="zixitong">
                             @foreach($material as $k=>$v)
-                            <tr id="code_{{$k}}">
+                            <tr id="code_{{$k}}" class="sort sort_{{$v->material_sort }}">
                                 <td>
                                     <input type="hidden" name="material_id[]" value="{{ $v->id }}" lay-skin="primary">
                                     <input type="text" name="material_name[]"  class="notempty" value="{{ $v->material_name }}" lay-skin="primary">
@@ -111,7 +111,7 @@
                                     <input type="text" name="material_code[]" class="material_code" value="{{ $v->material_code }}" lay-skin="primary">
                                 </td>
                                 <td>
-                                    <input type="text" name="material_sort[]" class="material_sort" value="{{ $v->material_sort }}"  onclick="key(this)" lay-skin="primary">
+                                    <input type="text" name="material_sort[]" class="material_sort span12" value="{{ $v->material_sort }}"  onclick="key(this)" onchange ="setsort(this)" lay-skin="primary">
                                 </td>
                                 <td>
                                     <input type="text" name="characteristic[]" class="notempty"  value="{{ $v->characteristic }}" lay-skin="primary">
@@ -143,6 +143,7 @@
 
                 </div>
             </div>
+
             <div class="layui-form-item" style="float: right;clear: left">
                 <label for="L_repass" class="layui-form-label"></label>
                 <button class="btn btn-success" lay-filter="add" type="submit" lay-submit="" onclick='return form_submit()'>确认/保存</button>
@@ -153,7 +154,10 @@
                     <span class="btn btn-success" lay-filter="add" lay-submit="">返回/取消</span>
                 </a>
             </div>
-
+            <div class="layui-form-item" style="float: right;clear: left">
+                <label for="L_repass" class="layui-form-label"></label>
+                <span class="btn btn-success" lay-filter="add" lay-submit="" onclick="autopaixu()">自动排序</span>
+            </div>
             </form>
         </div>
     </div>
@@ -252,14 +256,14 @@
         //添加事件
         function add_xitong() {
             intid =parseInt(Math.random() * (100000000 )+10000);
-           str =' <tr id="code_'+intid+'"> <td> <input type="hidden" name="material_id[]" value="0" lay-skin="primary">'+
+           str =' <tr id="code_'+intid+'" class="sort sort_"> <td> <input type="hidden" name="material_id[]" value="0" lay-skin="primary">'+
                 '<input type="text" name="material_name[]" class="notempty" lay-skin="primary"> </td>'+
                 '<td> <input type="text" name="material_type[]" class="material_type"  onchange="setcode('+intid+')"   lay-skin="primary"> </td>'+
                 '<td> <input type="text" name="position[]" class="position" onchange="setcode('+intid+')"    lay-skin="primary"> </td>'+
                 '<td> <input type="text" name="purpose[]" class="purpose" onchange="setcode('+intid+')"   lay-skin="primary"> </td>'+
                 '<td> <input type="text" name="material_number[]" class="material_number" onchange="setcode('+intid+')"    lay-skin="primary"> </td>'+
                 '<td> <input type="text" name="material_code[]" class="material_code" lay-skin="primary"> </td>'+
-                '<td> <input type="text" name="material_sort[]" class="material_sort" onclick="key(this)" lay-skin="primary"> </td> '+
+                '<td> <input type="text" name="material_sort[]" class="material_sort span12" onclick="key(this)"  onchange ="setsort(this)"  lay-skin="primary"> </td> '+
 
                 '<td> <input type="text" name="characteristic[]" class="notempty"   lay-skin="primary"> </td>'+
                 '<td> <input type="text" name="waste_rate[]"  class="waste_rate notempty"  onclick="key(this)" lay-skin="primary"> </td>'+
@@ -372,14 +376,14 @@
         //通过模型添加材料
         function addMaterial(content) {
             intid =content.id * 1+1000;
-            str =' <tr id="code_'+intid+'"> <td> <input type="hidden" name="material_id[]" value="0" lay-skin="primary">'+
+            str =' <tr id="code_'+intid+'" class="sort sort_'+content.material_sort+'"> <td> <input type="hidden" name="material_id[]" value="0" lay-skin="primary">'+
                 '<input type="text" name="material_name[]" value="'+content.material_name+'" class="notempty" lay-skin="primary"> </td>'+
                 '<td> <input type="text" name="material_type[]" value="'+content.material_type+'" class="material_type"  onchange="setcode('+intid+')"   lay-skin="primary"> </td>'+
                 '<td> <input type="text" name="position[]" value="'+content.position+'" class="position" onchange="setcode('+intid+')"    lay-skin="primary"> </td>'+
                 '<td> <input type="text" name="purpose[]" value="'+content.purpose+'" class="purpose" onchange="setcode('+intid+')"   lay-skin="primary"> </td>'+
                 '<td> <input type="text" name="material_number[]" value="'+content.material_number+'" class="material_number" onchange="setcode('+intid+')"    lay-skin="primary"> </td>'+
                 '<td> <input type="text" name="material_code[]" value="'+content.material_code+'" class="material_code" lay-skin="primary"> </td>'+
-                '<td> <input type="text" name="material_sort[]" value="'+content.material_sort+'" class="material_sort" onclick="key(this)" lay-skin="primary"> </td> '+
+                '<td> <input type="text" name="material_sort[]" value="'+content.material_sort+'" class="material_sort span12" onclick="key(this)"  onchange ="setsort(this)"  lay-skin="primary"> </td> '+
                 '<td> <input type="text" name="characteristic[]" value="'+content.characteristic+'" class="notempty"   lay-skin="primary"> </td>'+
                 '<td> <input type="text" name="waste_rate[]" value="'+content.waste_rate+'"  class="waste_rate notempty"  onclick="key(this)" lay-skin="primary"> </td>'+
 
@@ -392,8 +396,47 @@
             $("#zixitong").append(str);
             setcode(intid)
         }
+        //自动排序
+        function autopaixu() {
+            var numArr = new Array();
+            $('.material_sort').each(function(){
+                //将选中元素的某属性值添加到数组中
+                var p_id = $(this).val()*1;
+                //如果数组中不存在
+                if($.inArray(p_id,numArr) == -1){
+                    numArr.push(p_id);
+                }
+            });
+            console.log(numArr.sort(function(a,b){return a-b;}));
+            ids =numArr.sort(function(a,b){return a-b;});
+            $.each(ids, function(p1, p2){
+                console.log(p1+'--'+p2);
+                movetr(p2);
+            });
+        }
 
-
+        // 重新排序
+        function movetr(id){
+            //$("#1").insertAfter($("#3"));
+            /*
+            $('.sort_'+id).each(function () {
+                codeid =$(this).attr('id');
+                html =$(this).html();
+                html ='<tr id="'+codeid+'" class="sort sort_'+id+'">'+html+'</tr>';
+               // console.log(html);
+                $("#zixitong").append(html);
+                $(this).remove();
+            })
+            */
+            html =$('.sort_'+id).clone();
+            $('.sort_'+id).remove();
+            $("#zixitong").append(html);
+        }
+        function setsort(th){
+         sortid =$(th).val();
+         $(th).val(sortid);
+         $(th).parent().parent().removeClass().addClass('sort sort_'+sortid);
+        }
     </script>
 
 @endsection
