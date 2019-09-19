@@ -64,14 +64,7 @@
                                     <input type="text" name="email" id="email" class="span6" placeholder="电子邮箱">
                                 </div>
                             </div>
-                            <div class="control-group">
-                                <label class="control-label" for="email">
-                                    邮箱密码:
-                                </label>
-                                <div class="controls">
-                                    <input type="text" name="email_password" id="email_password" class="span6" placeholder="电子邮箱密码，采购人员发送邮件时使用">
-                                </div>
-                            </div>
+
 
                             <div class="control-group">
                                 <label class="control-label" for="password">
