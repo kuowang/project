@@ -278,6 +278,7 @@ Route::group(['prefix' => 'purchase','namespace' => 'Purchase','middleware' => '
 Route::group(['prefix' => 'test','namespace' => 'Test'], function () {
 
     Route::get('/testPdf',     'TestController@testPdf'); //测试pdf文件
+    Route::get('/sendemail',     'TestController@sendemalifile'); //测试pdf文件
 
 });
 
