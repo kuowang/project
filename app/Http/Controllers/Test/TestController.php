@@ -58,4 +58,16 @@ class TestController  extends WebController
     }
 
 
+
+    public function sendemail() {
+        $name = '我发的第一份邮件';
+        // Mail::send()的返回值为空，所以可以其他方法进行判断
+        Mail::raw('你好，我是PHP程序！', function ($message) {
+            $to = 'wangkuo@ontheroadstore.com';
+            $message ->to($to)->subject('纯文本信息邮件测试');
+        });
+        // 返回的一个错误数组，利用此可以判断是否发送成功
+        dd(Mail::failures());
+    }
+
 }
