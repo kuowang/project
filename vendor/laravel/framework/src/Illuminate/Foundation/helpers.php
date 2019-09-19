@@ -13,6 +13,7 @@ use Illuminate\Contracts\Cookie\Factory as CookieFactory;
 use Illuminate\Database\Eloquent\Factory as EloquentFactory;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 use Illuminate\Contracts\Broadcasting\Factory as BroadcastFactory;
+use Illuminate\Support\Facades\Log;
 
 if (! function_exists('abort')) {
     /**
@@ -606,7 +607,25 @@ if (! function_exists('redirect')) {
         if (is_null($to)) {
             return app('redirect');
         }
+        $data=[];
+        try{
+            $uid=Auth::user()->id;
+            $data=[
+                'REQUEST_URI'=>$_SERVER['REQUEST_URI'],
+                'REDIRECT_URL'=>$_SERVER['REDIRECT_URL'],
+                'REMOTE_ADDR'=>$_SERVER['REMOTE_ADDR'],
+                'SERVER_ADDR'=>$_SERVER['SERVER_ADDR'],
+                'SERVER_SOFTWARE'=>$_SERVER['SERVER_SOFTWARE'],
+                'HTTP_COOKIE'=>$_SERVER['HTTP_COOKIE'],
+                'HTTP_USER_AGENT'=>$_SERVER['HTTP_USER_AGENT'],
+                'HTTP_HOST'=>$_SERVER['HTTP_HOST'],
+                'REQUEST_TIME_FLOAT'=>$_SERVER['REQUEST_TIME_FLOAT'],
+            ];
+        }catch (\Exception $e){
+            $uid =0;
+        }
 
+        log::info('url_address地址跳转uid:'.$uid,[$to,$status,$data]);
         return app('redirect')->to($to, $status, $headers, $secure);
     }
 }
