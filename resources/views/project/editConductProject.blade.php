@@ -43,9 +43,9 @@
                                     <td  class="pro-title">项目(子工程)状态</td>
                                     <td>
                                         <select name="project_status" id="project_status" class="input-medium span8" style="min-width: 80px">
-                                            <option value="1" >实施项目</option>
-                                            <option value="2" >竣工项目</option>
-                                            <option value="4" >终止项目</option>
+                                            <option value="1" >实施工程</option>
+                                            <option value="2" >竣工工程</option>
+                                            <option value="4" >终止工程</option>
                                         </select>
                                     </td>
                                     <td>
@@ -147,7 +147,7 @@
                         <table class="layui-table layui-form">
                             <thead>
                             <tr>
-                                <th colspan="2"><span class="btn btn-info">项目动态信息</span></th>
+                                <th colspan="2"><span class="btn btn-info">工程动态信息</span></th>
                                 <th ><span class="title" style="float: right;">
                                 <a class="btn btn-success" onclick="add_dongtai()"><i class="layui-icon">添加</i></a>
                             </span>
@@ -265,7 +265,7 @@
             if(stat == '1'){
                 layui.use('layer', function(){
                     var layer = layui.layer;
-                    layer.msg('当前项目已是实施状态，无需更改');
+                    layer.msg('当前工程已是实施状态，无需更改');
                 });
                 return false;
             }

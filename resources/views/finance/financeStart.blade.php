@@ -11,21 +11,21 @@
             @if(in_array(5001,$pageauth))
             <div class="metro-nav-block nav-block-blue" style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
                 <a href="/finance/financeStart">
-                    <div class="fs1" aria-hidden="true" data-icon="">洽谈项目</div>
+                    <div class="fs1" aria-hidden="true" data-icon="">洽谈工程</div>
                 </a>
             </div>
             @endif
             @if(in_array(5002,$pageauth))
             <div class="metro-nav-block nav-block-green">
                 <a href="/finance/financeConduct">
-                    <div class="fs1"  data-icon="">实施项目</div>
+                    <div class="fs1"  data-icon="">实施工程</div>
                 </a>
             </div>
             @endif
             @if(in_array(5003,$pageauth))
             <div class="metro-nav-block nav-block-yellow">
                 <a href="/finance/financeCompleted">
-                    <div class="fs1" aria-hidden="true" data-icon="">竣工项目</div>
+                    <div class="fs1" aria-hidden="true" data-icon="">竣工工程</div>
                 </a>
             </div>
             @endif
@@ -38,7 +38,7 @@
             <div class="widget">
                 <div class="widget-header">
                     <div class="title">
-                        洽谈项目<a id="dynamicTable"></a>
+                        洽谈工程<a id="dynamicTable"></a>
                     </div>
                     <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                         <label>

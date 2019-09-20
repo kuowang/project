@@ -44,14 +44,14 @@
                                     <td>
                                         <select name="project_status" id="project_status" class="input-medium span8" style="min-width: 80px">
                                             @if($engineering->status ==0)
-                                                <option value="0" >洽谈项目</option>
-                                                <option value="1" >实施项目</option>
-                                                <option value="2" >竣工项目</option>
-                                                <option value="4" >终止项目</option>
+                                                <option value="0" >洽谈工程</option>
+                                                <option value="1" >实施工程</option>
+                                                <option value="2" >竣工工程</option>
+                                                <option value="4" >终止工程</option>
                                             @elseif($engineering->status == 1)
-                                                <option value="1" >实施项目</option>
-                                                <option value="2" >竣工项目</option>
-                                                <option value="4" >终止项目</option>
+                                                <option value="1" >实施工程</option>
+                                                <option value="2" >竣工工程</option>
+                                                <option value="4" >终止工程</option>
                                             @endif
                                         </select>
                                     </td>

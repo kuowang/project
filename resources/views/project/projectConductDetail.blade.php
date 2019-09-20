@@ -28,7 +28,7 @@
                             <tbody>
                             <tr>
                                 <td  class="pro-title">项目(子工程)状态</td>
-                                <td>实施项目</td>
+                                <td>实施工程</td>
                             </tr>
                             </tbody>
                         </table>
@@ -126,7 +126,7 @@
                         <table class="layui-table layui-form">
                             <thead>
                             <tr>
-                                <th colspan="3"><span class="btn btn-info">项目动态信息</span></th>
+                                <th colspan="3"><span class="btn btn-info">工程动态信息</span></th>
 
                             </tr>
                             </thead>

@@ -44,30 +44,30 @@
     <div class="left-sidebar">
         <div class="row-fluid">
             <div class="metro-nav">
-                @if(in_array(350001,$pageauth))
-                    <div class="metro-nav-block nav-block-blue" >
-                        <a href="/architectural/enginStart">
+                @if(in_array(1502,$pageauth))
+                    <div class="metro-nav-block nav-block-blue">
+                        <a href="/project/projectStart">
                             <div class="fs1" aria-hidden="true" data-icon="">洽谈工程</div>
                         </a>
                     </div>
                 @endif
-                @if(in_array(350002,$pageauth))
+                @if(in_array(1503,$pageauth))
                     <div class="metro-nav-block nav-block-green">
-                        <a href="/architectural/enginConduct">
+                        <a href="/project/projectConduct">
                             <div class="fs1"  data-icon="">实施工程</div>
                         </a>
                     </div>
                 @endif
-                @if(in_array(350003,$pageauth))
+                @if(in_array(1504,$pageauth))
                     <div class="metro-nav-block nav-block-yellow" style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
-                        <a href="/architectural/enginCompleted">
-                            <div class="fs1" aria-hidden="true" data-icon="" >竣工工程</div>
+                        <a href="/project/projectCompleted">
+                            <div class="fs1" aria-hidden="true" data-icon="">竣工工程</div>
                         </a>
                     </div>
                 @endif
-                @if(in_array(350004,$pageauth))
+                @if(in_array(1505,$pageauth))
                     <div class="metro-nav-block nav-block-red">
-                        <a href="/architectural/enginTermination">
+                        <a href="/project/projectTermination">
                             <div class="fs1" aria-hidden="true" data-icon="">终止工程</div>
                         </a>
                     </div>
@@ -86,7 +86,7 @@
                         </div>
                         <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                             <label>
-                                <form class="form-search" action="/architectural/enginCompleted" method="get">
+                                <form class="form-search" action="/project/projectCompleted" method="get">
                                     项目名称:<input type="text" name="project_name" value="{{ $project_name }}" class="input-medium search-query">
                                     项目地点:<input type="text" name="address" value="{{ $address }}" class="input-medium search-query">
                                     项目负责人:<input type="text" name="project_leader" value="{{ $project_leader }}" class="input-medium search-query">
@@ -107,50 +107,42 @@
                                     <th>建筑面积</th>
                                     <th>建筑层数</th>
                                     <th>项目地址</th>
+                                    <th>项目负责人</th>
                                     <th>设计负责人</th>
+                                    <th>预算负责人</th>
+                                    <th>合约负责人</th>
                                     <th>项目状态</th>
+                                    <th>合同编号</th>
                                     <th>创建时间</th>
-                                    <th>设计参数状态</th>
-                                    <th>设计工况状态</th>
+                                    <th>执行操作</th>
                                 </tr>
                                 </thead>
                                 <tbody>
 
                                 @foreach ($data as $k=>$val)
-                                    <tr><td>{{ $k+1 }}</td>
+                                    <tr>
+
+                                        <td>{{ $k+1 }}</td>
                                         <td >{{ $val->project_name }}</td>
                                         <td>{{ $val->engineering_name }}</td>
                                         <td>{{ $val->build_area }}</td>
                                         <td>{{ $val->build_floor }}</td>
                                         <td>{{ $val->address_detail }}</td>
+                                        <td>{{ $val->project_leader }}</td>
                                         <td>{{ $val->design_username }}</td>
+                                        <td>{{ $val->budget_username }}</td>
+                                        <td>{{ $val->technical_username }}</td>
                                         <td><span class="btn btn-info">竣工</span></td>
+                                        <td>{{$val->contract_code}}</td>
                                         <td>{{ $val->created_at }}</td>
-                                        <td>
-                                            @if($val->is_conf_param ==1)
-                                                <i class="layui-icon btn btn-info">已创建</i>
-                                                @if( (in_array(35000301,$pageauth) && $val->design_uid == $uid ) || in_array(350705,$manageauth))
-                                                        <a title="查看详情" class="btn btn-info"  href="/architectural/enginParamDetail/{{ $val->engineering_id }}">
-                                                            <i class="layui-icon">详情</i>
-                                                        </a>
-                                                @endif
-                                            @else
-                                                <i class="layui-icon btn btn-danger">未创建</i>
+                                        <td class="td-manage">
+                                            @if( (in_array(150401,$pageauth) && $val->created_uid == $uid ) || in_array(150401,$manageauth))
+                                                <a title="查看详情" class="btn btn-info"  href="/project/projectCompletedDetail/{{ $val->engineering_id }}">
+                                                    <i class="layui-icon">详情</i>
+                                                </a>
                                             @endif
-                                        </td>
-                                        <td>
-                                            @if($val->is_conf_architectural ==1)
-                                                <i class="layui-icon btn btn-info">已创建</i>
-                                                @if( (in_array(35000301,$pageauth) && $val->design_uid == $uid ) || in_array(350705,$manageauth))
-                                                        <a title="查看详情" class="btn btn-info"  href="/architectural/enginCompletedDetail/{{ $val->engineering_id }}">
-                                                            <i class="layui-icon">详情</i>
-                                                        </a>
-                                                @endif
-                                            @else
-                                                <i class="layui-icon btn btn-danger">未创建</i>
-                                            @endif
-                                        </td>
 
+                                        </td>
                                     </tr>
                                 @endforeach
 

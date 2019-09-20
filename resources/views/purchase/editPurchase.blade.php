@@ -60,9 +60,9 @@
                                             <td colspan="2" class="pro-title">项目(子工程)状态</td>
                                             <td colspan="2">
                                                 <select name="project_status" id="project_status" class="input-medium span8" style="min-width: 80px">
-                                                        <option value="1" >实施项目</option>
-                                                        <option value="2" >竣工项目</option>
-                                                        <option value="4" >终止项目</option>
+                                                        <option value="1" >实施工程</option>
+                                                        <option value="2" >竣工工程</option>
+                                                        <option value="4" >终止工程</option>
                                                 </select>
                                             </td>
                                             <td colspan="2">

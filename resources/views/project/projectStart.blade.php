@@ -105,15 +105,13 @@
                             <tr>
                                 <th>序号</th>
                                 <th>项目名称</th>
-                                <th>工程名称</th>
-                                <th>建筑面积</th>
-                                <th>建筑层数</th>
+                                <th>工程数量</th>
                                 <th>项目地址</th>
-                                <th>项目负责人</th>
-                                <th>设计负责人</th>
-                                <th>预算负责人</th>
-                                <th>合约负责人</th>
-                                <th>项目状态</th>
+                                <th>项目总负责人</th>
+                                <th>销售总负责人</th>
+                                <th>设计总负责人</th>
+                                <th>预算总负责人</th>
+                                <th>合约总负责人</th>
                                 <th>洽谈指数</th>
                                 <th>创建时间</th>
                                 <th>执行操作</th>
@@ -123,31 +121,32 @@
 
                             @foreach ($data as $k=>$val)
                                 <tr>
-
                                     <td>{{ $k+1 }}</td>
                                     <td >{{ $val->project_name }}</td>
-                                    <td>{{ $val->engineering_name }}</td>
-                                    <td>{{ $val->build_area }}</td>
-                                    <td>{{ $val->build_floor }}</td>
+                                    <td>{{$val->start_count}}</td>
                                     <td>{{ $val->address_detail }}</td>
                                     <td>{{ $val->project_leader }}</td>
+                                    <td>{{ $val->sale_username }}</td>
                                     <td>{{ $val->design_username }}</td>
                                     <td>{{ $val->budget_username }}</td>
                                     <td>{{ $val->technical_username }}</td>
-                                    <td>
-                                        <span class="btn btn-info">洽谈</span>
-                                    </td>
+
                                     <td style="color:red">{{ str_repeat('★', $val->success_level) }}</td>
                                     <td>{{ $val->created_at }}</td>
                                     <td class="td-manage">
                                         @if( (in_array(150201,$pageauth) && $val->created_uid == $uid ) || in_array(150201,$manageauth))
-                                            <a title="查看详情" class="btn btn-info"  href="/project/projectDetail/{{ $val->engineering_id }}">
+                                            <a title="查看详情" class="btn btn-info"  href="/project/projectDetail/{{ $val->id }}">
                                                 <i class="layui-icon">详情</i>
                                             </a>
                                         @endif
                                         @if((in_array(150202,$pageauth) && $val->created_uid == $uid ) || in_array(150202,$manageauth))
-                                            <a title="编辑" class="btn btn-success"  href="/project/editProject/{{ $val->engineering_id }}">
+                                            <a title="编辑" class="btn btn-success"  href="/project/editProject/{{ $val->id }}">
                                                 <i class="layui-icon">编辑</i>
+                                            </a>
+                                        @endif
+                                        @if((in_array(150202,$pageauth) && $val->created_uid == $uid ) || in_array(150202,$manageauth))
+                                            <a title="工程管理" class="btn btn-success"  href="/project/projectEnginStart/{{ $val->id }}">
+                                                <i class="layui-icon">工程管理</i>
                                             </a>
                                         @endif
                                     </td>

@@ -4,28 +4,60 @@
     <!-- 你的HTML代码 -->
     <link rel="stylesheet" href="/layui/css/layui.css">
     <script src="/layui/layui.js"></script>
+    @if($status == 2)
+    <div class="alert alert-block alert-error fade in">
+        <button data-dismiss="alert" class="close" type="button">
+            ×
+        </button>
+        <h4 class="alert-heading">
+           失败
+        </h4>
+        <p>
+            {{$notice}}
+        </p>
+    </div>
+    @elseif($status ==1)
+    <div class="alert alert-block alert-success fade in">
+        <button data-dismiss="alert" class="close" type="button">
+            ×
+        </button>
+        <h4 class="alert-heading">
+            成功!
+        </h4>
+        <p>
+            {{$notice}}
+        </p>
+    </div>
+    @endif
 
 <div class="left-sidebar">
     <div class="row-fluid">
         <div class="metro-nav">
-            @if(in_array(5001,$pageauth))
-            <div class="metro-nav-block nav-block-blue">
-                <a href="/finance/financeStart">
+            @if(in_array(1502,$pageauth))
+            <div class="metro-nav-block nav-block-blue" style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
+                <a href="/project/projectEnginStart/{{$id}}">
                     <div class="fs1" aria-hidden="true" data-icon="">洽谈工程</div>
                 </a>
             </div>
             @endif
-            @if(in_array(5002,$pageauth))
-            <div class="metro-nav-block nav-block-green" >
-                <a href="/finance/financeConduct">
+            @if(in_array(1503,$pageauth))
+            <div class="metro-nav-block nav-block-green">
+                <a href="/project/projectEnginConduct/{{$id}}">
                     <div class="fs1"  data-icon="">实施工程</div>
                 </a>
             </div>
             @endif
-            @if(in_array(5003,$pageauth))
-            <div class="metro-nav-block nav-block-yellow" style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
-                <a href="/finance/financeCompleted">
+            @if(in_array(1504,$pageauth))
+            <div class="metro-nav-block nav-block-yellow">
+                <a href="/project/projectEnginCompleted/{{$id}}">
                     <div class="fs1" aria-hidden="true" data-icon="">竣工工程</div>
+                </a>
+            </div>
+            @endif
+            @if(in_array(1505,$pageauth))
+            <div class="metro-nav-block nav-block-red">
+                <a href="/project/projectEnginTermination/{{$id}}">
+                    <div class="fs1" aria-hidden="true" data-icon="">终止工程</div>
                 </a>
             </div>
             @endif
@@ -33,23 +65,17 @@
 
     </div>
 
+
     <div class="row-fluid">
         <div class="span12">
             <div class="widget">
                 <div class="widget-header">
                     <div class="title">
-                        竣工工程<a id="dynamicTable"></a>
+                        洽谈工程<a id="dynamicTable"></a>
+
                     </div>
                     <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
-                        <label>
-                            <form class="form-search" action="/finance/financeCompleted" method="get">
-                                项目名称:<input type="text" name="project_name" value="{{ $project_name }}" class="input-medium search-query">
-                                项目地点:<input type="text" name="engin_name" value="{{ $engin_name }}" class="input-medium search-query">
-                                预算负责人:<input type="text" name="project_leader" value="{{ $project_leader }}" class="input-medium search-query">
-
-                                <button type="submit" class="btn">搜索</button>
-                            </form>
-                        </label>
+                        {{$project->project_name}}
                     </div>
                 </div>
                 <div class="widget-body">
@@ -59,37 +85,42 @@
                             <thead>
                             <tr>
                                 <th>序号</th>
-                                <th>项目名称</th>
                                 <th>工程名称</th>
-                                <th>合同编号</th>
-                                <th>合同签署时间</th>
-                                <th>项目负责人</th>
-                                <th>原始合同总额（万元）</th>
-                                <th>变更合同金额</th>
-                                <th>付款进度状态</th>
+                                <th>工程地址</th>
+                                <th>建筑面积</th>
+                                <th>建筑层数</th>
+                                <th>建筑数量</th>
+                                <th>销售负责人</th>
+                                <th>设计负责人</th>
+                                <th>预算负责人</th>
+                                <th>合约负责人</th>
+                                <th>创建时间</th>
                                 <th>执行操作</th>
                             </tr>
                             </thead>
                             <tbody>
+
                             @foreach ($data as $k=>$val)
                                 <tr>
                                     <td>{{ $k+1 }}</td>
-                                    <td >{{ $val->project_name }}</td>
                                     <td>{{ $val->engineering_name }}</td>
-                                    <td>{{$val->contract_code}}</td>
-                                    <td>{{ $val->contract_at }}</td>
-                                    <td>{{ $val->project_leader }}</td>
-                                    <td>{{ $val->contract_amount }}</td>
-                                    <td >{{$val->changed_contract_amount}}</td>
-                                    <td>{{$val->status}}</td>
+                                    <td></td>
+                                    <td>{{ $val->build_area }}</td>
+                                    <td>{{ $val->build_floor }}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>{{ $val->created_at }}</td>
                                     <td class="td-manage">
-                                        @if((in_array(500301,$pageauth)) || in_array(500301,$manageauth))
-                                            <a title="详情" class="btn btn-success"   href="/finance/getFinanceInfo/{{$val->engin_id}}" >
+                                        @if( (in_array(150201,$pageauth) && $val->created_uid == $uid ) || in_array(150201,$manageauth))
+                                            <a title="查看详情" class="btn btn-info"  href="/project/projectDetail/{{ $val->id }}">
                                                 <i class="layui-icon">详情</i>
                                             </a>
                                         @endif
-                                        @if((in_array(500301,$pageauth)) || in_array(500301,$manageauth))
-                                            <a title="编辑" class="btn btn-success"   href="/finance/editFinanceInfo/{{$val->engin_id}}" >
+                                        @if((in_array(150202,$pageauth) && $val->created_uid == $uid ) || in_array(150202,$manageauth))
+                                            <a title="编辑" class="btn btn-success"  href="/project/editProject/{{ $val->id }}">
                                                 <i class="layui-icon">编辑</i>
                                             </a>
                                         @endif
@@ -99,12 +130,7 @@
 
                             </tbody>
                         </table>
-                            <div>
-                                @php
-                                echo $page;
-                                @endphp
 
-                            </div>
                         <div class="clearfix">
                         </div>
                     </div>
@@ -114,7 +140,6 @@
 
     </div>
 </div>
-
 <div class="right-sidebar">
     <div class="wrapper">
         <ul class="stats">
@@ -134,6 +159,10 @@
 </div>
 
     <script>
+        //一般直接写在一个js文件中
+
+
+
 
     </script>
 

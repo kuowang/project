@@ -67,6 +67,11 @@ Route::group(['namespace' => 'Admin'], function () {
 
 //项目类的控制组 需要登录
 Route::group(['prefix' => 'project','namespace' => 'Project','middleware' => 'auth'], function () {
+    Route::get('/projectEnginStart/{id}',                     'ProjectController@projectEnginStart');      //洽谈项目工程首页
+    Route::get('/projectEnginConduct/{id}',                   'ProjectController@projectEnginConduct');    //实施项目工程列表
+    Route::get('/projectEnginCompleted/{id}',                 'ProjectController@projectEnginCompleted');  //竣工项目工程首页
+    Route::get('/projectEnginTermination/{id}',               'ProjectController@projectEnginTermination'); //终止项目工程首页
+
     Route::get('/projectStart',                     'ProjectController@projectStart');      //洽谈项目首页
     Route::get('/projectConduct',                   'ProjectController@projectConduct');    //实施项目列表
     Route::get('/projectCompleted',                 'ProjectController@projectCompleted');  //竣工项目首页

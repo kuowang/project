@@ -36,28 +36,28 @@
             @if(in_array(350001,$pageauth))
             <div class="metro-nav-block nav-block-blue" style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
                 <a href="/architectural/enginStart">
-                    <div class="fs1" aria-hidden="true" data-icon="">洽谈项目</div>
+                    <div class="fs1" aria-hidden="true" data-icon="">洽谈工程</div>
                 </a>
             </div>
             @endif
             @if(in_array(350002,$pageauth))
             <div class="metro-nav-block nav-block-green">
                 <a href="/architectural/enginConduct">
-                    <div class="fs1"  data-icon="">实施项目</div>
+                    <div class="fs1"  data-icon="">实施工程</div>
                 </a>
             </div>
             @endif
             @if(in_array(350003,$pageauth))
             <div class="metro-nav-block nav-block-yellow">
                 <a href="/architectural/enginCompleted">
-                    <div class="fs1" aria-hidden="true" data-icon="">竣工项目</div>
+                    <div class="fs1" aria-hidden="true" data-icon="">竣工工程</div>
                 </a>
             </div>
             @endif
             @if(in_array(350004,$pageauth))
             <div class="metro-nav-block nav-block-red">
                 <a href="/architectural/enginTermination">
-                    <div class="fs1" aria-hidden="true" data-icon="">终止项目</div>
+                    <div class="fs1" aria-hidden="true" data-icon="">终止工程</div>
                 </a>
             </div>
             @endif
@@ -71,7 +71,7 @@
             <div class="widget">
                 <div class="widget-header">
                     <div class="title">
-                        洽谈项目<a id="dynamicTable"></a>
+                        洽谈工程<a id="dynamicTable"></a>
                     </div>
                     <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                         <label>
