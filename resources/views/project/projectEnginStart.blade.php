@@ -36,28 +36,28 @@
             @if(in_array(1502,$pageauth))
             <div class="metro-nav-block nav-block-blue" style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
                 <a href="/project/projectEnginStart/{{$id}}">
-                    <div class="fs1" aria-hidden="true" data-icon="">洽谈工程</div>
+                    <div class="fs1" aria-hidden="true" data-icon="">洽谈工程 ({{$project->start_count}})</div>
                 </a>
             </div>
             @endif
             @if(in_array(1503,$pageauth))
             <div class="metro-nav-block nav-block-green">
                 <a href="/project/projectEnginConduct/{{$id}}">
-                    <div class="fs1"  data-icon="">实施工程</div>
+                    <div class="fs1" aria-hidden="true" data-icon="">实施工程 ({{$project->conduct_count}})</div>
                 </a>
             </div>
             @endif
             @if(in_array(1504,$pageauth))
             <div class="metro-nav-block nav-block-yellow">
                 <a href="/project/projectEnginCompleted/{{$id}}">
-                    <div class="fs1" aria-hidden="true" data-icon="">竣工工程</div>
+                    <div class="fs1" aria-hidden="true" data-icon="">竣工工程 ({{$project->completed_count}})</div>
                 </a>
             </div>
             @endif
             @if(in_array(1505,$pageauth))
             <div class="metro-nav-block nav-block-red">
                 <a href="/project/projectEnginTermination/{{$id}}">
-                    <div class="fs1" aria-hidden="true" data-icon="">终止工程</div>
+                    <div class="fs1" aria-hidden="true" data-icon="">终止工程 ({{$project->termination_count}})</div>
                 </a>
             </div>
             @endif
@@ -72,7 +72,11 @@
                 <div class="widget-header">
                     <div class="title">
                         洽谈工程<a id="dynamicTable"></a>
-
+                        @if(in_array(1501,$pageauth) || in_array(1501,$manageauth))
+                            <a class="btn btn-success" title="新增工程"  href="/project/createdProjectEngin/{{$id}}">
+                                <i class="layui-icon">新增工程</i>
+                            </a>
+                        @endif
                     </div>
                     <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                         {{$project->project_name}}
@@ -104,23 +108,23 @@
                                 <tr>
                                     <td>{{ $k+1 }}</td>
                                     <td>{{ $val->engineering_name }}</td>
-                                    <td></td>
+                                    <td>{{$val->engineering_name}}</td>
                                     <td>{{ $val->build_area }}</td>
                                     <td>{{ $val->build_floor }}</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{$val->build_number}}</td>
+                                    <td>{{$val->sale_username}}</td>
+                                    <td>{{$val->design_username}}</td>
+                                    <td>{{$val->budget_username}}</td>
+                                    <td>{{$val->technical_username}}</td>
                                     <td>{{ $val->created_at }}</td>
                                     <td class="td-manage">
                                         @if( (in_array(150201,$pageauth) && $val->created_uid == $uid ) || in_array(150201,$manageauth))
-                                            <a title="查看详情" class="btn btn-info"  href="/project/projectDetail/{{ $val->id }}">
+                                            <a title="查看详情" class="btn btn-info"  href="/project/projectEnginDetail/{{ $val->id }}">
                                                 <i class="layui-icon">详情</i>
                                             </a>
                                         @endif
                                         @if((in_array(150202,$pageauth) && $val->created_uid == $uid ) || in_array(150202,$manageauth))
-                                            <a title="编辑" class="btn btn-success"  href="/project/editProject/{{ $val->id }}">
+                                            <a title="编辑" class="btn btn-success"  href="/project/editProjectEngin/{{ $val->id }}">
                                                 <i class="layui-icon">编辑</i>
                                             </a>
                                         @endif
@@ -137,9 +141,12 @@
                 </div>
             </div>
         </div>
-
+        <div>
+            注：工程列表以工程名称排序
+        </div>
     </div>
 </div>
+
 <div class="right-sidebar">
     <div class="wrapper">
         <ul class="stats">

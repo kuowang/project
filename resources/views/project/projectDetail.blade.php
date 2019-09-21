@@ -161,25 +161,28 @@
                         <div class="clearfix"></div>
                         <table class="layui-table layui-form">
                             <thead>
-                            <tr><th colspan="10"><span class="btn btn-info">项目子工程信息</span></th>
+                            <tr><th colspan="6"><span class="btn btn-info">项目子工程信息</span></th>
                             </tr>
                             </thead>
                             <tbody id="zigongcheng">
+                            <tr>
+                                <td class="pro-title">子工程名称</td>
+                                <td  class="pro-title">建筑总面积（m²）</td>
+                                <td class="pro-title">建筑总层数</td>
+                                <td class="pro-title">建筑总高度（m）</td>
+                                <td class="pro-title">室内净高（最小）（m）</td>
+                                <td class="pro-title">建筑物数量（栋）</td>
+                            </tr>
                             @foreach($engineering as $item)
                             <tr >
-                                <td class="pro-title">子工程名称</td>
                                 <td>{{$item->engineering_name}}</td>
-                                <td class="pro-title">建筑总面积（m²）</td>
                                 <td>{{$item->build_area}}</td>
-                                <td class="pro-title">建筑总层数</td>
                                 <td>{{$item->build_floor}}</td>
-                                <td class="pro-title">建筑总高度（m）</td>
                                 <td>{{$item->build_height}}</td>
-                                <td class="pro-title">建筑净高（最小）（m）</td>
                                 <td>{{$item->indoor_height}}</td>
+                                <td>{{$item->build_number}}</td>
                             </tr>
                             @endforeach
-
                             </tbody>
                         </table>
                         <div class="clearfix"></div>
@@ -209,15 +212,17 @@
                         <div class="clearfix"></div>
                         <table class="layui-table layui-form">
                             <thead>
-                            <tr><th colspan="6"><span class="btn btn-info">项目支持人员信息</span></th></tr>
+                            <tr><th colspan="8"><span class="btn btn-info">项目支持人员信息</span></th></tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td class="pro-title">设计负责人</td>
+                                <td class="pro-title">销售总负责人</td>
+                                <td>{{$project->sale_username}}</td>
+                                <td class="pro-title">设计总负责人</td>
                                 <td>{{$project->design_username}}</td>
-                                <td class="pro-title">预算负责人</td>
+                                <td class="pro-title">预算总负责人</td>
                                 <td>{{$project->budget_username}}</td>
-                                <td class="pro-title">合约负责人</td>
+                                <td class="pro-title">合约总负责人</td>
                                 <td>{{$project->technical_username}}</td>
                             </tr>
                             </tbody>

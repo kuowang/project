@@ -24,6 +24,42 @@
         }
     </style>
 <div class="left-sidebar">
+
+    <div class="row-fluid">
+        <div class="metro-nav">
+            @if(in_array(1502,$pageauth))
+                <div class="metro-nav-block nav-block-blue">
+                    <a href="/project/projectEnginStart/{{$project->id}}">
+                        <div class="fs1" aria-hidden="true" data-icon="">洽谈工程 ({{$project->start_count}})</div>
+                    </a>
+                </div>
+            @endif
+            @if(in_array(1503,$pageauth))
+                <div class="metro-nav-block nav-block-green" >
+                    <a href="/project/projectEnginConduct/{{$project->id}}">
+                        <div class="fs1"  data-icon="">实施工程 ({{$project->conduct_count}})</div>
+                    </a>
+                </div>
+            @endif
+            @if(in_array(1504,$pageauth))
+                <div class="metro-nav-block nav-block-yellow">
+                    <a href="/project/projectEnginCompleted/{{$project->id}}">
+                        <div class="fs1" aria-hidden="true" data-icon="">竣工工程({{$project->completed_count}})</div>
+                    </a>
+                </div>
+            @endif
+            @if(in_array(1505,$pageauth))
+                <div class="metro-nav-block nav-block-red" style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
+                    <a href="/project/projectEnginTermination/{{$project->id}}">
+                        <div class="fs1" aria-hidden="true" data-icon="">终止工程 ({{$project->termination_count}})</div>
+                    </a>
+                </div>
+            @endif
+        </div>
+
+    </div>
+
+
     <div class="row-fluid">
         <div class="span12">
             <div class="widget">
@@ -52,7 +88,7 @@
                                 <td  class="pro-title">项目地点</td>
                                 <td colspan="2">{{$project->province}}{{$project->city}}{{$project->county}}
                                     {{$project->foreign_address}}
-                                 </td>
+                                </td>
                                 <td  class="pro-title">详情地址</td>
                                 <td colspan="2">{{$project->address_detail}}</td>
                             </tr>
@@ -144,13 +180,13 @@
                                         设计/咨询
                                     @endif
                                     @if($project->is_supply ==1)
-                                            材料供应
+                                        材料供应
                                     @endif
                                     @if($project->is_guidance ==1)
-                                            施工指导
+                                        施工指导
                                     @endif
                                     @if($project->is_installation ==1)
-                                            施工安装
+                                        施工安装
                                     @endif
                                 </td>
                             </tr>
@@ -159,11 +195,10 @@
                         <div class="clearfix"></div>
                         <table class="layui-table layui-form">
                             <thead>
-                            <tr><th colspan="8"><span class="btn btn-info">项目子工程信息</span></th>
+                            <tr><th colspan="6"><span class="btn btn-info">项目子工程信息</span></th>
                             </tr>
                             </thead>
                             <tbody id="zigongcheng">
-
                             <tr >
                                 <td class="pro-title">子工程名称</td>
                                 <td>{{$engineering->engineering_name}}</td>
@@ -171,10 +206,15 @@
                                 <td>{{$engineering->build_area}}</td>
                                 <td class="pro-title">建筑总层数</td>
                                 <td>{{$engineering->build_floor}}</td>
+
+                            </tr>
+                            <tr>
                                 <td class="pro-title">建筑总高度（m）</td>
                                 <td>{{$engineering->build_height}}</td>
-                                <td class="pro-title">建筑净高（最小）（m）</td>
+                                <td class="pro-title">室内净高（最小）（m）</td>
                                 <td>{{$engineering->indoor_height}}</td>
+                                <td class="pro-title">建筑数量（栋）</td>
+                                <td>{{$engineering->build_number}}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -205,20 +245,39 @@
                         <div class="clearfix"></div>
                         <table class="layui-table layui-form">
                             <thead>
-                            <tr><th colspan="6"><span class="btn btn-info">项目支持人员信息</span></th></tr>
+                            <tr><th colspan="8"><span class="btn btn-info">项目支持人员信息</span></th></tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td class="pro-title">设计负责人</td>
+                                <td class="pro-title">销售总负责人</td>
+                                <td>{{$project->sale_username}}</td>
+                                <td class="pro-title">设计总负责人</td>
                                 <td>{{$project->design_username}}</td>
-                                <td class="pro-title">预算负责人</td>
+                                <td class="pro-title">预算总负责人</td>
                                 <td>{{$project->budget_username}}</td>
-                                <td class="pro-title">合约负责人</td>
+                                <td class="pro-title">合约总负责人</td>
                                 <td>{{$project->technical_username}}</td>
                             </tr>
                             </tbody>
                         </table>
-
+                        <div class="clearfix"></div>
+                        <table class="layui-table layui-form">
+                            <thead>
+                            <tr><th colspan="8"><span class="btn btn-info">工程支持人员信息</span></th></tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="pro-title">销售负责人</td>
+                                <td>{{$engineering->sale_username}}</td>
+                                <td class="pro-title">设计负责人</td>
+                                <td>{{$engineering->design_username}}</td>
+                                <td class="pro-title">预算负责人</td>
+                                <td>{{$engineering->budget_username}}</td>
+                                <td class="pro-title">合约负责人</td>
+                                <td>{{$engineering->technical_username}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
                         <table class="layui-table layui-form">
                             <thead>
                             <tr>
@@ -268,6 +327,7 @@
                             @endforeach
                             </tbody>
                         </table>
+                        <div class="clearfix"></div>
                         <div class="clearfix"></div>
                         <div class="layui-form-item" style="float: right;clear: left">
                             <a href="javascript:history.go(-1)">

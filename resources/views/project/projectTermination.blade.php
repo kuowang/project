@@ -129,11 +129,11 @@
                                         <td>{{ $val->created_at }}</td>
                                         <td class="td-manage">
                                             @if( (in_array(150501,$pageauth) && $val->created_uid == $uid ) || in_array(150501,$manageauth))
-                                                <a title="查看详情" class="btn btn-info"  href="/project/projectTerminationDetail/{{ $val->id }}">
+                                                <a title="查看详情" class="btn btn-info"  href="/project/projectDetail/{{ $val->id }}?type=termination">
                                                     <i class="layui-icon">详情</i>
                                                 </a>
                                             @endif
-                                            @if( (in_array(150501,$pageauth) && $val->created_uid == $uid ) || in_array(150501,$manageauth))
+                                            @if( (in_array(150502,$pageauth) && $val->created_uid == $uid ) || in_array(150502,$manageauth))
                                                 <a title="工程管理" class="btn btn-info"  href="/project/projectEnginTermination/{{ $val->id }}">
                                                     <i class="layui-icon">工程管理</i>
                                                 </a>

@@ -36,35 +36,14 @@
                 </div>
                 <div class="widget-body">
                     <div id="dt_example" class="example_alt_pagination">
-                        <form method="post" action="/project/updateProjectStatus/{{$engin_id}}">
-                        <table class="layui-table layui-form">
-
-                            <tbody>
-                            <tr>
-                                <td  class="pro-title">项目(子工程)状态</td>
-                                <td>
-                                    <select name="project_status" id="project_status" class="input-medium span8" style="min-width: 80px">
-                                        <option value="0" >洽谈工程</option>
-                                        <option value="1" >实施工程</option>
-                                        <option value="4" >终止工程</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <div class="layui-form-item" style="clear: left">
-                                        <label for="L_repass" ></label>
-                                        <button class="btn btn-success" lay-filter="add" type="submit" onclick='return submitStatus()'  lay-submit="">确认/保存</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        </form>
 
                         <form method="post" action="/project/postEditProject/{{$id}}">
                         <table class="layui-table layui-form">
                             <thead>
                             <tr>
-                                <th colspan="6"><span class="btn btn-info">项目概况</span></th>
+                                <th colspan="6"><span class="btn btn-info">项目概况</span>
+                                <input type="hidden" name="statustype" value="{{$statustype}}">
+                                </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -123,17 +102,16 @@
                                 </td>
                                 <td class="pro-title">项目工期（天）</td>
                                 <td>
-                                    <input type="text"  name="project_limit_time" class="span8 notempty"  value="{{ $project->project_limit_time }}"  onclick="key(this)" lay-skin="primary" >
+                                    <input type="text"  name="project_limit_time" class="span8 notempty"  onclick="key(this)"  value="{{ $project->project_limit_time }}"  onclick="key(this)" lay-skin="primary" >
                                 </td>
                                 <td class="pro-title">洽谈指数</td>
                                 <td>
-                                    <select name="success_level" id="success_level" class="input-medium search-query notempty" style="min-width: 80px">
+                                    <select name="success_level" id="success_level" class="input-medium search-query notempty" style="min-width: 80px;color:red">
                                         @if($project->success_level ==1) <option value="1" selected="selected">★</option> @else <option value="1">★</option> @endif
                                         @if($project->success_level ==2) <option value="2" selected="selected">★★</option> @else <option value="2">★★</option> @endif
                                         @if($project->success_level ==3) <option value="3" selected="selected">★★★</option> @else <option value="3">★★★</option> @endif
                                         @if($project->success_level ==4) <option value="4" selected="selected">★★★★</option> @else <option value="4">★★★★</option> @endif
                                         @if($project->success_level ==5) <option value="5" selected="selected">★★★★★</option> @else <option value="5">★★★★★</option> @endif
-
                                     </select>
                                 </td>
                             </tr>
@@ -261,39 +239,45 @@
                         <table class="layui-table layui-form">
                             <thead>
                             <tr>
-                                <th colspan="5"><span class="btn btn-info">项目子工程信息</span></th>
-                                <th colspan="6"><span class="title" style="float: right;">
+                                <th colspan="4"><span class="btn btn-info">项目子工程信息</span></th>
+                                <th colspan="3"><span class="title" style="float: right;">
                                 <a class="btn btn-success" onclick="add_zigongcheng()"><i class="layui-icon">添加子工程 +</i></a>
                                     </span>
                                 </th>
                             </tr>
                             </thead>
                             <tbody id="zigongcheng">
+                            <tr>
+                                <td class="pro-title">子工程名称</td>
+                                <td  class="pro-title">建筑总面积（m²）</td>
+                                <td class="pro-title">建筑总层数</td>
+                                <td class="pro-title">建筑总高度（m）</td>
+                                <td class="pro-title">室内净高（最小）（m）</td>
+                                <td class="pro-title">建筑物数量（栋）</td>
+                                <td>操作</td>
+
+                            </tr>
                             @foreach($engineering as $engin)
                             <tr >
-                                <td class="pro-title">子工程名称
-                                    <input type="hidden"  name="engineering_id[]" class="span8 notempty "  value="{{ $engin->id }}" lay-skin="primary" >
-                                </td>
                                 <td>
+                                    <input type="hidden"  name="engineering_id[]" class="span8 notempty "  value="{{ $engin->id }}" lay-skin="primary" >
                                     <input type="text"  name="engineering_name[]" class="span8 notempty"  value="{{ $engin->engineering_name }}" lay-skin="primary" >
                                 </td>
-                                <td class="pro-title">建筑总面积（m²）</td>
                                 <td>
-                                    <input type="text"  name="build_area[]" class="span8  notempty"  value="{{ $engin->build_area }}" lay-skin="primary" >
+                                    <input type="text"  name="build_area[]" class="span8  notempty"  onclick="key(this)" value="{{ $engin->build_area }}" lay-skin="primary" >
                                 </td>
-                                <td class="pro-title">建筑总层数</td>
                                 <td>
-                                    <input type="text"  name="build_floor[]" class="span8 notempty"  value="{{ $engin->build_floor }}" lay-skin="primary" >
+                                    <input type="text"  name="build_floor[]" class="span8 notempty"  onclick="key(this)" value="{{ $engin->build_floor }}" lay-skin="primary" >
                                 </td>
-                                <td class="pro-title">建筑总高度（m）</td>
                                 <td>
-                                    <input type="text"  name="build_height[]" class="span8 notempty"  value="{{ $engin->build_height }}" lay-skin="primary" >
+                                    <input type="text"  name="build_height[]" class="span8 notempty"   onclick="key(this)" value="{{ $engin->build_height }}" lay-skin="primary" >
                                 </td>
-                                <td class="pro-title">室内净高（最小）（m）</td>
                                 <td>
-                                    <input type="text"  name="indoor_height[]" class="span8 notempty"  value="{{ $engin->indoor_height }}" lay-skin="primary" >
+                                    <input type="text"  name="indoor_height[]" class="span8 notempty"  onclick="key(this)" value="{{ $engin->indoor_height }}" lay-skin="primary" >
                                 </td>
-
+                                <td>
+                                    <input type="text"  name="build_number[]" class="span8 notempty"  onclick="key(this)" value="{{ $engin->build_number }}" lay-skin="primary" >
+                                </td>
                                 <td></td>
                             </tr>
                             @endforeach
@@ -338,11 +322,26 @@
                         <div class="clearfix"></div>
                         <table class="layui-table layui-form">
                             <thead>
-                            <tr><th colspan="6"><span class="btn btn-info">项目支持信息</span></th></tr>
+                            <tr><th colspan="8"><span class="btn btn-info">项目支持信息</span></th></tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td class="pro-title">设计负责人</td>
+                                <td class="pro-title">销售总负责人</td>
+                                <td>
+                                    <select name="sale_uid" id="sale_uid" class="input-medium search-query notempty" style="min-width: 80px">
+                                        <option value="0" ></option>
+                                        @foreach($userList as $u)
+                                            @if($u->department_id == 2)
+                                                @if($u->id == $project->sale_uid)
+                                                    <option value="{{$u->id}}" selected="selected">{{$u->name}}</option>
+                                                @else
+                                                    <option value="{{$u->id}}" >{{$u->name}}</option>
+                                                @endif
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td class="pro-title">设计总负责人</td>
                                 <td>
                                     <select name="design_uid" id="design_uid" class="input-medium search-query notempty" style="min-width: 80px">
                                         <option value="0" ></option>
@@ -357,7 +356,7 @@
                                         @endforeach
                                     </select>
                                 </td>
-                                <td class="pro-title">预算负责人</td>
+                                <td class="pro-title">预算总负责人</td>
                                 <td>
                                     <select name="budget_uid" id="budget_uid" class="input-medium search-query notempty" style="min-width: 80px">
                                         <option value="0" ></option>
@@ -372,7 +371,7 @@
                                         @endforeach
                                     </select>
                                 </td>
-                                <td class="pro-title">合约负责人</td>
+                                <td class="pro-title">合约总负责人</td>
                                 <td>
                                     <select name="technical_uid" id="technical_uid" class="input-medium search-query  notempty" style="min-width: 80px">
                                         <option value="0" ></option>
@@ -443,19 +442,20 @@
         //添加事件
         function add_zigongcheng() {
             intid =parseInt(Math.random() * (1000000 )+100);
-            str ='<tr > <td class="pro-title">子工程名称<input type="hidden"  name="engineering_id[]" value="0" class="span8 notempty " lay-skin="primary" ></td>'+
-                '<td> <input type="text"  name="engineering_name[]" class="span8 notempty "  value="" lay-skin="primary" > </td>'+
-                '<td class="pro-title">建筑面积（m²）</td>'+
-                '<td> <input type="text"  name="build_area[]" class="span8 notempty"  value="" lay-skin="primary" > </td>'+
-                '<td class="pro-title">建筑层数</td> '+
-                '<td> <input type="text"  name="build_floor[]" class="span8 notempty"  value="" lay-skin="primary" > </td>'+
-                '<td class="pro-title">建筑高度（m）</td>'+
-                '<td> <input type="text"  name="build_height[]" class="span8 notempty"  value="" lay-skin="primary" > </td>'+
-                '<td class="pro-title">室内净高（m）</td>'+
-                '<td><input type="text"  name="indoor_height[]" class="span8 notempty"  value="" lay-skin="primary" ></td>'+
+            str ='<tr > <td class="pro-title"><input type="hidden"  name="engineering_id[]" value="0" class="span8 notempty " lay-skin="primary" >'+
+                ' <input type="text"  name="engineering_name[]" class="span8 notempty "  value="" lay-skin="primary" > </td>'+
+                '<td> <input type="text"  name="build_area[]" class="span8 notempty"  onclick="key(this)" value="" lay-skin="primary" > </td>'+
+                '<td> <input type="text"  name="build_floor[]" class="span8 notempty"  onclick="key(this)" value="" lay-skin="primary" > </td>'+
+                '<td> <input type="text"  name="build_height[]" class="span8 notempty"  onclick="key(this)" value="" lay-skin="primary" > </td>'+
+                '<td><input type="text"  name="indoor_height[]" class="span8 notempty"  onclick="key(this)" value="" lay-skin="primary" ></td>'+
+                '<td><input type="text"  name="build_number[]" class="span8 notempty"  onclick="key(this)" value="" lay-skin="primary" ></td>'+
                 '<td><a class="btn btn-danger" onclick="deleteTrRow(this)">删除</a></td>'+
             '</tr>';
             $("#zigongcheng").append(str);
+            //点击文本框设置背景色
+            $(".notempty").focus(function(){
+                $(this).css("background-color","#fff");
+            });
         }
         //提交数据时验证数据信息
         function form_submit(){

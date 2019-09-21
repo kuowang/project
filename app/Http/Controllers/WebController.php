@@ -187,22 +187,28 @@ class WebController extends Controller
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public  function getSystem(){
         return DB::table('system_setting')->pluck('name','field');
     }
 
+    //修改每个项目的工程数量
+    public function setProjectEnginNumber($id){
+        $data =DB::table('engineering')->where('project_id',$id)
+            ->select(DB::raw('count(*) as status_count, status'))
+            ->groupby('status')
+            ->get();
+        if(empty($data)){
+            return false;
+        }
+        $list=[];
+        foreach($data as $v){
+            $list[$v->status] =$v->status_count;
+        }
+        $datalist['start_count']    =isset($list[0])?$list[0]:0;
+        $datalist['conduct_count']  =isset($list[1])?$list[1]:0;
+        $datalist['completed_count']=isset($list[2])?$list[2]:0;
+        $datalist['termination_count']=isset($list[4])?$list[4]:0;
+        DB::table('project')->where('id',$id)->update($datalist);
+        return true;
+    }
 }

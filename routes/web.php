@@ -90,6 +90,11 @@ Route::group(['prefix' => 'project','namespace' => 'Project','middleware' => 'au
     Route::get('/projectCompletedDetail/{id}',        'ProjectController@projectCompletedDetail');    //查看竣工项目工程信息
     Route::get('/projectTerminationDetail/{id}',      'ProjectController@projectTerminationDetail');    //查看终止项目工程信息
 
+    Route::get('/createdProjectEngin/{id}',           'ProjectController@createdProjectEngin');    //添加项目下的子工程
+    Route::post('/postProjectEngin/{id}',             'ProjectController@postProjectEngin');    //保存添加项目下的子工程
+    Route::get('/editProjectEngin/{id}',              'ProjectController@editProjectEngin');    //添加项目下的子工程
+    Route::get('/projectEnginDetail/{id}',              'ProjectController@projectEnginDetail');    //项目下的子工程详情
+
 
 
 });

@@ -46,29 +46,29 @@
             <div class="metro-nav">
                 @if(in_array(1502,$pageauth))
                     <div class="metro-nav-block nav-block-blue">
-                        <a href="/project/projectStart">
-                            <div class="fs1" aria-hidden="true" data-icon="">洽谈工程</div>
+                        <a href="/project/projectEnginStart/{{$id}}">
+                            <div class="fs1" aria-hidden="true" data-icon="">洽谈工程 ({{$project->start_count}})</div>
                         </a>
                     </div>
                 @endif
                 @if(in_array(1503,$pageauth))
                     <div class="metro-nav-block nav-block-green" style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
-                        <a href="/project/projectConduct">
-                            <div class="fs1"  data-icon="">实施工程</div>
+                        <a href="/project/projectEnginConduct/{{$id}}">
+                            <div class="fs1"  data-icon="">实施工程 ({{$project->conduct_count}})</div>
                         </a>
                     </div>
                 @endif
                 @if(in_array(1504,$pageauth))
                     <div class="metro-nav-block nav-block-yellow">
-                        <a href="/project/projectCompleted">
-                            <div class="fs1" aria-hidden="true" data-icon="">竣工工程</div>
+                        <a href="/project/projectEnginCompleted/{{$id}}">
+                            <div class="fs1" aria-hidden="true" data-icon="">竣工工程({{$project->completed_count}})</div>
                         </a>
                     </div>
                 @endif
                 @if(in_array(1505,$pageauth))
                     <div class="metro-nav-block nav-block-red">
-                        <a href="/project/projectTermination">
-                            <div class="fs1" aria-hidden="true" data-icon="">终止工程</div>
+                        <a href="/project/projectEnginTermination/{{$id}}">
+                            <div class="fs1" aria-hidden="true" data-icon="">终止工程 ({{$project->termination_count}})</div>
                         </a>
                     </div>
                 @endif
@@ -85,14 +85,7 @@
                             实施工程<a id="dynamicTable"></a>
                         </div>
                         <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
-                            <label>
-                                <form class="form-search" action="/project/projectConduct" method="get">
-                                    项目名称:<input type="text" name="project_name" value="{{ $project_name }}" class="input-medium search-query">
-                                    项目地点:<input type="text" name="address" value="{{ $address }}" class="input-medium search-query">
-                                    项目负责人:<input type="text" name="project_leader" value="{{ $project_leader }}" class="input-medium search-query">
-
-                                    <button type="submit" class="btn">搜索</button>
-                                </form></label>
+                            {{$project->project_name}}
                         </div>
                     </div>
                     <div class="widget-body">
@@ -102,17 +95,16 @@
                                 <thead>
                                 <tr>
                                     <th>序号</th>
-                                    <th>项目名称</th>
                                     <th>工程名称</th>
+                                    <th>工程地址</th>
                                     <th>建筑面积</th>
                                     <th>建筑层数</th>
-                                    <th>项目地址</th>
-                                    <th>项目负责人</th>
+                                    <th>建筑数量</th>
+                                    <th>合同编号</th>
+                                    <th>销售负责人</th>
                                     <th>设计负责人</th>
                                     <th>预算负责人</th>
                                     <th>合约负责人</th>
-                                    <th>项目状态</th>
-                                    <th>合同编号</th>
                                     <th>创建时间</th>
                                     <th>执行操作</th>
                                 </tr>
@@ -121,28 +113,26 @@
 
                                 @foreach ($data as $k=>$val)
                                     <tr>
-
                                         <td>{{ $k+1 }}</td>
-                                        <td >{{ $val->project_name }}</td>
                                         <td>{{ $val->engineering_name }}</td>
+                                        <td>{{$val->engin_address}}</td>
                                         <td>{{ $val->build_area }}</td>
                                         <td>{{ $val->build_floor }}</td>
-                                        <td>{{ $val->address_detail }}</td>
-                                        <td>{{ $val->project_leader }}</td>
-                                        <td>{{ $val->design_username }}</td>
-                                        <td>{{ $val->budget_username }}</td>
-                                        <td>{{ $val->technical_username }}</td>
-                                        <td><span class="btn btn-info">实施</span></td>
+                                        <td>{{$val->build_number}}</td>
                                         <td>{{$val->contract_code}}</td>
+                                        <td>{{$val->sale_username}}</td>
+                                        <td>{{$val->design_username}}</td>
+                                        <td>{{$val->budget_username}}</td>
+                                        <td>{{$val->technical_username}}</td>
                                         <td>{{ $val->created_at }}</td>
                                         <td class="td-manage">
                                             @if( (in_array(150301,$pageauth) && $val->created_uid == $uid ) || in_array(150301,$manageauth))
-                                                <a title="查看详情" class="btn btn-info"  href="/project/projectConductDetail/{{ $val->engineering_id }}">
+                                                <a title="查看详情" class="btn btn-info"  href="/project/projectConductDetail/{{ $val->id }}">
                                                     <i class="layui-icon">详情</i>
                                                 </a>
                                             @endif
                                             @if((in_array(150302,$pageauth) && $val->created_uid == $uid ) || in_array(150302,$manageauth))
-                                                <a title="编辑" class="btn btn-success"  href="/project/editConductProject/{{ $val->engineering_id }}">
+                                                <a title="编辑" class="btn btn-success"  href="/project/editConductProject/{{ $val->id }}">
                                                     <i class="layui-icon">编辑</i>
                                                 </a>
                                             @endif
@@ -152,12 +142,7 @@
 
                                 </tbody>
                             </table>
-                            <div>
-                                @php
-                                    echo $page;
-                                @endphp
 
-                            </div>
                             <div class="clearfix">
                             </div>
                         </div>

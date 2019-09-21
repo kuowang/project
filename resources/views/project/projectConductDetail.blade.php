@@ -14,6 +14,38 @@
     </style>
 <div class="left-sidebar">
     <div class="row-fluid">
+        <div class="metro-nav">
+            @if(in_array(1502,$pageauth))
+                <div class="metro-nav-block nav-block-blue">
+                    <a href="/project/projectEnginStart/{{$project->id}}">
+                        <div class="fs1" aria-hidden="true" data-icon="">洽谈工程 ({{$project->start_count}})</div>
+                    </a>
+                </div>
+            @endif
+            @if(in_array(1503,$pageauth))
+                <div class="metro-nav-block nav-block-green"  style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
+                    <a href="/project/projectEnginConduct/{{$project->id}}">
+                        <div class="fs1" aria-hidden="true" data-icon="">实施工程 ({{$project->conduct_count}})</div>
+                    </a>
+                </div>
+            @endif
+            @if(in_array(1504,$pageauth))
+                <div class="metro-nav-block nav-block-yellow">
+                    <a href="/project/projectEnginCompleted/{{$project->id}}">
+                        <div class="fs1" aria-hidden="true" data-icon="">竣工工程 ({{$project->completed_count}})</div>
+                    </a>
+                </div>
+            @endif
+            @if(in_array(1505,$pageauth))
+                <div class="metro-nav-block nav-block-red">
+                    <a href="/project/projectEnginTermination/{{$project->id}}">
+                        <div class="fs1" aria-hidden="true" data-icon="">终止工程 ({{$project->termination_count}})</div>
+                    </a>
+                </div>
+            @endif
+        </div>
+    </div>
+    <div class="row-fluid">
         <div class="span12">
             <div class="widget">
                 <div class="widget-header" style="text-align: center">
@@ -23,15 +55,7 @@
                 </div>
                 <div class="widget-body">
                     <div id="dt_example" class="example_alt_pagination">
-                        <table class="layui-table layui-form">
 
-                            <tbody>
-                            <tr>
-                                <td  class="pro-title">项目(子工程)状态</td>
-                                <td>实施工程</td>
-                            </tr>
-                            </tbody>
-                        </table>
                         <table class="layui-table layui-form">
                             <thead>
                             <tr>

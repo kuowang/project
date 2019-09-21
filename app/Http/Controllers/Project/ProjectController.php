@@ -26,6 +26,10 @@ class ProjectController extends WebController
     {
         $this->user();
         $data=$this->projectEngin($request,$id,0);
+        $data['project']=DB::table('project')->where('id',$id)->first();
+        if(empty($data['project'])){
+            return redirect('/project/projectStart?status=2&notice='.'项目不存在');
+        }
         $data['subnavid']   =1502;
         if( !(in_array(1502,$this->user()->pageauth)) && !in_array(1502,$this->user()->manageauth)){
             return redirect('/home');
@@ -42,6 +46,10 @@ class ProjectController extends WebController
     {
         $this->user();
         $data=$this->projectEngin($request,$id,1);
+        $data['project']=DB::table('project')->where('id',$id)->first();
+        if(empty($data['project'])){
+            return redirect('/project/projectStart?status=2&notice='.'项目不存在');
+        }
         $data['subnavid']   =1503;
         if( !(in_array(1503,$this->user()->pageauth)) && !in_array(1503,$this->user()->manageauth)){
             return redirect('/project/projectStart?status=2&notice='.'您没有操作该功能权限');
@@ -58,6 +66,10 @@ class ProjectController extends WebController
     {
         $this->user();
         $data=$this->projectEngin($request,$id,2);
+        $data['project']=DB::table('project')->where('id',$id)->first();
+        if(empty($data['project'])){
+            return redirect('/project/projectStart?status=2&notice='.'项目不存在');
+        }
         $data['subnavid']   =1504;
         if( !(in_array(1504,$this->user()->pageauth)) && !in_array(1504,$this->user()->manageauth)){
             return redirect('/project/projectStart?status=2&notice='.'您没有操作该功能权限');
@@ -74,6 +86,10 @@ class ProjectController extends WebController
     {
         $this->user();
         $data=$this->projectEngin($request,$id,4);
+        $data['project']=DB::table('project')->where('id',$id)->first();
+        if(empty($data['project'])){
+            return redirect('/project/projectStart?status=2&notice='.'项目不存在');
+        }
         $data['subnavid']   =1505;
         if( !(in_array(1505,$this->user()->pageauth)) && !in_array(1505,$this->user()->manageauth)){
             return redirect('/project/projectStart?status=2&notice='.'您没有操作该功能权限');
@@ -85,10 +101,7 @@ class ProjectController extends WebController
 
     //项目工程信息列表 $id 为项目id
     private function projectEngin($request,$id,$status=0){
-        $data['project']=DB::table('project')->where('id',$id)->first();
-        if(empty($data['project'])){
-            return redirect('/project/projectStart?status=2&notice='.'项目不存在');
-        }
+
         $data['data']=$this->getProjectEnginList($id,$status);
         $data['navid']      =15;
         $data['id']     =$id;
@@ -99,6 +112,7 @@ class ProjectController extends WebController
     protected function getProjectEnginList($id,$status)
     {
         $data=DB::table('engineering')
+            ->where('project_id',$id)
             ->where('engineering.status',$status)
             ->orderby('engineering.engineering_name','asc')
             ->get();
@@ -143,6 +157,7 @@ class ProjectController extends WebController
         $data["project_leader"]     =$request->input('project_leader','');
         $data["project_job"]        =$request->input('project_job','');
         $data["project_contact"]    =$request->input('project_contact','');
+        $data["sale_uid"]           =$request->input('sale_uid',0);
         $data["design_uid"]         =$request->input('design_uid',0);
         $data["budget_uid"]         =$request->input('budget_uid',0);
         $data["technical_uid"]      =$request->input('technical_uid',0);
@@ -169,20 +184,27 @@ class ProjectController extends WebController
         $data["is_supply"]          =$request->input('is_supply',0);
         $data["is_guidance"]        =$request->input('is_guidance',0);
         $data["is_installation"]    =$request->input('is_installation',0);
-        $userlist =DB::table('users')->wherein('id',[$data["design_uid"],$data["budget_uid"],$data["technical_uid"]])->pluck('name','id')->toarray();
+        $userlist =DB::table('users')
+            ->wherein('id',[$data["design_uid"],$data["budget_uid"],$data["technical_uid"],$data["sale_uid"]])
+            ->pluck('name','id')->toarray();
+        if(isset($userlist[$data["sale_uid"]])){
+            $data["sale_username"] =$userlist[$data["sale_uid"]];
+        }elseif($data['sale_uid']){
+            return redirect('/project/projectStart?status=2&notice='.'销售人员不存在');
+        }
         if(isset($userlist[$data["design_uid"]])){
             $data["design_username"] =$userlist[$data["design_uid"]];
-        }else{
+        }elseif($data["design_uid"]){
             return redirect('/project/projectStart?status=2&notice='.'设计人员不存在');
         }
         if(isset($userlist[$data["budget_uid"]])){
             $data["budget_username"] =$userlist[$data["budget_uid"]];
-        }else{
+        }elseif($data["budget_uid"]){
             return redirect('/project/projectStart?status=2&notice='.'预算人员不存在');
         }
         if(isset($userlist[$data["technical_uid"]])){
             $data["technical_username"] =$userlist[$data["technical_uid"]];
-        }else{
+        }elseif($data["technical_uid"]){
             return redirect('/project/projectStart?status=2&notice='.'技术支持人员不存在');
         }
         $data['created_uid']=$this->user()->id;
@@ -201,17 +223,19 @@ class ProjectController extends WebController
         $customer['username'] =$this->user()->name;
 
         $customer_id =DB::table('customer')->insertGetId($customer);
-
-        $data['customer_id'] =$customer_id;
-        //保存项目信息
-        $project_id =DB::table('project')->insertGetId($data);
-
         //保存子工程信息
-        $engineering_name=$request->input('engineering_name',[]);
         $build_area=$request->input('build_area',[]);
         $build_floor=$request->input('build_floor',[]);
         $build_height=$request->input('build_height',[]);
         $indoor_height =$request->input('indoor_height',[]);
+        $build_number=$request->input('build_number',[]);
+        $engineering_name=$request->input('engineering_name',[]);
+
+        $data['start_count'] =count($engineering_name);
+        $data['customer_id'] =$customer_id;
+        //保存项目信息
+        $project_id =DB::table('project')->insertGetId($data);
+
         if(count($build_height) != count($engineering_name) || count($build_area) != count($build_floor)){
             return redirect('/project/projectStart?status=2&notice='.'子工程信息缺失');
         }
@@ -221,16 +245,18 @@ class ProjectController extends WebController
                 $datalist[]=[
                     'project_id'=>$project_id,
                     'engineering_name'=>$v,
-                    'build_area'=>(float)$build_area[$k],
-                    'build_floor'=>(int)$build_floor[$k],
-                    'build_height'=>(float)$build_height[$k],
-                    'indoor_height'=>(float)$indoor_height[$k],
+                    'build_area'=>isset($build_area[$k])?(float)$build_area[$k]:1,
+                    'build_floor'=>isset($build_floor[$k])?(int)$build_floor[$k]:1,
+                    'build_height'=>isset($build_height[$k])?(float)$build_height[$k]:1,
+                    'indoor_height'=>isset($indoor_height[$k])?(float)$indoor_height[$k]:1,
+                    'build_number'=>isset($build_number[$k])?(int)$build_number[$k]:1,
                     'created_uid'=>$this->user()->id,
                     'created_at'=>date('Y-m-d'),
                 ];
             }
             DB::table('engineering')->insert($datalist);
         }
+        $this->setProjectEnginNumber($project_id);
         return redirect('/project/projectStart?status=1&notice='.'创建项目成功');
 
     }
@@ -239,17 +265,23 @@ class ProjectController extends WebController
     {
         $this->user();
         $data['navid']      =15;
-        $data['subnavid']   =1502;
-        $engineering =DB::table('engineering')->where('id',$id)->first();
-        if(empty($engineering)){
-            return redirect('/project/projectStart?status=2&notice='.'该工程不存在');
+        $type =$request->input('type','start');
+        if($type =='conduct'){
+            $data['subnavid']   =1503;
+        }elseif($type =='completed'){
+            $data['subnavid']   =1504;
+        }elseif($type=='termination'){
+            $data['subnavid']   =1505;
+        }else{
+            $data['subnavid']   =1502;
         }
-        $project =DB::table('project')->where('id',$engineering->project_id)->first();
+        $project =DB::table('project')->where('id',$id)->first();
         if( (in_array(150201,$this->user()->pageauth) && $project->created_uid == $this->user()->id ) || in_array(150201,$this->user()->manageauth)){
         }else{
             return redirect('/project/projectStart?status=2&notice='.'您没有权限查看该项目信息');
         }
-        $data['engineering'][0]=$engineering;
+        $engineering =DB::table('engineering')->where('project_id',$id)->get();
+        $data['engineering']=$engineering;
         $data['project']    =$project;
         return view('project.projectDetail',$data);
     }
@@ -258,23 +290,31 @@ class ProjectController extends WebController
     public function editProject(Request $request,$id)
     {
         $this->user();
-        $this->user();
         $data['navid']      =15;
         $data['subnavid']   =1502;
-        $engineering =DB::table('engineering')->where('id',$id)->first();
-        if(empty($engineering)){
-            return redirect('/project/projectStart?status=2&notice='.'该工程不存在');
+        $project =DB::table('project')->where('id',$id)->first();
+        if(empty($project)){
+            return redirect('/project/projectStart?status=2&notice='.'项目不存在');
         }
-        $project =DB::table('project')->where('id',$engineering->project_id)->first();
-        if( (in_array(150202,$this->user()->pageauth) && $project->created_uid == $this->user()->id ) || in_array(150202,$this->user()->manageauth)){
+        if((in_array(150202,$this->user()->pageauth) && $project->created_uid == $this->user()->id ) || in_array(150202,$this->user()->manageauth)){
         }else{
             return redirect('/project/projectStart?status=2&notice='.'您没有权限查看该项目信息');
         }
-        $data['engineering'][0]=$engineering;
+        $engineering =DB::table('engineering')->where('project_id',$id)->get();
+        if(empty($engineering)){
+            return redirect('/project/projectStart?status=2&notice='.'该工程不存在');
+        }
+        $type=$request->input('type','start');
+        if($type == 'conduct'){
+            $data['subnavid']   =1503;
+        }else{
+            $data['subnavid']   =1502;
+        }
+        $data['statustype'] =$type;
+
+        $data['engineering']=$engineering;
         $data['project']    =$project;
         $data['id']=$project->id;
-        $data['engin_id']=$engineering->id;
-
         $data['userList']=DB::table('users')->where('status',1)->orderby('name')->select(['id','name','department_id'])->get();
         return view('project.editProject',$data);
     }
@@ -291,7 +331,7 @@ class ProjectController extends WebController
         }else{
             return redirect('/project/projectStart?status=2&notice='.'您没有操作该功能权限');
         }
-
+        $statustype =$request->input('statustype','start');
         $data["project_name"]       =$request->input('project_name','');
         $data["country"]            =$request->input('country','');
         $data["type"]               =$request->input('type','');
@@ -311,6 +351,8 @@ class ProjectController extends WebController
         $data["project_leader"]     =$request->input('project_leader','');
         $data["project_job"]        =$request->input('project_job','');
         $data["project_contact"]    =$request->input('project_contact','');
+        $data["sale_uid"]           =$request->input('sale_uid',0);
+
         $data["design_uid"]         =$request->input('design_uid',0);
         $data["budget_uid"]         =$request->input('budget_uid',0);
         $data["technical_uid"]      =$request->input('technical_uid',0);
@@ -338,8 +380,15 @@ class ProjectController extends WebController
         $data["is_supply"]          =$request->input('is_supply',0);
         $data["is_guidance"]        =$request->input('is_guidance',0);
         $data["is_installation"]    =$request->input('is_installation',0);
-        $userlist =DB::table('users')->wherein('id',[$data["design_uid"],$data["budget_uid"],$data["technical_uid"]])->pluck('name','id')->toarray();
-
+        $userlist =DB::table('users')
+            ->wherein('id',[$data["design_uid"],$data["budget_uid"], $data["technical_uid"],$data["sale_uid"]])
+            ->pluck('name','id')
+            ->toarray();
+        if(isset($userlist[$data["sale_uid"]])){
+            $data["sale_username"] =$userlist[$data["sale_uid"]];
+        }else{
+            return redirect('/project/projectStart?status=2&notice='.'销售人员不存在');
+        }
         if(isset($userlist[$data["design_uid"]])){
             $data["design_username"] =$userlist[$data["design_uid"]];
         }else{
@@ -380,6 +429,7 @@ class ProjectController extends WebController
         $build_floor=$request->input('build_floor',[]);
         $build_height=$request->input('build_height',[]);
         $indoor_height =$request->input('indoor_height',[]);
+        $build_number =$request->input('build_number',[]);
         if(count($engineering_id) != count($engineering_name) || count($build_area) != count($build_floor)){
             return redirect('/project/projectStart?status=2&notice='.'子工程信息缺失');
         }
@@ -388,10 +438,11 @@ class ProjectController extends WebController
                 $datalist=[
                     'project_id'=>$id,
                     'engineering_name'=>$engineering_name[$k],
-                    'build_area'=>(float)$build_area[$k],
-                    'build_floor'=>(int)$build_floor[$k],
-                    'build_height'=>(float)$build_height[$k],
-                    'indoor_height'=>(float)$indoor_height[$k],
+                    'build_area'=>isset($build_area[$k])?(float)$build_area[$k]:1,
+                    'build_floor'=>isset($build_floor[$k])?(int)$build_floor[$k]:1,
+                    'build_height'=>isset($build_height[$k])?(float)$build_height[$k]:1,
+                    'indoor_height'=>isset($indoor_height[$k])?(float)$indoor_height[$k]:1,
+                    'build_number'=>isset($build_number[$k])?(int)$build_number[$k]:1,
                     'created_uid'=>$this->user()->id,
                     'created_at'=>date('Y-m-d'),
                 ];
@@ -403,7 +454,13 @@ class ProjectController extends WebController
 
             }
         }
-        return redirect('/project/projectStart?status=1&notice='.'项目修改成功');
+        $this->setProjectEnginNumber($id);
+        if($statustype == 'conduct'){
+            return redirect('/project/projectConduct?status=1&notice='.'项目修改成功');
+        }else{
+            return redirect('/project/projectStart?status=1&notice='.'项目修改成功');
+        }
+
 
     }
 
@@ -435,14 +492,15 @@ class ProjectController extends WebController
             $data['termination_at'] =date('Y-m-d');//终止时间
         }
         DB::table('engineering')->where('id',$id)->update($data);
+        $this->setProjectEnginNumber($engin->project_id);
         if($status == 1){
-            return redirect('/project/projectConduct?status=1&notice='.'项目状态更改成功！');
+            return redirect('/project/projectEnginConduct/'.$engin->project_id.'?status=1&notice='.'项目状态更改成功！');
         }elseif($status == 2){
-            return redirect('/project/projectCompleted?status=1&notice='.'项目状态更改成功！');
+            return redirect('/project/projectEnginCompleted/'.$engin->project_id.'?status=1&notice='.'项目状态更改成功！');
         }elseif($status == 4){
-            return redirect('/project/projectTermination?status=1&notice='.'项目状态更改成功！');
+            return redirect('/project/projectEnginTermination/'.$engin->project_id.'?status=1&notice='.'项目状态更改成功！');
         }else{
-            return redirect('/project/projectStart?status=1&notice='.'项目状态更改成功！');
+            return redirect('/project/projectEnginStart/'.$engin->project_id.'?status=1&notice='.'项目状态更改成功！');
         }
     }
     //编辑实施项目信息
@@ -513,7 +571,7 @@ class ProjectController extends WebController
                 }
             }
         }
-        return redirect('/project/projectConduct?status=1&notice='.'编辑项目工程信息成功');
+        return redirect('/project/projectEnginConduct/'.$engineering->project_id.'?status=1&notice='.'编辑项目工程信息成功');
     }
 //编辑实施项目信息
     public function projectConductDetail(Request $request,$id)
@@ -723,10 +781,141 @@ class ProjectController extends WebController
         return $data;
     }
 
+    //创建项目的新工程
+    public function createdProjectEngin($id){
+        $this->user();
+        if( !(in_array(1501,$this->user()->pageauth)) && !in_array(1501,$this->user()->manageauth)){
+            return redirect('/project/projectStart?status=2&notice='.'您没有操作该功能权限');
+        }
+        $data['navid']      =15;
+        $data['subnavid']   =1502;
+        $project =DB::table('project')->where('id',$id)->first();
+        $data['project']=$project;
+        $data['id']=$id;
+        $data['userList']=DB::table('users')->where('status',1)->orderby('name')->select(['id','name','department_id'])->get();
+        return view('project.engin.createdProjectEngin',$data);
+    }
+    //编辑项目的工程信息
+    public function editProjectEngin($id){
+        $this->user();
+        $engineering =DB::table('engineering')->where('id',$id)->first();
+        if(empty($engineering)){
+            return redirect('/project/projectStart?status=2&notice='.'该工程不存在');
+        }
+        $project =DB::table('project')->where('id',$engineering->project_id)->first();
+        if( (in_array(150202,$this->user()->pageauth) && $project->created_uid == $this->user()->id ) || in_array(150202,$this->user()->manageauth)){
+        }else{
+            return redirect('/project/projectStart?status=2&notice='.'您没有权限查看该项目信息');
+        }
+        $data['navid']      =15;
+        $data['subnavid']   =1502;
+        $data['project']=$project;
+        $data['engin'] =$engineering;
+        $data['id']=$id;
 
+        $data['userList']=DB::table('users')->where('status',1)->orderby('name')->select(['id','name','department_id'])->get();
+        //项目动态信息
+        $data['dynamic'] =DB::table('enginnering_dynamic')->where('enginnering_id',$id)->orderby('dynamic_date')->get();
+        return view('project.engin.editProjectEngin',$data);
+    }
+    //项目的工程信息详情
+    public function projectEnginDetail($id){
+        $this->user();
+        $engineering =DB::table('engineering')->where('id',$id)->first();
+        if(empty($engineering)){
+            return redirect('/project/projectStart?status=2&notice='.'该工程不存在');
+        }
+        $project =DB::table('project')->where('id',$engineering->project_id)->first();
+        if( (in_array(150202,$this->user()->pageauth) && $project->created_uid == $this->user()->id ) || in_array(150202,$this->user()->manageauth)){
+        }else{
+            return redirect('/project/projectStart?status=2&notice='.'您没有权限查看该项目信息');
+        }
+        $data['navid']      =15;
+        $data['subnavid']   =1502;
+        $data['project']=$project;
+        $data['engin'] =$engineering;
+        $data['id']=$id;
 
+        $data['userList']=DB::table('users')->where('status',1)->orderby('name')->select(['id','name','department_id'])->get();
+        //项目动态信息
+        $data['dynamic'] =DB::table('enginnering_dynamic')->where('enginnering_id',$id)->orderby('dynamic_date')->get();
+        return view('project.engin.projectEnginDetail',$data);
+    }
 
+    //保存项目新工程
+    public function postProjectEngin(Request $request,$id){
 
+        $engin_id   =$request->input('engin_id',0);
+        $data['engineering_name']   =$request->input('engineering_name','');
+        $data['engin_address']  =$request->input('engin_address','');
+        $data['build_area'] =(float)$request->input('build_area',0);
+        $data['build_floor']    =(int)$request->input('build_floor',1);
+        $data['build_number']   =(int)$request->input('build_number',1);
+        $data['indoor_height']   =(int)$request->input('indoor_height',1);
+        $data['build_height']   =(float)$request->input('build_height',1);
 
+        $data['sale_uid'] =$request->input('sale_uid','');
+        $data['design_uid'] =$request->input('design_uid','');
+        $data['budget_uid'] =$request->input('budget_uid','');
+        $data['technical_uid']  =$request->input('technical_uid','');
+        $userlist =DB::table('users')
+            ->wherein('id',[$data["design_uid"],$data["budget_uid"],$data["technical_uid"],$data["sale_uid"]])
+            ->pluck('name','id')->toarray();
+        if(isset($userlist[$data["sale_uid"]])){
+            $data["sale_username"] =$userlist[$data["sale_uid"]];
+        }elseif($data['sale_uid']){
+            return redirect('/project/projectEnginStart/'.$id.'?status=2&notice='.'销售人员不存在');
+        }
+        if(isset($userlist[$data["design_uid"]])){
+            $data["design_username"] =$userlist[$data["design_uid"]];
+        }elseif($data["design_uid"]){
+            return redirect('/project/projectEnginStart/'.$id.'?status=2&notice='.'设计人员不存在');
+        }
+        if(isset($userlist[$data["budget_uid"]])){
+            $data["budget_username"] =$userlist[$data["budget_uid"]];
+        }elseif($data["budget_uid"]){
+            return redirect('/project/projectEnginStart/'.$id.'?status=2&notice='.'预算人员不存在');
+        }
+        if(isset($userlist[$data["technical_uid"]])){
+            $data["technical_username"] =$userlist[$data["technical_uid"]];
+        }elseif($data["technical_uid"]){
+            return redirect('/project/projectEnginStart/'.$id.'?status=2&notice='.'技术支持人员不存在');
+        }
+        $data['project_id']=$id;
+        if($engin_id ==0){
+            $data['created_uid']=$this->user()->id;
+            $data['created_at'] =date('Y-m-d');
+            $engin_id =DB::table('engineering')->insertGetId($data);
+
+        }else{
+            $data['edit_uid']=$this->user()->id;
+            $data['updated_at'] =date('Y-m-d');
+            DB::table('engineering')->where('id',$engin_id)->update($data);
+        }
+        $dynamic_id   =$request->input('dynamic_id',[]);
+        $dynamic_date   =$request->input('dynamic_date',[]);
+        $dynamic_content   =$request->input('dynamic_content',[]);
+        if(count($dynamic_id) >0){
+            foreach($dynamic_id as $k=>$v){
+                $datalist=[
+                    'project_id'=>$id,
+                    'enginnering_id'=>$engin_id,
+                    'dynamic_date'=>$dynamic_date[$k],
+                    'dynamic_content'=>$dynamic_content[$k],
+                ];
+                if($v == 0){
+                    $datalist['created_uid'] =$this->user()->id;
+                    $datalist['created_at'] =date('Y-m-d');
+                    DB::table('enginnering_dynamic')->insert($datalist);
+                }else{
+                    $datalist['edit_uid'] =$this->user()->id;
+                    $datalist['updated_at'] =date('Y-m-d');
+                    DB::table('enginnering_dynamic')->where('id',(int)$v)->update($datalist);
+                }
+            }
+        }
+        $this->setProjectEnginNumber($id);
+        return redirect('/project/projectEnginStart/'.$id);
+    }
 
 }
