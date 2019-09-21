@@ -318,6 +318,7 @@ class BudgetController extends WebController
             $data['termination_at'] =date('Y-m-d');//终止时间
         }
         DB::table('engineering')->where('id',$id)->update($data);
+        $this->setProjectEnginNumber($engin->project_id);
         if($status == 1){
             return redirect('/budget/budgetConduct?status=1&notice='.'项目状态更改成功！');
         }elseif($status == 2){
