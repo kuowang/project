@@ -286,7 +286,7 @@
                         <div class="clearfix"></div>
                         <table class="layui-table layui-form">
                             <thead>
-                            <tr><th colspan="6"><span class="btn btn-info">项目负责人信息</span></th></tr>
+                            <tr><th colspan="6"><span class="btn btn-info">客户方负责人信息</span></th></tr>
                             </thead>
                             <tbody>
                             <tr>
@@ -303,29 +303,31 @@
                                     <input type="text"  name="customer_contact" class="span8 notempty"  value="{{ $project->customer_contact }}" lay-skin="primary" >
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="pro-title">负责人姓名（我方）</td>
-                                <td>
-                                    <input type="text"  name="project_leader" class="span8 notempty"  value="{{ $project->project_leader }}" lay-skin="primary" >
-                                </td>
-                                <td class="pro-title">负责人职位（我方）</td>
-                                <td>
-                                    <input type="text"  name="project_job" class="span8 notempty"  value="{{ $project->project_job }}" lay-skin="primary" >
-                                </td>
-                                <td class="pro-title">负责人电话（我方）</td>
-                                <td>
-                                    <input type="text"  name="project_contact" class="span8 notempty"  value="{{ $project->project_contact }}" lay-skin="primary" >
-                                </td>
-                            </tr>
                             </tbody>
                         </table>
                         <div class="clearfix"></div>
                         <table class="layui-table layui-form">
                             <thead>
-                            <tr><th colspan="8"><span class="btn btn-info">项目支持信息</span></th></tr>
+                            <tr><th colspan="10"><span class="btn btn-info">项目负责人信息（我方）</span></th></tr>
                             </thead>
                             <tbody>
                             <tr>
+                                <td class="pro-title">项目总负责人</td>
+                                <td>
+                                    <select name="project_uid" id="project_uid" class="input-medium search-query notempty" style="min-width: 80px">
+                                        <option value="0" ></option>
+                                        @foreach($userList as $u)
+                                            @if($u->department_id == 2)
+                                                @if($u->id == $project->project_uid)
+                                                    <option value="{{$u->id}}" selected="selected">{{$u->name}}</option>
+                                                @else
+                                                    <option value="{{$u->id}}" >{{$u->name}}</option>
+                                                @endif
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </td>
+
                                 <td class="pro-title">销售总负责人</td>
                                 <td>
                                     <select name="sale_uid" id="sale_uid" class="input-medium search-query notempty" style="min-width: 80px">

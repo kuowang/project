@@ -5621,7 +5621,8 @@ header {
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
     .metro-nav div{
-        line-height: 60px;
+        line-height: 65px;
+        margin-right: 5px;
     }
     .metro-nav img{
         height:35px;

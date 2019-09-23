@@ -188,7 +188,7 @@
                         <div class="clearfix"></div>
                         <table class="layui-table layui-form">
                             <thead>
-                            <tr><th colspan="6"><span class="btn btn-info">项目负责人信息</span></th></tr>
+                            <tr><th colspan="6"><span class="btn btn-info">客户方负责人信息</span></th></tr>
                             </thead>
                             <tbody>
                             <tr>
@@ -199,23 +199,17 @@
                                 <td class="pro-title">负责人电话（客户方）</td>
                                 <td>{{$project->customer_contact}}</td>
                             </tr>
-                            <tr>
-                                <td class="pro-title">负责人姓名（我方）</td>
-                                <td>{{$project->project_leader}}</td>
-                                <td class="pro-title">负责人职位（我方）</td>
-                                <td>{{$project->project_job}}</td>
-                                <td class="pro-title">负责人电话（我方）</td>
-                                <td>{{$project->project_contact}}</td>
-                            </tr>
                             </tbody>
                         </table>
                         <div class="clearfix"></div>
                         <table class="layui-table layui-form">
                             <thead>
-                            <tr><th colspan="8"><span class="btn btn-info">项目支持人员信息</span></th></tr>
+                            <tr><th colspan="10"><span class="btn btn-info">项目负责人信息（我方）</span></th></tr>
                             </thead>
                             <tbody>
                             <tr>
+                                <td class="pro-title">项目总负责人</td>
+                                <td>{{$project->project_leader}}</td>
                                 <td class="pro-title">销售总负责人</td>
                                 <td>{{$project->sale_username}}</td>
                                 <td class="pro-title">设计总负责人</td>

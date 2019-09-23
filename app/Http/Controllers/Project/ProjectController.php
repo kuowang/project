@@ -119,7 +119,7 @@ class ProjectController extends WebController
         $data['address']        =$address;
         $data['project_leader']=$project_leader;
         $datalist=$this->getProjectEnginList($id,$status,$project_name,$address,$project_leader,$page,$rows);
-        $str=($id =0)?'/'.$id:'?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
+        $str=($id ==0)?'/'.$id:'?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
         if($status == 0){
             $url='/project/projectEnginStart'.$str;
         }elseif($status == 1){
@@ -144,6 +144,9 @@ class ProjectController extends WebController
         $db=DB::table('engineering')
             ->join('project','project.id','=','engineering.project_id')
             ->where('engineering.status',$status);
+        if($id !=0){
+            $db ->where('engineering.project_id',$id);
+        }
         if(!empty($project_name)){
             $db->where('project_name','like','%'.$project_name.'%');
         }
@@ -203,9 +206,7 @@ class ProjectController extends WebController
         $data["customer_leader"]    =$request->input('customer_leader','');
         $data["customer_job"]       =$request->input('customer_job','');
         $data["customer_contact"]   =$request->input('customer_contact','');
-        $data["project_leader"]     =$request->input('project_leader','');
-        $data["project_job"]        =$request->input('project_job','');
-        $data["project_contact"]    =$request->input('project_contact','');
+        $data["project_uid"]        =$request->input('project_uid','');
         $data["sale_uid"]           =$request->input('sale_uid',0);
         $data["design_uid"]         =$request->input('design_uid',0);
         $data["budget_uid"]         =$request->input('budget_uid',0);
@@ -234,8 +235,14 @@ class ProjectController extends WebController
         $data["is_guidance"]        =$request->input('is_guidance',0);
         $data["is_installation"]    =$request->input('is_installation',0);
         $userlist =DB::table('users')
-            ->wherein('id',[$data["design_uid"],$data["budget_uid"],$data["technical_uid"],$data["sale_uid"]])
+            ->wherein('id',[$data["design_uid"],$data["budget_uid"],$data["technical_uid"],$data["sale_uid"],$data["project_uid"]])
             ->pluck('name','id')->toarray();
+
+        if(isset($userlist[$data["project_uid"]])){
+            $data["project_leader"] =$userlist[$data["project_uid"]];
+        }elseif($data['project_uid']){
+            return redirect('/project/projectStart?status=2&notice='.'销售人员不存在');
+        }
         if(isset($userlist[$data["sale_uid"]])){
             $data["sale_username"] =$userlist[$data["sale_uid"]];
         }elseif($data['sale_uid']){
@@ -398,11 +405,8 @@ class ProjectController extends WebController
         $data["customer_leader"]    =$request->input('customer_leader','');
         $data["customer_job"]       =$request->input('customer_job','');
         $data["customer_contact"]   =$request->input('customer_contact','');
-        $data["project_leader"]     =$request->input('project_leader','');
-        $data["project_job"]        =$request->input('project_job','');
-        $data["project_contact"]    =$request->input('project_contact','');
+        $data["project_uid"]        =$request->input('project_uid',0);
         $data["sale_uid"]           =$request->input('sale_uid',0);
-
         $data["design_uid"]         =$request->input('design_uid',0);
         $data["budget_uid"]         =$request->input('budget_uid',0);
         $data["technical_uid"]      =$request->input('technical_uid',0);
@@ -410,7 +414,7 @@ class ProjectController extends WebController
         $data["project_limit_time"] =$request->input('project_limit_time',0);
 
         foreach($data as $v){
-            if(empty($v) && $v =='0'){
+            if(empty($v) && $v !== 0){
                 echo"<script>alert('内容不能为空');history.go(-1);</script>";
             }
         }
@@ -431,28 +435,33 @@ class ProjectController extends WebController
         $data["is_guidance"]        =$request->input('is_guidance',0);
         $data["is_installation"]    =$request->input('is_installation',0);
         $userlist =DB::table('users')
-            ->wherein('id',[$data["design_uid"],$data["budget_uid"], $data["technical_uid"],$data["sale_uid"]])
+            ->wherein('id',[$data["design_uid"],$data["budget_uid"], $data["technical_uid"],$data["sale_uid"],$data["project_uid"]])
             ->pluck('name','id')
             ->toarray();
+        if(isset($userlist[$data["project_uid"]])){
+            $data["project_leader"] =$userlist[$data["project_uid"]];
+        }elseif($data['project_uid']){
+            return redirect('/project/projectStart?status=2&notice='.'总负责人不存在');
+        }
         if(isset($userlist[$data["sale_uid"]])){
             $data["sale_username"] =$userlist[$data["sale_uid"]];
         }else{
-            return redirect('/project/projectStart?status=2&notice='.'销售人员不存在');
+            return redirect('/project/projectStart?status=2&notice='.'销售总负责人不存在');
         }
         if(isset($userlist[$data["design_uid"]])){
             $data["design_username"] =$userlist[$data["design_uid"]];
         }else{
-            return redirect('/project/projectStart?status=2&notice='.'设计人员不存在');
+            return redirect('/project/projectStart?status=2&notice='.'设计总负责人不存在');
         }
         if(isset($userlist[$data["budget_uid"]])){
             $data["budget_username"] =$userlist[$data["budget_uid"]];
         }else{
-            return redirect('/project/projectStart?status=2&notice='.'预算人员不存在');
+            return redirect('/project/projectStart?status=2&notice='.'预算总负责人不存在');
         }
         if(isset($userlist[$data["technical_uid"]])){
             $data["technical_username"] =$userlist[$data["technical_uid"]];
         }else{
-            return redirect('/project/projectStart?status=2&notice='.'技术支持人员不存在');
+            return redirect('/project/projectStart?status=2&notice='.'技术支持总负责人不存在');
         }
         $data['created_uid']=$this->user()->id;
         $data['created_at']=date('Y-m-d');
