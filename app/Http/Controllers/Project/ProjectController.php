@@ -456,7 +456,7 @@ class ProjectController extends WebController
         if(isset($userlist[$data["budget_uid"]])){
             $data["budget_username"] =$userlist[$data["budget_uid"]];
         }else{
-            return redirect('/project/projectStart?status=2&notice='.'预算总负责人不存在');
+            return redirect('/project/projectStart?status=2&notice='.'预算报价总负责人不存在');
         }
         if(isset($userlist[$data["technical_uid"]])){
             $data["technical_username"] =$userlist[$data["technical_uid"]];

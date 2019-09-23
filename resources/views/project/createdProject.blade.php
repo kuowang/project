@@ -319,7 +319,7 @@
                                        @endforeach
                                     </select>
                                 </td>
-                                <td class="pro-title">预算总负责人</td>
+                                <td class="pro-title">预算报价总负责人</td>
                                 <td>
                                     <select name="budget_uid" id="budget_uid" class="input-medium search-query notempty" style="min-width: 80px">
                                         <option value="0" ></option>

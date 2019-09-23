@@ -214,7 +214,7 @@
                                 <td>{{$project->sale_username}}</td>
                                 <td class="pro-title">设计总负责人</td>
                                 <td>{{$project->design_username}}</td>
-                                <td class="pro-title">预算总负责人</td>
+                                <td class="pro-title">预算报价总负责人</td>
                                 <td>{{$project->budget_username}}</td>
                                 <td class="pro-title">合约总负责人</td>
                                 <td>{{$project->technical_username}}</td>
