@@ -137,6 +137,7 @@ class PurchaseController extends WebController
             $data['termination_at'] =date('Y-m-d');//终止时间
         }
         DB::table('engineering')->where('id',$id)->update($data);
+        //设置项目工程数量和建筑总面积
         $this->setProjectEnginNumber($engin->project_id);
        if($status == 2){
             return redirect('/purchase/purchaseConduct?status=1&notice='.'项目状态更改成功！');

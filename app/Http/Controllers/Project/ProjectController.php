@@ -22,13 +22,15 @@ class ProjectController extends WebController
      *洽谈项目工程列表
      * @return \Illuminate\Http\Response
      */
-    public function projectEnginStart(Request $request,$id)
+    public function projectEnginStart(Request $request,$id=0)
     {
         $this->user();
         $data=$this->projectEngin($request,$id,0);
-        $data['project']=DB::table('project')->where('id',$id)->first();
-        if(empty($data['project'])){
-            return redirect('/project/projectStart?status=2&notice='.'项目不存在');
+        if($id){
+            $data['project']=DB::table('project')->where('id',$id)->first();
+            if(empty($data['project'])){
+                return redirect('/project/projectStart?status=2&notice='.'项目不存在');
+            }
         }
         $data['subnavid']   =1502;
         if( !(in_array(1502,$this->user()->pageauth)) && !in_array(1502,$this->user()->manageauth)){
@@ -42,13 +44,15 @@ class ProjectController extends WebController
      *实施项目工程列表
      * @return \Illuminate\Http\Response
      */
-    public function projectEnginConduct(Request $request,$id)
+    public function projectEnginConduct(Request $request,$id=0)
     {
         $this->user();
         $data=$this->projectEngin($request,$id,1);
-        $data['project']=DB::table('project')->where('id',$id)->first();
-        if(empty($data['project'])){
-            return redirect('/project/projectStart?status=2&notice='.'项目不存在');
+        if($id){
+            $data['project']=DB::table('project')->where('id',$id)->first();
+            if(empty($data['project'])){
+                return redirect('/project/projectStart?status=2&notice='.'项目不存在');
+            }
         }
         $data['subnavid']   =1503;
         if( !(in_array(1503,$this->user()->pageauth)) && !in_array(1503,$this->user()->manageauth)){
@@ -62,13 +66,15 @@ class ProjectController extends WebController
      *竣工项目工程列表
      * @return \Illuminate\Http\Response
      */
-    public function projectEnginCompleted(Request $request,$id)
+    public function projectEnginCompleted(Request $request,$id=0)
     {
         $this->user();
         $data=$this->projectEngin($request,$id,2);
-        $data['project']=DB::table('project')->where('id',$id)->first();
-        if(empty($data['project'])){
-            return redirect('/project/projectStart?status=2&notice='.'项目不存在');
+        if($id){
+            $data['project']=DB::table('project')->where('id',$id)->first();
+            if(empty($data['project'])){
+                return redirect('/project/projectStart?status=2&notice='.'项目不存在');
+            }
         }
         $data['subnavid']   =1504;
         if( !(in_array(1504,$this->user()->pageauth)) && !in_array(1504,$this->user()->manageauth)){
@@ -82,13 +88,15 @@ class ProjectController extends WebController
      *终止项目工程列表
      * @return \Illuminate\Http\Response
      */
-    public function projectEnginTermination(Request $request,$id)
+    public function projectEnginTermination(Request $request,$id=0)
     {
         $this->user();
         $data=$this->projectEngin($request,$id,4);
-        $data['project']=DB::table('project')->where('id',$id)->first();
-        if(empty($data['project'])){
-            return redirect('/project/projectStart?status=2&notice='.'项目不存在');
+        if($id){
+            $data['project']=DB::table('project')->where('id',$id)->first();
+            if(empty($data['project'])){
+                return redirect('/project/projectStart?status=2&notice='.'项目不存在');
+            }
         }
         $data['subnavid']   =1505;
         if( !(in_array(1505,$this->user()->pageauth)) && !in_array(1505,$this->user()->manageauth)){
@@ -102,19 +110,60 @@ class ProjectController extends WebController
     //项目工程信息列表 $id 为项目id
     private function projectEngin($request,$id,$status=0){
 
-        $data['data']=$this->getProjectEnginList($id,$status);
+        $project_name       =$request->input('project_name','');
+        $address            =$request->input('address','');
+        $project_leader    =$request->input('project_leader','');
+        $page               =$request->input('page',1);
+        $rows               =$request->input('rows',40);
+        $data['project_name']   =$project_name;
+        $data['address']        =$address;
+        $data['project_leader']=$project_leader;
+        $datalist=$this->getProjectEnginList($id,$status,$project_name,$address,$project_leader,$page,$rows);
+        $str=($id =0)?'/'.$id:'?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
+        if($status == 0){
+            $url='/project/projectEnginStart'.$str;
+        }elseif($status == 1){
+            $url='/project/projectEnginConduct'.$str;
+        }elseif($status == 2){
+            $url='/project/projectEnginCompleted'.$str;
+        }elseif($status == 4){
+            $url='/project/projectEnginTermination'.$str;
+        }else{
+            $url='/project/projectEnginStart'.$str;
+        }
+        $data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
+        $data['data']   =$datalist['data'];
         $data['navid']      =15;
         $data['id']     =$id;
         return $data;
     }
 
     //查询项目工程信息
-    protected function getProjectEnginList($id,$status)
+    protected function getProjectEnginList($id,$status,$project_name,$address,$project_leader,$page,$rows)
     {
-        $data=DB::table('engineering')
-            ->where('project_id',$id)
-            ->where('engineering.status',$status)
-            ->orderby('engineering.engineering_name','asc')
+        $db=DB::table('engineering')
+            ->join('project','project.id','=','engineering.project_id')
+            ->where('engineering.status',$status);
+        if(!empty($project_name)){
+            $db->where('project_name','like','%'.$project_name.'%');
+        }
+        if(!empty($address)){
+            $db->Where(function ($query)use($address) {
+                $query->where('province', 'like','%'.$address.'%')
+                    ->orwhere('city', 'like','%'.$address.'%')
+                    ->orwhere('county', 'like','%'.$address.'%')
+                    ->orwhere('address_detail', 'like','%'.$address.'%')
+                    ->orwhere('foreign_address', 'like','%'.$address.'%');
+            });
+        }
+        if(!empty($project_leader)){
+            $db->where('project_leader','like','%'.$project_leader.'%');
+        }
+        $data['count'] =$db->count();
+        $data['data']= $db->orderby('engineering.engineering_name','desc')
+            ->select(['engineering.*','project_name'])
+            ->skip(($page-1)*$rows)
+            ->take($rows)
             ->get();
         return $data;
     }
@@ -256,6 +305,7 @@ class ProjectController extends WebController
             }
             DB::table('engineering')->insert($datalist);
         }
+        //设置项目工程数量和建筑总面积
         $this->setProjectEnginNumber($project_id);
         return redirect('/project/projectStart?status=1&notice='.'创建项目成功');
 
@@ -454,14 +504,13 @@ class ProjectController extends WebController
 
             }
         }
+        //设置项目工程数量和建筑总面积
         $this->setProjectEnginNumber($id);
         if($statustype == 'conduct'){
             return redirect('/project/projectConduct?status=1&notice='.'项目修改成功');
         }else{
             return redirect('/project/projectStart?status=1&notice='.'项目修改成功');
         }
-
-
     }
 
     //编辑项目状态
@@ -492,6 +541,7 @@ class ProjectController extends WebController
             $data['termination_at'] =date('Y-m-d');//终止时间
         }
         DB::table('engineering')->where('id',$id)->update($data);
+        //设置项目工程数量和建筑总面积
         $this->setProjectEnginNumber($engin->project_id);
         if($status == 1){
             return redirect('/project/projectEnginConduct/'.$engin->project_id.'?status=1&notice='.'项目状态更改成功！');
@@ -914,6 +964,7 @@ class ProjectController extends WebController
                 }
             }
         }
+        //设置项目工程数量和建筑总面积
         $this->setProjectEnginNumber($id);
         return redirect('/project/projectEnginStart/'.$id);
     }

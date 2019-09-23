@@ -47,28 +47,28 @@
                 @if(in_array(200101,$pageauth))
                     <div class="metro-nav-block nav-block-blue" >
                         <a href="/budget/budgetStart">
-                            <div class="fs1" aria-hidden="true" data-icon="">洽谈工程</div>
+                            <div class="fs1" aria-hidden="true" ><img src="/img/nav/1.png">洽谈工程</div>
                         </a>
                     </div>
                 @endif
                 @if(in_array(200102,$pageauth))
                     <div class="metro-nav-block nav-block-green" style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
                         <a href="/budget/budgetConduct">
-                            <div class="fs1"  data-icon="">实施工程</div>
+                            <div class="fs1"  ><img src="/img/nav/2.png">实施工程</div>
                         </a>
                     </div>
                 @endif
                 @if(in_array(200103,$pageauth))
                     <div class="metro-nav-block nav-block-yellow">
                         <a href="/budget/budgetCompleted">
-                            <div class="fs1" aria-hidden="true" data-icon="">竣工工程</div>
+                            <div class="fs1" aria-hidden="true" ><img src="/img/nav/3.png">竣工工程</div>
                         </a>
                     </div>
                 @endif
                 @if(in_array(200104,$pageauth))
                     <div class="metro-nav-block nav-block-red">
                         <a href="/budget/budgetTermination">
-                            <div class="fs1" aria-hidden="true" data-icon="">终止工程</div>
+                            <div class="fs1" aria-hidden="true" ><img src="/img/nav/4.png">终止工程</div>
                         </a>
                     </div>
                 @endif

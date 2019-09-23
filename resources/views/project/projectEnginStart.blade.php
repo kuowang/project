@@ -36,28 +36,36 @@
             @if(in_array(1502,$pageauth))
             <div class="metro-nav-block nav-block-blue" style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
                 <a href="/project/projectEnginStart/{{$id}}">
-                    <div class="fs1" aria-hidden="true" data-icon="">洽谈工程 ({{$project->start_count}})</div>
+                    <div class="fs1" aria-hidden="true" ><img src="/img/nav/1.png">洽谈工程
+                    @if(isset($project))({{$project->start_count}}) @endif
+                    </div>
                 </a>
             </div>
             @endif
             @if(in_array(1503,$pageauth))
             <div class="metro-nav-block nav-block-green">
                 <a href="/project/projectEnginConduct/{{$id}}">
-                    <div class="fs1" aria-hidden="true" data-icon="">实施工程 ({{$project->conduct_count}})</div>
+                    <div class="fs1" aria-hidden="true" ><img src="/img/nav/2.png">实施工程
+                        @if(isset($project))({{$project->conduct_count}})@endif
+                    </div>
                 </a>
             </div>
             @endif
             @if(in_array(1504,$pageauth))
             <div class="metro-nav-block nav-block-yellow">
                 <a href="/project/projectEnginCompleted/{{$id}}">
-                    <div class="fs1" aria-hidden="true" data-icon="">竣工工程 ({{$project->completed_count}})</div>
+                    <div class="fs1" aria-hidden="true" ><img src="/img/nav/3.png">竣工工程
+                        @if(isset($project))({{$project->completed_count}})@endif
+                    </div>
                 </a>
             </div>
             @endif
             @if(in_array(1505,$pageauth))
             <div class="metro-nav-block nav-block-red">
                 <a href="/project/projectEnginTermination/{{$id}}">
-                    <div class="fs1" aria-hidden="true" data-icon="">终止工程 ({{$project->termination_count}})</div>
+                    <div class="fs1" aria-hidden="true" ><img src="/img/nav/4.png">终止工程
+                        @if(isset($project))({{$project->termination_count}})@endif
+                    </div>
                 </a>
             </div>
             @endif
@@ -73,13 +81,26 @@
                     <div class="title">
                         洽谈工程<a id="dynamicTable"></a>
                         @if(in_array(1501,$pageauth) || in_array(1501,$manageauth))
+                        @if($id!=0)
                             <a class="btn btn-success" title="新增工程"  href="/project/createdProjectEngin/{{$id}}">
                                 <i class="layui-icon">新增工程</i>
                             </a>
                         @endif
+                        @endif
                     </div>
                     <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
+                    @if(isset($project))
                         {{$project->project_name}}
+                    @else
+                            <label>
+                                <form class="form-search" action="/project/projectEnginStart" method="get">
+                                    项目名称:<input type="text" name="project_name" value="{{ $project_name }}" class="input-medium search-query">
+                                    项目地点:<input type="text" name="address" value="{{ $address }}" class="input-medium search-query">
+                                    项目负责人:<input type="text" name="project_leader" value="{{ $project_leader }}" class="input-medium search-query">
+                                    <button type="submit" class="btn">搜索</button>
+                                </form>
+                            </label>
+                    @endif
                     </div>
                 </div>
                 <div class="widget-body">
@@ -89,6 +110,7 @@
                             <thead>
                             <tr>
                                 <th>序号</th>
+                                <th>项目名称</th>
                                 <th>工程名称</th>
                                 <th>工程地址</th>
                                 <th>建筑面积</th>
@@ -107,8 +129,9 @@
                             @foreach ($data as $k=>$val)
                                 <tr>
                                     <td>{{ $k+1 }}</td>
+                                    <td>{{$val->project_name}}</td>
                                     <td>{{ $val->engineering_name }}</td>
-                                    <td>{{$val->engineering_name}}</td>
+                                    <td>{{$val->engin_address}}</td>
                                     <td>{{ $val->build_area }}</td>
                                     <td>{{ $val->build_floor }}</td>
                                     <td>{{$val->build_number}}</td>

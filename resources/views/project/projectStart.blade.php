@@ -35,29 +35,29 @@
         <div class="metro-nav">
             @if(in_array(1502,$pageauth))
             <div class="metro-nav-block nav-block-blue" style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
-                <a href="/project/projectStart">
-                    <div class="fs1" aria-hidden="true" data-icon="">洽谈项目</div>
+                <a href="/project/projectEnginStart">
+                    <div class="fs1" aria-hidden="true" ><img src="/img/nav/1.png">洽谈工程</div>
                 </a>
             </div>
             @endif
             @if(in_array(1503,$pageauth))
             <div class="metro-nav-block nav-block-green">
-                <a href="/project/projectConduct">
-                    <div class="fs1"  data-icon="">实施项目</div>
+                <a href="/project/projectEnginConduct">
+                    <div class="fs1" aria-hidden="true" ><img src="/img/nav/2.png">实施工程</div>
                 </a>
             </div>
             @endif
             @if(in_array(1504,$pageauth))
             <div class="metro-nav-block nav-block-yellow">
-                <a href="/project/projectCompleted">
-                    <div class="fs1" aria-hidden="true" data-icon="">竣工项目</div>
+                <a href="/project/projectEnginCompleted">
+                    <div class="fs1" aria-hidden="true" ><img src="/img/nav/3.png">竣工工程</div>
                 </a>
             </div>
             @endif
             @if(in_array(1505,$pageauth))
             <div class="metro-nav-block nav-block-red">
-                <a href="/project/projectTermination">
-                    <div class="fs1" aria-hidden="true" data-icon="">终止项目</div>
+                <a href="/project/projectEnginTermination">
+                    <div class="fs1" aria-hidden="true" ><img src="/img/nav/4.png">终止工程</div>
                 </a>
             </div>
             @endif
@@ -105,7 +105,9 @@
                             <tr>
                                 <th>序号</th>
                                 <th>项目名称</th>
+                                <th>项目种类</th>
                                 <th>工程数量</th>
+                                <th>项目总面积</th>
                                 <th>项目地址</th>
                                 <th>项目总负责人</th>
                                 <th>销售总负责人</th>
@@ -123,7 +125,9 @@
                                 <tr>
                                     <td>{{ $k+1 }}</td>
                                     <td >{{ $val->project_name }}</td>
+                                    <td>{{$val->type}}</td>
                                     <td>{{$val->start_count}}</td>
+                                    <td>{{$val->project_area}}</td>
                                     <td>{{ $val->address_detail }}</td>
                                     <td>{{ $val->project_leader }}</td>
                                     <td>{{ $val->sale_username }}</td>
@@ -145,8 +149,8 @@
                                             </a>
                                         @endif
                                         @if((in_array(150203,$pageauth) && $val->created_uid == $uid ) || in_array(150203,$manageauth))
-                                            <a title="工程管理" class="btn btn-success"  href="/project/projectEnginStart/{{ $val->id }}">
-                                                <i class="layui-icon">工程管理</i>
+                                            <a title="项目信息管理" class="btn btn-success"  href="/project/projectEnginStart/{{ $val->id }}">
+                                                <i class="layui-icon">项目信息管理</i>
                                             </a>
                                         @endif
                                     </td>

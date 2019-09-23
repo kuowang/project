@@ -5588,10 +5588,14 @@ header {
   .metro-nav .metro-nav-block a {
     height: 100%;
     vertical-align: top;
-    padding: 5px 10px;
+
     overflow: hidden;
     text-overflow: ellipsis;
+    /*
     position: absolute;
+    padding: 5px 10px;
+    */
+    text-align:center;
     font-weight: 400;
     color: white;
     font-size: 24px;
@@ -5616,6 +5620,12 @@ header {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
+    .metro-nav div{
+        line-height: 60px;
+    }
+    .metro-nav img{
+        height:35px;
+    }
   .metro-nav *:after, .metro-nav *:before {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;

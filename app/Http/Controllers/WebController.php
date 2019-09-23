@@ -209,6 +209,15 @@ class WebController extends Controller
         $datalist['completed_count']=isset($list[2])?$list[2]:0;
         $datalist['termination_count']=isset($list[4])?$list[4]:0;
         DB::table('project')->where('id',$id)->update($datalist);
+        $this->setProjectArea($id);
         return true;
     }
+
+    //重新设置项目的总面积
+    public function setProjectArea($id){
+        $area =DB::table('engineering')->where('project_id',$id)
+          ->sum('build_area');
+        DB::table('project')->where('id',$id)->update(['project_area'=>$area]);
+    }
+
 }

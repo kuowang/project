@@ -36,28 +36,28 @@
             @if(in_array(350001,$pageauth))
             <div class="metro-nav-block nav-block-blue" style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
                 <a href="/architectural/enginStart">
-                    <div class="fs1" aria-hidden="true" data-icon="">洽谈工程</div>
+                    <div class="fs1" aria-hidden="true" ><img src="/img/nav/1.png">洽谈工程</div>
                 </a>
             </div>
             @endif
             @if(in_array(350002,$pageauth))
             <div class="metro-nav-block nav-block-green">
                 <a href="/architectural/enginConduct">
-                    <div class="fs1"  data-icon="">实施工程</div>
+                    <div class="fs1"  ><img src="/img/nav/2.png">实施工程</div>
                 </a>
             </div>
             @endif
             @if(in_array(350003,$pageauth))
             <div class="metro-nav-block nav-block-yellow">
                 <a href="/architectural/enginCompleted">
-                    <div class="fs1" aria-hidden="true" data-icon="">竣工工程</div>
+                    <div class="fs1" aria-hidden="true" ><img src="/img/nav/3.png">竣工工程</div>
                 </a>
             </div>
             @endif
             @if(in_array(350004,$pageauth))
             <div class="metro-nav-block nav-block-red">
                 <a href="/architectural/enginTermination">
-                    <div class="fs1" aria-hidden="true" data-icon="">终止工程</div>
+                    <div class="fs1" aria-hidden="true" ><img src="/img/nav/4.png">终止工程</div>
                 </a>
             </div>
             @endif
