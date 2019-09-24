@@ -221,7 +221,7 @@
                                                     <td>{{$item->engineering_name}}</td>
                                                     <td>@if($item->status ==0) 洽谈
                                                         @elseif($item->status ==1) 实施
-                                                        @elseif($tiem->status ==2) 竣工
+                                                        @elseif($item->status ==2) 竣工
                                                         @else  终止
                                                         @endif
                                                     </td>
