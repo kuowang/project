@@ -82,7 +82,7 @@
                         洽谈工程<a id="dynamicTable"></a>
                         @if(in_array(1501,$pageauth) || in_array(1501,$manageauth))
                         @if($id!=0)
-                            <a class="btn btn-success" title="新增工程"  href="/project/createdProjectEngin/{{$id}}">
+                            <a class="btn btn-success" title="新增工程" onclick="selectModel()" >
                                 <i class="layui-icon">新增工程</i>
                             </a>
                         @endif
@@ -187,12 +187,68 @@
     <span style="float: right;margin-bottom: 10px"><a href="/base/getNoticeInfo" style="color: #0000FF"> 查看更多 >></a></span>
     <hr class="hr-stylish-1">
 </div>
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form class="modal-content" action="/project/createdProjectEngin/{{$id}}" type="get">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        工程模板信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <div class="widget-body">
+                                <div class="control-group">
+                                    <table class="layui-table layui-form">
+                                        <tr>
+                                            <td>选择</td>
+                                            <td>工程名称</td>
+                                            <td>工程状态</td>
+                                        </tr>
+                                        @if(isset($enginList) && !empty($enginList))
+                                            @foreach($enginList as $item)
+                                                <tr>
+                                                    <td>
+                                                        <label style="width: 100%;height: 100%">
+                                                            <input type="radio" name="engin_id" class="engin_id" value="{{$item->id}}" style="display: block">
+                                                        </label>
+                                                    </td>
+                                                    <td>{{$item->engineering_name}}</td>
+                                                    <td>@if($item->status ==0) 洽谈
+                                                        @elseif($item->status ==1) 实施
+                                                        @elseif($tiem->status ==2) 竣工
+                                                        @else  终止
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer layui-form-item" >
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button class="btn btn-success" lay-filter="add" lay-submit="" >确认</button>
+                </div>
+            </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
 
     <script>
         //一般直接写在一个js文件中
-
-
-
+        //显示模拟框
+        function selectModel(){
+            $('#myModal').modal();
+        }
 
     </script>
 

@@ -24,13 +24,16 @@ class EnginneringController extends WebController
      *洽谈项目列表
      * @return \Illuminate\Http\Response
      */
-    public function enginStart(Request $request)
+    public function enginStart(Request $request,$id=0)
     {
         $this->user();
         $data=$this->enginnering($request,0);
         $data['subnavid']   =3500;
         if( !(in_array(350001,$this->user()->pageauth)) && !in_array(350701,$this->user()->manageauth)){
             return redirect('/home');
+        }
+        if($id){
+            $data['project'] =DB::table('project')->where('id',$id)->first();
         }
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
@@ -40,13 +43,17 @@ class EnginneringController extends WebController
      *实施项目列表
      * @return \Illuminate\Http\Response
      */
-    public function enginConduct(Request $request)
+    public function enginConduct(Request $request,$id=0)
     {
         $this->user();
         $data=$this->enginnering($request,1);
         $data['subnavid']   =3500;
         if( !(in_array(350002,$this->user()->pageauth)) && !in_array(350703,$this->user()->manageauth)){
             return redirect('/architectural/enginStart?status=2&notice='.'您没有操作该功能权限');
+        }
+
+        if($id){
+            $data['project'] =DB::table('project')->where('id',$id)->first();
         }
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
@@ -56,13 +63,16 @@ class EnginneringController extends WebController
      *竣工项目列表
      * @return \Illuminate\Http\Response
      */
-    public function enginCompleted(Request $request)
+    public function enginCompleted(Request $request,$id=0)
     {
         $this->user();
         $data=$this->enginnering($request,2);
         $data['subnavid']   =3500;
         if( !(in_array(350003,$this->user()->pageauth)) && !in_array(350705,$this->user()->manageauth)){
             return redirect('/architectural/enginStart?status=2&notice='.'您没有操作该功能权限');
+        }
+        if($id){
+            $data['project'] =DB::table('project')->where('id',$id)->first();
         }
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
@@ -72,7 +82,7 @@ class EnginneringController extends WebController
      *终止项目列表
      * @return \Illuminate\Http\Response
      */
-    public function enginTermination(Request $request)
+    public function enginTermination(Request $request,$id=0)
     {
         $this->user();
         $data=$this->enginnering($request,4);
@@ -80,13 +90,16 @@ class EnginneringController extends WebController
         if( !(in_array(350004,$this->user()->pageauth)) && !in_array(350706,$this->user()->manageauth)){
             return redirect('/architectural/enginStart?status=2&notice='.'您没有操作该功能权限');
         }
+        if($id){
+            $data['project'] =DB::table('project')->where('id',$id)->first();
+        }
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
         return view('architectural.enginnering.enginTermination',$data);
     }
 
     //查询项目信息
-    protected function getEngineList($status,$project_name='',$address='',$project_leader='',$success_level=1,$page=1,$rows=20)
+    protected function getEngineList($status,$project_name='',$address='',$project_leader='',$page=1,$rows=20)
     {
         $db=DB::table('project')
             ->leftjoin('engineering','project.id','=','project_id')
@@ -108,9 +121,7 @@ class EnginneringController extends WebController
         if(!empty($project_leader)){
             $db->where('project_leader','like','%'.$project_leader.'%');
         }
-        if(!empty($success_level)){
-            $db->where('success_level','like','%'.$success_level.'%');
-        }
+
         $data['count'] =$db->count();
         $data['data']= $db->orderby('project.id','desc')
             ->orderby('engineering.id','asc')
@@ -133,18 +144,17 @@ class EnginneringController extends WebController
         $data['project_name']   =$project_name;
         $data['address']        =$address;
         $data['project_leader']=$project_leader;
-        $data['success_level']  =$success_level;
-        $datalist=$this->getEngineList($status,$project_name,$address,$project_leader,$success_level,$page,$rows);
+        $datalist=$this->getEngineList($status,$project_name,$address,$project_leader,$page,$rows);
         if($status == 0){
-            $url='/architectural/enginStart?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader.'&success_level='.$success_level;
+            $url='/architectural/enginStart?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
         }elseif($status == 1){
-            $url='/architectural/enginConduct?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader.'&success_level='.$success_level;
+            $url='/architectural/enginConduct?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
         }elseif($status == 2){
-            $url='/architectural/enginCompleted?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader.'&success_level='.$success_level;
+            $url='/architectural/enginCompleted?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
         }elseif($status == 4){
-            $url='/architectural/enginTermination?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader.'&success_level='.$success_level;
+            $url='/architectural/enginTermination?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
         }else{
-            $url='/architectural/enginStart?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader.'&success_level='.$success_level;
+            $url='/architectural/enginStart?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
         }$data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
         $data['data']   =$datalist['data'];
         $data['navid']      =35;

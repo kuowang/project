@@ -45,11 +45,6 @@
                 <div class="widget-header">
                     <div class="title">
                         洽谈工程<a id="dynamicTable"></a>
-                        @if(in_array(1501,$pageauth) || in_array(1501,$manageauth))
-                            <a class="btn btn-success" title="新增工程"  href="/project/createdProjectEngin/{{$id}}">
-                                <i class="layui-icon">新增工程</i>
-                            </a>
-                        @endif
                     </div>
                     <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                         {{$project->project_name}}
@@ -65,70 +60,96 @@
                             <tbody>
                             <tr>
                                 <td class="pro-title">工程名称</td>
-                                <td><input class="span12" type="text" name="engineering_name" placeholder=""></td>
+                                <td><input class="span12" type="text" name="engineering_name" value="{{isset($engin->engineering_name)?$engin->engineering_name:''}}" placeholder=""></td>
                                 <td class="pro-title">工程地址</td>
-                                <td><input class="span12" type="text" name="engin_address" placeholder=""></td>
+                                <td><input class="span12" type="text" name="engin_address" value="{{isset($engin->engin_address)?$engin->engin_address:''}}" placeholder=""></td>
                                 <td class="pro-title">建筑总面积（m²）</td>
-                                <td><input class="span12" type="text" name="build_area" onclick="key(this)" placeholder=""></td>
+                                <td><input class="span12" type="text" name="build_area" value="{{isset($engin->build_area)?$engin->build_area:''}}" onclick="key(this)" placeholder=""></td>
                             </tr>
                             <tr>
                                 <td class="pro-title">建筑总层数</td>
-                                <td><input class="span12" type="text" name="build_floor"  onclick="key(this)"  placeholder=""></td>
+                                <td><input class="span12" type="text" name="build_floor" value="{{isset($engin->build_floor)?$engin->build_floor:''}}"  onclick="key(this)"  placeholder=""></td>
                                 <td class="pro-title">建筑总高度（m）</td>
-                                <td><input class="span12" type="text" name="build_height"  onclick="key(this)" placeholder=""></td>
+                                <td><input class="span12" type="text" name="build_height" value="{{isset($engin->build_height)?$engin->build_height:''}}"  onclick="key(this)" placeholder=""></td>
                                 <td class="pro-title">室内净高（最小）（m）</td>
-                                <td><input class="span12" type="text" name="indoor_height" onclick="key(this)"  placeholder=""></td>
+                                <td><input class="span12" type="text" name="indoor_height" value="{{isset($engin->indoor_height)?$engin->indoor_height:''}}" onclick="key(this)"  placeholder=""></td>
                             </tr>
                             <tr>
                                 <td class="pro-title">建筑数量(栋)</td>
-                                <td><input class="span12" type="text" name="build_number" onclick="key(this)"  placeholder=""></td>
-                                <td class="pro-title">销售负责人</td>
-                                <td>
-                                    <select name="sale_uid" id="sale_uid" class="input-medium span12 search-query notempty" style="min-width: 80px">
-                                        <option value="0" ></option>
-                                        @foreach($userList as $u)
-                                            @if($u->department_id == 2)
-                                                <option value="{{$u->id}}" >{{$u->name}}</option>
-                                            @endif
-                                        @endforeach
-                                    </select></td>
-                                <td class="pro-title">设计负责人</td>
-                                <td> <select name="design_uid" id="design_uid" class="input-medium span12 search-query notempty" style="min-width: 80px">
-                                        <option value="0" ></option>
-                                        @foreach($userList as $u)
-                                            @if($u->department_id == 6)
-                                                <option value="{{$u->id}}" >{{$u->name}}</option>
-                                            @endif
-                                        @endforeach
-                                    </select></td>
+                                <td><input class="span12" type="text" name="build_number" value="{{isset($engin->build_number)?$engin->build_number:''}}" onclick="key(this)"  placeholder=""></td>
+                                <td colspan="4"></td>
                             </tr>
-                            <tr>
+
+                            </tbody>
+                        </table>
+                        <div class="clearfix"></div>
+                        <table class="layui-table layui-form">
+                            <thead>
+                                <tr><th colspan="8"><span class="btn btn-info">负责人信息</span></th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="pro-title">销售负责人</td>
+                                    <td>
+                                        <select name="sale_uid" id="sale_uid" class="input-medium span12 search-query notempty" style="min-width: 80px">
+                                            <option value="0" ></option>
+                                            @foreach($userList as $u)
+                                                @if($u->department_id == 2)
+                                                    @if(isset($engin->sale_uid) && ($u->id == $engin->sale_uid))
+                                                        <option value="{{$u->id}}" selected="selected">{{$u->name}}</option>
+                                                    @else
+                                                        <option value="{{$u->id}}" >{{$u->name}}</option>
+                                                    @endif
+                                                @endif
+                                            @endforeach
+                                        </select></td>
+                                    <td class="pro-title">设计负责人</td>
+                                    <td> <select name="design_uid" id="design_uid" class="input-medium span12 search-query notempty" style="min-width: 80px">
+                                            <option value="0" ></option>
+                                            @foreach($userList as $u)
+                                                @if($u->department_id == 6)
+                                                    @if(isset($engin->design_uid) && ($u->id == $engin->design_uid))
+                                                        <option value="{{$u->id}}" selected="selected">{{$u->name}}</option>
+                                                    @else
+                                                        <option value="{{$u->id}}" >{{$u->name}}</option>
+                                                    @endif
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </td>
+
                                 <td class="pro-title">预算负责人</td>
                                 <td>
                                     <select name="budget_uid" id="budget_uid" class="input-medium span12 search-query notempty" style="min-width: 80px">
                                         <option value="0" ></option>
                                         @foreach($userList as $u)
                                             @if($u->department_id == 3)
-                                                <option value="{{$u->id}}" >{{$u->name}}</option>
+                                                @if(isset($engin->budget_uid) && ($u->id == $engin->budget_uid))
+                                                    <option value="{{$u->id}}" selected="selected">{{$u->name}}</option>
+                                                @else
+                                                    <option value="{{$u->id}}" >{{$u->name}}</option>
+                                                @endif
                                             @endif
                                         @endforeach
                                     </select>
                                 </td>
                                 <td class="pro-title">合约负责人</td>
-                                <td><select name="technical_uid" id="technical_uid" class="input-medium span12 search-query  notempty" style="min-width: 80px">
+                                <td>
+                                    <select name="technical_uid" id="technical_uid" class="input-medium span12 search-query  notempty" style="min-width: 80px">
                                         <option value="0" ></option>
                                         @foreach($userList as $u)
                                             @if($u->department_id == 8)
-                                                <option value="{{$u->id}}" >{{$u->name}}</option>
+                                                @if(isset($engin->technical_uid) && ($u->id == $engin->technical_uid))
+                                                    <option value="{{$u->id}}" selected="selected">{{$u->name}}</option>
+                                                @else
+                                                    <option value="{{$u->id}}" >{{$u->name}}</option>
+                                                @endif
                                             @endif
                                         @endforeach
                                     </select></td>
-                                <td></td>
-                                <td></td>
                             </tr>
                             </tbody>
                         </table>
-                        <div class="clearfix"></div>
                         <table class="layui-table layui-form">
                             <thead>
                             <tr>
@@ -233,6 +254,11 @@
             if(va > 1000000000 || va < 0) {
                 $(th).val(0);
             }
+        }
+
+        //删除动态
+        function deleteTrRow(tr){
+            $(tr).parent().parent().remove();
         }
 
     </script>

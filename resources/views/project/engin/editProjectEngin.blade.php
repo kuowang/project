@@ -106,27 +106,39 @@
                             <tr>
                                 <td class="pro-title">建筑数量(栋)</td>
                                 <td><input class="span12" type="text" name="build_number" onclick="key(this)"  value="{{$engin->build_number}}" placeholder=""></td>
+                                <td colspan="4"></td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="clearfix"></div>
+
+                        <table class="layui-table layui-form">
+                            <thead>
+                            <tr><th colspan="8"><span class="btn btn-info">负责人信息</span></th></tr>
+                            </thead>
+                            <tbody>
+                            <tr>
                                 <td class="pro-title">销售负责人</td>
                                 <td>
                                     <select name="sale_uid" id="sale_uid" class="input-medium span12 search-query notempty" style="min-width: 80px">
                                         <option value="0" ></option>
                                         @foreach($userList as $u)
                                             @if($u->department_id == 2)
-                                                @if($u->id == $project->sale_uid)
+                                                @if(isset($engin->sale_uid) && ($u->id == $engin->sale_uid))
                                                     <option value="{{$u->id}}" selected="selected">{{$u->name}}</option>
                                                 @else
                                                     <option value="{{$u->id}}" >{{$u->name}}</option>
                                                 @endif
                                             @endif
                                         @endforeach
-                                    </select>
-                                </td>
+                                    </select></td>
                                 <td class="pro-title">设计负责人</td>
                                 <td> <select name="design_uid" id="design_uid" class="input-medium span12 search-query notempty" style="min-width: 80px">
                                         <option value="0" ></option>
                                         @foreach($userList as $u)
                                             @if($u->department_id == 6)
-                                                @if($u->id == $project->design_uid)
+                                                @if(isset($engin->design_uid) && ($u->id == $engin->design_uid))
                                                     <option value="{{$u->id}}" selected="selected">{{$u->name}}</option>
                                                 @else
                                                     <option value="{{$u->id}}" >{{$u->name}}</option>
@@ -135,15 +147,14 @@
                                         @endforeach
                                     </select>
                                 </td>
-                            </tr>
-                            <tr>
+
                                 <td class="pro-title">预算负责人</td>
                                 <td>
                                     <select name="budget_uid" id="budget_uid" class="input-medium span12 search-query notempty" style="min-width: 80px">
                                         <option value="0" ></option>
                                         @foreach($userList as $u)
                                             @if($u->department_id == 3)
-                                                @if($u->id == $project->budget_uid)
+                                                @if(isset($engin->budget_uid) && ($u->id == $engin->budget_uid))
                                                     <option value="{{$u->id}}" selected="selected">{{$u->name}}</option>
                                                 @else
                                                     <option value="{{$u->id}}" >{{$u->name}}</option>
@@ -153,24 +164,23 @@
                                     </select>
                                 </td>
                                 <td class="pro-title">合约负责人</td>
-                                <td><select name="technical_uid" id="technical_uid" class="input-medium span12 search-query  notempty" style="min-width: 80px">
+                                <td>
+                                    <select name="technical_uid" id="technical_uid" class="input-medium span12 search-query  notempty" style="min-width: 80px">
                                         <option value="0" ></option>
                                         @foreach($userList as $u)
                                             @if($u->department_id == 8)
-                                                @if($u->id == $project->technical_uid)
+                                                @if(isset($engin->technical_uid) && ($u->id == $engin->technical_uid))
                                                     <option value="{{$u->id}}" selected="selected">{{$u->name}}</option>
                                                 @else
                                                     <option value="{{$u->id}}" >{{$u->name}}</option>
                                                 @endif
                                             @endif
                                         @endforeach
-                                    </select>
-                                </td>
-                                <td></td>
-                                <td></td>
+                                    </select></td>
                             </tr>
                             </tbody>
                         </table>
+
                         <div class="clearfix"></div>
                         <table class="layui-table layui-form">
                             <thead>
@@ -299,6 +309,10 @@
             if(va > 1000000000 || va < 0) {
                 $(th).val(0);
             }
+        }
+        //删除动态
+        function deleteTrRow(tr){
+            $(tr).parent().parent().remove();
         }
     </script>
 

@@ -84,7 +84,7 @@
                         <div class="title">
                             竣工工程<a id="dynamicTable"></a>
                         </div>
-                        <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
+                        <div class="dataTables_filter" id="data-table_filter" style="text-align: center;font-size: 16px;">
                             <label>
                                 <form class="form-search" action="/project/projectCompleted" method="get">
                                     项目名称:<input type="text" name="project_name" value="{{ $project_name }}" class="input-medium search-query">

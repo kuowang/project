@@ -45,11 +45,6 @@
                 <div class="widget-header">
                     <div class="title">
                         洽谈工程<a id="dynamicTable"></a>
-                        @if(in_array(1501,$pageauth) || in_array(1501,$manageauth))
-                            <a class="btn btn-success" title="新增工程"  href="/project/createdProjectEngin/{{$project->id}}">
-                                <i class="layui-icon">新增工程</i>
-                            </a>
-                        @endif
                     </div>
                     <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                         {{$project->project_name}}
@@ -105,22 +100,33 @@
                             <tr>
                                 <td class="pro-title">建筑数量(栋)</td>
                                 <td>{{$engin->build_number}}</td>
-                                <td class="pro-title">销售负责人</td>
-                                <td>{{$engin->sale_username}}</td>
-                                <td class="pro-title">设计负责人</td>
-                                <td> {{$engin->design_username}}</td>
+                                <td colspan="4"></td>
                             </tr>
-                            <tr>
-                                <td class="pro-title">预算负责人</td>
-                                <td>{{$engin->budget_username}}</td>
-                                <td class="pro-title">合约负责人</td>
-                                <td>{{$engin->technical_username}}</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
+
                             </tbody>
                         </table>
                         <div class="clearfix"></div>
+                    <table class="layui-table layui-form">
+                        <thead>
+                        <tr><th colspan="8"><span class="btn btn-info">负责人信息</span></th></tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="pro-title">销售负责人</td>
+                            <td>{{$engin->sale_username}}</td>
+                            <td class="pro-title">设计负责人</td>
+                            <td> {{$engin->design_username}}</td>
+                            <td class="pro-title">预算负责人</td>
+                            <td>{{$engin->budget_username}}</td>
+                            <td class="pro-title">合约负责人</td>
+                            <td>{{$engin->technical_username}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+
+
                         <table class="layui-table layui-form">
                             <thead>
                             <tr>

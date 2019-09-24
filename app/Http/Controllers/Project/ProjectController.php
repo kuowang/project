@@ -31,6 +31,8 @@ class ProjectController extends WebController
             if(empty($data['project'])){
                 return redirect('/project/projectStart?status=2&notice='.'项目不存在');
             }
+            $data['enginList']=DB::table('engineering')->where('project_id',$id)
+                ->select(['id','engineering_name','status'])->get();
         }
         $data['subnavid']   =1502;
         if( !(in_array(1502,$this->user()->pageauth)) && !in_array(1502,$this->user()->manageauth)){
@@ -163,7 +165,8 @@ class ProjectController extends WebController
             $db->where('project_leader','like','%'.$project_leader.'%');
         }
         $data['count'] =$db->count();
-        $data['data']= $db->orderby('engineering.engineering_name','desc')
+        $data['data']= $db->orderby('project.created_at','desc')
+            ->orderby('engineering.engineering_name')
             ->select(['engineering.*','project_name'])
             ->skip(($page-1)*$rows)
             ->take($rows)
@@ -306,6 +309,7 @@ class ProjectController extends WebController
                     'build_height'=>isset($build_height[$k])?(float)$build_height[$k]:1,
                     'indoor_height'=>isset($indoor_height[$k])?(float)$indoor_height[$k]:1,
                     'build_number'=>isset($build_number[$k])?(int)$build_number[$k]:1,
+                    'engin_address'=>$data["province"].$data["city"].$data["county"].$data["address_detail"].$data["foreign_address"],
                     'created_uid'=>$this->user()->id,
                     'created_at'=>date('Y-m-d'),
                 ];
@@ -841,10 +845,16 @@ class ProjectController extends WebController
     }
 
     //创建项目的新工程
-    public function createdProjectEngin($id){
+    public function createdProjectEngin(Request $request,$id){
         $this->user();
         if( !(in_array(1501,$this->user()->pageauth)) && !in_array(1501,$this->user()->manageauth)){
             return redirect('/project/projectStart?status=2&notice='.'您没有操作该功能权限');
+        }
+        $enginid =$request->input('engin_id',0);
+        if(empty($enginid)){
+            $data['engin']=null;
+        }else{
+            $data['engin']=DB::table('engineering')->where('id',$id)->first();
         }
         $data['navid']      =15;
         $data['subnavid']   =1502;
@@ -945,7 +955,6 @@ class ProjectController extends WebController
             $data['created_uid']=$this->user()->id;
             $data['created_at'] =date('Y-m-d');
             $engin_id =DB::table('engineering')->insertGetId($data);
-
         }else{
             $data['edit_uid']=$this->user()->id;
             $data['updated_at'] =date('Y-m-d');
