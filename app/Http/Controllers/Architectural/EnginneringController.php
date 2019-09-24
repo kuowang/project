@@ -27,7 +27,7 @@ class EnginneringController extends WebController
     public function enginStart(Request $request,$id=0)
     {
         $this->user();
-        $data=$this->enginnering($request,0);
+        $data=$this->enginnering($request,$id,0);
         $data['subnavid']   =3500;
         if( !(in_array(350001,$this->user()->pageauth)) && !in_array(350701,$this->user()->manageauth)){
             return redirect('/home');
@@ -46,7 +46,7 @@ class EnginneringController extends WebController
     public function enginConduct(Request $request,$id=0)
     {
         $this->user();
-        $data=$this->enginnering($request,1);
+        $data=$this->enginnering($request,$id,1);
         $data['subnavid']   =3500;
         if( !(in_array(350002,$this->user()->pageauth)) && !in_array(350703,$this->user()->manageauth)){
             return redirect('/architectural/enginStart?status=2&notice='.'您没有操作该功能权限');
@@ -66,7 +66,7 @@ class EnginneringController extends WebController
     public function enginCompleted(Request $request,$id=0)
     {
         $this->user();
-        $data=$this->enginnering($request,2);
+        $data=$this->enginnering($request,$id,2);
         $data['subnavid']   =3500;
         if( !(in_array(350003,$this->user()->pageauth)) && !in_array(350705,$this->user()->manageauth)){
             return redirect('/architectural/enginStart?status=2&notice='.'您没有操作该功能权限');
@@ -85,7 +85,7 @@ class EnginneringController extends WebController
     public function enginTermination(Request $request,$id=0)
     {
         $this->user();
-        $data=$this->enginnering($request,4);
+        $data=$this->enginnering($request,$id,4);
         $data['subnavid']   =3500;
         if( !(in_array(350004,$this->user()->pageauth)) && !in_array(350706,$this->user()->manageauth)){
             return redirect('/architectural/enginStart?status=2&notice='.'您没有操作该功能权限');
@@ -99,7 +99,7 @@ class EnginneringController extends WebController
     }
 
     //查询项目信息
-    protected function getEngineList($status,$project_name='',$address='',$project_leader='',$page=1,$rows=20)
+    protected function getEngineList($id=0,$status,$project_name='',$address='',$project_leader='',$page=1,$rows=20)
     {
         $db=DB::table('project')
             ->leftjoin('engineering','project.id','=','project_id')
@@ -107,6 +107,9 @@ class EnginneringController extends WebController
 
         if(!empty($project_name)){
             $db->where('project_name','like','%'.$project_name.'%');
+        }
+        if($id){
+            $db->where('project_id',$id);
         }
         if(!empty($address)){
             $db->Where(function ($query)use($address) {
@@ -133,18 +136,17 @@ class EnginneringController extends WebController
         return $data;
     }
     //工程信息列表
-    private function enginnering($request,$status=0)
+    private function enginnering($request,$id=0,$status=0)
     {
         $project_name       =$request->input('project_name','');
         $address            =$request->input('address','');
         $project_leader     =$request->input('project_leader','');
-        $success_level      =$request->input('success_level',0);
         $page               =$request->input('page',1);
         $rows               =$request->input('rows',40);
         $data['project_name']   =$project_name;
         $data['address']        =$address;
         $data['project_leader']=$project_leader;
-        $datalist=$this->getEngineList($status,$project_name,$address,$project_leader,$page,$rows);
+        $datalist=$this->getEngineList($id,$status,$project_name,$address,$project_leader,$page,$rows);
         if($status == 0){
             $url='/architectural/enginStart?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
         }elseif($status == 1){

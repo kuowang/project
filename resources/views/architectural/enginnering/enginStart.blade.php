@@ -36,28 +36,36 @@
             @if(in_array(350001,$pageauth))
             <div class="metro-nav-block nav-block-blue" style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
                 <a href="/architectural/enginStart">
-                    <div class="fs1" aria-hidden="true" ><img src="/img/nav/1.png">洽谈工程</div>
+                    <div class="fs1" aria-hidden="true" ><img src="/img/nav/1.png">洽谈工程
+                        @if(isset($project))({{$project->start_count}}) @endif
+                    </div>
                 </a>
             </div>
             @endif
             @if(in_array(350002,$pageauth))
             <div class="metro-nav-block nav-block-green">
                 <a href="/architectural/enginConduct">
-                    <div class="fs1"  ><img src="/img/nav/2.png">实施工程</div>
+                    <div class="fs1"  ><img src="/img/nav/2.png">实施工程
+                        @if(isset($project))({{$project->conduct_count}})@endif
+                    </div>
                 </a>
             </div>
             @endif
             @if(in_array(350003,$pageauth))
             <div class="metro-nav-block nav-block-yellow">
                 <a href="/architectural/enginCompleted">
-                    <div class="fs1" aria-hidden="true" ><img src="/img/nav/3.png">竣工工程</div>
+                    <div class="fs1" aria-hidden="true" ><img src="/img/nav/3.png">竣工工程
+                        @if(isset($project))({{$project->completed_count}})@endif
+                    </div>
                 </a>
             </div>
             @endif
             @if(in_array(350004,$pageauth))
             <div class="metro-nav-block nav-block-red">
                 <a href="/architectural/enginTermination">
-                    <div class="fs1" aria-hidden="true" ><img src="/img/nav/4.png">终止工程</div>
+                    <div class="fs1" aria-hidden="true" ><img src="/img/nav/4.png">终止工程
+                        @if(isset($project))({{$project->termination_count}})@endif
+                    </div>
                 </a>
             </div>
             @endif
@@ -75,12 +83,16 @@
                     </div>
                     <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                         <label>
-                            <form class="form-search" action="/architectural/enginStart" method="get">
-                                项目名称:<input type="text" name="project_name" value="{{ $project_name }}" class="input-medium search-query">
-                                项目地点:<input type="text" name="address" value="{{ $address }}" class="input-medium search-query">
-                                项目负责人:<input type="text" name="project_leader" value="{{ $project_leader }}" class="input-medium search-query">
-                                <button type="submit" class="btn">搜索</button>
-                            </form>
+                            @if(isset($project))
+                                {{$project->project_name}}
+                            @else
+                                <form class="form-search" action="/architectural/enginStart" method="get">
+                                    项目名称:<input type="text" name="project_name" value="{{ $project_name }}" class="input-medium search-query">
+                                    项目地点:<input type="text" name="address" value="{{ $address }}" class="input-medium search-query">
+                                    项目负责人:<input type="text" name="project_leader" value="{{ $project_leader }}" class="input-medium search-query">
+                                    <button type="submit" class="btn">搜索</button>
+                                </form>
+                            @endif
                         </label>
                     </div>
                 </div>
@@ -93,11 +105,16 @@
                                 <th>序号</th>
                                 <th>项目名称</th>
                                 <th>工程名称</th>
+                                <th>工程地址</th>
                                 <th>建筑面积</th>
                                 <th>建筑层数</th>
-                                <th>项目地址</th>
-                                <th>设计负责人</th>
+                                <th>建筑数量</th>
                                 <th>项目状态</th>
+                                <th>设计负责人</th>
+                                <th>建筑设计负责人</th>
+                                <th>结构设计负责人</th>
+                                <th>给排水设计负责人</th>
+                                <th>电气设计负责人</th>
                                 <th>创建时间</th>
                                 <th>设计参数状态</th>
                                 <th>设计工况状态</th>
@@ -112,10 +129,15 @@
                                     <td>{{ $k+1 }}</td>
                                     <td >{{ $val->project_name }}</td>
                                     <td>{{ $val->engineering_name }}</td>
-                                    <td>{{ $val->build_area }}</td>
+                                    <td></td>
+                                    <td></td>
                                     <td>{{ $val->build_floor }}</td>
                                     <td>{{ $val->address_detail }}</td>
                                     <td>{{ $val->design_username }}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                     <td><span class="btn btn-info">洽谈</span></td>
                                     <td>{{ $val->created_at }}</td>
                                     <td>
