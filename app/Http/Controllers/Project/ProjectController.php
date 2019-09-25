@@ -264,7 +264,7 @@ class ProjectController extends WebController
         if(isset($userlist[$data["technical_uid"]])){
             $data["technical_username"] =$userlist[$data["technical_uid"]];
         }elseif($data["technical_uid"]){
-            return redirect('/project/projectStart?status=2&notice='.'技术支持人员不存在');
+            return redirect('/project/projectStart?status=2&notice='.'合约人员不存在');
         }
         $data['created_uid']=$this->user()->id;
         $data['created_at']=date('Y-m-d');
@@ -449,23 +449,23 @@ class ProjectController extends WebController
         }
         if(isset($userlist[$data["sale_uid"]])){
             $data["sale_username"] =$userlist[$data["sale_uid"]];
-        }else{
+        }elseif($data["sale_uid"]){
             return redirect('/project/projectStart?status=2&notice='.'销售总负责人不存在');
         }
         if(isset($userlist[$data["design_uid"]])){
             $data["design_username"] =$userlist[$data["design_uid"]];
-        }else{
+        }elseif($data["design_uid"]){
             return redirect('/project/projectStart?status=2&notice='.'设计总负责人不存在');
         }
         if(isset($userlist[$data["budget_uid"]])){
             $data["budget_username"] =$userlist[$data["budget_uid"]];
-        }else{
+        }elseif($data["budget_uid"]){
             return redirect('/project/projectStart?status=2&notice='.'预算报价总负责人不存在');
         }
         if(isset($userlist[$data["technical_uid"]])){
             $data["technical_username"] =$userlist[$data["technical_uid"]];
-        }else{
-            return redirect('/project/projectStart?status=2&notice='.'技术支持总负责人不存在');
+        }elseif($data["technical_uid"]){
+            return redirect('/project/projectStart?status=2&notice='.'合约总负责人不存在');
         }
         $data['created_uid']=$this->user()->id;
         $data['created_at']=date('Y-m-d');
@@ -585,6 +585,7 @@ class ProjectController extends WebController
         }
         //项目动态信息
         $data['dynamic'] =DB::table('enginnering_dynamic')->where('enginnering_id',$id)->orderby('dynamic_date')->get();
+        $data['userList']=DB::table('users')->where('status',1)->orderby('name')->select(['id','name','department_id'])->get();
         $data['engineering']=$engineering;
         $data['project']    =$project;
         $data['engin_id'] =$id;
@@ -610,6 +611,35 @@ class ProjectController extends WebController
         if($data['contract_num'] > 100){
             $data['contract_num'] =100;
         }
+        $data["sale_uid"]           =$request->input('sale_uid',0);
+        $data["design_uid"]         =$request->input('design_uid',0);
+        $data["budget_uid"]         =$request->input('budget_uid',0);
+        $data["technical_uid"]      =$request->input('technical_uid',0);
+        $userlist =DB::table('users')
+            ->wherein('id',[$data["design_uid"],$data["budget_uid"], $data["technical_uid"],$data["sale_uid"]])
+            ->pluck('name','id')
+            ->toarray();
+        if(isset($userlist[$data["sale_uid"]])){
+            $data["sale_username"] =$userlist[$data["sale_uid"]];
+        }elseif($data["sale_uid"]){
+            return redirect('/project/projectStart?status=2&notice='.'销售负责人不存在');
+        }
+        if(isset($userlist[$data["design_uid"]])){
+            $data["design_username"] =$userlist[$data["design_uid"]];
+        }elseif($data["design_uid"]){
+            return redirect('/project/projectStart?status=2&notice='.'设计负责人不存在');
+        }
+        if(isset($userlist[$data["budget_uid"]])){
+            $data["budget_username"] =$userlist[$data["budget_uid"]];
+        }elseif($data["budget_uid"]){
+            return redirect('/project/projectStart?status=2&notice='.'预算报价负责人不存在');
+        }
+        if(isset($userlist[$data["technical_uid"]])){
+            $data["technical_username"] =$userlist[$data["technical_uid"]];
+        }elseif($data["technical_uid"]){
+            return redirect('/project/projectStart?status=2&notice='.'合约负责人不存在');
+        }
+
         DB::table('engineering')->where('id',$id)->update($data);
 
         $dynamic_id   =$request->input('dynamic_id',[]);
@@ -948,7 +978,7 @@ class ProjectController extends WebController
         if(isset($userlist[$data["technical_uid"]])){
             $data["technical_username"] =$userlist[$data["technical_uid"]];
         }elseif($data["technical_uid"]){
-            return redirect('/project/projectEnginStart/'.$id.'?status=2&notice='.'技术支持人员不存在');
+            return redirect('/project/projectEnginStart/'.$id.'?status=2&notice='.'合约人员不存在');
         }
         $data['project_id']=$id;
         if($engin_id ==0){

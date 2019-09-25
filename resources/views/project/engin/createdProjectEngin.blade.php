@@ -62,7 +62,7 @@
                                 <td class="pro-title">工程名称</td>
                                 <td><input class="span12" type="text" name="engineering_name" value="{{isset($engin->engineering_name)?$engin->engineering_name:''}}" placeholder=""></td>
                                 <td class="pro-title">工程地址</td>
-                                <td><input class="span12" type="text" name="engin_address" value="{{isset($engin->engin_address)?$engin->engin_address:''}}" placeholder=""></td>
+                                <td><input class="span12" type="text" name="engin_address" value="{{isset($engin->engin_address)?$engin->engin_address:$project->province.' '.$project->city.' '.$project->county.$project->address_detail.$project->foreign_address}}" placeholder=""></td>
                                 <td class="pro-title">建筑总面积（m²）</td>
                                 <td><input class="span12" type="text" name="build_area" value="{{isset($engin->build_area)?$engin->build_area:''}}" onclick="key(this)" placeholder=""></td>
                             </tr>
