@@ -46,7 +46,7 @@
             <div class="metro-nav">
                 @if(in_array(350001,$pageauth))
                     <div class="metro-nav-block nav-block-blue" >
-                        <a href="/architectural/enginStart">
+                        <a href="/architectural/enginStart/{{$id}}">
                             <div class="fs1" aria-hidden="true" ><img src="/img/nav/1.png">洽谈工程
                                 @if(isset($project))({{$project->start_count}}) @endif
                             </div>
@@ -55,7 +55,7 @@
                 @endif
                 @if(in_array(350002,$pageauth))
                     <div class="metro-nav-block nav-block-green">
-                        <a href="/architectural/enginConduct">
+                        <a href="/architectural/enginConduct/{{$id}}">
                             <div class="fs1"  ><img src="/img/nav/2.png">实施工程
                                 @if(isset($project))({{$project->conduct_count}})@endif
                             </div>
@@ -64,7 +64,7 @@
                 @endif
                 @if(in_array(350003,$pageauth))
                     <div class="metro-nav-block nav-block-yellow" style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
-                        <a href="/architectural/enginCompleted">
+                        <a href="/architectural/enginCompleted/{{$id}}">
                             <div class="fs1" aria-hidden="true"  ><img src="/img/nav/3.png">竣工工程
                                 @if(isset($project))({{$project->completed_count}})@endif
                             </div>
@@ -73,7 +73,7 @@
                 @endif
                 @if(in_array(350004,$pageauth))
                     <div class="metro-nav-block nav-block-red">
-                        <a href="/architectural/enginTermination">
+                        <a href="/architectural/enginTermination/{{$id}}">
                             <div class="fs1" aria-hidden="true" ><img src="/img/nav/4.png">终止工程
                                 @if(isset($project))({{$project->termination_count}})@endif
                             </div>
@@ -116,27 +116,34 @@
                                     <th>序号</th>
                                     <th>项目名称</th>
                                     <th>工程名称</th>
-                                    <th>建筑面积</th>
-                                    <th>建筑层数</th>
-                                    <th>项目地址</th>
-                                    <th>设计负责人</th>
-                                    <th>项目状态</th>
-                                    <th>创建时间</th>
-                                    <th>设计参数状态</th>
-                                    <th>设计工况状态</th>
+                                    <th>工程地址</th>
+                                    <th style="width: 70px">建筑面积</th>
+                                    <th style="width: 70px">建筑层数</th>
+                                    <th style="width: 70px">建筑数量</th>
+                                    <th>建筑设计负责人</th>
+                                    <th>结构设计负责人</th>
+                                    <th>给排水设计负责人</th>
+                                    <th>电气设计负责人</th>
+                                    <th style="width: 80px">创建时间</th>
+                                    <th style="width: 140px;">设计参数状态</th>
+                                    <th style="width: 140px;">设计工况状态</th>
                                 </tr>
                                 </thead>
                                 <tbody>
 
                                 @foreach ($data as $k=>$val)
-                                    <tr><td>{{ $k+1 }}</td>
+                                    <tr>
+                                        <td>{{ $k+1 }}</td>
                                         <td >{{ $val->project_name }}</td>
                                         <td>{{ $val->engineering_name }}</td>
-                                        <td>{{ $val->build_area }}</td>
+                                        <td>{{ $val->engin_address }}</td>
+                                        <td>{{$val->build_area}}</td>
                                         <td>{{ $val->build_floor }}</td>
-                                        <td>{{ $val->address_detail }}</td>
-                                        <td>{{ $val->design_username }}</td>
-                                        <td><span class="btn btn-info">竣工</span></td>
+                                        <td>{{$val->build_number}}</td>
+                                        <td>{{$val->design_username}}</td>
+                                        <td>{{$val->structure_username}}</td>
+                                        <td>{{$val->drainage_username}}</td>
+                                        <td>{{$val->electrical_username}}</td>
                                         <td>{{ $val->created_at }}</td>
                                         <td>
                                             @if($val->is_conf_param ==1)

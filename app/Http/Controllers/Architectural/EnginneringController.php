@@ -128,8 +128,7 @@ class EnginneringController extends WebController
         $data['count'] =$db->count();
         $data['data']= $db->orderby('project.id','desc')
             ->orderby('engineering.id','asc')
-            ->select(['project.*','engineering.id as engineering_id','engineering_name',
-                'build_area','build_floor','build_height','is_conf_param','is_conf_architectural','budget_id'])
+            ->select(['project.project_name','project.design_username as project_design_username','engineering.id as engineering_id','engineering.*'])
             ->skip(($page-1)*$rows)
             ->take($rows)
             ->get();
@@ -160,6 +159,7 @@ class EnginneringController extends WebController
         }$data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
         $data['data']   =$datalist['data'];
         $data['navid']      =35;
+        $data['id']=$id;
         return $data;
     }
 
@@ -484,6 +484,7 @@ class EnginneringController extends WebController
             $data['room_name']      =json_decode($data['param']->room_name,true);
             $data['room_area']      =json_decode($data['param']->room_area,true);
         }
+        $data['userList']=DB::table('users')->where('status',1)->orderby('name')->select(['id','name','department_id'])->get();
         return view('architectural.enginnering.editEnginParam',$data);
     }
     //提交建筑设计参数配置
@@ -509,13 +510,47 @@ class EnginneringController extends WebController
 		$room_position      =$request->input('room_position',[]);                   //"position": ["2314"],
 		$room_name          =$request->input('room_name',[]);                   //"roomname": ["13412341"],
 		$room_area          =$request->input('room_area',[]);                 //"room_area": ["12341234"]
-
         $info =DB::table('engineering_param')->where('engin_id',$id)->first();
         $engin =DB::table('engineering')->where('id',$id)->first();
         if(empty($engin)){
             echo "<script>alert('系统工程不存在');history.go(-2);</script>";
             exit;
         }
+        $engininfo=[];
+        $structure_uid =$request->input('structure_uid',0);
+        $drainage_uid   =$request->input('drainage_uid',0);
+        $electrical_uid =$request->input('electrical_uid',0);
+        $userlist =DB::table('users')
+            ->wherein('id',[$structure_uid,$drainage_uid,$electrical_uid])
+            ->pluck('name','id')->toarray();
+        if(isset($userlist[$structure_uid])){
+            $engininfo['structure_uid']=$structure_uid;
+            $engininfo["structure_username"] =$userlist[$structure_uid];
+        }elseif($structure_uid){
+            return redirect('/architectural/enginStart/'.$engin->project_id.'?status=2&notice='.'销售人员不存在');
+        }else{
+            $engininfo['structure_uid']=null;
+            $engininfo["structure_username"] =null;
+        }
+        if(isset($userlist[$drainage_uid])){
+            $engininfo['drainage_uid']=$drainage_uid;
+            $engininfo["drainage_username"] =$userlist[$drainage_uid];
+        }elseif($drainage_uid){
+            return redirect('/architectural/enginStart/'.$engin->project_id.'?status=2&notice='.'销售人员不存在');
+        }else{
+            $engininfo['drainage_uid']=null;
+            $engininfo["drainage_username"] =null;
+        }
+        if(isset($userlist[$electrical_uid])){
+            $engininfo['electrical_uid']=$electrical_uid;
+            $engininfo["electrical_username"] =$userlist[$electrical_uid];
+        }elseif($electrical_uid){
+            return redirect('/architectural/enginStart/'.$engin->project_id.'?status=2&notice='.'销售人员不存在');
+        }else{
+            $engininfo['electrical_uid']=null;
+            $engininfo["electrical_username"] =null;
+        }
+
         $data['project_id'] =$engin->project_id;
         $data['engin_id']   =$id;
         $data['use_time']           =$use_time;
@@ -539,6 +574,7 @@ class EnginneringController extends WebController
         $data['room_name']          =json_encode($room_name);
         $data['room_area']          =json_encode($room_area);
         DB::beginTransaction();
+
         //保存数据到设计参数中
         if($info){
             $data['edit_uid'] =$this->user()->id;
@@ -552,20 +588,21 @@ class EnginneringController extends WebController
 
         //更改工程信息的面积和配置信息
         $build_area =array_sum($house_area);
-
-        DB::table('engineering')->where('id',$id)->update(['build_area'=>$build_area,'is_conf_param'=>1]);
+        $engininfo['engin_build_area']=$build_area;
+        $engininfo['is_conf_param']=1;
+        DB::table('engineering')->where('id',$id)->update($engininfo);
         DB::commit();
 
         if($engin->status ==0){
-            return redirect('/architectural/enginStart?status=1&notice='.'更改成功');
+            return redirect('/architectural/enginStart/'.$engin->project_id.'?status=1&notice='.'更改成功');
         }elseif($engin->status == 1){
-            return redirect('/architectural/enginConduct?status=1&notice='.'更改成功');
+            return redirect('/architectural/enginConduct/'.$engin->project_id.'?status=1&notice='.'更改成功');
         }else{
-            return redirect('/architectural/enginStart?status=1&notice='.'更改成功');
+            return redirect('/architectural/enginStart/'.$engin->project_id.'?status=1&notice='.'更改成功');
         }
     }
 
-//项目设计参数详情
+    //项目设计参数详情
     public function enginParamDetail(Request $request,$id){
         $this->user();
         $data['navid']      =35;
@@ -596,6 +633,84 @@ class EnginneringController extends WebController
             $data['room_area']      =json_decode($data['param']->room_area,true);
         }
         return view('architectural.enginnering.enginParamDetail',$data);
+    }
+
+    /**
+     *建筑设计项目工程列表
+     * @return \Illuminate\Http\Response
+     */
+    public function enginProjectList(Request $request)
+    {
+        $this->user();
+        $project_name       =$request->input('project_name','');
+        $address            =$request->input('address','');
+        $project_leader    =$request->input('project_leader','');
+        $project_status             =(int)$request->input('project_status',0);
+        $page               =$request->input('page',1);
+        $rows               =$request->input('rows',40);
+        $data['project_name']   =$project_name;
+        $data['address']        =$address;
+        $data['project_leader']=$project_leader;
+        $data['project_status'] =$project_status;
+        $datalist=$this->getEnginProjectList($project_status,$project_name,$address,$project_leader,$page,$rows);
+        if($project_status == 0){
+            $url='/project/projectStart?project_status='.$project_status.'&project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
+        }elseif($project_status == 1){
+            $url='/project/projectConduct?project_status='.$project_status.'&project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
+        }elseif($project_status == 2){
+            $url='/project/projectCompleted?project_status='.$project_status.'&project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
+        }elseif($project_status == 4){
+            $url='/project/projectTermination?project_status='.$project_status.'&project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
+        }else{
+            $url='/project/projectStart?project_status='.$project_status.'&project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
+        }
+
+        $data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
+        $data['data']   =$datalist['data'];
+        $data['navid']      =35;
+        $data['subnavid']   =3500;
+        if( !(in_array(3500,$this->user()->pageauth)) && !in_array(3507,$this->user()->manageauth)){
+            return redirect('/home');
+        }
+        return view('architectural.enginnering.enginProjectList',$data);
+    }
+
+    //查询项目信息
+    protected function getEnginProjectList($status,$project_name='',$address='',$project_leader='',$page=1,$rows=20)
+    {
+        $db=DB::table('project');
+        if($status == 0){
+            $db->where('start_count','>',0);
+        }elseif($status==1){
+            $db->where('conduct_count','>',0);
+        }elseif($status==2){
+            $db->where('completed_count','>',0);
+        }elseif($status==4){
+            $db->where('termination_count','>',0);
+        }
+        if(!empty($project_name)){
+            $db->where('project_name','like','%'.$project_name.'%');
+        }
+        if(!empty($address)){
+            $db->Where(function ($query)use($address) {
+                $query->where('province', 'like','%'.$address.'%')
+                    ->orwhere('city', 'like','%'.$address.'%')
+                    ->orwhere('county', 'like','%'.$address.'%')
+                    ->orwhere('address_detail', 'like','%'.$address.'%')
+                    ->orwhere('foreign_address', 'like','%'.$address.'%');
+            });
+        }
+        if(!empty($project_leader)){
+            $db->where('project_leader','like','%'.$project_leader.'%');
+        }
+
+        $data['count'] =$db->count();
+        $data['data']= $db->orderby('project.id','desc')
+            ->select(['project.*'])
+            ->skip(($page-1)*$rows)
+            ->take($rows)
+            ->get();
+        return $data;
     }
 
 

@@ -154,7 +154,64 @@
                         </table>
 
                         <div class="clearfix"></div>
+                            <table class="layui-table layui-form">
+                                <thead>
+                                <tr>
+                                    <th colspan="6"><span class="btn btn-info">建筑设计负责人</span></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td  class="pro-title">结构设计负责人</td>
+                                    <td>
+                                        <select name="structure_uid" id="structure_uid" class="input-medium span12 search-query  notempty" style="min-width: 80px">
+                                            <option value="0" ></option>
+                                            @foreach($userList as $u)
+                                                @if($u->department_id == 6)
+                                                    @if(isset($engineering->structure_uid) && ($u->id == $engineering->structure_uid))
+                                                        <option value="{{$u->id}}" selected="selected">{{$u->name}}</option>
+                                                    @else
+                                                        <option value="{{$u->id}}" >{{$u->name}}</option>
+                                                    @endif
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td class="pro-title">给排水设计负责人</td>
+                                    <td>
+                                        <select name="drainage_uid" id="drainage_uid" class="input-medium span12 search-query  notempty" style="min-width: 80px">
+                                            <option value="0" ></option>
+                                            @foreach($userList as $u)
+                                                @if($u->department_id == 6)
+                                                    @if(isset($engineering->drainage_uid) && ($u->id == $engineering->drainage_uid))
+                                                        <option value="{{$u->id}}" selected="selected">{{$u->name}}</option>
+                                                    @else
+                                                        <option value="{{$u->id}}" >{{$u->name}}</option>
+                                                    @endif
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td class="pro-title">电气设计负责人</td>
+                                    <td>
+                                        <select name="electrical_uid" id="electrical_uid" class="input-medium span12 search-query  notempty" style="min-width: 80px">
+                                            <option value="0" ></option>
+                                            @foreach($userList as $u)
+                                                @if($u->department_id == 6)
+                                                    @if(isset($engineering->electrical_uid) && ($u->id == $engineering->electrical_uid))
+                                                        <option value="{{$u->id}}" selected="selected">{{$u->name}}</option>
+                                                    @else
+                                                        <option value="{{$u->id}}" >{{$u->name}}</option>
+                                                    @endif
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
 
+                            <div class="clearfix"></div>
                         <table class="layui-table layui-form">
                             <thead>
                             <tr>
@@ -253,7 +310,7 @@
             $('.total_area').val(sum);
 
             if(buildarea != sum){
-                $('.area_content').html('建筑面积设计发生变化，将覆盖工程中原有数据')
+                $('.area_content').html('建筑面积设计发生变化，请联系销售人员更改工程建筑面积')
             }else{
                 $('.area_content').html('');
             }
@@ -303,7 +360,7 @@
             }
 
             if(buildarea != $('.total_area').val()){
-                if(confirm("建筑面积设计发生变化，将覆盖工程中原有数据，是否继续？")){
+                if(confirm("建筑面积设计发生变化，请联系销售人员更改工程建筑面积？")){
                     return true;
                 }
                 return false;
