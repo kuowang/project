@@ -117,9 +117,10 @@
                                     <th>项目名称</th>
                                     <th>工程名称</th>
                                     <th>工程地址</th>
-                                    <th style="width: 70px">建筑面积<br>(设计面积)</th>
+                                    <th style="width: 70px">建筑面积(m²)</th>
                                     <th style="width: 70px">建筑层数</th>
-                                    <th style="width: 70px">建筑数量</th>
+                                    <th style="width: 70px">建筑数量(栋)</th>
+                                    <th>设计负责人</th>
                                     <th>建筑设计负责人</th>
                                     <th>结构设计负责人</th>
                                     <th>给排水设计负责人</th>
@@ -129,6 +130,7 @@
                                     <th style="width: 140px;">设计工况状态</th>
                                     <th style="width: 60px;">设计参数管理</th>
                                     <th style="width: 60px;">设计工况管理</th>
+                                    <th style="width: 60px;">执行操作</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -143,6 +145,7 @@
                                         <td>{{ $val->build_floor }}</td>
                                         <td>{{$val->build_number}}</td>
                                         <td>{{$val->design_username}}</td>
+                                        <td>{{$val->build_design_username}}</td>
                                         <td>{{$val->structure_username}}</td>
                                         <td>{{$val->drainage_username}}</td>
                                         <td>{{$val->electrical_username}}</td>
@@ -194,6 +197,7 @@
                                                 </a>
                                             @endif
                                         </td>
+                                        <td><span class="btn btn-info" onclick="selectModel('{{$val->id}}','{{$val->build_design_uid}}','{{$val->structure_uid}}','{{$val->drainage_uid}}','{{$val->electrical_uid}}')">编辑</span></td>
 
                                     </tr>
                                 @endforeach
@@ -206,8 +210,9 @@
                                 @endphp
 
                             </div>
-                            <div class="clearfix">
-                            </div>
+                            <div class="clearfix"></div>
+                            <div>建筑面积中括号部分为设计面积，如果不一致请联系销售人员更改工程建筑面积</div>
+
                         </div>
                     </div>
                 </div>
@@ -233,12 +238,148 @@
         <hr class="hr-stylish-1">
     </div>
 
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        负责人配置
+                    </h4>
+                </div>
+                <form class="form-horizontal no-margin" id="noticeform" action="/architectural/postEnginUserInfo" method="post">
+                    <div class="modal-body">
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <div class="widget-body">
+                                    <div class="control-group">
+                                        <label class="control-label" for="build_design_uid">
+                                            建筑设计负责人:
+                                        </label>
+                                        <div class="controls controls-row">
+                                            <select name="build_design_uid" id="build_design_uid" class="" style="min-width: 80px">
+                                                <option value="0" ></option>
+                                                @foreach($userList as $u)
+                                                    @if($u->department_id == 6)
+                                                        <option value="{{$u->id}}" >{{$u->name}}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="structure_uid">
+                                            结构设计负责人:
+                                        </label>
+                                        <div class="controls controls-row">
+                                            <select name="structure_uid" id="structure_uid" class="" style="min-width: 80px">
+                                                <option value="0" ></option>
+                                                @foreach($userList as $u)
+                                                    @if($u->department_id == 6)
+                                                        <option value="{{$u->id}}" >{{$u->name}}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="drainage_uid">
+                                            给排水设计负责人:
+                                        </label>
+                                        <div class="controls controls-row">
+                                            <select name="drainage_uid" id="drainage_uid" class="" style="min-width: 80px">
+                                                <option value="0" ></option>
+                                                @foreach($userList as $u)
+                                                    @if($u->department_id == 6)
+                                                        <option value="{{$u->id}}" >{{$u->name}}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="electrical_uid">
+                                            电气设计负责人:
+                                        </label>
+                                        <div class="controls controls-row">
+                                            <select name="electrical_uid" id="electrical_uid" class="" style="min-width: 80px">
+                                                <option value="0" ></option>
+                                                @foreach($userList as $u)
+                                                    @if($u->department_id == 6)
+                                                        <option value="{{$u->id}}" >{{$u->name}}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="modal-footer layui-form-item" >
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button class="btn btn-success" lay-filter="add" lay-submit="" onclick="submitform()">提 交</button>
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
     <script>
         //一般直接写在一个js文件中
 
+        //显示模拟框
+        function selectModel(id,build_design_uid,structure_uid,drainage_uid,electrical_uid){
+            $('#myModal').modal();
+            $('#build_design_uid').val(build_design_uid);
+            $('#structure_uid').val(structure_uid);
+            $('#drainage_uid').val(drainage_uid);
+            $('#electrical_uid').val(electrical_uid);
+            $('#noticeform').prop('action','/architectural/postEnginUserInfo/'+id);
+        }
+        function submitform(){
+            var datalist={
+                build_design_uid:$('#build_design_uid').val(),
+                structure_uid: $('#structure_uid').val(),
+                drainage_uid:$("#drainage_uid").val(),
+                electrical_uid:$("#electrical_uid").val(),
+            };
 
+            url=$('#noticeform').prop('action');
+            $.ajax({
+                url:url,
+                type:'post',
+                // contentType: 'application/json',
+                data:datalist,
+                success:function(data){
+                    console.log(data);
+                    if(data.status == 1){
+                        $('#myModal').modal('hide');
+                        location.href=location.href
+                    }else{
+                        showmsg(data.info);
+                    }
+                },
+                error:function () {
+                    showmsg('提交失败，请刷新页面再试');
+                }
+            });
 
-
+            return false;
+        }
+        function showmsg(str) {
+            layui.use('layer', function(){
+                var layer = layui.layer;
+                layer.msg(str);
+            });
+        }
     </script>
+
 
 @endsection

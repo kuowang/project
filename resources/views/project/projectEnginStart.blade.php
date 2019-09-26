@@ -113,9 +113,9 @@
                                 <th>项目名称</th>
                                 <th>工程名称</th>
                                 <th>工程地址</th>
-                                <th>建筑面积</th>
+                                <th>建筑面积(m²)</th>
                                 <th>建筑层数</th>
-                                <th>建筑数量</th>
+                                <th>建筑数量(栋)</th>
                                 <th>销售负责人</th>
                                 <th>设计负责人</th>
                                 <th>预算负责人</th>
@@ -241,7 +241,7 @@
             </form>
             </div><!-- /.modal-content -->
         </div><!-- /.modal -->
-    </div>
+
 
     <script>
         //一般直接写在一个js文件中

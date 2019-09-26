@@ -144,7 +144,7 @@ Route::group(['prefix' => 'architectural','namespace' => 'Architectural','middle
     Route::get('/enginParamDetail/{id}',           'EnginneringController@enginParamDetail');     //查看工程设计参数详情
 
     Route::get('/enginProjectList',                'EnginneringController@enginProjectList');     //工程设计中项目列表
-
+    Route::post('/postEnginUserInfo/{id}',        'EnginneringController@postEnginUserInfo');    //提交配置工程设计人员信息
 
 });
 

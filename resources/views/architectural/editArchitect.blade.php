@@ -31,13 +31,13 @@
                             <tr>
                                 <td>
                                     <input type="hidden" name="id" value="{{ $architect->id }}" lay-skin="primary">
-                                    <input type="text"   name="system_name" value="{{ $architect->system_name }}" lay-skin="primary">
+                                    <input type="text"   name="system_name" class="span12" value="{{ $architect->system_name }}" lay-skin="primary">
                                 </td>
                                 <td>
-                                    <input type="text" name="engineering_name" value="{{ $architect->engineering_name }}" lay-skin="primary">
+                                    <input type="text" name="engineering_name" class="span12" value="{{ $architect->engineering_name }}" lay-skin="primary">
                                 </td>
                                 <td>
-                                    <input type="text" name="system_code" value="{{ $architect->system_code }}" lay-skin="primary">
+                                    <input type="text" name="system_code" class="span12" value="{{ $architect->system_code }}" lay-skin="primary">
                                 </td>
                                 <td>
                                     <select name="status" id="stateAndCity" class="span12" onchange="setstatus(this)" style="min-width: 80px">
@@ -74,24 +74,24 @@
                         <table class="layui-table layui-form">
                             <thead>
                             <tr>
-                                <th>子系统名称</th>
-                                <th>子系统编码</th>
-                                <th>工况代码</th>
-                                <th>系统状态</th>
-                                <th>操作</th>
+                                <th style="width: 40%">子系统名称</th>
+                                <th style="width: 20%">子系统编码</th>
+                                <th style="width: 20%">工况代码</th>
+                                <th style="width: 10%">系统状态</th>
+                                <th style="width: 10%">操作</th>
                             </thead>
                             <tbody id="zixitong">
                             @foreach($sub_architect as $v)
                             <tr>
                                 <td>
-                                    <input type="hidden" name="sub_id[]" value="{{ $v->id }}" lay-skin="primary">
-                                    <input type="text" name="sub_system_name[]" value="{{ $v->sub_system_name }}" lay-skin="primary">
+                                    <input type="hidden" name="sub_id[]" class="span12" value="{{ $v->id }}" lay-skin="primary">
+                                    <input type="text" name="sub_system_name[]" class="span12" value="{{ $v->sub_system_name }}" lay-skin="primary">
                                 </td>
                                 <td>
-                                    <input type="text" name="sub_system_code[]" value="{{ $v->sub_system_code }}" lay-skin="primary">
+                                    <input type="text" name="sub_system_code[]" class="span12" value="{{ $v->sub_system_code }}" lay-skin="primary">
                                 </td>
                                 <td>
-                                    <input type="text" name="work_code[]"   value="{{ $v->work_code }}" lay-skin="primary">
+                                    <input type="text" name="work_code[]" class="span12"  value="{{ $v->work_code }}" lay-skin="primary">
                                 </td>
                                 <td>
                                     <select name="sub_status[]" id="stateAndCity" class="span12" style="min-width: 80px" onchange="setstatus(this)">
@@ -168,9 +168,9 @@
         }
         //添加事件
         function add_xitong() {
-           str ='<tr><td><input type="hidden" name="sub_id[]" value="0" lay-skin="primary"><input type="text" name="sub_system_name[]" lay-skin="primary"></td>'+
-               '<td><input type="text" name="sub_system_code[]" lay-skin="primary"></td>'+
-            '<td><input type="text" name="work_code[]" lay-skin="primary"></td>'+
+           str ='<tr><td><input type="hidden" name="sub_id[]" value="0" lay-skin="primary"><input type="text" name="sub_system_name[]" class="span12" lay-skin="primary"></td>'+
+               '<td><input type="text" name="sub_system_code[]" class="span12" lay-skin="primary"></td>'+
+            '<td><input type="text" name="work_code[]" class="span12" lay-skin="primary"></td>'+
             '<td><select name="sub_status[]" id="stateAndCity" class="span12" style="min-width: 80px" onchange="setstatus(this)">'+
             '<option value="1" selected="selected">有效</option><option value="0">无效</option></select></td>'+
             '<td><a  class="btn btn-danger" onclick="deleteTrRow(this)">删除</a></td></tr>';

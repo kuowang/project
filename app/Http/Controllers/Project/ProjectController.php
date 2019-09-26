@@ -506,6 +506,7 @@ class ProjectController extends WebController
                     'build_height'=>isset($build_height[$k])?(float)$build_height[$k]:1,
                     'indoor_height'=>isset($indoor_height[$k])?(float)$indoor_height[$k]:1,
                     'build_number'=>isset($build_number[$k])?(int)$build_number[$k]:1,
+                    'engin_address'=>$data["province"].$data["city"].$data["county"].$data["address_detail"].$data["foreign_address"],
                     'created_uid'=>$this->user()->id,
                     'created_at'=>date('Y-m-d'),
                 ];

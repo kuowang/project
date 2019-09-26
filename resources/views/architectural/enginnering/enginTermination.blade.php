@@ -117,9 +117,10 @@
                                     <th>项目名称</th>
                                     <th>工程名称</th>
                                     <th>工程地址</th>
-                                    <th style="width: 70px">建筑面积<br>(设计面积)</th>
+                                    <th style="width: 70px">建筑面积(m²)</th>
                                     <th style="width: 70px">建筑层数</th>
-                                    <th style="width: 70px">建筑数量</th>
+                                    <th style="width: 70px">建筑数量(栋)</th>
+                                    <th>设计负责人</th>
                                     <th>建筑设计负责人</th>
                                     <th>结构设计负责人</th>
                                     <th>给排水设计负责人</th>
@@ -141,6 +142,7 @@
                                         <td>{{ $val->build_floor }}</td>
                                         <td>{{$val->build_number}}</td>
                                         <td>{{$val->design_username}}</td>
+                                        <td>{{$val->build_design_username}}</td>
                                         <td>{{$val->structure_username}}</td>
                                         <td>{{$val->drainage_username}}</td>
                                         <td>{{$val->electrical_username}}</td>

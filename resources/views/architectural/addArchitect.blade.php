@@ -30,13 +30,13 @@
                             <tbody>
                             <tr>
                                 <td>
-                                    <input type="text" name="system_name" lay-skin="primary">
+                                    <input type="text" name="system_name" class="span12" lay-skin="primary">
                                 </td>
                                 <td>
-                                    <input type="text" name="engineering_name" lay-skin="primary">
+                                    <input type="text" name="engineering_name" class="span12" lay-skin="primary">
                                 </td>
                                 <td>
-                                    <input type="text" name="system_code" lay-skin="primary">
+                                    <input type="text" name="system_code" class="span12" lay-skin="primary">
                                 </td>
                                 <td>
                                     <select name="status" id="stateAndCity" class="span12" style="min-width: 80px">
@@ -84,13 +84,13 @@
                             <tbody id="zixitong">
                             <tr>
                                 <td>
-                                    <input type="text" name="sub_system_name[]" lay-skin="primary">
+                                    <input type="text" name="sub_system_name[]" class="span12" lay-skin="primary">
                                 </td>
                                 <td>
-                                    <input type="text" name="sub_system_code[]" lay-skin="primary">
+                                    <input type="text" name="sub_system_code[]" class="span12" lay-skin="primary">
                                 </td>
                                 <td>
-                                    <input type="text" name="work_code[]" lay-skin="primary">
+                                    <input type="text" name="work_code[]" class="span12" lay-skin="primary">
                                 </td>
                                 <td>
                                     <select name="sub_status[]" id="stateAndCity" class="span12" style="min-width: 80px">
@@ -166,9 +166,9 @@
         }
         //添加事件
         function add_xitong() {
-           str ='<tr><td><input type="text" name="sub_system_name[]" lay-skin="primary"></td>'+
-               '<td><input type="text" name="sub_system_code[]" lay-skin="primary"></td>'+
-            '<td><input type="text" name="work_code[]" lay-skin="primary"></td>'+
+           str ='<tr><td><input type="text" name="sub_system_name[]" class="span12" lay-skin="primary"></td>'+
+               '<td><input type="text" name="sub_system_code[]" class="span12" lay-skin="primary"></td>'+
+            '<td><input type="text" name="work_code[]" class="span12" lay-skin="primary"></td>'+
             '<td><select name="sub_status[]" id="stateAndCity" class="span12" style="min-width: 80px">'+
             '<option value="1" selected="selected">有效</option><option value="0">无效</option></select></td>'+
             '<td><a  class="btn btn-danger" onclick="deleteTrRow(this)">删除</a></td></tr>';

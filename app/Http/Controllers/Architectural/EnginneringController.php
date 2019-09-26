@@ -35,6 +35,8 @@ class EnginneringController extends WebController
         if($id){
             $data['project'] =DB::table('project')->where('id',$id)->first();
         }
+        $data['userList']=DB::table('users')->where('status',1)->orderby('name')->select(['id','name','department_id'])->get();
+
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
         return view('architectural.enginnering.enginStart',$data);
@@ -55,6 +57,8 @@ class EnginneringController extends WebController
         if($id){
             $data['project'] =DB::table('project')->where('id',$id)->first();
         }
+        $data['userList']=DB::table('users')->where('status',1)->orderby('name')->select(['id','name','department_id'])->get();
+
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
         return view('architectural.enginnering.enginConduct',$data);
@@ -517,39 +521,6 @@ class EnginneringController extends WebController
             exit;
         }
         $engininfo=[];
-        $structure_uid =$request->input('structure_uid',0);
-        $drainage_uid   =$request->input('drainage_uid',0);
-        $electrical_uid =$request->input('electrical_uid',0);
-        $userlist =DB::table('users')
-            ->wherein('id',[$structure_uid,$drainage_uid,$electrical_uid])
-            ->pluck('name','id')->toarray();
-        if(isset($userlist[$structure_uid])){
-            $engininfo['structure_uid']=$structure_uid;
-            $engininfo["structure_username"] =$userlist[$structure_uid];
-        }elseif($structure_uid){
-            return redirect('/architectural/enginStart/'.$engin->project_id.'?status=2&notice='.'销售人员不存在');
-        }else{
-            $engininfo['structure_uid']=null;
-            $engininfo["structure_username"] =null;
-        }
-        if(isset($userlist[$drainage_uid])){
-            $engininfo['drainage_uid']=$drainage_uid;
-            $engininfo["drainage_username"] =$userlist[$drainage_uid];
-        }elseif($drainage_uid){
-            return redirect('/architectural/enginStart/'.$engin->project_id.'?status=2&notice='.'销售人员不存在');
-        }else{
-            $engininfo['drainage_uid']=null;
-            $engininfo["drainage_username"] =null;
-        }
-        if(isset($userlist[$electrical_uid])){
-            $engininfo['electrical_uid']=$electrical_uid;
-            $engininfo["electrical_username"] =$userlist[$electrical_uid];
-        }elseif($electrical_uid){
-            return redirect('/architectural/enginStart/'.$engin->project_id.'?status=2&notice='.'销售人员不存在');
-        }else{
-            $engininfo['electrical_uid']=null;
-            $engininfo["electrical_username"] =null;
-        }
 
         $data['project_id'] =$engin->project_id;
         $data['engin_id']   =$id;
@@ -713,5 +684,58 @@ class EnginneringController extends WebController
         return $data;
     }
 
+    //提交建筑设计中设计人员信息
+    public function postEnginUserInfo(Request $request,$id){
+        $engin =DB::table('engineering')->where('id',$id)->first();
+        if(empty($engin)){
+            echo "<script>alert('系统工程不存在');history.go(-2);</script>";
+            exit;
+        }
+        $structure_uid =$request->input('structure_uid',0);
+        $drainage_uid   =$request->input('drainage_uid',0);
+        $electrical_uid =$request->input('electrical_uid',0);
+        $build_design_uid=$request->input('build_design_uid',0);
+        $userlist =DB::table('users')
+            ->wherein('id',[$structure_uid,$drainage_uid,$electrical_uid,$build_design_uid])
+            ->pluck('name','id')->toarray();
+        if(isset($userlist[$build_design_uid])){
+            $engininfo['build_design_uid']=$build_design_uid;
+            $engininfo["build_design_username"] =$userlist[$build_design_uid];
+        }elseif($build_design_uid){
+            return redirect('/architectural/enginStart/'.$engin->project_id.'?status=2&notice='.'设计人员不存在');
+        }else{
+            $engininfo['structure_uid']=null;
+            $engininfo["structure_username"] =null;
+        }
+        if(isset($userlist[$structure_uid])){
+            $engininfo['structure_uid']=$structure_uid;
+            $engininfo["structure_username"] =$userlist[$structure_uid];
+        }elseif($structure_uid){
+            return redirect('/architectural/enginStart/'.$engin->project_id.'?status=2&notice='.'销售人员不存在');
+        }else{
+            $engininfo['structure_uid']=null;
+            $engininfo["structure_username"] =null;
+        }
+        if(isset($userlist[$drainage_uid])){
+            $engininfo['drainage_uid']=$drainage_uid;
+            $engininfo["drainage_username"] =$userlist[$drainage_uid];
+        }elseif($drainage_uid){
+            return redirect('/architectural/enginStart/'.$engin->project_id.'?status=2&notice='.'销售人员不存在');
+        }else{
+            $engininfo['drainage_uid']=null;
+            $engininfo["drainage_username"] =null;
+        }
+        if(isset($userlist[$electrical_uid])){
+            $engininfo['electrical_uid']=$electrical_uid;
+            $engininfo["electrical_username"] =$userlist[$electrical_uid];
+        }elseif($electrical_uid){
+            return redirect('/architectural/enginStart/'.$engin->project_id.'?status=2&notice='.'销售人员不存在');
+        }else{
+            $engininfo['electrical_uid']=null;
+            $engininfo["electrical_username"] =null;
+        }
+        DB::table('engineering')->where('id',$id)->update($engininfo);
+        return $this->success('编辑成功');
+    }
 
 }
