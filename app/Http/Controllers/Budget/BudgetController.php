@@ -24,13 +24,16 @@ class BudgetController extends WebController
      *洽谈项目列表
      * @return \Illuminate\Http\Response
      */
-    public function budgetStart(Request $request)
+    public function budgetStart(Request $request,$id=0)
     {
         $this->user();
-        $data=$this->budget($request,0);
+        $data=$this->budget($request,$id,0);
         $data['subnavid']   =2001;
         if( !(in_array(200101,$this->user()->pageauth)) && !in_array(200101,$this->user()->manageauth)){
             return redirect('/home');
+        }
+        if($id){
+            $data['project'] =DB::table('project')->where('id',$id)->first();
         }
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
@@ -40,10 +43,10 @@ class BudgetController extends WebController
      *实施项目列表
      * @return \Illuminate\Http\Response
      */
-    public function budgetConduct(Request $request)
+    public function budgetConduct(Request $request,$id=0)
     {
         $this->user();
-        $data=$this->budget($request,1);
+        $data=$this->budget($request,$id,1);
         $data['subnavid']   =2001;
         if( !(in_array(200102,$this->user()->pageauth)) && !in_array(200104,$this->user()->manageauth)){
             return redirect('/budget/budgetStart?status=2&notice='.'您没有操作该功能权限');
@@ -56,13 +59,16 @@ class BudgetController extends WebController
      *竣工项目列表
      * @return \Illuminate\Http\Response
      */
-    public function budgetCompleted(Request $request)
+    public function budgetCompleted(Request $request,$id=0)
     {
         $this->user();
-        $data=$this->budget($request,2);
+        $data=$this->budget($request,$id,2);
         $data['subnavid']   =2001;
         if( !(in_array(200103,$this->user()->pageauth)) && !in_array(200107,$this->user()->manageauth)){
             return redirect('/budget/budgetStart?status=2&notice='.'您没有操作该功能权限');
+        }
+        if($id){
+            $data['project'] =DB::table('project')->where('id',$id)->first();
         }
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
@@ -72,13 +78,16 @@ class BudgetController extends WebController
      *终止项目列表
      * @return \Illuminate\Http\Response
      */
-    public function budgetTermination(Request $request)
+    public function budgetTermination(Request $request,$id=0)
     {
         $this->user();
-        $data=$this->budget($request,4);
+        $data=$this->budget($request,$id,4);
         $data['subnavid']   =2001;
         if( !(in_array(200104,$this->user()->pageauth)) && !in_array(200108,$this->user()->manageauth)){
             return redirect('/budget/budgetStart?status=2&notice='.'您没有操作该功能权限');
+        }
+        if($id){
+            $data['project'] =DB::table('project')->where('id',$id)->first();
         }
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
@@ -86,13 +95,16 @@ class BudgetController extends WebController
     }
 
     //查询项目信息
-    protected function getBudgetList($status,$project_name='',$address='',$budget_username='',$page=1,$rows=20)
+    protected function getBudgetList($id=0,$status,$project_name='',$address='',$budget_username='',$page=1,$rows=20)
     {
         //DB::connection()->enableQueryLog();
         $db=DB::table('engineering')
             ->join('project','project.id','=','project_id')
             ->leftjoin('budget','engineering.id','=','budget.engin_id')
             ->where('engineering.status',$status);
+        if($id){
+            $db->where('engineering.project_id',$id);
+        }
 
         if(!empty($project_name)){
             $db->where('project_name','like','%'.$project_name.'%');
@@ -115,8 +127,8 @@ class BudgetController extends WebController
         $data['data']= $db->orderby('project.id','desc')
             ->orderby('engineering.id','asc')
             ->select(['project.project_name','engineering.project_id','engineering.id as engin_id',
-                'engineering.engineering_name','build_area','budget.total_budget_price','budget.budget_order_number',
-                'project.budget_uid','project.budget_username','budget.budget_status',
+                'engineering.engineering_name','build_area','engin_build_area','budget.total_budget_price','budget.budget_order_number',
+                'engineering.budget_uid','engineering.budget_username','budget.budget_status',
                 'is_conf_architectural','budget.id as budget_id','is_conf_param'])
             ->skip(($page-1)*$rows)
             ->take($rows)
@@ -128,7 +140,7 @@ class BudgetController extends WebController
     }
 
     //工程预算信息列表
-    private function budget($request,$status=0)
+    private function budget($request,$id=0,$status=0)
     {
         $project_name       =$request->input('project_name','');
         $address            =$request->input('address','');
@@ -139,7 +151,7 @@ class BudgetController extends WebController
         $data['address']        =$address;
         $data['budget_username']=$budget_username;
 
-        $datalist=$this->getBudgetList($status,$project_name,$address,$budget_username,$page,$rows);
+        $datalist=$this->getBudgetList($id,$status,$project_name,$address,$budget_username,$page,$rows);
         if($status == 0){
             $url='/budget/budgetStart?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
         }elseif($status == 1){
@@ -154,6 +166,7 @@ class BudgetController extends WebController
         $data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
         $data['data']   =$datalist['data'];
         $data['navid']      =20;
+        $data['id'] =$id;
         return $data;
     }
     //编辑洽谈工程预算详情

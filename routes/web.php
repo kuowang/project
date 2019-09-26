@@ -202,10 +202,10 @@ Route::group(['prefix' => 'customer','namespace' => 'Customer','middleware' => '
 
 //预算管理类的控制组 需要登录
 Route::group(['prefix' => 'budget','namespace' => 'Budget','middleware' => 'auth'], function () {
-    Route::get('/budgetStart',                     'BudgetController@budgetStart');      //洽谈工程列表
-    Route::get('/budgetConduct',                   'BudgetController@budgetConduct');    //实施工程列表
-    Route::get('/budgetCompleted',                 'BudgetController@budgetCompleted');  //竣工工程列表
-    Route::get('/budgetTermination',               'BudgetController@budgetTermination'); //终止工程列表
+    Route::get('/budgetStart/{id?}',                     'BudgetController@budgetStart');      //洽谈工程列表
+    Route::get('/budgetConduct/{id?}',                   'BudgetController@budgetConduct');    //实施工程列表
+    Route::get('/budgetCompleted/{id?}',                 'BudgetController@budgetCompleted');  //竣工工程列表
+    Route::get('/budgetTermination/{id?}',               'BudgetController@budgetTermination'); //终止工程列表
 
     Route::get('/editStartBudget/{id}',             'BudgetController@editStartBudget');             //编辑工程预算详情
     Route::get('/budgetStartDetail/{id}',           'BudgetController@budgetStartDetail');      //洽谈工程预算详情

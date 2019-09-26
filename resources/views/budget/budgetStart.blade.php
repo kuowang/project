@@ -35,29 +35,37 @@
         <div class="metro-nav">
             @if(in_array(200101,$pageauth))
             <div class="metro-nav-block nav-block-blue" style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
-                <a href="/budget/budgetStart">
-                    <div class="fs1" aria-hidden="true" data-icon="">洽谈工程</div>
+                <a href="/budget/budgetStart/{{$id}}">
+                    <div class="fs1" aria-hidden="true" ><img src="/img/nav/1.png">洽谈工程
+                        @if(isset($project))({{$project->start_count}}) @endif
+                    </div>
                 </a>
             </div>
             @endif
             @if(in_array(200102,$pageauth))
             <div class="metro-nav-block nav-block-green">
-                <a href="/budget/budgetConduct">
-                    <div class="fs1"  data-icon="">实施工程</div>
+                <a href="/budget/budgetConduct/{{$id}}">
+                    <div class="fs1"  ><img src="/img/nav/2.png">实施工程
+                        @if(isset($project))({{$project->conduct_count}})@endif
+                    </div>
                 </a>
             </div>
             @endif
             @if(in_array(200103,$pageauth))
             <div class="metro-nav-block nav-block-yellow">
-                <a href="/budget/budgetCompleted">
-                    <div class="fs1" aria-hidden="true" data-icon="">竣工工程</div>
+                <a href="/budget/budgetCompleted/{{$id}}">
+                    <div class="fs1" aria-hidden="true" ><img src="/img/nav/3.png">竣工工程
+                        @if(isset($project))({{$project->completed_count}})@endif
+                    </div>
                 </a>
             </div>
             @endif
             @if(in_array(200104,$pageauth))
             <div class="metro-nav-block nav-block-red">
-                <a href="/budget/budgetTermination">
-                    <div class="fs1" aria-hidden="true" data-icon="">终止工程</div>
+                <a href="/budget/budgetTermination/{{$id}}">
+                    <div class="fs1" aria-hidden="true" ><img src="/img/nav/4.png">终止工程                        @if(isset($project))({{$project->termination_count}})@endif
+                        @if(isset($project))({{$project->termination_count}})@endif
+                    </div>
                 </a>
             </div>
             @endif
@@ -75,12 +83,17 @@
                     </div>
                     <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                         <label>
-                            <form class="form-search" action="/budget/budgetStart" method="get">
-                                项目名称:<input type="text" name="project_name" value="{{ $project_name }}" class="input-medium search-query">
-                                项目地点:<input type="text" name="address" value="{{ $address }}" class="input-medium search-query">
-                                预算负责人:<input type="text" name="budget_username" value="{{ $budget_username }}" class="input-medium search-query">
-                                <button type="submit" class="btn">搜索</button>
-                            </form>
+                            @if(isset($project))
+                                {{$project->project_name}}
+                            @else
+                                <form class="form-search" action="/budget/budgetStart" method="get">
+                                    项目名称:<input type="text" name="project_name" value="{{ $project_name }}" class="input-medium search-query">
+                                    项目地点:<input type="text" name="address" value="{{ $address }}" class="input-medium search-query">
+                                    预算负责人:<input type="text" name="budget_username" value="{{ $budget_username }}" class="input-medium search-query">
+                                    <button type="submit" class="btn">搜索</button>
+                                </form>
+                            @endif
+
                         </label>
                     </div>
                 </div>
