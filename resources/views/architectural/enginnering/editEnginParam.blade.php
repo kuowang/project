@@ -251,7 +251,7 @@
             $('.total_area').val(sum);
 
             if(buildarea != sum){
-                $('.area_content').html('建筑面积设计发生变化，请联系销售人员更改工程建筑面积')
+                $('.area_content').html('<img src="/img/warning.png" style="width: 25px">建筑面积设计发生变化，请联系销售人员更改工程建筑面积')
             }else{
                 $('.area_content').html('');
             }
