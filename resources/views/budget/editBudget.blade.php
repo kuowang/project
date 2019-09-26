@@ -176,7 +176,7 @@
                         <table class="layui-table layui-form table111">
                             <thead>
                             <tr>
-                                <th colspan="10"><span class="btn btn-info">预算清单列表</span></th>
+                                <th colspan="11"><span class="btn btn-info">预算清单列表</span></th>
                             </tr>
                             </thead>
                             <thead>

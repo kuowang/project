@@ -221,6 +221,8 @@ Route::group(['prefix' => 'budget','namespace' => 'Budget','middleware' => 'auth
     Route::get('/budgetTerminationDetail/{id}',     'BudgetController@budgetTerminationDetail');    //查看终止项目工程预算信息
     Route::get('/budgetDownload/{id}',             'BudgetController@budgetDownload');         //导出预算单 （能够查询的预算单都能导出）
 
+    Route::get('budgetProjectList',                 'BudgetController@budgetProjectList');         //预算项目列表
+
 
 });
 //预算管理类的控制组 不需要登录

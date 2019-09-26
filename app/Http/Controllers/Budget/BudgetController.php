@@ -21,7 +21,7 @@ class BudgetController extends WebController
     }
 
     /**
-     *洽谈项目列表
+     *洽谈预算项目列表
      * @return \Illuminate\Http\Response
      */
     public function budgetStart(Request $request,$id=0)
@@ -40,7 +40,7 @@ class BudgetController extends WebController
         return view('budget.budgetStart',$data);
     }
     /**
-     *实施项目列表
+     *实施预算项目列表
      * @return \Illuminate\Http\Response
      */
     public function budgetConduct(Request $request,$id=0)
@@ -51,12 +51,15 @@ class BudgetController extends WebController
         if( !(in_array(200102,$this->user()->pageauth)) && !in_array(200104,$this->user()->manageauth)){
             return redirect('/budget/budgetStart?status=2&notice='.'您没有操作该功能权限');
         }
+        if($id){
+            $data['project'] =DB::table('project')->where('id',$id)->first();
+        }
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
         return view('budget.budgetConduct',$data);
     }
     /**
-     *竣工项目列表
+     *竣工预算项目列表
      * @return \Illuminate\Http\Response
      */
     public function budgetCompleted(Request $request,$id=0)
@@ -75,7 +78,7 @@ class BudgetController extends WebController
         return view('budget.budgetCompleted',$data);
     }
     /**
-     *终止项目列表
+     *终止预算项目列表
      * @return \Illuminate\Http\Response
      */
     public function budgetTermination(Request $request,$id=0)
@@ -120,7 +123,7 @@ class BudgetController extends WebController
             });
         }
         if(!empty($budget_username)){
-            $db->where('budget_username','like','%'.$budget_username.'%');
+            $db->where('engineering.budget_username','like','%'.$budget_username.'%');
         }
 
         $data['count'] =$db->count();
@@ -726,4 +729,85 @@ class BudgetController extends WebController
         echo "<script>history.go(-1);</script>"; //返回上一页
         exit($strexport); //导出数据
     }
+
+    /**
+     *预算项目列表
+     * @return \Illuminate\Http\Response
+     */
+    public function budgetProjectList(Request $request)
+    {
+        $this->user();
+        $project_name       =$request->input('project_name','');
+        $address            =$request->input('address','');
+        $project_leader     =$request->input('budget_uid','');
+        $project_status     =(int)$request->input('project_status',0);
+        $page               =$request->input('page',1);
+        $rows               =$request->input('rows',40);
+        $data['project_name']   =$project_name;
+        $data['address']        =$address;
+        $data['project_leader']=$project_leader;
+        $data['project_status'] =$project_status;
+        $datalist=$this->getBudgetProjectList($project_status,$project_name,$address,$project_leader,$page,$rows);
+        if($project_status == 0){
+            $url='/budget/budgetStart?project_status='.$project_status.'&project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
+        }elseif($project_status == 1){
+            $url='/budget/budgetConduct?project_status='.$project_status.'&project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
+        }elseif($project_status == 2){
+            $url='/budget/budgetCompleted?project_status='.$project_status.'&project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
+        }elseif($project_status == 4){
+            $url='/budget/budgetTermination?project_status='.$project_status.'&project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
+        }else{
+            $url='/budget/budgetStart?project_status='.$project_status.'&project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
+        }
+
+        $data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
+        $data['data']   =$datalist['data'];
+        $data['navid']      =20;
+        $data['subnavid']   =2001;
+        if( !(in_array(2001,$this->user()->pageauth)) && !in_array(2001,$this->user()->manageauth)){
+            return redirect('/home');
+        }
+        return view('budget.budgetProjectList',$data);
+    }
+
+    //查询项目信息
+    protected function getBudgetProjectList($status,$project_name='',$address='',$project_leader='',$page=1,$rows=20)
+    {
+        $db=DB::table('project');
+        if($status == 0){
+            $db->where('start_count','>',0);
+        }elseif($status==1){
+            $db->where('conduct_count','>',0);
+        }elseif($status==2){
+            $db->where('completed_count','>',0);
+        }elseif($status==4){
+            $db->where('termination_count','>',0);
+        }
+        if(!empty($project_name)){
+            $db->where('project_name','like','%'.$project_name.'%');
+        }
+        if(!empty($address)){
+            $db->Where(function ($query)use($address) {
+                $query->where('province', 'like','%'.$address.'%')
+                    ->orwhere('city', 'like','%'.$address.'%')
+                    ->orwhere('county', 'like','%'.$address.'%')
+                    ->orwhere('address_detail', 'like','%'.$address.'%')
+                    ->orwhere('foreign_address', 'like','%'.$address.'%');
+            });
+        }
+        if(!empty($project_leader)){
+            $db->where('project_leader','like','%'.$project_leader.'%');
+        }
+        $data['count'] =$db->count();
+        $data['data']= $db->orderby('project.id','desc')
+            ->select(['project.*'])
+            ->skip(($page-1)*$rows)
+            ->take($rows)
+            ->get();
+        return $data;
+    }
+
+
+
+
 }
