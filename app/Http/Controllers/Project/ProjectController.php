@@ -905,7 +905,7 @@ class ProjectController extends WebController
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
         if( (in_array(150202,$this->user()->pageauth) && $project->created_uid == $this->user()->id ) || in_array(150202,$this->user()->manageauth)){
         }else{
-            return redirect('/project/projectStart?status=2&notice='.'您没有权限查看该项目信息');
+            return redirect('/project/projectStart/'.$engineering->project_id.'?status=2&notice='.'您没有权限查看该项目信息');
         }
         $data['navid']      =15;
         $data['subnavid']   =1502;
@@ -928,7 +928,7 @@ class ProjectController extends WebController
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
         if( (in_array(150202,$this->user()->pageauth) && $project->created_uid == $this->user()->id ) || in_array(150202,$this->user()->manageauth)){
         }else{
-            return redirect('/project/projectStart?status=2&notice='.'您没有权限查看该项目信息');
+            return redirect('/project/projectStart/'.$engineering->project_id.'?status=2&notice='.'您没有权限查看该项目信息');
         }
         $data['navid']      =15;
         $data['subnavid']   =1502;
