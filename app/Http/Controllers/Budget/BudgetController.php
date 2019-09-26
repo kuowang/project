@@ -156,15 +156,15 @@ class BudgetController extends WebController
 
         $datalist=$this->getBudgetList($id,$status,$project_name,$address,$budget_username,$page,$rows);
         if($status == 0){
-            $url='/budget/budgetStart?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
+            $url='/budget/budgetStart/'.$id.'?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
         }elseif($status == 1){
-            $url='/budget/budgetConduct?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
+            $url='/budget/budgetConduct/'.$id.'?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
         }elseif($status == 2){
-            $url='/budget/budgetCompleted?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
+            $url='/budget/budgetCompleted/'.$id.'?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
         }elseif($status == 4){
-            $url='/budget/budgetTermination?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
+            $url='/budget/budgetTermination/'.$id.'?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
         }else{
-            $url='/budget/budgetStart?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
+            $url='/budget/budgetStart/'.$id.'?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
         }
         $data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
         $data['data']   =$datalist['data'];
@@ -187,16 +187,16 @@ class BudgetController extends WebController
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
         if( (in_array(20010101,$this->user()->pageauth) && $project->budget_uid == $this->user()->id ) || in_array(200102,$this->user()->manageauth)){
             if($engineering->status !=0){
-                return redirect('/budget/budgetStart?status=2&notice='.'您没有权限编辑该工程信息');
+                return redirect('/budget/budgetStart/'.$engineering->project_id.'?status=2&notice='.'您没有权限编辑该工程信息');
             }
         }else{
             //设计人员可以操作更改工程设计详情
-            return redirect('/budget/budgetStart?status=2&notice='.'您没有权限编辑该工程信息');
+            return redirect('/budget/budgetStart/'.$engineering->project_id.'?status=2&notice='.'您没有权限编辑该工程信息');
         }
         //预算信息
         $budget =DB::table('budget')->where('engin_id',$id)->first();
         if(isset($budget->budget_status) && $budget->budget_status==1 ){
-            return redirect('/budget/budgetStart?status=2&notice='.'预算单已审核通过，不能编辑');
+            return redirect('/budget/budgetStart/'.$engineering->project_id.'?status=2&notice='.'预算单已审核通过，不能编辑');
         }
          return $this->editBudget($id,$data,$project,$engineering,$budget);
     }
@@ -218,16 +218,16 @@ class BudgetController extends WebController
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
         if( (in_array(20010201,$this->user()->pageauth) && $project->budget_uid == $this->user()->id ) || in_array(200105,$this->user()->manageauth)){
             if($engineering->status !=1){
-                return redirect('/budget/budgetConduct?status=2&notice='.'您没有权限编辑该工程信息');
+                return redirect('/budget/budgetConduct/'.$engineering->project_id.'?status=2&notice='.'您没有权限编辑该工程信息');
             }
         }else{
             //设计人员可以操作更改工程设计详情
-            return redirect('/budget/budgetConduct?status=2&notice='.'您没有权限编辑该工程信息');
+            return redirect('/budget/budgetConduct/'.$engineering->project_id.'?status=2&notice='.'您没有权限编辑该工程信息');
         }
         //预算信息
         $budget =DB::table('budget')->where('engin_id',$id)->first();
         if(isset($budget->budget_status) && $budget->budget_status==1 ){
-            return redirect('/budget/budgetConduct?status=2&notice='.'预算单已审核通过，不能编辑');
+            return redirect('/budget/budgetConduct/'.$engineering->project_id.'?status=2&notice='.'预算单已审核通过，不能编辑');
         }
         return $this->editBudget($id,$data,$project,$engineering,$budget);
     }
@@ -315,7 +315,7 @@ class BudgetController extends WebController
         $engin=DB::table('engineering')->where('id',$id)->first();
         $status =$request->input('project_status',0);
         if(empty($engin)){
-            return redirect('/budget/budgetStart?status=2&notice='.'项目不存在');
+            return redirect('/budget/budgetStart/'.$engin->project_id.'?status=2&notice='.'项目不存在');
         }
 
         if($engin->status == 0 && !in_array($status,[1,4])){
@@ -337,13 +337,13 @@ class BudgetController extends WebController
         //设置项目工程数量和建筑总面积
         $this->setProjectEnginNumber($engin->project_id);
         if($status == 1){
-            return redirect('/budget/budgetConduct?status=1&notice='.'项目状态更改成功！');
+            return redirect('/budget/budgetConduct/'.$engin->project_id.'?status=1&notice='.'项目状态更改成功！');
         }elseif($status == 2){
-            return redirect('/budget/budgetCompleted?status=1&notice='.'项目状态更改成功！');
+            return redirect('/budget/budgetCompleted/'.$engin->project_id.'?status=1&notice='.'项目状态更改成功！');
         }elseif($status == 4){
-            return redirect('/budget/budgetTermination?status=1&notice='.'项目状态更改成功！');
+            return redirect('/budget/budgetTermination/'.$engin->project_id.'?status=1&notice='.'项目状态更改成功！');
         }else{
-            return redirect('/budget/budgetStart?status=1&notice='.'项目状态更改成功！');
+            return redirect('/budget/budgetStart/'.$engin->project_id.'?status=1&notice='.'项目状态更改成功！');
         }
     }
 
@@ -499,11 +499,11 @@ class BudgetController extends WebController
 
         DB::commit();
         if($engineering->status == 0){
-            return redirect('/budget/budgetStart?status=1&notice='.'编辑预算成功');
+            return redirect('/budget/budgetStart/'.$engineering->project_id.'?status=1&notice='.'编辑预算成功');
         }elseif($engineering->status ==1){
-            return redirect('/budget/budgetConduct?status=1&notice='.'编辑预算成功');
+            return redirect('/budget/budgetConduct/'.$engineering->project_id.'?status=1&notice='.'编辑预算成功');
         }
-        return redirect('/budget/budgetStart?status=1&notice='.'编辑预算成功');
+        return redirect('/budget/budgetStart/'.$engineering->project_id.'?status=1&notice='.'编辑预算成功');
     }
 
 
@@ -558,7 +558,7 @@ class BudgetController extends WebController
         if( (in_array(20010101,$this->user()->pageauth) && $project->budget_uid == $this->user()->id ) || in_array(200101,$this->user()->manageauth)){
         }else{
             //设计人员可以操作更改工程设计详情
-            return redirect('/budget/budgetStart?status=2&notice='.'您没有权限编辑该工程信息');
+            return redirect('/budget/budgetStart/'.$engineering->project_id.'?status=2&notice='.'您没有权限编辑该工程信息');
         }
         if($request->input('download',0) == 1){
             return $this->budgetDownload($id,$data,$project,$engineering);
@@ -584,7 +584,7 @@ class BudgetController extends WebController
         if( (in_array(20010202,$this->user()->pageauth) && $project->budget_uid == $this->user()->id ) || in_array(200104,$this->user()->manageauth)){
         }else{
             //设计人员可以操作更改工程设计详情
-            return redirect('/budget/budgetConduct?status=2&notice='.'您没有权限编辑该工程信息');
+            return redirect('/budget/budgetConduct/'.$engineering->project_id.'?status=2&notice='.'您没有权限编辑该工程信息');
         }
         if($request->input('download',0) == 1){
             return $this->budgetDownload($id,$data,$project,$engineering);
@@ -609,7 +609,7 @@ class BudgetController extends WebController
         if( (in_array(20010301,$this->user()->pageauth) && $project->budget_uid == $this->user()->id ) || in_array(200107,$this->user()->manageauth)){
         }else{
             //设计人员可以操作更改工程设计详情
-            return redirect('/budget/budgetCompleted?status=2&notice='.'您没有权限编辑该工程信息');
+            return redirect('/budget/budgetCompleted/'.$engineering->project_id.'?status=2&notice='.'您没有权限查看该工程信息');
         }
         if($request->input('download',0) == 1){
             return $this->budgetDownload($id,$data,$project,$engineering);
@@ -633,7 +633,7 @@ class BudgetController extends WebController
         if( (in_array(20010401,$this->user()->pageauth) && $project->budget_uid == $this->user()->id ) || in_array(200108,$this->user()->manageauth)){
         }else{
             //设计人员可以操作更改工程设计详情
-            return redirect('/budget/budgetTermination?status=2&notice='.'您没有权限编辑该工程信息');
+            return redirect('/budget/budgetTermination/'.$engineering->project_id.'?status=2&notice='.'您没有权限编辑该工程信息');
         }
         if($request->input('download',0) == 1){
             return $this->budgetDownload($id,$data,$project,$engineering);
@@ -748,17 +748,7 @@ class BudgetController extends WebController
         $data['project_leader']=$project_leader;
         $data['project_status'] =$project_status;
         $datalist=$this->getBudgetProjectList($project_status,$project_name,$address,$project_leader,$page,$rows);
-        if($project_status == 0){
-            $url='/budget/budgetStart?project_status='.$project_status.'&project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
-        }elseif($project_status == 1){
-            $url='/budget/budgetConduct?project_status='.$project_status.'&project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
-        }elseif($project_status == 2){
-            $url='/budget/budgetCompleted?project_status='.$project_status.'&project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
-        }elseif($project_status == 4){
-            $url='/budget/budgetTermination?project_status='.$project_status.'&project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
-        }else{
-            $url='/budget/budgetStart?project_status='.$project_status.'&project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
-        }
+        $url='/budget/budgetProjectList?project_status='.$project_status.'&project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
 
         $data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
         $data['data']   =$datalist['data'];

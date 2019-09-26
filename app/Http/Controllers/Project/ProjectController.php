@@ -121,7 +121,7 @@ class ProjectController extends WebController
         $data['address']        =$address;
         $data['project_leader']=$project_leader;
         $datalist=$this->getProjectEnginList($id,$status,$project_name,$address,$project_leader,$page,$rows);
-        $str=($id ==0)?'/'.$id:'?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
+        $str='/'.$id.'?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
         if($status == 0){
             $url='/project/projectEnginStart'.$str;
         }elseif($status == 1){

@@ -151,15 +151,15 @@ class EnginneringController extends WebController
         $data['project_leader']=$project_leader;
         $datalist=$this->getEngineList($id,$status,$project_name,$address,$project_leader,$page,$rows);
         if($status == 0){
-            $url='/architectural/enginStart?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
+            $url='/architectural/enginStart/'.$id.'?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
         }elseif($status == 1){
-            $url='/architectural/enginConduct?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
+            $url='/architectural/enginConduct/'.$id.'?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
         }elseif($status == 2){
-            $url='/architectural/enginCompleted?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
+            $url='/architectural/enginCompleted/'.$id.'?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
         }elseif($status == 4){
-            $url='/architectural/enginTermination?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
+            $url='/architectural/enginTermination/'.$id.'?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
         }else{
-            $url='/architectural/enginStart?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
+            $url='/architectural/enginStart/'.$id.'?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
         }$data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
         $data['data']   =$datalist['data'];
         $data['navid']      =35;
@@ -183,7 +183,7 @@ class EnginneringController extends WebController
         if( (in_array(35000102,$this->user()->pageauth) && $project->design_uid == $this->user()->id ) || in_array(350702,$this->user()->manageauth)){
         }else{
             //设计人员可以操作更改工程设计详情
-            return redirect('/architectural/enginStart?status=2&notice='.'您没有权限编辑该工程信息');
+            return redirect('/architectural/enginStart/'.$engineering->project_id.'?status=2&notice='.'您没有权限编辑该工程信息');
         }
         //建筑系统信息 以及项目对应的子系统信息
 
@@ -226,7 +226,7 @@ class EnginneringController extends WebController
         if( (in_array(35000102,$this->user()->pageauth) && $project->design_uid == $this->user()->id ) || in_array(350702,$this->user()->manageauth)){
         }else{
             //设计人员和管理者可以操作更改工程设计详情
-            return redirect('/architectural/enginStart?status=2&notice='.'您没有权限编辑该工程信息');
+            return redirect('/architectural/enginStart/'.$engineering->project_id.'?status=2&notice='.'您没有权限编辑该工程信息');
         }
         $enginList=DB::table('architectural_sub_system as sub_s')
             ->join('architectural_system as a','a.id','=','sub_s.architectural_id')
@@ -267,7 +267,7 @@ class EnginneringController extends WebController
             DB::table('enginnering_architectural')->insert($data);
         }
         DB::commit();
-        return redirect('/architectural/enginStart?status=1&notice='.'编辑工程对应的建筑设计信息成功');
+        return redirect('/architectural/enginStart/'.$engineering->project_id.'?status=1&notice='.'编辑工程对应的建筑设计信息成功');
 
     }
     //编辑实施工程设计详情
@@ -286,7 +286,7 @@ class EnginneringController extends WebController
         if( (in_array(35000202,$this->user()->pageauth) && $project->design_uid == $this->user()->id ) || in_array(350704,$this->user()->manageauth)){
         }else{
             //设计人员可以操作更改工程设计详情
-            return redirect('/architectural/enginConduct?status=2&notice='.'您没有权限编辑该工程信息');
+            return redirect('/architectural/enginConduct/'.$engineering->project_id.'?status=2&notice='.'您没有权限编辑该工程信息');
         }
         //建筑系统信息 以及项目对应的子系统信息
 
@@ -327,7 +327,7 @@ class EnginneringController extends WebController
         if( (in_array(35000202,$this->user()->pageauth) && $project->design_uid == $this->user()->id ) || in_array(350704,$this->user()->manageauth)){
         }else{
             //设计人员和管理者可以操作更改工程设计详情
-            return redirect('/architectural/enginConduct?status=2&notice='.'您没有权限编辑该工程信息');
+            return redirect('/architectural/enginConduct/'.$engineering->project_id.'?status=2&notice='.'您没有权限编辑该工程信息');
         }
         $enginList=DB::table('architectural_sub_system as sub_s')
             ->join('architectural_system as a','a.id','=','sub_s.architectural_id')
@@ -368,7 +368,7 @@ class EnginneringController extends WebController
             DB::table('enginnering_architectural')->insert($data);
         }
         DB::commit();
-        return redirect('/architectural/enginConduct?status=1&notice='.'编辑工程对应的建筑设计信息成功');
+        return redirect('/architectural/enginConduct/'.$engineering->project_id.'?status=1&notice='.'编辑工程对应的建筑设计信息成功');
     }
 
     //查看洽谈工程设计详情
@@ -385,7 +385,7 @@ class EnginneringController extends WebController
         if( (in_array(35000101,$this->user()->pageauth) && $project->design_uid == $this->user()->id ) || in_array(350701,$this->user()->manageauth)){
         }else{
             //设计人员可以操作更改工程设计详情
-            return redirect('/architectural/enginStart?status=2&notice='.'您没有权限查看该工程信息');
+            return redirect('/architectural/enginStart/'.$engineering->project_id.'?status=2&notice='.'您没有权限查看该工程信息');
         }
         return $this->enginDetail($engineering,$project,$id);
     }
@@ -403,7 +403,7 @@ class EnginneringController extends WebController
         if( (in_array(35000201,$this->user()->pageauth) && $project->design_uid == $this->user()->id ) || in_array(350703,$this->user()->manageauth)){
         }else{
             //设计人员可以操作更改工程设计详情
-            return redirect('/architectural/enginStart?status=2&notice='.'您没有权限查看该工程信息');
+            return redirect('/architectural/enginStart/'.$engineering->project_id.'?status=2&notice='.'您没有权限查看该工程信息');
         }
         return $this->enginDetail($engineering,$project,$id);
     }
@@ -421,7 +421,7 @@ class EnginneringController extends WebController
         if( (in_array(35000301,$this->user()->pageauth) && $project->design_uid == $this->user()->id ) || in_array(350705,$this->user()->manageauth)){
         }else{
             //设计人员可以操作更改工程设计详情
-            return redirect('/architectural/enginStart?status=2&notice='.'您没有权限查看该工程信息');
+            return redirect('/architectural/enginStart/'.$engineering->project_id.'?status=2&notice='.'您没有权限查看该工程信息');
         }
         return $this->enginDetail($engineering,$project,$id);
     }
@@ -439,7 +439,7 @@ class EnginneringController extends WebController
         if( (in_array(35000401,$this->user()->pageauth) && $project->design_uid == $this->user()->id ) || in_array(350706,$this->user()->manageauth)){
         }else{
             //设计人员可以操作更改工程设计详情
-            return redirect('/architectural/enginStart?status=2&notice='.'您没有权限查看该工程信息');
+            return redirect('/architectural/enginStart/'.$engineering->project_id.'?status=2&notice='.'您没有权限查看该工程信息');
         }
         return $this->enginDetail($engineering,$project,$id);
     }
@@ -473,7 +473,7 @@ class EnginneringController extends WebController
         if( (in_array(35000102,$this->user()->pageauth) && $project->design_uid == $this->user()->id ) || in_array(350702,$this->user()->manageauth)){
         }else{
             //设计人员可以操作更改工程设计详情
-            return redirect('/architectural/enginStart?status=2&notice='.'您没有权限编辑该工程信息');
+            return redirect('/architectural/enginStart/'.$engineering->project_id.'?status=2&notice='.'您没有权限编辑该工程信息');
         }
         $data['param'] =DB::table('engineering_param')->where('engin_id',$id)->first();
         $data['project'] =$project;
@@ -624,17 +624,7 @@ class EnginneringController extends WebController
         $data['project_leader']=$project_leader;
         $data['project_status'] =$project_status;
         $datalist=$this->getEnginProjectList($project_status,$project_name,$address,$project_leader,$page,$rows);
-        if($project_status == 0){
-            $url='/project/projectStart?project_status='.$project_status.'&project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
-        }elseif($project_status == 1){
-            $url='/project/projectConduct?project_status='.$project_status.'&project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
-        }elseif($project_status == 2){
-            $url='/project/projectCompleted?project_status='.$project_status.'&project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
-        }elseif($project_status == 4){
-            $url='/project/projectTermination?project_status='.$project_status.'&project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
-        }else{
-            $url='/project/projectStart?project_status='.$project_status.'&project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
-        }
+        $url='/project/enginProjectList?project_status='.$project_status.'&project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
 
         $data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
         $data['data']   =$datalist['data'];

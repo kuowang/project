@@ -164,8 +164,14 @@
                                 </tbody>
                             </table>
 
-                            <div class="clearfix">
+                            <div class="clearfix"></div>
+                            <div>
+                                @php
+                                    echo $page;
+                                @endphp
+
                             </div>
+                            <div class="clearfix"></div>
                         </div>
                     </div>
                 </div>
