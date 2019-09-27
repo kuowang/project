@@ -248,64 +248,41 @@ class BudgetController extends WebController
         $data['engineering']=$engineering;
         $data['project']    =$project;
         $data['engin_id'] =$id;
-        $ids =[];
-        //获取工程id数组
-        if($data['engin_system']){
-            foreach($data['engin_system'] as $v){
-                $ids[]=$v->sub_arch_id;
-            }
-        }
-        //获取工程对应的材料数据
-        $material =DB::table('material')
-            ->where('status',1)
-            ->wherein('architectural_sub_id',$ids)
-            ->select(['id','architectural_sub_id','material_name','material_code',
-                'material_type','characteristic','waste_rate','material_budget_unit',])
-            ->orderby('material_sort')
-            ->get();
-        $materlist=[];
-        $materialids=[];
-        foreach($material as $v){
-            $materialids[]=$v->id;
-            $materlist[$v->architectural_sub_id][$v->id]=$v;
-        }
-        $data['materlist'] =$materlist;
-        //获取材料对应品牌列表
-        if($materialids){
-            $brand=DB::table('material_brand_supplier')
-                ->wherein('material_id',$materialids)
-                ->select(['id as mbs_id','material_id','brand_id','brand_name','budget_unit_price','supplier'])
-                ->get();
-            $brandlist=[];
-            foreach ($brand as $value){
-                $brandlist[$value->material_id][]=$value;
-            }
-            $data['brandlist'] =$brandlist;
-
-        }
         $data['budget'] =$budget;
         $data['budget_item']=[];
+        $budget_engin_ids=[];
         //预算材料信息
         if(!empty($budget)){
-
             //预算详情
             $budget_item =DB::table('budget_item')->where('budget_id',$budget->id)->get();
             if($budget_item){
                 foreach($budget_item as $item){
-                    $data['budget_item'][$item->sub_arch_id][]=$item;
+                    $data['budget_item'][$item->sub_arch_id][$item->material_id]=(array)$item;
+                    $budget_engin_ids[]=$item->sub_arch_id;
                 }
             }
         }
-        //建筑设计配置参数
-        $data['param']=DB::table('engineering_param')->where('engin_id',$id)->first();
-        if($data['param']){
-            $data['storey_height']  =json_decode($data['param']->storey_height,true) ;
-            $data['house_height']   =json_decode($data['param']->house_height,true) ;
-            $data['house_area']     =json_decode($data['param']->house_area,true) ;
-            $data['room_position']  =json_decode($data['param']->room_position,true) ;
-            $data['room_name']      =json_decode($data['param']->room_name,true);
-            $data['room_area']      =json_decode($data['param']->room_area,true);
+        //获取有预算的工程下的所有材料信息
+        if(isset($data['budget_item'])){
+            $mateids=[];
+            $material =DB::table('material')->wherein('architectural_sub_id',$budget_engin_ids)
+                ->orderby('material_sort')->get();
+            if($material){
+                foreach($material as $mate){
+                    $data['materlist'][$mate->architectural_sub_id][$mate->id]=$mate;
+                    $mateids[]=$mate->id;
+                }
+            }
+            //获取材料下的品牌信息
+            $brand =DB::table('material_brand_supplier')->wherein('material_id',$mateids)
+                ->orderby('brand_name')->get();
+            if($brand){
+                foreach($brand as $b){
+                    $data['brandlist'][$b->material_id][]=$b;
+                }
+            }
         }
+        //return $this->success($data);
         return view('budget.editBudget',$data);
     }
 

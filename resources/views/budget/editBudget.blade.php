@@ -211,53 +211,72 @@
                                 <td > <span class="btn btn-success" onclick="addMaterial('{{ $v->sub_arch_id }}')">选择材料</span></td>
                             </tr>
                             @if(isset($budget_item[$v->sub_arch_id]))
-                                @foreach($budget_item[$v->sub_arch_id] as $k=>$mate)
-                                    @php
-                                    $xuhao++;
-                                    @endphp
-                                <tr class="materialList sub_arch_{{$mate->sub_arch_id}}" id="mater_{{$xuhao}}">
-                                    <td class="sub_arch_material_{{$mate->sub_arch_id}}">{{$k+1}}</td>
-                                    <td>
+                                @if(isset($materlist[$v->sub_arch_id]))
+                                    @foreach($materlist[$v->sub_arch_id] as $k=>$list)
+                                    @if(isset($brandlist[$list->id]))
 
-                                        <select name="material_id[]" onchange="selectMaterial({{$xuhao}} ,this)" class=" notempty material_id span12" >
-                                            <option value="0" ></option>
-                                            @if(isset($materlist[$mate->sub_arch_id]))
-                                                @foreach($materlist[$mate->sub_arch_id] as $list)
-                                                    @if($list->id == $mate->material_id)
-                                                        <option value="{{$list->id}}" selected="selected" >{{$list->material_name}}</option>
-                                                    @else
-                                                        <option value="{{$list->id}}" >{{$list->material_name}}</option>
+
+
+
+                                        <tr class="materialList sub_arch_{{$list->architectural_sub_id}}" id="mater_{{$k}}">
+                                            <td class="sub_arch_material_{{$list->architectural_sub_id}}">{{$list->id}}
+                                                @if(isset($budget_item[$v->sub_arch_id][$list->id]))
+                                                    <input type="checkbox" name="material_id[{{$k}}]" checked="checked" id="material_id_{{$k}}" value="{{$list->id}}">
+                                                @else
+                                                    <input type="checkbox" name="material_id[{{$k}}]" value="{{$list->id}}"  id="material_id_{{$k}}" >
+                                                @endif
+                                            </td>
+                                            <td>{{$list->material_name}}</td>
+                                            <td>{{ $list->characteristic }}</td>
+                                            <td>{{ $list->material_budget_unit }}</td>
+                                            <td>
+                                                @if(isset($budget_item[$v->sub_arch_id][$list->id]))
+                                                    <input type="text" lay-skin="primary" class="notempty span12 drawing_quantity"      value="{{$budget_item[$v->sub_arch_id][$list->id]['drawing_quantity']}}"  name="drawing_quantity[{{$k}}]" id="drawing_quantity" onclick="selectDrawing({{$k}},this)" ></td>
+                                                @else
+                                                    <input type="text" lay-skin="primary" class="notempty span12 drawing_quantity"      value=""  name="drawing_quantity[{{$k}}]" id="drawing_quantity" onclick="selectDrawing({{$k}},this)" ></td>
+                                                @endif
+                                            <td><input type="text" lay-skin="primary" class=" span12 loss_ratio"           disabled  value="{{ $list->waste_rate }}"  name="loss_ratio[{{$k}}]" id="loss_ratio" ></td>
+                                            <td>
+                                                @if(isset($budget_item[$v->sub_arch_id][$list->id]))
+                                                    <input type="text" lay-skin="primary" class=" span12 engineering_quantity" disabled value="{{$budget_item[$v->sub_arch_id][$list->id]['engineering_quantity']}}"  name="engineering_quantity[{{$k}}]" id="engineering_quantity" ></td>
+                                                @else
+                                                    <input type="text" lay-skin="primary" class=" span12 engineering_quantity" disabled value=""  name="engineering_quantity[{{$k}}]" id="engineering_quantity" ></td>
+                                                @endif
+                                            <td>
+                                                <select  name="mbs_id[{{$k}}]" onchange="selectbrand({{$k}},this)" class=" notempty mbs_id  span12" >
+                                                    <option value="0" ></option>
+                                                    @if(isset($brandlist[$list->id]))
+                                                        @foreach($brandlist[$list->id] as $list11)
+                                                            @if(isset($budget_item[$v->sub_arch_id][$list->id]))
+                                                                <option value="{{$list11->id}}" selected="selected" class="mbs_id_{{$list11->id}}" budget_unit_price="{{$list11->budget_unit_price}}"  title="{{$list11->supplier}}"  >{{$list11->brand_name}}({{$list11->supplier}})</option>
+                                                            @else
+                                                                <option value="{{$list11->id}}" class="mbs_id_{{$list11->id}}" budget_unit_price="{{$list11->budget_unit_price}}"  title="{{$list11->supplier}}"  >{{$list11->brand_name}}({{$list11->supplier}})</option>
+                                                            @endif
+                                                        @endforeach
                                                     @endif
-                                                @endforeach
-                                            @endif
-                                        </select>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                @if(isset($budget_item[$v->sub_arch_id][$list->id]))
+                                                    <input type="text" lay-skin="primary" class=" span12 budget_price"         disabled value="{{$budget_item[$v->sub_arch_id][$list->id]['budget_price']}}"  name="budget_price[{{$k}}]" id="budget_price" >
+                                                @else
+                                                    <input type="text" lay-skin="primary" class=" span12 budget_price"         disabled value=""  name="budget_price[{{$k}}]" id="budget_price" >
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if(isset($budget_item[$v->sub_arch_id][$list->id]))
+                                                    <input type="text" lay-skin="primary" class=" span12 total_material_price" disabled value="{{$budget_item[$v->sub_arch_id][$list->id]['total_material_price']}}"  name="total_material_price[{{$k}}]" id="total_material_price" >
+                                                @else
+                                                    <input type="text" lay-skin="primary" class=" span12 total_material_price" disabled value=""  name="total_material_price[{{$k}}]" id="total_material_price" >
+                                                @endif
 
-                                    </td>
-                                    <td><input type="text" lay-skin="primary" class=" span12 characteristic"       disabled  value="{{ $mate->characteristic }}"  name="characteristic[]" id="characteristic" ></td>
-                                    <td><input type="text" lay-skin="primary" class=" span12 material_budget_unit" disabled value="{{ $mate->material_budget_unit }}"  name="material_budget_unit[]" id="material_budget_unit" ></td>
-                                    <td><input type="text" lay-skin="primary" class="notempty span12 drawing_quantity"      value="{{ $mate->drawing_quantity }}"  name="drawing_quantity[]" id="drawing_quantity" onclick="selectDrawing({{$xuhao}},this)" ></td>
-                                    <td><input type="text" lay-skin="primary" class=" span12 loss_ratio"           disabled  value="{{ $mate->loss_ratio }}"  name="loss_ratio[]" id="loss_ratio" ></td>
-                                    <td><input type="text" lay-skin="primary" class=" span12 engineering_quantity" disabled value="{{ $mate->engineering_quantity }}"  name="engineering_quantity[]" id="engineering_quantity" ></td>
-                                    <td>
-                                        <select  name="mbs_id[]" onchange="selectbrand({{$xuhao}},this)" class=" notempty mbs_id  span12" >
-                                            <option value="0" ></option>
-                                            @if(isset($brandlist[$mate->material_id]))
-                                                @foreach($brandlist[$mate->material_id] as $list)
-                                                    @if($list->mbs_id == $mate->mbs_id)
-                                                        <option value="{{$list->mbs_id}}" selected="selected" class="mbs_id_{{$list->mbs_id}}" budget_unit_price="{{$list->budget_unit_price}}" title="{{$list->supplier}}" >{{$list->brand_name}}({{$list->supplier}})</option>
-                                                    @else
-                                                        <option value="{{$list->mbs_id}}" class="mbs_id_{{$list->mbs_id}}" budget_unit_price="{{$list->budget_unit_price}}"  title="{{$list->supplier}}"  >{{$list->brand_name}}({{$list->supplier}})</option>
-                                                    @endif
-                                                @endforeach
-                                            @endif
-                                        </select>
-                                    </td>
-                                    <td><input type="text" lay-skin="primary" class=" span12 budget_price"         disabled value="{{ $mate->budget_price }}"  name="budget_price[]" id="budget_price" ></td>
-                                    <td><input type="text" lay-skin="primary" class=" span12 total_material_price" disabled value="{{ $mate->total_material_price }}"  name="total_material_price[]" id="total_material_price" ></td>
-                                    <td ><span class="btn btn-danger" onclick="deleteTrRow(this)">删除</span></td>
-                                </tr>
+                                            </td>
+                                            <td ><span class="btn btn-danger" onclick="deleteTrRow(this)">删除</span></td>
+                                        </tr>
+                                    @endif
+                                    @endforeach
+                                @endif
 
-                                @endforeach
                             @endif
                             @endforeach
                             <tr>
@@ -447,10 +466,11 @@
             //添加材料到指定位置
             $(".sub_arch_"+id+":last").after(str);
             //key(this);
-            //更改材料序号
+            /**更改材料序号
             $(".sub_arch_material_"+id).each(function(index,element){
                 $(this).html(index +1);
             });
+             * */
             //点击文本框设置背景色
             $("input").focus(function(){
                 $(this).css("background-color","#fff");
@@ -537,6 +557,7 @@
             budget_unit_price =$('.mbs_id_'+mbs_id).attr('budget_unit_price');
             $('#mater_'+intid+' .budget_price').val(budget_unit_price);
             console.log(budget_unit_price);
+            $("#material_id_"+intid).prop('checked','checked');
             jisuanprice(intid);
             total_price();
         }
@@ -547,6 +568,7 @@
               //计算实际工程量
                 jisuanprice(intid);
             })
+            $("#material_id_"+intid).prop('checked','checked');
             total_price();
         }
 
