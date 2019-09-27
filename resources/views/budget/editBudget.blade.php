@@ -216,8 +216,6 @@
                                     @if(isset($brandlist[$list->id]))
 
 
-
-
                                         <tr class="materialList sub_arch_{{$list->architectural_sub_id}}" id="mater_{{$k}}">
                                             <td class="sub_arch_material_{{$list->architectural_sub_id}}">{{$list->id}}
                                                 @if(isset($budget_item[$v->sub_arch_id][$list->id]))
@@ -427,11 +425,9 @@
                 success:function(data){
                     console.log(data);
                     if(data.status == 1){
-                        var option ='';
-                        $.each( data.data, function(index,content){
-                            option +='<option value="'+index+'" class="material_id_'+index+'" > '+content+'</option>';
+                        $.each( data.data, function(index,content){ //材料id
+                            addmaterialDetail(id,content);
                         })
-                        addmaterialDetail(id,option);
                     }else{
                         showMsg('该工程下没有材料信息，不能添加材料');
                         return false;
@@ -441,28 +437,40 @@
         }
         //添加材料信息
         function addmaterialDetail(id,option){
-            intid =parseInt(Math.random() * (100000000 )+100000);
-            mater=`<select name="material_id[]" onchange="selectMaterial(`+intid+`,this)" class=" notempty material_id span12" >
-                            <option value="0" ></option>
-                            `+option+`
-                           </select>`;
-            brand =`<select name="mbs_id[]" onchange="selectbrand(`+intid+`,this)" class=" notempty mbs_id  span12" >
-                            <option value="0" ></option>
-                           </select>`;
+            if($("#mater_"+option.id).length > 0){
+                console.log(option.id+'已存在');
+                return true;
+            }
+            var optionstr ='';
+            $.each( option.brandlist, function(index,content){
+                optionstr +=`<option value="`+content.mbs_id+`" class="mbs_id_`+content.mbs_id+`" budget_unit_price="`+content.budget_unit_price+`" title="`+content.supplier+`">`+content.brand_name+`</option>`;
+            })
 
-            str =`<tr class="materialList sub_arch_`+id+`" id="mater_`+intid+`">
-                    <td class="sub_arch_material_`+id+`">1</td>
-                    <td>`+mater+`</td>
-                    <td><input type="text" lay-skin="primary" class=" span12 characteristic"       disabled   name="characteristic[]" id="characteristic" ></td>
-                    <td><input type="text" lay-skin="primary" class=" span12 material_budget_unit" disabled  name="material_budget_unit[]" id="material_budget_unit" ></td>
-                    <td><input type="text" lay-skin="primary" class="notempty span12 drawing_quantity"       name="drawing_quantity[]" id="drawing_quantity" onclick="selectDrawing(`+intid+`,this)" ></td>
-                    <td><input type="text" lay-skin="primary" class=" span12 loss_ratio"           disabled   name="loss_ratio[]" id="loss_ratio" ></td>
-                    <td><input type="text" lay-skin="primary" class=" span12 engineering_quantity" disabled  name="engineering_quantity[]" id="engineering_quantity" ></td>
-                    <td>`+brand+`</td>
-                    <td><input type="text" lay-skin="primary" class=" span12 budget_price"         disabled  name="budget_price[]" id="budget_price" ></td>
-                    <td><input type="text" lay-skin="primary" class=" span12 total_material_price" disabled  name="total_material_price[]" id="total_material_price" ></td>
-                    <td ><span class="btn btn-danger" onclick="deleteTrRow(this)">删除</span></td>
-                </tr>`;
+           str = `<tr class="materialList sub_arch_`+id+`" id="mater_`+option.id+`">
+                     <td class="sub_arch_material_`+id+`">`+option.id+`
+                <input type="checkbox" name="material_id[`+option.id+`]" value="`+option.id+`"  id="material_id_`+option.id+`" >
+                </td>
+                <td>`+option.material_name+`</td>
+                <td>`+option.characteristic+`</td>
+                <td>`+option.material_budget_unit+`</td>
+                <td>
+                <input type="text" lay-skin="primary" class="notempty span12 drawing_quantity"      value=""  name="drawing_quantity[`+option.id+`]" id="drawing_quantity" onclick="selectDrawing(`+option.id+`,this)" ></td>
+                <td><input type="text" lay-skin="primary" class=" span12 loss_ratio"   value="`+option.waste_rate+ `"        disabled  name="loss_ratio[`+option.id+`]" id="loss_ratio" ></td>
+                <td>
+                <input type="text" lay-skin="primary" class=" span12 engineering_quantity" disabled value=""  name="engineering_quantity[`+option.id+`]" id="engineering_quantity" ></td>
+                <td>
+                   <select  name="mbs_id[`+option.id+`]" onchange="selectbrand(`+option.id+`,this)" class=" notempty mbs_id  span12" >
+                   <option value="0" ></option>
+                    `+optionstr+`
+                    </select>
+                </td>
+                <td><input type="text" lay-skin="primary" class=" span12 budget_price"         disabled   name="budget_price[`+option.id+`]" id="budget_price" >
+                </td>
+                <td><input type="text" lay-skin="primary" class=" span12 total_material_price " disabled value=""  name="total_material_price[`+option.id+`]" id="total_material_price" >
+                </td>
+                <td ><span class="btn btn-danger" onclick="deleteTrRow(this)">删除</span></td>
+            </tr>`;
+
             //添加材料到指定位置
             $(".sub_arch_"+id+":last").after(str);
             //key(this);
@@ -558,6 +566,7 @@
             $('#mater_'+intid+' .budget_price').val(budget_unit_price);
             console.log(budget_unit_price);
             $("#material_id_"+intid).prop('checked','checked');
+            $(th).css("background-color","#fff");
             jisuanprice(intid);
             total_price();
         }
@@ -649,6 +658,15 @@
                     sum=1;
                 }
             });
+            $("select.notempty").each(function(){
+                console.log($(this).val());
+                if($(this).val() > 0){
+                }else{
+                    $(this).css('background','orange');
+                    sum=1;
+                }
+            });
+
             if(sum == 1){
                 showMsg('请将内容补充完全再提交')
                 return false;

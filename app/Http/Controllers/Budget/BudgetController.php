@@ -327,15 +327,41 @@ class BudgetController extends WebController
 
     //获取工程下的材料信息
     public function getEnginMaterialList($id){
+        //获取材料信息
         $material =DB::table('material')
             ->where('status',1)
             ->where('architectural_sub_id',$id)
-            ->pluck('material_name','id')->toarray();
-        if(empty($material)){
-            return $this->error('');
-        }else{
-            return $this->success($material);
+            ->select(['id','architectural_sub_id','material_name','material_code','characteristic','waste_rate','material_sort','material_budget_unit'])
+            ->orderby('material_sort')
+            ->get();
+        $mateids=[];
+        if($material){
+            foreach ($material as $mate){
+                $mateids[]=$mate->id;
+            }
+            //获取材料下的品牌列表
+            $brand =DB::table('material_brand_supplier')
+                ->wherein('material_id',$mateids)
+                ->orderby('brand_name')
+                ->select(['id as mbs_id','material_id','brand_id','brand_name','budget_unit_price','budget_unit','supplier'])
+                ->get();
+            $brandlist =[];
+            foreach($brand as $b){
+                $brandlist[$b->material_id][]=$b;
+            }
+            $data=[];
+            foreach($material as $ma){
+                if(isset($brandlist[$ma->id])){
+                 $data[$ma->id]=$ma;
+                 $data[$ma->id]->brandlist=$brandlist[$ma->id];
+                }
+            }
+            if(empty($data)){
+                return $this->error('该工程下没有材料信息');
+            }
+            return $this->success($data);
         }
+        return $this->error('该工程下没有材料信息');
     }
     //获取材料信息和对应的品牌信息
     public function getMaterialBrandList(Request $request ,$id){
