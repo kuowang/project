@@ -51,7 +51,7 @@ class PurchaseController extends WebController
         $data['count'] =$db->count();
         $data['data']= $db->orderby('project.id','desc')
             ->orderby('engineering.id','asc')
-            ->select(['project.project_name','project.budget_uid','project.budget_username','purchase_uid','purchase_username','is_conf_architectural',
+            ->select(['project.project_name','project.budget_uid','project.budget_username','engineering.purchase_uid','engineering.purchase_username','is_conf_architectural',
                 'engineering.project_id','engineering.id as engin_id', 'engineering.engineering_name','engineering.budget_id',
                 'build_area', 'engineering.status as engin_status', 'contract_code',
                 'purchase_status','logistics_status','batch_status','purchase.remark'
@@ -877,7 +877,7 @@ class PurchaseController extends WebController
         $data['count'] =$db->count();
         $data['data']= $db->orderby('project.id','desc')
             ->orderby('engineering.id','asc')
-            ->select(['project.project_name','project.budget_uid','project.budget_username','purchase_uid','purchase_username','is_conf_architectural',
+            ->select(['project.project_name','project.budget_uid','project.budget_username','engineering.purchase_uid','engineering.purchase_username','is_conf_architectural',
                 'engineering.project_id','engineering.id as engin_id', 'engineering.engineering_name','engineering.budget_id',
                 'build_area', 'engineering.status as engin_status', 'contract_code',
                 'purchase_status','logistics_status','batch_status','purchase.remark'

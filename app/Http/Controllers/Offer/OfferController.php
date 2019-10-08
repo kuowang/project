@@ -24,13 +24,16 @@ class OfferController extends WebController
      *洽谈项目列表
      * @return \Illuminate\Http\Response
      */
-    public function offerStart(Request $request)
+    public function offerStart(Request $request,$id=0)
     {
         $this->user();
-        $data=$this->offer($request,0);
+        $data=$this->offer($request,$id,0);
         $data['subnavid']   =2002;
         if( !(in_array(200201,$this->user()->pageauth)) && !in_array(200201,$this->user()->manageauth)){
             return redirect('/home');
+        }
+        if($id){
+            $data['project'] =DB::table('project')->where('id',$id)->first();
         }
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
@@ -40,13 +43,16 @@ class OfferController extends WebController
      *实施项目列表
      * @return \Illuminate\Http\Response
      */
-    public function offerConduct(Request $request)
+    public function offerConduct(Request $request,$id=0)
     {
         $this->user();
-        $data=$this->offer($request,1);
+        $data=$this->offer($request,$id,1);
         $data['subnavid']   =2002;
         if( !(in_array(200202,$this->user()->pageauth)) && !in_array(200204,$this->user()->manageauth)){
             return redirect('/offer/offerStart?status=2&notice='.'您没有操作该功能权限');
+        }
+        if($id){
+            $data['project'] =DB::table('project')->where('id',$id)->first();
         }
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
@@ -56,13 +62,16 @@ class OfferController extends WebController
      *竣工项目列表
      * @return \Illuminate\Http\Response
      */
-    public function offerCompleted(Request $request)
+    public function offerCompleted(Request $request,$id=0)
     {
         $this->user();
-        $data=$this->offer($request,2);
+        $data=$this->offer($request,$id,2);
         $data['subnavid']   =2002;
         if( !(in_array(200203,$this->user()->pageauth)) && !in_array(200207,$this->user()->manageauth)){
             return redirect('/offer/offerStart?status=2&notice='.'您没有操作该功能权限');
+        }
+        if($id){
+            $data['project'] =DB::table('project')->where('id',$id)->first();
         }
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
@@ -72,13 +81,16 @@ class OfferController extends WebController
      *终止项目列表
      * @return \Illuminate\Http\Response
      */
-    public function offerTermination(Request $request)
+    public function offerTermination(Request $request,$id=0)
     {
         $this->user();
-        $data=$this->offer($request,4);
+        $data=$this->offer($request,$id,4);
         $data['subnavid']   =2002;
         if( !(in_array(200204,$this->user()->pageauth)) && !in_array(200208,$this->user()->manageauth)){
             return redirect('/offer/offerStart?status=2&notice='.'您没有操作该功能权限');
+        }
+        if($id){
+            $data['project'] =DB::table('project')->where('id',$id)->first();
         }
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
@@ -86,7 +98,7 @@ class OfferController extends WebController
     }
 
     //查询项目信息
-    protected function getOfferList($status,$project_name='',$address='',$budget_username='',$page=1,$rows=20)
+    protected function getOfferList($status,$id=0,$project_name='',$address='',$budget_username='',$page=1,$rows=20)
     {
         //DB::connection()->enableQueryLog();
         $db=DB::table('engineering')
@@ -94,7 +106,9 @@ class OfferController extends WebController
             ->leftjoin('budget','engineering.id','=','budget.engin_id')
             ->leftjoin('offer','offer.engin_id','=','engineering.id')
             ->where('engineering.status',$status);
-
+        if($id){
+            $db->where('engineering.project_id',$id);
+        }
         if(!empty($project_name)){
             $db->where('project_name','like','%'.$project_name.'%');
         }
@@ -114,7 +128,7 @@ class OfferController extends WebController
 
         $data['count'] =$db->count();
         $data['data']= $db->orderby('project.id','desc')
-            ->orderby('engineering.id','asc')
+            ->orderby('engineering.engineering_name','asc')
             ->select(['project.project_name','engineering.project_id','engineering.id as engin_id',
                 'engineering.engineering_name','engineering.offer_id','build_area','budget.total_budget_price','budget.budget_order_number',
                 'project.budget_uid','project.budget_username','budget.budget_status','is_conf_architectural',
@@ -132,7 +146,7 @@ class OfferController extends WebController
     }
 
     //工程报价信息列表
-    private function offer($request,$status=0)
+    private function offer($request,$id=0,$status=0)
     {
         $project_name       =$request->input('project_name','');
         $address            =$request->input('address','');
@@ -143,21 +157,22 @@ class OfferController extends WebController
         $data['address']        =$address;
         $data['budget_username']=$budget_username;
 
-        $datalist=$this->getOfferList($status,$project_name,$address,$budget_username,$page,$rows);
+        $datalist=$this->getOfferList($status,$id,$project_name,$address,$budget_username,$page,$rows);
         if($status == 0){
-            $url='/offer/offerStart?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
+            $url='/offer/offerStart/'.$id.'?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
         }elseif($status == 1){
-            $url='/offer/offerConduct?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
+            $url='/offer/offerConduct/'.$id.'?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
         }elseif($status == 2){
-            $url='/offer/offerCompleted?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
+            $url='/offer/offerCompleted/'.$id.'?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
         }elseif($status == 4){
-            $url='/offer/offerTermination?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
+            $url='/offer/offerTermination/'.$id.'?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
         }else{
             $url='/offer/offerStart?project_name='.$project_name.'&address='.$address.'&budget_username='.$budget_username;
         }
         $data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
         $data['data']   =$datalist['data'];
         $data['navid']      =20;
+        $data['id'] =$id;
         return $data;
     }
     //编辑洽谈工程报价详情
@@ -420,11 +435,11 @@ class OfferController extends WebController
         DB::table('engineering')->where('id',$id)->update(['offer_id'=>$offer_id]);
         DB::commit();
         if($engineering->status == 0){
-            return redirect('/offer/offerStart?status=1&notice='.'编辑报价成功');
+            return redirect('/offer/offerStart/'.$engineering->project_id.'?status=1&notice='.'编辑报价成功');
         }elseif($engineering->status ==1){
-            return redirect('/offer/offerConduct?status=1&notice='.'编辑报价成功');
+            return redirect('/offer/offerConduct/'.$engineering->project_id.'?status=1&notice='.'编辑报价成功');
         }
-        return redirect('/offer/offerStart?status=1&notice='.'编辑报价成功');
+        return redirect('/offer/offerStart/'.$engineering->project_id.'?status=1&notice='.'编辑报价成功');
     }
 
 
@@ -653,4 +668,72 @@ class OfferController extends WebController
         echo "<script>history.go(-1);</script>"; //返回上一页
         exit($strexport); //导出数据
     }
+
+    /**
+     *预算项目列表
+     * @return \Illuminate\Http\Response
+     */
+    public function offerProjectList(Request $request)
+    {
+        $this->user();
+        $project_name       =$request->input('project_name','');
+        $address            =$request->input('address','');
+        $project_leader     =$request->input('budget_uid','');
+        $project_status     =(int)$request->input('project_status',0);
+        $page               =$request->input('page',1);
+        $rows               =$request->input('rows',40);
+        $data['project_name']   =$project_name;
+        $data['address']        =$address;
+        $data['project_leader']=$project_leader;
+        $data['project_status'] =$project_status;
+        $datalist=$this->getOfferProjectList($project_status,$project_name,$address,$project_leader,$page,$rows);
+        $url='/offer/offerProjectList?project_status='.$project_status.'&project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
+
+        $data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
+        $data['data']   =$datalist['data'];
+        $data['navid']      =20;
+        $data['subnavid']   =2002;
+        if( !(in_array(2002,$this->user()->pageauth)) && !in_array(2002,$this->user()->manageauth)){
+            return redirect('/home');
+        }
+        return view('offer.offerProjectList',$data);
+    }
+    //查询项目信息
+    protected function getOfferProjectList($status,$project_name='',$address='',$project_leader='',$page=1,$rows=20)
+    {
+        $db=DB::table('project');
+        if($status == 0){
+            $db->where('start_count','>',0);
+        }elseif($status==1){
+            $db->where('conduct_count','>',0);
+        }elseif($status==2){
+            $db->where('completed_count','>',0);
+        }elseif($status==4){
+            $db->where('termination_count','>',0);
+        }
+        if(!empty($project_name)){
+            $db->where('project_name','like','%'.$project_name.'%');
+        }
+        if(!empty($address)){
+            $db->Where(function ($query)use($address) {
+                $query->where('province', 'like','%'.$address.'%')
+                    ->orwhere('city', 'like','%'.$address.'%')
+                    ->orwhere('county', 'like','%'.$address.'%')
+                    ->orwhere('address_detail', 'like','%'.$address.'%')
+                    ->orwhere('foreign_address', 'like','%'.$address.'%');
+            });
+        }
+        if(!empty($project_leader)){
+            $db->where('project_leader','like','%'.$project_leader.'%');
+        }
+        $data['count'] =$db->count();
+        $data['data']= $db->orderby('project.id','desc')
+            ->select(['project.*'])
+            ->skip(($page-1)*$rows)
+            ->take($rows)
+            ->get();
+        return $data;
+    }
+
+
 }

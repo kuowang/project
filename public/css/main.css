@@ -1104,8 +1104,10 @@ label {
 select, textarea {
   display: inline-block;
   height: 20px;
+  padding: 2px 6px;
+  /*
   padding: 4px 6px;
-  /*margin-bottom: 10px;*/
+  margin-bottom: 10px;*/
   font-size: 14px;
   line-height: 20px;
   color: #525252;
@@ -5793,6 +5795,9 @@ header {
         padding: 10px;
         font-size:18px;
       }
+        .dataTables_filter label{
+            font-size:18px;
+        }
         .dashboard-wrapper .left-sidebar .widget .widget-header .title {
           color: #333333;
           float: left;

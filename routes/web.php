@@ -234,10 +234,10 @@ Route::group(['prefix' => 'budget','namespace' => 'Budget'], function () {
 
 //报价管理类的控制组 需要登录
 Route::group(['prefix' => 'offer','namespace' => 'Offer','middleware' => 'auth'], function () {
-    Route::get('/offerStart',                     'OfferController@offerStart');      //洽谈工程列表
-    Route::get('/offerConduct',                   'OfferController@offerConduct');    //实施工程列表
-    Route::get('/offerCompleted',                 'OfferController@offerCompleted');  //竣工工程列表
-    Route::get('/offerTermination',               'OfferController@offerTermination'); //终止工程列表
+    Route::get('/offerStart/{id?}',                     'OfferController@offerStart');      //洽谈工程列表
+    Route::get('/offerConduct/{id?}',                   'OfferController@offerConduct');    //实施工程列表
+    Route::get('/offerCompleted/{id?}',                 'OfferController@offerCompleted');  //竣工工程列表
+    Route::get('/offerTermination/{id?}',               'OfferController@offerTermination'); //终止工程列表
 
     Route::get('/editStartOffer/{id}',             'OfferController@editStartOffer');             //编辑工程预算详情
     Route::get('/offerStartDetail/{id}',           'OfferController@offerStartDetail');      //洽谈工程预算详情
@@ -253,6 +253,8 @@ Route::group(['prefix' => 'offer','namespace' => 'Offer','middleware' => 'auth']
     Route::get('/offerTerminationDetail/{id}',     'OfferController@offerTerminationDetail');    //查看终止项目工程预算信息
 
     Route::get('/offerDownload/{id}',             'OfferController@offerDownload');         //导出预算单
+    Route::get('/offerProjectList',               'OfferController@offerProjectList');         //报价项目列表
+
 });
 
 //采购管理类的控制组 不需要登录

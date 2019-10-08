@@ -40,29 +40,37 @@
         <div class="metro-nav">
             @if(in_array(200201,$pageauth))
             <div class="metro-nav-block nav-block-blue" style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
-                <a href="/offer/offerStart">
-                    <div class="fs1" aria-hidden="true" data-icon="">洽谈工程</div>
+                <a href="/offer/offerStart/{{$id}}">
+                    <div class="fs1" aria-hidden="true" ><img src="/img/nav/1.png">洽谈工程
+                        @if(isset($project))({{$project->start_count}}) @endif
+                    </div>
                 </a>
             </div>
             @endif
             @if(in_array(200202,$pageauth))
             <div class="metro-nav-block nav-block-green">
-                <a href="/offer/offerConduct">
-                    <div class="fs1"  data-icon="">实施工程</div>
+                <a href="/offer/offerConduct/{{$id}}">
+                    <div class="fs1"  ><img src="/img/nav/2.png">实施工程
+                        @if(isset($project))({{$project->conduct_count}})@endif
+                    </div>
                 </a>
             </div>
             @endif
             @if(in_array(200203,$pageauth))
             <div class="metro-nav-block nav-block-yellow">
-                <a href="/offer/offerCompleted">
-                    <div class="fs1" aria-hidden="true" data-icon="">竣工工程</div>
+                <a href="/offer/offerCompleted/{{$id}}">
+                    <div class="fs1" aria-hidden="true" ><img src="/img/nav/3.png">竣工工程
+                        @if(isset($project))({{$project->completed_count}})@endif
+                    </div>
                 </a>
             </div>
             @endif
             @if(in_array(200204,$pageauth))
             <div class="metro-nav-block nav-block-red">
-                <a href="/offer/offerTermination">
-                    <div class="fs1" aria-hidden="true" data-icon="">终止工程</div>
+                <a href="/offer/offerTermination/{{$id}}">
+                    <div class="fs1" aria-hidden="true" ><img src="/img/nav/4.png">终止工程
+                        @if(isset($project))({{$project->termination_count}})@endif
+                    </div>
                 </a>
             </div>
             @endif
@@ -80,12 +88,17 @@
                     </div>
                     <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                         <label>
-                            <form class="form-search" action="/offer/offerStart" method="get">
-                                项目名称:<input type="text" name="project_name" value="{{ $project_name }}" class="input-medium search-query">
-                                项目地点:<input type="text" name="address" value="{{ $address }}" class="input-medium search-query">
-                                预算负责人:<input type="text" name="budget_username" value="{{ $budget_username }}" class="input-medium search-query">
-                                <button type="submit" class="btn">搜索</button>
-                            </form>
+
+                            @if(isset($project))
+                                {{$project->project_name}}
+                            @else
+                                <form class="form-search" action="/offer/offerStart" method="get">
+                                    项目名称:<input type="text" name="project_name" value="{{ $project_name }}" class="input-medium search-query">
+                                    项目地点:<input type="text" name="address" value="{{ $address }}" class="input-medium search-query">
+                                    预算负责人:<input type="text" name="budget_username" value="{{ $budget_username }}" class="input-medium search-query">
+                                    <button type="submit" class="btn">搜索</button>
+                                </form>
+                            @endif
                         </label>
                     </div>
                 </div>

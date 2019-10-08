@@ -128,7 +128,7 @@ class BudgetController extends WebController
 
         $data['count'] =$db->count();
         $data['data']= $db->orderby('project.id','desc')
-            ->orderby('engineering.id','asc')
+            ->orderby('engineering.engineering_name','asc')
             ->select(['project.project_name','engineering.project_id','engineering.id as engin_id',
                 'engineering.engineering_name','build_area','engin_build_area','budget.total_budget_price','budget.budget_order_number',
                 'engineering.budget_uid','engineering.budget_username','budget.budget_status',
