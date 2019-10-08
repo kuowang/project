@@ -353,7 +353,7 @@
     <script>
         function submitStatus() {
             sta =$('#project_status').val();
-            if(sta == 1){
+            if(sta == 0){
                 showMsg('当前状态未更改，不能提交')
                 return false;
             }

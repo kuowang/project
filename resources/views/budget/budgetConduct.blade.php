@@ -170,6 +170,8 @@
                                                 <a title="导出" class="btn btn-success"  href="/budget/budgetConductDetail/{{ $val->engin_id }}?download=1" onclick="return checkStatus({{$val->is_conf_architectural}})">
                                                     <i class="layui-icon">导出</i>
                                                 </a>
+                                                @else
+                                                    <i class="layui-icon">无预算</i>
                                                 @endif
                                             @endif
 
