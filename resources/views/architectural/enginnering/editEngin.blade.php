@@ -185,6 +185,7 @@
 
     <script>
         function checkboxarch(th) {
+            /**
             if ($(th).is(":checked")) {
                 console.log($(th).val())
                 id =$(th).val();
@@ -197,6 +198,7 @@
             $("input").focus(function(){
                 $(this).css("background-color","#fff");
             });
+             */
         }
         //子工程的显示隐藏
         function showcontent(id) {
@@ -208,7 +210,6 @@
             }
             $(".system_code_"+id).toggle();
         }
-
 
         function form_submit(){
             var sum=0;

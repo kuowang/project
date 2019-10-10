@@ -314,9 +314,8 @@ class EnginneringController extends WebController
     public function postConductEngin(Request $request,$id)
     {
         $sub_arch_id    =$request->input('sub_arch_id',[]);
-        $engin_work_code=$request->input('engin_work_code',[]);
-        if(empty($sub_arch_id) || count($sub_arch_id) != count($engin_work_code)){
-            echo "<script>alert('内容不能为空');history.go(-1);</script>";
+        if(empty($sub_arch_id)){
+            echo "<script>alert('没有选择任何新的工况');history.go(-1);</script>";
         }
         //项目子工程
         $engineering =DB::table('engineering')->where('id',$id)->first();
@@ -344,14 +343,14 @@ class EnginneringController extends WebController
         //$datalist['engin']=$enginList;
         DB::beginTransaction();
         //删除原始数据
-        DB::table('enginnering_architectural')->where('engin_id',$id)->delete();
+        //DB::table('enginnering_architectural')->where('engin_id',$id)->delete();
         //设置工程配置建筑设计信息
         DB::table('engineering')->where('id',$id)->update(['is_conf_architectural'=>1]);
         //添加新数据
         if($enginList){
             $time=date('Y-m-d');
             foreach($enginList as $engin){
-                $data[]=[
+                $data=[
                     'project_id'=>$engineering->project_id,
                     'engin_id'=>$id,
                     'arch_id'=>$engin->arch_id,
@@ -361,12 +360,27 @@ class EnginneringController extends WebController
                     'sub_arch_id'=>$engin->sub_arch_id,
                     'sub_system_name'=>$engin->sub_system_name,
                     'sub_system_code'=>$engin->sub_system_code,
-                    'work_code'=>$engin_work_code[$engin->sub_arch_id],
+                    'work_code'=>$engin->work_code,
                     'uid'=>$this->user()->id,
                     'created_at'=>$time,
                 ];
+                $info =DB::table('enginnering_architectural')->where('project_id',$engineering->project_id)
+                    ->where('engin_id',$id)
+                    ->where('sub_arch_id',$engin->sub_arch_id)
+                    ->first();
+                if($info){
+                    unset($data['uid']);
+                    unset($data['created_at']);
+                    $data['edit_uid']=$this->user()->id;
+                    $data['updated_at'] =$time;
+                    DB::table('enginnering_architectural')->where('engin_id',$id)
+                        ->where('project_id',$engineering->project_id)
+                        ->where('sub_arch_id',$engin->sub_arch_id)
+                        ->update($data);
+                }else{
+                    DB::table('enginnering_architectural')->insert($data);
+                }
             }
-            DB::table('enginnering_architectural')->insert($data);
         }
         DB::commit();
         return redirect('/architectural/enginConduct/'.$engineering->project_id.'?status=1&notice='.'编辑工程对应的建筑设计信息成功');
