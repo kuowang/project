@@ -200,11 +200,19 @@ class EnginneringController extends WebController
             ->get();
         $data['engin_system']=DB::table('enginnering_architectural')
             ->where('engin_id',$id)
-            ->pluck('work_code','sub_arch_id');
+            ->pluck('work_code','sub_arch_id')->toarray();
         $data['engineering']=$engineering;
         $data['project']    =$project;
         $data['engin_id'] =$id;
         $data['arch_system']=$arch_system;
+        //如果为新增工况 则出现选择模板
+        //查询其他工程的模板列表
+        $data['otherEngin']=DB::table('engineering')
+            ->where('project_id',$engineering->project_id)
+            ->where('id','!=',$id)
+            ->orderby('engineering_name')
+            ->select(['id','engineering_name','status','is_conf_architectural'])
+            ->get();
         return view('architectural.enginnering.editEngin',$data);
     }
 

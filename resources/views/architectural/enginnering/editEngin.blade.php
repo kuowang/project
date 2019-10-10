@@ -97,6 +97,11 @@
                 <div class="widget-header" style="text-align: center">
                     <div  style="font-size: 16px;" >
                         <b>建筑工况配置</b>
+                        @if(empty($engin_system))
+                        <span class="title"style="float: right;margin-left: 15px;">
+                        <a class="btn btn-success" onclick="selectModel()" ><i class="layui-icon">选择关联模板</i></a>
+                        </span>
+                        @endif
                     </div>
                 </div>
                 <div class="widget-body">
@@ -182,6 +187,65 @@
     <span style="float: right;margin-bottom: 10px"><a href="/base/getNoticeInfo" style="color: #0000FF"> 查看更多 >></a></span>
     <hr class="hr-stylish-1">
 </div>
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        工程工况模板信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <div class="widget-body">
+                                <div class="control-group">
+                                    <table class="layui-table layui-form">
+                                        <tr>
+                                            <td>选择</td>
+                                            <td>工程名称</td>
+                                            <td>项目状态</td>
+                                        </tr>
+                                        @if(isset($otherEngin) && !empty($otherEngin))
+                                            @foreach($otherEngin as $item)
+                                                <tr>
+                                                    <td>
+                                                        @if($item->is_conf_architectural !=0)
+                                                            <label style="width: 100%;height: 100%">
+                                                                <input type="radio" name="subArchitectID" class="subArchitectID" value="{{$item->id}}" style="display: block">
+                                                            </label>
+                                                        @else
+                                                            <input type="radio" name="subArchitectID" class="subArchitectID" value="{{$item->id}}" disabled="" style="display: block">
+                                                        @endif
+                                                    </td>
+                                                    <td>{{$item->engineering_name}}</td>
+                                                    <td>@if($item->status ==0) 洽谈
+                                                        @elseif($item->status ==1) 实施
+                                                        @elseif($item->status ==2) 竣工
+                                                        @elseif($item->status ==4) 终止
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer layui-form-item" >
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button class="btn btn-success" lay-filter="add" lay-submit="" onclick="querenModel()">确认</button>
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
 
     <script>
         function checkboxarch(th) {
@@ -235,6 +299,54 @@
         $("input").focus(function(){
             $(this).css("background-color","#fff");
         });
+
+        //显示模拟框
+        function selectModel(){
+            $('#myModal').modal();
+        }
+        //使用模板数据
+        function querenModel() {
+            id =$('.subArchitectID').val();
+            var val=$('input:radio[name="subArchitectID"]:checked').val();
+            if(val==null){
+                showMsg('什么都没有选？');
+                return false;
+            } else{
+                buchongEngin(val);
+            }
+            console.log(val);
+        }
+        function showMsg(str) {
+            layui.use('layer', function(){
+                var layer = layui.layer;
+                layer.msg(str);
+            });
+        }
+        function  buchongEngin(id) {
+            $('#myModal').modal('hide'); //隐藏弹框
+            //获取项目工程对应的工况信息
+            $.ajax({
+                url:'/architectural/getMaterialList/'+id,
+                type:'get',
+                // contentType: 'application/json',
+                success:function(data){
+                    console.log(data);
+                    if(data.status == 1){
+                        //填充材料
+                        //fillMaterialBrand(id,data.data.material,data.data.brand);
+                        $.each( data.data, function(index,content){
+                            addMaterial(content);
+                            //console.log(content);
+                        });
+                    }else{
+                        showMsg('该工程没有材料信息');
+                        return false;
+                    }
+                },
+            });
+        }
+
+
     </script>
 
 @endsection
