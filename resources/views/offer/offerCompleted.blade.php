@@ -108,10 +108,8 @@
                                     <th>建筑面积(m²)</th>
                                     <th>预算金额(万元)</th>
                                     <th>报价金额(万元)</th>
-                                    <th>毛利润（万元）<br/>(预算/报价)</th>
-                                    <th>毛利率(%)<br/>(预算/报价)</th>
-                                    <th>税费(万元)<br/>(预算/报价)</th>
-                                    <th>税率(%)<br/>(预算/报价)</th>
+                                    <th>毛利润（万元）</th>
+                                    <th>毛利率(%)</th>
                                     <th>预算负责人</th>
                                     <th>报价状态</th>
                                     <th>报价审核状态</th>
@@ -128,10 +126,8 @@
 
                                         <td>{{ empty($val->total_budget_price)?'':round($val->total_budget_price/10000,4) }}</td>
                                         <td>{{ empty($val->total_offer_price)?'':round($val->total_offer_price/10000,4) }}</td>
-                                        <td>{{ empty($val->budget_profit)?'':round($val->budget_profit/10000,4)}}/{{empty($val->offer_profit)?'':round($val->offer_profit/10000,4)}}</td>
-                                        <td >{{empty($val->budget_profit_ratio)?'':$val->budget_profit_ratio}}/{{empty($val->offer_profit_ratio)?'':$val->offer_profit_ratio}}</td>
-                                        <td>{{ empty($val->budget_tax)?'':round($val->budget_tax/10000,4)}}/{{empty($val->offer_tax)?'':round($val->offer_tax/10000,4)}}</td>
-                                        <td >{{empty($val->budget_tax_ratio)?'':$val->budget_tax_ratio}}/{{empty($val->offer_tax_ratio)?'':$val->offer_tax_ratio}}</td>
+                                        <td>{{ empty($val->total_offer_price)?'':round($val->total_offer_price/10000,4) - round($val->total_budget_price/10000,4)}}</td>
+                                        <td >{{empty($val->total_offer_price)?'':round(($val->total_offer_price -$val->total_budget_price)/$val->total_offer_price *100 ,2)}}</td>
 
                                         <td>{{ $val->budget_username }}</td>
                                         @if(empty($val->offer_order_number))
