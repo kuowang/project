@@ -132,7 +132,8 @@ class EnginneringController extends WebController
         $data['count'] =$db->count();
         $data['data']= $db->orderby('project.id','desc')
             ->orderby('engineering.id','asc')
-            ->select(['project.project_name','project.design_username as project_design_username','engineering.id as engineering_id','engineering.*'])
+            ->select(['project.project_name','project.design_username as project_design_username',
+                'engineering.id as engineering_id','engineering.*'])
             ->skip(($page-1)*$rows)
             ->take($rows)
             ->get();

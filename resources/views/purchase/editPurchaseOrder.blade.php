@@ -183,11 +183,11 @@
                                             <td>{{$item->engineering_quantity}}</td>
                                             <td>{{$item->brand_name}}</td>
                                             <td>{{$item->purchase_price}}<input type="hidden" id="purchase_price_{{$item->id}}" name="purchase_price[]" value="{{$item->purchase_price}}"></td>
-                                            <td>{{$item->total_purchase_price}}</td>
+                                            <td>{{round($item->total_purchase_price,2)}}</td>
                                             <td>{{$item->already_purchased_quantity}}</td>
                                             <td id="wait_purchased_quantity_{{$item->id}}">{{$item->wait_purchased_quantity}}</td>
                                             <td><input type="text" class="span12 notempty actual_purchase_quantity" name="actual_purchase_quantity[]" value="{{$item->actual_purchase_quantity}}" onclick="key(this)" onchange="totalPrice({{$item->id}},this)"></td>
-                                            <td id="actual_total_fee_{{$item->id}}">{{$item->actual_total_fee}}</td>
+                                            <td id="actual_total_fee_{{$item->id}}">{{round($item->actual_total_fee,2)}}</td>
                                             @if($item->already_purchased_quantity == 0)
                                             <td><span class="btn btn-danger">未下单</span></td>
                                             @elseif($item->already_purchased_quantity == $item->engineering_quantity)
@@ -264,7 +264,8 @@
         if(actual_quantity*1 > wait_purchased_quantity*1){
             showMsg('采购数量超出待采购数量，请核实');
         }
-        $("#actual_total_fee_"+id).html(actual_quantity * purchase_price );
+        actual_total_fee =actual_quantity * purchase_price;
+        $("#actual_total_fee_"+id).html(actual_total_fee.toFixed(2) );
         console.log(wait_purchased_quantity);
     }
 

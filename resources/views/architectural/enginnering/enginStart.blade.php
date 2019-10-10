@@ -133,7 +133,7 @@
                                     <td>{{$val->build_area}}@if(!empty($val->engin_build_area))({{$val->engin_build_area}})@endif</td>
                                     <td>{{ $val->build_floor }}</td>
                                     <td>{{$val->build_number}}</td>
-                                    <td>{{$val->design_username}}</td>
+                                    <td>{{$val->project_design_username}}</td>
                                     <td>{{$val->build_design_username}}</td>
                                     <td>{{$val->structure_username}}</td>
                                     <td>{{$val->drainage_username}}</td>

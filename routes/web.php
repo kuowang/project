@@ -259,7 +259,7 @@ Route::group(['prefix' => 'offer','namespace' => 'Offer','middleware' => 'auth']
 
 //采购管理类的控制组 不需要登录
 Route::group(['prefix' => 'purchase','namespace' => 'Purchase','middleware' => 'auth'], function () {
-    Route::get('/purchaseConduct',              'PurchaseController@purchaseConduct');    //实施项目采购列表
+    Route::get('/purchaseConduct/{id?}',              'PurchaseController@purchaseConduct');    //实施项目采购列表
 
     Route::get('/editPurchase/{id}',            'PurchaseController@editPurchase');    //实施项目采购列表
     Route::post('/updateProjectStatus/{id}',    'PurchaseController@updateProjectStatus');    //更改项目状态
@@ -284,10 +284,13 @@ Route::group(['prefix' => 'purchase','namespace' => 'Purchase','middleware' => '
     Route::post('/postEditPurchaselogis/{id}/',     'PurchaseController@postEditPurchaselogis');    //提交物流管理信息
     Route::get('/purchaseLogisDetail/{id}',           'PurchaseController@purchaseLogisDetail');    //查询物流信息
 
-    Route::get('/purchaseCompleted',                     'PurchaseController@purchaseCompleted');   //竣工项目采购列表
+    Route::get('/purchaseCompleted/{id?}',                     'PurchaseController@purchaseCompleted');   //竣工项目采购列表
     Route::get('/purchaseCompletedBatchManage/{id}',     'PurchaseController@purchaseCompletedBatchManage'); //竣工项目批次管理
     Route::get('/purchaseCompletedOrderManage/{id}',     'PurchaseController@purchaseCompletedOrderManage'); //竣工项目批次管理
     Route::get('/purchaseCompletedLogisticsManage/{id}', 'PurchaseController@purchaseCompletedLogisticsManage'); //竣工项目物流管理
+
+    Route::get('/purchaseConductProjectList',             'PurchaseController@purchaseConductProjectList');   // 实施项目采购列表
+    Route::get('/purchaseCompletedProjectList',           'PurchaseController@purchaseCompletedProjectList');   //竣工项目采购列表
 
 });
 //测试下载文档接口

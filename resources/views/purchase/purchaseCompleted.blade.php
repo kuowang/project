@@ -42,15 +42,19 @@
 
                 @if(in_array(200102,$pageauth))
                     <div class="metro-nav-block nav-block-green" >
-                        <a href="/purchase/purchaseConduct">
-                            <div class="fs1"  data-icon="">实施工程</div>
+                        <a href="/purchase/purchaseConduct/{{$id}}">
+                            <div class="fs1"  ><img src="/img/nav/2.png">实施工程
+                                @if(isset($project)) ({{$project->conduct_count}})@endif
+                            </div>
                         </a>
                     </div>
                 @endif
                 @if(in_array(200103,$pageauth))
                     <div class="metro-nav-block nav-block-yellow" style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
-                        <a href="/purchase/purchaseCompleted">
-                            <div class="fs1" aria-hidden="true" data-icon="">竣工工程</div>
+                        <a href="/purchase/purchaseCompleted/{{$id}}">
+                            <div class="fs1" aria-hidden="true" ><img src="/img/nav/2.png">竣工工程
+                                @if(isset($project)) ({{$project->completed_count}})@endif
+                            </div>
                         </a>
                     </div>
                 @endif

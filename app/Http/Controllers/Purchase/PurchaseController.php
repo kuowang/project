@@ -20,7 +20,7 @@ class PurchaseController extends WebController
         $this->middleware('auth');
     }
     //实施项目采购列表
-    public function purchaseConduct(Request $request){
+    public function purchaseConduct(Request $request,$id=0){
 
         $this->user();
 
@@ -70,12 +70,71 @@ class PurchaseController extends WebController
         if( !(in_array(2501,$this->user()->pageauth)) && !in_array(2501,$this->user()->manageauth)){
             return redirect('/home');
         }
-
+        if($id){
+            $data['project'] =DB::table('project')->where('id',$id)->first();
+        }
+        $data['id']=$id;
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
         return view('purchase.purchaseConduct',$data);
     }
+//实施项目采购列表
+    public function purchaseCompleted(Request $request,$id=0){
+        $this->user();
 
+        $project_name       =$request->input('project_name','');
+        $engineering_name   =$request->input('engineering_name','');
+        $purchase_username    =$request->input('purchase_username','');
+        $page               =$request->input('page',1);
+        $rows               =$request->input('rows',40);
+        $data['project_name']   =$project_name;
+        $data['engineering_name']        =$engineering_name;
+        $data['purchase_username']=$purchase_username;
+
+        $db=DB::table('engineering')
+            ->join('project','project.id','=','project_id')
+            ->leftjoin('purchase','engineering.id','=','purchase.engin_id')
+            ->where('engineering.status',2); //竣工项目工程
+
+        if(!empty($project_name)){
+            $db->where('project_name','like','%'.$project_name.'%');
+        }
+        if(!empty($engineering_name)){
+            $db->where('engineering_name','like','%'.$engineering_name.'%');
+        }
+        if(!empty($purchase_username)){
+            $db->where('purchase_username','like','%'.$purchase_username.'%');
+        }
+
+        $data['count'] =$db->count();
+        $data['data']= $db->orderby('project.id','desc')
+            ->orderby('engineering.id','asc')
+            ->select(['project.project_name','project.budget_uid','project.budget_username','engineering.purchase_uid','engineering.purchase_username','is_conf_architectural',
+                'engineering.project_id','engineering.id as engin_id', 'engineering.engineering_name','engineering.budget_id',
+                'build_area', 'engineering.status as engin_status', 'contract_code',
+                'purchase_status','logistics_status','batch_status','purchase.remark'
+            ])
+            ->skip(($page-1)*$rows)
+            ->take($rows)
+            ->get();
+        //$queries = DB::getQueryLog();
+        //var_dump($queries);
+        $url='/purchase/purchaseConduct?project_name='.$project_name.'&engineering_name='.$engineering_name.'&purchase_username='.$purchase_username;
+        $data['page']   =$this->webfenye($page,ceil($data['count']/$rows),$url);
+
+        $data['navid']      =25;
+        $data['subnavid']   =2502;
+        if( !(in_array(2502,$this->user()->pageauth)) && !in_array(2502,$this->user()->manageauth)){
+            return redirect('/home');
+        }
+        if($id){
+            $data['project'] =DB::table('project')->where('id',$id)->first();
+        }
+        $data['id']=$id;
+        $data['status']=$request->input('status',0); //1成功 2失败
+        $data['notice']=$request->input('notice','成功'); //提示信息
+        return view('purchase.purchaseCompleted',$data);
+    }
     //编辑采购信息 $id 工程id
     public function editPurchase(Request $request,$id){
         //判断是否为管理员 如果是管理员可以指定项目采购负责人 否则只能更改状态
@@ -182,7 +241,7 @@ class PurchaseController extends WebController
         }
         if($purchase_uid !=0 && in_array(250105,$this->user()->manageauth)){
             $purchase_username =DB::table('users')->where('id',$purchase_uid)->value('name');
-            DB::table('project')->where('id',$budget->project_id)
+            DB::table('engineering')->where('id',$id)
                 ->update(['purchase_uid'=>$purchase_uid,'purchase_username'=>$purchase_username]);
         }
         return redirect('/purchase/purchaseConduct?status=1&notice='.'编辑成功');
@@ -415,7 +474,7 @@ class PurchaseController extends WebController
             ->pluck('actual_purchase_quantity','budget_item_id');
 
         foreach($budgetitem as &$list){
-            $list->total_purchase_price = $list->engineering_quantity * $list->purchase_unit_price; //采购总金额
+            $list->total_purchase_price = round($list->engineering_quantity * $list->purchase_unit_price,2); //采购总金额
             if(isset($purchaselist[$list->id])){
                 $list->already_purchased_quantity = $purchaselist[$list->id];
                 if($list->engineering_quantity - $purchaselist[$list->id] < 0){
@@ -532,7 +591,7 @@ class PurchaseController extends WebController
             ->where('engin_id',$batchinfo->engin_id)
             ->pluck('actual_purchase_quantity','budget_item_id');
         foreach($budgetitem as &$list){
-            $list->total_purchase_price = $list->engineering_quantity * $list->purchase_unit_price; //采购总金额
+            $list->total_purchase_price = round($list->engineering_quantity * $list->purchase_unit_price,2); //采购总金额
             if(isset($purchaselist[$list->id])){
                 $list->already_purchased_quantity = $purchaselist[$list->id];
                 if($list->engineering_quantity - $purchaselist[$list->id] < 0){
@@ -566,8 +625,8 @@ class PurchaseController extends WebController
              $datalist['already_purchased_quantity'] =$item->already_purchased_quantity;                //`already_purchased_quantity` varchar(255) DEFAULT NULL COMMENT '已经采购量',
              $datalist['wait_purchased_quantity'] =$item->wait_purchased_quantity;              //`wait_purchased_quantity` varchar(255) DEFAULT NULL COMMENT '待采购量',
              $datalist['actual_purchase_quantity'] =$actual_purchase_quantity[$item->id];                //`actual_purchase_quantity` varchar(255) DEFAULT NULL COMMENT '实际采购量',
-             $datalist['total_purchase_price']   =$item->total_purchase_price;                //`total_purchase_price` varchar(10) DEFAULT NULL COMMENT '总采购价',
-             $datalist['actual_total_fee']       =$datalist['actual_purchase_quantity'] * $item->purchase_unit_price ;                //`actual_total_fee` varchar(255) DEFAULT NULL COMMENT '实际采购金额',
+             $datalist['total_purchase_price']   =round($item->total_purchase_price,2);                //`total_purchase_price` varchar(10) DEFAULT NULL COMMENT '总采购价',
+             $datalist['actual_total_fee']       =round($datalist['actual_purchase_quantity'] * $item->purchase_unit_price ,2);                //`actual_total_fee` varchar(255) DEFAULT NULL COMMENT '实际采购金额',
              $datalist['purchase_unit']          =$item->purchase_unit;              //`purchase_unit` varchar(255) DEFAULT NULL COMMENT '采购单位',
              $datalist['purchase_price']         =$item->purchase_unit_price;                //`purchase_price` decimal(10,2) DEFAULT NULL COMMENT '采购价格',
              $datalist['uid']                   =$this->user()->id;                //`purchase_price` decimal(10,2) DEFAULT NULL COMMENT '采购价格',
@@ -737,7 +796,7 @@ class PurchaseController extends WebController
         foreach ($order_item_id as $k=>$v){
             $orderItem =DB::table('purchase_order_item')->where('id',$v)->first();
             $list['actual_purchase_quantity'] =$actual_purchase_quantity[$k];
-            $list['actual_total_fee'] =$actual_purchase_quantity[$k]*$orderItem->purchase_price;
+            $list['actual_total_fee'] =round($actual_purchase_quantity[$k]*$orderItem->purchase_price,2);
             DB::table('purchase_order_item')->where('id',$v)->update($list);
         }
         $sum = DB::table('purchase_order_item')->where('order_id',$id)->sum('actual_total_fee');
@@ -846,61 +905,7 @@ class PurchaseController extends WebController
 
 
 
-    //实施项目采购列表
-    public function purchaseCompleted(Request $request){
-        $this->user();
 
-        $project_name       =$request->input('project_name','');
-        $engineering_name   =$request->input('engineering_name','');
-        $purchase_username    =$request->input('purchase_username','');
-        $page               =$request->input('page',1);
-        $rows               =$request->input('rows',40);
-        $data['project_name']   =$project_name;
-        $data['engineering_name']        =$engineering_name;
-        $data['purchase_username']=$purchase_username;
-
-        $db=DB::table('engineering')
-            ->join('project','project.id','=','project_id')
-            ->leftjoin('purchase','engineering.id','=','purchase.engin_id')
-            ->where('engineering.status',2); //竣工项目工程
-
-        if(!empty($project_name)){
-            $db->where('project_name','like','%'.$project_name.'%');
-        }
-        if(!empty($engineering_name)){
-            $db->where('engineering_name','like','%'.$engineering_name.'%');
-        }
-        if(!empty($purchase_username)){
-            $db->where('purchase_username','like','%'.$purchase_username.'%');
-        }
-
-        $data['count'] =$db->count();
-        $data['data']= $db->orderby('project.id','desc')
-            ->orderby('engineering.id','asc')
-            ->select(['project.project_name','project.budget_uid','project.budget_username','engineering.purchase_uid','engineering.purchase_username','is_conf_architectural',
-                'engineering.project_id','engineering.id as engin_id', 'engineering.engineering_name','engineering.budget_id',
-                'build_area', 'engineering.status as engin_status', 'contract_code',
-                'purchase_status','logistics_status','batch_status','purchase.remark'
-            ])
-            ->skip(($page-1)*$rows)
-            ->take($rows)
-            ->get();
-        //$queries = DB::getQueryLog();
-        //var_dump($queries);
-
-        $url='/purchase/purchaseConduct?project_name='.$project_name.'&engineering_name='.$engineering_name.'&purchase_username='.$purchase_username;
-        $data['page']   =$this->webfenye($page,ceil($data['count']/$rows),$url);
-
-        $data['navid']      =25;
-        $data['subnavid']   =2502;
-        if( !(in_array(2502,$this->user()->pageauth)) && !in_array(2502,$this->user()->manageauth)){
-            return redirect('/home');
-        }
-
-        $data['status']=$request->input('status',0); //1成功 2失败
-        $data['notice']=$request->input('notice','成功'); //提示信息
-        return view('purchase.purchaseCompleted',$data);
-    }
     //编辑物流单
     public function editPurchaseLogis(Request $request,$id){
         $this->user();
@@ -1116,4 +1121,92 @@ class PurchaseController extends WebController
         }
         return view('purchase.purchaseCompletedLogisticsManage',$data);
     }
+    //采购实施项目列表
+    public function purchaseConductProjectList(Request $request){
+        return $this->purchaseProjectList($request,'conduct');
+    }
+
+    //采购竣工项目列表
+    public function purchaseCompletedProjectList(Request $request){
+        return $this->purchaseProjectList($request,'completed');
+    }
+
+    /**
+     *采购项目列表
+     * @return \Illuminate\Http\Response
+     */
+    public function purchaseProjectList(Request $request,$projectstatus ='conduct')
+    {
+        $this->user();
+        $project_name       =$request->input('project_name','');
+        $address            =$request->input('address','');
+        $project_leader     =$request->input('budget_uid','');
+        $page               =$request->input('page',1);
+        $rows               =$request->input('rows',40);
+        $data['project_name']   =$project_name;
+        $data['address']        =$address;
+        $data['project_leader'] =$project_leader;
+
+        if($projectstatus == 'conduct'){
+            $datalist=$this->getPurchaseProjectList(1,$project_name,$address,$project_leader,$page,$rows);
+            $url='/purchase/purchaseConductProjectList?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
+            $data['subnavid']   =2501;
+        }else{
+            $datalist=$this->getPurchaseProjectList(2,$project_name,$address,$project_leader,$page,$rows);
+            $url='/purchase/purchaseCompletedProjectList?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
+            $data['subnavid']   =2502;
+        }
+
+        $data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
+        $data['data']   =$datalist['data'];
+        $data['navid']      =25;
+        $data['projectstatus']=$projectstatus;
+        if( !(in_array(25,$this->user()->pageauth)) && !in_array(25,$this->user()->manageauth)){
+            return redirect('/home');
+        }
+        return view('purchase.purchaseProjectList',$data);
+    }
+
+    //查询项目信息
+    protected function getPurchaseProjectList($status,$project_name='',$address='',$project_leader='',$page=1,$rows=20)
+    {
+        $db=DB::table('project');
+        if($status == 0){
+            $db->where('start_count','>',0);
+        }elseif($status==1){
+            $db->where('conduct_count','>',0);
+        }elseif($status==2){
+            $db->where('completed_count','>',0);
+        }elseif($status==4){
+            $db->where('termination_count','>',0);
+        }
+        if(!empty($project_name)){
+            $db->where('project_name','like','%'.$project_name.'%');
+        }
+        if(!empty($address)){
+            $db->Where(function ($query)use($address) {
+                $query->where('province', 'like','%'.$address.'%')
+                    ->orwhere('city', 'like','%'.$address.'%')
+                    ->orwhere('county', 'like','%'.$address.'%')
+                    ->orwhere('address_detail', 'like','%'.$address.'%')
+                    ->orwhere('foreign_address', 'like','%'.$address.'%');
+            });
+        }
+        if(!empty($project_leader)){
+            $db->where('project_leader','like','%'.$project_leader.'%');
+        }
+        $data['count'] =$db->count();
+        $data['data']= $db->orderby('project.id','desc')
+            ->select(['project.*'])
+            ->skip(($page-1)*$rows)
+            ->take($rows)
+            ->get();
+        return $data;
+    }
+
+
+
+
+
+
 }

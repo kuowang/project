@@ -123,7 +123,7 @@
                                             <select name="purchase_uid" id="purchase_uid" class="input-medium span8" style="min-width: 80px">
                                                 <option value="0" > </option>
                                                 @foreach($userList as $val)
-                                                @if($val->id == $project->purchase_uid)
+                                                @if($val->id == $engineering->purchase_uid)
                                                 <option value="{{$val->id}}" selected="selected">{{$val->name}}</option>
                                                 @else
                                                 <option value="{{$val->id}}">{{$val->name}}</option>
