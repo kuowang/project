@@ -282,6 +282,16 @@ class BudgetController extends WebController
                 }
             }
         }
+        //建筑设计配置参数
+        $data['param']=DB::table('engineering_param')->where('engin_id',$id)->first();
+        if($data['param']){
+            $data['storey_height']  =json_decode($data['param']->storey_height,true) ;
+            $data['house_height']   =json_decode($data['param']->house_height,true) ;
+            $data['house_area']     =json_decode($data['param']->house_area,true) ;
+            $data['room_position']  =json_decode($data['param']->room_position,true) ;
+            $data['room_name']      =json_decode($data['param']->room_name,true);
+            $data['room_area']      =json_decode($data['param']->room_area,true);
+        }
         //return $this->success($data);
         return view('budget.editBudget',$data);
     }
