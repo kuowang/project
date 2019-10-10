@@ -87,9 +87,10 @@
                                 @endif
                                 <!--补充子系统工程-->
                                 @if($val->sub_system_code != $syatem_sub_code  )
-                                    <tr class="gradeA success odd">
+                                    <tr class="gradeA success odd" style="border-bottom: #1599b5 2px solid">
                                         <td></td>
-                                        <td colspan="9">{{$val->sub_system_name}}</td>
+                                        <td colspan="7">{{$val->sub_system_name}}</td>
+                                        <td onclick="showcontent('{{$val->sub_system_code}}')"><span class="btn-default btn"  id="sub_code_{{$val->sub_system_code}}">展开材料</span></td>
                                     </tr>
                                     @php
                                         $syatem_sub_code = $val->sub_system_code;
@@ -101,7 +102,7 @@
                                     @endphp
                                 @endif
 
-                                <tr class="gradeC">
+                                <tr class="gradeC mater_sub_code_{{$syatem_sub_code}}" style="display: none">
                                         <td class="brand_id_{{ $val->id }}">
                                             {{ $i }}
                                         </td>
@@ -179,6 +180,16 @@
                 }
             },
         });
+    }
+
+    function showcontent(sub_code) {
+        $(".mater_sub_code_"+sub_code).toggle();
+        str =$('#sub_code_'+sub_code).html();
+        if(str =='展开材料'){
+            $('#sub_code_'+sub_code).html('隐藏材料');
+        }else{
+            $('#sub_code_'+sub_code).html('展开材料');
+        }
     }
 </script>
 @endsection
