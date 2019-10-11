@@ -31,15 +31,15 @@
                             <table class="layui-table layui-form">
                                 <thead>
                                     <tr>
-                                        <th colspan="6"><span class="btn btn-info">项目基本信息</span></th>
+                                        <th colspan="8"><span class="btn btn-info">项目基本信息</span></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td  class="pro-title">项目负责人</td>
-                                    <td  >{{$project->purchase_username}}</td>
+                                    <td  class="pro-title">采购负责人</td>
+                                    <td  >{{$engineering->purchase_username}}</td>
                                     <td  class="pro-title">项目地点（货物目的地）</td>
-                                    <td >{{$project->province}}{{$project->city}}{{$project->county}}{{$project->address_detail}}{{$project->foreign_address}}
+                                    <td colspan="3">{{$project->province}}{{$project->city}}{{$project->county}}{{$project->address_detail}}{{$project->foreign_address}}
                                     </td>
                                     <td  class="pro-title">工程名称</td>
                                     <td  >{{$engineering->engineering_name}}</td>
@@ -50,6 +50,8 @@
                                     <td >{{$batchinfo->purchase_number}}</td>
                                     <td class="pro-title">发货性质</td>
                                     <td >{{$batchinfo->deliver_properties}}</td>
+                                    <td  class="pro-title">下单日期</td>
+                                    <td >{{ $orderinfo->order_created_date }}</td>
                                     <td class="pro-title">计划发货时间</td>
                                     <td >{{$batchinfo->deliver_time}}</td>
                                 </tr>
@@ -89,24 +91,24 @@
                                 </tr>
 
                                 <tr>
-                                    <td  class="pro-title">下单日期</td>
-                                    <td >{{ $orderinfo->order_created_date }}</td>
+
                                     <td class="pro-title">运输方式</td>
                                     <td >{{ $orderinfo->transport_mode }}</td>
                                     <td class="pro-title">装载方式</td>
                                     <td >{{ $orderinfo->load_mode }}</td>
                                     <td class="pro-title">车辆规格</td>
                                     <td >{{ $orderinfo->vehicle_mode }}</td>
-                                </tr>
-                                <tr>
                                     <td  class="pro-title">车辆数量</td>
                                     <td >{{ $orderinfo->vehicle_number }}</td>
+                                </tr>
+                                <tr>
+
                                     <td class="pro-title">包装要求</td>
                                     <td >{{ $orderinfo->packing_mode }}</td>
                                     <td class="pro-title">订单采购地点</td>
                                     <td >{{ $orderinfo->purchase_address }}</td>
                                     <td class="pro-title"></td>
-                                    <td >
+                                    <td colspan="3">
 
                                     </td>
                                 </tr>

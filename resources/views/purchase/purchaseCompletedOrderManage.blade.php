@@ -36,8 +36,8 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td  class="pro-title">项目负责人</td>
-                                    <td  >{{$project->purchase_username}}</td>
+                                    <td  class="pro-title">采购负责人</td>
+                                    <td  >{{$engineering->purchase_username}}</td>
                                     <td  class="pro-title">项目地点（货物目的地）</td>
                                     <td >{{$project->province}}{{$project->city}}{{$project->county}}{{$project->address_detail}}{{$project->foreign_address}}
                                     </td>
