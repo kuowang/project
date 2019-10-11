@@ -224,7 +224,6 @@ class EnginneringController extends WebController
             return $this->error('没有工况信息');
         }
         return $this->success($data);
-
     }
     //提交编辑工程设计详情
     public function postEditEngin(Request $request,$id)

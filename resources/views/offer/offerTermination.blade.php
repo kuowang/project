@@ -168,8 +168,13 @@
                                 @endphp
 
                             </div>
-                            <div class="clearfix">
+                            <div class="clearfix"></div>
+                            <hr>
+                            <div style="margin: 10px">
+                                <div>1、毛利润=报价金额 - 预算金额</div>
+                                <div>2、毛利率=(报价金额 - 预算金额)\报价金额 * 100</div>
                             </div>
+                            <div class="clearfix"></div>
                         </div>
                     </div>
                 </div>

@@ -133,11 +133,11 @@
                             <tr style="display: none" class="sub_arch_id arch_id_{{$v->arch_id}}">
                                 <td>
                                     @if($engineering->budget_id > 0 && isset($engin_system[$v->sub_arch_id]))
-                                        <input type="hidden" id="sub_arch_id_{{$v->sub_arch_id}}" name="sub_arch_id[{{$v->sub_arch_id}}]" value="{{$v->sub_arch_id}}" checked="checked" >
+                                        <input type="hidden" class="inputsubarchid" id="sub_arch_id_{{$v->sub_arch_id}}" name="sub_arch_id[{{$v->sub_arch_id}}]" value="{{$v->sub_arch_id}}" checked="checked" >
                                     @elseif(isset($engin_system[$v->sub_arch_id]))
-                                        <input type="checkbox" id="sub_arch_id_{{$v->sub_arch_id}}" name="sub_arch_id[{{$v->sub_arch_id}}]" value="{{$v->sub_arch_id}}" checked="checked" onclick="checkboxarch(this)" >
+                                        <input type="checkbox" class="inputsubarchid"  id="sub_arch_id_{{$v->sub_arch_id}}" name="sub_arch_id[{{$v->sub_arch_id}}]" value="{{$v->sub_arch_id}}" checked="checked" onclick="checkboxarch(this)" >
                                     @else
-                                        <input type="checkbox" id="sub_arch_id_{{$v->sub_arch_id}}" name="sub_arch_id[{{$v->sub_arch_id}}]" value="{{$v->sub_arch_id}}" onclick="checkboxarch(this)">
+                                        <input type="checkbox" class="inputsubarchid"  id="sub_arch_id_{{$v->sub_arch_id}}" name="sub_arch_id[{{$v->sub_arch_id}}]" value="{{$v->sub_arch_id}}" onclick="checkboxarch(this)">
                                     @endif
                                     </td>
                                 <td  >{{$v->sub_system_name}}</td>
@@ -334,13 +334,15 @@
                     console.log(data);
                     if(data.status == 1){
                         //文字全部改为显示 选中全部取消 子工程全部隐藏
-                        $('#show_'+id).html('显示');
-
+                        $('.showcontent').html('显示');
+                        $(".inputsubarchid").prop("checked",false);
+                        $('.sub_arch_id').hide();
                         //填充材料
-                        //fillMaterialBrand(id,data.data.material,data.data.brand);
                         $.each( data.data, function(index,content){
                             //addMaterial(content);
-                            //console.log(content);
+                            $('#show_'+content.arch_id).html('隐藏');
+                            $('.arch_id_'+content.arch_id).show();
+                            $('#sub_arch_id_'+content.sub_arch_id).prop('checked',true);
                         });
                     }else{
                         showMsg('没有查询到工况信息');

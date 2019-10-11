@@ -87,15 +87,15 @@
 
     <tr>
         <td colspan="2" class="pro-title">设计基本风压(kN/m²)</td>
-        <td  colspan="3">{{isset($param->use_time)?$param->use_time:''}}</td>
+        <td  colspan="3">{{isset($param->basic_wind_pressure)?$param->basic_wind_pressure:''}}</td>
         <td  colspan="2" class="pro-title">设计基本雪压(kN/m²)</td>
-        <td  colspan="3">{{isset($param->seismic_grade)?$param->seismic_grade:''}}</td>
+        <td  colspan="3">{{isset($param->basic_snow_pressure)?$param->basic_snow_pressure:''}}</td>
     </tr>
     <tr>
         <td  colspan="2" class="pro-title">屋面活载荷(kN/m²)</td>
-        <td  colspan="3">{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
+        <td  colspan="3">{{isset($param->roof_load)?$param->roof_load:''}}</td>
         <td  colspan="2" class="pro-title">楼面活载荷(kN/m²)</td>
-        <td  colspan="3">{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
+        <td  colspan="3">{{isset($param->floor_load)?$param->floor_load:''}}</td>
     </tr>
     </tbody>
 </table>

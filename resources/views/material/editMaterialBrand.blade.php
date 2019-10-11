@@ -135,7 +135,7 @@
                                         @foreach($supplier as $k=>$val)
                                             @if(isset($supplier_brand_list[$mate->brand_id]) && in_array($val->id,$supplier_brand_list[$mate->brand_id]))
                                                 @if($val->id == $mate->supplier_id)
-                                                <option value="{{ $val->id }}" class="manufa manufa_{{ $val->id }}" selected="selected">{{$val->manufactor}}</option>
+                                                    <option value="{{ $val->id }}" class="manufa manufa_{{ $val->id }}" selected="selected">{{$val->manufactor}}</option>
                                                 @else
                                                     <option value="{{ $val->id }}" class="manufa manufa_{{ $val->id }}" >{{$val->manufactor}}</option>
                                                 @endif
@@ -160,8 +160,12 @@
 
                             </tbody>
                         </table>
-                        <div class="clearfix">
+                        <div class="clearfix"></div>
+                        <hr>
+                        <div style="margin: 10px">
+                            <div>1、1预算单位=1采购单位 * 换算关系数值</div>
                         </div>
+                        <div class="clearfix"></div>
                     </div>
 
                 </div>
