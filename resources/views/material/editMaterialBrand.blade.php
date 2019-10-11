@@ -133,7 +133,7 @@
                                     <select name="manufactor[]" id="manufactor_1" class="span12" style="min-width: 100px" onchange="selectManufactor(1)">
                                         <option value="0"  style="display: none"></option>
                                         @foreach($supplier as $k=>$val)
-                                            @if(in_array($val->id,$supplier_brand_list[$mate->brand_id]))
+                                            @if(isset($supplier_brand_list[$mate->brand_id]) && in_array($val->id,$supplier_brand_list[$mate->brand_id]))
                                                 @if($val->id == $mate->supplier_id)
                                                 <option value="{{ $val->id }}" class="manufa manufa_{{ $val->id }}" selected="selected">{{$val->manufactor}}</option>
                                                 @else

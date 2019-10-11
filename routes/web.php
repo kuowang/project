@@ -146,6 +146,11 @@ Route::group(['prefix' => 'architectural','namespace' => 'Architectural','middle
     Route::get('/enginProjectList',                'EnginneringController@enginProjectList');     //工程设计中项目列表
     Route::post('/postEnginUserInfo/{id}',        'EnginneringController@postEnginUserInfo');    //提交配置工程设计人员信息
 
+    Route::get('/getEnginArchList/{id}',                'EnginneringController@getEnginArchList');     //获取指定工程配置的工况信息
+
+
+
+
 });
 
 //基础信息管理类的控制组 需要登录

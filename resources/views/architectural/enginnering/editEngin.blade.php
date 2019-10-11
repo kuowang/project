@@ -119,25 +119,25 @@
                             </thead>
                             <tbody>
                             @php
-                            $system_code ='';
+                            $arch_id ='';
                             @endphp
                             @foreach($arch_system as $v)
-                                @if($system_code != $v->system_code)
+                                @if($arch_id != $v->arch_id)
                                     <tr class="pro-title">
                                         <td colspan="4">{{$v->system_name}}({{$v->engin_name}})</td>
-                                        <td > <span class="btn btn-success" onclick="showcontent('{{$v->system_code}}')" id="show_{{$v->system_code}}">显示</span>
+                                        <td > <span class="btn btn-success showcontent" onclick="showcontent('{{$v->arch_id}}')" id="show_{{$v->arch_id}}" >显示</span>
                                         </td>
                                     </tr>
-                                    @php( $system_code = $v->system_code)
+                                    @php( $arch_id = $v->arch_id)
                                 @endif
-                            <tr style="display: none" class="system_code_{{$v->system_code}}">
+                            <tr style="display: none" class="sub_arch_id arch_id_{{$v->arch_id}}">
                                 <td>
                                     @if($engineering->budget_id > 0 && isset($engin_system[$v->sub_arch_id]))
-                                        <input type="hidden" name="sub_arch_id[{{$v->sub_arch_id}}]" value="{{$v->sub_arch_id}}" checked="checked" >
+                                        <input type="hidden" id="sub_arch_id_{{$v->sub_arch_id}}" name="sub_arch_id[{{$v->sub_arch_id}}]" value="{{$v->sub_arch_id}}" checked="checked" >
                                     @elseif(isset($engin_system[$v->sub_arch_id]))
-                                        <input type="checkbox" name="sub_arch_id[{{$v->sub_arch_id}}]" value="{{$v->sub_arch_id}}" checked="checked" onclick="checkboxarch(this)" >
+                                        <input type="checkbox" id="sub_arch_id_{{$v->sub_arch_id}}" name="sub_arch_id[{{$v->sub_arch_id}}]" value="{{$v->sub_arch_id}}" checked="checked" onclick="checkboxarch(this)" >
                                     @else
-                                        <input type="checkbox" name="sub_arch_id[{{$v->sub_arch_id}}]" value="{{$v->sub_arch_id}}" onclick="checkboxarch(this)">
+                                        <input type="checkbox" id="sub_arch_id_{{$v->sub_arch_id}}" name="sub_arch_id[{{$v->sub_arch_id}}]" value="{{$v->sub_arch_id}}" onclick="checkboxarch(this)">
                                     @endif
                                     </td>
                                 <td  >{{$v->sub_system_name}}</td>
@@ -272,7 +272,7 @@
             }else{
                 $('#show_'+id).html('显示');
             }
-            $(".system_code_"+id).toggle();
+            $(".arch_id_"+id).toggle();
         }
 
         function form_submit(){
@@ -325,21 +325,25 @@
         function  buchongEngin(id) {
             $('#myModal').modal('hide'); //隐藏弹框
             //获取项目工程对应的工况信息
+            //这部分明天写
             $.ajax({
-                url:'/architectural/getMaterialList/'+id,
+                url:'/architectural/getEnginArchList/'+id,
                 type:'get',
                 // contentType: 'application/json',
                 success:function(data){
                     console.log(data);
                     if(data.status == 1){
+                        //文字全部改为显示 选中全部取消 子工程全部隐藏
+                        $('#show_'+id).html('显示');
+
                         //填充材料
                         //fillMaterialBrand(id,data.data.material,data.data.brand);
                         $.each( data.data, function(index,content){
-                            addMaterial(content);
+                            //addMaterial(content);
                             //console.log(content);
                         });
                     }else{
-                        showMsg('该工程没有材料信息');
+                        showMsg('没有查询到工况信息');
                         return false;
                     }
                 },
