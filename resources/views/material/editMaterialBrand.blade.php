@@ -69,8 +69,8 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td><input type="text"  name="material_budget_unit"      id="budget_unit"        value="{{ $material->material_budget_unit }}" lay-skin="primary" style="width:50px;"></td>
-                                    <td><input type="text"  name="material_purchase_unit"    id="purchase_unit"      value="{{ $material->material_purchase_unit }}" lay-skin="primary" style="width:50px;"></td>
+                                    <td><input type="text"  name="material_budget_unit"      id="budget_unit"        value="{{ $material->material_budget_unit }}" lay-skin="primary" onchange="selectunit()" style="width:50px;"></td>
+                                    <td><input type="text"  name="material_purchase_unit"    id="purchase_unit"      value="{{ $material->material_purchase_unit }}" lay-skin="primary" onchange="selectunit()" style="width:50px;"></td>
                                     <td><input type="text"  name="conversion"       id="conversion"         value="{{ $material->conversion }}" lay-skin="primary" style="width:70px;"></td>
                                     <td><input type="text"  name="pack_specification" id="pack_specification" value="{{ $material->pack_specification }}" lay-skin="primary"></td>
                                     <td><input type="text"  name="pack_claim"       id="pack_claim"         value="{{ $material->pack_claim }}" lay-skin="primary"></td>
@@ -147,12 +147,12 @@
                                     </select>
                                 </td>
                                 <td><input type="text"  name="supplier[]"          id="supplier_{{$k}}"         value="{{ $mate->supplier }}" lay-skin="primary"></td>
-                                <td><input type="text"  name="budget_unit_price[]" id="budget_unit_price_{{$k}}" value="{{ $mate->budget_unit_price }}" lay-skin="primary" placeholder=""style="width:50px;"></td>
-                                <td><input type="text"  name="budget_unit[]"       id="budget_unit_{{$k}}"         value="{{ $mate->budget_unit }}" lay-skin="primary"  placeholder=""style="width:50px;"></td>
+                                <td><input type="text"  name="budget_unit_price[]" id="budget_unit_price_{{$k}}" value="{{ $mate->budget_unit_price }}" lay-skin="primary" placeholder=""style="width:50px;" onchange="changebudgetprice({{$k}})"></td>
+                                <td><input type="text"  name="budget_unit[]"  class="budget_unit"     id="budget_unit_{{$k}}"         value="{{ $mate->budget_unit }}" lay-skin="primary"  placeholder=""style="width:50px;"></td>
                                 <td><input type="text"  name="purchase_unit_price[]"  id="purchase_unit_price_{{$k}}"    value="{{ $mate->purchase_unit_price }}" lay-skin="primary" style="width:50px;"></td>
-                                <td><input type="text"  name="purchase_unit[]"      id="purchase_unit_{{$k}}" value="{{ $mate->purchase_unit }}" lay-skin="primary" style="width:50px;"></td>
+                                <td><input type="text"  name="purchase_unit[]"   class="purchase_unit"    id="purchase_unit_{{$k}}" value="{{ $mate->purchase_unit }}" lay-skin="primary" style="width:50px;"></td>
                                 <td><input type="text"  name="offer_unit_price[]"      id="offer_unit_price_{{$k}}" value="{{ $mate->offer_unit_price }}" lay-skin="primary" style="width:50px;"></td>
-                                <td><input type="text"  name="offer_unit[]"      id="offer_unit_{{$k}}" value="{{ $mate->offer_unit }}" lay-skin="primary" style="width:50px;"></td>
+                                <td><input type="text"  name="offer_unit[]"    class="offer_unit"   id="offer_unit_{{$k}}" value="{{ $mate->offer_unit }}" lay-skin="primary" style="width:50px;"></td>
 
                                 <td><a class="btn btn-danger" onclick="deleteTrRow(this)">删除</a></td>
                             </tr>
@@ -285,16 +285,17 @@
                         '</select>'+
             '</td>'+
             '<td><input type="text"  name="supplier[]"          id="supplier_'+intid+'"         value="" lay-skin="primary"></td>'+
-            '<td><input type="text"  name="budget_unit_price[]" id="budget_unit_price_'+intid+'" value="" lay-skin="primary" placeholder=""style="width:50px;"></td>'+
-            '<td><input type="text"  name="budget_unit[]"       id="budget_unit_'+intid+'"         value="" lay-skin="primary"  placeholder=""style="width:50px;"></td>'+
+            '<td><input type="text"  name="budget_unit_price[]" id="budget_unit_price_'+intid+'"  onchange="changebudgetprice('+intid+')" value="" lay-skin="primary" placeholder=""style="width:50px;"></td>'+
+            '<td><input type="text"  name="budget_unit[]"  class="budget_unit"      id="budget_unit_'+intid+'"         value="" lay-skin="primary"  placeholder=""style="width:50px;"></td>'+
             '<td><input type="text"  name="purchase_unit_price[]"  id="purchase_unit_price_'+intid+'"    value="" lay-skin="primary" style="width:50px;"></td>'+
-            '<td><input type="text"  name="purchase_unit[]"      id="purchase_unit_'+intid+'" value="" lay-skin="primary" style="width:50px;"></td>'+
+            '<td><input type="text"  name="purchase_unit[]"  class="purchase_unit"     id="purchase_unit_'+intid+'" value="" lay-skin="primary" style="width:50px;"></td>'+
             '<td><input type="text"  name="offer_unit_price[]"      id="offer_unit_price_'+intid+'"  lay-skin="primary" style="width:50px;"></td>'+
-            '<td><input type="text"  name="offer_unit[]"      id="offer_unit_'+intid+'"  lay-skin="primary" style="width:50px;"></td>'+
+            '<td><input type="text"  name="offer_unit[]"  class="offer_unit"     id="offer_unit_'+intid+'"  lay-skin="primary" style="width:50px;"></td>'+
             '<td><a class="btn btn-danger" onclick="deleteTrRow(this)">删除</a></td>'+
             '</tr>';
 
             $("#zixitong").append(str);
+            selectunit()
         }
         //提交验证信息
         function form_submit(){
@@ -316,7 +317,43 @@
             }
             return true;
         }
-
+        //将报价和预算单位默认到品牌信息里面
+        function selectunit() {
+            budget_unit =$('#budget_unit').val();
+            purchase_unit =$('#purchase_unit').val();
+            if(budget_unit !=''){
+                $(".budget_unit").each(function(){
+                    if($(this).val()){
+                    }else{
+                        $(this).val(budget_unit);
+                    }
+                });
+                $(".offer_unit").each(function(){
+                    if($(this).val()){
+                    }else{
+                        $(this).val(budget_unit);
+                    }
+                });
+            }
+            if(purchase_unit !=''){
+                $(".purchase_unit").each(function(){
+                    if($(this).val()){
+                    }else{
+                        $(this).val(purchase_unit);
+                    }
+                });
+            }
+        }
+        //填写预算是 更改采购价格
+        function changebudgetprice(key) {
+            budget_price =$('#budget_unit_price_'+key).val();
+            purchase_unit_price =$('#purchase_unit_price_'+key).val();
+            console.log(budget_price);
+            //console.log(purchase_unit_price);
+            if(purchase_unit_price == ''){
+                $('#purchase_unit_price_'+key).val(budget_price)
+            }
+        }
 
     </script>
 

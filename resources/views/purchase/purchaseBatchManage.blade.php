@@ -184,7 +184,7 @@
         str =`<tr  class="hiddenitem_`+timestamp+`">
                 <td><input type="hidden" name="batch_id[]" value="0" class="span12 brach_id" >
                     <input type="text" name="purchase_number[]" class="span12 purchase_number" onclick="key(this)"></td>
-                <td><input type="text" name="deliver_properties[]" class="span12 deliver_properties" ></td>
+                <td><input type="text" name="deliver_properties[]" class="span12 deliver_properties" placeholder="预算内/预算外" ></td>
                 <td><input type="text" name="purchase_at[]" class="span12 purchase_at purchase_at_`+timestamp+`" ></td>
                 <td><input type="text" name="deliver_time[]" class="span12 deliver_time deliver_time_`+timestamp+`" ></td>
                 <td><input type="text" name="arrive_time[]" class="span12 arrive_time arrive_time_`+timestamp+`" ></td>

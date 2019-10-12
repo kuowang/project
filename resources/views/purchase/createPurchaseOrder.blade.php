@@ -107,7 +107,7 @@
                                     <td class="pro-title">订单采购地点</td>
                                     <td ><input type="text" name="purchase_address"     id="purchase_address" class="span12 notempty" ></td>
                                     <td class="pro-title">供应商</td>
-                                    <td colspan="3">
+                                    <td colspan="3" style="background: #0c9abb">
                                         <select name="supplier" onchange="selectsuppler(this)" class="span12">
                                             <option value="0"></option>
                                             @foreach($supplierList as $k=>$v)
@@ -192,6 +192,8 @@
                                     <span class="btn btn-success" lay-filter="add" lay-submit="">返回/取消</span>
                                 </a>
                             </div>
+                            <div class="clearfix"></div>
+                            <div style="color: red">注：选择供应商才能显示该供应商对应的材料</div>
                             <div class="clearfix"></div>
 
                         </div>
