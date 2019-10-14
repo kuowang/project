@@ -107,36 +107,49 @@
                                     <td >{{ $orderinfo->packing_mode }}</td>
                                     <td class="pro-title">订单采购地点</td>
                                     <td >{{ $orderinfo->purchase_address }}</td>
-                                    <td class="pro-title"></td>
-                                    <td colspan="3">
-
-                                    </td>
-                                </tr>
-
-                                <tr>
                                     <td  class="pro-title">买方联系人</td>
                                     <td >{{ $orderinfo->purchaser }}</td>
                                     <td  class="pro-title">买方联系电话</td>
                                     <td >{{ $orderinfo->purchaser_phone }}</td>
-                                    <td  class="pro-title">供应商名称</td>
-                                    <td id="supplier">{{$supplier->supplier}}</td>
-                                    <td  class="pro-title">厂家名称</td>
-                                    <td id="manufactor">{{$supplier->manufactor}}</td>
                                 </tr>
-                                <tr>
-                                    <td  class="pro-title">供应商地址</td>
-                                    <td id="address">{{$supplier->address}}</td>
-                                    <td  class="pro-title">联系人</td>
-                                    <td id="contacts">{{$supplier->contacts}}</td>
-                                    <td  class="pro-title">联系电话</td>
-                                    <td id="telephone">{{$supplier->telephone}}</td>
-                                    <td  class="pro-title">电子邮箱</td>
-                                    <td id="email">{{$supplier->email}}</td>
-                                </tr>
+
+
                                 <tr>
                                     <td  class="pro-title">备注</td>
                                     <td id="remark" colspan="7"> {{ $orderinfo->remark }}</td>
                                 </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="clearfix"></div>
+                            <table class="layui-table layui-form">
+                                <thead>
+                                <tr>
+                                    <th colspan="8"><span class="btn btn-info">供应商信息</span></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr>
+
+                                    <td style="width:8%;"  class="pro-title">供应商名称</td>
+                                    <td style="width:17%;" id="supplier">{{$supplier->supplier}}</td>
+                                    <td style="width:8%;"  class="pro-title">厂家名称</td>
+                                    <td style="width:17%;" id="manufactor">{{$supplier->manufactor}}</td>
+                                    <td style="width:8%;"  class="pro-title">供应商地址</td>
+                                    <td style="width:17%;" id="address">{{$supplier->address}}</td>
+                                    <td style="width:8%;"  class="pro-title">联系人</td>
+                                    <td style="width:17%;" id="contacts">{{$supplier->contacts}}</td>
+                                </tr>
+                                <tr>
+
+                                    <td  class="pro-title">联系电话</td>
+                                    <td id="telephone">{{$supplier->telephone}}</td>
+                                    <td  class="pro-title">电子邮箱</td>
+                                    <td id="email">{{$supplier->email}}</td>
+                                    <td colspan="4"></td>
+                                </tr>
+
                                 </tbody>
                             </table>
 

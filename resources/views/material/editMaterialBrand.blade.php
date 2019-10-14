@@ -321,28 +321,9 @@
         function selectunit() {
             budget_unit =$('#budget_unit').val();
             purchase_unit =$('#purchase_unit').val();
-            if(budget_unit !=''){
-                $(".budget_unit").each(function(){
-                    if($(this).val()){
-                    }else{
-                        $(this).val(budget_unit);
-                    }
-                });
-                $(".offer_unit").each(function(){
-                    if($(this).val()){
-                    }else{
-                        $(this).val(budget_unit);
-                    }
-                });
-            }
-            if(purchase_unit !=''){
-                $(".purchase_unit").each(function(){
-                    if($(this).val()){
-                    }else{
-                        $(this).val(purchase_unit);
-                    }
-                });
-            }
+            $(".budget_unit").val(budget_unit);
+            $(".offer_unit").val(budget_unit);
+            $(".purchase_unit").val(purchase_unit);
         }
         //填写预算是 更改采购价格
         function changebudgetprice(key) {

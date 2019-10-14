@@ -124,9 +124,9 @@
                                         <td>{{ $val->engineering_name }}</td>
                                         <td>{{ $val->build_area }}</td>
 
-                                        <td>{{ empty($val->total_budget_price)?'':round($val->total_budget_price/10000,4) }}</td>
-                                        <td>{{ empty($val->total_offer_price)?'':round($val->total_offer_price/10000,4) }}</td>
-                                        <td>{{ empty($val->total_offer_price)?'':round($val->total_offer_price/10000,4) - round($val->total_budget_price/10000,4)}}</td>
+                                        <td>{{ empty($val->total_budget_price)?'':round($val->total_budget_price/10000,2) }}</td>
+                                        <td>{{ empty($val->total_offer_price)?'':round($val->total_offer_price/10000,2) }}</td>
+                                        <td>{{ empty($val->total_offer_price)?'':round($val->total_offer_price/10000 - $val->total_budget_price/10000,2)}}</td>
                                         <td >{{empty($val->total_offer_price)?'':round(($val->total_offer_price -$val->total_budget_price)/$val->total_offer_price *100 ,2)}}</td>
 
                                         <td>{{ $val->budget_username }}</td>

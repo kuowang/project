@@ -175,12 +175,12 @@
                                     <td>{{$mate->material_name}}<input type="hidden" name="material_id[]" value="{{ $mate->material_id }}"  ></td>
                                     <td>{{ $mate->characteristic }}</td>
                                     <td>{{ $mate->offer_unit }}</td>
-                                    <td><input type="text" lay-skin="primary" class="notempty span12 drawing_quantity"     value="{{ $mate->drawing_quantity }}"  name="drawing_quantity[]" id="drawing_quantity" onchange="selectDrawing({{$xuhao}},this)" ></td>
-                                    <td><input type="text" lay-skin="primary" class=" span12 loss_ratio"             value="{{ $mate->loss_ratio }}"  name="loss_ratio[]" id="loss_ratio" onchange="selectDrawing({{$xuhao}},this)" ></td>
-                                    <td><input type="text" lay-skin="primary" class=" span12 engineering_quantity" disabled value="{{ $mate->engineering_quantity }}"  name="engineering_quantity[]" id="engineering_quantity" ></td>
+                                    <td><input type="text" lay-skin="primary" class="notempty span12 drawing_quantity"     value="{{ number_format($mate->drawing_quantity, 2, '.', '') }}"  name="drawing_quantity[]" id="drawing_quantity" onchange="selectDrawing({{$xuhao}},this)" ></td>
+                                    <td><input type="text" lay-skin="primary" class=" span12 loss_ratio"             value="{{ number_format($mate->loss_ratio, 2, '.', '') }}"  name="loss_ratio[]" id="loss_ratio" onchange="selectDrawing({{$xuhao}},this)" ></td>
+                                    <td><input type="text" lay-skin="primary" class=" span12 engineering_quantity" disabled value="{{ number_format($mate->engineering_quantity, 2, '.', '') }}"  name="engineering_quantity[]" id="engineering_quantity" ></td>
                                     <td>{{$mate->brand_name}}<input type="hidden" name="brand_id[]" value="{{ $mate->brand_id }}"  ></td>
-                                    <td><input type="text" lay-skin="primary" class=" span12 offer_price"          value="{{ $mate->offer_price }}"  name="offer_price[]" id="offer_price" onchange="selectDrawing({{$xuhao}},this)"  ></td>
-                                    <td><input type="text" lay-skin="primary" class=" span12 total_material_price" disabled value="{{ $mate->engineering_quantity * $mate->offer_price}}"  name="total_material_price[]" id="total_material_price" ></td>
+                                    <td><input type="text" lay-skin="primary" class=" span12 offer_price"          value="{{ number_format($mate->offer_price, 2, '.', '') }}"  name="offer_price[]" id="offer_price" onchange="selectDrawing({{$xuhao}},this)"  ></td>
+                                    <td><input type="text" lay-skin="primary" class=" span12 total_material_price" disabled value="{{ number_format($mate->engineering_quantity * $mate->offer_price, 2, '.', '')}}"  name="total_material_price[]" id="total_material_price" ></td>
                                     <td ></td>
                                 </tr>
 
@@ -195,24 +195,24 @@
                                 <td class="pro-title" colspan="3">运输费</td>
                                 <td class="pro-title" colspan="2">(元/m²)</td>
                                 <td colspan="3"></td>
-                                <td ><input type="text" name="freight_price" value="{{isset($offer->freight_price)?$offer->freight_price:''}}" id="freight_price" lay-skin="primary" class="notempty span12" onchange="return selectPrice(this)"></td>
-                                <td id="freight_price_sum">{{isset($offer->freight_charge)?$offer->freight_charge:''}}</td>
+                                <td ><input type="text" name="freight_price" value="{{isset($offer->freight_price)?number_format($offer->freight_price, 2, '.', ''):''}}" id="freight_price" lay-skin="primary" class="notempty span12" onchange="return selectPrice(this)"></td>
+                                <td id="freight_price_sum">{{isset($offer->freight_charge)?number_format($offer->freight_charge, 2, '.', ''):''}}</td>
                                 <td></td>
                             </tr>
                             <tr>
                                 <td class="pro-title" colspan="3">包装费</td>
                                 <td class="pro-title" colspan="2">(元/m²)</td>
                                 <td colspan="3"></td>
-                                <td ><input type="text" name="package_price" value="{{isset($offer->package_price)?$offer->package_price:''}}" id="package_price" lay-skin="primary" class="notempty span12" onchange="return selectPrice(this)"></td>
-                                <td id="package_price_sum">{{isset($offer->package_charge)?$offer->package_charge:''}}</td>
+                                <td ><input type="text" name="package_price" value="{{isset($offer->package_price)?number_format($offer->package_price, 2, '.', ''):''}}" id="package_price" lay-skin="primary" class="notempty span12" onchange="return selectPrice(this)"></td>
+                                <td id="package_price_sum">{{isset($offer->package_charge)?number_format($offer->package_charge, 2, '.', ''):''}}</td>
                                 <td></td>
                             </tr>
                             <tr>
                                 <td class="pro-title" colspan="3">装箱费</td>
                                 <td class="pro-title" colspan="2">(元/m²)</td>
                                 <td colspan="3"></td>
-                                <td ><input type="text" name="packing_price" value="{{isset($offer->packing_price)?$offer->packing_price:''}}" id="packing_price" lay-skin="primary" class="notempty span12" onchange="return selectPrice(this)"></td>
-                                <td  id="packing_price_sum">{{isset($offer->packing_charge)?$offer->packing_charge:''}}</td>
+                                <td ><input type="text" name="packing_price" value="{{isset($offer->packing_price)?number_format($offer->packing_price, 2, '.', ''):''}}" id="packing_price" lay-skin="primary" class="notempty span12" onchange="return selectPrice(this)"></td>
+                                <td  id="packing_price_sum">{{isset($offer->packing_charge)?number_format($offer->packing_charge, 2, '.', ''):''}}</td>
                                 <td></td>
                             </tr>
                             <tr>
@@ -226,13 +226,13 @@
                                 <td class="pro-title" colspan="3">施工安装费</td>
                                 <td class="pro-title" colspan="2">(元/m²)</td>
                                 <td colspan="3"></td>
-                                <td ><input type="text" name="construction_price" value="{{isset($offer->construction_price)?$offer->construction_price:''}}" id="construction_price" lay-skin="primary" class="notempty span12" onchange="return selectPrice(this)"></td>
-                                <td ><input type="text" name="construction_charge" value="{{isset($offer->construction_charge)?$offer->construction_charge:''}}" id="construction_charge" lay-skin="primary" class="span12" disabled></td>
+                                <td ><input type="text" name="construction_price" value="{{isset($offer->construction_price)?number_format($offer->construction_price, 2, '.', ''):''}}" id="construction_price" lay-skin="primary" class="notempty span12" onchange="return selectPrice(this)"></td>
+                                <td ><input type="text" name="construction_charge" value="{{isset($offer->construction_charge)?number_format($offer->construction_charge, 2, '.', ''):''}}" id="construction_charge" lay-skin="primary" class="span12" disabled></td>
                                 <td></td>
                             </tr>
                             <tr>
                                 <td colspan="9" class="pro-title" style="text-align: center;font-weight: bold;">工程造价(直接)</td>
-                                <td><input type="text" name="direct_project_cost" value="{{isset($offer->direct_project_cost)?$offer->direct_project_cost:''}}" readonly='readonly' id="direct_project_cost"  value="" style='width:100px;background: #f0f0f0;'/></td>
+                                <td><input type="text" name="direct_project_cost" value="{{isset($offer->direct_project_cost)?number_format($offer->direct_project_cost, 2, '.', ''):''}}" readonly='readonly' id="direct_project_cost"  value="" style='width:100px;background: #f0f0f0;'/></td>
                                 <td></td>
                             </tr>
                             <tr>
@@ -240,8 +240,8 @@
                                 <td class="pro-title" colspan="2">元</td>
                                 <td colspan="2"></td>
                                 <td >%</td>
-                                <td ><input type="text" name="profit_ratio" value="{{isset($offer->profit_ratio)?$offer->profit_ratio:''}}" id="profit_ratio" lay-skin="primary" class="notempty span12"  onchange="return selectPrice(this)"></td>
-                                <td ><input type="text" name="profit" value="{{isset($offer->profit)?$offer->profit:''}}" id="profit" lay-skin="primary" class="span12" disabled></td>
+                                <td ><input type="text" name="profit_ratio" value="{{isset($offer->profit_ratio)?number_format($offer->profit_ratio, 2, '.', ''):''}}" id="profit_ratio" lay-skin="primary" class="notempty span12"  onchange="return selectPrice(this)"></td>
+                                <td ><input type="text" name="profit" value="{{isset($offer->profit)?number_format($offer->profit, 2, '.', ''):''}}" id="profit" lay-skin="primary" class="span12" disabled></td>
                                 <td></td>
                             </tr>
                             <tr>
@@ -249,8 +249,8 @@
                                 <td class="pro-title" colspan="2">元</td>
                                 <td colspan="2"></td>
                                 <td >%</td>
-                                <td ><input type="text" name="tax_ratio" value="{{isset($offer->tax_ratio)?$offer->tax_ratio:''}}" id="tax_ratio" lay-skin="primary" class="notempty span12"  onchange="return selectPrice(this)"></td>
-                                <td ><input type="text" name="tax" value="{{isset($offer->tax)?$offer->tax:''}}" id="tax" lay-skin="primary" class="span12" disabled></td>
+                                <td ><input type="text" name="tax_ratio" value="{{isset($offer->tax_ratio)?number_format($offer->tax_ratio, 2, '.', ''):''}}" id="tax_ratio" lay-skin="primary" class="notempty span12"  onchange="return selectPrice(this)"></td>
+                                <td ><input type="text" name="tax" value="{{isset($offer->tax)?number_format($offer->tax, 2, '.', ''):''}}" id="tax" lay-skin="primary" class="span12" disabled></td>
                                 <td></td>
                             </tr>
                             <tr>
@@ -359,7 +359,7 @@
         function selectbrand(intid,th){
             brand_id =$(th).val();
             offer_price =$('.brand_id_'+brand_id).attr('offer_price');
-            $('#mater_'+intid+' .offer_price').val(offer_price);
+            $('#mater_'+intid+' .offer_price').val(offer_price.toFixed(2));
             console.log(offer_price);
             jisuanprice(intid);
             total_price();

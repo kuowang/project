@@ -108,7 +108,17 @@
                                     <tr  class="hiddenitem hiddenitem_{{$k}}">
                                         <td><input type="hidden" name="batch_id[]" value="{{$val->id}}" class="span12 brach_id" >
                                             <input type="text" name="purchase_number[]" value="{{$val->purchase_number}}" class="span12 purchase_number" onclick="key(this)"></td>
-                                        <td><input type="text" name="deliver_properties[]" value="{{$val->deliver_properties}}" class="span12 deliver_properties" ></td>
+                                        <td>
+                                            <select name="deliver_properties[]"  class="deliver_properties span12" style="min-width: 80px">
+                                               @if($val->deliver_properties ==1)
+                                                <option value="1" selected="selected">预算内</option>
+                                                <option value="2">预算外</option>
+                                               @else
+                                                    <option value="1">预算内</option>
+                                                    <option value="2" selected="selected">预算外</option>
+                                                @endif
+                                            </select>
+                                        </td>
                                         <td><input type="text" name="purchase_at[]" value="{{$val->purchase_at}}" class="span12 purchase_at purchase_at_{{$k}}"  ></td>
                                         <td><input type="text" name="deliver_time[]" value="{{$val->deliver_time}}" class="span12 deliver_time deliver_time_{{$k}}" ></td>
                                         <td><input type="text" name="arrive_time[]" value="{{$val->arrive_time}}" class="span12 arrive_time arrive_time_{{$k}}" ></td>
@@ -184,7 +194,12 @@
         str =`<tr  class="hiddenitem_`+timestamp+`">
                 <td><input type="hidden" name="batch_id[]" value="0" class="span12 brach_id" >
                     <input type="text" name="purchase_number[]" class="span12 purchase_number" onclick="key(this)"></td>
-                <td><input type="text" name="deliver_properties[]" class="span12 deliver_properties" placeholder="预算内/预算外" ></td>
+                <td>
+                <select name="deliver_properties[]" id="deliver_properties" class="span12 deliver_properties" style="min-width: 80px">
+                    <option value="1" selected="selected">预算内</option>
+                    <option value="2">预算外</option>
+                </select>
+                </td>
                 <td><input type="text" name="purchase_at[]" class="span12 purchase_at purchase_at_`+timestamp+`" ></td>
                 <td><input type="text" name="deliver_time[]" class="span12 deliver_time deliver_time_`+timestamp+`" ></td>
                 <td><input type="text" name="arrive_time[]" class="span12 arrive_time arrive_time_`+timestamp+`" ></td>

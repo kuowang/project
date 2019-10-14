@@ -65,7 +65,7 @@ class OfferController extends WebController
     public function offerCompleted(Request $request,$id=0)
     {
         $this->user();
-        $data=$this->offer($request,$id,2);
+        $data=$this->offer($request,$id, 2, '.', '');
         $data['subnavid']   =2002;
         if( !(in_array(200203,$this->user()->pageauth)) && !in_array(200207,$this->user()->manageauth)){
             return redirect('/offer/offerStart?status=2&notice='.'您没有操作该功能权限');
@@ -370,8 +370,8 @@ class OfferController extends WebController
                 echo"<script>alert('没有查询到预算材料，请刷新页面再试');history.go(-1);</script>";
                 exit;
             }
-            $engineering_quantity= round($drawing_quantity[$k] *(100 + $loss_ratio[$k]) /100,2);
-            $total_material_price = round($engineering_quantity * $offer_price[$k],2);
+            $engineering_quantity= number_format($drawing_quantity[$k] *(100 + $loss_ratio[$k]) /100, 2, '.', '');
+            $total_material_price = number_format($engineering_quantity * $offer_price[$k], 2, '.', '');
             $offeritemdata[]=[
                 'project_id'      =>$project->id,
                 'engin_id'        =>$id,
@@ -401,24 +401,24 @@ class OfferController extends WebController
         $offerdata['project_id']           = $project->id;              //```project_id` int(11) DEFAULT NULL COMMENT '项目id',
         $offerdata['engin_id']             =$id;                 //```engin_id` int(11) DEFAULT NULL COMMENT '工程id',
         $offerdata['budget_id']            =$budget_id;                 //```budget_id` int(11) DEFAULT NULL COMMENT '预算id',
-        $offerdata['offer_status']        =0 ;               //```offer_status` tinyint(4) DEFAULT '0' COMMENT '报价审核状态 1已审核 0未审核',
+        $offerdata['offer_status']         =0 ;               //```offer_status` tinyint(4) DEFAULT '0' COMMENT '报价审核状态 1已审核 0未审核',
         $offerdata['quotation_date']       =$quotation_date;               //```quotation_date` date DEFAULT NULL COMMENT '报价日期',
         $offerdata['quotation_limit_day']  =$quotation_limit_day;              //```quotation_limit_day` varchar(255) DEFAULT NULL COMMENT '报价有效期限（天）',
-        $offerdata['freight_price']        =$freight_price;                //```freight_price` float(10,2) DEFAULT NULL COMMENT '运输单价',
-        $offerdata['freight_charge']       =round($freight_price * $area,2);               //```freight_charge` varchar(250) DEFAULT NULL COMMENT '运输费',
-        $offerdata['package_price']        =$package_price;                //```package_price` float(10,2) DEFAULT NULL COMMENT '包装单价',
-        $offerdata['package_charge']       = round($package_price * $area,2);              //```package_charge` varchar(250) DEFAULT NULL COMMENT '包装费',
-        $offerdata['packing_price']        =  $packing_price;              //```packing_price` float(10,2) DEFAULT NULL COMMENT '包装费单价',
-        $offerdata['packing_charge']       =  round($packing_price * $area,2);             //```packing_charge` varchar(250) DEFAULT NULL COMMENT '装箱费',
-        $offerdata['material_total_price'] =round($direct_project_cost + $offerdata['freight_charge'] +$offerdata['package_charge'] + $offerdata['packing_charge'],2);
-        $offerdata['construction_price']   = round($construction_price,2)   ;           //```construction_price` varchar(250) DEFAULT NULL COMMENT '施工安装单价',
-        $offerdata['construction_charge']  =  round($construction_price * $area,2);            //```construction_charge` varchar(250) DEFAULT NULL COMMENT '施工安装费',
-        $offerdata['direct_project_cost']  = round($offerdata['material_total_price'] +$offerdata['construction_charge'],2);            //```direct_project_cost` decimal(10,2) DEFAULT NULL COMMENT '工程造价（直接）',
-        $offerdata['profit_ratio']         = $profit_ratio;                //```profit_ratio` varchar(250) DEFAULT NULL COMMENT '预估利润占比',
-        $offerdata['profit']               = round($offerdata['direct_project_cost'] * $profit_ratio /100,2);              //```profit` varchar(250) DEFAULT NULL COMMENT '预估利润额',
-        $offerdata['tax_ratio']            = $tax_ratio;              //```tax_ratio` varchar(250) DEFAULT NULL COMMENT '税费占比',
-        $offerdata['tax']                  =  round(($offerdata['direct_project_cost'] + $offerdata['profit'])   * $tax_ratio /100 ,2);        //```tax` varchar(250) DEFAULT NULL COMMENT '税费额',
-        $offerdata['total_offer_price']   = round($offerdata['direct_project_cost'] +  $offerdata['profit']  + $offerdata['tax'] ,2);           //```total_budget_price` varchar(250) DEFAULT NULL COMMENT '工程造价总计（元）',
+        $offerdata['freight_price']        =number_format($freight_price, 2, '.', '');                //```freight_price` float(10,2) DEFAULT NULL COMMENT '运输单价',
+        $offerdata['freight_charge']       =number_format($freight_price * $area, 2, '.', '');               //```freight_charge` varchar(250) DEFAULT NULL COMMENT '运输费',
+        $offerdata['package_price']        =number_format($package_price, 2, '.', '');                //```package_price` float(10,2) DEFAULT NULL COMMENT '包装单价',
+        $offerdata['package_charge']       =number_format($package_price * $area, 2, '.', '');              //```package_charge` varchar(250) DEFAULT NULL COMMENT '包装费',
+        $offerdata['packing_price']        =number_format($packing_price, 2, '.', '');              //```packing_price` float(10,2) DEFAULT NULL COMMENT '包装费单价',
+        $offerdata['packing_charge']       =number_format($packing_price * $area, 2, '.', '');             //```packing_charge` varchar(250) DEFAULT NULL COMMENT '装箱费',
+        $offerdata['material_total_price'] =number_format($direct_project_cost + $offerdata['freight_charge'] +$offerdata['package_charge'] + $offerdata['packing_charge'], 2, '.', '');
+        $offerdata['construction_price']   =number_format($construction_price, 2, '.', '');           //```construction_price` varchar(250) DEFAULT NULL COMMENT '施工安装单价',
+        $offerdata['construction_charge']  =number_format($construction_price * $area, 2, '.', '');            //```construction_charge` varchar(250) DEFAULT NULL COMMENT '施工安装费',
+        $offerdata['direct_project_cost']  =number_format($offerdata['material_total_price'] +$offerdata['construction_charge'], 2, '.', '');            //```direct_project_cost` decimal(10,2) DEFAULT NULL COMMENT '工程造价（直接）',
+        $offerdata['profit_ratio']         =number_format($profit_ratio, 2, '.', '');                //```profit_ratio` varchar(250) DEFAULT NULL COMMENT '预估利润占比',
+        $offerdata['profit']               =number_format($offerdata['direct_project_cost'] * $profit_ratio /100, 2, '.', '');              //```profit` varchar(250) DEFAULT NULL COMMENT '预估利润额',
+        $offerdata['tax_ratio']            =number_format($tax_ratio, 2, '.', '');              //```tax_ratio` varchar(250) DEFAULT NULL COMMENT '税费占比',
+        $offerdata['tax']                  =number_format(($offerdata['direct_project_cost'] + $offerdata['profit'])   * $tax_ratio /100 , 2, '.', '');        //```tax` varchar(250) DEFAULT NULL COMMENT '税费额',
+        $offerdata['total_offer_price']    =number_format($offerdata['direct_project_cost'] +  $offerdata['profit']  + $offerdata['tax'] , 2, '.', '');           //```total_budget_price` varchar(250) DEFAULT NULL COMMENT '工程造价总计（元）',
         $offerdata['purchase_status']      = 0;             //```purchase_status` varchar(250) DEFAULT NULL COMMENT '是否已生成采购单',
         $offerdata['created_uid']          = $uid;             //```created_uid` int(11) DEFAULT NULL COMMENT '创建者',
         $offerdata['created_at']           = $time;              //```created_at` date DEFAULT NULL COMMENT '创建时间',

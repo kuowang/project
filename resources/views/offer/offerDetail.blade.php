@@ -166,12 +166,12 @@
                                     <td>{{ $mate->material_name}}</td>
                                     <td>{{ $mate->characteristic }}</td>
                                     <td>{{ $mate->offer_unit }}</td>
-                                    <td>{{ $mate->drawing_quantity }}</td>
-                                    <td>{{ $mate->loss_ratio }}</td>
-                                    <td>{{ $mate->engineering_quantity }}</td>
+                                    <td>{{ number_format($mate->drawing_quantity, 2, '.', '') }}</td>
+                                    <td>{{ number_format($mate->loss_ratio, 2, '.', '') }}</td>
+                                    <td>{{ number_format($mate->engineering_quantity, 2, '.', '') }}</td>
                                     <td>{{ $mate->brand_name}}</td>
-                                    <td>{{ $mate->offer_price }}</td>
-                                    <td>{{ $mate->total_material_price }}</td>
+                                    <td>{{ number_format($mate->offer_price, 2, '.', '') }}</td>
+                                    <td>{{ number_format($mate->total_material_price, 2, '.', '') }}</td>
                                 </tr>
                                 @endforeach
                             @endif
@@ -184,64 +184,64 @@
                                 <td class="pro-title" colspan="3">运输费</td>
                                 <td class="pro-title" colspan="2">(元/m²)</td>
                                 <td colspan="3"></td>
-                                <td >{{isset($offer->freight_price)?$offer->freight_price:''}}</td>
-                                <td id="freight_price_sum">{{isset($offer->freight_charge)?$offer->freight_charge:''}}</td>
+                                <td >{{isset($offer->freight_price)?number_format($offer->freight_price, 2, '.', ''):''}}</td>
+                                <td id="freight_price_sum">{{isset($offer->freight_charge)?number_format($offer->freight_charge, 2, '.', ''):''}}</td>
                             </tr>
                             <tr>
                                 <td class="pro-title" colspan="3">包装费</td>
                                 <td class="pro-title" colspan="2">(元/m²)</td>
                                 <td colspan="3"></td>
-                                <td >{{isset($offer->package_price)?$offer->package_price:''}}</td>
-                                <td id="package_price_sum">{{isset($offer->package_charge)?$offer->package_charge:''}}</td>
+                                <td >{{isset($offer->package_price)?number_format($offer->package_price, 2, '.', ''):''}}</td>
+                                <td id="package_price_sum">{{isset($offer->package_charge)?number_format($offer->package_charge, 2, '.', ''):''}}</td>
                             </tr>
                             <tr>
                                 <td class="pro-title" colspan="3">装箱费</td>
                                 <td class="pro-title" colspan="2">(元/m²)</td>
                                 <td colspan="3"></td>
-                                <td >{{isset($offer->packing_price)?$offer->packing_price:''}}</td>
-                                <td  id="packing_price_sum">{{isset($offer->packing_charge)?$offer->packing_charge:''}}</td>
+                                <td >{{isset($offer->packing_price)?number_format($offer->packing_price, 2, '.', ''):''}}</td>
+                                <td  id="packing_price_sum">{{isset($offer->packing_charge)?number_format($offer->packing_charge, 2, '.', ''):''}}</td>
                             </tr>
                             <tr>
                                 <td class="pro-title" colspan="9" style="text-align: center;font-weight: bold;">材料费合计</td>
 
-                                <td  id="total_material">{{isset($offer->material_total_price)?$offer->material_total_price:''}}</td>
+                                <td  id="total_material">{{isset($offer->material_total_price)?number_format($offer->material_total_price, 2, '.', ''):''}}</td>
                             </tr>
 
                             <tr>
                                 <td class="pro-title" colspan="3">施工安装费</td>
                                 <td class="pro-title" colspan="2">(元/m²)</td>
                                 <td colspan="3"></td>
-                                <td >{{isset($offer->construction_price)?$offer->construction_price:''}}</td>
-                                <td >{{isset($offer->construction_charge)?$offer->construction_charge:''}}</td>
+                                <td >{{isset($offer->construction_price)?number_format($offer->construction_price, 2, '.', ''):''}}</td>
+                                <td >{{isset($offer->construction_charge)?number_format($offer->construction_charge, 2, '.', ''):''}}</td>
                             </tr>
                             <tr>
                                 <td colspan="9" class="pro-title" style="text-align: center;font-weight: bold;">工程造价(直接)</td>
-                                <td>{{isset($offer->direct_project_cost)?$offer->direct_project_cost:''}}</td>
+                                <td>{{isset($offer->direct_project_cost)?number_format($offer->direct_project_cost, 2, '.', ''):''}}</td>
                             </tr>
                             <tr>
                                 <td class="pro-title" colspan="3">利润</td>
                                 <td class="pro-title" colspan="2">元</td>
                                 <td colspan="2"></td>
                                 <td >%</td>
-                                <td >{{isset($offer->profit_ratio)?$offer->profit_ratio:''}}</td>
-                                <td >{{isset($offer->profit)?$offer->profit:''}}</td>
+                                <td >{{isset($offer->profit_ratio)?number_format($offer->profit_ratio, 2, '.', ''):''}}</td>
+                                <td >{{isset($offer->profit)?number_format($offer->profit, 2, '.', ''):''}}</td>
                             </tr>
                             <tr>
                                 <td class="pro-title" colspan="3">税费</td>
                                 <td class="pro-title" colspan="2">元</td>
                                 <td colspan="2"></td>
                                 <td >%</td>
-                                <td >{{isset($offer->tax_ratio)?$offer->tax_ratio:''}}</td>
-                                <td >{{isset($offer->tax)?$offer->tax:''}}</td>
+                                <td >{{isset($offer->tax_ratio)?number_format($offer->tax_ratio, 2, '.', ''):''}}</td>
+                                <td >{{isset($offer->tax)?number_format($offer->tax, 2, '.', ''):''}}</td>
                             </tr>
                             <tr>
                                 <td class="pro-title" colspan="9" style="text-align: center;font-weight: bold;">工程单价(元/m²)</td>
-                                <td id="unit_price">{{isset($offer->total_offer_price)?round($offer->total_offer_price/$engineering->build_area,2):''}}</td>
+                                <td id="unit_price">{{isset($offer->total_offer_price)?number_format($offer->total_offer_price/$engineering->build_area, 2, '.', ''):''}}</td>
 
                             </tr>
                             <tr>
                                 <td class="pro-title" colspan="9" style="text-align: center;font-weight: bold;">工程总价(元)</td>
-                                <td >{{isset($offer->total_offer_price)?$offer->total_offer_price:''}}</td>
+                                <td >{{isset($offer->total_offer_price)?number_format($offer->total_offer_price, 2, '.', ''):''}}</td>
                             </tr>
                             </tbody>
                         </table>

@@ -350,7 +350,7 @@
                             </tr>
                             <tr>
                                 <td class="pro-title" colspan="9" style="text-align: center;font-weight: bold;">工程总价(元)</td>
-                                <td ><input type="text" name="total_budget_price" value="{{isset($budget->total_budget_price)?$budget->total_budget_price:''}}" id="total_budget_price" lay-skin="primary" class=" span12" disabled></td>
+                                <td ><input type="text" name="total_budget_price" value="{{isset($budget->total_budget_price)?round($budget->total_budget_price,2):''}}" id="total_budget_price" lay-skin="primary" class=" span12" disabled></td>
                                 <td></td>
                             </tr>
                             </tbody>

@@ -621,14 +621,14 @@ class PurchaseController extends WebController
              $datalist['characteristic']         =$item->characteristic;                //`characteristic` varchar(1000) DEFAULT NULL COMMENT '规格特征要求',
              $datalist['brand_id']               =$item->brand_id;                //`brand_id` int(11) DEFAULT NULL COMMENT '品牌id',
              $datalist['brand_name']             =$item->brand_name;                //`brand_name` varchar(255) DEFAULT NULL COMMENT '品牌名称',
-             $datalist['engineering_quantity']   =$item->engineering_quantity;                //`engineering_quantity` varchar(255) DEFAULT NULL COMMENT '总工程量',
-             $datalist['already_purchased_quantity'] =$item->already_purchased_quantity;                //`already_purchased_quantity` varchar(255) DEFAULT NULL COMMENT '已经采购量',
-             $datalist['wait_purchased_quantity'] =$item->wait_purchased_quantity;              //`wait_purchased_quantity` varchar(255) DEFAULT NULL COMMENT '待采购量',
-             $datalist['actual_purchase_quantity'] =$actual_purchase_quantity[$item->id];                //`actual_purchase_quantity` varchar(255) DEFAULT NULL COMMENT '实际采购量',
-             $datalist['total_purchase_price']   =round($item->total_purchase_price,2);                //`total_purchase_price` varchar(10) DEFAULT NULL COMMENT '总采购价',
-             $datalist['actual_total_fee']       =round($datalist['actual_purchase_quantity'] * $item->purchase_unit_price ,2);                //`actual_total_fee` varchar(255) DEFAULT NULL COMMENT '实际采购金额',
+             $datalist['engineering_quantity']   =number_format($item->engineering_quantity, 2, '.', '');                //`engineering_quantity` varchar(255) DEFAULT NULL COMMENT '总工程量',
+             $datalist['already_purchased_quantity'] =number_format($item->already_purchased_quantity, 2, '.', '');                //`already_purchased_quantity` varchar(255) DEFAULT NULL COMMENT '已经采购量',
+             $datalist['wait_purchased_quantity'] =number_format($item->wait_purchased_quantity, 2, '.', '');              //`wait_purchased_quantity` varchar(255) DEFAULT NULL COMMENT '待采购量',
+             $datalist['actual_purchase_quantity'] =number_format($actual_purchase_quantity[$item->id], 2, '.', '');                //`actual_purchase_quantity` varchar(255) DEFAULT NULL COMMENT '实际采购量',
+             $datalist['total_purchase_price']   =number_format($item->total_purchase_price, 2, '.', '');                //`total_purchase_price` varchar(10) DEFAULT NULL COMMENT '总采购价',
+             $datalist['actual_total_fee']       =number_format($datalist['actual_purchase_quantity'] * $item->purchase_unit_price , 2, '.', '');                //`actual_total_fee` varchar(255) DEFAULT NULL COMMENT '实际采购金额',
              $datalist['purchase_unit']          =$item->purchase_unit;              //`purchase_unit` varchar(255) DEFAULT NULL COMMENT '采购单位',
-             $datalist['purchase_price']         =$item->purchase_unit_price;                //`purchase_price` decimal(10,2) DEFAULT NULL COMMENT '采购价格',
+             $datalist['purchase_price']         =number_format($item->purchase_unit_price, 2, '.', '');                //`purchase_price` decimal(10,2) DEFAULT NULL COMMENT '采购价格',
              $datalist['uid']                   =$this->user()->id;                //`purchase_price` decimal(10,2) DEFAULT NULL COMMENT '采购价格',
              $datalist['created_at']            =date('Y-m-d');                //`purchase_price` decimal(10,2) DEFAULT NULL COMMENT '采购价格',
 
@@ -795,12 +795,12 @@ class PurchaseController extends WebController
         //更改详情信息
         foreach ($order_item_id as $k=>$v){
             $orderItem =DB::table('purchase_order_item')->where('id',$v)->first();
-            $list['actual_purchase_quantity'] =$actual_purchase_quantity[$k];
-            $list['actual_total_fee'] =round($actual_purchase_quantity[$k]*$orderItem->purchase_price,2);
+            $list['actual_purchase_quantity'] =number_format($actual_purchase_quantity[$k], 2, '.', '');
+            $list['actual_total_fee'] =number_format($actual_purchase_quantity[$k]*$orderItem->purchase_price, 2, '.', '');
             DB::table('purchase_order_item')->where('id',$v)->update($list);
         }
         $sum = DB::table('purchase_order_item')->where('order_id',$id)->sum('actual_total_fee');
-        $data['purchase_total_fee'] =$sum;
+        $data['purchase_total_fee'] =number_format($sum,2,'.','');
         //更改订单信息
         DB::table('purchase_order')->where('id',$id)->update($data);
 

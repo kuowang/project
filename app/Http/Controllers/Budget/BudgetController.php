@@ -65,7 +65,7 @@ class BudgetController extends WebController
     public function budgetCompleted(Request $request,$id=0)
     {
         $this->user();
-        $data=$this->budget($request,$id,2);
+        $data=$this->budget($request,$id, 2, '.', '');
         $data['subnavid']   =2001;
         if( !(in_array(200103,$this->user()->pageauth)) && !in_array(200107,$this->user()->manageauth)){
             return redirect('/budget/budgetStart?status=2&notice='.'您没有操作该功能权限');
@@ -434,9 +434,9 @@ class BudgetController extends WebController
             //材料对应品牌信息
             $mbsinfo =DB::table('material_brand_supplier')->where('id',$mbs_id[$k])->first();
 
-            $engineering_quantity= round($drawing_quantity[$k] *(100 + $mater->waste_rate) /100,2);
+            $engineering_quantity= number_format($drawing_quantity[$k] *(100 + $mater->waste_rate) /100, 2, '.', '');
             $budget_price = $mbsinfo->budget_unit_price;
-            $total_material_price = round($engineering_quantity * $budget_price,2);
+            $total_material_price = number_format($engineering_quantity * $budget_price, 2, '.', '');
             $budgetitemdata[]=[
                 'project_id'      =>$project->id,
                 'engin_id'        =>$id,
@@ -470,22 +470,22 @@ class BudgetController extends WebController
         $budgetdata['quotation_date']       =$quotation_date;               //```quotation_date` date DEFAULT NULL COMMENT '报价日期',
         $budgetdata['quotation_limit_day']  =$quotation_limit_day;              //```quotation_limit_day` varchar(255) DEFAULT NULL COMMENT '报价有效期限（天）',
         $budgetdata['freight_price']        =$freight_price;                //```freight_price` float(10,2) DEFAULT NULL COMMENT '运输单价',
-        $budgetdata['freight_charge']       =round($freight_price * $area,2);               //```freight_charge` varchar(250) DEFAULT NULL COMMENT '运输费',
+        $budgetdata['freight_charge']       =number_format($freight_price * $area, 2, '.', '');               //```freight_charge` varchar(250) DEFAULT NULL COMMENT '运输费',
         $budgetdata['package_price']        =$package_price;                //```package_price` float(10,2) DEFAULT NULL COMMENT '包装单价',
-        $budgetdata['package_charge']       = round($package_price * $area,2);              //```package_charge` varchar(250) DEFAULT NULL COMMENT '包装费',
+        $budgetdata['package_charge']       = number_format($package_price * $area, 2, '.', '');              //```package_charge` varchar(250) DEFAULT NULL COMMENT '包装费',
         $budgetdata['packing_price']        =  $packing_price;              //```packing_price` float(10,2) DEFAULT NULL COMMENT '包装费单价',
-        $budgetdata['packing_charge']       =  round($packing_price * $area,2);             //```packing_charge` varchar(250) DEFAULT NULL COMMENT '装箱费',
+        $budgetdata['packing_charge']       =  number_format($packing_price * $area, 2, '.', '');             //```packing_charge` varchar(250) DEFAULT NULL COMMENT '装箱费',
         $budgetdata['material_total_price'] =$direct_project_cost + $budgetdata['freight_charge'] +$budgetdata['package_charge'] + $budgetdata['packing_charge'];
 
         $budgetdata['construction_price']   = $construction_price   ;           //```construction_price` varchar(250) DEFAULT NULL COMMENT '施工安装单价',
-        $budgetdata['construction_charge']  =  round($construction_price * $area,2);            //```construction_charge` varchar(250) DEFAULT NULL COMMENT '施工安装费',
+        $budgetdata['construction_charge']  =  number_format($construction_price * $area, 2, '.', '');            //```construction_charge` varchar(250) DEFAULT NULL COMMENT '施工安装费',
 
-        $budgetdata['direct_project_cost']  = $budgetdata['material_total_price'] +$budgetdata['construction_charge'];            //```direct_project_cost` decimal(10,2) DEFAULT NULL COMMENT '工程造价（直接）',
+        $budgetdata['direct_project_cost']  = number_format($budgetdata['material_total_price'] +$budgetdata['construction_charge'], 2, '.', '');            //```direct_project_cost` decimal(10,2) DEFAULT NULL COMMENT '工程造价（直接）',
         $budgetdata['profit_ratio']         = $profit_ratio;                //```profit_ratio` varchar(250) DEFAULT NULL COMMENT '预估利润占比',
-        $budgetdata['profit']               = round($budgetdata['direct_project_cost'] * $profit_ratio /100,2);              //```profit` varchar(250) DEFAULT NULL COMMENT '预估利润额',
+        $budgetdata['profit']               = number_format($budgetdata['direct_project_cost'] * $profit_ratio /100, 2, '.', '');              //```profit` varchar(250) DEFAULT NULL COMMENT '预估利润额',
         $budgetdata['tax_ratio']            = $tax_ratio;              //```tax_ratio` varchar(250) DEFAULT NULL COMMENT '税费占比',
-        $budgetdata['tax']                  =  round(($budgetdata['direct_project_cost'] + $budgetdata['profit'])   * $tax_ratio /100 ,2);        //```tax` varchar(250) DEFAULT NULL COMMENT '税费额',
-        $budgetdata['total_budget_price']   = $budgetdata['direct_project_cost'] +  $budgetdata['profit']  + $budgetdata['tax'] ;           //```total_budget_price` varchar(250) DEFAULT NULL COMMENT '工程造价总计（元）',
+        $budgetdata['tax']                  =  number_format(($budgetdata['direct_project_cost'] + $budgetdata['profit'])   * $tax_ratio /100 , 2, '.', '');        //```tax` varchar(250) DEFAULT NULL COMMENT '税费额',
+        $budgetdata['total_budget_price']   = number_format($budgetdata['direct_project_cost'] +  $budgetdata['profit']  + $budgetdata['tax'] , 2, '.', '');           //```total_budget_price` varchar(250) DEFAULT NULL COMMENT '工程造价总计（元）',
         $budgetdata['purchase_status']      = 0;             //```purchase_status` varchar(250) DEFAULT NULL COMMENT '是否已生成采购单',
         DB::beginTransaction();
         //开启事务

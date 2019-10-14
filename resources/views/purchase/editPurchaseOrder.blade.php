@@ -54,8 +54,8 @@
                                     <td >{{$batchinfo->deliver_properties}}</td>
                                     <td  class="pro-title">下单日期</td>
                                     <td ><input type="text" name="order_created_date" value="{{ $orderinfo->order_created_date }}"   id="order_created_date" class="span12 notempty" ></td>
-                                    <td class="pro-title">计划发货时间</td>
-                                    <td >{{$batchinfo->deliver_time}}</td>
+                                    <td class="pro-title">计划到达时间</td>
+                                    <td >{{$batchinfo->arrive_time}}</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -108,31 +108,10 @@
                                     <td ><input type="text" name="packing_mode" value="{{ $orderinfo->packing_mode }}"         id="packing_mode" class="span12 notempty" ></td>
                                     <td class="pro-title">订单采购地点</td>
                                     <td ><input type="text" name="purchase_address" value="{{ $orderinfo->purchase_address }}"     id="purchase_address" class="span12 notempty" ></td>
-                                    <td class="pro-title"></td>
-                                    <td colspan="3">
-
-                                    </td>
-                                </tr>
-
-                                <tr>
                                     <td  class="pro-title">买方联系人</td>
                                     <td ><input type="text" name="purchaser" value="{{ $orderinfo->purchaser }}" class="span12 notempty" ></td>
                                     <td  class="pro-title">买方联系电话</td>
                                     <td ><input type="text" name="purchaser_phone" value="{{ $orderinfo->purchaser_phone }}" class="span12 notempty" ></td>
-                                    <td  class="pro-title">供应商名称</td>
-                                    <td id="supplier">{{$supplier->supplier}}</td>
-                                    <td  class="pro-title">厂家名称</td>
-                                    <td id="manufactor">{{$supplier->manufactor}}</td>
-                                </tr>
-                                <tr>
-                                    <td  class="pro-title">供应商地址</td>
-                                    <td id="address">{{$supplier->address}}</td>
-                                    <td  class="pro-title">联系人</td>
-                                    <td id="contacts">{{$supplier->contacts}}</td>
-                                    <td  class="pro-title">联系电话</td>
-                                    <td id="telephone">{{$supplier->telephone}}</td>
-                                    <td  class="pro-title">电子邮箱</td>
-                                    <td id="email">{{$supplier->email}}</td>
                                 </tr>
                                 <tr>
                                     <td  class="pro-title">备注</td>
@@ -142,6 +121,38 @@
                             </table>
 
                             <div class="clearfix"></div>
+                            <table class="layui-table layui-form">
+                                <thead>
+                                <tr>
+                                    <th colspan="8"><span class="btn btn-info">供应商信息</span></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr>
+                                    <td style="width:8%;"  class="pro-title">供应商名称</td>
+                                    <td style="width:17%;" id="supplier">{{$supplier->supplier}}</td>
+                                    <td style="width:8%;"  class="pro-title">厂家名称</td>
+                                    <td style="width:17%;" id="manufactor">{{$supplier->manufactor}}</td>
+                                    <td style="width:8%;"  class="pro-title">供应商地址</td>
+                                    <td style="width:17%;" id="address">{{$supplier->address}}</td>
+                                    <td style="width:8%;"  class="pro-title">联系人</td>
+                                    <td style="width:17%;" id="contacts">{{$supplier->contacts}}</td>
+                                </tr>
+                                <tr>
+
+                                    <td  class="pro-title">联系电话</td>
+                                    <td id="telephone">{{$supplier->telephone}}</td>
+                                    <td  class="pro-title">电子邮箱</td>
+                                    <td id="email">{{$supplier->email}}</td>
+                                    <td colspan="4"></td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+
+                            <div class="clearfix"></div>
+
                             <table class="layui-table layui-form table111">
                                 <thead>
                                     <th>序号</th>

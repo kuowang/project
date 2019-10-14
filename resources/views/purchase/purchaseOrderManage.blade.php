@@ -73,9 +73,12 @@
                     @foreach($batchList as $k=>$val)
                     <div class="widget-header">
                         <div class="title">
-                            采购批次{{$val->purchase_number}} ({{$val->deliver_properties}})
-                                 <span style="font-weight: normal;font-size: 14px">发货时间：{{$val->purchase_at}}
-                            到达时间：{{$val->arrive_time}}</span>
+                            <span class="btn btn-info">采购批次{{$val->purchase_number}} </span>
+                            @if($val->deliver_properties ==1)
+                                <span class="btn btn-info">预算内</span>
+                            @else
+                                <span class="btn btn-danger">预算外</span>
+                            @endif
                         </div>
                         @if( (in_array(25010304,$pageauth) && $val->created_uid == $uid ) || in_array(25010304,$manageauth))
                         <span class="title"style="float: right;">

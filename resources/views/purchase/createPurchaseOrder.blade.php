@@ -53,8 +53,8 @@
                                     <td >{{$batchinfo->deliver_properties}}</td>
                                     <td  class="pro-title">下单日期</td>
                                     <td ><input type="text" name="order_created_date"   id="order_created_date" class="span12 notempty" ></td>
-                                    <td class="pro-title">计划发货时间</td>
-                                    <td >{{$batchinfo->deliver_time}}</td>
+                                    <td class="pro-title">计划到达时间</td>
+                                    <td >{{$batchinfo->arrive_time}}</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -106,8 +106,31 @@
                                     <td ><input type="text" name="packing_mode"         id="packing_mode" class="span12 notempty" ></td>
                                     <td class="pro-title">订单采购地点</td>
                                     <td ><input type="text" name="purchase_address"     id="purchase_address" class="span12 notempty" ></td>
-                                    <td class="pro-title">供应商</td>
-                                    <td colspan="3" style="background: #0c9abb">
+                                    <td  class="pro-title">买方联系人</td>
+                                    <td ><input type="text" name="purchaser" class="span12 notempty" ></td>
+                                    <td  class="pro-title">买方联系电话</td>
+                                    <td ><input type="text" name="purchaser_phone" class="span12 notempty" ></td>
+                                </tr>
+
+                                <tr>
+                                    <td  class="pro-title">备注</td>
+                                    <td id="remark" colspan="7"> <input type="text" name="remark"         id="remark" class="span12" ></td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="clearfix"></div>
+                            <table class="layui-table layui-form">
+                                <thead>
+                                <tr>
+                                    <th colspan="8"><span class="btn btn-info">供应商信息</span></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr>
+                                   <td class="pro-title">供应商</td>
+                                    <td colspan="7" style="background: #0c9abb">
                                         <select name="supplier" onchange="selectsuppler(this)" class="span12">
                                             <option value="0"></option>
                                             @foreach($supplierList as $k=>$v)
@@ -118,33 +141,29 @@
                                 </tr>
 
                                 <tr>
-                                    <td  class="pro-title">买方联系人</td>
-                                    <td ><input type="text" name="purchaser" class="span12 notempty" ></td>
-                                    <td  class="pro-title">买方联系电话</td>
-                                    <td ><input type="text" name="purchaser_phone" class="span12 notempty" ></td>
-                                    <td  class="pro-title">供应商名称</td>
-                                    <td id="supplier"></td>
-                                    <td  class="pro-title">厂家名称</td>
-                                    <td id="manufactor"></td>
+                                    <td  class="pro-title" style="width:8% ">供应商名称</td>
+                                    <td id="supplier" style="width:17% "></td>
+                                    <td  class="pro-title" style="width:8% ">厂家名称</td>
+                                    <td id="manufactor" style="width:17% "></td>
+                                    <td  class="pro-title" style="width:8% ">供应商地址</td>
+                                    <td id="address" style="width:17% "></td>
+                                    <td  class="pro-title" style="width:8% ">联系人</td>
+                                    <td id="contacts" style="width:17% "></td>
                                 </tr>
                                 <tr>
-                                    <td  class="pro-title">供应商地址</td>
-                                    <td id="address"></td>
-                                    <td  class="pro-title">联系人</td>
-                                    <td id="contacts"></td>
+
                                     <td  class="pro-title">联系电话</td>
                                     <td id="telephone"></td>
                                     <td  class="pro-title">电子邮箱</td>
                                     <td id="email"></td>
+                                    <td colspan="4"></td>
                                 </tr>
-                                <tr>
-                                    <td  class="pro-title">备注</td>
-                                    <td id="remark" colspan="7"> <input type="text" name="remark"         id="remark" class="span12" ></td>
-                                </tr>
+
                                 </tbody>
                             </table>
 
                             <div class="clearfix"></div>
+
                             <table class="layui-table layui-form table111">
                                 <thead>
                                     <th>序号</th>
@@ -308,7 +327,7 @@
         if(actual_quantity*1 > wait_purchased_quantity*1){
             showMsg('采购数量超出待采购数量，请核实');
         }
-        $("#actual_total_fee_"+id).html(actual_quantity * purchase_price );
+        $("#actual_total_fee_"+id).html((actual_quantity * purchase_price).toFixed(2) );
         console.log(wait_purchased_quantity);
     }
 
