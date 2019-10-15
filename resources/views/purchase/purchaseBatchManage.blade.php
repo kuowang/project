@@ -77,9 +77,11 @@
                         <div class="title">
                             采购批次管理
                         </div>
+                        @if($engineering->status ==1 )
                         <span class="title"style="float: right;">
                         <a class="btn btn-success" onclick="add_pici()" ><i class="layui-icon">创建新批次 +</i></a>
                         </span>
+                        @endif
                     </div>
                     <div class="widget-body">
                         <div id="dt_example" class="example_alt_pagination">
@@ -133,7 +135,7 @@
                                         <td> @if($val->purchase_order_status == 1)已创建@else 未创建 @endif </td>
                                         <td>
 
-                                            @if($val->purchase_order_status == 0)
+                                            @if($val->purchase_order_status == 0 && $engineering->status ==1 )
                                                 @if($val->pbrm_count >0)
                                                     <a title="编辑关联材料" class="btn btn-info"  href="/purchase/createdRelationMaterial/{{$val->id}}">
                                                         <i class="layui-icon">编辑关联材料</i>
@@ -146,7 +148,7 @@
                                                         <i class="layui-icon">删除</i>
                                                     </a>
                                                 @endif
-                                            @else
+                                            @elseif($val->purchase_order_status == 0)
                                                 <a title="查看关联材料" class="btn btn-info"  href="/purchase/purchaseRelationMaterialDetail/{{$val->id}}">
                                                     <i class="layui-icon">查看关联材料</i>
                                                 </a>

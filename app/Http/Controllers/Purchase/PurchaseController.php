@@ -149,7 +149,7 @@ class PurchaseController extends WebController
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
-        if( (in_array(250101,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) || in_array(250101,$this->user()->manageauth)){
+        if( (in_array(250101,$this->user()->pageauth) && $engineering->purchase_uid == $this->user()->id ) || in_array(250101,$this->user()->manageauth)){
             if(!in_array($engineering->status,[1,2])){
                 return redirect('/purchase/purchaseConduct?status=2&notice='.'只有实施项目才能更改采购状态');
             }
@@ -259,7 +259,7 @@ class PurchaseController extends WebController
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
-        if( !(in_array(250102,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(250102,$this->user()->manageauth)){
+        if( !(in_array(250102,$this->user()->pageauth) && $engineering->purchase_uid == $this->user()->id ) && !in_array(250102,$this->user()->manageauth)){
             //采购人员可以操作更改工程设计详情
             return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
@@ -355,7 +355,7 @@ class PurchaseController extends WebController
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
-        if( !(in_array(250102,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(250102,$this->user()->manageauth)){
+        if( !(in_array(250102,$this->user()->pageauth) && $engineering->purchase_uid == $this->user()->id ) && !in_array(250102,$this->user()->manageauth)){
             //采购人员可以操作更改工程设计详情
             return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
@@ -393,7 +393,7 @@ class PurchaseController extends WebController
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
-        if( !(in_array(25010304,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(25010304,$this->user()->manageauth)){
+        if( !(in_array(25010304,$this->user()->pageauth) && $engineering->purchase_uid == $this->user()->id ) && !in_array(25010304,$this->user()->manageauth)){
             //采购人员可以操作更改工程设计详情
             return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
@@ -538,7 +538,7 @@ class PurchaseController extends WebController
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
-        if( !(in_array(25010304,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(25010304,$this->user()->manageauth)){
+        if( !(in_array(25010304,$this->user()->pageauth) && $engineering->purchase_uid == $this->user()->id ) && !in_array(25010304,$this->user()->manageauth)){
             //采购人员可以操作更改工程设计详情
             echo"<script>alert('您没有权限编辑该工程信息');history.go(-1);</script>";
             exit;
@@ -707,7 +707,7 @@ class PurchaseController extends WebController
         }
         //项目信息
         $project =DB::table('project')->where('id',$orderinfo->project_id)->first();
-        if( !(in_array(25010302,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(25010302,$this->user()->manageauth)){
+        if( !(in_array(25010302,$this->user()->pageauth) && $engineering->purchase_uid == $this->user()->id ) && !in_array(25010302,$this->user()->manageauth)){
             //采购人员可以操作更改工程设计详情
             return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
@@ -773,7 +773,7 @@ class PurchaseController extends WebController
         }
         //项目信息
         $project =DB::table('project')->where('id',$orderinfo->project_id)->first();
-        if( !(in_array(25010302,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(25010302,$this->user()->manageauth)){
+        if( !(in_array(25010302,$this->user()->pageauth) && $engineering->purchase_uid == $this->user()->id ) && !in_array(25010302,$this->user()->manageauth)){
             //采购人员可以操作更改工程设计详情
             echo"<script>alert('您没有权限编辑该工程信息');history.go(-1);</script>";
             exit;
@@ -839,7 +839,7 @@ class PurchaseController extends WebController
         }
         //项目信息
         $project =DB::table('project')->where('id',$orderinfo->project_id)->first();
-        if( !(in_array(25010302,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(25010302,$this->user()->manageauth)){
+        if( !(in_array(25010302,$this->user()->pageauth) && $engineering->purchase_uid == $this->user()->id ) && !in_array(25010302,$this->user()->manageauth)){
             //采购人员可以操作更改工程设计详情
             return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
@@ -883,7 +883,7 @@ class PurchaseController extends WebController
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
-        if( !(in_array(250102,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(250102,$this->user()->manageauth)){
+        if( !(in_array(250102,$this->user()->pageauth) && $engineering->purchase_uid == $this->user()->id ) && !in_array(250102,$this->user()->manageauth)){
             //采购人员可以操作更改工程设计详情
             return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
@@ -938,7 +938,7 @@ class PurchaseController extends WebController
         }
         //项目信息
         $project =DB::table('project')->where('id',$orderinfo->project_id)->first();
-        if( !(in_array(25010302,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(25010302,$this->user()->manageauth)){
+        if( !(in_array(25010302,$this->user()->pageauth) && $engineering->purchase_uid == $this->user()->id ) && !in_array(25010302,$this->user()->manageauth)){
             //采购人员可以操作更改工程设计详情
             return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
@@ -1009,7 +1009,7 @@ class PurchaseController extends WebController
         }
         //项目信息
         $project =DB::table('project')->where('id',$orderinfo->project_id)->first();
-        if( !(in_array(25010302,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(25010302,$this->user()->manageauth)){
+        if( !(in_array(25010302,$this->user()->pageauth) && $engineering->purchase_uid == $this->user()->id ) && !in_array(25010302,$this->user()->manageauth)){
             //采购人员可以操作更改工程设计详情
             return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
@@ -1054,7 +1054,7 @@ class PurchaseController extends WebController
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
-        if( !(in_array(250202,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(250202,$this->user()->manageauth)){
+        if( !(in_array(250202,$this->user()->pageauth) && $engineering->purchase_uid == $this->user()->id ) && !in_array(250202,$this->user()->manageauth)){
             //采购人员可以操作更改工程设计详情
             return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
@@ -1082,7 +1082,7 @@ class PurchaseController extends WebController
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
-        if( !(in_array(250202,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(250202,$this->user()->manageauth)){
+        if( !(in_array(250202,$this->user()->pageauth) && $engineering->purchase_uid == $this->user()->id ) && !in_array(250202,$this->user()->manageauth)){
             //采购人员可以操作更改工程设计详情
             return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
@@ -1116,7 +1116,7 @@ class PurchaseController extends WebController
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
-        if( !(in_array(250202,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(250202,$this->user()->manageauth)){
+        if( !(in_array(250202,$this->user()->pageauth) && $engineering->purchase_uid == $this->user()->id ) && !in_array(250202,$this->user()->manageauth)){
             //采购人员可以操作更改工程设计详情
             return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
@@ -1247,7 +1247,7 @@ class PurchaseController extends WebController
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
-        if( !(in_array(250102,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(250102,$this->user()->manageauth)){
+        if( !(in_array(250102,$this->user()->pageauth) && $engineering->purchase_uid == $this->user()->id ) && !in_array(250102,$this->user()->manageauth)){
             //采购人员可以操作更改工程设计详情
             return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }

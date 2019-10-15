@@ -84,12 +84,12 @@
                                     <td class="td-manage">
 
                                         @if($projectstatus =='conduct')
-                                            <a title="项目报价管理" class="btn btn-success"  href="/purchase/purchaseConduct/{{ $val->id }}">
-                                                <i class="layui-icon">项目报价管理</i>
+                                            <a title="项目采购管理" class="btn btn-success"  href="/purchase/purchaseConduct/{{ $val->id }}">
+                                                <i class="layui-icon">项目采购管理</i>
                                             </a>
                                         @else
-                                            <a title="项目报价管理" class="btn btn-success"  href="/purchase/purchaseCompleted/{{ $val->id }}">
-                                                <i class="layui-icon">项目报价管理</i>
+                                            <a title="项目采购管理" class="btn btn-success"  href="/purchase/purchaseCompleted/{{ $val->id }}">
+                                                <i class="layui-icon">项目采购管理</i>
                                             </a>
                                         @endif
                                     </td>

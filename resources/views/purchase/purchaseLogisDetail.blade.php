@@ -19,7 +19,6 @@
     <div class="left-sidebar">
         <div class="row-fluid">
             <div class="span12">
-                <form method="post" action="/purchase/postEditPurchaselogis/{{ $order_id }}">
                 <div class="widget">
                     <div class="widget-header" style="text-align: center">
                         <div  style="text-align: center;clear: both;font-size: 16px;" >
@@ -187,10 +186,7 @@
                             </table>
                             <div class="clearfix"></div>
 
-                            <div class="layui-form-item" style="float: right;clear: left">
-                                <label for="L_repass" class="layui-form-label"></label>
-                                <button class="btn btn-success" lay-filter="add" type="submit" lay-submit="" onclick='return form_submit()'>确认/保存</button>
-                            </div>
+
                             <div class="layui-form-item" style="float: right;clear: left">
                                 <a href="javascript:history.go(-1)">
                                     <label for="L_repass" class="layui-form-label"></label>
@@ -205,7 +201,6 @@
                     </div>
 
                 </div>
-                </form>
             </div>
         </div>
     </div>
