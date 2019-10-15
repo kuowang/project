@@ -163,7 +163,7 @@
                                     @php( $system_code = $v->system_code)
                                 @endif
                             <tr class="sub_arch_{{$v->sub_arch_id}} gradeA success odd">
-                                <td  colspan="10"> &nbsp;&nbsp;&nbsp;{{$v->sub_system_name}} <span style="color:#1d52f6">工况：{{$v->work_code}}</span> 编码：{{$v->sub_system_code}}</td>
+                                <td  colspan="10"> &nbsp;&nbsp;&nbsp;<span class="btn btn-primary">{{$v->sub_system_name}}</span> <span style="color:#1d52f6">工况：{{$v->work_code}}</span> 编码：{{$v->sub_system_code}}</td>
 
                             </tr>
                             @if(isset($budget_item[$v->sub_arch_id]))

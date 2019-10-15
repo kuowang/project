@@ -217,7 +217,7 @@
 
 
                                         <tr class="materialList sub_arch_{{$list->architectural_sub_id}}" id="mater_{{$k}}">
-                                            <td class="sub_arch_material_{{$list->architectural_sub_id}}">{{$list->id}}
+                                            <td class="sub_arch_material_{{$list->architectural_sub_id}}">
                                                 @if(isset($budget_item[$v->sub_arch_id][$list->id]))
                                                     <input type="checkbox" name="material_id[{{$k}}]" checked="checked" id="material_id_{{$k}}" value="{{$list->id}}">
                                                 @else
@@ -447,7 +447,7 @@
             })
 
            str = `<tr class="materialList sub_arch_`+id+`" id="mater_`+option.id+`">
-                     <td class="sub_arch_material_`+id+`">`+option.id+`
+                     <td class="sub_arch_material_`+id+`">
                 <input type="checkbox" name="material_id[`+option.id+`]" value="`+option.id+`"  id="material_id_`+option.id+`" >
                 </td>
                 <td>`+option.material_name+`</td>
@@ -650,6 +650,7 @@
         }
         //提交时的数据验证
         function form_submit(){
+            $('input[type=checkbox]').prop('checked', 'checked');
             var sum=0;
             $(".notempty").each(function(){
                 if($(this).val()){

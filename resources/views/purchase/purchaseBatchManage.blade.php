@@ -100,7 +100,7 @@
                                     <th>货车数量</th>
                                     <th>发货地址</th>
                                     <th style="width: 80px">采购单状态 </th>
-                                    <th style="width: 60px">操作</th>
+                                    <th style="width: 200px">操作</th>
 
                                 </thead>
                                 <tbody id="batchmanage">
@@ -132,6 +132,11 @@
                                         <td><input type="text" name="deliver_address[]" value="{{$val->deliver_address}}" class="span12 deliver_address" ></td>
                                         <td> @if($val->purchase_order_status == 1)已创建@else 未创建 @endif </td>
                                         <td>
+
+                                            <a title="创建关联材料" class="btn btn-info"  href="/purchase/createdRelationMaterial/{{$val->id}}">
+                                                <i class="layui-icon">创建关联材料</i>
+                                            </a>
+
                                             @if($val->purchase_order_status == 0)
                                             <a title="删除" class="btn btn-danger" onclick="deleteTrRow('{{$k}}',this)" href="javascript:;">
                                                 <i class="layui-icon">删除</i>

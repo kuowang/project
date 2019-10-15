@@ -1204,7 +1204,63 @@ class PurchaseController extends WebController
         return $data;
     }
 
+    //采购创建关联材料
+    public function createdRelationMaterial(Request $request,$batchid){
+        $batchInfo=DB::table('purchase_batch')->where('id',$batchid)->first();
+        if(empty($batchInfo)){
+            return redirect('/purchase/purchaseConductProjectList');
+        }
+        $id=$batchInfo->engin_id;
+        $this->user();
+        $data['navid']      =20;
+        $data['subnavid']   =2001;
+        //项目子工程
+        $engineering =DB::table('engineering')->where('id',$id)->first();
+        if(empty($engineering)){
+            return redirect('/budget/budgetStart?status=2&notice='.'该工程不存在');
+        }
+        //项目信息
+        $project =DB::table('project')->where('id',$engineering->project_id)->first();
+        if( (in_array(20010101,$this->user()->pageauth) && $project->budget_uid == $this->user()->id ) || in_array(200101,$this->user()->manageauth)){
+        }else{
+            //设计人员可以操作更改工程设计详情
+            return redirect('/budget/budgetStart/'.$engineering->project_id.'?status=2&notice='.'您没有权限编辑该工程信息');
+        }
+        //建筑系统信息 以及项目对应的子系统信息
+        $data['engin_system']=DB::table('enginnering_architectural')
+            ->where('engin_id',$id)
+            ->get();
+        $data['engineering']=$engineering;
+        $data['project']    =$project;
+        $data['engin_id'] =$id;
 
+        //预算信息
+        $budget =DB::table('budget')->where('engin_id',$id)->first();
+        $data['budget'] =$budget;
+        $data['budget_item']=[];
+        //预算材料信息
+        if(!empty($budget)){
+            //预算详情
+            $budget_item =DB::table('budget_item')->where('budget_id',$budget->id)->get();
+            if($budget_item){
+                foreach($budget_item as $item){
+                    $data['budget_item'][$item->sub_arch_id][]=$item;
+                }
+            }
+        }
+        //建筑设计配置参数
+        $data['param']=DB::table('engineering_param')->where('engin_id',$id)->first();
+        if($data['param']){
+            $data['storey_height']  =json_decode($data['param']->storey_height,true) ;
+            $data['house_height']   =json_decode($data['param']->house_height,true) ;
+            $data['house_area']     =json_decode($data['param']->house_area,true) ;
+            $data['room_position']  =json_decode($data['param']->room_position,true) ;
+            $data['room_name']      =json_decode($data['param']->room_name,true);
+            $data['room_area']      =json_decode($data['param']->room_area,true);
+        }
+        //return $this->success($data);
+        return view('purchase.createdRelationMaterial',$data);
+    }
 
 
 
