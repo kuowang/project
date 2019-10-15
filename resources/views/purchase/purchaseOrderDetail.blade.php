@@ -176,6 +176,7 @@
                                     $xuhao=1;
                                 @endphp
                                 @foreach($engin_system as $v)
+                                    @if(isset($itemlist[$v->sub_arch_id]))
                                     @if($system_code != $v->system_code)
                                         <tr class="pro-title gradeX warning odd">
                                             <td colspan="13">{{$v->system_name}}({{$v->engin_name}})</td>
@@ -183,10 +184,9 @@
                                         @php( $system_code = $v->system_code)
                                     @endif
                                     <tr class="sub_arch_{{$v->sub_arch_id}} gradeA success odd">
-                                        <td  colspan="13"> &nbsp;&nbsp;&nbsp;{{$v->sub_system_name}} <span style="color:#1d52f6">工况：{{$v->work_code}}</span> 编码：{{$v->sub_system_code}}</td>
+                                        <td  colspan="13"> &nbsp;&nbsp;&nbsp;<span class="btn btn-info">{{$v->sub_system_name}}</span> <span style="color:#1d52f6">工况：{{$v->work_code}}</span> 编码：{{$v->sub_system_code}}</td>
                                     </tr>
 
-                                    @if(isset($itemlist[$v->sub_arch_id]))
                                     @foreach($itemlist[$v->sub_arch_id] as $key=>$item)
 
                                             <tr class="supplier sub_arch_'+item.sub_arch_id+'" id="budget_item_{{$item->id}}">

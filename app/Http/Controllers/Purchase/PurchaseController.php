@@ -338,7 +338,7 @@ class PurchaseController extends WebController
             }
         }
         DB::commit();
-        return redirect('/purchase/purchaseConduct?status=1&notice='.'设置批次成功');
+        return redirect('/purchase/purchaseBatchManage/'.$id.'?status=1&notice='.'设置批次成功');
 
     }
 
@@ -407,13 +407,16 @@ class PurchaseController extends WebController
         $data['batchinfo']= $batchinfo;
         //获取预算中的供应商信息
         $data['supplierList'] = DB::table('budget_item')
-            ->where('engin_id',$batchinfo->engin_id)
-            ->where('budget_id',$engineering->budget_id)
+            ->join('purchase_batch_relation_material','purchase_batch_relation_material.budget_item_id','=','budget_item.id')
+            ->where('purchase_batch_relation_material.engin_id',$batchinfo->engin_id)
+            ->where('purchase_batch_relation_material.budget_id',$engineering->budget_id)
             ->orderby('supplier')
             ->pluck('supplier','supplier_id');
 
         $data['engin_system']=DB::table('enginnering_architectural')
             ->where('engin_id',$batchinfo->engin_id)
+            ->orderby('system_code')
+            ->orderby('sub_system_code')
             ->get();
         //print_R($data['engin_system']);exit;
 
@@ -450,11 +453,15 @@ class PurchaseController extends WebController
             return $this->error('该供应商已被禁用，请选择其他供应商');
         }
         $data['supplier']=$supplier;
+        //获取批次中允许采购的材料id
+        $budgetItemId =DB::table('purchase_batch_relation_material')->where('batch_id',$brach_id)->pluck('budget_item_id');
+
         //获取预算工程信息材料
         $budgetitem=DB::table('budget_item')
             ->join('material_brand_supplier','material_brand_supplier.id','=','mbs_id')
             ->where('budget_item.engin_id',$batchinfo->engin_id)
             ->where('budget_item.supplier_id',$id)
+            ->wherein('budget_item.id',$budgetItemId)
             ->select(['budget_item.id','budget_item.supplier_id','budget_item.sub_arch_id',
                 'budget_item.material_name','budget_item.characteristic',
                 'budget_item.engineering_quantity','budget_item.brand_name',
@@ -717,6 +724,8 @@ class PurchaseController extends WebController
         $data['supplier'] =DB::table('supplier')->where('id',$orderinfo->supplier_id)->first();
         $data['engin_system']=DB::table('enginnering_architectural')
             ->where('engin_id',$orderinfo->engin_id)
+            ->orderby('system_code')
+            ->orderby('sub_system_code')
             ->get();
 
         $orderitem =DB::table('purchase_order_item')->where('order_id',$id)->get();
@@ -847,6 +856,8 @@ class PurchaseController extends WebController
         $data['supplier'] =DB::table('supplier')->where('id',$orderinfo->supplier_id)->first();
         $data['engin_system']=DB::table('enginnering_architectural')
             ->where('engin_id',$orderinfo->engin_id)
+            ->orderby('system_code')
+            ->orderby('sub_system_code')
             ->get();
 
         $orderitem =DB::table('purchase_order_item')->where('order_id',$id)->get();
@@ -944,6 +955,8 @@ class PurchaseController extends WebController
         $data['supplier'] =DB::table('supplier')->where('id',$orderinfo->supplier_id)->first();
         $data['engin_system']=DB::table('enginnering_architectural')
             ->where('engin_id',$orderinfo->engin_id)
+            ->orderby('system_code')
+            ->orderby('sub_system_code')
             ->get();
 
         $orderitem =DB::table('purchase_order_item')
@@ -1013,6 +1026,8 @@ class PurchaseController extends WebController
         $data['supplier'] =DB::table('supplier')->where('id',$orderinfo->supplier_id)->first();
         $data['engin_system']=DB::table('enginnering_architectural')
             ->where('engin_id',$orderinfo->engin_id)
+            ->orderby('system_code')
+            ->orderby('sub_system_code')
             ->get();
 
         $orderitem =DB::table('purchase_order_item')
@@ -1203,17 +1218,28 @@ class PurchaseController extends WebController
             ->get();
         return $data;
     }
+    //查看关联材料信息
+    public function purchaseRelationMaterialDetail(Request $request,$batchid)
+    {
+        $data = $this->purchaseRelationMaterial( $request,$batchid,1);
+        return view('purchase.purchaseRelationMaterialDetail',$data);
+    }
+    public function createdRelationMaterial(Request $request,$batchid){
+        $data= $this->purchaseRelationMaterial( $request,$batchid,2);
+        return view('purchase.createdRelationMaterial',$data);
+    }
 
     //采购创建关联材料
-    public function createdRelationMaterial(Request $request,$batchid){
+    protected function purchaseRelationMaterial(Request $request,$batchid,$type=1){
+        $this->user();
         $batchInfo=DB::table('purchase_batch')->where('id',$batchid)->first();
         if(empty($batchInfo)){
             return redirect('/purchase/purchaseConductProjectList');
         }
+        $data['batchid']=$batchid;
         $id=$batchInfo->engin_id;
-        $this->user();
-        $data['navid']      =20;
-        $data['subnavid']   =2001;
+        $data['navid']      =25;
+        $data['subnavid']   =2501;
         //项目子工程
         $engineering =DB::table('engineering')->where('id',$id)->first();
         if(empty($engineering)){
@@ -1221,14 +1247,18 @@ class PurchaseController extends WebController
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
-        if( (in_array(20010101,$this->user()->pageauth) && $project->budget_uid == $this->user()->id ) || in_array(200101,$this->user()->manageauth)){
-        }else{
-            //设计人员可以操作更改工程设计详情
-            return redirect('/budget/budgetStart/'.$engineering->project_id.'?status=2&notice='.'您没有权限编辑该工程信息');
+        if( !(in_array(250102,$this->user()->pageauth) && $project->purchase_uid == $this->user()->id ) && !in_array(250102,$this->user()->manageauth)){
+            //采购人员可以操作更改工程设计详情
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
+        }
+        if($engineering->budget_id ==0){
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'请先创建预算单，再创建采购批次？');
         }
         //建筑系统信息 以及项目对应的子系统信息
         $data['engin_system']=DB::table('enginnering_architectural')
             ->where('engin_id',$id)
+            ->orderby('system_code')
+            ->orderby('sub_system_code')
             ->get();
         $data['engineering']=$engineering;
         $data['project']    =$project;
@@ -1239,9 +1269,51 @@ class PurchaseController extends WebController
         $data['budget'] =$budget;
         $data['budget_item']=[];
         //预算材料信息
-        if(!empty($budget)){
-            //预算详情
-            $budget_item =DB::table('budget_item')->where('budget_id',$budget->id)->get();
+        if(!empty($budget) && $type ==2){
+            //查询已选的材料信息
+            $relationmate =DB::table('purchase_batch_relation_material')
+                ->where('engin_id',$batchInfo->engin_id)
+                ->where('batch_id','!=',$batchid)
+                ->where('deliver_properties',1)
+                ->select(DB::raw('count(id) as purchase_count, budget_item_id,max(purchase_cishu) as cishu'))
+                ->groupby('budget_item_id')
+                ->get();
+            $selecteditems=[];
+            $select_items=[];
+            if($relationmate){
+                foreach($relationmate as $va){
+                    //获取已经采购完的材料信息
+                    if($va->purchase_count >=$va->cishu){
+                        $selecteditems[]=$va->budget_item_id;
+                    }else{ //获取部分采购的材料信息
+                        $select_items[$va->budget_item_id]=$va->cishu;
+                    }
+                }
+            }
+            if(empty($selecteditems)){
+                //预算详情
+                $budget_item =DB::table('budget_item')
+                    ->where('budget_id',$budget->id)->get();
+            }else{
+                //预算详情
+                $budget_item =DB::table('budget_item')
+                    ->where('budget_id',$budget->id)->whereNotIn('id',$selecteditems)
+                    ->get();
+            }
+            //var_dump($relationmate);exit;
+            if($budget_item){
+                foreach($budget_item as $item){
+                    $data['budget_item'][$item->sub_arch_id][]=$item;
+                }
+            }
+            $data['select_items']=$select_items;
+        }else{
+            $budget_item =DB::table('budget_item')
+                ->join('purchase_batch_relation_material','purchase_batch_relation_material.budget_item_id','=','budget_item.id')
+                ->where('batch_id',$batchid)
+                ->where('budget_item.budget_id',$budget->id)
+                ->select('budget_item.*')
+                ->get();
             if($budget_item){
                 foreach($budget_item as $item){
                     $data['budget_item'][$item->sub_arch_id][]=$item;
@@ -1250,19 +1322,59 @@ class PurchaseController extends WebController
         }
         //建筑设计配置参数
         $data['param']=DB::table('engineering_param')->where('engin_id',$id)->first();
-        if($data['param']){
-            $data['storey_height']  =json_decode($data['param']->storey_height,true) ;
-            $data['house_height']   =json_decode($data['param']->house_height,true) ;
-            $data['house_area']     =json_decode($data['param']->house_area,true) ;
-            $data['room_position']  =json_decode($data['param']->room_position,true) ;
-            $data['room_name']      =json_decode($data['param']->room_name,true);
-            $data['room_area']      =json_decode($data['param']->room_area,true);
-        }
+        $data['batch_material']=DB::table('purchase_batch_relation_material')
+            ->where('batch_id',$batchid)
+            ->pluck('purchase_cishu','budget_item_id');
         //return $this->success($data);
-        return view('purchase.createdRelationMaterial',$data);
+        return $data;
     }
 
+    //保存关联的材料信息
+    public function saveRelationMaterial(Request $request,$batchid)
+    {
+        $batchInfo=DB::table('purchase_batch')->where('id',$batchid)->first();
+        if(empty($batchInfo)){
+            return redirect('/purchase/purchaseConductProjectList');
+        }
+        $budget_item_id=$request->input('budget_item_id',[]);
+        $purchase_cishu=$request->input('purchase_cishu',[]);
+        if(empty($budget_item_id)){
+            echo"<script>alert('没有选中材料，请重新选择');history.go(-1);</script>";
+        }
+        $budget_item =DB::table('budget_item')
+            ->wherein('id',$budget_item_id)
+            ->where('engin_id',$batchInfo->engin_id)
+            ->get()->toarray();
+        if(empty($budget_item)){
+            echo"<script>alert('当前工程中没有选中的材料，请重新选择');history.go(-1);</script>";
+        }
 
+        DB::beginTransaction();
+
+        //删除原来记录的数据
+        DB::table('purchase_batch_relation_material')->where('engin_id',$batchInfo->engin_id)
+            ->where('batch_id',$batchid)->delete();
+        foreach($budget_item as $item){
+            $data[]=[
+                'project_id' =>$batchInfo->project_id,
+                'engin_id' =>$batchInfo->engin_id,
+                'batch_id' =>$batchid,
+                'deliver_properties' =>$batchInfo->deliver_properties,
+                'budget_id' =>$item->budget_id,
+                'budget_item_id' =>$item->id,
+                'purchase_cishu' =>isset($purchase_cishu[$item->id])?$purchase_cishu[$item->id]:10000,
+                'uid' =>$this->user()->id,
+                'created_at' =>date('Y-m-d'),
+            ];
+        }
+        DB::table('purchase_batch_relation_material')->insert($data);
+        //记录添加材料个数
+        DB::table('purchase_batch')->where('id',$batchid)->update(['pbrm_count'=>count($budget_item)]);
+        DB::commit();
+
+        //return $this->success($request->all());
+        return redirect('/purchase/purchaseBatchManage/'.$batchInfo->engin_id.'?status=1&notice='.'批次关联材料完成');
+    }
 
 
 }

@@ -81,11 +81,13 @@
                             @endif
                         </div>
                         @if( (in_array(25010304,$pageauth) && $val->created_uid == $uid ) || in_array(25010304,$manageauth))
+                        @if($val->pbrm_count >0)
                         <span class="title"style="float: right;">
                         <a class="btn btn-success" href="/purchase/createPurchaseOrder/{{$val->id}}">
                             <i class="layui-icon">创建采购单 +</i>
                         </a>
                         </span>
+                        @endif
                         @endif
                     </div>
                     <div class="widget-body">
@@ -169,6 +171,10 @@
                                 </tbody>
                             </table>
 
+                            <div class="clearfix"></div>
+                            <div>
+                                注：批次中关联预算材料后才能创建采购单
+                            </div>
                             <div class="clearfix"></div>
 
                         </div>

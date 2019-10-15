@@ -297,7 +297,10 @@ Route::group(['prefix' => 'purchase','namespace' => 'Purchase','middleware' => '
     Route::get('/purchaseConductProjectList',             'PurchaseController@purchaseConductProjectList');   // 实施项目采购列表
     Route::get('/purchaseCompletedProjectList',           'PurchaseController@purchaseCompletedProjectList');   //竣工项目采购列表
 
-    Route::get('/createdRelationMaterial/{batchid}',           'PurchaseController@createdRelationMaterial');   //创建关联材料
+    Route::get('/createdRelationMaterial/{batchid}',         'PurchaseController@createdRelationMaterial');   //创建关联材料
+    Route::post('/saveRelationMaterial/{batchid}',           'PurchaseController@saveRelationMaterial');         //保存关联材料
+    Route::get('/purchaseRelationMaterialDetail/{batchid}',  'PurchaseController@purchaseRelationMaterialDetail');   //创建关联材料
+
 
 });
 //测试下载文档接口

@@ -35,7 +35,6 @@
                 </div>
                 <div class="widget-body">
                     <div id="dt_example" class="example_alt_pagination">
-                        <form method="post" action="/purchase/saveRelationMaterial/{{ $batchid }}">
                             <table class="layui-table layui-form">
                                 <thead>
                                 <tr>
@@ -146,6 +145,7 @@
                             <tbody>
                             @php
                                 $system_code ='';
+                            $k=1;
                             @endphp
                             @foreach($engin_system as $v)
                                 @if(isset($budget_item[$v->sub_arch_id]))
@@ -160,13 +160,10 @@
 
                                 </tr>
                                     @foreach($budget_item[$v->sub_arch_id] as $mate)
+                                        @if(isset($batch_material[$mate->id]))
                                         <tr class="materialList sub_arch_{{$mate->sub_arch_id}}" id="mater_{{$mate->id}}">
                                             <td class="sub_arch_material_{{$mate->sub_arch_id}}">
-                                                @if(isset($batch_material[$mate->id]))
-                                                <input type="checkbox" name="budget_item_id[{{$mate->id}}]"  id="material_id_{{$mate->id}}" checked="checked" class="notempty" value="{{$mate->id}}">
-                                                @else
-                                                    <input type="checkbox" name="budget_item_id[{{$mate->id}}]"  id="material_id_{{$mate->id}}" class="notempty" value="{{$mate->id}}">
-                                                @endif
+                                              {{$k++}}
                                             </td>
                                             <td>{{ $mate->material_name}}</td>
                                             <td>{{ $mate->characteristic }}</td>
@@ -178,31 +175,17 @@
                                             <td>{{ number_format($mate->budget_price, 2, '.', '') }}</td>
                                             <td>{{ number_format($mate->total_material_price, 2, '.', '') }}</td>
                                             <td>
-                                            @if(isset($select_items[$mate->id]))
-                                                @if($select_items[$mate->id] <=10)
-                                                    采购{{$select_items[$mate->id]}}次<input type="hidden" name="purchase_cishu[{{$mate->id}}]" value="{{$select_items[$mate->id]}}">
+                                            @if(isset($batch_material[$mate->id]))
+                                                @if($batch_material[$mate->id] <=10)
+                                                    采购{{$batch_material[$mate->id]}}次
                                                 @else
-                                                    不限次数<input type="hidden" name="purchase_cishu[{{$mate->id}}]" value="{{$select_items[$mate->id]}}">
+                                                    不限次数
                                                 @endif
-                                            @else
-                                                <select name="purchase_cishu[{{$mate->id}}]"  class="purchase_cishu notempty span12" onchange="changecolor(this,{{$mate->id}})" style="min-width: 80px">
-                                                    <option value="0"></option>
-                                                    <option value="1" @if(isset($batch_material[$mate->id]) && $batch_material[$mate->id]==1 )  selected="selected" @endif >采购1次</option>
-                                                    <option value="2" @if(isset($batch_material[$mate->id]) && $batch_material[$mate->id]==2 )  selected="selected" @endif >采购2次</option>
-                                                    <option value="3" @if(isset($batch_material[$mate->id]) && $batch_material[$mate->id]==3 )  selected="selected" @endif >采购3次</option>
-                                                    <option value="4" @if(isset($batch_material[$mate->id]) && $batch_material[$mate->id]==4 )  selected="selected" @endif >采购4次</option>
-                                                    <option value="5" @if(isset($batch_material[$mate->id]) && $batch_material[$mate->id]==5 )  selected="selected" @endif >采购5次</option>
-                                                    <option value="6" @if(isset($batch_material[$mate->id]) && $batch_material[$mate->id]==6 )  selected="selected" @endif >采购6次</option>
-                                                    <option value="7" @if(isset($batch_material[$mate->id]) && $batch_material[$mate->id]==7 )  selected="selected" @endif >采购7次</option>
-                                                    <option value="8" @if(isset($batch_material[$mate->id]) && $batch_material[$mate->id]==8 )  selected="selected" @endif >采购8次</option>
-                                                    <option value="9" @if(isset($batch_material[$mate->id]) && $batch_material[$mate->id]==9 )  selected="selected" @endif >采购9次</option>
-                                                    <option value="10" @if(isset($batch_material[$mate->id]) && $batch_material[$mate->id]==10 )  selected="selected" @endif >采购10次</option>
-                                                    <option value="10000" @if(isset($batch_material[$mate->id]) && $batch_material[$mate->id]==10000 )  selected="selected" @endif >不限次数</option>
-                                                </select>
                                             @endif
                                             </td>
-                                            <td><span class="btn btn-danger" onclick="deleteTrRow(this)">删除</span></td>
+                                            <td></td>
                                         </tr>
+                                        @endif
                                     @endforeach
                                 @endif
                             @endforeach
@@ -211,10 +194,7 @@
                         </table>
                         <div class="clearfix"></div>
 
-                        <div class="layui-form-item" style="float: right;clear: left">
-                            <label for="L_repass" class="layui-form-label"></label>
-                            <button class="btn btn-success" lay-filter="add" type="submit" lay-submit="" onclick='return form_submit()'>确认/保存</button>
-                        </div>
+
                         <div class="layui-form-item" style="float: right;clear: left">
                             <a href="javascript:history.go(-1)">
                                 <label for="L_repass" class="layui-form-label"></label>
@@ -222,7 +202,7 @@
                             </a>
                         </div>
                             <div class="clearfix"></div>
-                        </form>
+
                     </div>
                 </div>
             </div>

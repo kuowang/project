@@ -133,19 +133,27 @@
                                         <td> @if($val->purchase_order_status == 1)已创建@else 未创建 @endif </td>
                                         <td>
 
-                                            <a title="创建关联材料" class="btn btn-info"  href="/purchase/createdRelationMaterial/{{$val->id}}">
-                                                <i class="layui-icon">创建关联材料</i>
-                                            </a>
-
                                             @if($val->purchase_order_status == 0)
-                                            <a title="删除" class="btn btn-danger" onclick="deleteTrRow('{{$k}}',this)" href="javascript:;">
-                                                <i class="layui-icon">删除</i>
-                                            </a>
+                                                @if($val->pbrm_count >0)
+                                                    <a title="编辑关联材料" class="btn btn-info"  href="/purchase/createdRelationMaterial/{{$val->id}}">
+                                                        <i class="layui-icon">编辑关联材料</i>
+                                                    </a>
+                                                @else
+                                                    <a title="创建关联材料" class="btn btn-info"  href="/purchase/createdRelationMaterial/{{$val->id}}">
+                                                        <i class="layui-icon">创建关联材料</i>
+                                                    </a>
+                                                    <a title="删除" class="btn btn-danger" onclick="deleteTrRow('{{$k}}',this)" href="javascript:;">
+                                                        <i class="layui-icon">删除</i>
+                                                    </a>
+                                                @endif
+                                            @else
+                                                <a title="查看关联材料" class="btn btn-info"  href="/purchase/purchaseRelationMaterialDetail/{{$val->id}}">
+                                                    <i class="layui-icon">查看关联材料</i>
+                                                </a>
                                             @endif
                                         </td>
                                     </tr>
                                 @endforeach
-
 
                                 </tbody>
                             </table>
@@ -157,7 +165,7 @@
                                 <button class="btn btn-success" lay-filter="add" type="submit" lay-submit="" onclick='return form_submit()'>确认/保存</button>
                             </div>
                             <div class="layui-form-item" style="float: right;clear: left">
-                                <a href="javascript:history.go(-1)">
+                                <a href="/purchase/purchaseConduct/{{$engin_id}}">
                                     <label for="L_repass" class="layui-form-label"></label>
                                     <span class="btn btn-success" lay-filter="add" lay-submit="">返回/取消</span>
                                 </a>
