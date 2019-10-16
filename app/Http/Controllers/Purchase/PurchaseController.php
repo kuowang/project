@@ -37,7 +37,9 @@ class PurchaseController extends WebController
             ->join('project','project.id','=','project_id')
             ->leftjoin('purchase','engineering.id','=','purchase.engin_id')
             ->where('engineering.status',1); //实施项目工程
-
+        if($id != 0){
+            $db->where('engineering.project_id','=',$id);
+        }
         if(!empty($project_name)){
             $db->where('project_name','like','%'.$project_name.'%');
         }
@@ -95,7 +97,9 @@ class PurchaseController extends WebController
             ->join('project','project.id','=','project_id')
             ->leftjoin('purchase','engineering.id','=','purchase.engin_id')
             ->where('engineering.status',2); //竣工项目工程
-
+        if($id != 0){
+            $db->where('engineering.project_id','=',$id);
+        }
         if(!empty($project_name)){
             $db->where('project_name','like','%'.$project_name.'%');
         }
