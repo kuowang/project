@@ -167,7 +167,7 @@
                                 <button class="btn btn-success" lay-filter="add" type="submit" lay-submit="" onclick='return form_submit()'>确认/保存</button>
                             </div>
                             <div class="layui-form-item" style="float: right;clear: left">
-                                <a href="/purchase/purchaseConduct/{{$id}}">
+                                <a href="/purchase/purchaseConduct/{{$project->id}}">
                                     <label for="L_repass" class="layui-form-label"></label>
                                     <span class="btn btn-success" lay-filter="add" lay-submit="">返回/取消</span>
                                 </a>

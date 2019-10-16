@@ -272,7 +272,7 @@ class PurchaseController extends WebController
         }
         $data['project'] =$project;
         $data['engineering'] =$engineering;
-        $data['engin_id']=$id;
+        $data['engin_id']=$engineering->id;
         //获取批次列表
         $data['batchList']= DB::table('purchase_batch')->where('engin_id',$id)->get();
 
