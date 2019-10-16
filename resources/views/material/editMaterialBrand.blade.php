@@ -118,7 +118,8 @@
                             @foreach($material_brand as $mate)
                             <tr>
                                 <td>
-                                    <select name="brand_id[]" id="brand_id_1" class="span12" style="min-width: 80px;" onchange="selectSupplier(1)">
+                                    <input type="hidden"  name="msb_id[]" id="msb_{{ $mate->id }}" value="{{ $mate->id }}">
+                                    <select name="brand_id[]" id="brand_id_{{ $mate->id }}" class="span12" style="min-width: 80px;" onchange="selectSupplier({{ $mate->id }})">
                                         <option value="0"  style="display: none"></option>
                                         @foreach($brand as $v)
                                             @if($v->id == $mate->brand_id)
@@ -130,7 +131,7 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <select name="manufactor[]" id="manufactor_1" class="span12" style="min-width: 100px" onchange="selectManufactor(1)">
+                                    <select name="manufactor[]" id="manufactor_{{ $mate->id }}" class="span12" style="min-width: 100px" onchange="selectManufactor({{ $mate->id }})">
                                         <option value="0"  style="display: none"></option>
                                         @foreach($supplier as $k=>$val)
                                             @if(isset($supplier_brand_list[$mate->brand_id]) && in_array($val->id,$supplier_brand_list[$mate->brand_id]))
@@ -146,15 +147,14 @@
                                         @endforeach
                                     </select>
                                 </td>
-                                <td><input type="text"  name="supplier[]"          id="supplier_{{$k}}"         value="{{ $mate->supplier }}" lay-skin="primary"></td>
-                                <td><input type="text"  name="budget_unit_price[]" id="budget_unit_price_{{$k}}" value="{{ $mate->budget_unit_price }}" lay-skin="primary" placeholder=""style="width:50px;" onchange="changebudgetprice({{$k}})"></td>
-                                <td><input type="text"  name="budget_unit[]"  class="budget_unit"     id="budget_unit_{{$k}}"         value="{{ $mate->budget_unit }}" lay-skin="primary"  placeholder=""style="width:50px;"></td>
-                                <td><input type="text"  name="purchase_unit_price[]"  id="purchase_unit_price_{{$k}}"    value="{{ $mate->purchase_unit_price }}" lay-skin="primary" style="width:50px;"></td>
-                                <td><input type="text"  name="purchase_unit[]"   class="purchase_unit"    id="purchase_unit_{{$k}}" value="{{ $mate->purchase_unit }}" lay-skin="primary" style="width:50px;"></td>
-                                <td><input type="text"  name="offer_unit_price[]"      id="offer_unit_price_{{$k}}" value="{{ $mate->offer_unit_price }}" lay-skin="primary" style="width:50px;"></td>
-                                <td><input type="text"  name="offer_unit[]"    class="offer_unit"   id="offer_unit_{{$k}}" value="{{ $mate->offer_unit }}" lay-skin="primary" style="width:50px;"></td>
-
-                                <td><a class="btn btn-danger" onclick="deleteTrRow(this)">删除</a></td>
+                                <td><input type="text"  name="supplier[]"          id="supplier_{{ $mate->id }}"         value="{{ $mate->supplier }}" lay-skin="primary"></td>
+                                <td><input type="text"  name="budget_unit_price[]" id="budget_unit_price_{{ $mate->id }}" value="{{ $mate->budget_unit_price }}" lay-skin="primary" placeholder=""style="width:50px;" onchange="changebudgetprice({{ $mate->id }})"></td>
+                                <td><input type="text"  name="budget_unit[]"  class="budget_unit"     id="budget_unit_{{ $mate->id }}"         value="{{ $mate->budget_unit }}" lay-skin="primary"  placeholder=""style="width:50px;"></td>
+                                <td><input type="text"  name="purchase_unit_price[]"  id="purchase_unit_price_{{ $mate->id }}"    value="{{ $mate->purchase_unit_price }}" lay-skin="primary" style="width:50px;"></td>
+                                <td><input type="text"  name="purchase_unit[]"   class="purchase_unit"    id="purchase_unit_{{ $mate->id }}" value="{{ $mate->purchase_unit }}" lay-skin="primary" style="width:50px;"></td>
+                                <td><input type="text"  name="offer_unit_price[]"      id="offer_unit_price_{{ $mate->id }}" value="{{ $mate->offer_unit_price }}" lay-skin="primary" style="width:50px;"></td>
+                                <td><input type="text"  name="offer_unit[]"    class="offer_unit"   id="offer_unit_{{ $mate->id }}" value="{{ $mate->offer_unit }}" lay-skin="primary" style="width:50px;"></td>
+                                <td></td>
                             </tr>
                             @endforeach
 
@@ -228,10 +228,11 @@
             console.log(supplier_brand[brand_id]);
             console.log(brand_id);
             supplier_brand_list =supplier_brand[brand_id];
-            $('.manufa').hide();
+            $('#manufactor_'+id+' .manufa').hide();
+            $('#manufactor_'+id).val('');
             for(var i=0;i<supplier_brand_list.length;i++){
                 j= supplier_brand_list[i];
-                $('.manufa_'+j).show();
+                $('#manufactor_'+id+' .manufa_'+j).show();
             }
 
             //$("#manufactor_"+id).empty();
@@ -270,6 +271,7 @@
         function add_xitong() {
             intid =parseInt(Math.random() * (1000000 )+100);
            str =' <tr> <td>'+
+                   '<input type="hidden"  name="msb_id[]" id="msb_'+intid+'" value="0">'+
                '<select name="brand_id[]" id="brand_id_'+intid+'" class="span12" style="min-width: 80px;" onchange="selectSupplier('+intid+')">'+
             '<option value="0"  style="display: none"></option>'+
                     @foreach($brand as $v)

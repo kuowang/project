@@ -178,6 +178,7 @@ class MaterialController extends WebController
         $data['material_height']    =(int)$request->input('material_height');
         $data['material_thickness'] =(int)$request->input('material_thickness');
         $data['material_diameter']  =(int)$request->input('material_diameter');
+        $msb_id             =$request->input('msb_id',[]);
         $brand_id           =$request->input('brand_id',[]);
         $manufactor         =$request->input('manufactor',[]);
         $supplier           =$request->input('supplier',[]);
@@ -212,12 +213,12 @@ class MaterialController extends WebController
         DB::table('material')->where('id',$id)->update($data);
 
         //删除原有的材料品牌供应
-        DB::table('material_brand_supplier')->where('material_id',$id)->delete();
+       // DB::table('material_brand_supplier')->where('material_id',$id)->delete();
         //保存品牌供应商信息
-        if(count($brand_id) >0){
-            foreach($brand_id as $k=>$v){
+        if(count($msb_id) >0){
+            foreach($msb_id as $k=>$v){
                 $datalist['material_id']=$id;
-                $datalist['brand_id']=$v;
+                $datalist['brand_id']=$brand_id[$k];
                 $datalist['brand_name']=DB::table('brand')->where('id',$v)->value('brand_name');
                 $datalist['supplier_id']=$manufactor[$k];
                 $datalist['manufactor']=DB::table('supplier')->where('id',$manufactor[$k])->value('manufactor');;
@@ -231,7 +232,11 @@ class MaterialController extends WebController
                 $datalist['uid']=$this->user()->id;
                 $datalist['username']=$this->user()->name;
                 $datalist['created_at']=date('Y-m-d');
-                DB::table('material_brand_supplier')->insert($datalist);
+                if(empty($v)){
+                    DB::table('material_brand_supplier')->insert($datalist);
+                }else{
+                    DB::table('material_brand_supplier')->where('id',$v)->update($datalist);
+                }
             }
         }
         DB::commit();
