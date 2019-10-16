@@ -60,63 +60,6 @@
                                     <td class="pro-title">建筑高度(m)</td>
                                     <td >{{$engineering->build_height}}</td>
                                 </tr>
-                                <tr>
-                                    <td class="pro-title">报价日期</td>
-                                    <td >{{isset($budget->quotation_date)?$budget->quotation_date:''}}</td>
-                                    <td class="pro-title">报价有效期限(天)</td>
-                                    <td >{{isset($budget->quotation_limit_day)?$budget->quotation_limit_day:''}}</td>
-                                    <td colspan="2"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="clearfix"></div>
-                            <table class="layui-table layui-form">
-                                <thead>
-                                <tr>
-                                    <th colspan="6"><span class="btn btn-info">建筑设计指标</span></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-
-                                <tr>
-                                    <td class="pro-title">建筑使用寿命(年)</td>
-                                    <td >{{isset($param->use_time)?$param->use_time:''}}</td>
-                                    <td class="pro-title">抗震设防烈度(度)</td>
-                                    <td >{{isset($param->seismic_grade)?$param->seismic_grade:''}}</td>
-                                    <td class="pro-title">屋面防水等级</td>
-                                    <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
-                                </tr>
-                                <tr>
-                                    <td class="pro-title">建筑耐火等级</td>
-                                    <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
-                                    <td class="pro-title">建筑隔声等级</td>
-                                    <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
-                                    <td class="pro-title">建筑节能标准(%)</td>
-                                    <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <div class="clearfix"></div>
-                            <table class="layui-table layui-form">
-                                <thead>
-                                <tr>
-                                    <th colspan="4"><span class="btn btn-info">建筑荷载设计指标</span></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-
-                                <tr>
-                                    <td class="pro-title">设计基本风压(kN/m²)</td>
-                                    <td >{{isset($param->basic_wind_pressure)?$param->basic_wind_pressure:''}}</td>
-                                    <td class="pro-title">设计基本雪压(kN/m²)</td>
-                                    <td >{{isset($param->basic_snow_pressure)?$param->basic_snow_pressure:''}}</td>
-                                </tr>
-                                <tr>
-                                    <td class="pro-title">屋面活载荷(kN/m²)</td>
-                                    <td >{{isset($param->roof_load)?$param->roof_load:''}}</td>
-                                    <td class="pro-title">楼面活载荷(kN/m²)</td>
-                                    <td >{{isset($param->floor_load)?$param->floor_load:''}}</td>
-                                </tr>
                                 </tbody>
                             </table>
                             <div class="clearfix"></div>
@@ -138,7 +81,7 @@
                                 <th >供应商</th>
                                 <th style="width:8%">单价</th>
                                 <th style="width:6%">合计</th>
-                                <th>限制采购次数</th>
+                                <th>设置采购次数</th>
                                 <th>操作</th>
                             </tr>
                             </thead>

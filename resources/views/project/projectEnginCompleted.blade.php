@@ -171,8 +171,6 @@
                     </div>
                 </div>
             </div>
-
-        </div>
     </div>
     <div class="right-sidebar">
         <div class="wrapper">

@@ -339,6 +339,8 @@ class PurchaseController extends WebController
                 $data['edit_uid'] = $uid;
                 $data['updated_at'] = $time;
                 DB::table('purchase_batch')->where('engin_id', $id)->where('id', $v)->update($data);
+                //更改关联材料表中的预算性质
+                DB::table('purchase_batch_relation_material')->where('engin_id', $id)->where('id', $v)->update(['deliver_properties' => $deliver_properties[$k]]);
             }
         }
         DB::commit();

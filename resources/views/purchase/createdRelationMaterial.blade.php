@@ -61,63 +61,6 @@
                                     <td class="pro-title">建筑高度(m)</td>
                                     <td >{{$engineering->build_height}}</td>
                                 </tr>
-                                <tr>
-                                    <td class="pro-title">报价日期</td>
-                                    <td >{{isset($budget->quotation_date)?$budget->quotation_date:''}}</td>
-                                    <td class="pro-title">报价有效期限(天)</td>
-                                    <td >{{isset($budget->quotation_limit_day)?$budget->quotation_limit_day:''}}</td>
-                                    <td colspan="2"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="clearfix"></div>
-                            <table class="layui-table layui-form">
-                                <thead>
-                                <tr>
-                                    <th colspan="6"><span class="btn btn-info">建筑设计指标</span></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-
-                                <tr>
-                                    <td class="pro-title">建筑使用寿命(年)</td>
-                                    <td >{{isset($param->use_time)?$param->use_time:''}}</td>
-                                    <td class="pro-title">抗震设防烈度(度)</td>
-                                    <td >{{isset($param->seismic_grade)?$param->seismic_grade:''}}</td>
-                                    <td class="pro-title">屋面防水等级</td>
-                                    <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
-                                </tr>
-                                <tr>
-                                    <td class="pro-title">建筑耐火等级</td>
-                                    <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
-                                    <td class="pro-title">建筑隔声等级</td>
-                                    <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
-                                    <td class="pro-title">建筑节能标准(%)</td>
-                                    <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <div class="clearfix"></div>
-                            <table class="layui-table layui-form">
-                                <thead>
-                                <tr>
-                                    <th colspan="4"><span class="btn btn-info">建筑荷载设计指标</span></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-
-                                <tr>
-                                    <td class="pro-title">设计基本风压(kN/m²)</td>
-                                    <td >{{isset($param->basic_wind_pressure)?$param->basic_wind_pressure:''}}</td>
-                                    <td class="pro-title">设计基本雪压(kN/m²)</td>
-                                    <td >{{isset($param->basic_snow_pressure)?$param->basic_snow_pressure:''}}</td>
-                                </tr>
-                                <tr>
-                                    <td class="pro-title">屋面活载荷(kN/m²)</td>
-                                    <td >{{isset($param->roof_load)?$param->roof_load:''}}</td>
-                                    <td class="pro-title">楼面活载荷(kN/m²)</td>
-                                    <td >{{isset($param->floor_load)?$param->floor_load:''}}</td>
-                                </tr>
                                 </tbody>
                             </table>
                             <div class="clearfix"></div>
@@ -139,8 +82,7 @@
                                 <th >供应商</th>
                                 <th style="width:8%">单价</th>
                                 <th style="width:6%">合计</th>
-                                <th>限制采购次数</th>
-                                <th>操作</th>
+                                <th>设置采购次数</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -151,21 +93,21 @@
                                 @if(isset($budget_item[$v->sub_arch_id]))
                                 @if($system_code != $v->system_code)
                                     <tr class="pro-title gradeX warning odd">
-                                        <td colspan="11">{{$v->system_name}}({{$v->engin_name}})</td>
+                                        <td colspan="10">{{$v->system_name}}({{$v->engin_name}})</td>
                                     </tr>
                                     @php( $system_code = $v->system_code)
                                 @endif
                                 <tr class="sub_arch_{{$v->sub_arch_id}} gradeA success odd">
-                                    <td  colspan="11"> &nbsp;&nbsp;&nbsp;<span class="btn btn-primary">{{$v->sub_system_name}}</span> <span style="color:#1d52f6">工况：{{$v->work_code}}</span> 编码：{{$v->sub_system_code}}</td>
+                                    <td  colspan="10"> &nbsp;&nbsp;&nbsp;<span class="btn btn-primary">{{$v->sub_system_name}}</span> <span style="color:#1d52f6">工况：{{$v->work_code}}</span> 编码：{{$v->sub_system_code}}</td>
 
                                 </tr>
                                     @foreach($budget_item[$v->sub_arch_id] as $mate)
                                         <tr class="materialList sub_arch_{{$mate->sub_arch_id}}" id="mater_{{$mate->id}}">
                                             <td class="sub_arch_material_{{$mate->sub_arch_id}}">
                                                 @if(isset($batch_material[$mate->id]))
-                                                <input type="checkbox" name="budget_item_id[{{$mate->id}}]"  id="material_id_{{$mate->id}}" checked="checked" class="notempty" value="{{$mate->id}}">
+                                                <input type="checkbox" name="budget_item_id[{{$mate->id}}]"  id="material_id_{{$mate->id}}" checked="checked" class="budget_item_id notempty" value="{{$mate->id}}">
                                                 @else
-                                                    <input type="checkbox" name="budget_item_id[{{$mate->id}}]"  id="material_id_{{$mate->id}}" class="notempty" value="{{$mate->id}}">
+                                                    <input type="checkbox" name="budget_item_id[{{$mate->id}}]"  id="material_id_{{$mate->id}}" class="budget_item_id  notempty" value="{{$mate->id}}">
                                                 @endif
                                             </td>
                                             <td>{{ $mate->material_name}}</td>
@@ -185,7 +127,7 @@
                                                     不限次数<input type="hidden" name="purchase_cishu[{{$mate->id}}]" value="{{$select_items[$mate->id]}}">
                                                 @endif
                                             @else
-                                                <select name="purchase_cishu[{{$mate->id}}]"  class="purchase_cishu notempty span12" onchange="changecolor(this,{{$mate->id}})" style="min-width: 80px">
+                                                <select name="purchase_cishu[{{$mate->id}}]" id="purchase_cishu_{{$mate->id}}" class="purchase_cishu notempty span12" onchange="changecolor(this,{{$mate->id}})" style="min-width: 80px">
                                                     <option value="0"></option>
                                                     <option value="1" @if(isset($batch_material[$mate->id]) && $batch_material[$mate->id]==1 )  selected="selected" @endif >采购1次</option>
                                                     <option value="2" @if(isset($batch_material[$mate->id]) && $batch_material[$mate->id]==2 )  selected="selected" @endif >采购2次</option>
@@ -201,7 +143,6 @@
                                                 </select>
                                             @endif
                                             </td>
-                                            <td><span class="btn btn-danger" onclick="deleteTrRow(this)">删除</span></td>
                                         </tr>
                                     @endforeach
                                 @endif
@@ -267,21 +208,18 @@
         function form_submit(){
             //$('input[type=checkbox]').prop('checked', 'checked');
             var sum=0;
-            $(".notempty").each(function(){
-                if($(this).val()){
-                }else{
-                    $(this).css('background','orange');
-                    sum=1;
+            obj = $('.budget_item_id');
+            for(k in obj){
+                if(obj[k].checked){
+                    itemid =obj[k].value;
+                    cishu = $('#purchase_cishu_'+itemid).val();
+                    if(cishu == 0 || cishu == ''){
+                        $('#purchase_cishu_'+itemid).css('background','orange');
+                        sum=1;
+                    }
+                    console.log(cishu);
                 }
-            });
-            $("select.notempty").each(function(){
-                console.log($(this).val());
-                if($(this).val() > 0){
-                }else{
-                    $(this).css('background','orange');
-                    sum=1;
-                }
-            });
+            }
 
             if(sum == 1){
                 showMsg('请将内容补充完全再提交')
