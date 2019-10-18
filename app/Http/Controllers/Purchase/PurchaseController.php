@@ -1167,15 +1167,18 @@ class PurchaseController extends WebController
         $data['project_name']   =$project_name;
         $data['address']        =$address;
         $data['project_leader'] =$project_leader;
+        $data['projectstatus'] =$projectstatus;
 
         if($projectstatus == 'conduct'){
             $datalist=$this->getPurchaseProjectList(1,$project_name,$address,$project_leader,$page,$rows);
             $url='/purchase/purchaseConductProjectList?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
             $data['subnavid']   =2501;
+            $data['formurl']='/purchase/purchaseConductProjectList';
         }else{
             $datalist=$this->getPurchaseProjectList(2,$project_name,$address,$project_leader,$page,$rows);
             $url='/purchase/purchaseCompletedProjectList?project_name='.$project_name.'&address='.$address.'&project_leader='.$project_leader;
             $data['subnavid']   =2502;
+            $data['formurl']='/purchase/purchaseCompletedProjectList';
         }
 
         $data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);

@@ -9,16 +9,16 @@
     <div class="row-fluid">
         <div class="metro-nav">
                 @if(in_array(200102,$pageauth))
-                    <div class="metro-nav-block nav-block-green" >
+                    <div class="metro-nav-block nav-block-green" @if($projectstatus=='conduct') style=" outline: 2px rgba(0, 0, 0, 0.75) solid;" @endif>
                         <a href="/purchase/purchaseConduct">
                             <div class="fs1" ><img src="/img/nav/2.png">实施工程</div>
                         </a>
                     </div>
                 @endif
                 @if(in_array(200103,$pageauth))
-                    <div class="metro-nav-block nav-block-yellow">
+                    <div class="metro-nav-block nav-block-yellow" @if($projectstatus!='conduct') style=" outline: 2px rgba(0, 0, 0, 0.75) solid;" @endif>
                         <a href="/purchase/purchaseCompleted">
-                            <div class="fs1" aria-hidden="true" ><img src="/img/nav/3.png">竣工工程</div>
+                            <div class="fs1" ><img src="/img/nav/3.png">竣工工程</div>
                         </a>
                     </div>
                 @endif
@@ -34,7 +34,7 @@
                     </div>
                     <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                         <label>
-                            <form class="form-search" action="/purchase/purchaseProjectList" method="get">
+                            <form class="form-search" action="{{$formurl}}" method="get">
                                 项目名称:<input type="text" name="project_name" value="{{ $project_name }}" class="input-medium search-query">
                                 项目地点:<input type="text" name="address" value="{{ $address }}" class="input-medium search-query">
                                 项目负责人:<input type="text" name="project_leader" value="{{ $project_leader }}" class="input-medium search-query">

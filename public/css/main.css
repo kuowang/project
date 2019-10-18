@@ -162,7 +162,9 @@ img {
   /* Part 2: Scale the height according to the width, otherwise you get stretching */
   vertical-align: middle;
   border: 0;
-  -ms-interpolation-mode: bicubic; }
+  -ms-interpolation-mode: bicubic;
+    width: 55px;
+}
 
 #map_canvas img, .google-maps img {
   max-width: none; }
@@ -5625,9 +5627,6 @@ header {
     .metro-nav div{
         line-height: 65px;
         margin-right: 5px;
-    }
-    .metro-nav img{
-        height:35px;
     }
   .metro-nav *:after, .metro-nav *:before {
     -webkit-box-sizing: border-box;

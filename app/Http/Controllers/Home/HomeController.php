@@ -47,7 +47,7 @@ class HomeController extends WebController
             }
         }
         $data['allNavList']=$this->getNavLaval(0);
-        return view('home.test',$data);
+        return view('home.homeIndex',$data);
 
     }
 

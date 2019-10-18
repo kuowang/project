@@ -80,7 +80,7 @@
 </head>
 <body>
 <header>
-    <a href="#" class="logo">
+    <a href="/home" class="logo">
         <img src="{{ config('app.project_logo') }}" alt="logo" />
     </a>
     <div class="btn-group">
@@ -113,7 +113,7 @@
 </style>
 <div class="container-fluid">
     <div class="dashboard-container">
-        <img src="/img/20190716103518.png" class="imggundong" style="">
+        <a href="/home"><img src="/img/20190716103518.png" class="imggundong" style=""></a>
         <div class="top-nav">
             <ul>
                 <li>
@@ -130,7 +130,7 @@
                         @else
                         <a href="{{ $item->url }}" >
                         @endif
-                        <div class="fs1" aria-hidden="true"  data-icon="{{ $item->icon }}"></div>
+                        <div class="fs1" ><img src="{{ $item->icon }}" style="width: 30%"></div>
                         {{ $item->name }}
                         </a>
                     </li>
