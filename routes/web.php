@@ -325,6 +325,12 @@ Route::group(['prefix' => 'finance','namespace' => 'Finance','middleware' => 'au
 });
 //项目施工的控制组
 Route::group(['prefix' => 'progress','namespace' => 'Progress','middleware' => 'auth'], function () {
-    Route::get('/progressConduct',                 'ProgressController@progressConduct');    //实施项目施工列表
+    Route::get('/progressConductProjectList',      'ProgressController@progressConductProjectList');    //实施项目施工列表
+    Route::get('/progressCompletedProjectList',    'ProgressController@progressCompletedProjectList');    //实施项目竣工列表
+
+    Route::get('/progressConduct/{id?}',                 'ProgressController@progressConduct');    //实施项目施工工程列表
+    Route::get('/progressCompleted/{id?}',               'ProgressController@progressCompleted');    //实施项目竣工工程列表
+
+
 
 });
