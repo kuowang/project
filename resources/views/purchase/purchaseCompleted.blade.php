@@ -69,7 +69,7 @@
                 <div class="widget">
                     <div class="widget-header">
                         <div class="title">
-                            实施工程<a id="dynamicTable"></a>
+                            竣工工程<a id="dynamicTable"></a>
                         </div>
                         <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                             <label>

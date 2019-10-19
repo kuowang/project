@@ -42,7 +42,7 @@
 
                 @if(in_array(200102,$pageauth))
                     <div class="metro-nav-block nav-block-green" >
-                        <a href="/purchase/purchaseConduct/{{$id}}">
+                        <a href="/progress/progressConduct/{{$id}}">
                             <div class="fs1"  ><img src="/img/nav/2.png">实施工程
                                 @if(isset($project)) ({{$project->conduct_count}})@endif
                             </div>
@@ -51,8 +51,8 @@
                 @endif
                 @if(in_array(200103,$pageauth))
                     <div class="metro-nav-block nav-block-yellow" style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
-                        <a href="/purchase/purchaseCompleted/{{$id}}">
-                            <div class="fs1" aria-hidden="true" ><img src="/img/nav/2.png">竣工工程
+                        <a href="/progress/progressCompleted/{{$id}}">
+                            <div class="fs1" aria-hidden="true" ><img src="/img/nav/3.png">竣工工程
                                 @if(isset($project)) ({{$project->completed_count}})@endif
                             </div>
                         </a>
@@ -69,14 +69,14 @@
                 <div class="widget">
                     <div class="widget-header">
                         <div class="title">
-                            实施工程<a id="dynamicTable"></a>
+                            竣工工程<a id="dynamicTable"></a>
                         </div>
                         <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                             <label>
-                                <form class="form-search" action="/purchase/purchaseCompleted" method="get">
+                                <form class="form-search" action="/purchase/purchaseConduct" method="get">
                                     项目名称:<input type="text" name="project_name" value="{{ $project_name }}" class="input-medium search-query">
                                     工程名称:<input type="text" name="engineering_name" value="{{ $engineering_name }}" class="input-medium search-query">
-                                    采购负责人:<input type="text" name="purchase_username" value="{{ $purchase_username }}" class="input-medium search-query">
+                                    采购负责人:<input type="text" name="progress_username" value="{{ $progress_username }}" class="input-medium search-query">
                                     <button type="submit" class="btn">搜索</button>
                                 </form>
                             </label>
@@ -92,12 +92,12 @@
                                     <th>项目名称</th>
                                     <th>工程名称</th>
                                     <th>建筑面积(m²)</th>
+                                    <th>建筑数量(栋)</th>
                                     <th>合同编号</th>
-                                    <th>采购负责人</th>
-                                    <th>采购状态</th>
-                                    <th>物流状态</th>
-                                    <th colspan="3">采购管理</th>
-
+                                    <th>施工负责人</th>
+                                    <th>施工状态</th>
+                                    <th>进度状态</th>
+                                    <th colspan="3">施工安装管理</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -107,47 +107,48 @@
                                         <td >{{ $val->project_name }}</td>
                                         <td>{{ $val->engineering_name }}</td>
                                         <td>{{ $val->build_area }}</td>
+                                        <td>{{ $val->build_number }}</td>
 
                                         <td>{{ $val->contract_code }}</td>
-                                        <td>{{$val->purchase_username}}</td>
+                                        <td>{{$val->progress_username}}</td>
                                         <td>
-                                            @if($val->purchase_status == 0)<span class="btn btn-danger">未采购</span>
-                                            @elseif($val->purchase_status == 1)<span class="btn btn-success">采购中</span>
-                                            @elseif($val->purchase_status == 2)<span class="btn btn-info">采购完</span>
+                                            @if($val->build_status == 0)<span class="btn btn-danger">未施工</span>
+                                            @elseif($val->build_status == 1)<span class="btn btn-success">施工中</span>
+                                            @elseif($val->build_status == 2)<span class="btn btn-info">竣工验收</span>
                                             @endif
                                         </td>
                                         <td>
-                                            @if($val->logistics_status == 0)<span class="btn btn-danger">未发货</span>
-                                            @elseif($val->logistics_status == 1)<span class="btn btn-success">运输中</span>
-                                            @elseif($val->logistics_status == 2)<span class="btn btn-info">已到达</span>
+                                            @if($val->progress_status == 2)<span class="btn btn-danger">延期</span>
+                                            @elseif($val->progress_status == 1)<span class="btn btn-success">正常</span>
                                             @endif
                                         </td>
-                                        <td>@if($val->budget_id != 0 && ((in_array(250202,$pageauth) && $val->purchase_uid == $uid ) || in_array(250202,$manageauth)))
-                                                <a href="/purchase/purchaseCompletedBatchManage/{{$val->engin_id}}">
-                                                    <div class="btn btn-success"> 批次管理 </div>
-                                                </a>
-                                              @else
-                                                批次管理
-                                            @endif</td>
-                                        <td>
-                                            @if($val->batch_status ==1 && ((in_array(250203,$pageauth) && $val->purchase_uid == $uid ) || in_array(250203,$manageauth)))
-                                                <a href="/purchase/purchaseCompletedOrderManage/{{$val->engin_id}}">
-                                                <div class="btn btn-success">订单管理</div>
+                                        <td>@if(!empty($val->progress_id) && $val->budget_id != 0 && ((in_array(250102,$pageauth) && $val->progress_uid == $uid ) || in_array(250102,$manageauth)))
+                                                <a href="/purchase/purchaseBatchManage/{{$val->engin_id}}">
+                                                    <div class="btn btn-success"> 施工组织统筹计划 </div>
                                                 </a>
                                             @else
-                                                订单管理
+                                                施工组织统筹计划
+                                            @endif</td>
+                                        <td>
+                                            @if($val->arrange_status ==1 && ((in_array(250103,$pageauth) && $val->progress_uid == $uid ) || in_array(250103,$manageauth)))
+                                                <a href="/purchase/purchaseOrderManage/{{$val->engin_id}}">
+                                                    <div class="btn btn-success">现场材料管理</div>
+                                                </a>
+                                            @else
+                                                现场材料管理
                                             @endif
 
                                         </td>
                                         <td>
-                                            @if($val->batch_status ==1 && ((in_array(250204,$pageauth) && $val->purchase_uid == $uid ) || in_array(250204,$manageauth)))
-                                                <a href="/purchase/purchaseCompletedLogisticsManage/{{$val->engin_id}}">
-                                                    <div class="btn btn-success">物流管理</div>
+                                            @if($val->arrange_status ==1 && ((in_array(250104,$pageauth) && $val->progress_uid == $uid ) || in_array(250104,$manageauth)))
+                                                <a href="/purchase/purchaseLogisticsManage/{{$val->engin_id}}">
+                                                    <div class="btn btn-success">施工进度管理</div>
                                                 </a>
                                             @else
-                                                物流管理
+                                                施工进度管理
                                             @endif
                                         </td>
+
                                     </tr>
                                 @endforeach
                                 </tbody>

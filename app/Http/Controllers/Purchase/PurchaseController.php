@@ -243,7 +243,7 @@ class PurchaseController extends WebController
             ];
             DB::table('purchase')->where('engin_id',$id)->update($data);
         }
-        if($purchase_uid !=0 && in_array(250105,$this->user()->manageauth)){
+        if($purchase_uid !=0){
             $purchase_username =DB::table('users')->where('id',$purchase_uid)->value('name');
             DB::table('engineering')->where('id',$id)
                 ->update(['purchase_uid'=>$purchase_uid,'purchase_username'=>$purchase_username]);

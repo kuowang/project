@@ -331,6 +331,10 @@ Route::group(['prefix' => 'progress','namespace' => 'Progress','middleware' => '
     Route::get('/progressConduct/{id?}',                 'ProgressController@progressConduct');    //实施项目施工工程列表
     Route::get('/progressCompleted/{id?}',               'ProgressController@progressCompleted');    //实施项目竣工工程列表
 
+    Route::get('/editProgress/{id}',                'ProgressController@editProgress');    //指定施工安装负责人
+    Route::post('/postEditProgress/{id}',                'ProgressController@postEditProgress');    //指定施工安装负责人
+    Route::post('/updateProjectStatus/{id}',    'ProgressController@updateProjectStatus');    //更改项目状态
+
 
 
 });

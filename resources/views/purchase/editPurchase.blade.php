@@ -108,7 +108,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>物流状态状态</td>
+                                        <td>物流状态</td>
                                         <td><select name="logistics_status" id="logistics_status" class="input-medium span8" style="min-width: 80px">
                                                 @if($purchase->logistics_status ==0) <option value="0" selected="selected">未发货 </option> @else <option value="0" >未发货 </option> @endif
                                                 @if($purchase->logistics_status ==1) <option value="1" selected="selected">运输中</option> @else <option value="1" >运输中</option> @endif
