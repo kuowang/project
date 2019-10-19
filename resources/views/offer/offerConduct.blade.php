@@ -112,9 +112,10 @@
                                     <th>项目名称</th>
                                     <th>工程名称</th>
                                     <th>建筑面积(m²)</th>
+                                    <th>建筑数量(栋)</th>
                                     <th>预算金额(万元)</th>
                                     <th>报价金额(万元)</th>
-                                    <th>毛利润（万元）</th>
+                                    <th>毛利润(万元)</th>
                                     <th>毛利率(%)</th>
                                     <th>预算负责人</th>
                                     <th>报价状态</th>
@@ -135,6 +136,7 @@
                                         <td >{{ $val->project_name }}</td>
                                         <td>{{ $val->engineering_name }}</td>
                                         <td>{{ $val->build_area }}</td>
+                                        <td>{{ $val->build_number }}</td>
 
                                         <td>{{ empty($val->total_budget_price)?'':round($val->total_budget_price/10000,2) }}</td>
                                         <td>{{ empty($val->total_offer_price)?'':round($val->total_offer_price/10000,2) }}</td>
@@ -197,6 +199,8 @@
                             <div style="margin: 10px">
                                 <div>1、毛利润=报价金额 - 预算金额</div>
                                 <div>2、毛利率=(报价金额 - 预算金额)\报价金额 * 100</div>
+                                <div>3、预算金额、报价金额、毛利额均是单栋建筑的金额</div>
+
                             </div>
                             <div class="clearfix"></div>
                         </div>

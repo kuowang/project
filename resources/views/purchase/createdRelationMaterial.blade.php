@@ -30,7 +30,12 @@
             <div class="widget">
                 <div class="widget-header" >
                     <div class="title">
-                        首页
+                        <span class="btn btn-info">采购批次关联材料</span>
+                        @if($batchInfo->deliver_properties ==1)
+                            <span class="btn btn-primary">预算内</span>
+                        @else
+                            <span class="btn btn-danger">预算外</span>
+                        @endif
                     </div>
                     <span class="tools">
                                   <a class="fs1" aria-hidden="true" data-icon="&#xe090;"></a>
@@ -64,8 +69,8 @@
                                     <td >{{$engineering->build_area}}</td>
                                     <td class="pro-title">建筑楼层(层数)</td>
                                     <td >{{$engineering->build_floor}}</td>
-                                    <td class="pro-title">建筑高度(m)</td>
-                                    <td >{{$engineering->build_height}}</td>
+                                    <td class="pro-title">建筑数量(栋)</td>
+                                    <td >{{$engineering->build_number}}</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -83,11 +88,11 @@
                                 <th style="width:15%">材料名称</th>
                                 <th style="width:15%">规格特性要求</th>
                                 <th style="width:6%">预算单位</th>
-                                <th style="width:8%">工程量(实际)</th>
+                                <th style="width:8%">工程量(实际)(单栋)</th>
                                 <th style="width:14%">品牌</th>
                                 <th >供应商</th>
-                                <th style="width:8%">单价</th>
-                                <th style="width:6%">合计</th>
+                                <th style="width:8%">建筑数量</th>
+                                <th style="width:6%">工程量合计</th>
                                 <th>设置采购次数</th>
                             </tr>
                             </thead>
@@ -123,14 +128,16 @@
                                             <td>{{ number_format($mate->engineering_quantity, 2, '.', '') }}</td>
                                             <td>{{ $mate->brand_name}}</td>
                                             <td>{{$mate->supplier}}</td>
-                                            <td>{{ number_format($mate->budget_price, 2, '.', '') }}</td>
-                                            <td>{{ number_format($mate->total_material_price, 2, '.', '') }}</td>
+                                            <td>{{ $engineering->build_number }}</td>
+                                            <td>{{ number_format($mate->engineering_quantity * $engineering->build_number, 2, '.', '') }}</td>
                                             <td>
-                                            @if(isset($select_items[$mate->id]))
-                                                @if($select_items[$mate->id] <=10)
-                                                    采购{{$select_items[$mate->id]}}次<input type="hidden" name="purchase_cishu[{{$mate->id}}]" value="{{$select_items[$mate->id]}}">
+                                            @if(isset($select_items[$mate->id]) && $batchInfo->deliver_properties ==1)
+                                                @if($select_items[$mate->id]['cishu'] <=10)
+                                                    采购{{$select_items[$mate->id]['cishu']}}次<input type="hidden" name="purchase_cishu[{{$mate->id}}]" value="{{$select_items[$mate->id]['cishu']}}">
+                                                (已购{{$select_items[$mate->id]['purchase_count']}}次)
                                                 @else
-                                                    不限次数<input type="hidden" name="purchase_cishu[{{$mate->id}}]" value="{{$select_items[$mate->id]}}">
+                                                    不限次数<input type="hidden" name="purchase_cishu[{{$mate->id}}]" value="{{$select_items[$mate->id]['cishu']}}">
+                                                (已购{{$select_items[$mate->id]['purchase_count']}}次)
                                                 @endif
                                             @else
                                                 <select name="purchase_cishu[{{$mate->id}}]" id="purchase_cishu_{{$mate->id}}" class="purchase_cishu notempty span12" onchange="changecolor(this,{{$mate->id}})" style="min-width: 80px">

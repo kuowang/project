@@ -64,8 +64,8 @@
                                 <td >{{isset($offer->quotation_date)?$offer->quotation_date:''}}</td>
                                 <td class="pro-title">报价有效期限(天)</td>
                                 <td >{{isset($offer->quotation_limit_day)?$offer->quotation_limit_day:''}}</td>
-                                <td colspan="2"></td>
-                            </tr>
+                                <td class="pro-title">建筑数量(栋)</td>
+                                <td>{{$engineering->build_number}}</td>                            </tr>
                             </tbody>
                         </table>
                         <div class="clearfix"></div>

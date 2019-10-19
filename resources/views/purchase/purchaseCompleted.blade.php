@@ -92,6 +92,7 @@
                                     <th>项目名称</th>
                                     <th>工程名称</th>
                                     <th>建筑面积(m²)</th>
+                                    <th>建筑数量(栋)</th>
                                     <th>合同编号</th>
                                     <th>采购负责人</th>
                                     <th>采购状态</th>
@@ -107,6 +108,7 @@
                                         <td >{{ $val->project_name }}</td>
                                         <td>{{ $val->engineering_name }}</td>
                                         <td>{{ $val->build_area }}</td>
+                                        <td>{{ $val->build_number }}</td>
 
                                         <td>{{ $val->contract_code }}</td>
                                         <td>{{$val->purchase_username}}</td>

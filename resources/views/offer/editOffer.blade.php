@@ -67,7 +67,8 @@
                                     <td ><input type="text" name="quotation_date" id="quotation_date" value="{{isset($offer->quotation_date)?$offer->quotation_date:''}}"  lay-skin="primary" class="notempty span8"></td>
                                     <td class="pro-title">报价有效期限(天)</td>
                                     <td ><input type="text" name="quotation_limit_day" id="quotation_limit_day" value="{{isset($offer->quotation_limit_day)?$offer->quotation_limit_day:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
-                                    <td colspan="2"></td>
+                                    <td class="pro-title">建筑数量(栋)</td>
+                                    <td>{{$engineering->build_number}}</td>
                                 </tr>
                                 </tbody>
                             </table>

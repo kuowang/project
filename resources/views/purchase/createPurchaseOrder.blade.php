@@ -50,7 +50,7 @@
                                     <td class="pro-title">采购批次</td>
                                     <td >{{$batchinfo->purchase_number}}</td>
                                     <td class="pro-title">发货性质</td>
-                                    <td >{{$batchinfo->deliver_properties}}</td>
+                                    <td >@if($batchinfo->deliver_properties ==1) 预算内 @else 预算外 @endif</td>
                                     <td  class="pro-title">下单日期</td>
                                     <td ><input type="text" name="order_created_date"   id="order_created_date" class="span12 notempty" ></td>
                                     <td class="pro-title">计划到达时间</td>
@@ -170,13 +170,14 @@
                                     <th>材料名称</th>
                                     <th>规格特性要求</th>
                                     <th>采购单位</th>
-                                    <th>预算工程量</th>
+                                    <th>预算工程量(单栋)</th>
+                                    <th>预算工程量(合计)</th>
                                     <th>品牌</th>
-                                    <th>单价</th>
-                                    <th>采购总价</th>
-                                    <th>已采购</th>
-                                    <th>待采购</th>
-                                    <th>本次采购</th>
+                                    <th>单价(元)</th>
+                                    <th>采购总价(元)</th>
+                                    <th>已采购工程量</th>
+                                    <th>待采购工程量</th>
+                                    <th style="width: 100px">本次采购</th>
                                     <th>本次采购合计</th>
                                     <th>状态</th>
                                 </thead>
@@ -188,12 +189,12 @@
                                 @foreach($engin_system as $v)
                                     @if($system_code != $v->system_code)
                                         <tr class="pro-title gradeX warning odd">
-                                            <td colspan="13">{{$v->system_name}}({{$v->engin_name}})</td>
+                                            <td colspan="14">{{$v->system_name}}({{$v->engin_name}})</td>
                                         </tr>
                                         @php( $system_code = $v->system_code)
                                     @endif
                                     <tr class="sub_arch_{{$v->sub_arch_id}} gradeA success odd">
-                                        <td  colspan="13"> &nbsp;&nbsp;&nbsp;<span class="btn btn-info">{{$v->sub_system_name}}</span> <span style="color:#1d52f6">工况：{{$v->work_code}}</span> 编码：{{$v->sub_system_code}}</td>
+                                        <td  colspan="14"> &nbsp;&nbsp;&nbsp;<span class="btn btn-info">{{$v->sub_system_name}}</span> <span style="color:#1d52f6">工况：{{$v->work_code}}</span> 编码：{{$v->sub_system_code}}</td>
                                     </tr>
                                 @endforeach
 
@@ -294,6 +295,7 @@
             str +='<td>'+item.characteristic+'</td>'
             str +='<td>'+item.purchase_unit+'</td>'
             str +='<td>'+item.engineering_quantity+'</td>'
+            str +='<td>'+item.total_engineering_quantity+'</td>'
             str +='<td>'+item.brand_name+'</td>'
             str +='<td>'+item.purchase_unit_price+'<input type="hidden" id="purchase_price_'+item.id+'" name="purchase_unit_price[]" value="'+item.purchase_unit_price+'"></td>'
             str +='<td>'+(item.total_purchase_price)+'</td>'
@@ -303,7 +305,7 @@
             str +='<td id="actual_total_fee_'+item.id+'"></td>'
             if(item.already_purchased_quantity == 0){
                 str +='<td><span class="btn btn-danger">未下单</span></td>'
-            }else if(item.already_purchased_quantity == item.engineering_quantity){
+            }else if(item.already_purchased_quantity == item.total_engineering_quantity){
                 str +='<td><span class="btn btn-success">已完成</span></td>'
             }else{
                 str +='<td><span class="btn btn-info">剩余下单</span></td>'

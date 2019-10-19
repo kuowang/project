@@ -135,7 +135,7 @@ class OfferController extends WebController
                 'budget.id as budget_id','budget.profit_ratio as budget_profit_ratio',
                 'budget.profit as budget_profit','budget.tax_ratio as budget_tax_ratio','budget.tax as budget_tax',
                 'offer.profit_ratio as offer_profit_ratio','offer.profit as offer_profit','offer.tax_ratio as offer_tax_ratio','offer.tax as offer_tax',
-                'offer.id as offer_id','offer.total_offer_price','offer.offer_status','offer_order_number'])
+                'offer.id as offer_id','offer.total_offer_price','offer.offer_status','offer_order_number','build_number'])
             ->skip(($page-1)*$rows)
             ->take($rows)
             ->get();

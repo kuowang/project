@@ -54,8 +54,8 @@
                                             <td >{{$engineering->build_area}}</td>
                                             <td class="pro-title">建筑楼层(层数)</td>
                                             <td >{{$engineering->build_floor}}</td>
-                                            <td class="pro-title">建筑高度(m)</td>
-                                            <td >{{$engineering->build_height}}</td>
+                                            <td class="pro-title">建筑数量(栋)</td>
+                                            <td >{{$engineering->build_number}}</td>
                                         </tr>
                                         <tr>
                                             <td class="pro-title">场地自然条件</td>

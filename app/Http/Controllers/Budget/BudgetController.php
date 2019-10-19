@@ -132,7 +132,7 @@ class BudgetController extends WebController
             ->select(['project.project_name','engineering.project_id','engineering.id as engin_id',
                 'engineering.engineering_name','build_area','engin_build_area','budget.total_budget_price','budget.budget_order_number',
                 'engineering.budget_uid','engineering.budget_username','budget.budget_status',
-                'is_conf_architectural','budget.id as budget_id','is_conf_param'])
+                'is_conf_architectural','budget.id as budget_id','is_conf_param','build_number'])
             ->skip(($page-1)*$rows)
             ->take($rows)
             ->get();

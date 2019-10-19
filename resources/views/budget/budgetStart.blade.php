@@ -107,7 +107,9 @@
                                 <th>项目名称</th>
                                 <th>工程名称</th>
                                 <th>建筑面积(m²)</th>
-                                <th>预算金额(元)</th>
+                                <th>建筑数量</th>
+                                <th>预算金额(元)(单栋)</th>
+                                <th>预算金额(元)(合计)</th>
                                 <th>预算单编号</th>
                                 <th>预算负责人</th>
                                 <th>预算状态</th>
@@ -126,8 +128,10 @@
                                     <td >{{ $val->project_name }}</td>
                                     <td>{{ $val->engineering_name }}</td>
                                     <td>{{ $val->build_area }}</td>
+                                    <td>{{ $val->build_number }}</td>
+                                    <td>{{ round($val->total_budget_price,2) }}</td>
+                                    <td>{{ round($val->total_budget_price*$val->build_number,2) }}</td>
 
-                                    <td>{{ $val->total_budget_price }}</td>
                                     <td>{{ $val->budget_order_number }}</td>
                                     <td>{{ $val->budget_username }}</td>
                                     @if(empty($val->budget_order_number))

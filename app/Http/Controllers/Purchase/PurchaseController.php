@@ -56,7 +56,7 @@ class PurchaseController extends WebController
             ->select(['project.project_name','project.budget_uid','project.budget_username','engineering.purchase_uid','engineering.purchase_username','is_conf_architectural',
                 'engineering.project_id','engineering.id as engin_id', 'engineering.engineering_name','engineering.budget_id',
                 'build_area', 'engineering.status as engin_status', 'contract_code',
-                'purchase_status','logistics_status','batch_status','purchase.remark'
+                'purchase_status','logistics_status','batch_status','purchase.remark','build_number'
             ])
             ->skip(($page-1)*$rows)
             ->take($rows)
@@ -116,7 +116,7 @@ class PurchaseController extends WebController
             ->select(['project.project_name','project.budget_uid','project.budget_username','engineering.purchase_uid','engineering.purchase_username','is_conf_architectural',
                 'engineering.project_id','engineering.id as engin_id', 'engineering.engineering_name','engineering.budget_id',
                 'build_area', 'engineering.status as engin_status', 'contract_code',
-                'purchase_status','logistics_status','batch_status','purchase.remark'
+                'purchase_status','logistics_status','batch_status','purchase.remark','build_number'
             ])
             ->skip(($page-1)*$rows)
             ->take($rows)
@@ -414,10 +414,11 @@ class PurchaseController extends WebController
         //获取预算中的供应商信息
         $data['supplierList'] = DB::table('budget_item')
             ->join('purchase_batch_relation_material','purchase_batch_relation_material.budget_item_id','=','budget_item.id')
+            ->join('supplier','supplier.id','=','supplier_id')
             ->where('purchase_batch_relation_material.engin_id',$batchinfo->engin_id)
             ->where('purchase_batch_relation_material.budget_id',$engineering->budget_id)
             ->orderby('supplier')
-            ->pluck('supplier','supplier_id');
+            ->pluck('supplier.supplier','supplier_id');
 
         $data['engin_system']=DB::table('enginnering_architectural')
             ->where('engin_id',$batchinfo->engin_id)
@@ -485,19 +486,20 @@ class PurchaseController extends WebController
             ->wherein('budget_item_id',$itemids)
             ->where('engin_id',$batchinfo->engin_id)
             ->pluck('actual_purchase_quantity','budget_item_id');
-
+        //获取采购量 已采购 未采购
         foreach($budgetitem as &$list){
-            $list->total_purchase_price = round($list->engineering_quantity * $list->purchase_unit_price,2); //采购总金额
+            $list->total_engineering_quantity =round($list->engineering_quantity* $engineering->build_number,2);
+            $list->total_purchase_price = round($list->total_engineering_quantity * $list->purchase_unit_price,2); //采购总金额
             if(isset($purchaselist[$list->id])){
                 $list->already_purchased_quantity = $purchaselist[$list->id];
-                if($list->engineering_quantity - $purchaselist[$list->id] < 0){
+                if($list->total_engineering_quantity - $purchaselist[$list->id] < 0){
                     $list->wait_purchased_quantity = 0;
                 }else{
-                    $list->wait_purchased_quantity = $list->engineering_quantity - $purchaselist[$list->id];
+                    $list->wait_purchased_quantity = $list->total_engineering_quantity - $purchaselist[$list->id];
                 }
             }else{
                 $list->already_purchased_quantity =0;
-                $list->wait_purchased_quantity =$list->engineering_quantity;
+                $list->wait_purchased_quantity =$list->total_engineering_quantity;
             }
         }
         return $this->success($data);
@@ -1233,6 +1235,7 @@ class PurchaseController extends WebController
         $data = $this->purchaseRelationMaterial( $request,$batchid,1);
         return view('purchase.purchaseRelationMaterialDetail',$data);
     }
+    //编辑关联材料信息
     public function createdRelationMaterial(Request $request,$batchid){
         $data= $this->purchaseRelationMaterial( $request,$batchid,2);
         return view('purchase.createdRelationMaterial',$data);
@@ -1247,6 +1250,7 @@ class PurchaseController extends WebController
         }
         $data['batchid']=$batchid;
         $id=$batchInfo->engin_id;
+        $data['batchInfo']=$batchInfo;
         $data['navid']      =25;
         $data['subnavid']   =2501;
         //项目子工程
@@ -1292,14 +1296,16 @@ class PurchaseController extends WebController
             if($relationmate){
                 foreach($relationmate as $va){
                     //获取已经采购完的材料信息
-                    if($va->purchase_count >=$va->cishu){
+                    if($va->purchase_count >= $va->cishu){
                         $selecteditems[]=$va->budget_item_id;
                     }else{ //获取部分采购的材料信息
-                        $select_items[$va->budget_item_id]=$va->cishu;
+                        $select_items[$va->budget_item_id]['cishu']=$va->cishu;
+                        $select_items[$va->budget_item_id]['purchase_count']=$va->purchase_count;
                     }
                 }
             }
-            if(empty($selecteditems)){
+            //预算外 或者没有关联过材料
+            if(empty($selecteditems) || $batchInfo->deliver_properties == 2){
                 //预算详情
                 $budget_item =DB::table('budget_item')
                     ->where('budget_id',$budget->id)->get();

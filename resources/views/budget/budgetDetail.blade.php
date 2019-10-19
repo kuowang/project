@@ -73,7 +73,8 @@
                                 <td >{{isset($budget->quotation_date)?$budget->quotation_date:''}}</td>
                                 <td class="pro-title">报价有效期限(天)</td>
                                 <td >{{isset($budget->quotation_limit_day)?$budget->quotation_limit_day:''}}</td>
-                                <td colspan="2"></td>
+                                <td class="pro-title">建筑数量(栋)</td>
+                                <td>{{$engineering->build_number}}</td>
                             </tr>
                             </tbody>
                         </table>
