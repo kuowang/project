@@ -28,8 +28,14 @@
         <div class="span12">
 
             <div class="widget">
-                <div class="widget-header" style="text-align: center">
-                    <div  style="font-size: 16px;" >
+                <div class="widget-header" >
+                    <div class="title">
+                        首页
+                    </div>
+                    <span class="tools">
+                                  <a class="fs1" aria-hidden="true" data-icon="&#xe090;"></a>
+                                </span>
+                    <div  style="font-size: 16px;     text-align: center;" >
                         <b>{{$project->project_name}}</b>
                     </div>
                 </div>
