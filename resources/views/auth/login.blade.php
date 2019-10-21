@@ -28,13 +28,14 @@
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
                                     @endif
-
                                 </div>
 
                                 <button class="myapp-login-button am-btn am-btn-secondary" type="submit"> 登      录</button>
                             </fieldset>
                         </form>
-                        <div id="footerinfo">公司名称电话号码：123123123</div>
+                        <div id="footerinfo">{{ config('app.project_logo_foot_info') }}
+                            {{ config('app.project_logo_foot_telphone') }}
+                        </div>
 
                     </div>
 

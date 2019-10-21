@@ -17,9 +17,14 @@ Auth::routes();
 Route::get('/',                     'Home\HomeController@index'); //首页地址
 
 //Route::get('/home', 'HomeController@index');
-//测试
+//个人中心
 Route::group(['namespace' => 'Home','middleware' => 'auth'], function () {
-    Route::get('/home', 'HomeController@index');
+    Route::get('/home',                         'HomeController@index'); //个人首页
+
+    Route::get('/editHomeUserInfo',             'HomeController@editHomeUserInfo');           //编辑用户个人信息
+    Route::post('/postHomeUserInfo',             'HomeController@postHomeUserInfo');           //保存到用户个人信息
+    Route::post('/uploadUserImage',             'HomeController@uploadUserImage');           //保存用户头像
+
 });
 
 //角色类的控制组 需要登录

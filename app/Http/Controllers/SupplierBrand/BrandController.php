@@ -169,7 +169,7 @@ class BrandController extends WebController
                 $dir="./img/brand_logo/";
                 $filename =md5(time().$_FILES["file"]["name"]);
                 //转码，把utf-8转成gb2312,返回转换后的字符串， 或者在失败时返回 FALSE。
-                $filename =iconv("UTF-8","gb2312",$filename);
+                $filename =iconv("UTF-8","gb2312",$filename).'.png';
                 //检查文件或目录是否存在
                 if(file_exists($dir.$filename))
                 {
