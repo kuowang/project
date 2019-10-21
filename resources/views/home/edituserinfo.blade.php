@@ -37,7 +37,7 @@
                 <div class="widget">
                     <div class="widget-header">
                         <div class="title">
-                            编辑个人信息
+                            用户信息
                             <span class="mini-title">
                        &nbsp;
                       </span>

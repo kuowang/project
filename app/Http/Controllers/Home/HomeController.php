@@ -69,7 +69,7 @@ class HomeController extends WebController
     public function editHomeUserInfo(Request $request){
         //用户权限部分
         $this->user();
-        $data['navid']      =0;
+        $data['navid']      = -1;
         $data['subnavid']   =0;
         $data['status']=$request->input('status',0); //1成功 2失败
         $data['notice']=$request->input('notice','成功'); //提示信息
