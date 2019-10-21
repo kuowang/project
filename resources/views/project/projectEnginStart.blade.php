@@ -131,7 +131,13 @@
                                     <td>{{ $k+1 }}</td>
                                     <td>{{$val->project_name}}</td>
                                     <td>{{ $val->engineering_name }}</td>
-                                    <td>{{$val->engin_address}}</td>
+                                    <td>
+                                        @if (strlen($val->engin_address) > 10)
+                                            {{mb_substr($val->engin_address,0,10)}} ...
+                                        @else
+                                            {{$val->engin_address}}
+                                        @endif
+                                    </td>
                                     <td>{{ $val->build_area }}</td>
                                     <td>{{ $val->build_floor }}</td>
                                     <td>{{$val->build_number}}</td>

@@ -417,6 +417,7 @@ class PurchaseController extends WebController
             ->join('supplier','supplier.id','=','supplier_id')
             ->where('purchase_batch_relation_material.engin_id',$batchinfo->engin_id)
             ->where('purchase_batch_relation_material.budget_id',$engineering->budget_id)
+            ->where('batch_id',$id)
             ->orderby('supplier')
             ->pluck('supplier.supplier','supplier_id');
 
