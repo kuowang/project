@@ -83,6 +83,24 @@
                                 </div>
                             </div>
                             <div class="control-group">
+                                <label class="control-label" for="telphone">
+                                    手机号:
+                                </label>
+                                <div class="controls">
+                                    <input type="text" name="telphone" id="telphone" class="span6" placeholder="135********">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="position">
+                                    职位:
+                                </label>
+                                <div class="controls">
+                                    <input type="text" name="position" id="position" class="span6" placeholder="项目经理">
+                                </div>
+                            </div>
+
+
+                            <div class="control-group">
                                 <label class="control-label" for="role">
                                     部门:
                                 </label>
@@ -109,14 +127,18 @@
                                     @endforeach
                                 </div>
                             </div>
-                            <div class="form-actions no-margin">
-                                <button type="submit" class="btn btn-success pull-right">
-                                    创建用户
-                                </button>
-                                <div class="clearfix">
-                                </div>
+                            <div class="clearfix"></div>
+                            <div class="layui-form-item" style="float: right;clear: left;margin: auto 20px">
+                                <label for="L_repass" class="layui-form-label"></label>
+                                <button class="btn btn-success" lay-filter="add" type="submit" lay-submit="" >确认/保存</button>
                             </div>
-
+                            <div class="layui-form-item" style="float: right;clear: left">
+                                <a href="javascript:history.go(-1)">
+                                    <label for="L_repass" class="layui-form-label"></label>
+                                    <span class="btn btn-success" lay-filter="add" lay-submit="">返回/取消</span>
+                                </a>
+                            </div>
+                            <div class="clearfix"></div>
                         </form>
 
                     </div>

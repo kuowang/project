@@ -123,6 +123,8 @@ class UserRoleController extends WebController
         $checkpwd =$request->input('repPassword','');
         $roleid =$request->input('roleid',[]);
         $department_id =(int)$request->input('department',0);
+        $telphone =$request->input('telphone','');
+        $position =$request->input('position','');
 
 
         if((empty($pwd) || empty($checkpwd))){
@@ -149,6 +151,8 @@ class UserRoleController extends WebController
             'updated_at'=>date('Y-m-d H:i:s'),
             'department_id'=>$department_id,
             'status'=>0,
+            'position'=>$position,
+            'telephone'=>$telphone,
         ];
 
         $id =DB::table('users')->insertGetId($data);
@@ -189,6 +193,9 @@ class UserRoleController extends WebController
         $checkpwd =$request->input('repPassword','');
         $roleid =$request->input('roleid',[]);
         $department_id =(int)$request->input('department',0);
+        $telphone =$request->input('telphone','');
+        $position =$request->input('position','');
+
 
         if($pwd != $checkpwd){
             return redirect('admin/edit_user_info/'.$id.'?status=2&notice='.'两次密码不一致');
@@ -208,6 +215,8 @@ class UserRoleController extends WebController
             'updated_at'=>date('Y-m-d H:i:s'),
             'status'=>0,
             'department_id'=>$department_id,
+            'position'=>$position,
+            'telephone'=>$telphone,
         ];
         if(!empty($pwd)){
             $data['password'] =bcrypt($pwd);

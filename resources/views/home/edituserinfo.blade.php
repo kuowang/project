@@ -59,7 +59,7 @@
                             </div>
                             <div class="control-group">
                                 <label class="control-label" for="name">
-                                    姓名:
+                                    用户名:
                                 </label>
                                 <div class=" control-label"style="text-align: left;padding-left: 20px;">
                                     {{ $user->name }}
@@ -107,6 +107,23 @@
 
 
                             <div class="control-group">
+                                <label class="control-label" for="name">
+                                    手机号:
+                                </label>
+                                <div class=" control-label"style="text-align: left;padding-left: 20px;">
+                                    <input type="telephone" name="telephone" id="telephone" value=" {{ $user->telephone }}" class="span6" placeholder="6位以上的字符或数字">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="name">
+                                    职位:
+                                </label>
+                                <div class=" control-label"style="text-align: left;padding-left: 20px;">
+                                    {{ $user->position }}
+                                </div>
+                            </div>
+
+                            <div class="control-group">
                                 <label class="control-label" for="role">
                                     部门:
                                 </label>
@@ -134,13 +151,18 @@
 
                                 </div>
                             </div>
-                            <div class="form-actions no-margin">
-                                <button type="submit" class="btn btn-success pull-right">
-                                    提交
-                                </button>
-                                <div class="clearfix">
-                                </div>
+                            <div class="clearfix"></div>
+                            <div class="layui-form-item" style="float: right;clear: left;margin: auto 20px">
+                                <label for="L_repass" class="layui-form-label"></label>
+                                <button class="btn btn-success" lay-filter="add" type="submit" lay-submit="" >确认/保存</button>
                             </div>
+                            <div class="layui-form-item" style="float: right;clear: left">
+                                <a href="javascript:history.go(-1)">
+                                    <label for="L_repass" class="layui-form-label"></label>
+                                    <span class="btn btn-success" lay-filter="add" lay-submit="">返回/取消</span>
+                                </a>
+                            </div>
+                            <div class="clearfix"></div>
 
                         </form>
 

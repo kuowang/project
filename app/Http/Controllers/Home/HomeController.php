@@ -91,6 +91,7 @@ class HomeController extends WebController
         $pwd =$request->input('password','');
         $checkpwd =$request->input('repPassword','');
         $userimage =$request->input('userimage','');
+        $telephone =$request->input('telephone','');
         if($pwd != $checkpwd){
             echo"<script>alert('两次密码不一致');history.go(-1);</script>";
             exit;
@@ -105,6 +106,9 @@ class HomeController extends WebController
         }
         if($userimage){
             $data['user_image']=$userimage;
+        }
+        if($telephone){
+            $data['telephone']=$telephone;
         }
         DB::table('users')->where('id',$id)->update($data);
 
