@@ -110,7 +110,7 @@
                                 <label class="control-label" for="name">
                                     手机号:
                                 </label>
-                                <div class=" control-label"style="text-align: left;padding-left: 20px;">
+                                <div class=" controls">
                                     <input type="telephone" name="telephone" id="telephone" value=" {{ $user->telephone }}" class="span6" placeholder="6位以上的字符或数字">
                                 </div>
                             </div>
