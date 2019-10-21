@@ -6110,7 +6110,6 @@ header {
         .dashboard-wrapper .right-sidebar .wrapper .stats li:last-child {
           margin-bottom: 0px; }
         .dashboard-wrapper .right-sidebar .wrapper .stats li:hover {
-          opacity: 0.7;
           cursor: pointer; }
         .dashboard-wrapper .right-sidebar .wrapper .stats li .left {
           border-right: 1px solid #e6e6e6;

@@ -107,10 +107,12 @@
                                     <th>工程名称</th>
                                     <th>建筑面积(m²)</th>
                                     <th>建筑数量(栋)</th>
-                                    <th>预算金额(万元)</th>
-                                    <th>报价金额(万元)</th>
-                                    <th>毛利润(万元)</th>
+                                    <th>预算金额(万元)(单栋)</th>
+                                    <th>报价金额(万元)(单栋)</th>
+                                    <th>毛利润(万元)(单栋)</th>
                                     <th>毛利率(%)</th>
+                                    <th>报价金额合计(万元)</th>
+                                    <th>毛利润合计(万元)</th>
                                     <th>预算负责人</th>
                                     <th>报价状态</th>
                                     <th>报价审核状态</th>
@@ -130,6 +132,8 @@
                                         <td>{{ empty($val->total_offer_price)?'':round($val->total_offer_price/10000,2) }}</td>
                                         <td>{{ empty($val->total_offer_price)?'':round($val->total_offer_price/10000 - $val->total_budget_price/10000,2)}}</td>
                                         <td >{{empty($val->total_offer_price)?'':round(($val->total_offer_price -$val->total_budget_price)/$val->total_offer_price *100 ,2)}}</td>
+                                        <td>{{ empty($val->total_offer_price)?'':round($val->total_offer_price/10000*$val->build_number,2) }}</td>
+                                        <td>{{ empty($val->total_offer_price)?'':round($val->total_offer_price/10000 - $val->total_budget_price/10000,2)*$val->build_number}}</td>
 
                                         <td>{{ $val->budget_username }}</td>
                                         @if(empty($val->offer_order_number))
@@ -184,7 +188,7 @@
 
         </div>
     </div>
-    <div class="right-sidebar">
+    <div class="right-sidebar"><button data-dismiss="alert" class="close" type="button">×</button>
         <div class="wrapper">
             <ul class="stats">
                 <li><h4>公告</h4></li>

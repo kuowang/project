@@ -226,7 +226,7 @@
 
         </div>
     </div>
-    <div class="right-sidebar">
+    <div class="right-sidebar"><button data-dismiss="alert" class="close" type="button">×</button>
         <div class="wrapper">
             <ul class="stats">
                 <li><h4>公告</h4></li>
