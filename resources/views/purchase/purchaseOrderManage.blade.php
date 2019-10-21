@@ -21,7 +21,10 @@
             <div class="span12">
                 <div class="widget">
                     <div class="widget-header" style="text-align: center">
-                        <div  style="text-align: center;clear: both;font-size: 16px;" >
+                        <div class="title">
+                            <span class="btn btn-info">采购订单管理</span>
+                        </div>
+                        <div  style="font-size: 16px;     text-align: center;" >
                             <b>{{$project->project_name}}</b>
                         </div>
                     </div>

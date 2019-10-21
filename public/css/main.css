@@ -5471,7 +5471,7 @@ header {
 .top-nav {
   margin-bottom: 0px; }
   .top-nav ul li {
-    width: 95px;
+    width: 105px;
     float: left;
     margin-right: 1px; }
     .top-nav ul li a {
@@ -5493,10 +5493,10 @@ header {
       transition: All 0.2s ease;
       height: 38px;
       display: block;
-      padding: 20px 10px 10px 10px;
+      padding: 10px 10px 15px 10px;
       text-transform: uppercase;
       color: #666666;
-      font-size: 11px; }
+      font-size: 14px; }
       .top-nav ul li a:hover {
         color: #3693cf; }
     .top-nav ul li .selected {
@@ -7488,5 +7488,8 @@ footer{
     width: 100%;
 }
 .example_alt_pagination th{
-    min-width:50px;
+    min-width:80px;
+}
+.example_alt_pagination th:first-child{
+    min-width:40px;
 }

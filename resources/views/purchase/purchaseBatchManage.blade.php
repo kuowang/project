@@ -26,7 +26,10 @@
             <div class="span12">
                 <div class="widget">
                     <div class="widget-header" style="text-align: center">
-                        <div  style="text-align: center;clear: both;font-size: 16px;" >
+                        <div class="title">
+                            <span class="btn btn-info">采购批次管理</span>
+                        </div>
+                        <div  style="font-size: 16px;     text-align: center;" >
                             <b>{{$project->project_name}}</b>
                         </div>
                     </div>
@@ -148,7 +151,7 @@
                                                         <i class="layui-icon">删除</i>
                                                     </a>
                                                 @endif
-                                            @elseif($val->purchase_order_status == 0)
+                                            @else
                                                 <a title="查看关联材料" class="btn btn-info"  href="/purchase/purchaseRelationMaterialDetail/{{$val->id}}">
                                                     <i class="layui-icon">查看关联材料</i>
                                                 </a>

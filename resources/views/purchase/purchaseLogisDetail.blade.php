@@ -154,8 +154,6 @@
                                     <th>采购单位</th>
                                     <th>采购总量</th>
                                     <th>品牌</th>
-                                    <th>单价</th>
-                                    <th>价格合计</th>
                                     <th>包装要求</th>
                                 </thead>
                                 <tbody id="">
@@ -173,8 +171,6 @@
                                             <td>{{$item->purchase_unit}}</td>
                                             <td>{{$item->actual_purchase_quantity}}</td>
                                             <td>{{$item->brand_name}}</td>
-                                            <td>{{$item->purchase_price}}</td>
-                                            <td >{{$item->actual_total_fee}}</td>
                                             <td>{{ $item->pack_claim }}</td>
                                             </tr>
                                     @endforeach
