@@ -20,6 +20,6 @@ html{height:100%}
 .myapp-login .myapp-login-bg fieldset {padding: 0; padding-top: 40px;}
 .myapp-login .myapp-login-bg input#doc-vld-name { background: none; border-radius: 30px; border: 2px solid #faffff; color: #feffff; text-indent: 10px; line-height: 26px; font-size: 12px;}
 .myapp-login .myapp-login-bg .myapp-login-button { width: 100%; border-radius: 30px; background: #0099cc; border: none; font-size: 20px; line-height: 26px; }
-#footerinfo { margin-top: auto;width:100%;border: none;  line-height: 50px;font-size: 10px;  color: #9194a7; text-align: center;bottom: 100px; position: absolute;}
+#footerinfo { margin-top: auto;width:100%;border: none;  line-height: 50px;font-size: 12px;  color: #9194a7; text-align: center;bottom: 100px; position: absolute;}
 .form-horizontal{width: 300px;margin: auto}
 
