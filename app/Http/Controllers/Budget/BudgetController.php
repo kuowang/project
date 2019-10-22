@@ -733,15 +733,7 @@ class BudgetController extends WebController
 
         $pdf = PDF::loadView('budget.budgetDownload', $data);
         //A4纸横向
-        return $pdf->setPaper('a4', 'landscape')->stream();
-
-       // return view('budget.budgetDownload',$data);
-        $a =view('budget.budgetDownload',$data);
-        header("Content-type:application/vnd.ms-excel");
-        header("Content-Disposition:filename=".$budget->budget_order_number.".xls");
-        $strexport=iconv('UTF-8',"GB2312//IGNORE",$a);
-        echo "<script>history.go(-1);</script>"; //返回上一页
-        exit($strexport); //导出数据
+        return $pdf->setPaper('a4', 'landscape')->stream($budget->budget_order_number.'.pdf');
     }
 
     /**

@@ -16,95 +16,91 @@
         background: #e6e6e6;
         font-weight: 200;
     }
-    .layui-table td, .layui-table th {
-        border: solid 1px #ccc;
-    }
+
 </style>
+<div style="text-align: center;font-size: 20px;">项目概况</div>
+
 <table  border="1" cellspacing="0" cellpadding="0">
-    <thead>
-    <tr>
-        <td colspan="10"><span class="btn btn-info">项目概况</span></td>
-    </tr>
-    </thead>
     <tbody>
     <tr>
-        <td  colspan="2" class="pro-title">项目名称</td>
-        <td  colspan="3">{{$project->project_name}}</td>
-        <td  colspan="2"  class="pro-title">项目地点</td>
-        <td colspan="3">{{$project->province}}{{$project->city}}{{$project->county}}{{$project->address_detail}}{{$project->foreign_address}}
+        <td  class="pro-title">项目名称</td>
+        <td  >{{$project->project_name}}</td>
+        <td  class="pro-title">项目地点</td>
+        <td >{{$project->province}}{{$project->city}}{{$project->county}}{{$project->address_detail}}{{$project->foreign_address}}
         </td>
+        <td  class="pro-title">工程名称</td>
+        <td  >{{$engineering->engineering_name}}</td>
     </tr>
 
     <tr>
-        <td  colspan="2" class="pro-title">工程名称</td>
-        <td  colspan="3" >{{$engineering->engineering_name}}</td>
-        <td colspan="2" class="pro-title">建筑面积(m²)</td>
-        <td colspan="3">{{$engineering->build_area}}</td>
-
+        <td class="pro-title">建筑面积(m²)</td>
+        <td >{{$engineering->build_area}}</td>
+        <td class="pro-title">建筑楼层(层数)</td>
+        <td >{{$engineering->build_floor}}</td>
+        <td class="pro-title">建筑高度(m)</td>
+        <td >{{$engineering->build_height}}</td>
     </tr>
     <tr>
-        <td colspan="2" class="pro-title">建筑楼层(层数)</td>
-        <td colspan="3">{{$engineering->build_floor}}</td>
-        <td colspan="2" class="pro-title">建筑高度(m)</td>
-        <td colspan="3">{{$engineering->build_height}}</td>
+        <td class="pro-title">报价日期</td>
+        <td >{{isset($budget->quotation_date)?$budget->quotation_date:''}}</td>
+        <td class="pro-title">报价有效期限(天)</td>
+        <td >{{isset($budget->quotation_limit_day)?$budget->quotation_limit_day:''}}</td>
+        <td class="pro-title">建筑数量(栋)</td>
+        <td>{{$engineering->build_number}}</td>
     </tr>
     <tr>
-        <td colspan="2" class="pro-title">报价日期</td>
-        <td colspan="3" style="width: 20%">{{isset($budget->quotation_date)?$budget->quotation_date:''}}</td>
-        <td colspan="2" class="pro-title">报价有效期限(天)</td>
-        <td colspan="3">{{isset($budget->quotation_limit_day)?$budget->quotation_limit_day:''}}</td>
-    </tr>
-
-    <tr>
-        <td colspan="10"><span class="btn btn-info">建筑设计指标</span></td>
-    </tr>
-
-    <tr>
-        <td colspan="2"class="pro-title">建筑使用寿命(年)</td>
-        <td colspan="3">{{isset($param->use_time)?$param->use_time:''}}</td>
-        <td colspan="2"class="pro-title">抗震设防烈度(度)</td>
-        <td colspan="3">{{isset($param->seismic_grade)?$param->seismic_grade:''}}</td>
-
+        <td colspan="6"><span class="btn btn-info">建筑设计指标</span></td>
     </tr>
     <tr>
-        <td colspan="2"class="pro-title">屋面防水等级</td>
-        <td colspan="3">{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
-        <td colspan="2"class="pro-title">建筑耐火等级</td>
-        <td colspan="3">{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
-    </tr>
-
-    <tr>
-        <td colspan="2"class="pro-title">建筑隔声等级</td>
-        <td colspan="3">{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
-        <td colspan="2"class="pro-title">建筑节能标准(%)</td>
-        <td colspan="3">{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
+        <td class="pro-title">建筑使用寿命(年)</td>
+        <td >{{isset($param->use_time)?$param->use_time:''}}</td>
+        <td class="pro-title">抗震设防烈度(度)</td>
+        <td >{{isset($param->seismic_grade)?$param->seismic_grade:''}}</td>
+        <td class="pro-title">屋面防水等级</td>
+        <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
     </tr>
     <tr>
-        <td colspan="10"><span class="btn btn-info">建筑荷载设计指标</span></td>
-    </tr>
-    </thead>
-    <tbody>
-
-    <tr>
-        <td colspan="2" class="pro-title">设计基本风压(kN/m²)</td>
-        <td  colspan="3">{{isset($param->basic_wind_pressure)?$param->basic_wind_pressure:''}}</td>
-        <td  colspan="2" class="pro-title">设计基本雪压(kN/m²)</td>
-        <td  colspan="3">{{isset($param->basic_snow_pressure)?$param->basic_snow_pressure:''}}</td>
-    </tr>
-    <tr>
-        <td  colspan="2" class="pro-title">屋面活载荷(kN/m²)</td>
-        <td  colspan="3">{{isset($param->roof_load)?$param->roof_load:''}}</td>
-        <td  colspan="2" class="pro-title">楼面活载荷(kN/m²)</td>
-        <td  colspan="3">{{isset($param->floor_load)?$param->floor_load:''}}</td>
+        <td class="pro-title">建筑耐火等级</td>
+        <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
+        <td class="pro-title">建筑隔声等级</td>
+        <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
+        <td class="pro-title">建筑节能标准(%)</td>
+        <td >{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}</td>
     </tr>
     </tbody>
 </table>
-    <table  border="1" cellspacing="0" cellpadding="0">
-        <thead>
+<table  border="1" cellspacing="0" cellpadding="0">
+    <thead>
     <tr>
-        <td colspan="10"><span class="btn btn-info">预算清单列表</span></td>
+        <td colspan="4"><span class="btn btn-info">建筑荷载设计指标</span></td>
     </tr>
     </thead>
+    <tbody>
+
+    <tr>
+        <td class="pro-title">设计基本风压(kN/m²)</td>
+        <td >{{isset($param->basic_wind_pressure)?$param->basic_wind_pressure:''}}</td>
+        <td class="pro-title">设计基本雪压(kN/m²)</td>
+        <td >{{isset($param->basic_snow_pressure)?$param->basic_snow_pressure:''}}</td>
+    </tr>
+    <tr>
+        <td class="pro-title">屋面活载荷(kN/m²)</td>
+        <td >{{isset($param->roof_load)?$param->roof_load:''}}</td>
+        <td class="pro-title">楼面活载荷(kN/m²)</td>
+        <td >{{isset($param->floor_load)?$param->floor_load:''}}</td>
+    </tr>
+    </tbody>
+</table>
+
+<style>
+    .page-break {
+        page-break-after: always;
+    }
+</style>
+<div class="page-break"></div>
+<div style="text-align: center;font-size: 20px;">预算清单列表</div>
+
+    <table  border="1" cellspacing="0" cellpadding="0">
     <tbody>
     <tr>
         <td >序号</td>

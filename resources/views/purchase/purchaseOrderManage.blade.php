@@ -164,7 +164,9 @@
                                                     @endif
                                                 @else
                                                     @if((in_array(25010306,$pageauth) && $val->created_uid == $uid ) || in_array(25010306,$manageauth))
-                                                        <span  class="btn btn-danger" onclick="sendOrderToSupplier({{$list->id}})">发送供应商</span>
+                                                        <a href="/purchase/purchaseOrderSendSupplier/{{$list->id}}">
+                                                            <span  class="btn btn-danger" >发送供应商</span>
+                                                        </a>
                                                     @endif
                                                 @endif
                                             </td>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Offer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\WebController;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 
 class OfferController extends WebController
@@ -660,6 +661,13 @@ class OfferController extends WebController
             $data['room_name']      =json_decode($data['param']->room_name,true);
             $data['room_area']      =json_decode($data['param']->room_area,true);
         }
+
+        $pdf = PDF::loadView('offer.offerDownload', $data);
+        //A4纸横向
+        return $pdf->setPaper('a4', 'landscape')->stream($offer->offer_order_number.'.pdf');
+
+
+
         //return view('offer.offerDownload',$data);
         $a =view('offer.offerDownload',$data);
         header("Content-type:application/vnd.ms-excel");
