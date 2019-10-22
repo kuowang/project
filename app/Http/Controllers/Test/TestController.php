@@ -28,6 +28,8 @@ class TestController  extends WebController
 
     //公告列表
     public function testPdf(Request $request){
+        //https://blog.csdn.net/weixin_34292287/article/details/93168682
+        //实例 导出pdf
         $data=[];
         $pdf = PDF::loadView('test.testPdf', $data);
         return $pdf->stream();
