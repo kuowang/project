@@ -107,16 +107,16 @@
     </thead>
     <tbody>
     <tr>
-        <td style="width:5%">序号</td>
-        <td style="width:15%">材料名称</td>
-        <td style="width:15%">规格特性要求</td>
-        <td style="width:6%">预算单位</td>
-        <td style="width:9%">工程量(图纸)</td>
-        <td style="width:7%">损耗(%)</td>
-        <td style="width:8%">工程量(实际)</td>
-        <td style="width:14%">品牌</td>
-        <td style="width:8%">单价</td>
-        <td style="width:6%">合计</td>
+        <td >序号</td>
+        <td >材料名称</td>
+        <td >规格特性要求</td>
+        <td >预算单位</td>
+        <td >工程量(图纸)</td>
+        <td >损耗(%)</td>
+        <td >工程量(实际)</td>
+        <td >品牌</td>
+        <td >单价</td>
+        <td >合计</td>
     </tr>
     </thead>
     <tbody>
@@ -220,7 +220,7 @@
     </tr>
     <tr>
         <td class="pro-title" colspan="9" >工程总价(元)</td>
-        <td >{{isset($budget->total_budget_price)?$budget->total_budget_price:''}}</td>
+        <td >{{isset($budget->total_budget_price)?round($budget->total_budget_price,2):''}}</td>
     </tr>
     </tbody>
 </table>

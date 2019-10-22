@@ -732,7 +732,8 @@ class BudgetController extends WebController
 
 
         $pdf = PDF::loadView('budget.budgetDownload', $data);
-        return $pdf->stream();
+        //A4纸横向
+        return $pdf->setPaper('a4', 'landscape')->stream();
 
        // return view('budget.budgetDownload',$data);
         $a =view('budget.budgetDownload',$data);
