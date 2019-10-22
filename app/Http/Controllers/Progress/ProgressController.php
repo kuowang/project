@@ -332,6 +332,41 @@ class ProgressController extends WebController
         return redirect('/progress/progressConduct/'.$budget->project_id.'?status=1&notice='.'编辑成功');
     }
 
+    //施工组织统筹计划
+    public function progressConstrucManage(Request $request,$id){
+        $engin=DB::table('engineering')->where('id',$id)->first();
+        if(empty($engin)){
+            return redirect('/progress/progressConduct?status=2&notice='.'工程不存在');
+        }
+        $project= DB::table('project')->where('id',$engin->project_id)->first();
+        if(empty($engin)){
+            return redirect('/progress/progressConduct?status=2&notice='.'项目不存在');
+        }
+
+
+
+
+
+
+
+    }
+
+    //现场材料管理
+    public function progressMaterialManage(Request $request,$id){
+
+    }
+
+    //施工进度管理
+    public function progressProgressManage(Request $request,$id){
+
+    }
+
+
+
+
+
+
+
 
 
 

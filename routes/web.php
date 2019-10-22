@@ -330,16 +330,18 @@ Route::group(['prefix' => 'finance','namespace' => 'Finance','middleware' => 'au
 });
 //项目施工的控制组
 Route::group(['prefix' => 'progress','namespace' => 'Progress','middleware' => 'auth'], function () {
-    Route::get('/progressConductProjectList',      'ProgressController@progressConductProjectList');    //实施项目施工列表
-    Route::get('/progressCompletedProjectList',    'ProgressController@progressCompletedProjectList');    //实施项目竣工列表
+    Route::get('/progressConductProjectList',           'ProgressController@progressConductProjectList');    //实施项目施工列表
+    Route::get('/progressCompletedProjectList',         'ProgressController@progressCompletedProjectList');    //实施项目竣工列表
 
-    Route::get('/progressConduct/{id?}',                 'ProgressController@progressConduct');    //实施项目施工工程列表
-    Route::get('/progressCompleted/{id?}',               'ProgressController@progressCompleted');    //实施项目竣工工程列表
+    Route::get('/progressConduct/{id?}',                'ProgressController@progressConduct');    //实施项目施工工程列表
+    Route::get('/progressCompleted/{id?}',              'ProgressController@progressCompleted');    //实施项目竣工工程列表
 
-    Route::get('/editProgress/{id}',                'ProgressController@editProgress');    //指定施工安装负责人
-    Route::post('/postEditProgress/{id}',                'ProgressController@postEditProgress');    //指定施工安装负责人
-    Route::post('/updateProjectStatus/{id}',    'ProgressController@updateProjectStatus');    //更改项目状态
+    Route::get('/editProgress/{id}',                    'ProgressController@editProgress');    //指定施工安装负责人
+    Route::post('/postEditProgress/{id}',               'ProgressController@postEditProgress');    //指定施工安装负责人
+    Route::post('/updateProjectStatus/{id}',            'ProgressController@updateProjectStatus');    //更改项目状态
 
-
+    Route::get('/progressConstrucManage/{id}',          'ProgressController@progressConstrucManage');    //施工组织统筹计划
+    Route::get('/progressMaterialManage/{id}',          'ProgressController@progressMaterialManage');    //现场材料管理
+    Route::get('/progressProgressManage/{id}',          'ProgressController@progressProgressManage');    //施工进度管理
 
 });

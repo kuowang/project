@@ -73,10 +73,10 @@
                         </div>
                         <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                             <label>
-                                <form class="form-search" action="/purchase/purchaseConduct" method="get">
+                                <form class="form-search" action="/progress/progressConduct" method="get">
                                     项目名称:<input type="text" name="project_name" value="{{ $project_name }}" class="input-medium search-query">
                                     工程名称:<input type="text" name="engineering_name" value="{{ $engineering_name }}" class="input-medium search-query">
-                                    采购负责人:<input type="text" name="progress_username" value="{{ $progress_username }}" class="input-medium search-query">
+                                    施工负责人:<input type="text" name="progress_username" value="{{ $progress_username }}" class="input-medium search-query">
                                     <button type="submit" class="btn">搜索</button>
                                 </form>
                             </label>
@@ -124,7 +124,7 @@
                                             @endif
                                         </td>
                                         <td>@if(!empty($val->progress_id) && $val->budget_id != 0 && ((in_array(300101,$pageauth) && $val->progress_uid == $uid ) || in_array(300101,$manageauth)))
-                                                <a href="/purchase/purchaseBatchManage/{{$val->engin_id}}">
+                                                <a href="/progress/progressConstrucManage/{{$val->engin_id}}">
                                                     <div class="btn btn-success"> 施工组织统筹计划 </div>
                                                 </a>
                                             @else
@@ -132,7 +132,7 @@
                                             @endif</td>
                                         <td>
                                             @if($val->arrange_status ==1 && ((in_array(300102,$pageauth) && $val->progress_uid == $uid ) || in_array(300102,$manageauth)))
-                                                <a href="/purchase/purchaseOrderManage/{{$val->engin_id}}">
+                                                <a href="/progress/progressMaterialManage/{{$val->engin_id}}">
                                                 <div class="btn btn-success">现场材料管理</div>
                                                 </a>
                                             @else
@@ -142,7 +142,7 @@
                                         </td>
                                         <td>
                                             @if($val->arrange_status ==1 && ((in_array(300103,$pageauth) && $val->progress_uid == $uid ) || in_array(300103,$manageauth)))
-                                                <a href="/purchase/purchaseLogisticsManage/{{$val->engin_id}}">
+                                                <a href="/progress/progressProgressManage/{{$val->engin_id}}">
                                                 <div class="btn btn-success">施工进度管理</div>
                                                 </a>
                                             @else

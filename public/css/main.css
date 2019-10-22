@@ -3617,7 +3617,9 @@ a.thumbnail:hover {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  color: #996c00; }
+  color: #996c00;
+    margin-right: 260px;
+}
   .alert h4 {
     color: #996c00;
     margin: 0; }
