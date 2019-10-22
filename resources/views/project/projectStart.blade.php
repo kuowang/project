@@ -36,28 +36,52 @@
             @if(in_array(1502,$pageauth))
             <div class="metro-nav-block nav-block-blue" style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
                 <a href="/project/projectEnginStart">
-                    <div class="fs1" aria-hidden="true" ><img src="/img/nav/1.png">洽谈工程</div>
+                    <div class="fs1" aria-hidden="true" ><img src="/img/nav/1.png">洽谈工程
+                    @if(isset($engincount[0]))
+                        ({{$engincount[0]}})
+                    @else
+                        (0)
+                    @endif
+                    </div>
                 </a>
             </div>
             @endif
             @if(in_array(1503,$pageauth))
             <div class="metro-nav-block nav-block-green">
                 <a href="/project/projectEnginConduct">
-                    <div class="fs1" aria-hidden="true" ><img src="/img/nav/2.png">实施工程</div>
+                    <div class="fs1" aria-hidden="true" ><img src="/img/nav/2.png">实施工程
+                        @if(isset($engincount[1]))
+                            ({{$engincount[1]}})
+                        @else
+                            (0)
+                        @endif
+                    </div>
                 </a>
             </div>
             @endif
             @if(in_array(1504,$pageauth))
             <div class="metro-nav-block nav-block-yellow">
                 <a href="/project/projectEnginCompleted">
-                    <div class="fs1" aria-hidden="true" ><img src="/img/nav/3.png">竣工工程</div>
+                    <div class="fs1" aria-hidden="true" ><img src="/img/nav/3.png">竣工工程
+                        @if(isset($engincount[1]))
+                            ({{$engincount[1]}})
+                        @else
+                            (0)
+                        @endif
+                    </div>
                 </a>
             </div>
             @endif
             @if(in_array(1505,$pageauth))
             <div class="metro-nav-block nav-block-red">
                 <a href="/project/projectEnginTermination">
-                    <div class="fs1" aria-hidden="true" ><img src="/img/nav/4.png">终止工程</div>
+                    <div class="fs1" aria-hidden="true" ><img src="/img/nav/4.png">终止工程
+                        @if(isset($engincount[4]))
+                            ({{$engincount[4]}})
+                        @else
+                            (0)
+                        @endif
+                    </div>
                 </a>
             </div>
             @endif

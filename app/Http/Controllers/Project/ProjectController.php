@@ -831,7 +831,7 @@ class ProjectController extends WebController
         $data['page']   =$this->webfenye($page,ceil($datalist['count']/$rows),$url);
         $data['data']   =$datalist['data'];
         $data['navid']      =15;
-
+        $data['engincount']=(array)DB::table('engineering')->groupby('status')->pluck(DB::raw('count(*) as user_count'),'status')->toarray();
         return $data;
     }
 
