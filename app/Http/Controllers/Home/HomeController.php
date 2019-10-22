@@ -62,7 +62,7 @@ class HomeController extends WebController
             ->where('status',1)
             ->where('is_show',1)
             ->where('auth_id','!=','10')
-            ->orderby('auth_id')
+            ->orderby('sort')
             ->get();
     }
     //用户编辑个人信息

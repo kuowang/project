@@ -33,17 +33,17 @@
                                 <button class="myapp-login-button am-btn am-btn-secondary" type="submit"> 登      录</button>
                             </fieldset>
                         </form>
-                        <div id="footerinfo">{{ config('app.project_logo_foot_info') }}
-                            {{ config('app.project_logo_foot_telphone') }}
-                        </div>
 
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
-
+    <div id="footerinfo">
+        {{ config('app.project_logo_foot_info') }}
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        {{ config('app.project_logo_foot_telphone') }}
+    </div>
 
 
 

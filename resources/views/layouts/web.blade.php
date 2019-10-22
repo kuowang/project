@@ -167,7 +167,7 @@
 </div>
 <footer>
     <p>
-        &copy; {{ config('app.name') }}
+        &copy; {{ config('app.name') }}-{{config('app.engin_name')}}
     </p>
 </footer>
 

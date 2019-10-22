@@ -4,6 +4,11 @@
     <!-- 你的HTML代码 -->
     <link rel="stylesheet" href="/layui/css/layui.css">
     <script src="/layui/layui.js"></script>
+    <style type="text/css">
+        input{
+            max-width: 300px;
+        }
+    </style>
     @if($status == 2)
         <div class="alert alert-block alert-error fade in">
             <button data-dismiss="alert" class="close" type="button">
@@ -73,6 +78,7 @@
                                 </label>
                                 <div class="controls">
                                     <input type="password" name="password" id="password" class="span6" placeholder="6位以上的字符或数字">
+                                不修改密码该项可不填
                                 </div>
                             </div>
                             <div class="control-group">

@@ -98,7 +98,7 @@
                                     </div>
                                     <div>{{$username}} &nbsp;&nbsp;
                                         (<a href="\editHomeUserInfo" style="color:#a136f6">编辑</a>)</div>
-                                    <div>欢迎登录{{config('app.name')}}</div>
+                                    <div>欢迎登录{{config('app.name')}}！</div>
                                     <hr style="margin:30px 0 20px">
                                     <div><img src="\img\nav\homebackground.png" style="width:90%;margin: auto 5%;"></div>
                                     <div style="margin-top: 20px">尊敬的用户您好，</div>
@@ -107,7 +107,7 @@
 
                                 </div>
                                 <div class="row-fluid" id="navright" style="">
-                                    <div class="navtitle"><b>欢迎使用{{ config('app.name') }}后台管理系统</b></div>
+                                    <div class="navtitle"><b>欢迎使用{{ config('app.name') }}-{{config('app.engin_name')}}</b></div>
                                     <div >
                                         @foreach($allNavList as $nav)
                                             @if(in_array($nav->auth_id,$navList))
