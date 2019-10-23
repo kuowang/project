@@ -224,7 +224,7 @@
 
     function checkStatus(status ,paramstatus) {
         if(status ==0 || paramstatus ==0){
-            showMsg('请到建筑设计模块中配置材料信息，再配置预算')
+            showMsg('请先进行项目设计参数和工况配置后才能创建预算')
             return false;
         }
         return true;

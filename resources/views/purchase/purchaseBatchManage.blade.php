@@ -140,11 +140,11 @@
 
                                             @if($val->purchase_order_status == 0 && $engineering->status ==1 )
                                                 @if($val->pbrm_count >0)
-                                                    <a title="编辑关联材料" class="btn btn-info"  href="/purchase/createdRelationMaterial/{{$val->id}}">
+                                                    <a title="编辑关联材料" class="btn btn-success"  href="/purchase/createdRelationMaterial/{{$val->id}}">
                                                         <i class="layui-icon">编辑关联材料</i>
                                                     </a>
                                                 @else
-                                                    <a title="创建关联材料" class="btn btn-info"  href="/purchase/createdRelationMaterial/{{$val->id}}">
+                                                    <a title="创建关联材料" class="btn btn-success"  href="/purchase/createdRelationMaterial/{{$val->id}}">
                                                         <i class="layui-icon">创建关联材料</i>
                                                     </a>
                                                     <a title="删除" class="btn btn-danger" onclick="deleteTrRow('{{$k}}',this)" href="javascript:;">
