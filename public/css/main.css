@@ -7494,3 +7494,20 @@ footer{
 .example_alt_pagination th:first-child{
     min-width:40px;
 }
+.layui-form input[type=checkbox], .layui-form input[type=radio], .layui-form select {
+    display: inline;
+}
+.pro-title{
+    background: #e6e6e6;
+}
+.layui-table td, .layui-table th {
+    border: solid 1px #ccc;
+}
+select{
+    width: auto;
+}
+.radio, .checkbox {
+    min-height: 20px;
+    float: left;
+    padding:0 20px;
+}
