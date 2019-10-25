@@ -99,21 +99,25 @@
             </li>
         </ul>
     </div>
-
+    <div class="btn-group" id="navscoll" style="">
+        @if(isset($noticelist) && !empty($noticelist))
+            @foreach($noticelist as $item)
+                <div>
+                    {{$item->title}}:{{$item->content}}
+                </div>
+            @endforeach
+        @endif
+    </div>
+    <script>
+        var c,_=Function;
+        with(o=document.getElementById("navscoll")){ innerHTML+=innerHTML; onmouseover=_("c=1"); onmouseout=_("c=0");}
+        (F=_("if(#%18||!c)#++,#%=o.scrollHeight>>1;setTimeout(F,#%1?100:100);".replace(/#/g,"o.scrollTop")))();
+    </script>
 
 </header>
-<style>
-    .imggundong{
-        top:80px;
-        position: absolute;
-        z-index: 999999;
-        width: 300px;
-        right: 20px;
-    }
-</style>
 <div class="container-fluid">
     <div class="dashboard-container">
-        <a href="/home"><img src="/img/20190716103518.png" class="imggundong" style=""></a>
+        <!--<a href="/home"><img src="/img/20190716103518.png" class="imggundong" style=""></a>-->
         <div class="top-nav">
             <ul>
                 <li>

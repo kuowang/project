@@ -334,6 +334,7 @@ class ProgressController extends WebController
 
     //施工组织统筹计划
     public function progressConstrucManage(Request $request,$id){
+        $this->user();
         $engin=DB::table('engineering')->where('id',$id)->first();
         if(empty($engin)){
             return redirect('/progress/progressConduct?status=2&notice='.'工程不存在');
@@ -343,9 +344,9 @@ class ProgressController extends WebController
             return redirect('/progress/progressConduct?status=2&notice='.'项目不存在');
         }
 
-
-
-
+        $data['subnavid']   =3001;
+        $data['navid']   =30;
+        return view('progress.progressConstrucManage',$data);
 
 
 
@@ -354,6 +355,8 @@ class ProgressController extends WebController
     //现场材料管理
     public function progressMaterialManage(Request $request,$id){
 
+
+        return $this->success($request->all());
     }
 
     //施工进度管理

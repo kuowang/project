@@ -7511,3 +7511,17 @@ select{
     float: left;
     padding:0 20px;
 }
+.imggundong{
+    top:80px;
+    position: absolute;
+    z-index: 999999;
+    width: 300px;
+    right: 20px;
+}
+#navscoll{
+    width: 70%;
+    height: 48px;
+    color: #3187bf;
+    font-size: 14px;
+    overflow:hidden;
+}
