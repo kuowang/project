@@ -7489,7 +7489,7 @@ footer{
     width: 100%;
 }
 .example_alt_pagination th{
-    min-width:80px;
+    min-width:60px;
 }
 .example_alt_pagination th:first-child{
     min-width:40px;
