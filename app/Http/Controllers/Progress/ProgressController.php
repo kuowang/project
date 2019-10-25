@@ -364,6 +364,11 @@ class ProgressController extends WebController
 
     }
 
+    //施工参数配置列表
+    public function porgressParamsList(Request $request){
+
+
+    }
 
 
 

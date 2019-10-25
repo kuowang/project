@@ -7512,10 +7512,10 @@ select{
     padding:0 20px;
 }
 .imggundong{
-    top:80px;
+    top:100px;
     position: absolute;
     z-index: 999999;
-    width: 300px;
+    width: 100px;
     right: 20px;
 }
 #navscoll{
@@ -7524,4 +7524,7 @@ select{
     color: #3187bf;
     font-size: 14px;
     overflow:hidden;
+}
+.dashboard-wrapper .left-sidebar {
+     margin-right: auto;
 }

@@ -117,7 +117,7 @@
 </header>
 <div class="container-fluid">
     <div class="dashboard-container">
-        <!--<a href="/home"><img src="/img/20190716103518.png" class="imggundong" style=""></a>-->
+        <a href="/home"><img src="/img/20190716103518.png" class="imggundong" style=""></a>
         <div class="top-nav">
             <ul>
                 <li>

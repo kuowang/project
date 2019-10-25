@@ -16,7 +16,7 @@
         }
 
     </style>
-    <div class="left-sidebar">
+    <div class="left-sidebar" style="margin-right: 260px;">
         <div class="row-fluid">
             <div class="span12">
                 <div class="widget">

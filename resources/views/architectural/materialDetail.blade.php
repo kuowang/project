@@ -125,28 +125,7 @@
             </div>
         </div>
     </div>
-    <div class="right-sidebar">
-        <div class="wrapper">
-            <ul class="stats">
-                <li>
-                    <h4>
-                        公告
-                    </h4>
-                </li>
-                @if(isset($noticelist) && !empty($noticelist))
-                    @foreach($noticelist as $item)
-                        <li>
-                            <h6>{{$item->title}}</h6>
-                            <p >{{$item->content}}</p>
-                        </li>
-                    @endforeach
-                @endif
-            </ul>
-        </div>
-        <span style="float: right;margin-bottom: 10px"><a href="/base/getNoticeInfo" style="color: #0000FF"> 查看更多 >></a></span>
 
-        <hr class="hr-stylish-1">
-    </div>
     <style>
 
         input{

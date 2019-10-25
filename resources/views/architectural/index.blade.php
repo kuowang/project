@@ -132,23 +132,7 @@
     </div>
 </div>
 
-<div class="right-sidebar">
-    <div class="wrapper">
-        <ul class="stats">
-            <li><h4>公告</h4></li>
-            @if(isset($noticelist) && !empty($noticelist))
-                @foreach($noticelist as $item)
-            <li>
-                <h6>{{$item->title}}</h6>
-                <p >{{$item->content}}</p>
-            </li>
-                @endforeach
-            @endif
-        </ul>
-    </div>
-    <span style="float: right;margin-bottom: 10px"><a href="/base/getNoticeInfo" style="color: #0000FF"> 查看更多 >></a></span>
-    <hr class="hr-stylish-1">
-</div>
+
 <script type="text/javascript">
     function setstatus() {
         if(confirm("点击无效后，将导致预算报价列表，材料信息列表，以及创建新项目信息同步不显示？")){
