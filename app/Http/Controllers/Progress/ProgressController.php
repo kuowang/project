@@ -366,15 +366,110 @@ class ProgressController extends WebController
 
     //施工参数配置列表
     public function porgressParamsList(Request $request){
+        $this->user();
+        $system_name        =$request->input('system_name','');
+        $page =$request->input('page',1);
+        $rows =$request->input('rows',40);
+        $data['system_name']      =$system_name;
 
+        $db=DB::table('architectural_system')
+            ->where('architectural_system.status',1);
+        if(!empty($system_name)){
+            $db->where('system_name','like','%'.$system_name.'%');
+        }
+        $data['count'] =$db->count();
+        $data['data']= $db->orderby('system_code','asc')
+            ->skip(($page-1)*$rows)
+            ->take($rows)
+            ->get();        //分页
+        $url='/architectural/architectureList?system_name='.$system_name.'&rows='.$rows;
+        $data['page']   =$this->webfenye($page,ceil($data['count']/$rows),$url);
+        //获取该用户的建筑系统关联子系统
+        $paramsList=DB::table('progress_params_conf')
+            ->where('status',1)
+            ->orderby('arch_id')
+            ->orderby('sort')
+            ->select(['arch_id','name','is_synchro'])->get();
+        $params=[];
+        if($paramsList){
+            foreach($paramsList as $item){
+                $params[$item->arch_id][]=$item;
+            }
+        }
+        $data['params']=$params;
 
+        //用户权限部分
+        $data['navid']      =30; //当前导航页面
+        $data['subnavid']   =3003;//当前子导航页
+        $data['status']=$request->input('status',0); //1成功 2失败
+        $data['notice']=$request->input('notice','成功'); //提示信息
+        return view('progress.porgressParamsList',$data);
     }
 
 
+    //施工配置参数详情
+    public function progressParamsDetail(Request $request,$id){
+        $this->user();
+        //用户权限部分
+        $data['navid']      =30; //当前导航页面
+        $data['subnavid']   =3003;//当前子导航页
+        //获取该用户的建筑系统信息
+        $data['architect']=DB::table('architectural_system')->where('id',$id)->first();
+        //获取该用户的建筑系统关联子系统
+        $data['paramsList']=DB::table('progress_params_conf')->where('arch_id',$id)->orderby('sort')->get();
+        if(empty($data['architect'])){
+            return redirect('/progress/porgressParamsList?status=2&notice='.'数据不存在，无法编辑');
+        }
+        return view('progress.progressParamsDetail',$data);
+    }
 
+    //编辑施工配置参数
+    public function editProgressParams(Request $request,$id){
+        $this->user();
+        //用户权限部分
+        $data['navid']      =30; //当前导航页面
+        $data['subnavid']   =3003;//当前子导航页
+        //获取该用户的建筑系统信息
+        $data['architect']=DB::table('architectural_system')->where('id',$id)->first();
+        //获取该用户的建筑系统关联子系统
+        $data['paramsList']=DB::table('progress_params_conf')->where('arch_id',$id)->orderby('sort')->get();
+        if(empty($data['architect'])){
+            return redirect('/progress/porgressParamsList?status=2&notice='.'数据不存在，无法编辑');
+        }
+        return view('progress.editPorgressParams',$data);
+    }
+   //保存施工配置参数
+    public function postEditProgressParams(Request $request,$id){
+        if( !in_array(300302,$this->user()->pageauth)  && !in_array(300302,$this->user()->manageauth)){
+            return redirect('/progress/porgressParamsList?status=2&notice='.'您没有权限修改该配置');
+        }
+        $param_id   =$request->input('param_id',[]);
+        $name       =$request->input('name',[]);
+        $is_synchro =$request->input('is_synchro',[]);
+        $sort       =$request->input('sort',[]);
+        $status     =$request->input('status',[]);
+        if(empty($param_id)){
+            return redirect('/progress/porgressParamsList?status=2&notice='.'您没有上传数据');
+        }
 
-
-
+        foreach($param_id as $k=>$v){
+            $data=[
+                'arch_id'=>$id,
+                'name'=>isset($name[$k])?$name[$k]:'',
+                'is_synchro'=>isset($is_synchro[$k])?(int)$is_synchro[$k]:1,
+                'sort'=>isset($sort[$k])?(int)$sort[$k]:1,
+                'status'=>isset($status[$k])?(int)$status[$k]:1,
+                'uid'=>$this->user()->id,
+                'created_at'=>date('Y-m-d'),
+            ];
+            if($v == 0){
+                DB::table('progress_params_conf')->insert($data);
+            }else{
+                DB::table('progress_params_conf')->where('id',$v)->update($data);
+            }
+        }
+        return redirect('/progress/porgressParamsList?status=1&notice='.'编辑完成');
+    }
 
 
 

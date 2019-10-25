@@ -346,4 +346,13 @@ Route::group(['prefix' => 'progress','namespace' => 'Progress','middleware' => '
     Route::get('/progressMaterialManage/{id}',          'ProgressController@progressMaterialManage');    //现场材料管理
     Route::get('/progressProgressManage/{id}',          'ProgressController@progressProgressManage');    //施工进度管理
 
+    Route::get('/porgressParamsList',                    'ProgressController@porgressParamsList');    //施工参数配置
+    Route::get('/editProgressParams/{id}',               'ProgressController@editProgressParams');    //编辑施工参数配置
+    Route::get('/progressParamsDetail/{id}',             'ProgressController@progressParamsDetail');    //施工参数配置详情
+    Route::post('/postEditProgressParams/{id}',          'ProgressController@postEditProgressParams');  //保存施工参数配置
+
+
+
+
+
 });
