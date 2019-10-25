@@ -118,14 +118,12 @@
                                     <th>工程名称</th>
                                     <th>工程地址</th>
                                     <th style="width: 70px">建筑面积(m²)</th>
-                                    <th style="width: 70px">建筑层数</th>
                                     <th style="width: 70px">建筑数量(栋)</th>
                                     <th>设计负责人</th>
                                     <th>建筑设计负责人</th>
                                     <th>结构设计负责人</th>
                                     <th>给排水设计负责人</th>
                                     <th>电气设计负责人</th>
-                                    <th style="width: 80px">创建时间</th>
                                     <th style="width: 140px;">设计参数状态</th>
                                     <th style="width: 140px;">设计工况状态</th>
                                     <th style="width: 60px;">设计参数管理</th>
@@ -148,14 +146,12 @@
                                             @endif
                                         </td>
                                         <td>{{$val->build_area}}@if(!empty($val->engin_build_area))({{$val->engin_build_area}})@endif</td>
-                                        <td>{{ $val->build_floor }}</td>
                                         <td>{{$val->build_number}}</td>
                                         <td>{{$val->design_username}}</td>
                                         <td>{{$val->build_design_username}}</td>
                                         <td>{{$val->structure_username}}</td>
                                         <td>{{$val->drainage_username}}</td>
                                         <td>{{$val->electrical_username}}</td>
-                                        <td>{{ $val->created_at }}</td>
                                         <td>
                                             @if($val->is_conf_param ==1)
                                                 <i class="layui-icon btn btn-info">已创建</i>
