@@ -42,6 +42,8 @@
                             <label>
                                 <form class="form-search" action="/architectural/index" method="get">
                                     系统名称:<input type="text" name="system_name" value="{{ $system_name }}" class="input-medium search-query">
+                                    子系统名称:<input type="text" name="sub_system_name" value="{{ $sub_system_name }}" class="input-medium search-query">
+
                                     <button type="submit" class="btn">搜索</button>
                                 </form></label>
                         </div>
@@ -54,7 +56,7 @@
                                 <tr>
                                     <th>序号</th>
                                     <th>系统名称(系统编码)</th>
-                                    <th>工程名称</th>
+                                    <th>子系统名称</th>
                                     <th>施工周期信息</th>
                                     <th style="width: 170px">执行操作</th>
                                 </thead>

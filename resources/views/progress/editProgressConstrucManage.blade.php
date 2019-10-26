@@ -1,0 +1,258 @@
+@extends('layouts.web')
+
+@section('content')
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/layui/layui.js"></script>
+
+    <style type="text/css">
+        .layui-form input[type=checkbox], .layui-form input[type=radio], .layui-form select {
+            display: inline;
+        }
+        .pro-title{
+            background: #e6e6e6;
+        }
+        .layui-table td, .layui-table th {
+            border: solid 1px #ccc;
+        }
+        select{
+            width: auto;
+        }
+        .radio, .checkbox {
+            min-height: 20px;
+            float: left;
+            padding:0 20px;
+        }
+    </style>
+    <div class="left-sidebar">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget">
+                    <div class="widget-header" style="text-align: center">
+                        <div  style="font-size: 16px;" >
+                            <b>{{$project->project_name}}</b>
+                        </div>
+                    </div>
+                    <div class="widget-body">
+                        <div id="dt_example" class="example_alt_pagination">
+
+                            <table class="layui-table layui-form">
+                                <thead>
+                                <tr>
+                                    <th colspan="8"><span class="btn btn-info">项目概况</span></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td  class="pro-title">项目名称</td>
+                                    <td  >{{$project->project_name}}</td>
+                                    <td  class="pro-title">工程名称</td>
+                                    <td >{{$engineering->engineering_name}}</td>
+                                    <td  class="pro-title">建筑面积(m²)</td>
+                                    <td  >{{$engineering->build_area}}</td>
+                                    <td class="pro-title">建筑楼层(层数)</td>
+                                    <td >{{$engineering->build_floor}}</td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                            <div class="clearfix"></div>
+                            <table class="layui-table layui-form">
+                                <thead>
+                                <tr>
+                                    <th colspan="4"><span class="btn btn-info">建筑尺寸设计参数</span></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td  class="pro-title">建筑占地尺寸 长（m）</td>
+                                    <td>{{isset($param->floor_height)?$param->floor_height:''}}</td>
+                                    <td class="pro-title"> 宽（m）</td>
+                                    <td>{{isset($param->floor_width)?$param->floor_width:''}}</td>
+                                </tr>
+                                <tr>
+                                    <td  class="pro-title">楼层信息</td>
+                                    <td class="pro-title">建筑层高（m）</td>
+                                    <td class="pro-title">室内净高（m）</td>
+                                    <td class="pro-title">建筑面积（m²）</td>
+                                </tr>
+
+                                @for($i =1;$i <= $engineering->build_floor;$i++ )
+                                    <tr >
+                                        <td class="pro-title">第{{$i}}层</td>
+                                        <td>{{ isset($storey_height[$i-1])?$storey_height[$i-1]:'' }}</td>
+                                        <td>{{ isset($house_height[$i-1])?$house_height[$i-1]:'' }}</td>
+                                        <td>{{ isset($house_area[$i-1])?$house_area[$i-1]:'' }}</td>
+                                    </tr>
+                                @endfor
+
+                                </tbody>
+                            </table>
+
+                            <div class="clearfix"></div>
+                                                      <table class="layui-table layui-form">
+                                <thead>
+                                <tr><th colspan="8"><span class="btn btn-info">建设场地概况</span></th></tr>
+                                </thead>
+                                <tbody>
+
+                                <tr>
+                                    <td  class="pro-title">工程地址</td>
+                                    <td >{{$engineering->engin_address}}</td>
+                                    <td class="pro-title">场地自然条件</td>
+                                    <td>{{$project->environment}}</td>
+                                    <td class="pro-title">场地交通条件</td>
+                                    <td>{{$project->traffic}}</td>
+                                    <td class="pro-title">材料存储条件</td>
+                                    <td>{{$project->material_storage}}</td>
+                                </tr>
+                                <tr>
+                                    <td  class="pro-title">现场人员住宿条件</td>
+                                    <td ><input type="text" name="" class="span10"></td>
+                                    <td class="pro-title">场地操作平台搭建条件(脚手架/安装平台)</td>
+                                    <td><input type="text" name="" class="span10"></td>
+                                    <td class="pro-title">场地大型施工机械使用条件(起重机/挖掘机)</td>
+                                    <td colspan="3"><input type="text" name="" class="span10"></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="pro-title">夏季平均气温（摄氏度）</td>
+                                    <td>
+                                        {{$project->summer_avg_temperature}}
+                                    </td>
+                                    <td class="pro-title">夏季最高气温（摄氏度）</td>
+                                    <td>
+                                        {{$project->summer_max_temperature}}
+                                    </td>
+                                    <td class="pro-title">冬季平均气温（摄氏度）</td>
+                                    <td>
+                                        {{$project->winter_avg_temperature}}
+                                    </td>
+                                    <td class="pro-title">冬季最低气温（摄氏度）</td>
+                                    <td>
+                                        {{$project->winter_min_temperature}}
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                            <div class="clearfix"></div>
+                            <table class="layui-table layui-form">
+                                <thead>
+                                <tr><th colspan="4"><span class="btn btn-info">工期进度计划</span></th></tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>系统工程名称</td>
+                                    <td>施工开始时间(计划)</td>
+                                    <td>施工完成时间(计划)</td>
+                                    <td>施工周期(天)</td>
+                                </tr>
+
+                                @if(!empty($engin_arch))
+                                    @foreach($engin_arch as $v)
+                                    <tr>
+                                        <td>{{$v->system_name}}:{{$v->sub_system_name}}
+                                        <input type="hidden" name="sub_arch_id[{{ $v->sub_arch_id }}]" value="{{$v->sub_arch_id}}">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="span10 progressdate"  id="progress_start_time_{{ $v->sub_arch_id }}"  name="progress_start_time[{{ $v->sub_arch_id }}]" value="">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="span10 progressdate" id="progress_end_time_{{ $v->sub_arch_id }}"    name="progress_end_time[{{ $v->sub_arch_id }}]" value="">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="span10 " id="progress_duration_{{ $v->sub_arch_id }}" name="progress_duration[{{ $v->sub_arch_id }}]" value="">
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                @endif
+                                </tbody>
+                            </table>
+                            <div class="clearfix"></div>
+
+
+                            <div class="layui-form-item" style="float: right;clear: left">
+                                <a href="javascript:history.go(-1)">
+                                    <label for="L_repass" class="layui-form-label"></label>
+                                    <span class="btn btn-success" lay-filter="add" lay-submit="">返回/取消</span>
+                                </a>
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script>
+        function submitStatus() {
+            sta =$('#project_status').val();
+            if(sta == 0){
+                showMsg('当前状态未更改，不能提交')
+                return false;
+            }
+            return true;
+        }
+        function showMsg(str){
+            layui.use('layer', function(){
+                var layer = layui.layer;
+                layer.msg(str);
+            });
+        }
+        //日期选择器
+        layui.use('laydate', function() {
+            var laydate = layui.laydate;
+            //常规用法
+            @foreach($engin_arch as $val)
+            laydate.render({
+                elem: '#progress_start_time_{{$val->sub_arch_id}}',
+                done: function(value, date, endDate){
+                    changeProgress({{$val->sub_arch_id}});
+                }
+            });
+            laydate.render({
+                elem: '#progress_end_time_{{$val->sub_arch_id}}',
+                done: function(value, date, endDate){
+                    changeProgress({{$val->sub_arch_id}});}
+            });
+            @endforeach
+        });
+        //更改周期信息
+        function changeProgress(id) {
+            //console.log(id)
+            starttime =$('#progress_start_time_'+id).val();
+            endtime =$('#progress_end_time_'+id).val();
+            console.log(starttime);
+            console.log(endtime);
+            if (starttime == "" || endtime == "") {
+                $("#progress_duration_"+id).val(0);
+            } else {
+                var startNum = parseInt(starttime.replace(/-/g, ''), 10);
+                var endNum = parseInt(endtime.replace(/-/g, ''), 10);
+                if (startNum > endNum) {
+                    showMsg("完成时间不能在开始时间之前！");
+                    $("#progress_duration_"+id).val(0);
+                } else {
+                    $("#progress_duration_"+id).val(DateDiff(starttime, endtime));  //调用/计算两个日期天数差的函数，通用
+                }
+            }
+        }
+        //相差的天数
+        function DateDiff(sDate1, sDate2) {  //sDate1和sDate2是yyyy-MM-dd格式
+
+            var aDate, oDate1, oDate2, iDays;
+            aDate = sDate1.split("-");
+            oDate1 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0]);  //转换为yyyy-MM-dd格式
+            aDate = sDate2.split("-");
+            oDate2 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0]);
+            iDays = parseInt(Math.abs(oDate1 - oDate2) / 1000 / 60 / 60 / 24)+1; //把相差的毫秒数转换为天数
+            return iDays;  //返回相差天数
+        }
+    </script>
+
+@endsection

@@ -333,7 +333,7 @@ class ProgressController extends WebController
     }
 
     //施工组织统筹计划
-    public function progressConstrucManage(Request $request,$id){
+    public function editProgressConstrucManage(Request $request,$id){
         $this->user();
         $engin=DB::table('engineering')->where('id',$id)->first();
         if(empty($engin)){
@@ -343,10 +343,31 @@ class ProgressController extends WebController
         if(empty($engin)){
             return redirect('/progress/progressConduct?status=2&notice='.'项目不存在');
         }
-
+        $data['project']=$project;
+        $data['engineering']=$engin;
         $data['subnavid']   =3001;
         $data['navid']   =30;
-        return view('progress.progressConstrucManage',$data);
+        //建筑设计配置参数
+        $data['param']=DB::table('engineering_param')->where('engin_id',$id)->first();
+        if($data['param']){
+            $data['storey_height']  =json_decode($data['param']->storey_height,true) ;
+            $data['house_height']   =json_decode($data['param']->house_height,true) ;
+            $data['house_area']     =json_decode($data['param']->house_area,true) ;
+            $data['room_position']  =json_decode($data['param']->room_position,true) ;
+            $data['room_name']      =json_decode($data['param']->room_name,true);
+            $data['room_area']      =json_decode($data['param']->room_area,true);
+        }
+        $engin_arch =DB::table('enginnering_architectural')->where('engin_id',$id)
+            ->orderby('system_code')->orderby('sub_system_code')
+            ->get();
+        $data['engin_arch']=$engin_arch;
+
+
+
+
+
+
+        return view('progress.editProgressConstrucManage',$data);
 
 
 
