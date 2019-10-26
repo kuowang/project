@@ -368,32 +368,42 @@ class ProgressController extends WebController
     public function porgressParamsList(Request $request){
         $this->user();
         $system_name        =$request->input('system_name','');
+        $sub_system_name        =$request->input('sub_system_name','');
+
         $page =$request->input('page',1);
         $rows =$request->input('rows',40);
         $data['system_name']      =$system_name;
+        $data['sub_system_name']      =$sub_system_name;
 
         $db=DB::table('architectural_system')
-            ->where('architectural_system.status',1);
+            ->join('architectural_sub_system','architectural_sub_system.architectural_id','=','architectural_system.id')
+            ->where('architectural_system.status',1)
+            ->where('architectural_sub_system.status',1);
         if(!empty($system_name)){
-            $db->where('system_name','like','%'.$system_name.'%');
+            $db->where('architectural_system.system_name','like','%'.$system_name.'%');
+        }
+        if(!empty($sub_system_name)){
+            $db->where('architectural_sub_system.sub_system_name','like','%'.$sub_system_name.'%');
         }
         $data['count'] =$db->count();
         $data['data']= $db->orderby('system_code','asc')
+            ->orderby('sub_system_code')
             ->skip(($page-1)*$rows)
             ->take($rows)
+            ->select(['system_name','system_code','sub_system_name','architectural_sub_system.id'])
             ->get();        //分页
-        $url='/architectural/architectureList?system_name='.$system_name.'&rows='.$rows;
+        $url='/progress/porgressParamsList?system_name='.$system_name.'&sub_system_name='.$sub_system_name.'&rows='.$rows;
         $data['page']   =$this->webfenye($page,ceil($data['count']/$rows),$url);
         //获取该用户的建筑系统关联子系统
         $paramsList=DB::table('progress_params_conf')
             ->where('status',1)
-            ->orderby('arch_id')
+            ->orderby('sub_arch_id')
             ->orderby('sort')
-            ->select(['arch_id','name','is_synchro'])->get();
+            ->select(['sub_arch_id','name','is_synchro'])->get();
         $params=[];
         if($paramsList){
             foreach($paramsList as $item){
-                $params[$item->arch_id][]=$item;
+                $params[$item->sub_arch_id][]=$item;
             }
         }
         $data['params']=$params;
@@ -430,12 +440,21 @@ class ProgressController extends WebController
         $data['navid']      =30; //当前导航页面
         $data['subnavid']   =3003;//当前子导航页
         //获取该用户的建筑系统信息
-        $data['architect']=DB::table('architectural_system')->where('id',$id)->first();
+        $architect=DB::table('architectural_sub_system')->where('id',$id)->first();
+        $data['architect'] =$architect;
         //获取该用户的建筑系统关联子系统
-        $data['paramsList']=DB::table('progress_params_conf')->where('arch_id',$id)->orderby('sort')->get();
+        $data['paramsList']=DB::table('progress_params_conf')->where('sub_arch_id',$id)->orderby('sort')->get();
         if(empty($data['architect'])){
             return redirect('/progress/porgressParamsList?status=2&notice='.'数据不存在，无法编辑');
         }
+
+        $data['subArchList'] =DB::table('progress_params_conf')
+            ->join('architectural_sub_system','architectural_sub_system.id','=','progress_params_conf.sub_arch_id')
+            ->where('arch_id',$architect->architectural_id)
+            ->where('sub_arch_id','!=',$id)
+            ->groupby('sub_arch_id')->groupby('sub_system_name')
+            ->select([DB::raw('count(*) as arch_count'),'sub_arch_id','architectural_sub_system.sub_system_name'])->get();
+
         return view('progress.editPorgressParams',$data);
     }
    //保存施工配置参数
@@ -448,13 +467,15 @@ class ProgressController extends WebController
         $is_synchro =$request->input('is_synchro',[]);
         $sort       =$request->input('sort',[]);
         $status     =$request->input('status',[]);
-        if(empty($param_id)){
+        $subarchinfo=DB::table('architectural_sub_system')->where('id',$id)->first();
+        if(empty($param_id) || empty($subarchinfo)){
             return redirect('/progress/porgressParamsList?status=2&notice='.'您没有上传数据');
         }
-
         foreach($param_id as $k=>$v){
             $data=[
-                'arch_id'=>$id,
+                'arch_id'=>$subarchinfo->architectural_id,
+                'sub_system_code'=>$subarchinfo->sub_system_code,
+                'sub_arch_id'=>$id,
                 'name'=>isset($name[$k])?$name[$k]:'',
                 'is_synchro'=>isset($is_synchro[$k])?(int)$is_synchro[$k]:1,
                 'sort'=>isset($sort[$k])?(int)$sort[$k]:1,
@@ -471,6 +492,12 @@ class ProgressController extends WebController
         return redirect('/progress/porgressParamsList?status=1&notice='.'编辑完成');
     }
 
+    //获取指定系统工程的安装步骤
+    public function getProgressArchList(Request $request,$id){
+        $data =DB::table('progress_params_conf') ->where('sub_arch_id',$id)->where('status',1)
+            ->select('name','is_synchro','sort')->get();
+        return $this->success($data);
+    }
 
 
 

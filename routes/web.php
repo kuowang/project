@@ -351,6 +351,9 @@ Route::group(['prefix' => 'progress','namespace' => 'Progress','middleware' => '
     Route::get('/progressParamsDetail/{id}',             'ProgressController@progressParamsDetail');    //施工参数配置详情
     Route::post('/postEditProgressParams/{id}',          'ProgressController@postEditProgressParams');  //保存施工参数配置
 
+    Route::get('/getProgressArchList/{id}',             'ProgressController@getProgressArchList');       //获取指定子系统工程安装步骤
+
+
 
 
 

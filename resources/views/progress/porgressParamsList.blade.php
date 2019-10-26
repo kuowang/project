@@ -64,7 +64,7 @@
                                     <tr style="color: #000">
                                         <td>{{ $k+1 }}</td>
                                         <td>{{ $val->system_name }}({{ $val->system_code }})</td>
-                                        <td>{{ $val->engineering_name }}</td>
+                                        <td>{{ $val->sub_system_name }}</td>
                                         <td style="color: #000">
                                         @if(isset($params[$val->id]))
                                         @foreach($params[$val->id] as $l=>$item)
