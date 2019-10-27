@@ -22,7 +22,7 @@
 
                                 </div>
                                 <div class="am-form-group">
-                                    <input id="doc-vld-name" type="password" placeholder="请输入密码"  class="form-control am-form-field"  name="password" required>
+                                    <input id="doc-vld-name" type="password" placeholder="请输入密码"  class=" am-form-field"  name="password" required>
                                     @if ($errors->has('password'))
                                         <span class="help-block">
                                         <strong>{{ $errors->first('password') }}</strong>

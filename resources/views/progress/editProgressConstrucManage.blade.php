@@ -17,10 +17,20 @@
         select{
             width: auto;
         }
-        .radio, .checkbox {
-            min-height: 20px;
-            float: left;
-            padding:0 20px;
+
+    </style>
+    <style type="text/css">
+        .progresszhouqi1{border: #00025E 1px solid;float:left;margin: 10px 10px 10px 10px;padding-right: 2px;}
+        .progresszhouqi2{height: 40px;line-height: 40px;margin-left: 10px;}
+        .progresszhouqi3{line-height: 40px}
+        .progresszhouqi4{margin: 0 10px}
+        .progresszhouqi5{height: 20px}
+        .progresszhouqi6{width: 40%;float:left;background: #000;color:#fff;height: 30px;line-height:30px;text-align: center}
+        .progresszhouqi7{width: 60%;float:left;text-align: center;}
+        .progresszhouqi8{width: 100%;height: 20px;}
+        input[type="radio"], input[type="checkbox"] {
+             margin: 0;
+            line-height: normal;
         }
     </style>
     <div class="left-sidebar">
@@ -169,6 +179,103 @@
                                 </tbody>
                             </table>
                             <div class="clearfix"></div>
+                            <table class="layui-table layui-form">
+                                <thead>
+                                <tr><th colspan="6"><span class="btn btn-info">现场人员安排</span></th></tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>项目负责人姓名</td>
+                                    <td>现场负责人联系方式</td>
+                                    <td>施工队伍总人数</td>
+                                    <td>首批进场人员数量</td>
+                                    <td>最高进场人员数量</td>
+                                    <td>最低进场人员数量</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" class="span12" name=""  ></td>
+                                    <td><input type="text" class="span12" name=""  ></td>
+                                    <td><input type="text" class="span12" name=""  ></td>
+                                    <td><input type="text" class="span12" name=""  ></td>
+                                    <td><input type="text" class="span12" name=""  ></td>
+                                    <td><input type="text" class="span12" name=""  ></td>
+                                </tr>
+                                <tr>
+                                    <td>项目安全员人数</td>
+                                    <td colspan="2">安全员姓名</td>
+                                    <td>项目质检员人数</td>
+                                    <td colspan="2">质检员姓名</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" class="span12" name=""  ></td>
+                                    <td colspan="2"><input type="text" class="span12" name=""  ></td>
+                                    <td><input type="text" class="span12" name=""  ></td>
+                                    <td colspan="2"><input type="text" class="span12" name=""  ></td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="clearfix"></div>
+                            <table class="layui-table layui-form">
+                                <thead>
+                                <tr><th colspan="2"><span class="btn btn-info">施工安装流程、范围及施工周期（计划）</span></th></tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td colspan="2">
+                                        <label style="display: inline;margin: 5px;">
+                                            <input type="radio" name="progress_type" value="1" style="margin: auto;">毛坯房不含基础
+                                        </label>
+
+                                        <label style="display: inline;margin: 5px">
+                                            <input type="radio" name="progress_type"  value="2" style="margin: auto;">毛坯房含基础
+                                        </label>
+
+                                    </td>
+                                </tr>
+
+                                @if(!empty($engin_arch))
+                                    @foreach($engin_arch as $v)
+                                        <tr>
+                                            <td>{{$v->system_name}}:{{$v->sub_system_name}}
+                                                <input type="hidden" name="sub_arch_id[{{ $v->sub_arch_id }}]" value="{{$v->sub_arch_id}}">
+                                            </td>
+                                            <td style="width: 80%">
+                                                @if(isset($paramsConf[$v->sub_arch_id]))
+                                                    @foreach($paramsConf[$v->sub_arch_id] as $k=>$arch)
+                                                       <div style="float: left">
+                                                        @if($k !=0)
+                                                        <img src="/img/a.png" style="float: left;height: 30px;margin-top: 32px;margin-bottom: 32px;">
+                                                        @endif
+                                                        <div class="progresszhouqi1" style="width:{{$arch['length']*16 +20}}px;min-width: 100px">
+
+                                                            <div class="progresszhouqi2" style="">
+                                                                <label class="progresszhouqi3" style="">
+                                                                    <input type="checkbox"  class="progresszhouqi4" name="" style="">{{$arch['name']}}</label>
+                                                            </div>
+                                                            <div  class="progresszhouqi5" style="">
+                                                                <div class="progresszhouqi6" style="">周期</div>
+                                                                <div class="progresszhouqi7" style="">
+                                                                    <input type="text" class="progresszhouqi8" style="padding:4px 0"></div>
+                                                            </div>
+                                                        </div>
+                                                       </div>
+                                                    @endforeach
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+
+
+                                </tbody>
+                            </table>
+
+
+
+
+
+
 
 
                             <div class="layui-form-item" style="float: right;clear: left">

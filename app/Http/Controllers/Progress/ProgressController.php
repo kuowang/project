@@ -361,7 +361,23 @@ class ProgressController extends WebController
             ->orderby('system_code')->orderby('sub_system_code')
             ->get();
         $data['engin_arch']=$engin_arch;
-
+        $enginids=[];
+        foreach($engin_arch as $v){
+            $enginids[]=$v->sub_arch_id;
+        }
+        $paramsConf=[];
+        $params =DB::table('progress_params_conf')->wherein('sub_arch_id',$enginids)->where('status',1)->get();
+        if($params){
+            foreach($params as $p){
+                $paramsConf[$p->sub_arch_id][] =[
+                    'sub_arch_id'=>$p->sub_arch_id,
+                    'name'=>$p->name,
+                    'is_synchro'=>$p->is_synchro,
+                    'length'=>mb_strlen($p->name),
+                ];
+            }
+        }
+        $data['paramsConf']=$paramsConf;
 
 
 
