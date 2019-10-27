@@ -148,39 +148,6 @@
                             <div class="clearfix"></div>
                             <table class="layui-table layui-form">
                                 <thead>
-                                <tr><th colspan="4"><span class="btn btn-info">工期进度计划</span></th></tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>系统工程名称</td>
-                                    <td>施工开始时间(计划)</td>
-                                    <td>施工完成时间(计划)</td>
-                                    <td>施工周期(天)</td>
-                                </tr>
-
-                                @if(!empty($engin_arch))
-                                    @foreach($engin_arch as $v)
-                                    <tr>
-                                        <td>{{$v->system_name}}:{{$v->sub_system_name}}
-                                        <input type="hidden" name="sub_arch_id[{{ $v->sub_arch_id }}]" value="{{$v->sub_arch_id}}">
-                                        </td>
-                                        <td>
-                                            <input type="text" class="span10 progressdate"  id="progress_start_time_{{ $v->sub_arch_id }}"  name="progress_start_time[{{ $v->sub_arch_id }}]" value="">
-                                        </td>
-                                        <td>
-                                            <input type="text" class="span10 progressdate" id="progress_end_time_{{ $v->sub_arch_id }}"    name="progress_end_time[{{ $v->sub_arch_id }}]" value="">
-                                        </td>
-                                        <td>
-                                            <input type="text" class="span10 " id="progress_duration_{{ $v->sub_arch_id }}" name="progress_duration[{{ $v->sub_arch_id }}]" value="">
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                @endif
-                                </tbody>
-                            </table>
-                            <div class="clearfix"></div>
-                            <table class="layui-table layui-form">
-                                <thead>
                                 <tr><th colspan="6"><span class="btn btn-info">现场人员安排</span></th></tr>
                                 </thead>
                                 <tbody>
@@ -214,6 +181,40 @@
                                 </tr>
                                 </tbody>
                             </table>
+                            <div class="clearfix"></div>
+                            <table class="layui-table layui-form">
+                                <thead>
+                                <tr><th colspan="4"><span class="btn btn-info">工期进度计划</span></th></tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>系统工程名称</td>
+                                    <td>施工开始时间(计划)</td>
+                                    <td>施工完成时间(计划)</td>
+                                    <td>施工周期(天)</td>
+                                </tr>
+
+                                @if(!empty($engin_arch))
+                                    @foreach($engin_arch as $v)
+                                    <tr>
+                                        <td>{{$v->system_name}}:{{$v->sub_system_name}}
+                                        <input type="hidden" name="sub_arch_id[{{ $v->sub_arch_id }}]" value="{{$v->sub_arch_id}}">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="span10 progressdate"  id="progress_start_time_{{ $v->sub_arch_id }}"  name="progress_start_time[{{ $v->sub_arch_id }}]" value="">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="span10 progressdate" id="progress_end_time_{{ $v->sub_arch_id }}"    name="progress_end_time[{{ $v->sub_arch_id }}]" value="">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="span10 " id="progress_duration_{{ $v->sub_arch_id }}" name="progress_duration[{{ $v->sub_arch_id }}]" value="">
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                @endif
+                                </tbody>
+                            </table>
+
 
                             <div class="clearfix"></div>
                             <table class="layui-table layui-form">
@@ -237,7 +238,13 @@
                                 @if(!empty($engin_arch))
                                     @foreach($engin_arch as $v)
                                         <tr>
-                                            <td>{{$v->system_name}}:{{$v->sub_system_name}}
+                                            <td>
+                                                <div> {{$v->system_name}}</div>
+                                                <div> &nbsp;&nbsp;{{$v->sub_system_name}}</div>
+                                                <div>施工时间：</div>
+                                                <div>施工周期</div>
+
+
                                                 <input type="hidden" name="sub_arch_id[{{ $v->sub_arch_id }}]" value="{{$v->sub_arch_id}}">
                                             </td>
                                             <td style="width: 80%">
@@ -247,21 +254,21 @@
                                                             @if($k !=0)
                                                             <img src="/img/a.png" style="float: left;height: 30px;margin-top: 32px;margin-bottom: 32px;">
                                                             @endif
-                                                            <div class="progresszhouqi1" style="width:{{$arch['length']*16 +20}}px;min-width: 100px">
+                                                            <div class="progresszhouqi1" style="width:{{$arch['length']*16 +20}}px;min-width: 140px">
 
                                                                 <div class="progresszhouqi2" style="">
-                                                                    <label class="progresszhouqi3" style="">
+                                                                    <label class="progresszhouqi3  btn btn-info" style="height: 27px;width: 90%;padding: 2px;line-height: 27px;">
                                                                         <input type="checkbox"  class="progresszhouqi4" name="" style="">{{$arch['name']}}</label>
                                                                 </div>
                                                                 <div  class="progresszhouqi5" style="">
 
                                                                     @if($arch['is_synchro'] ==1)
-                                                                        <div class="progresszhouqi6" style="">周期</div>
+                                                                        <div class="progresszhouqi6" style="">周期(天)</div>
                                                                         <div class="progresszhouqi7" style="">
                                                                             <input type="text" class="progresszhouqi8" style="padding:4px 0;" onclick="key(this)">
                                                                         </div>
                                                                     @else
-                                                                        <div class="progresszhouqi6" style="color:red">周期</div>
+                                                                        <div class="progresszhouqi6" style="color:red">周期(天)</div>
                                                                         <div class="progresszhouqi7" style="">
                                                                             <input type="text" class="progresszhouqi8" style="padding:4px 0;color:red" onclick="key(this)">
                                                                         </div>
@@ -280,10 +287,6 @@
 
                                 </tbody>
                             </table>
-
-
-
-
 
 
 
