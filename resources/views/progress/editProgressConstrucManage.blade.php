@@ -27,7 +27,7 @@
         .progresszhouqi5{height: 20px}
         .progresszhouqi6{width: 40%;float:left;background: #000;color:#fff;height: 30px;line-height:30px;text-align: center}
         .progresszhouqi7{width: 60%;float:left;text-align: center;}
-        .progresszhouqi8{width: 100%;height: 20px;}
+        .progresszhouqi8{width: 100%;height: 20px;text-align: center;}
         input[type="radio"], input[type="checkbox"] {
              margin: 0;
             line-height: normal;
@@ -243,23 +243,33 @@
                                             <td style="width: 80%">
                                                 @if(isset($paramsConf[$v->sub_arch_id]))
                                                     @foreach($paramsConf[$v->sub_arch_id] as $k=>$arch)
-                                                       <div style="float: left">
-                                                        @if($k !=0)
-                                                        <img src="/img/a.png" style="float: left;height: 30px;margin-top: 32px;margin-bottom: 32px;">
-                                                        @endif
-                                                        <div class="progresszhouqi1" style="width:{{$arch['length']*16 +20}}px;min-width: 100px">
+                                                        <div style="float: left">
+                                                            @if($k !=0)
+                                                            <img src="/img/a.png" style="float: left;height: 30px;margin-top: 32px;margin-bottom: 32px;">
+                                                            @endif
+                                                            <div class="progresszhouqi1" style="width:{{$arch['length']*16 +20}}px;min-width: 100px">
 
-                                                            <div class="progresszhouqi2" style="">
-                                                                <label class="progresszhouqi3" style="">
-                                                                    <input type="checkbox"  class="progresszhouqi4" name="" style="">{{$arch['name']}}</label>
-                                                            </div>
-                                                            <div  class="progresszhouqi5" style="">
-                                                                <div class="progresszhouqi6" style="">周期</div>
-                                                                <div class="progresszhouqi7" style="">
-                                                                    <input type="text" class="progresszhouqi8" style="padding:4px 0"></div>
+                                                                <div class="progresszhouqi2" style="">
+                                                                    <label class="progresszhouqi3" style="">
+                                                                        <input type="checkbox"  class="progresszhouqi4" name="" style="">{{$arch['name']}}</label>
+                                                                </div>
+                                                                <div  class="progresszhouqi5" style="">
+
+                                                                    @if($arch['is_synchro'] ==1)
+                                                                        <div class="progresszhouqi6" style="">周期</div>
+                                                                        <div class="progresszhouqi7" style="">
+                                                                            <input type="text" class="progresszhouqi8" style="padding:4px 0;" onclick="key(this)">
+                                                                        </div>
+                                                                    @else
+                                                                        <div class="progresszhouqi6" style="color:red">周期</div>
+                                                                        <div class="progresszhouqi7" style="">
+                                                                            <input type="text" class="progresszhouqi8" style="padding:4px 0;color:red" onclick="key(this)">
+                                                                        </div>
+                                                                    @endif
+
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                       </div>
                                                     @endforeach
                                                 @endif
                                             </td>
@@ -360,6 +370,19 @@
             iDays = parseInt(Math.abs(oDate1 - oDate2) / 1000 / 60 / 60 / 24)+1; //把相差的毫秒数转换为天数
             return iDays;  //返回相差天数
         }
+        //点击只能输入数字
+        function key(th){
+            $(th).keyup(function(){
+                $(this).val($(this).val().replace(/[^0-9.]/g,''));
+            }).bind("paste",function(){  //CTR+V事件处理
+                $(this).val($(this).val().replace(/[^0-9.]/g,''));
+            }).css("ime-mode", "disabled"); //CSS设置输入法不可用
+            va =$(th).val();
+            if(va > 1000000000 || va < 0) {
+                $(th).val(0);
+            }
+        }
+
     </script>
 
 @endsection
