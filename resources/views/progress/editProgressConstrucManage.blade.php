@@ -20,13 +20,13 @@
 
     </style>
     <style type="text/css">
-        .progresszhouqi1{border: #00025E 1px solid;float:left;margin: 10px 10px 10px 10px;padding-right: 2px;}
+        .progresszhouqi1{float:left;margin: 10px 10px 10px 10px;padding-right: 2px;}
         .progresszhouqi2{height: 40px;line-height: 40px;margin-left: 10px;}
-        .progresszhouqi3{line-height: 40px}
+        .progresszhouqi3{line-height: 40px;height: 27px;padding: 2px;line-height: 27px;width:98%;border:0px}
         .progresszhouqi4{margin: 0 10px}
         .progresszhouqi5{height: 20px}
         .progresszhouqi6{width: 40%;float:left;background: #000;color:#fff;height: 30px;line-height:30px;text-align: center}
-        .progresszhouqi7{width: 60%;float:left;text-align: center;}
+        .progresszhouqi7{width: 59%;float:left;text-align: center;}
         .progresszhouqi8{width: 100%;height: 20px;text-align: center;}
         input[type="radio"], input[type="checkbox"] {
              margin: 0;
@@ -42,6 +42,8 @@
                             <b>{{$project->project_name}}</b>
                         </div>
                     </div>
+                    <form method="post" action="/progress/postProgressConstrucManage/{{ $engin_id }}">
+
                     <div class="widget-body">
                         <div id="dt_example" class="example_alt_pagination">
 
@@ -99,7 +101,7 @@
                             </table>
 
                             <div class="clearfix"></div>
-                                                      <table class="layui-table layui-form">
+                            <table class="layui-table layui-form">
                                 <thead>
                                 <tr><th colspan="8"><span class="btn btn-info">建设场地概况</span></th></tr>
                                 </thead>
@@ -117,11 +119,11 @@
                                 </tr>
                                 <tr>
                                     <td  class="pro-title">现场人员住宿条件</td>
-                                    <td ><input type="text" name="" class="span10"></td>
+                                    <td ><input type="text" name="construction_accommodation"  value="{{isset($progress_info->construction_accommodation)?$progress_info->construction_accommodation:''}}" class="span10" ></td>
                                     <td class="pro-title">场地操作平台搭建条件(脚手架/安装平台)</td>
-                                    <td><input type="text" name="" class="span10"></td>
+                                    <td><input type="text" name="construction_scaffolding"  value="{{isset($progress_info->construction_scaffolding)?$progress_info->construction_scaffolding:''}}" class="span10"></td>
                                     <td class="pro-title">场地大型施工机械使用条件(起重机/挖掘机)</td>
-                                    <td colspan="3"><input type="text" name="" class="span10"></td>
+                                    <td colspan="3"><input type="text" name="construction_crane"  value="{{isset($progress_info->construction_crane)?$progress_info->construction_crane:''}}" class="span10"></td>
                                 </tr>
 
                                 <tr>
@@ -152,7 +154,7 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td>项目负责人姓名</td>
+                                    <td>施工负责人姓名</td>
                                     <td>现场负责人联系方式</td>
                                     <td>施工队伍总人数</td>
                                     <td>首批进场人员数量</td>
@@ -160,12 +162,12 @@
                                     <td>最低进场人员数量</td>
                                 </tr>
                                 <tr>
-                                    <td><input type="text" class="span12" name=""  ></td>
-                                    <td><input type="text" class="span12" name=""  ></td>
-                                    <td><input type="text" class="span12" name=""  ></td>
-                                    <td><input type="text" class="span12" name=""  ></td>
-                                    <td><input type="text" class="span12" name=""  ></td>
-                                    <td><input type="text" class="span12" name=""  ></td>
+                                    <td><input type="text" class="span12" name="construction_leader"  value="{{isset($progress_info->construction_leader)?$progress_info->construction_leader:''}}"></td>
+                                    <td><input type="text" class="span12" name="construction_phone"  value="{{isset($progress_info->construction_phone)?$progress_info->construction_phone:''}}"></td>
+                                    <td><input type="text" class="span12" name="construction_people_number"  value="{{isset($progress_info->construction_people_number)?$progress_info->construction_people_number:''}}"></td>
+                                    <td><input type="text" class="span12" name="construction_first_people"  value="{{isset($progress_info->construction_first_people)?$progress_info->construction_first_people:''}}"></td>
+                                    <td><input type="text" class="span12" name="construction_max_people"  value="{{isset($progress_info->construction_max_people)?$progress_info->construction_max_people:''}}"></td>
+                                    <td><input type="text" class="span12" name="construction_min_people"  value="{{isset($progress_info->construction_min_people)?$progress_info->construction_min_people:''}}"></td>
                                 </tr>
                                 <tr>
                                     <td>项目安全员人数</td>
@@ -174,10 +176,10 @@
                                     <td colspan="2">质检员姓名</td>
                                 </tr>
                                 <tr>
-                                    <td><input type="text" class="span12" name=""  ></td>
-                                    <td colspan="2"><input type="text" class="span12" name=""  ></td>
-                                    <td><input type="text" class="span12" name=""  ></td>
-                                    <td colspan="2"><input type="text" class="span12" name=""  ></td>
+                                    <td><input type="text" class="span12" name="security_people_number"  value="{{isset($progress_info->security_people_number)?$progress_info->security_people_number:''}}"></td>
+                                    <td colspan="2"><input type="text" class="span12" name="security_people_name"  value="{{isset($progress_info->security_people_name)?$progress_info->security_people_name:''}}"></td>
+                                    <td><input type="text" class="span12" name="inspector_number"  value="{{isset($progress_info->inspector_number)?$progress_info->inspector_number:''}}"></td>
+                                    <td colspan="2"><input type="text" class="span12" name="inspector"  value="{{isset($progress_info->inspector)?$progress_info->inspector:''}}"></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -201,13 +203,13 @@
                                         <input type="hidden" name="sub_arch_id[{{ $v->sub_arch_id }}]" value="{{$v->sub_arch_id}}">
                                         </td>
                                         <td>
-                                            <input type="text" class="span10 progressdate"  id="progress_start_time_{{ $v->sub_arch_id }}"  name="progress_start_time[{{ $v->sub_arch_id }}]" value="">
+                                            <input type="text" class="span10 progressdate"  id="progress_start_time_{{ $v->sub_arch_id }}"  name="progress_start_time[{{ $v->sub_arch_id }}]" value="{{isset($progress_duration[$v->sub_arch_id]->progress_start_time)?$progress_duration[$v->sub_arch_id]->progress_start_time:''}}">
                                         </td>
                                         <td>
-                                            <input type="text" class="span10 progressdate" id="progress_end_time_{{ $v->sub_arch_id }}"    name="progress_end_time[{{ $v->sub_arch_id }}]" value="">
+                                            <input type="text" class="span10 progressdate" id="progress_end_time_{{ $v->sub_arch_id }}"    name="progress_end_time[{{ $v->sub_arch_id }}]" value="{{isset($progress_duration[$v->sub_arch_id]->progress_end_time)?$progress_duration[$v->sub_arch_id]->progress_end_time:''}}">
                                         </td>
                                         <td>
-                                            <input type="text" class="span10 " id="progress_duration_{{ $v->sub_arch_id }}" name="progress_duration[{{ $v->sub_arch_id }}]" value="">
+                                            <input type="text" class="span10 " id="progress_duration_{{ $v->sub_arch_id }}" name="progress_duration[{{ $v->sub_arch_id }}]" value="{{isset($progress_duration[$v->sub_arch_id]->progress_duration)?$progress_duration[$v->sub_arch_id]->progress_duration:''}}">
                                         </td>
                                     </tr>
                                     @endforeach
@@ -229,7 +231,7 @@
                                         </label>
 
                                         <label style="display: inline;margin: 5px">
-                                            <input type="radio" name="progress_type"  value="2" style="margin: auto;">毛坯房含基础
+                                            <input type="radio" name="progress_type"  checked="checked" value="2" style="margin: auto;">毛坯房含基础
                                         </label>
 
                                     </td>
@@ -241,8 +243,13 @@
                                             <td>
                                                 <div> {{$v->system_name}}</div>
                                                 <div> &nbsp;&nbsp;{{$v->sub_system_name}}</div>
-                                                <div>施工时间：</div>
-                                                <div>施工周期</div>
+                                                <div>施工时间:<span id="shijian_{{$v->sub_arch_id}}">
+                                                        {{isset($progress_duration[$v->sub_arch_id]->progress_start_time)?$progress_duration[$v->sub_arch_id]->progress_start_time:''}}
+                                                       至 {{isset($progress_duration[$v->sub_arch_id]->progress_end_time)?$progress_duration[$v->sub_arch_id]->progress_end_time:''}}
+                                                    </span></div>
+                                                <div>施工周期(天):<span id="zhouqi_{{$v->sub_arch_id}}">
+                                                     {{isset($progress_duration[$v->sub_arch_id]->progress_duration)?$progress_duration[$v->sub_arch_id]->progress_duration:''}}
+                                                    </span></div>
 
 
                                                 <input type="hidden" name="sub_arch_id[{{ $v->sub_arch_id }}]" value="{{$v->sub_arch_id}}">
@@ -256,21 +263,34 @@
                                                             @endif
                                                             <div class="progresszhouqi1" style="width:{{$arch['length']*16 +20}}px;min-width: 140px">
 
-                                                                <div class="progresszhouqi2" style="">
-                                                                    <label class="progresszhouqi3  btn btn-info" style="height: 27px;width: 90%;padding: 2px;line-height: 27px;">
-                                                                        <input type="checkbox"  class="progresszhouqi4" name="" style="">{{$arch['name']}}</label>
+                                                                <div class="" style="">
+                                                                    <label class="progresszhouqi3  btn btn-info" style="">
+                                                                        @if(isset($progress_process[$arch['param_id']]))
+                                                                            <input type="checkbox"  class="progresszhouqi4" checked name="param_id[{{$arch['param_id']}}]" value="{{$arch['param_id']}}" style="">{{$arch['name']}}
+                                                                        @else
+                                                                            <input type="checkbox"  class="progresszhouqi4" name="param_id[{{$arch['param_id']}}]" value="{{$arch['param_id']}}" style="">{{$arch['name']}}
+                                                                        @endif
+                                                                    </label>
                                                                 </div>
                                                                 <div  class="progresszhouqi5" style="">
 
                                                                     @if($arch['is_synchro'] ==1)
                                                                         <div class="progresszhouqi6" style="">周期(天)</div>
                                                                         <div class="progresszhouqi7" style="">
-                                                                            <input type="text" class="progresszhouqi8" style="padding:4px 0;" onclick="key(this)">
+                                                                            @if(isset($progress_process[$arch['param_id']]))
+                                                                                <input type="text" class="progresszhouqi8" value="{{$progress_process[$arch['param_id']]}}" name="arch_duration_plan[{{$arch['param_id']}}]" style="padding:4px 0;" onclick="key(this)">
+                                                                            @else
+                                                                                <input type="text" class="progresszhouqi8" name="arch_duration_plan[{{$arch['param_id']}}]" style="padding:4px 0;" onclick="key(this)">
+                                                                            @endif
                                                                         </div>
                                                                     @else
                                                                         <div class="progresszhouqi6" style="color:red">周期(天)</div>
                                                                         <div class="progresszhouqi7" style="">
-                                                                            <input type="text" class="progresszhouqi8" style="padding:4px 0;color:red" onclick="key(this)">
+                                                                            @if(isset($progress_process[$arch['param_id']]))
+                                                                                <input type="text" class="progresszhouqi8" value="{{$progress_process[$arch['param_id']]}}"  name="arch_duration_plan[{{$arch['param_id']}}]" style="padding:4px 0;color:red" onclick="key(this)">
+                                                                            @else
+                                                                                <input type="text" class="progresszhouqi8"  name="arch_duration_plan[{{$arch['param_id']}}]" style="padding:4px 0;color:red" onclick="key(this)">
+                                                                            @endif
                                                                         </div>
                                                                     @endif
 
@@ -284,12 +304,13 @@
                                     @endforeach
                                 @endif
 
-
                                 </tbody>
                             </table>
 
-
-
+                            <div class="layui-form-item" style="float: right;clear: left">
+                                <label for="L_repass" class="layui-form-label"></label>
+                                <button class="btn btn-success" lay-filter="add" type="submit" lay-submit="" onclick='return form_submit()'>确认/保存</button>
+                            </div>
 
                             <div class="layui-form-item" style="float: right;clear: left">
                                 <a href="javascript:history.go(-1)">
@@ -302,6 +323,9 @@
 
                         </div>
                     </div>
+
+                    </form>
+
                 </div>
             </div>
 
@@ -358,7 +382,10 @@
                     showMsg("完成时间不能在开始时间之前！");
                     $("#progress_duration_"+id).val(0);
                 } else {
-                    $("#progress_duration_"+id).val(DateDiff(starttime, endtime));  //调用/计算两个日期天数差的函数，通用
+                    diff =DateDiff(starttime, endtime);
+                    $('#shijian_'+id).html(starttime +'至'+endtime);
+                    $('#zhouqi_'+id).html(diff);
+                    $("#progress_duration_"+id).val(diff);  //调用/计算两个日期天数差的函数，通用
                 }
             }
         }

@@ -354,6 +354,7 @@ Route::group(['prefix' => 'progress','namespace' => 'Progress','middleware' => '
 
     Route::get('/getProgressArchList/{id}',             'ProgressController@getProgressArchList');       //获取指定子系统工程安装步骤
 
+    Route::post('/postProgressConstrucManage/{id}',     'ProgressController@postProgressConstrucManage');  //保存施工统筹计划数据
 
 
 

@@ -5573,7 +5573,7 @@ header {
 .metro-nav .metro-nav-block {
   display: block;
   float: left;
-  height: 70px;
+  height: 55px;
   width: 20%;
   cursor: pointer;
   text-decoration: none;
@@ -5627,7 +5627,7 @@ header {
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
     .metro-nav div{
-        line-height: 65px;
+        line-height: 55px;
         margin-right: 5px;
     }
   .metro-nav *:after, .metro-nav *:before {
@@ -5658,13 +5658,13 @@ header {
 .metro-nav .nav-block-orange {
   background: #ed6d49; }
 .metro-nav .nav-block-green {
-  background: #74b749; }
-.metro-nav .nav-block-yellow {
-  background: #ffb400; }
-.metro-nav .nav-block-blue {
   background: #0daed3; }
-.metro-nav .nav-block-red {
+.metro-nav .nav-block-yellow {
+  background: #74b749; }
+.metro-nav .nav-block-blue {
   background: #f63131; }
+.metro-nav .nav-block-red {
+  background: #ffb400;}
 
 /*  Metro Nav ends  */
 /*  Chats starts here  */
@@ -7528,3 +7528,7 @@ select{
 .dashboard-wrapper .left-sidebar {
      margin-right: auto;
 }
+.metro-nav-block .fs1 img{
+    float: left;
+}
+

@@ -124,7 +124,7 @@
                                             @endif
                                         </td>
                                         <td>@if(!empty($val->progress_id) && $val->budget_id != 0 && ((in_array(300101,$pageauth) && $val->progress_uid == $uid ) || in_array(300101,$manageauth)))
-                                                <a href="/progress/editProgressConstrucManage/{{$val->engin_id}}">
+                                                <a href="/progress/progressConstrucManageDetail/{{$val->engin_id}}">
                                                     <div class="btn btn-success"> 施工组织统筹计划 </div>
                                                 </a>
                                             @else
