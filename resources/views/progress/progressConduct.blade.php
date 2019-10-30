@@ -73,7 +73,7 @@
                         </div>
                         <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                             <label>
-                                <form class="form-search" action="/progress/progressConduct" method="get">
+                                <form class="form-search" action="/progress/progressConduct/{{$id}}" method="get">
                                     项目名称:<input type="text" name="project_name" value="{{ $project_name }}" class="input-medium search-query">
                                     工程名称:<input type="text" name="engineering_name" value="{{ $engineering_name }}" class="input-medium search-query">
                                     施工负责人:<input type="text" name="progress_username" value="{{ $progress_username }}" class="input-medium search-query">

@@ -46,8 +46,8 @@
                         @if(in_array(100301,$pageauth))
                             <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                                 <label>
-                                    <form class="form-search" action="/admin/role_list" method="get">
-                                        角色名称:<input type="text" name="search" value="{{ $search }}" class="input-medium search-query">
+                                    <form class="form-search" action="/admin/system_list" method="get">
+                                        系统名称:<input type="text" name="search" value="{{ $search }}" class="input-medium search-query">
                                         <button type="submit" class="btn">搜索</button>
                                     </form></label>
                             </div>

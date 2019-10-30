@@ -401,7 +401,12 @@ class ProgressController extends WebController
         $engin=DB::table('engineering')->where('id',$id)->first();
         if(empty($engin)){
             return redirect('/progress/progressConduct?status=2&notice='.'工程不存在');
+        }else if(($engin->progress_uid != $this->user()->id)  && !in_array(300102,$this->user()->manageauth)){
+            return redirect('/progress/progressConduct/'.$engin->project_id.'?status=2&notice='.'您没有权限更改施工安装统筹计划');
+        }else if($engin->status != 1){
+            return redirect('/progress/progressConduct/'.$engin->project_id.'?status=2&notice='.'只有实施工程才能更改施工安装统筹计划');
         }
+
         $project= DB::table('project')->where('id',$engin->project_id)->first();
         if(empty($engin)){
             return redirect('/progress/progressConduct?status=2&notice='.'项目不存在');
@@ -560,9 +565,130 @@ class ProgressController extends WebController
     //现场材料管理
     public function progressMaterialManage(Request $request,$id){
 
+        $this->user();
+        $data['navid']      =30;
+        $data['subnavid']   =3001;
+        //项目子工程
+        $engineering =DB::table('engineering')->where('id',$id)->first();
+        if(empty($engineering)){
+            return redirect('/progress/progressConduct?status=2&notice='.'该工程不存在');
+        }
+        //项目信息
+        $project =DB::table('project')->where('id',$engineering->project_id)->first();
+        if( !(in_array(300102,$this->user()->pageauth) && $engineering->progress_uid == $this->user()->id ) && !in_array(300102,$this->user()->manageauth)){
+            //采购人员可以操作更改工程设计详情
+            return redirect('/progress/progressConduct/'.$engineering->project_id.'?status=2&notice='.'您没有权限进入现场材料管理');
+        }
+        if($engineering->budget_id ==0){
+            return redirect('/progress/progressConduct/'.$engineering->project_id.'?status=2&notice='.'请先创建预算单,无法进入现场材料管理');
+        }
+        $data['project'] =$project;
+        $data['engineering'] =$engineering;
+        $data['engin_id']=$id;
+        //获取批次列表
+        $data['batchList']= DB::table('purchase_batch')->where('engin_id',$id)->get();
 
-        return $this->success($request->all());
+        $orderList =DB::table('purchase_order')->where('engin_id',$id)->get();
+        $data['batchOrderList']=[];
+        foreach ($orderList as $v){
+            $data['batchOrderList'][$v->batch_id][]=$v;
+        }
+        return view('progress.progressMaterialManage',$data);
     }
+    //查看现场材料管理信息
+    public function progressMaterialDetail(Request $request,$id){
+        $this->user();
+        $data['navid']      =30;
+        $data['subnavid']   =3001;
+        $purchase_order =DB::table('purchase_order')->where('id',$id)->first();
+        $data['purchase_order']=$purchase_order;
+
+        //项目子工程
+        $engin =DB::table('engineering')->where('id',$purchase_order->engin_id)->first();
+        if(empty($engin)){
+            return redirect('/progress/progressConduct?status=2&notice='.'该工程不存在');
+        }
+        //项目信息
+        $project =DB::table('project')->where('id',$engin->project_id)->first();
+        if( !(in_array(30010202,$this->user()->pageauth) && $engin->progress_uid == $this->user()->id ) && !in_array(30010202,$this->user()->manageauth)){
+            //采购人员可以操作更改工程设计详情
+            return redirect('/progress/progressConduct/'.$engin->project_id.'?status=2&notice='.'您没有权限进入现场材料管理');
+        }
+        if($engin->budget_id ==0){
+            return redirect('/progress/progressConduct/'.$engin->project_id.'?status=2&notice='.'请先创建预算单,无法进入现场材料管理');
+        }
+        $data['project'] =$project;
+        $data['engin'] =$engin;
+        $data['purchase_order_id']=$id;
+        return view('progress.progressMaterialDetail',$data);
+    }
+
+    //编辑现场材料管理 $id 采购单表id
+    public function editProgressMaterial(Request $request,$id){
+        $this->user();
+        $data['navid']      =30;
+        $data['subnavid']   =3001;
+        $purchase_order =DB::table('purchase_order')->where('id',$id)->first();
+        $data['purchase_order']=$purchase_order;
+
+        //项目子工程
+        $engin =DB::table('engineering')->where('id',$purchase_order->engin_id)->first();
+        if(empty($engin)){
+            return redirect('/progress/progressConduct?status=2&notice='.'该工程不存在');
+        }
+        //项目信息
+        $project =DB::table('project')->where('id',$engin->project_id)->first();
+        if( !(in_array(30010202,$this->user()->pageauth) && $engin->progress_uid == $this->user()->id ) && !in_array(30010202,$this->user()->manageauth)){
+            //采购人员可以操作更改工程设计详情
+            return redirect('/progress/progressConduct/'.$engin->project_id.'?status=2&notice='.'您没有权限进入现场材料管理');
+        }
+        if($engin->budget_id ==0){
+            return redirect('/progress/progressConduct/'.$engin->project_id.'?status=2&notice='.'请先创建预算单,无法进入现场材料管理');
+        }
+        $data['project'] =$project;
+        $data['engin'] =$engin;
+        $data['purchase_order_id']=$id;
+        return view('progress.editProgressMaterial',$data);
+    }
+
+    //提交现场材料管理信息
+    public function postProgressMaterial(Request $request,$id){
+        $purchase_order =DB::table('purchase_order')->where('id',$id)->first();
+        //项目子工程
+        $engin =DB::table('engineering')->where('id',$purchase_order->engin_id)->first();
+        if(empty($engin)){
+            return redirect('/progress/progressConduct?status=2&notice='.'该工程不存在');
+        }
+        //安装施工人员可以操作更改现场材料管理信息
+        if( !(in_array(30010202,$this->user()->pageauth) && $engin->progress_uid == $this->user()->id ) && !in_array(30010202,$this->user()->manageauth)){
+            return redirect('/progress/progressConduct/'.$engin->project_id.'?status=2&notice='.'您没有权限进入现场材料管理');
+        }
+
+        $data['progress_username']          =$request->input('progress_username','');
+        $data['inspection_username']        =$request->input('inspection_username','');
+        $data['order_arrive_status']        =(int)$request->input('order_arrive_status',1);
+        $data['order_check_status']         =(int)$request->input('order_check_status',1);
+        $data['material_abnormal_name']     =$request->input('material_abnormal_name','');
+        $data['material_abnormal_detail']   =$request->input('material_abnormal_detail','');
+        $data['order_use_status']           =(int)$request->input('order_use_status',1);
+        $data['material_question_name']     =$request->input('material_question_name','');
+        $data['material_question_detail']   =$request->input('material_question_detail','');
+        $data['order_quantity_status']      =(int)$request->input('order_quantity_status',1);
+        $data['material_quantity_name']     =$request->input('material_quantity_name','');
+        $data['material_quantity_detail']   =$request->input('material_quantity_detail','');
+        $data['order_replenishment_status'] =(int)$request->input('order_replenishment_status',1);
+        $data['material_replenishment_name']    =$request->input('material_replenishment_name','');
+        $data['material_replenishment_detail']  =$request->input('material_replenishment_detail','');
+        $data['progress_created_uid']=$this->user()->id;
+        $data['progress_created_at']=date('Y-m-d');
+        DB::table('purchase_order')->where('id',$id)->update($data);
+
+        return redirect('/progress/progressMaterialManage/'.$engin->id);
+
+    }
+
+
+
 
     //施工进度管理
     public function progressProgressManage(Request $request,$id){

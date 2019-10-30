@@ -39,18 +39,23 @@
                 <div class="widget">
                     <div class="widget-header" style="text-align: center">
                         <div  style="font-size: 16px;" >
-                            <b>{{$project->project_name}}</b>
+
+                            <div class="title">
+                                <span class="btn btn-info">施工组织统筹管理</span>
+                            </div>
 
                             @if(((in_array(30010101,$pageauth) && $engineering->progress_uid == $uid ) || in_array(30010101,$manageauth)))
-                            <a href="/progress/editProgressConstrucManage/{{$engin_id}}">
-                                <div class="layui-form-item" style="float: right;clear: left">
+
+                                <div class="title" style="float: right;">
+                                    <a href="/progress/editProgressConstrucManage/{{$engin_id}}">
                                     <label for="L_repass" class="layui-form-label"></label>
                                     <button class="btn btn-success" lay-filter="add" type="submit" lay-submit="" >修改/编辑</button>
+                                    </a>
                                 </div>
-                            </a>
-
                             @endif
-
+                            <div  style="font-size: 16px;     text-align: center;" >
+                                <b>{{$project->project_name}}</b>
+                            </div>
                         </div>
                     </div>
 
@@ -249,22 +254,25 @@
 
                                 @if(!empty($engin_arch))
                                     @foreach($engin_arch as $v)
-                                        <tr>
-                                            <td>
-                                                <div> {{$v->system_name}}</div>
-                                                <div> &nbsp;&nbsp;{{$v->sub_system_name}}</div>
-                                                <div>施工时间:<span id="shijian_{{$v->sub_arch_id}}">
+                                        <tr >
+                                            <td style="min-width: 320px">
+                                                <div class="btn btn-info"> {{$v->system_name}}</div>
+                                                 <br/>
+                                               <div class="btn btn-info" style="margin-left: 20px"> &nbsp;{{$v->sub_system_name}}</div>
+                                                <br/>
+                                                <div class="btn btn-default" style="margin-left: 40px">施工时间:<span id="shijian_{{$v->sub_arch_id}}">
                                                         {{isset($progress_duration[$v->sub_arch_id]->progress_start_time)?$progress_duration[$v->sub_arch_id]->progress_start_time:''}}
                                                        至 {{isset($progress_duration[$v->sub_arch_id]->progress_end_time)?$progress_duration[$v->sub_arch_id]->progress_end_time:''}}
                                                     </span></div>
-                                                <div>施工周期(天):<span id="zhouqi_{{$v->sub_arch_id}}">
+                                                <br/>
+                                                <div class="btn btn-default" style="margin-left: 40px">施工周期(天):<span id="zhouqi_{{$v->sub_arch_id}}">
                                                      {{isset($progress_duration[$v->sub_arch_id]->progress_duration)?$progress_duration[$v->sub_arch_id]->progress_duration:''}}
                                                     </span></div>
 
 
                                                 <input type="hidden" name="sub_arch_id[{{ $v->sub_arch_id }}]" value="{{$v->sub_arch_id}}">
                                             </td>
-                                            <td style="width: 80%">
+                                            <td >
                                                 @if(isset($paramsConf[$v->sub_arch_id]))
                                                     @foreach($paramsConf[$v->sub_arch_id] as $k=>$arch)
                                                         @if(isset($progress_process[$arch['param_id']]))
@@ -325,11 +333,8 @@
 
                         </div>
                     </div>
-
-
                 </div>
             </div>
-
         </div>
     </div>
 

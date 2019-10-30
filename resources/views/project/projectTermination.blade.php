@@ -74,8 +74,8 @@
                     <div class="metro-nav-block nav-block-yellow">
                         <a href="/project/projectEnginCompleted">
                             <div class="fs1" aria-hidden="true" ><img src="/img/nav/3.png">竣工工程
-                                @if(isset($engincount[1]))
-                                    ({{$engincount[1]}})
+                                @if(isset($engincount[2]))
+                                    ({{$engincount[2]}})
                                 @else
                                     (0)
                                 @endif

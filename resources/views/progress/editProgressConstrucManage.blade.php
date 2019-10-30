@@ -261,14 +261,14 @@
                                                             @if($k !=0)
                                                             <img src="/img/a.png" style="float: left;height: 30px;margin-top: 32px;margin-bottom: 32px;">
                                                             @endif
-                                                            <div class="progresszhouqi1" style="width:{{$arch['length']*16 +20}}px;min-width: 140px">
+                                                            <div class="progresszhouqi1"  style="width:{{$arch['length']*16 +20}}px;min-width: 140px">
 
                                                                 <div class="" style="">
                                                                     <label class="progresszhouqi3  btn btn-info" style="">
                                                                         @if(isset($progress_process[$arch['param_id']]))
-                                                                            <input type="checkbox"  class="progresszhouqi4" checked name="param_id[{{$arch['param_id']}}]" value="{{$arch['param_id']}}" style="">{{$arch['name']}}
+                                                                            <input type="checkbox" id="xuhao_{{$v->sub_arch_id}}_{{$k}}"  class="progresszhouqi4" checked name="param_id[{{$arch['param_id']}}]" value="{{$arch['param_id']}}" style="">{{$arch['name']}}
                                                                         @else
-                                                                            <input type="checkbox"  class="progresszhouqi4" name="param_id[{{$arch['param_id']}}]" value="{{$arch['param_id']}}" style="">{{$arch['name']}}
+                                                                            <input type="checkbox" id="xuhao_{{$v->sub_arch_id}}_{{$k}}"  class="progresszhouqi4" name="param_id[{{$arch['param_id']}}]" value="{{$arch['param_id']}}" style="">{{$arch['name']}}
                                                                         @endif
                                                                     </label>
                                                                 </div>
@@ -278,18 +278,18 @@
                                                                         <div class="progresszhouqi6" style="">周期(天)</div>
                                                                         <div class="progresszhouqi7" style="">
                                                                             @if(isset($progress_process[$arch['param_id']]))
-                                                                                <input type="text" class="progresszhouqi8" value="{{$progress_process[$arch['param_id']]}}" name="arch_duration_plan[{{$arch['param_id']}}]" style="padding:4px 0;" onclick="key(this)">
+                                                                                <input type="text"  class="progresszhouqi8" value="{{$progress_process[$arch['param_id']]}}" name="arch_duration_plan[{{$arch['param_id']}}]" style="padding:4px 0;" onclick='selectzhouqi("{{$v->sub_arch_id}}","{{$k}}",this)'>
                                                                             @else
-                                                                                <input type="text" class="progresszhouqi8" name="arch_duration_plan[{{$arch['param_id']}}]" style="padding:4px 0;" onclick="key(this)">
+                                                                                <input type="text" class="progresszhouqi8" name="arch_duration_plan[{{$arch['param_id']}}]" style="padding:4px 0;" onclick='selectzhouqi("{{$v->sub_arch_id}}","{{$k}}",this)'>
                                                                             @endif
                                                                         </div>
                                                                     @else
                                                                         <div class="progresszhouqi6" style="color:red">周期(天)</div>
                                                                         <div class="progresszhouqi7" style="">
                                                                             @if(isset($progress_process[$arch['param_id']]))
-                                                                                <input type="text" class="progresszhouqi8" value="{{$progress_process[$arch['param_id']]}}"  name="arch_duration_plan[{{$arch['param_id']}}]" style="padding:4px 0;color:red" onclick="key(this)">
+                                                                                <input type="text" class="progresszhouqi8" value="{{$progress_process[$arch['param_id']]}}"  name="arch_duration_plan[{{$arch['param_id']}}]" style="padding:4px 0;color:red" onclick='selectzhouqi("{{$v->sub_arch_id}}","{{$k}}",this)'>
                                                                             @else
-                                                                                <input type="text" class="progresszhouqi8"  name="arch_duration_plan[{{$arch['param_id']}}]" style="padding:4px 0;color:red" onclick="key(this)">
+                                                                                <input type="text" class="progresszhouqi8"  name="arch_duration_plan[{{$arch['param_id']}}]" style="padding:4px 0;color:red" onclick='selectzhouqi("{{$v->sub_arch_id}}","{{$k}}",this)'>
                                                                             @endif
                                                                         </div>
                                                                     @endif
@@ -412,7 +412,17 @@
                 $(th).val(0);
             }
         }
+        function selectzhouqi(archid,xuhaoid,th) {
+           $("#xuhao_"+archid+'_'+xuhaoid).prop('checked','checked');
+            key(th)
+        }
 
+        function form_submit() {
+
+
+
+
+        }
     </script>
 
 @endsection

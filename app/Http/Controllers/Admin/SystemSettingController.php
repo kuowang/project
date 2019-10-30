@@ -53,7 +53,8 @@ class SystemSettingController extends WebController
         $db=DB::table('system_setting');
         if(!empty($search)){
             $db->where('name','like','%'.$search.'%')
-               ->orwhere('remark','like','%'.$search.'%');
+               ->orwhere('remark','like','%'.$search.'%')
+               ->orwhere('field','like','%'.$search.'%');
         }
         $data['count'] =$db->count();
         $data['data']= $db  ->skip(($page-1)*$rows)->take($rows)->get();

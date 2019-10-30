@@ -356,6 +356,10 @@ Route::group(['prefix' => 'progress','namespace' => 'Progress','middleware' => '
 
     Route::post('/postProgressConstrucManage/{id}',     'ProgressController@postProgressConstrucManage');  //保存施工统筹计划数据
 
+    Route::get('/progressMaterialDetail/{id}',            'ProgressController@progressMaterialDetail');       //查看现场材料管理信息
+    Route::get('/editProgressMaterial/{id}',              'ProgressController@editProgressMaterial');        //编辑现场材料管理
+    Route::post('/postProgressMaterial/{id}',             'ProgressController@postProgressMaterial');       //提交现场材料管理信息
+
 
 
 
