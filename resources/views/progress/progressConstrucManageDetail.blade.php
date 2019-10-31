@@ -205,7 +205,26 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td>系统工程名称</td>
+                                    <td></td>
+                                    <td>施工开始时间(计划)</td>
+                                    <td>施工完成时间(计划)</td>
+                                    <td>施工周期(天)</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="btn btn-info">施工总工期</span>
+                                    </td>
+                                    <td>
+                                        {{isset($progress_info->progress_all_start_time)?$progress_info->progress_all_start_time:''}}
+                                    </td>
+                                    <td>
+                                        {{isset($progress_info->progress_all_end_time)?$progress_info->progress_all_end_time:''}}
+                                    </td>
+                                    <td>
+                                        {{isset($progress_info->progressall_all_duration)?$progress_info->progressall_all_duration:''}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>各系统工程施工周期</td>
                                     <td>施工开始时间(计划)</td>
                                     <td>施工完成时间(计划)</td>
                                     <td>施工周期(天)</td>
@@ -214,8 +233,7 @@
                                 @if(!empty($engin_arch))
                                     @foreach($engin_arch as $v)
                                     <tr>
-                                        <td>{{$v->system_name}}:{{$v->sub_system_name}}
-                                        <input type="hidden" name="sub_arch_id[{{ $v->sub_arch_id }}]" value="{{$v->sub_arch_id}}">
+                                        <td><span class="btn btn-success" style="margin-left: 20px">{{$v->sub_system_name}}</span>
                                         </td>
                                         <td>
                                             {{isset($progress_duration[$v->sub_arch_id]->progress_start_time)?$progress_duration[$v->sub_arch_id]->progress_start_time:''}}
@@ -313,7 +331,21 @@
 
                                 </tbody>
                             </table>
-
+                            <div class="clearfix"></div>
+                            <table class="layui-table layui-form">
+                                <tbody>
+                                <tr>
+                                    <td class="pro-title">施工总周期(天)</td>
+                                    <td>{{isset($progress_info->progress_all_period )?$progress_info->progress_all_period :''}}</td>
+                                    <td class="pro-title">流程周期(天)</td>
+                                    <td>{{isset($progress_info->progress_period )?$progress_info->progress_period :''}}</td>
+                                    <td class="pro-title">同步周期(天)</td>
+                                    <td>{{isset($progress_info->progress_synchronization_period )?$progress_info->progress_synchronization_period :''}}</td>
+                                    <td class="pro-title">施工总工时(天)</td>
+                                    <td>{{isset($progress_info->progress_work_hours )?$progress_info->progress_work_hours :''}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
 
                             <div class="layui-form-item" style="float: right;clear: left">
                                 @if($engineering->status ==1)

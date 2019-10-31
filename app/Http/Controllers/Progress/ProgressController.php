@@ -493,11 +493,20 @@ class ProgressController extends WebController
         $data['inspector_number']               =(int)$request->input('inspector_number',0);
         $data['inspector']                      =$request->input('inspector','');
         $data['progress_type']                  =(int)$request->input('progress_type',2);
-        $construc_info_id                       =(int)$request->input('construc_info_id',0);
+
+        $data['progress_all_start_time']=$request->input('progress_all_start_time',''); // '施工开始时间',
+        $data['progress_all_end_time']=$request->input('progress_all_end_time',''); // '施工总结束时间',
+        $data['progressall_all_duration']=$request->input('progressall_all_duration',''); // '总施工周期',
+        $data['progress_all_period']=$request->input('progress_all_period',''); // '施工总周期(天
+        $data['progress_period']=$request->input('progress_period',''); // '流程周期（天
+        $data['progress_synchronization_period']=$request->input('progress_synchronization_period',''); // '同步周期(天
+        $data['progress_work_hours']=$request->input('progress_work_hours',''); // '施工总工时(天
+        $construc_info_id                       =(int)$request->input('construc_info_id',0); //
+
         $data['uid']=$uid;
         $data['created_at']=$time;
         DB::beginTransaction();
-        if($construc_info_id ==0){
+        if($construc_info_id == 0){
             $data['project_id']=$engin->project_id;
             $data['engin_id'] =$id;
             $data['progress_id'] =$progress->id;
@@ -522,9 +531,9 @@ class ProgressController extends WebController
                     'progress_id'=>$progress->id,
                     'arch_id'=>isset($system_engin[$item])?$system_engin[$item]:0,
                     'sub_arch_id'=>$item,
-                    'progress_start_time'=>$progress_start_time[$item],
-                    'progress_end_time'=>$progress_end_time[$item],
-                    'progress_duration'=>$progress_duration[$item],
+                    'progress_start_time'=>isset($progress_start_time[$item])?$progress_start_time[$item]:date('Y-m-d'),
+                    'progress_end_time'=>isset($progress_end_time[$item])?$progress_start_time[$item]:date('Y-m-d'),
+                    'progress_duration'=>isset($progress_duration[$item])?$progress_start_time[$item]:date('Y-m-d'),
                     'uid'=>$uid,
                     'created_at'=>$time,
                 ];
