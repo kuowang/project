@@ -206,7 +206,7 @@
                                         <input type="text" class="span10 progressdate notempty" id="progress_end_time_0"    name="progress_all_end_time" value="{{isset($progress_info->progress_all_end_time)?$progress_info->progress_all_end_time:''}}">
                                     </td>
                                     <td>
-                                        <input type="text" class="span10 notempty" id="progress_duration_0" name="progressall_all_duration" value="{{isset($progress_info->progressall_all_duration)?$progress_info->progressall_all_duration:''}}">
+                                        <input type="text" class="span10 notempty" id="progress_duration_0" name="progress_all_duration" value="{{isset($progress_info->progress_all_duration)?$progress_info->progress_all_duration:''}}">
                                     </td>
                                 </tr>
                                 <tr>
@@ -246,14 +246,21 @@
                                 <tr>
                                     <td>毛坯房类型</td>
                                     <td >
-                                        <label style="display: inline;margin: 5px;">
-                                            <input type="radio" name="progress_type" value="1" style="margin: auto;">毛坯房不含基础
-                                        </label>
-
-                                        <label style="display: inline;margin: 5px">
-                                            <input type="radio" name="progress_type"  checked="checked" value="2" style="margin: auto;">毛坯房含基础
-                                        </label>
-
+                                        @if(isset($progress_info->progress_type) && $progress_info->progress_type == 2 )
+                                            <label style="display: inline;margin: 5px;">
+                                                <input type="radio" name="progress_type" value="1" style="margin: auto;">毛坯房不含基础
+                                            </label>
+                                            <label style="display: inline;margin: 5px">
+                                                <input type="radio" name="progress_type"  checked="checked" value="2" style="margin: auto;">毛坯房含基础
+                                            </label>
+                                        @else
+                                            <label style="display: inline;margin: 5px;">
+                                                <input type="radio" name="progress_type"  checked="checked" value="1" style="margin: auto;">毛坯房不含基础
+                                            </label>
+                                            <label style="display: inline;margin: 5px">
+                                                <input type="radio" name="progress_type"  value="2" style="margin: auto;">毛坯房含基础
+                                            </label>
+                                        @endif
                                     </td>
                                 </tr>
 
@@ -262,12 +269,13 @@
                                         <tr>
                                             <td valign="top" style="min-width: 320px">
                                                 <div  class="btn btn-info"> {{$v->system_name}}</div>
+                                                <br>
                                                 <div  class="btn btn-info" style="margin-left: 20px"> &nbsp;&nbsp;{{$v->sub_system_name}}</div>
-                                                <div class="btn btn-default" style="margin-left: 40px">施工时间:<span id="shijian_{{$v->sub_arch_id}}">
+                                                <br> <div class="btn btn-default" style="margin-left: 40px">施工时间:<span id="shijian_{{$v->sub_arch_id}}">
                                                         {{isset($progress_duration[$v->sub_arch_id]->progress_start_time)?$progress_duration[$v->sub_arch_id]->progress_start_time:''}}
                                                        至 {{isset($progress_duration[$v->sub_arch_id]->progress_end_time)?$progress_duration[$v->sub_arch_id]->progress_end_time:''}}
                                                     </span></div>
-                                                <div  class="btn btn-default" style="margin-left: 40px">施工周期(天):<span id="zhouqi_{{$v->sub_arch_id}}">
+                                                <br><div  class="btn btn-default" style="margin-left: 40px">施工周期(天):<span id="zhouqi_{{$v->sub_arch_id}}">
                                                      {{isset($progress_duration[$v->sub_arch_id]->progress_duration)?$progress_duration[$v->sub_arch_id]->progress_duration:''}}
                                                     </span></div>
 
@@ -298,18 +306,18 @@
                                                                         <div class="progresszhouqi6" style="">周期(天)</div>
                                                                         <div class="progresszhouqi7" style="">
                                                                             @if(isset($progress_process[$arch['param_id']]))
-                                                                                <input type="text" is_synchro="1" id="param_id_{{$arch['param_id']}}" class="progresszhouqi8" value="{{$progress_process[$arch['param_id']]}}" name="arch_duration_plan[{{$arch['param_id']}}]" style="padding:4px 0;" onchange='selectzhouqi("{{$v->sub_arch_id}}","{{$k}}",this)'>
+                                                                                <input type="text" is_synchro="1" id="param_id_{{$arch['param_id']}}" class="progresszhouqi8" value="{{$progress_process[$arch['param_id']]}}" name="arch_duration_plan[{{$arch['param_id']}}]" style="padding:4px 0;" onclick="key(this)" onchange='selectzhouqi("{{$v->sub_arch_id}}","{{$k}}",this)'>
                                                                             @else
-                                                                                <input type="text" is_synchro="1" id="param_id_{{$arch['param_id']}}"  class="progresszhouqi8" name="arch_duration_plan[{{$arch['param_id']}}]" style="padding:4px 0;" onchange='selectzhouqi("{{$v->sub_arch_id}}","{{$k}}",this)'>
+                                                                                <input type="text" is_synchro="1" id="param_id_{{$arch['param_id']}}"  class="progresszhouqi8" name="arch_duration_plan[{{$arch['param_id']}}]" style="padding:4px 0;" onclick="key(this)" onchange='selectzhouqi("{{$v->sub_arch_id}}","{{$k}}",this)'>
                                                                             @endif
                                                                         </div>
                                                                     @else
                                                                         <div class="progresszhouqi6" style="color:red">周期(天)</div>
                                                                         <div class="progresszhouqi7" style="">
                                                                             @if(isset($progress_process[$arch['param_id']]))
-                                                                                <input type="text" is_synchro="2" id="param_id_{{$arch['param_id']}}"  class="progresszhouqi8" value="{{$progress_process[$arch['param_id']]}}"  name="arch_duration_plan[{{$arch['param_id']}}]" style="padding:4px 0;color:red" onchange='selectzhouqi("{{$v->sub_arch_id}}","{{$k}}",this)'>
+                                                                                <input type="text" is_synchro="2" id="param_id_{{$arch['param_id']}}"  class="progresszhouqi8" value="{{$progress_process[$arch['param_id']]}}"  name="arch_duration_plan[{{$arch['param_id']}}]" style="padding:4px 0;color:red" onclick="key(this)" onchange='selectzhouqi("{{$v->sub_arch_id}}","{{$k}}",this)'>
                                                                             @else
-                                                                                <input type="text" is_synchro="2" id="param_id_{{$arch['param_id']}}"  class="progresszhouqi8"  name="arch_duration_plan[{{$arch['param_id']}}]" style="padding:4px 0;color:red" onchange='selectzhouqi("{{$v->sub_arch_id}}","{{$k}}",this)'>
+                                                                                <input type="text" is_synchro="2" id="param_id_{{$arch['param_id']}}"  class="progresszhouqi8"  name="arch_duration_plan[{{$arch['param_id']}}]" style="padding:4px 0;color:red"  onclick="key(this)" onchange='selectzhouqi("{{$v->sub_arch_id}}","{{$k}}",this)'>
                                                                             @endif
                                                                         </div>
                                                                     @endif
@@ -357,6 +365,9 @@
                             </div>
 
                             <div class="clearfix"></div>
+                            <div style="color: red">
+                                注：保存后施工进度管理中的数据将被清除，请谨慎操作
+                            </div>
 
                         </div>
                     </div>
