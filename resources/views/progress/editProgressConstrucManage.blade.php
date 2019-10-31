@@ -240,14 +240,14 @@
                                 @if(!empty($engin_arch))
                                     @foreach($engin_arch as $v)
                                         <tr>
-                                            <td>
-                                                <div> {{$v->system_name}}</div>
-                                                <div> &nbsp;&nbsp;{{$v->sub_system_name}}</div>
-                                                <div>施工时间:<span id="shijian_{{$v->sub_arch_id}}">
+                                            <td valign="top" style="min-width: 320px">
+                                                <div  class="btn btn-info"> {{$v->system_name}}</div>
+                                                <div  class="btn btn-info" style="margin-left: 20px"> &nbsp;&nbsp;{{$v->sub_system_name}}</div>
+                                                <div class="btn btn-default" style="margin-left: 40px">施工时间:<span id="shijian_{{$v->sub_arch_id}}">
                                                         {{isset($progress_duration[$v->sub_arch_id]->progress_start_time)?$progress_duration[$v->sub_arch_id]->progress_start_time:''}}
                                                        至 {{isset($progress_duration[$v->sub_arch_id]->progress_end_time)?$progress_duration[$v->sub_arch_id]->progress_end_time:''}}
                                                     </span></div>
-                                                <div>施工周期(天):<span id="zhouqi_{{$v->sub_arch_id}}">
+                                                <div  class="btn btn-default" style="margin-left: 40px">施工周期(天):<span id="zhouqi_{{$v->sub_arch_id}}">
                                                      {{isset($progress_duration[$v->sub_arch_id]->progress_duration)?$progress_duration[$v->sub_arch_id]->progress_duration:''}}
                                                     </span></div>
 

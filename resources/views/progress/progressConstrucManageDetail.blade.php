@@ -255,7 +255,7 @@
                                 @if(!empty($engin_arch))
                                     @foreach($engin_arch as $v)
                                         <tr >
-                                            <td style="min-width: 320px">
+                                            <td style="min-width: 320px" valign="top">
                                                 <div class="btn btn-info"> {{$v->system_name}}</div>
                                                  <br/>
                                                <div class="btn btn-info" style="margin-left: 20px"> &nbsp;{{$v->sub_system_name}}</div>
