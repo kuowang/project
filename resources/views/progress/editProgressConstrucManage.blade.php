@@ -496,6 +496,16 @@
                     sum=1;
                 }
             });
+
+            $('.progresszhouqi4:checked').each(function(){
+                thid =$(this).val();
+                paramid =$('#param_id_'+thid).val();
+                if(paramid =='' || paramid ==0){
+                    $('#param_id_'+thid).css('background','orange');
+                    sum=1;
+                }
+                console.log(thid);
+            });
             if(sum == 1){
                 showMsg('请将内容补充完全再提交')
                 return false;
