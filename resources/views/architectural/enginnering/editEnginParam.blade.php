@@ -74,19 +74,91 @@
 
                                 <tr>
                                     <td class="pro-title">建筑使用寿命(年)</td>
-                                    <td ><input type="text" name="use_time" id="use_time" value="{{isset($param->use_time)?$param->use_time:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
+                                    <td >
+                                        @if(isset($engin_use_time))
+                                            <select name="use_time" id="use_time" class="span10 notempty" style="min-width: 80px;">
+                                                @foreach($engin_use_time as $v)
+                                                    @if(isset($param->use_time) && $v == $param->use_time)
+                                                        <option value="{{$v}}" selected="selected" >{{$v}}</option>
+                                                    @else
+                                                        <option value="{{$v}}" >{{$v}}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        @endif
+                                    </td>
                                     <td class="pro-title">抗震设防烈度(度)</td>
-                                    <td ><input type="text" name="seismic_grade" id="seismic_grade" value="{{isset($param->seismic_grade)?$param->seismic_grade:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
+                                    <td >
+                                        @if(isset($engin_seismic_grade))
+                                            <select name="seismic_grade" id="seismic_grade" class="span10 notempty" style="min-width: 80px;">
+                                                @foreach($engin_seismic_grade as $v)
+                                                    @if(isset($param->seismic_grade) && $v == $param->seismic_grade)
+                                                        <option value="{{$v}}" selected="selected" >{{$v}}</option>
+                                                    @else
+                                                        <option value="{{$v}}" >{{$v}}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        @endif
+                                    </td>
                                     <td class="pro-title">屋面防水等级</td>
-                                    <td ><input type="text" name="waterproof_grade" id="waterproof_grade" value="{{isset($param->waterproof_grade)?$param->waterproof_grade:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
+                                    <td >
+                                        @if(isset($engin_waterproof_grade))
+                                            <select name="waterproof_grade" id="waterproof_grade" class="span10 notempty" style="min-width: 80px;">
+                                                @foreach($engin_waterproof_grade as $v)
+                                                    @if(isset($param->waterproof_grade) && $v == $param->waterproof_grade)
+                                                        <option value="{{$v}}" selected="selected" >{{$v}}</option>
+                                                    @else
+                                                        <option value="{{$v}}" >{{$v}}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        @endif
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td class="pro-title">建筑耐火等级</td>
-                                    <td ><input type="text" name="refractory_grade" id="refractory_grade" value="{{isset($param->refractory_grade)?$param->refractory_grade:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
+                                    <td >
+                                        @if(isset($engin_refractory_grade))
+                                            <select name="refractory_grade" id="refractory_grade" class="span10 notempty" style="min-width: 80px;">
+                                                @foreach($engin_refractory_grade as $v)
+                                                    @if(isset($param->refractory_grade) && $v == $param->refractory_grade)
+                                                        <option value="{{$v}}" selected="selected" >{{$v}}</option>
+                                                    @else
+                                                        <option value="{{$v}}" >{{$v}}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        @endif
+                                    </td>
                                     <td class="pro-title">建筑隔声等级</td>
-                                    <td ><input type="text" name="insulation_sound_grade" id="insulation_sound_grade" value="{{isset($param->insulation_sound_grade)?$param->insulation_sound_grade:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
+                                    <td >
+                                        @if(isset($engin_insulation_sound_grade))
+                                            <select name="insulation_sound_grade" id="insulation_sound_grade" class="span10 notempty" style="min-width: 80px;">
+                                                @foreach($engin_insulation_sound_grade as $v)
+                                                    @if(isset($param->insulation_sound_grade) && $v == $param->insulation_sound_grade)
+                                                        <option value="{{$v}}" selected="selected" >{{$v}}</option>
+                                                    @else
+                                                        <option value="{{$v}}" >{{$v}}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        @endif
+                                    </td>
                                     <td class="pro-title">建筑节能标准(%)</td>
-                                    <td ><input type="text" name="energy_grade" id="energy_grade" value="{{isset($param->energy_grade)?$param->energy_grade:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
+                                    <td >
+                                        @if(isset($engin_energy_grade))
+                                            <select name="energy_grade" id="energy_grade" class="span10 notempty" style="min-width: 80px;">
+                                                @foreach($engin_energy_grade as $v)
+                                                    @if(isset($param->energy_grade) && $v == $param->energy_grade)
+                                                        <option value="{{$v}}" selected="selected" >{{$v}}</option>
+                                                    @else
+                                                        <option value="{{$v}}" >{{$v}}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        @endif
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -101,15 +173,15 @@
 
                                 <tr>
                                     <td class="pro-title">设计基本风压(kN/m²)</td>
-                                    <td ><input type="text" name="basic_wind_pressure" id="use_time" value="{{isset($param->basic_wind_pressure)?$param->basic_wind_pressure:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
+                                    <td ><input type="text" name="basic_wind_pressure" id="use_time" value="{{isset($param->basic_wind_pressure)?$param->basic_wind_pressure:''}}" lay-skin="primary" class="notempty span8" ></td>
                                     <td class="pro-title">设计基本雪压(kN/m²)</td>
-                                    <td ><input type="text" name="basic_snow_pressure" id="seismic_grade" value="{{isset($param->basic_snow_pressure)?$param->basic_snow_pressure:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
+                                    <td ><input type="text" name="basic_snow_pressure" id="seismic_grade" value="{{isset($param->basic_snow_pressure)?$param->basic_snow_pressure:''}}" lay-skin="primary" class="notempty span8" ></td>
                                 </tr>
                                 <tr>
                                     <td class="pro-title">屋面活载荷(kN/m²)</td>
-                                    <td ><input type="text" name="roof_load" id="waterproof_grade" value="{{isset($param->roof_load)?$param->roof_load:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
+                                    <td ><input type="text" name="roof_load" id="waterproof_grade" value="{{isset($param->roof_load)?$param->roof_load:''}}" lay-skin="primary" class="notempty span8" ></td>
                                     <td class="pro-title">楼面活载荷(kN/m²)</td>
-                                    <td ><input type="text" name="floor_load" id="waterproof_grade" value="{{isset($param->floor_load)?$param->floor_load:''}}" lay-skin="primary" class="notempty span8" onclick="return key(this)"></td>
+                                    <td ><input type="text" name="floor_load" id="waterproof_grade" value="{{isset($param->floor_load)?$param->floor_load:''}}" lay-skin="primary" class="notempty span8" ></td>
                                     </tr>
                                 </tbody>
                             </table>

@@ -119,11 +119,47 @@
                                 </tr>
                                 <tr>
                                     <td  class="pro-title">现场人员住宿条件</td>
-                                    <td ><input type="text" name="construction_accommodation"  value="{{isset($progress_info->construction_accommodation)?$progress_info->construction_accommodation:''}}" class="span10 notempty" ></td>
+                                    <td >
+                                        @if(isset($progress_construction_accommodation))
+                                            <select name="construction_accommodation" id="construction_accommodation" class="span10 notempty" style="min-width: 80px;">
+                                                @foreach($progress_construction_accommodation as $v)
+                                                    @if(isset($progress_info->construction_accommodation) && $v == $progress_info->construction_accommodation)
+                                                        <option value="{{$v}}" selected="selected" >{{$v}}</option>
+                                                    @else
+                                                        <option value="{{$v}}" >{{$v}}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        @endif
+                                    </td>
                                     <td class="pro-title">场地操作平台搭建条件(脚手架/安装平台)</td>
-                                    <td><input type="text" name="construction_scaffolding"  value="{{isset($progress_info->construction_scaffolding)?$progress_info->construction_scaffolding:''}}" class="span10 notempty"></td>
+                                    <td>
+                                        @if(isset($progress_construction_scaffolding))
+                                            <select name="construction_scaffolding" id="construction_scaffolding" class="span10 notempty" style="min-width: 80px;">
+                                                @foreach($progress_construction_scaffolding as $v)
+                                                    @if(isset($progress_info->construction_scaffolding) && $v == $progress_info->construction_scaffolding)
+                                                        <option value="{{$v}}" selected="selected" >{{$v}}</option>
+                                                    @else
+                                                        <option value="{{$v}}" >{{$v}}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        @endif
+                                    </td>
                                     <td class="pro-title">场地大型施工机械使用条件(起重机/挖掘机)</td>
-                                    <td colspan="3"><input type="text" name="construction_crane"  value="{{isset($progress_info->construction_crane)?$progress_info->construction_crane:''}}" class="span10 notempty"></td>
+                                    <td colspan="3">
+                                        @if(isset($progress_construction_crane))
+                                            <select name="construction_crane" id="construction_crane" class="span10 notempty" style="min-width: 80px;">
+                                                @foreach($progress_construction_crane as $v)
+                                                    @if(isset($progress_info->construction_crane) && $v == $progress_info->construction_crane)
+                                                        <option value="{{$v}}" selected="selected" >{{$v}}</option>
+                                                    @else
+                                                        <option value="{{$v}}" >{{$v}}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        @endif
+                                    </td>
                                 </tr>
 
                                 <tr>

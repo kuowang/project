@@ -34,8 +34,8 @@ class SystemSettingController extends WebController
             'engin_insulation_sound_grade'=>'工程:建筑隔声等级',
             'engin_energy_grade'=>'工程:建筑节能等级',
             'progress_construction_accommodation'=>'施工:现场人员住宿条件',
-            'construction_scaffolding'=>'施工:场地操作平台搭建条件',
-            'construction_crane'=>'施工:场地大型施工机械使用条件',
+            'progress_construction_scaffolding'=>'施工:场地操作平台搭建条件',
+            'progress_construction_crane'=>'施工:场地大型施工机械使用条件',
         ];
     }
 
@@ -71,9 +71,7 @@ class SystemSettingController extends WebController
     {
         $db=DB::table('system_setting');
         if(!empty($search)){
-            $db->where('name','like','%'.$search.'%')
-               ->orwhere('remark','like','%'.$search.'%')
-               ->orwhere('field','like','%'.$search.'%');
+            $db->where('field',$search);
         }
         $data['count'] =$db->count();
         $db->orderby('field')->orderby('sort');

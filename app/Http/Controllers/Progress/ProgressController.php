@@ -459,6 +459,13 @@ class ProgressController extends WebController
         }else{
             $data['progress_duration']=[];
         }
+
+        //获取参数数据
+        $params =['progress_construction_accommodation','progress_construction_scaffolding','progress_construction_crane'];
+        $items =DB::table('system_setting')->wherein('field',$params)->orderby('field')->orderby('sort')->select(['field','name'])->get();
+        foreach($items as $item){
+            $data[$item->field][] = $item->name ;
+        }
         return view('progress.editProgressConstrucManage',$data);
     }
 

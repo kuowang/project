@@ -78,15 +78,33 @@
                             <tr>
                                 <td class="pro-title">项目种类（用途）</td>
                                 <td>
-                                    <input type="text"  name="type" class="span8  notempty"  value="" lay-skin="primary" >
+                                @if(isset($project_type))
+                                    <select name="type" id="type" class="span10 notempty" style="min-width: 80px;">
+                                        @foreach($project_type as $v)
+                                            <option value="{{$v}}" >{{$v}}</option>
+                                        @endforeach
+                                    </select>
+                                @endif
                                 </td>
                                 <td class="pro-title">项目来源</td>
                                 <td>
-                                    <input type="text"  name="source" class="span8 notempty"  value="" lay-skin="primary" >
+                                    @if(isset($project_source))
+                                        <select name="source" id="source" class="span10 notempty" style="min-width: 80px;">
+                                            @foreach($project_source as $v)
+                                                <option value="{{$v}}" >{{$v}}</option>
+                                            @endforeach
+                                        </select>
+                                    @endif
                                 </td>
                                 <td class="pro-title">项目所属阶段</td>
                                 <td>
-                                    <input type="text"  name="stage" class="span8 notempty"  value="" lay-skin="primary" >
+                                    @if(isset($project_stage))
+                                        <select name="stage" id="stage" class="span10 notempty" style="min-width: 80px;">
+                                            @foreach($project_stage as $v)
+                                                <option value="{{$v}}" >{{$v}}</option>
+                                            @endforeach
+                                        </select>
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
@@ -124,15 +142,33 @@
                             <tr>
                                 <td class="pro-title">场地自然条件</td>
                                 <td>
-                                    <input type="text"  name="environment" class="span8 notempty"  value="" lay-skin="primary" >
+                                    @if(isset($project_environment))
+                                        <select name="environment" id="environment" class="span10 notempty" style="min-width: 80px;">
+                                            @foreach($project_environment as $v)
+                                                <option value="{{$v}}" >{{$v}}</option>
+                                            @endforeach
+                                        </select>
+                                    @endif
                                 </td>
                                 <td class="pro-title">场地交通条件</td>
                                 <td>
-                                    <input type="text"  name="traffic" class="span8 notempty"  value="" lay-skin="primary" >
+                                    @if(isset($project_traffic))
+                                        <select name="traffic" id="traffic" class="span10 notempty" style="min-width: 80px;">
+                                            @foreach($project_traffic as $v)
+                                                <option value="{{$v}}" >{{$v}}</option>
+                                            @endforeach
+                                        </select>
+                                    @endif
                                 </td>
                                 <td class="pro-title">材料存储条件</td>
                                 <td>
-                                    <input type="text"  name="material_storage" class="span8 notempty"  value="" lay-skin="primary" >
+                                    @if(isset($project_material_storage))
+                                        <select name="material_storage" id="material_storage" class="span10 notempty" style="min-width: 80px;">
+                                            @foreach($project_material_storage as $v)
+                                                <option value="{{$v}}" >{{$v}}</option>
+                                            @endforeach
+                                        </select>
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
@@ -168,7 +204,13 @@
                             <tr>
                                 <td class="pro-title">客户类型</td>
                                 <td>
-                                    <input type="text"  name="customer_type" class="span8 notempty"  value="" lay-skin="primary" >
+                                    @if(isset($customer_type))
+                                        <select name="customer_type" id="customer_type" class="span10 notempty" style="min-width: 80px;">
+                                            @foreach($customer_type as $v)
+                                                <option value="{{$v}}" >{{$v}}</option>
+                                            @endforeach
+                                        </select>
+                                    @endif
                                 </td>
                                 <td class="pro-title">客户名称</td>
                                 <td>

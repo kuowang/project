@@ -184,6 +184,12 @@ class ProjectController extends WebController
             return redirect('/project/projectStart?status=2&notice='.'您没有操作该功能权限');
         }
         $data['userList']=DB::table('users')->where('status',1)->orderby('name')->select(['id','name','department_id'])->get();
+        //获取参数数据
+        $params =['project_type','project_source','project_stage','project_environment','project_traffic','project_material_storage','customer_type'];
+        $items =DB::table('system_setting')->wherein('field',$params)->orderby('field')->orderby('sort')->select(['field','name'])->get();
+        foreach($items as $item){
+            $data[$item->field][] = $item->name ;
+        }
         return view('project.createdProject',$data);
     }
     //创建项目提交页面
@@ -377,6 +383,13 @@ class ProjectController extends WebController
         $data['project']    =$project;
         $data['id']=$project->id;
         $data['userList']=DB::table('users')->where('status',1)->orderby('name')->select(['id','name','department_id'])->get();
+        //获取参数数据
+        $params =['project_type','project_source','project_stage','project_environment','project_traffic','project_material_storage','customer_type'];
+        $items =DB::table('system_setting')->wherein('field',$params)->orderby('field')->orderby('sort')->select(['field','name'])->get();
+        foreach($items as $item){
+            $data[$item->field][] = $item->name ;
+        }
+
         return view('project.editProject',$data);
     }
 

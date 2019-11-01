@@ -521,22 +521,28 @@ class EnginneringController extends WebController
             $data['room_area']      =json_decode($data['param']->room_area,true);
         }
         $data['userList']=DB::table('users')->where('status',1)->orderby('name')->select(['id','name','department_id'])->get();
+        //获取参数数据
+        $params =['engin_use_time','engin_seismic_grade','engin_waterproof_grade','engin_refractory_grade','engin_insulation_sound_grade','engin_energy_grade'];
+        $items =DB::table('system_setting')->wherein('field',$params)->orderby('field')->orderby('sort')->select(['field','name'])->get();
+        foreach($items as $item){
+            $data[$item->field][] = $item->name ;
+        }
         return view('architectural.enginnering.editEnginParam',$data);
     }
     //提交建筑设计参数配置
     public function postEditEnginParam(Request $request,$id){
 
-        $use_time           =(int)$request->input('use_time',0);                   //"use_time": "70",
-		$seismic_grade      =(float)$request->input('seismic_grade',0);                 //"seismic_grade": "7",
-		$waterproof_grade   =(float)$request->input('waterproof_grade',0);                   //"waterproof_grade": "6",
-		$refractory_grade   =(float)$request->input('refractory_grade',0);                   //"refractory_grade": "6",
-		$insulation_sound_grade =(float)$request->input('insulation_sound_grade',0);                   //"insulation_sound_grade": "5",
-		$energy_grade       =(float)$request->input('energy_grade',0);                   //"energy_grade": "6",
-		$basic_wind_pressure =(float)$request->input('basic_wind_pressure',0);                 //"basic_wind_pressure": "21",
-		$basic_snow_pressure =(float)$request->input('basic_snow_pressure',0);                 //"basic_snow_pressure": "31",
-		$roof_load          =(float)$request->input('roof_load',0);                 //"roof_load": "123",
-		$floor_load         =(float)$request->input('floor_load',0);                   //"floor_load": "223",
-		$floors             =(int)$request->input('floors',0);                   //"floors": "55",
+        $use_time           =$request->input('use_time',0);                   //"use_time": "70",
+		$seismic_grade      =$request->input('seismic_grade',0);                 //"seismic_grade": "7",
+		$waterproof_grade   =$request->input('waterproof_grade',0);                   //"waterproof_grade": "6",
+		$refractory_grade   =$request->input('refractory_grade',0);                   //"refractory_grade": "6",
+		$insulation_sound_grade =$request->input('insulation_sound_grade',0);                   //"insulation_sound_grade": "5",
+		$energy_grade       =$request->input('energy_grade',0);                   //"energy_grade": "6",
+		$basic_wind_pressure =$request->input('basic_wind_pressure',0);                 //"basic_wind_pressure": "21",
+		$basic_snow_pressure =$request->input('basic_snow_pressure',0);                 //"basic_snow_pressure": "31",
+		$roof_load          =$request->input('roof_load',0);                 //"roof_load": "123",
+		$floor_load         =$request->input('floor_load',0);                   //"floor_load": "223",
+		$floors             =$request->input('floors',0);                   //"floors": "55",
 		$total_area         =(float)$request->input('total_area',0);                   //"total_area": "600",
 		$floor_height       =(float)$request->input('floor_height',0);                   //"floor_height": "12",
 		$floor_width        =$request->input('floor_width',0);                 //"floor_width": "15",
