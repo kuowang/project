@@ -32,20 +32,33 @@
                         <label for="L_username" class="layui-form-label">
                             <span class="x-red">*</span>字段名</label>
                         <div class="layui-input-inline">
-                            <input type="text" id="field" name="field" value="{{ $data->field }}" required="" lay-verify="nikename" autocomplete="off" class="layui-input"></div>
+
+                            <select name="field"  class="span12" style="min-width: 80px">
+                                @foreach($params as $key=>$item)
+                                    @if($key == $data->field)
+                                        <option selected="selected" value="{{$key}}" >{{$item}}</option>
+                                    @else
+                                        <option value="{{$key}}" >{{$item}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
-                    <div class="layui-form-item">
-                        <label for="L_username" class="layui-form-label">
-                            <span class="x-red">*</span>描述</label>
-                        <div class="layui-input-inline">
-                            <input type="text" id="remark" name="remark" value="{{ $data->remark }}" required="" lay-verify="nikename" autocomplete="off" class="layui-input"></div>
-                    </div>
+
                     <div class="layui-form-item">
                         <label for="L_username" class="layui-form-label">
                             <span class="x-red">*</span>系统名称</label>
                         <div class="layui-input-inline">
                             <input type="text" id="name" name="name" value="{{ $data->name }}" required="" lay-verify="nikename" autocomplete="off" class="layui-input"></div>
                     </div>
+                    <div class="layui-form-item">
+                        <label for="L_username" class="layui-form-label">
+                            <span class="x-red">*</span>排序</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="sort" name="sort" value="{{ $data->sort }}" onclick="key(this)" required="" lay-verify="nikename" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+
                     <div class="layui-form-item">
                         <label for="L_repass" class="layui-form-label"></label>
                         <input type="submit" class="btn btn-success" lay-filter="add" lay-submit="" value="提交"></div>
@@ -92,13 +105,23 @@
                     return false;
                 });
 
-            });</script>
-        <script>var _hmt = _hmt || []; (function() {
-                var hm = document.createElement("script");
-                hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-                var s = document.getElementsByTagName("script")[0];
-                s.parentNode.insertBefore(hm, s);
-            })();</script>
+            });
+            //点击只能输入数字
+            function key(th){
+                $(th).keyup(function(){
+                    $(this).val($(this).val().replace(/[^0-9.]/g,''));
+                }).bind("paste",function(){  //CTR+V事件处理
+                    $(this).val($(this).val().replace(/[^0-9.]/g,''));
+                }).css("ime-mode", "disabled"); //CSS设置输入法不可用
+                va =$(th).val();
+                if(va > 1000000000 || va < 0) {
+                    $(th).val(0);
+                }
+            }
+
+
+        </script>
+
     </body>
 
 </html>

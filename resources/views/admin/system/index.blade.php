@@ -47,7 +47,17 @@
                             <div class="dataTables_filter" id="data-table_filter" style="text-align: center;">
                                 <label>
                                     <form class="form-search" action="/admin/system_list" method="get">
-                                        系统名称:<input type="text" name="search" value="{{ $search }}" class="input-medium search-query">
+                                        系统名称:
+                                        <select name="search"  class="span4" style="min-width: 80px">
+                                            @foreach($params as $key=>$item)
+                                            @if($key == $search)
+                                                <option selected="selected" value="{{$key}}" >{{$item}}</option>
+                                            @else
+                                                <option value="{{$key}}" >{{$item}}</option>
+                                            @endif
+                                        @endforeach
+                                        </select>
+
                                         <button type="submit" class="btn">搜索</button>
                                     </form></label>
                             </div>
@@ -62,8 +72,9 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>字段名</th>
-                                    <th>描述</th>
+                                    <th>分类</th>
                                     <th>系统名称</th>
+                                    <th>排序</th>
                                     <th>创建时间</th>
                                     <th>修改时间</th>
                                     <th>操作</th>
@@ -77,13 +88,13 @@
                                     @else
                                         <tr class="gradeA success">
                                     @endif
-
                                             <td>
-                                                {{ $val->id }}
+                                                {{ $k+1 }}
                                             </td>
                                             <td>{{ $val->field }}</td>
                                             <td>{{ $val->remark }}</td>
                                             <td>{{ $val->name }}</td>
+                                            <td>{{$val->sort}}</td>
                                             <td>{{ $val->created_at }}</td>
                                             <td>{{ $val->updated_at }}</td>
 
@@ -102,35 +113,7 @@
                             </table>
                             <div class="clearfix">
                             </div>
-                            <script>
-                                //一般直接写在一个js文件中
 
-                                function editsystem(id){
-                                    layui.use(['layer', 'form'], function(){
-                                        var layer = layui.layer
-                                            ,form = layui.form;
-                                        layer.open({
-                                            title:'编辑系统参数',
-                                            type: 2,
-                                            area: ['350px', '300px'],
-                                            content: '/admin/edit_system_list/'+id //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
-                                        });
-                                    });
-                                }
-                                function addSystem(){
-                                    layui.use(['layer', 'form'], function(){
-                                        var layer = layui.layer
-                                            ,form = layui.form;
-                                        layer.open({
-                                            title:'新增系统参数',
-                                            type: 2,
-                                            area: ['350px', '300px'],
-                                            content: '/admin/add_system_list/' //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
-                                        });
-                                    });
-                                }
-
-                            </script>
                         </div>
                     </div>
                 </div>
@@ -144,6 +127,34 @@
         }
     </style>
 
+    <script>
+        //一般直接写在一个js文件中
 
+        function editsystem(id){
+            layui.use(['layer', 'form'], function(){
+                var layer = layui.layer
+                    ,form = layui.form;
+                layer.open({
+                    title:'编辑系统参数',
+                    type: 2,
+                    area: ['600px', '700px'],
+                    content: '/admin/edit_system_list/'+id //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+                });
+            });
+        }
+        function addSystem(){
+            layui.use(['layer', 'form'], function(){
+                var layer = layui.layer
+                    ,form = layui.form;
+                layer.open({
+                    title:'新增系统参数',
+                    type: 2,
+                    area: ['600px', '700px'],
+                    content: '/admin/add_system_list/' //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+                });
+            });
+        }
+
+    </script>
 
 @endsection
