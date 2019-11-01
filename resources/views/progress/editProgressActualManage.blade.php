@@ -489,11 +489,10 @@
                 }
             });
 
-            $('.progresszhouqi4:checked').each(function(){
+            $('.progresszhouqi8').each(function(){
                 thid =$(this).val();
-                paramid =$('#param_id_'+thid).val();
-                if(paramid =='' || paramid ==0){
-                    $('#param_id_'+thid).css('background','orange');
+                if(thid =='' || thid ==0){
+                    $(this).css('background','orange');
                     sum=1;
                 }
                 console.log(thid);

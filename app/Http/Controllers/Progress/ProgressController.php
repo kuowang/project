@@ -464,6 +464,7 @@ class ProgressController extends WebController
 
     //提交施工统筹计划数据
     public function postProgressConstrucManage(Request $request,$id){
+        //return $this->success($request->all());
         //判断权限
         $engin=DB::table('engineering')->where('id',$id)->first();
         if(empty($engin)){
@@ -532,8 +533,8 @@ class ProgressController extends WebController
                     'arch_id'=>isset($system_engin[$item])?$system_engin[$item]:0,
                     'sub_arch_id'=>$item,
                     'progress_start_time'=>isset($progress_start_time[$item])?$progress_start_time[$item]:date('Y-m-d'),
-                    'progress_end_time'=>isset($progress_end_time[$item])?$progress_start_time[$item]:date('Y-m-d'),
-                    'progress_duration'=>isset($progress_duration[$item])?$progress_start_time[$item]:1,
+                    'progress_end_time'=>isset($progress_end_time[$item])?$progress_end_time[$item]:date('Y-m-d'),
+                    'progress_duration'=>isset($progress_duration[$item])?$progress_duration[$item]:1,
                     'uid'=>$uid,
                     'created_at'=>$time,
                 ];
@@ -697,7 +698,76 @@ class ProgressController extends WebController
     }
 
     //施工进度管理
-    public function progressActualManage(Request $request,$id){
+    public function progressActualManageDetail(Request $request,$id){
+        $this->user();
+        $engin=DB::table('engineering')->where('id',$id)->first();
+        if(empty($engin)){
+            return redirect('/progress/progressConduct?status=2&notice='.'工程不存在');
+        }else if(($engin->progress_uid != $this->user()->id)  && !in_array(300103,$this->user()->manageauth)){
+            return redirect('/progress/progressConduct/'.$engin->project_id.'?status=2&notice='.'您没有权限更改施工安装统筹计划');
+        }else if($engin->status != 1){
+            return redirect('/progress/progressConduct/'.$engin->project_id.'?status=2&notice='.'只有实施工程才能更改施工安装统筹计划');
+        }
+
+        $project= DB::table('project')->where('id',$engin->project_id)->first();
+        if(empty($engin)){
+            return redirect('/progress/progressConduct?status=2&notice='.'项目不存在');
+        }
+        $data['project']=$project;
+        $data['engineering']=$engin;
+        $data['subnavid']   =3001;
+        $data['navid']   =30;
+        $data['engin_id'] =$id;
+        //建筑设计配置参数
+        $data['param']=DB::table('engineering_param')->where('engin_id',$id)->first();
+        if($data['param']){
+            $data['storey_height']  =json_decode($data['param']->storey_height,true) ;
+            $data['house_height']   =json_decode($data['param']->house_height,true) ;
+            $data['house_area']     =json_decode($data['param']->house_area,true) ;
+            $data['room_position']  =json_decode($data['param']->room_position,true) ;
+            $data['room_name']      =json_decode($data['param']->room_name,true);
+            $data['room_area']      =json_decode($data['param']->room_area,true);
+        }
+        $engin_arch =DB::table('enginnering_architectural')->where('engin_id',$id)
+            ->orderby('system_code')->orderby('sub_system_code')
+            ->get();
+        $data['engin_arch']=$engin_arch;
+
+        $data['progress_process'] =DB::table('progress_contenc_process')
+            ->where('engin_id',$id)->pluck('arch_duration_actual','param_id')->toarray();
+
+        $paramsConf=[];
+        $params =DB::table('progress_params_conf')
+            ->wherein('id',array_keys((array)$data['progress_process']))->where('status',1)->get();
+        if($params){
+            foreach($params as $p){
+                $paramsConf[$p->sub_arch_id][] =[
+                    'param_id'=>$p->id,
+                    'sub_arch_id'=>$p->sub_arch_id,
+                    'name'=>$p->name,
+                    'is_synchro'=>$p->is_synchro,
+                    'length'=>mb_strlen($p->name),
+                ];
+            }
+        }
+        $data['paramsConf']=$paramsConf;
+        //获取已经配置好的参数数据
+        $data['progress_info']=DB::table('progress_construc_info')->where('engin_id',$id)->first();
+        $data['progress_process'] =DB::table('progress_contenc_process')
+            ->where('engin_id',$id)->pluck('arch_duration_actual','param_id');
+        $progress_duration =DB::table('progress_constrc_duration')->where('engin_id',$id)->get();
+        if($progress_duration){
+            foreach($progress_duration as $value){
+                $data['progress_duration'][$value->sub_arch_id]=$value;
+            }
+        }else{
+            $data['progress_duration']=[];
+        }
+        return view('progress.progressActualManageDetail',$data);
+    }
+
+    //施工进度管理
+    public function editProgressActualManage(Request $request,$id){
         $this->user();
         $engin=DB::table('engineering')->where('id',$id)->first();
         if(empty($engin)){

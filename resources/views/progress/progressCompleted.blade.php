@@ -141,7 +141,7 @@
                                         </td>
                                         <td>
                                             @if($val->arrange_status ==1 && ((in_array(250104,$pageauth) && $val->progress_uid == $uid ) || in_array(250104,$manageauth)))
-                                                <a href="/progress/progressActualManage/{{$val->engin_id}}">
+                                                <a href="/progress/progressActualManageDetail/{{$val->engin_id}}">
                                                     <div class="btn btn-success">施工进度管理</div>
                                                 </a>
                                             @else

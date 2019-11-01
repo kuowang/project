@@ -343,9 +343,10 @@ Route::group(['prefix' => 'progress','namespace' => 'Progress','middleware' => '
     Route::post('/updateProjectStatus/{id}',            'ProgressController@updateProjectStatus');    //更改项目状态
 
     Route::get('/editProgressConstrucManage/{id}',      'ProgressController@editProgressConstrucManage');    //编辑施工组织统筹计划
-    Route::get('/progressConstrucManageDetail/{id}',     'ProgressController@progressConstrucManageDetail'); //查看施工组织统筹计划
+    Route::get('/progressConstrucManageDetail/{id}',    'ProgressController@progressConstrucManageDetail'); //查看施工组织统筹计划
     Route::get('/progressMaterialManage/{id}',          'ProgressController@progressMaterialManage');    //现场材料管理
-    Route::get('/progressActualManage/{id}',            'ProgressController@progressActualManage');    //施工进度管理
+    Route::get('/progressActualManageDetail/{id}',      'ProgressController@progressActualManageDetail');    //施工进度管理
+    Route::get('/editProgressActualManage/{id}',        'ProgressController@editProgressActualManage');    //施工进度管理
 
     Route::get('/porgressParamsList',                    'ProgressController@porgressParamsList');    //施工参数配置
     Route::get('/editProgressParams/{id}',               'ProgressController@editProgressParams');    //编辑施工参数配置
