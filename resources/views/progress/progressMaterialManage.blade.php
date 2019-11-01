@@ -24,6 +24,7 @@
                         <div class="title">
                             <span class="btn btn-info">现场材料管理</span>
                         </div>
+
                         <div  style="font-size: 16px;     text-align: center;" >
                             <b>{{$project->project_name}}</b>
                         </div>
@@ -34,7 +35,14 @@
                             <table class="layui-table layui-form">
                                 <thead>
                                     <tr>
-                                        <th colspan="6">项目基本信息</th>
+                                        <th colspan="6">项目基本信息
+                                            <div class="layui-form-item" style="float: right;margin-bottom:0">
+                                                <a href="javascript:history.go(-1)">
+                                                    <label for="L_repass" class="layui-form-label"></label>
+                                                    <span class="btn btn-success" lay-filter="add" lay-submit="">返回/取消</span>
+                                                </a>
+                                            </div>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -167,9 +175,13 @@
 
                             <div class="clearfix"></div>
 
+
+
                         </div>
                     </div>
                     @endforeach
+
+                        <div class="clearfix"></div>
                 </div>
             </div>
 

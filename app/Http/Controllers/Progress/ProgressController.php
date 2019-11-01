@@ -705,8 +705,6 @@ class ProgressController extends WebController
             return redirect('/progress/progressConduct?status=2&notice='.'工程不存在');
         }else if(($engin->progress_uid != $this->user()->id)  && !in_array(300103,$this->user()->manageauth)){
             return redirect('/progress/progressConduct/'.$engin->project_id.'?status=2&notice='.'您没有权限更改施工安装统筹计划');
-        }else if($engin->status != 1){
-            return redirect('/progress/progressConduct/'.$engin->project_id.'?status=2&notice='.'只有实施工程才能更改施工安装统筹计划');
         }
 
         $project= DB::table('project')->where('id',$engin->project_id)->first();
