@@ -255,7 +255,11 @@
                                     @foreach($engin_arch as $v)
                                     <tr>
                                         <td><span class="btn btn-success" style="margin-left: 20px">{{$v->sub_system_name}}</span>
-                                        <input type="hidden" name="sub_arch_id[{{ $v->sub_arch_id }}]" value="{{$v->sub_arch_id}}">
+                                            @if(isset($progress_duration[$v->sub_arch_id]))
+                                                <input type="hidden" name="sub_arch_id[{{ $v->sub_arch_id }}]" value="{{$v->sub_arch_id}}">
+                                            @else
+                                                <input type="hidden" name="sub_arch_id[{{ $v->sub_arch_id }}]" value="0">
+                                            @endif
                                         </td>
                                         <td>
                                             <input type="text" class="span10 progressdate notempty"  id="progress_start_time_{{ $v->sub_arch_id }}"  name="progress_start_time[{{ $v->sub_arch_id }}]" value="{{isset($progress_duration[$v->sub_arch_id]->progress_start_time)?$progress_duration[$v->sub_arch_id]->progress_start_time:''}}">
@@ -314,9 +318,6 @@
                                                 <br><div  class="btn btn-default" style="margin-left: 40px">施工周期(天):<span id="zhouqi_{{$v->sub_arch_id}}">
                                                      {{isset($progress_duration[$v->sub_arch_id]->progress_duration)?$progress_duration[$v->sub_arch_id]->progress_duration:''}}
                                                     </span></div>
-
-
-                                                <input type="hidden" name="sub_arch_id[{{ $v->sub_arch_id }}]" value="{{$v->sub_arch_id}}">
                                             </td>
                                             <td style="width: 80%">
                                                 @if(isset($paramsConf[$v->sub_arch_id]))
@@ -330,9 +331,9 @@
                                                                 <div class="" style="">
                                                                     <label class="progresszhouqi3  btn btn-info" style="">
                                                                         @if(isset($progress_process[$arch['param_id']]))
-                                                                            <input type="checkbox" id="xuhao_{{$v->sub_arch_id}}_{{$k}}"  class="progresszhouqi4" checked name="param_id[{{$arch['param_id']}}]" value="{{$arch['param_id']}}" style="">{{$arch['name']}}
+                                                                            <input type="hidden" id="xuhao_{{$v->sub_arch_id}}_{{$k}}"  class="progresszhouqi4" name="param_id[{{$arch['param_id']}}]" attr="{{$arch['param_id']}}" value="{{$arch['param_id']}}" style="">{{$arch['name']}}
                                                                         @else
-                                                                            <input type="checkbox" id="xuhao_{{$v->sub_arch_id}}_{{$k}}"  class="progresszhouqi4" name="param_id[{{$arch['param_id']}}]" value="{{$arch['param_id']}}" style="">{{$arch['name']}}
+                                                                            <input type="hidden" id="xuhao_{{$v->sub_arch_id}}_{{$k}}"  class="progresszhouqi4" name="param_id[{{$arch['param_id']}}]" attr="{{$arch['param_id']}}"  value="0" style="">{{$arch['name']}}
                                                                         @endif
                                                                     </label>
                                                                 </div>
@@ -513,8 +514,8 @@
             progress_period=0;
             progress_synchronization_period=0;
             progress_work_hours=0;
-            $('.progresszhouqi4:checked').each(function(){
-                thid =$(this).val();
+            $('.progresszhouqi4').each(function(){
+                thid =$(this).attr('attr');
                 paramid =$('#param_id_'+thid).val();
                 is_synchro =$('#param_id_'+thid).attr('is_synchro');
                 if(is_synchro ==1){
@@ -544,10 +545,10 @@
                 }
             });
 
-            $('.progresszhouqi4:checked').each(function(){
-                thid =$(this).val();
+            $('.progresszhouqi4').each(function(){
+                thid =$(this).attr('attr');
                 paramid =$('#param_id_'+thid).val();
-                if(paramid =='' || paramid ==0){
+                if(paramid =='' ){
                     $('#param_id_'+thid).css('background','orange');
                     sum=1;
                 }

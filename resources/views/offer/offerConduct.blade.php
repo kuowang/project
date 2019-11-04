@@ -181,7 +181,7 @@
                                                 <a title="查看详情" class="btn btn-info"  href="/offer/offerConductDetail/{{ $val->engin_id }}">
                                                     <i class="layui-icon">详情</i>
                                                 </a>
-                                                <a title="导出" class="btn btn-success"  href="/offer/offerConductDetail/{{ $val->engin_id }}?download=1" onclick="return checkStatus({{$val->is_conf_architectural}})">
+                                                <a title="导出" target="_blank"  class="btn btn-success"  href="/offer/offerConductDetail/{{ $val->engin_id }}?download=1" onclick="return checkStatus({{$val->is_conf_architectural}})">
                                                     <i class="layui-icon">导出</i>
                                                 </a>
                                                 @endif

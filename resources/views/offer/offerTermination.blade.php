@@ -156,7 +156,7 @@
                                                 <a title="查看详情" class="btn btn-info"  href="/offer/offerTerminationDetail/{{ $val->engin_id }}">
                                                     <i class="layui-icon">详情</i>
                                                 </a>
-                                                <a title="导出" class="btn btn-success"  href="/offer/offerTerminationDetail/{{ $val->engin_id }}?download=1" >
+                                                <a title="导出"  target="_blank"  class="btn btn-success"  href="/offer/offerTerminationDetail/{{ $val->engin_id }}?download=1" >
                                                     <i class="layui-icon">导出</i>
                                                 </a>
                                                 @endif

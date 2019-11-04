@@ -18,7 +18,7 @@
     }
 
 </style>
-<div style="text-align: center;font-size: 20px;">项目概况</div>
+<div style="text-align: center;font-size: 20px;">{{$project->project_name}}<span>(工程预算清单)</span></div>
 
 <table  border="1" cellspacing="0" cellpadding="0">
     <tbody>

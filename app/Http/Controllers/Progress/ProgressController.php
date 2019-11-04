@@ -532,21 +532,27 @@ class ProgressController extends WebController
         $progress_duration  =$request->input('progress_duration',[]);
         if($sub_arch_id){
             DB::table('progress_constrc_duration')->where('engin_id',$id)->delete();
-            foreach($sub_arch_id as $item){
-                $datalist[]=[
+            foreach($sub_arch_id as $k=>$item){
+                $datalist=[
                     'project_id'=>$engin->project_id,
                     'engin_id'=>$id,
                     'progress_id'=>$progress->id,
-                    'arch_id'=>isset($system_engin[$item])?$system_engin[$item]:0,
-                    'sub_arch_id'=>$item,
-                    'progress_start_time'=>isset($progress_start_time[$item])?$progress_start_time[$item]:date('Y-m-d'),
-                    'progress_end_time'=>isset($progress_end_time[$item])?$progress_end_time[$item]:date('Y-m-d'),
-                    'progress_duration'=>isset($progress_duration[$item])?$progress_duration[$item]:1,
+                    'arch_id'=>isset($system_engin[$k])?$system_engin[$k]:0,
+                    'sub_arch_id'=>$k,
+                    'progress_start_time'=>isset($progress_start_time[$k])?$progress_start_time[$k]:date('Y-m-d'),
+                    'progress_end_time'=>isset($progress_end_time[$k])?$progress_end_time[$k]:date('Y-m-d'),
+                    'progress_duration'=>isset($progress_duration[$k])?$progress_duration[$k]:1,
                     'uid'=>$uid,
                     'created_at'=>$time,
                 ];
+                if($item == 0){
+                    DB::table('progress_constrc_duration')->insert($datalist);
+                }else{
+                    DB::table('progress_constrc_duration')->where('engin_id',$id)
+                        ->where('sub_arch_id',$k)
+                        ->update($datalist);
+                }
             }
-            DB::table('progress_constrc_duration')->insert($datalist);
         }
 
         $param_id  =$request->input('param_id',[]);
@@ -555,21 +561,25 @@ class ProgressController extends WebController
         $param_sub_arch =DB::table('progress_params_conf')->where('status',1)->pluck('sub_arch_id','id');
 
         if($param_id){
-            DB::table('progress_contenc_process')->where('engin_id',$id)->delete();
-            foreach($param_id as $param){
-                $datapro[]=[
+            foreach($param_id as $key=>$param){
+                $datapro=[
                     'project_id'=>$engin->project_id,
                     'engin_id'=>$id,
                     'progress_id'=>$progress->id,
-                    'param_id'=>$param,
-                    'arch_id'=>isset($param_arch[$param])?$param_arch[$param]:0,
-                    'sub_arch_id'=>isset($param_sub_arch[$param])?$param_sub_arch[$param]:0,
-                    'arch_duration_plan'=>isset($arch_duration_plan[$param])?$arch_duration_plan[$param]:1,
+                    'param_id'=>$key,
+                    'arch_id'=>isset($param_arch[$key])?$param_arch[$key]:0,
+                    'sub_arch_id'=>isset($param_sub_arch[$key])?$param_sub_arch[$key]:0,
+                    'arch_duration_plan'=>isset($arch_duration_plan[$key])?$arch_duration_plan[$key]:1,
                     'uid'=>$uid,
                     'created_at'=>$time,
                 ];
+                if($param == 0){
+                    DB::table('progress_contenc_process')->insert($datapro);
+                }else{
+                    DB::table('progress_contenc_process')->where('engin_id',$id)
+                        ->where('param_id',$param)->update($datapro);
+                }
             }
-            DB::table('progress_contenc_process')->insert($datapro);
         }
 
         DB::table('progress')->where('engin_id',$id)->update(['arrange_status'=>1]);

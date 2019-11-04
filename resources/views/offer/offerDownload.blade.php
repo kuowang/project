@@ -20,7 +20,7 @@
 </style>
 
 
-<div style="text-align: center;font-size: 20px;">项目概况</div>
+<div style="text-align: center;font-size: 20px;"> {{$project->project_name}}（工程报价清单）</div>
 
 <table class="layui-table layui-form"  border="1" cellspacing="0" cellpadding="0">
     <tbody>
