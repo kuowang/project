@@ -82,22 +82,62 @@
                                 <tbody>
                                 <tr>
                                     <td  class="pro-title">送货方式</td>
-                                    <td ><input type="text" name="deliver_mode"         id="deliver_mode" class="span12 notempty" ></td>
+                                    <td >
+                                        @if(isset($purchase_order_deliver_mode))
+                                            <select name="deliver_mode" id="deliver_mode" class=" deliver_mode span12 notempty" style="min-width: 80px;">
+                                                @foreach($purchase_order_deliver_mode as $v)
+                                                    <option value="{{$v}}" >{{$v}}</option>
+                                                @endforeach
+                                            </select>
+                                        @endif
+                                    </td>
                                     <td  class="pro-title">到达方式</td>
-                                    <td ><input type="text" name="arrival_mode"         id="arrival_mode" class="span12 notempty" ></td>
+                                    <td >
+                                        @if(isset($purchase_order_arrival_mode))
+                                            <select name="arrival_mode" id="arrival_mode" class=" arrival_mode span12 notempty" style="min-width: 80px;">
+                                                @foreach($purchase_order_arrival_mode as $v)
+                                                    <option value="{{$v}}" >{{$v}}</option>
+                                                @endforeach
+                                            </select>
+                                        @endif
+                                    </td>
                                     <td  class="pro-title">中转站</td>
                                     <td ><input type="text" name="transfer_address"     id="transfer_address" class="span12" ></td>
                                     <td  class="pro-title">直达地址</td>
-                                    <td ><input type="text" name="direct_address"       id="direct_address" class="span12 notempty" ></td>
+                                    <td ><input type="text" name="direct_address"       id="direct_address" class="span12 notempty" value="{{$engineering->engin_address}}" ></td>
                                 </tr>
 
                                 <tr>
                                     <td class="pro-title">运输方式</td>
-                                    <td ><input type="text" name="transport_mode"       id="transport_mode" class="span12 notempty" ></td>
+                                    <td >
+                                        @if(isset($purchase_order_transport_mode))
+                                            <select name="transport_mode" id="transport_mode" class=" transport_mode span12 notempty" style="min-width: 80px;">
+                                                @foreach($purchase_order_transport_mode as $v)
+                                                    <option value="{{$v}}" >{{$v}}</option>
+                                                @endforeach
+                                            </select>
+                                        @endif
+                                    </td>
                                     <td class="pro-title">装载方式</td>
-                                    <td ><input type="text" name="load_mode"            id="load_mode" class="span12 notempty" ></td>
+                                    <td >
+                                        @if(isset($purchase_order_load_mode))
+                                            <select name="load_mode" id="load_mode" class=" load_mode span12 notempty" style="min-width: 80px;">
+                                                @foreach($purchase_order_load_mode as $v)
+                                                    <option value="{{$v}}" >{{$v}}</option>
+                                                @endforeach
+                                            </select>
+                                        @endif
+                                    </td>
                                     <td class="pro-title">车辆规格</td>
-                                    <td ><input type="text" name="vehicle_mode"         id="vehicle_mode" class="span12 notempty" ></td>
+                                    <td >
+                                        @if(isset($purchase_order_vehicle_mode))
+                                            <select name="vehicle_mode" id="vehicle_mode" class=" vehicle_mode span12 notempty" style="min-width: 80px;">
+                                                @foreach($purchase_order_vehicle_mode as $v)
+                                                    <option value="{{$v}}" >{{$v}}</option>
+                                                @endforeach
+                                            </select>
+                                        @endif
+                                    </td>
                                     <td  class="pro-title">车辆数量</td>
                                     <td ><input type="text" name="vehicle_number"       id="vehicle_number" class="span12 notempty" onclick="key(this)" ></td>
                                 </tr>

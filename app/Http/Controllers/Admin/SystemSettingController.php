@@ -20,7 +20,7 @@ class SystemSettingController extends WebController
         //该方法验证说明必须登录用户才能操作
         //$this->middleware('auth');
         $this->params=[
-            'project_type'=>'项目:项目种类(用途)',
+            'project_type'          =>'项目:项目种类(用途)',
             'project_source'=>'项目:项目来源',
             'project_stage'=>'项目:项目所属阶段',
             'project_environment'=>'项目:场地自然条件',
@@ -33,9 +33,19 @@ class SystemSettingController extends WebController
             'engin_refractory_grade'=>'工程:建筑耐火等级',
             'engin_insulation_sound_grade'=>'工程:建筑隔声等级',
             'engin_energy_grade'=>'工程:建筑节能等级',
+            'purchase_batch_transport_type'=>'采购批次:运输方式',
+            'purchase_batch_load_mode'=>'采购批次:装载方式',
+            'purchase_batch_container_size'=>'采购批次:集装箱尺寸',
+            'purchase_batch_van_specs'=>'采购批次:货车规格',
+            'purchase_order_deliver_mode'=>'采购订单:送货方式',
+            'purchase_order_arrival_mode'=>'采购订单:到达方式',
+            'purchase_order_transport_mode'=>'采购订单:运输方式',
+            'purchase_order_load_mode'=>'采购订单:装载方式',
+            'purchase_order_vehicle_mode'=>'采购订单:车辆规格',
             'progress_construction_accommodation'=>'施工:现场人员住宿条件',
             'progress_construction_scaffolding'=>'施工:场地操作平台搭建条件',
             'progress_construction_crane'=>'施工:场地大型施工机械使用条件',
+
         ];
     }
 

@@ -127,12 +127,60 @@
                                         <td><input type="text" name="purchase_at[]" value="{{$val->purchase_at}}" class="span12 purchase_at purchase_at_{{$k}}"  ></td>
                                         <td><input type="text" name="deliver_time[]" value="{{$val->deliver_time}}" class="span12 deliver_time deliver_time_{{$k}}" ></td>
                                         <td><input type="text" name="arrive_time[]" value="{{$val->arrive_time}}" class="span12 arrive_time arrive_time_{{$k}}" ></td>
-                                        <td><input type="text" name="transport_type[]" value="{{$val->transport_type}}" class="span12 transport_type"  ></td>
+                                        <td>
+                                            @if(isset($purchase_batch_transport_type))
+                                                <select name="transport_type[]" id="transport_type" class=" transport_type span10 notempty" style="min-width: 80px;">
+                                                    @foreach($purchase_batch_transport_type as $v)
+                                                        @if($v == $val->transport_type)
+                                                            <option value="{{$v}}" selected="selected" >{{$v}}</option>
+                                                        @else
+                                                            <option value="{{$v}}" >{{$v}}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                            @endif
+                                        </td>
                                         <td><input type="text" name="load_height[]" value="{{$val->load_height}}" class="span12 load_height"  onclick="key(this)"></td>
-                                        <td><input type="text" name="load_mode[]" value="{{$val->load_mode}}" class="span12 load_mode" ></td>
-                                        <td><input type="text" name="container_size[]" value="{{$val->container_size}}" class="span12 container_size" ></td>
+                                        <td>
+                                            @if(isset($purchase_batch_load_mode))
+                                                <select name="load_mode[]" id="load_mode" class="load_mode span10 notempty" style="min-width: 80px;">
+                                                    @foreach($purchase_batch_load_mode as $v)
+                                                        @if($v == $val->load_mode)
+                                                            <option value="{{$v}}" selected="selected" >{{$v}}</option>
+                                                        @else
+                                                            <option value="{{$v}}" >{{$v}}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if(isset($purchase_batch_container_size))
+                                                <select name="container_size[]" id="container_size" class="container_size span10 notempty" style="min-width: 80px;">
+                                                    @foreach($purchase_batch_container_size as $v)
+                                                        @if($v == $val->container_size)
+                                                            <option value="{{$v}}" selected="selected" >{{$v}}</option>
+                                                        @else
+                                                            <option value="{{$v}}" >{{$v}}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                            @endif
+                                        </td>
                                         <td><input type="text" name="container_number[]" value="{{$val->container_number}}" class="span12 container_number" onclick="key(this)"></td>
-                                        <td><input type="text" name="van_specs[]" value="{{$val->van_specs}}" class="span12 van_specs" ></td>
+                                        <td>
+                                            @if(isset($purchase_batch_van_specs))
+                                                <select name="van_specs[]" id="van_specs" class="van_specs span10 notempty" style="min-width: 80px;">
+                                                    @foreach($purchase_batch_van_specs as $v)
+                                                        @if($v == $val->van_specs)
+                                                            <option value="{{$v}}" selected="selected" >{{$v}}</option>
+                                                        @else
+                                                            <option value="{{$v}}" >{{$v}}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                            @endif
+                                        </td>
                                         <td><input type="text" name="van_number[]" value="{{$val->van_number}}" class="span12 van_number" onclick="key(this)"></td>
                                         <td><input type="text" name="deliver_address[]" value="{{$val->deliver_address}}" class="span12 deliver_address" ></td>
                                         <td> @if($val->purchase_order_status == 1)已创建@else 未创建 @endif </td>
@@ -191,6 +239,9 @@
 <script type="text/javascript">
 
     function add_pici() {
+
+
+
         //当前时间的毫秒数
         var timestamp = (new Date()).valueOf();
         str =`<tr  class="hiddenitem_`+timestamp+`">
@@ -205,12 +256,44 @@
                 <td><input type="text" name="purchase_at[]" class="span12 purchase_at purchase_at_`+timestamp+`" ></td>
                 <td><input type="text" name="deliver_time[]" class="span12 deliver_time deliver_time_`+timestamp+`" ></td>
                 <td><input type="text" name="arrive_time[]" class="span12 arrive_time arrive_time_`+timestamp+`" ></td>
-                <td><input type="text" name="transport_type[]" class="span12 transport_type" ></td>
+                <td>
+                @if(isset($purchase_batch_transport_type))
+                    <select name="transport_type[]" id="transport_type" class=" transport_type span10 notempty" style="min-width: 80px;">
+                    @foreach($purchase_batch_transport_type as $v)
+                    <option value="{{$v}}" >{{$v}}</option>
+                    @endforeach
+                    </select>
+                @endif
+                </td>
                 <td><input type="text" name="load_height[]" class="span12 load_height"  onclick="key(this)"></td>
-                <td><input type="text" name="load_mode[]" class="span12 load_mode" ></td>
-                <td><input type="text" name="container_size[]" class="span12 container_size" ></td>
+                <td>
+                    @if(isset($purchase_batch_load_mode))
+                        <select name="load_mode[]" id="load_mode" class=" load_mode span10 notempty" style="min-width: 80px;">
+                    @foreach($purchase_batch_load_mode as $v)
+                        <option value="{{$v}}" >{{$v}}</option>
+                    @endforeach
+                        </select>
+                    @endif
+                </td>
+                <td>
+                @if(isset($purchase_batch_container_size))
+                    <select name="container_size[]" id="container_size" class=" container_size span10 notempty" style="min-width: 80px;">
+                    @foreach($purchase_batch_container_size as $v)
+                    <option value="{{$v}}" >{{$v}}</option>
+                    @endforeach
+                    </select>
+                @endif
+                </td>
                 <td><input type="text" name="container_number[]" class="span12 container_number"  onclick="key(this)"></td>
-                <td><input type="text" name="van_specs[]" class="span12 van_specs" ></td>
+                <td>
+                @if(isset($purchase_batch_van_specs))
+                <select name="van_specs[]" id="van_specs" class=" van_specs span10 notempty" style="min-width: 80px;">
+                @foreach($purchase_batch_van_specs as $v)
+                <option value="{{$v}}" >{{$v}}</option>
+                        @endforeach
+                </select>
+                @endif
+                </td>
                 <td><input type="text" name="van_number[]" class="span12 van_number"  onclick="key(this)"></td>
                 <td><input type="text" name="deliver_address[]" class="span12 deliver_address" ></td>
                 <td></td>

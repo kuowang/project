@@ -276,6 +276,13 @@ class PurchaseController extends WebController
         //获取批次列表
         $data['batchList']= DB::table('purchase_batch')->where('engin_id',$id)->get();
 
+        //获取参数数据
+        $params =['purchase_batch_transport_type','purchase_batch_load_mode','purchase_batch_container_size','purchase_batch_van_specs'];
+        $items =DB::table('system_setting')->wherein('field',$params)->orderby('field')->orderby('sort')->select(['field','name'])->get();
+        foreach($items as $item){
+            $data[$item->field][] = $item->name ;
+        }
+
         return view('purchase.purchaseBatchManage',$data);
 
     }
@@ -427,6 +434,13 @@ class PurchaseController extends WebController
             ->orderby('sub_system_code')
             ->get();
         //print_R($data['engin_system']);exit;
+
+        //获取参数数据
+        $params =['purchase_order_deliver_mode','purchase_order_arrival_mode','purchase_order_transport_mode','purchase_order_load_mode','purchase_order_vehicle_mode'];
+        $items =DB::table('system_setting')->wherein('field',$params)->orderby('field')->orderby('sort')->select(['field','name'])->get();
+        foreach($items as $item){
+            $data[$item->field][] = $item->name ;
+        }
 
         return view('purchase.createPurchaseOrder',$data);
     }
@@ -743,6 +757,13 @@ class PurchaseController extends WebController
             $itemlist[$v->sub_arch_id][]=$v;
         }
         $data['itemlist']=$itemlist;
+        //获取参数数据
+        $params =['purchase_order_deliver_mode','purchase_order_arrival_mode','purchase_order_transport_mode','purchase_order_load_mode','purchase_order_vehicle_mode'];
+        $items =DB::table('system_setting')->wherein('field',$params)->orderby('field')->orderby('sort')->select(['field','name'])->get();
+        foreach($items as $item){
+            $data[$item->field][] = $item->name ;
+        }
+
         return view('purchase.editPurchaseOrder',$data);
     }
     //保存编辑的采购单
