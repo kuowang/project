@@ -30,6 +30,16 @@
             <div class="widget">
                 <div class="widget-header" style="text-align: center">
                     <div  style="font-size: 16px;" >
+                        <div class="title">
+                            <span class="btn btn-info">采购批次管理材料</span>
+                            <span class="btn btn-info">采购批次{{$batchInfo->purchase_number}}</span>
+                            @if($batchInfo->deliver_properties ==1)
+                                <span class="btn btn-primary">预算内</span>
+                            @else
+                                <span class="btn btn-danger">预算外</span>
+                            @endif
+                        </div>
+
                         <b>{{$project->project_name}}</b>
                     </div>
                 </div>

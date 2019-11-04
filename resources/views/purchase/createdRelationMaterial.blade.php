@@ -134,10 +134,10 @@
                                             @if(isset($select_items[$mate->id]) && $batchInfo->deliver_properties ==1)
                                                 @if($select_items[$mate->id]['cishu'] <=10)
                                                     采购{{$select_items[$mate->id]['cishu']}}次<input type="hidden" name="purchase_cishu[{{$mate->id}}]" value="{{$select_items[$mate->id]['cishu']}}">
-                                                (已购{{$select_items[$mate->id]['purchase_count']}}次)
+                                                (第{{$select_items[$mate->id]['purchase_count'] +1}}次)
                                                 @else
                                                     不限次数<input type="hidden" name="purchase_cishu[{{$mate->id}}]" value="{{$select_items[$mate->id]['cishu']}}">
-                                                (已购{{$select_items[$mate->id]['purchase_count']}}次)
+                                                (第{{$select_items[$mate->id]['purchase_count']+1}}次)
                                                 @endif
                                             @else
                                                 <select name="purchase_cishu[{{$mate->id}}]" id="purchase_cishu_{{$mate->id}}" class="purchase_cishu notempty span12" onchange="changecolor(this,{{$mate->id}})" style="min-width: 80px">
