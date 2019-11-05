@@ -5,7 +5,9 @@
     <script src="/layui/layui.js"></script>
 
     <style type="text/css">
-
+        .layui-table td, .layui-table th {
+            border: solid 1px #ccc;
+        }
         .pro-title{
             background: #e6e6e6;
             width:100px;
@@ -65,78 +67,111 @@
                                     </td>
                                 </tr>
 
-                                <tr>
-                                    <td  class="pro-title">订单验收状态</td>
-                                    <td  >
-
-                                        @if($purchase_order->order_check_status ==1)
-                                            <span class="btn btn-success"> 未验收 </span>
-                                        @elseif($purchase_order->order_check_status ==2)
-                                            <span class="btn btn-danger"> 已验收(正常)</span>
-                                        @elseif($purchase_order->order_check_status ==3)
-                                            <span class="btn btn-danger"> 已验收(有损坏)</span>
-                                        @elseif($purchase_order->order_check_status ==4)
-                                            <span class="btn btn-danger"> 已验收(数量有误)</span>
-                                        @endif
-                                    </td>
-                                    <td  class="pro-title">问题材料名称</td>
-                                    <td  >
-                                        {{$purchase_order->material_abnormal_name}}
-                                    </td>
-                                    <td  class="pro-title">问题描述</td>
-                                    <td  >
-                                        {{$purchase_order->material_abnormal_detail}}</td>
-                                </tr>
-                                <tr>
-                                    <td  class="pro-title">材料使用状态</td>
-                                    <td  >
-                                        @if($purchase_order->order_use_status ==1)
-                                            <span class="btn btn-success"> 正常(满足使用) </span>
-                                        @elseif($purchase_order->order_use_status ==2)
-                                            <span class="btn btn-danger"> 非正常(不满足使用)</span>
-                                        @endif
-                                    </td>
-                                    <td  class="pro-title">问题材料名称</td>
-                                    <td  >{{$purchase_order->material_question_name}} </td>
-                                    <td  class="pro-title">问题描述</td>
-                                    <td  >{{$purchase_order->material_question_detail}} </td>
-                                </tr>
-                                <tr>
-                                    <td  class="pro-title">材料工程量状态</td>
-                                    <td  >
-                                        @if($purchase_order->order_quantity_status ==1)
-                                            <span class="btn btn-success"> 满足(无结余) </span>
-                                        @elseif($purchase_order->order_quantity_status ==2)
-                                            <span class="btn btn-success"> 满足(有结余) </span>
-                                        @elseif($purchase_order->order_quantity_status ==3)
-                                            <span class="btn btn-danger"> 不满足(需要补充)</span>
-                                        @endif
-                                    </td>
-                                    <td  class="pro-title">问题材料名称</td>
-                                    <td  >{{$purchase_order->material_quantity_name}} </td>
-                                    <td  class="pro-title">问题描述</td>
-                                    <td  >{{$purchase_order->material_quantity_detail}} </td>
-                                </tr>
-                                <tr>
-                                    <td  class="pro-title">补货状态</td>
-                                    <td  >
-                                        @if($purchase_order->order_replenishment_status ==1)
-                                            <span class="btn btn-success"> 无补货</span>
-                                        @elseif($purchase_order->order_replenishment_status ==2)
-                                            <span class="btn btn-success"> 补货(已到达)</span>
-                                        @elseif($purchase_order->order_replenishment_status ==3)
-                                            <span class="btn btn-danger"> 补货(未到达)</span>
-                                        @endif
-
-                                    </td>
-                                    <td  class="pro-title">问题材料名称</td>
-                                    <td  >{{$purchase_order->material_replenishment_name}}</td>
-                                    <td  class="pro-title">问题描述</td>
-                                    <td  >{{$purchase_order->material_replenishment_detail}}</td>
-                                </tr>
-
                                 </tbody>
                             </table>
+                            <div class="clearfix"></div>
+                            <table class="layui-table layui-form">
+                                <thead>
+                                <tr>
+                                    <th colspan="3"><span class="btn btn-info">材料管理</span></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr class="yanshou">
+                                    <td  class="pro-title" style="width:200px">订单验收状态</td>
+                                    <td  class="pro-title" style="width: 30%">问题材料名称</td>
+                                    <td   class="pro-title" style="min-width: 300px">问题描述</td>
+                                </tr>
+                                @if($material_abnormal_name && is_array($material_abnormal_name))
+                                    @foreach($material_abnormal_name as $k=>$v)
+                                        <tr id="yanshou_1" class="yanshou">
+                                            <td >
+                                                @if($k ==0)
+                                                @if($order_check_status ==1 ) 未验收 @endif
+                                                @if($order_check_status ==2 ) 已验收(正常)    @endif
+                                                @if($order_check_status ==3 ) 已验收(有损坏)   @endif
+                                                @if($order_check_status ==4 ) 已验收(数量有误)      @endif
+                                                @endif
+                                            </td>
+                                            <td  >
+                                                {{isset($material_abnormal_name[$k])?$material_abnormal_name[$k]:''}}
+                                            </td>
+                                            <td  >
+                                                {{isset($material_abnormal_detail[$k])?$material_abnormal_detail[$k]:''}}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+
+                                @endif
+
+                                <tr class="shiyong">
+                                    <td  class="pro-title">材料使用状态</td>
+                                    <td  class="pro-title">问题材料名称</td>
+                                    <td  class="pro-title">问题描述</td>
+                                </tr>
+                                @if($material_question_name)
+                                    @foreach($material_question_name as $k=>$v)
+                                        <tr id="shiyong_1" class="shiyong">
+                                            <td  >
+                                                @if($k ==0)
+                                                    @if($order_use_status ==1 )  正常(满足使用)  @endif
+                                                    @if($order_use_status ==2 )  非正常(不满足使用)  @endif
+                                                @endif
+                                            </td>
+                                            <td  >{{isset($material_question_name[$k])?$material_question_name[$k]:''}} </td>
+                                            <td >{{isset($material_question_name[$k])?$material_question_name[$k]:''}}</td>
+                                        </tr>
+                                    @endforeach
+
+                                @endif
+
+                                <tr class="gongcheng">
+                                    <td  class="pro-title">材料工程量状态</td>
+                                    <td  class="pro-title">问题材料名称</td>
+                                    <td  class="pro-title">问题描述</td>
+                                </tr>
+                                @if($material_quantity_name)
+                                    @foreach($material_quantity_name as $k=>$v)
+                                        <tr id="gongcheng_1" class="gongcheng">
+                                            <td  >
+                                                @if($k==0)
+                                                    @if($order_quantity_status ==1 ) 满足(无结余)  @endif
+                                                    @if($order_quantity_status ==2 ) 满足(有结余)  @endif
+                                                    @if($order_quantity_status ==3 ) 不满足(需要补充)@endif
+                                                @endif
+                                            </td>
+                                            <td  >{{isset($material_quantity_name[$k])?$material_quantity_name[$k]:''}} </td>
+                                            <td  >{{isset($material_quantity_detail[$k])?$material_quantity_detail[$k]:''}} </td>
+                                        </tr>
+                                    @endforeach
+
+                                @endif
+
+                                <tr class="buhuo">
+                                    <td  class="pro-title">补货状态</td>
+                                    <td  class="pro-title">问题材料名称</td>
+                                    <td  class="pro-title">问题描述</td>
+                                </tr>
+                                @if($material_replenishment_name)
+                                    @foreach($material_replenishment_name as $k=>$v)
+                                        <tr id="buhuo_1" class="buhuo">
+                                            <td  >
+                                                @if($k ==0)
+                                                @if($order_replenishment_status ==1 ) 无补货 @endif
+                                                @if($order_replenishment_status ==2 ) 补货(已到达)  @endif
+                                                @if($order_replenishment_status ==3 ) 补货(未到达)  @endif
+                                                @endif
+                                            </td>
+                                            <td  >{{isset($material_replenishment_name[$k])?$material_replenishment_name[$k]:''}}</td>
+                                            <td  >{{isset($material_replenishment_detail[$k])?$material_replenishment_detail[$k]:''}}</td>
+                                        </tr>
+                                    @endforeach
+
+                                @endif
+                                </tbody>
+                            </table>
+
                             <div class="clearfix"></div>
                             <div class="layui-form-item" style="float: right;clear: left">
                                 <a href="javascript:history.go(-1)">

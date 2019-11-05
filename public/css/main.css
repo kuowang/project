@@ -7532,3 +7532,6 @@ select{
     float: left;
 }
 
+.layui-table td, .layui-table th {
+    border: solid 1px #ccc;
+}

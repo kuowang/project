@@ -647,6 +647,20 @@ class ProgressController extends WebController
         $data['project'] =$project;
         $data['engin'] =$engin;
         $data['purchase_order_id']=$id;
+
+        $data['order_check_status']             =empty($purchase_order->order_check_status)?1:$purchase_order->order_check_status;
+        $data['material_abnormal_name']         =empty($purchase_order->material_abnormal_name)?null:json_decode($purchase_order->material_abnormal_name,true);
+        $data['material_abnormal_detail']       =empty($purchase_order->material_abnormal_detail)?null:json_decode($purchase_order->material_abnormal_detail,true);
+        $data['order_use_status']               =empty($purchase_order->order_use_status)?1:$purchase_order->order_use_status;
+        $data['material_question_name']         =empty($purchase_order->material_question_name)?null:json_decode($purchase_order->material_question_name,true);
+        $data['material_question_detail']       =empty($purchase_order->material_question_detail)?null:json_decode($purchase_order->material_question_detail,true);
+        $data['order_quantity_status']          =empty($purchase_order->order_quantity_status)?1:$purchase_order->order_quantity_status;
+        $data['material_quantity_name']         =empty($purchase_order->material_quantity_name)?null:json_decode($purchase_order->material_quantity_name,true);
+        $data['material_quantity_detail']       =empty($purchase_order->material_quantity_detail)?null:json_decode($purchase_order->material_quantity_detail,true);
+        $data['order_replenishment_status']     =empty($purchase_order->order_replenishment_status)?1:$purchase_order->order_replenishment_status;
+        $data['material_replenishment_name']    =empty($purchase_order->material_replenishment_name)?null:json_decode($purchase_order->material_replenishment_name,true);
+        $data['material_replenishment_detail']  =empty($purchase_order->material_replenishment_detail)?null:json_decode($purchase_order->material_replenishment_detail,true);
+
         return view('progress.progressMaterialDetail',$data);
     }
 
@@ -675,6 +689,20 @@ class ProgressController extends WebController
         $data['project'] =$project;
         $data['engin'] =$engin;
         $data['purchase_order_id']=$id;
+
+        $data['order_check_status']             =empty($purchase_order->order_check_status)?1:$purchase_order->order_check_status;
+        $data['material_abnormal_name']         =empty($purchase_order->material_abnormal_name)?null:json_decode($purchase_order->material_abnormal_name,true);
+        $data['material_abnormal_detail']       =empty($purchase_order->material_abnormal_detail)?null:json_decode($purchase_order->material_abnormal_detail,true);
+        $data['order_use_status']               =empty($purchase_order->order_use_status)?1:$purchase_order->order_use_status;
+        $data['material_question_name']         =empty($purchase_order->material_question_name)?null:json_decode($purchase_order->material_question_name,true);
+        $data['material_question_detail']       =empty($purchase_order->material_question_detail)?null:json_decode($purchase_order->material_question_detail,true);
+        $data['order_quantity_status']          =empty($purchase_order->order_quantity_status)?1:$purchase_order->order_quantity_status;
+        $data['material_quantity_name']         =empty($purchase_order->material_quantity_name)?null:json_decode($purchase_order->material_quantity_name,true);
+        $data['material_quantity_detail']       =empty($purchase_order->material_quantity_detail)?null:json_decode($purchase_order->material_quantity_detail,true);
+        $data['order_replenishment_status']     =empty($purchase_order->order_replenishment_status)?1:$purchase_order->order_replenishment_status;
+        $data['material_replenishment_name']    =empty($purchase_order->material_replenishment_name)?null:json_decode($purchase_order->material_replenishment_name,true);
+        $data['material_replenishment_detail']  =empty($purchase_order->material_replenishment_detail)?null:json_decode($purchase_order->material_replenishment_detail,true);
+
         return view('progress.editProgressMaterial',$data);
     }
 
@@ -693,19 +721,20 @@ class ProgressController extends WebController
 
         $data['progress_username']          =$request->input('progress_username','');
         $data['inspection_username']        =$request->input('inspection_username','');
-        $data['order_arrive_status']        =(int)$request->input('order_arrive_status',1);
+        $data['order_arrive_status']        =$request->input('order_arrive_status',1);
         $data['order_check_status']         =(int)$request->input('order_check_status',1);
-        $data['material_abnormal_name']     =$request->input('material_abnormal_name','');
-        $data['material_abnormal_detail']   =$request->input('material_abnormal_detail','');
+        $data['material_abnormal_name']     =json_encode($request->input('material_abnormal_name',[]));
+        $data['material_abnormal_detail']   =json_encode($request->input('material_abnormal_detail',[]));
         $data['order_use_status']           =(int)$request->input('order_use_status',1);
-        $data['material_question_name']     =$request->input('material_question_name','');
-        $data['material_question_detail']   =$request->input('material_question_detail','');
+        $data['material_question_name']     =json_encode($request->input('material_question_name',[]));
+        $data['material_question_detail']   =json_encode($request->input('material_question_detail',[]));
         $data['order_quantity_status']      =(int)$request->input('order_quantity_status',1);
-        $data['material_quantity_name']     =$request->input('material_quantity_name','');
-        $data['material_quantity_detail']   =$request->input('material_quantity_detail','');
+        $data['material_quantity_name']     =json_encode($request->input('material_quantity_name',[]));
+        $data['material_quantity_detail']   =json_encode($request->input('material_quantity_detail',[]));
         $data['order_replenishment_status'] =(int)$request->input('order_replenishment_status',1);
-        $data['material_replenishment_name']    =$request->input('material_replenishment_name','');
-        $data['material_replenishment_detail']  =$request->input('material_replenishment_detail','');
+        $data['material_replenishment_name']    =json_encode($request->input('material_replenishment_name',[]));
+        $data['material_replenishment_detail']  =json_encode($request->input('material_replenishment_detail',[]));
+
         $data['progress_created_uid']=$this->user()->id;
         $data['progress_created_at']=date('Y-m-d');
         DB::table('purchase_order')->where('id',$id)->update($data);
@@ -714,7 +743,7 @@ class ProgressController extends WebController
 
     }
 
-    //施工进度管理
+    //施工进度管理详情
     public function progressActualManageDetail(Request $request,$id){
         $this->user();
         $engin=DB::table('engineering')->where('id',$id)->first();

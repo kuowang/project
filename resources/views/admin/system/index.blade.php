@@ -111,8 +111,11 @@
 
                                 </tbody>
                             </table>
-                            <div class="clearfix">
-                            </div>
+                            <div class="clearfix"></div>
+                        <?php
+                        echo $page
+                            ?>
+                            <div class="clearfix"></div>
 
                         </div>
                     </div>
