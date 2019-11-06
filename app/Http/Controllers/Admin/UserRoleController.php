@@ -65,7 +65,7 @@ class UserRoleController extends WebController
                 ->orwhere('email','like','%'.$search.'%');
         }
         $data['count'] =$db->count();
-        $data['data']= $db ->orderby('status','desc')->orderby('id','desc')
+        $data['data']= $db ->orderby('status','desc')->orderby('department_id','asc')
             ->skip(($page-1)*$rows)
             ->take($rows)->get();
         return $data;

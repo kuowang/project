@@ -88,10 +88,10 @@
                                         <tr id="yanshou_1" class="yanshou">
                                             <td >
                                                 @if($k ==0)
-                                                @if($order_check_status ==1 ) 未验收 @endif
-                                                @if($order_check_status ==2 ) 已验收(正常)    @endif
-                                                @if($order_check_status ==3 ) 已验收(有损坏)   @endif
-                                                @if($order_check_status ==4 ) 已验收(数量有误)      @endif
+                                                @if($order_check_status ==1 ) <span class="btn btn-danger">未验收 </span> @endif
+                                                    @if($order_check_status ==2 ) <span class="btn btn-success">已验收(正常)  </span>   @endif
+                                                @if($order_check_status ==3 ) <span class="btn btn-danger">已验收(有损坏) </span>  @endif
+                                                @if($order_check_status ==4 ) <span class="btn btn-danger">已验收(数量有误)  </span>    @endif
                                                 @endif
                                             </td>
                                             <td  >
@@ -115,8 +115,8 @@
                                         <tr id="shiyong_1" class="shiyong">
                                             <td  >
                                                 @if($k ==0)
-                                                    @if($order_use_status ==1 )  正常(满足使用)  @endif
-                                                    @if($order_use_status ==2 )  非正常(不满足使用)  @endif
+                                                    @if($order_use_status ==1 )  <span class="btn btn-success">正常(满足使用) </span> @endif
+                                                    @if($order_use_status ==2 )  <span class="btn btn-danger">非正常(不满足使用) </span> @endif
                                                 @endif
                                             </td>
                                             <td  >{{isset($material_question_name[$k])?$material_question_name[$k]:''}} </td>
@@ -136,9 +136,9 @@
                                         <tr id="gongcheng_1" class="gongcheng">
                                             <td  >
                                                 @if($k==0)
-                                                    @if($order_quantity_status ==1 ) 满足(无结余)  @endif
-                                                    @if($order_quantity_status ==2 ) 满足(有结余)  @endif
-                                                    @if($order_quantity_status ==3 ) 不满足(需要补充)@endif
+                                                    @if($order_quantity_status ==1 ) <span class="btn btn-success">满足(无结余)</span>  @endif
+                                                    @if($order_quantity_status ==2 ) <span class="btn btn-success">满足(有结余) </span> @endif
+                                                    @if($order_quantity_status ==3 ) <span class="btn btn-danger">不满足(需要补充)</span> @endif
                                                 @endif
                                             </td>
                                             <td  >{{isset($material_quantity_name[$k])?$material_quantity_name[$k]:''}} </td>
@@ -158,9 +158,9 @@
                                         <tr id="buhuo_1" class="buhuo">
                                             <td  >
                                                 @if($k ==0)
-                                                @if($order_replenishment_status ==1 ) 无补货 @endif
-                                                @if($order_replenishment_status ==2 ) 补货(已到达)  @endif
-                                                @if($order_replenishment_status ==3 ) 补货(未到达)  @endif
+                                                    @if($order_replenishment_status ==1 ) <span class="btn btn-success">无补货</span> @endif
+                                                @if($order_replenishment_status ==2 ) <span class="btn btn-danger">补货(已到达) </span> @endif
+                                                @if($order_replenishment_status ==3 ) <span class="btn btn-danger">补货(未到达) </span> @endif
                                                 @endif
                                             </td>
                                             <td  >{{isset($material_replenishment_name[$k])?$material_replenishment_name[$k]:''}}</td>
