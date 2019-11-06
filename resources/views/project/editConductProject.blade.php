@@ -29,28 +29,28 @@
             @if(in_array(1502,$pageauth))
                 <div class="metro-nav-block nav-block-blue">
                     <a href="/project/projectEnginStart/{{$project->id}}">
-                        <div class="fs1" aria-hidden="true" data-icon="">洽谈工程 ({{$project->start_count}})</div>
+                        <div class="fs1" aria-hidden="true" ><img src="/img/nav/1.png">洽谈工程 ({{$project->start_count}})</div>
                     </a>
                 </div>
             @endif
             @if(in_array(1503,$pageauth))
                 <div class="metro-nav-block nav-block-green"  style=" outline: 2px rgba(0, 0, 0, 0.75) solid;">
                     <a href="/project/projectEnginConduct/{{$project->id}}">
-                        <div class="fs1" aria-hidden="true" data-icon="">实施工程 ({{$project->conduct_count}})</div>
+                        <div class="fs1" aria-hidden="true" ><img src="/img/nav/2.png">实施工程 ({{$project->conduct_count}})</div>
                     </a>
                 </div>
             @endif
             @if(in_array(1504,$pageauth))
                 <div class="metro-nav-block nav-block-yellow">
                     <a href="/project/projectEnginCompleted/{{$project->id}}">
-                        <div class="fs1" aria-hidden="true" data-icon="">竣工工程 ({{$project->completed_count}})</div>
+                        <div class="fs1" aria-hidden="true" ><img src="/img/nav/3.png">竣工工程 ({{$project->completed_count}})</div>
                     </a>
                 </div>
             @endif
             @if(in_array(1505,$pageauth))
                 <div class="metro-nav-block nav-block-red">
                     <a href="/project/projectEnginTermination/{{$project->id}}">
-                        <div class="fs1" aria-hidden="true" data-icon="">终止工程 ({{$project->termination_count}})</div>
+                        <div class="fs1" aria-hidden="true" ><img src="/img/nav/4.png">终止工程 ({{$project->termination_count}})</div>
                     </a>
                 </div>
             @endif

@@ -126,10 +126,10 @@
                                             </select>
                                         </td>
                                         <td  >
-                                            <input  type="text" name="material_abnormal_name[]" class="input-block-level span12" value="{{isset($material_abnormal_name[$k])?$material_abnormal_name[$k]:''}}">
+                                            <input  type="text" name="material_abnormal_name[]" class="input-block-level span12" value="">
                                         </td>
                                         <td  >
-                                            <input  type="text" name="material_abnormal_detail[]" class="input-block-level span12" value="{{isset($material_abnormal_detail[$k])?$material_abnormal_detail[$k]:''}}" >
+                                            <input  type="text" name="material_abnormal_detail[]" class="input-block-level span12" value="" >
                                         </td>
                                         <td></td>
                                     </tr>
@@ -169,8 +169,8 @@
                                                 <option value="2" >非正常(不满足使用)</option>
                                             </select>
                                         </td>
-                                        <td  ><input  type="text" name="material_question_name[]" class="input-block-level span12" value="{{isset($material_question_name[$k])?$material_question_name[$k]:''}}" > </td>
-                                        <td ><input  type="text" name="material_question_detail[]" class="input-block-level span12" value="{{isset($material_question_name[$k])?$material_question_name[$k]:''}}"> </td>
+                                        <td  ><input  type="text" name="material_question_name[]" class="input-block-level span12" value="" > </td>
+                                        <td ><input  type="text" name="material_question_detail[]" class="input-block-level span12" value=""> </td>
                                         <td></td>
                                     </tr>
                                 @endif
@@ -211,8 +211,8 @@
                                                 <option value="3" >不满足(需要补充)</option>
                                             </select>
                                         </td>
-                                        <td  ><input  type="text" name="material_quantity_name[]" class="input-block-level span12"value="{{isset($material_quantity_name[$k])?$material_quantity_name[$k]:''}}" > </td>
-                                        <td  ><input  type="text" name="material_quantity_detail[]" class="input-block-level span12" value="{{isset($material_quantity_detail[$k])?$material_quantity_detail[$k]:''}}" > </td>
+                                        <td  ><input  type="text" name="material_quantity_name[]" class="input-block-level span12"value="" > </td>
+                                        <td  ><input  type="text" name="material_quantity_detail[]" class="input-block-level span12" value="" > </td>
                                         <td></td>
                                     </tr>
                                 @endif
@@ -253,8 +253,8 @@
                                                 <option value="3" >补货(未到达)</option>
                                             </select>
                                         </td>
-                                        <td  ><input  type="text" name="material_replenishment_name[]" class="input-block-level span12" value="{{isset($material_replenishment_name[$k])?$material_replenishment_name[$k]:''}}" > </td>
-                                        <td  ><input  type="text" name="material_replenishment_detail[]" class="input-block-level span12" value="{{isset($material_replenishment_detail[$k])?$material_replenishment_detail[$k]:''}}"> </td>
+                                        <td  ><input  type="text" name="material_replenishment_name[]" class="input-block-level span12" value="" > </td>
+                                        <td  ><input  type="text" name="material_replenishment_detail[]" class="input-block-level span12" value=""> </td>
                                         <td></td>
                                     </tr>
                                 @endif
