@@ -119,13 +119,11 @@
                                                     </div>
                                                 </a>
                                             @else
-                                                <a href=" {{ $nav->url }}" >
-                                                    <div class="navmodel" style="">
+                                                    <div class="navmodel" style="background: #cf2d27">
                                                         <div style="color: #fff;font-size: 18px;margin: 20px auto 5px;">{{ $nav->name }}</div>
                                                         <div><img src="\img\nav\starbai.png" style="width: 55%;"></div>
                                                         <div><img src="{{ $nav->icon }}" style="width: 40%"></div>
                                                     </div>
-                                                </a>
                                             @endif
                                         @endforeach
                                     </div>

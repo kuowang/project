@@ -50,32 +50,17 @@
         ]); ?>
     </script>
 
-    <script src="/js/wysiwyg/wysihtml5-0.3.0.js">
-    </script>
-    <script src="/js/jquery.min.js">
-    </script>
-    <script src="/js/bootstrap.js">
-    </script>
-    <script src="/js/wysiwyg/bootstrap-wysihtml5.js">
-    </script>
-    <script src="/js/jquery.scrollUp.js">
-    </script>
-
-
-    <!-- Google Visualization JS -->
-
+    <script src="/js/wysiwyg/wysihtml5-0.3.0.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/wysiwyg/bootstrap-wysihtml5.js"></script>
+    <script src="/js/jquery.scrollUp.js"></script>
 
     <!-- Easy Pie Chart JS -->
-    <script src="/js/jquery.easy-pie-chart.js">
-    </script>
+    <script src="/js/jquery.easy-pie-chart.js"></script>
 
     <!-- Sparkline JS -->
-    <script src="/js/jquery.sparkline.js">
-    </script>
-
-    <!-- Tiny Scrollbar JS -->
-    <script src="/js/tiny-scrollbar.js">
-    </script>
+    <script src="/js/jquery.sparkline.js"></script>
 
 </head>
 <body>
