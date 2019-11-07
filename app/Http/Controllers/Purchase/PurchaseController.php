@@ -1024,7 +1024,7 @@ class PurchaseController extends WebController
         // 返回的一个错误数组，利用此可以判断是否发送成功
         //dd(Mail::failures());
         if(empty(Mail::failures())){
-            DB::table('purchase_order')->where('id',$id)->update(['send_number'=>$orderinfo->send_number +1]);
+            DB::table('purchase_order')->where('id',$id)->update(['send_number'=>$orderinfo->send_number +1,'email_title'=>$email_title,'email_description'=>$description]);
             return redirect('/purchase/purchaseOrderManage/'.$orderinfo->engin_id.'?status=1&notice='.'发送供应商完成');
             ///purchase/purchaseOrderManage/2
         }else{

@@ -243,25 +243,43 @@
             <button class="btn btn-block btn-info" type="button">邮件标题 </button>
         </div>
         <div class="wrapper">
-            <input name="email_title" class="span12" style="width: 100%">
+            <input name="email_title"  id="email_title" class="span12" style="width: 100%" value="{{$orderinfo->email_title}}">
         </div>
         <div class="wrapper">
             <button class="btn btn-block btn-success" type="button">邮件内容</button>
         </div>
         <div class="wrapper">
-            <textarea rows="20" id="description" name="description" class="input-block-level" placeholder="简单描述"></textarea>
+            <textarea rows="20" id="description" name="description" class="input-block-level" placeholder="简单描述">{{$orderinfo->email_description}}</textarea>
         </div>
 
         <div class="layui-form-item" >
             <label for="L_repass" class="layui-form-label"></label>
-            <button class="btn btn-success" lay-filter="add" type="submit" >确认/发送</button>
+            <button class="btn btn-success" lay-filter="add" type="submit" onclick="return submitform()">确认/发送</button>
         </div>
         </form>
         <hr class="hr-stylish-1">
     </div>
 
 <script type="text/javascript">
+    //提交数据
+    function submitform() {
+        if($('#email_title').val() ==''){
+            showMsg('请填写邮件标题');
+            return false;
+        }
+        if($('#description').val() ==''){
+            showMsg('请填写邮件内容');
+            return false;
+        }
+        return true;
+    }
 
+    function showMsg(str){
+        layui.use('layer', function(){
+            var layer = layui.layer;
+            layer.msg(str);
+        });
+    }
 </script>
 
 @endsection
