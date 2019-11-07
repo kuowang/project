@@ -131,7 +131,7 @@
                                                 @if($list->send_number == 0)
                                                     <span class="btn btn-danger">未发送</span>
                                                 @else
-                                                    <span class="btn btn-success">已发送</span>
+                                                    <span class="btn btn-success">已发送({{$list->send_number}}次)</span>
                                                 @endif
                                             </td>
 

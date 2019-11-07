@@ -22,7 +22,7 @@
                 <div class="widget">
                     <div class="widget-header" style="text-align: center">
                         <div  style="text-align: center;clear: both;font-size: 16px;" >
-                            <b>{{$project->project_name}}</b>
+                            <b>{{$project->project_name}}</b>(采购单)
                         </div>
                     </div>
                     <div class="widget-body">
@@ -64,11 +64,7 @@
                     </div>
                 </div>
                 <div class="widget">
-                    <div class="widget-header">
-                        <div class="title">
-                            采购单
-                        </div>
-                    </div>
+
                     <div class="widget-body">
                         <div id="dt_example" class="example_alt_pagination">
 
@@ -113,7 +109,6 @@
                                     <td >{{ $orderinfo->purchaser_phone }}</td>
                                 </tr>
 
-
                                 <tr>
                                     <td  class="pro-title">备注</td>
                                     <td id="remark" colspan="7"> {{ $orderinfo->remark }}</td>
@@ -148,6 +143,9 @@
 
                             <div class="clearfix"></div>
                             <table class="layui-table layui-form table111">
+                                <tr>
+                                    <td colspan="13" class="pro-title">材料信息</td>
+                                </tr>
                                 <tr>
                                     <td>序号</td>
                                     <td>材料名称</td>
@@ -220,17 +218,35 @@
         </div>
     </div>
     <div class="right-sidebar">
+        <form method="post" action="/purchase/purchaseOrderSendToSupplier/{{ $order_id }}">
+
+
         <div class="wrapper">
-            <button class="btn btn-block btn-info" type="button">
-                邮件标题 </button>
+            <button class="btn btn-block btn-info" type="button">发件人邮箱</button>
+        </div>
+        <div class="wrapper">
+            {{$mail_username}}
+        </div>
+        <div class="wrapper">
+            <button class="btn btn-block btn-info" type="button">收件人邮箱(供应商)</button>
+        </div>
+        <div class="wrapper">
+            {{$supplier->email}}
+        </div>
+        <div class="wrapper">
+            <button class="btn btn-block btn-info" type="button">抄送人邮箱</button>
+        </div>
+        <div class="wrapper">
+            {{$cope_mail_username}}
+        </div>
+        <div class="wrapper">
+            <button class="btn btn-block btn-info" type="button">邮件标题 </button>
         </div>
         <div class="wrapper">
             <input name="email_title" class="span12" style="width: 100%">
         </div>
         <div class="wrapper">
-            <button class="btn btn-block btn-success" type="button">
-                邮件内容
-            </button>
+            <button class="btn btn-block btn-success" type="button">邮件内容</button>
         </div>
         <div class="wrapper">
             <textarea rows="20" id="description" name="description" class="input-block-level" placeholder="简单描述"></textarea>
@@ -240,7 +256,7 @@
             <label for="L_repass" class="layui-form-label"></label>
             <button class="btn btn-success" lay-filter="add" type="submit" >确认/发送</button>
         </div>
-
+        </form>
         <hr class="hr-stylish-1">
     </div>
 

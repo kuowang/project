@@ -307,6 +307,7 @@ Route::group(['prefix' => 'purchase','namespace' => 'Purchase','middleware' => '
     Route::get('/purchaseRelationMaterialDetail/{batchid}',  'PurchaseController@purchaseRelationMaterialDetail');   //创建关联材料
 
     Route::get('/purchaseOrderSendSupplier/{id}',        'PurchaseController@purchaseOrderSendSupplier');    //采购单发送供应商页面
+    Route::post('/purchaseOrderSendToSupplier/{id}',        'PurchaseController@purchaseOrderSendToSupplier');    //采购单发送供应商
 
 
 });
