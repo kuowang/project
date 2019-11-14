@@ -15,53 +15,30 @@
                     </div>
                     <div class="widget-body">
                         <div id="dt_example" class="example_alt_pagination">
-                                <form method="post" action="/progress/updateProjectStatus/{{$engin_id}}">
-                                    <table class="layui-table layui-form">
-                                        <tbody>
+                                <table class="layui-table layui-form">
+                                    <tbody>
 
-                                        <tr>
-                                            <td  class="pro-title">项目名称</td>
-                                            <td  >{{$project->project_name}}</td>
-                                            <td  class="pro-title">项目地点</td>
-                                            <td >{{$project->province}}{{$project->city}}{{$project->county}}{{$project->address_detail}}{{$project->foreign_address}}
-                                            </td>
-                                            <td  class="pro-title">工程名称</td>
-                                            <td  >{{$engineering->engineering_name}}</td>
-                                        </tr>
+                                    <tr>
+                                        <td  class="pro-title">项目名称</td>
+                                        <td  >{{$project->project_name}}</td>
+                                        <td  class="pro-title">项目地点</td>
+                                        <td >{{$project->province}}{{$project->city}}{{$project->county}}{{$project->address_detail}}{{$project->foreign_address}}
+                                        </td>
+                                        <td  class="pro-title">工程名称</td>
+                                        <td  >{{$engineering->engineering_name}}</td>
+                                    </tr>
 
-                                        <tr>
-                                            <td class="pro-title">建筑面积(m²)</td>
-                                            <td >{{$engineering->build_area}}</td>
-                                            <td class="pro-title">建筑楼层(层数)</td>
-                                            <td >{{$engineering->build_floor}}</td>
-                                            <td class="pro-title">建筑数量(栋)</td>
-                                            <td >{{$engineering->build_number}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2" class="pro-title">项目(子工程)状态</td>
-                                            <td colspan="2">
-                                                <select name="project_status" id="project_status" class="input-medium span8" style="min-width: 80px">
-                                                        <option value="1" >实施工程</option>
-                                                        <option value="2" >竣工工程</option>
-                                                        <option value="4" >终止工程</option>
-                                                </select>
-                                            </td>
-                                            <td colspan="2">
-                                                <div  style="float: left;margin-right:10% ">
-                                                    <label for="L_repass" ></label>
-                                                    <button class="btn btn-success" lay-filter="add" type="submit" onclick='return submitStatus()'  lay-submit="">确认/保存</button>
-                                                </div>
-                                                <div  style="float: left;">
-                                                    <a href="javascript:history.go(-1)">
-                                                        <label for="L_repass" ></label>
-                                                        <span class="btn btn-success" lay-filter="add" lay-submit="">返回/取消</span>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </form>
+                                    <tr>
+                                        <td class="pro-title">建筑面积(m²)</td>
+                                        <td >{{$engineering->build_area}}</td>
+                                        <td class="pro-title">建筑楼层(层数)</td>
+                                        <td >{{$engineering->build_floor}}</td>
+                                        <td class="pro-title">建筑数量(栋)</td>
+                                        <td >{{$engineering->build_number}}</td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
                             <div class="clearfix"></div>
                         </div>
                     </div>

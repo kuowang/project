@@ -129,8 +129,8 @@
                             @foreach ($data as $k=>$val)
                                 <tr>
                                     <td>{{ $k+1 }}</td>
-                                    <td>{{$val->project_name}}</td>
-                                    <td>{{ $val->engineering_name }}</td>
+                                    <td id="project_name_{{$val->id}}">{{$val->project_name}}</td>
+                                    <td id="engin_name_{{$val->id}}">{{ $val->engineering_name }}</td>
                                     <td>
                                         @if (strlen($val->engin_address) > 10)
                                             {{mb_substr($val->engin_address,0,10)}} ...
@@ -155,6 +155,11 @@
                                         @if((in_array(150202,$pageauth) && $val->created_uid == $uid ) || in_array(150202,$manageauth))
                                             <a title="编辑" class="btn btn-success"  href="/project/editProjectEngin/{{ $val->id }}">
                                                 <i class="layui-icon">编辑</i>
+                                            </a>
+                                        @endif
+                                        @if((in_array(150203,$pageauth) && $val->created_uid == $uid ) || in_array(150203,$manageauth))
+                                            <a onclick="enginModel({{$val->project_id}},{{$val->id}},0)" class="btn btn-success">
+                                                <i class="layui-icon">工程状态变更</i>
                                             </a>
                                         @endif
                                     </td>
@@ -245,6 +250,108 @@
             $('#myModal').modal();
         }
 
+    </script>
+
+    <!-- 模态框（Modal）工程状态框 -->
+    <div class="modal fade" id="enginModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        工程状态变更
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <div class="widget-body">
+                                <div class="control-group">
+                                    <table class="layui-table layui-form">
+                                        <tr>
+                                            <td>项目名称</td>
+                                            <td id="project_name"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>工程名称</td>
+                                            <td id="engin_name"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>工程状态</td>
+                                            <td id="">
+                                                <input type="hidden" name="project_id" id="project_id" value="0">
+                                                <input type="hidden" name="engin_id"  id="engin_id" value="0">
+
+                                                <select name="engin_status" id="engin_status" class="input-medium span8" >
+                                                    <option value="0" >洽谈工程</option>
+                                                    <option value="1" >实施工程</option>
+                                                    <option value="2" >竣工工程</option>
+                                                    <option value="4" >终止工程</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer layui-form-item" >
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button class="btn btn-success" lay-filter="add"  data-dismiss="modal" lay-submit="" onclick="submitform()" >确认</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+
+
+    <script>
+        //一般直接写在一个js文件中
+        //显示模拟框
+        function enginModel(project_id,id,status){
+            $('#engin_name').html($('#engin_name_'+id).html());
+            $('#project_name').html($('#project_name_'+id).html());
+            $('#engin_status').val(status);
+            $('#project_id').val(project_id);
+            $('#engin_id').val(id);
+            $('#enginModel').modal();
+        }
+        function submitform() {
+
+            var datalist={
+                project_id:$('#project_id').val(),
+                engin_id:$('#engin_id').val(),
+                engin_status:$('#engin_status').val()
+            };
+            $.ajax({
+                url:'/project/editEnginStatus',
+                type:'post',
+                // contentType: 'application/json',
+                data:datalist,
+                success:function(data){
+                    console.log(data);
+                    if(data.status == 1){
+                        $('#myModal').modal('hide');
+                        showMsg('变更工程状态成功');
+                        location.href=location.href
+                    }else{
+                        showMsg(data.info);
+                    }
+                },
+                error:function () {
+                    showMsg('提交失败，请刷新页面再试');
+                }
+            });
+        }
+        //显示提示信息
+        function showMsg(str){
+            layui.use('layer', function(){
+                var layer = layui.layer;
+                layer.msg(str);
+            });
+        }
     </script>
 
 @endsection

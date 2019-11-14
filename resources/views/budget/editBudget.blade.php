@@ -28,60 +28,8 @@
         <div class="span12">
             <div class="widget">
                 <div class="widget-header" style="text-align: center">
-                    <div  style="text-align: center;clear: both;font-size: 16px;" >
-                        <b>{{$project->project_name}}</b>
-                    </div>
-                </div>
-                <div class="widget-body">
-                    <div id="dt_example" class="example_alt_pagination">
-
-                        <form method="post" action="/budget/updateProjectStatus/{{$engin_id}}">
-                            <table class="layui-table layui-form">
-
-                                <tbody>
-                                <tr>
-                                    <td  class="pro-title">项目(子工程)状态</td>
-                                    <td>
-                                        <select name="project_status" id="project_status" class="input-medium span8" style="min-width: 80px">
-                                            @if($engineering->status ==0)
-                                                <option value="0" >洽谈工程</option>
-                                                <option value="1" >实施工程</option>
-                                                <option value="2" >竣工工程</option>
-                                                <option value="4" >终止工程</option>
-                                            @elseif($engineering->status == 1)
-                                                <option value="1" >实施工程</option>
-                                                <option value="2" >竣工工程</option>
-                                                <option value="4" >终止工程</option>
-                                            @endif
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <div  style=" float: left;margin-right:10% ">
-                                            <label for="L_repass" ></label>
-                                            <button class="btn btn-success" lay-filter="add" type="submit" onclick='return submitStatus()'  lay-submit="">确认/保存</button>
-                                        </div>
-                                        <div  style="float: left;clear: right">
-                                            <a href="javascript:history.go(-1)">
-                                                <label for="L_repass" ></label>
-                                                <span class="btn btn-success" lay-filter="add" lay-submit="">返回/取消</span>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </form>
-
-
-
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="widget">
-                <div class="widget-header" style="text-align: center">
                     <div  style="font-size: 16px;" >
-                        <b>工程预算清单</b>
+                        {{$project->project_name}}<b>工程预算清单</b>
                     </div>
                 </div>
                 <div class="widget-body">

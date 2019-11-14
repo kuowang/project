@@ -100,6 +100,7 @@ Route::group(['prefix' => 'project','namespace' => 'Project','middleware' => 'au
     Route::get('/editProjectEngin/{id}',              'ProjectController@editProjectEngin');    //添加项目下的子工程
     Route::get('/projectEnginDetail/{id}',              'ProjectController@projectEnginDetail');    //项目下的子工程详情
 
+    Route::post('/editEnginStatus',                     'ProjectController@editEnginStatus');    //变更工程状态
 
 
 });
@@ -108,7 +109,6 @@ Route::group(['prefix' => 'project','namespace' => 'Project','middleware' => 'au
 Route::group(['namespace' => 'Project'], function () {
     //Route::get('/test', 'RoleController@test');
     //Route::post('/test', 'RoleController@test');
-
 });
 //建筑设计管理类的控制组 需要登录
 Route::group(['prefix' => 'architectural','namespace' => 'Architectural','middleware' => 'auth'], function () {

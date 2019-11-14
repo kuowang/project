@@ -580,6 +580,42 @@ class ProjectController extends WebController
             return redirect('/project/projectEnginStart/'.$engin->project_id.'?status=1&notice='.'项目状态更改成功！');
         }
     }
+
+    //编辑项目状态
+    public function editEnginStatus(Request $request)
+    {
+        $project_id =$request->input('project_id',0);
+        $engin_id =$request->input('engin_id',0);
+        $status =$request->input('engin_status',0);
+
+        $engin=DB::table('engineering')->where('id',$engin_id)->where('project_id',$project_id)->first();
+        if(empty($engin)){
+            return redirect('/project/projectStart?status=2&notice='.'项目不存在');
+        }
+        //只有用户和管理者才能编辑工程状态
+        if($engin->created_uid == $this->user()->id ){
+        }elseif(in_array(150203,$this->user()->manageauth)){
+        }elseif(in_array(150303,$this->user()->manageauth)){
+        }elseif(in_array(150402,$this->user()->manageauth)){
+        }elseif(in_array(150502,$this->user()->manageauth)){
+        }else{
+           return $this->error('您没有操作该功能权限');
+        }
+
+        $data=['status'=>$status,
+            'edit_uid'=>$this->user()->id,
+            'updated_at'=>date('Y-m-d')];
+        if($status == 2){
+            $data['completed_at'] =date('Y-m-d'); //竣工时间
+        }elseif($status ==4){
+            $data['termination_at'] =date('Y-m-d');//终止时间
+        }
+        DB::table('engineering')->where('id',$engin_id)->update($data);
+        //设置项目工程数量和建筑总面积
+        $this->setProjectEnginNumber($engin->project_id);
+        return $this->success('工程状态变更成功');
+    }
+
     //编辑实施项目信息
     public function editConductProject(Request $request,$id)
     {

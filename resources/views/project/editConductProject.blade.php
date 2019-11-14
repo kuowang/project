@@ -67,30 +67,6 @@
                 <div class="widget-body">
                     <div id="dt_example" class="example_alt_pagination">
 
-                        <form method="post" action="/project/updateProjectStatus/{{$engin_id}}">
-                            <table class="layui-table layui-form">
-
-                                <tbody>
-                                <tr>
-                                    <td  class="pro-title">项目(子工程)状态</td>
-                                    <td>
-                                        <select name="project_status" id="project_status" class="input-medium span8" style="min-width: 80px">
-                                            <option value="1" >实施工程</option>
-                                            <option value="2" >竣工工程</option>
-                                            <option value="4" >终止工程</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <div class="layui-form-item" style="clear: left">
-                                            <label for="L_repass" ></label>
-                                            <button class="btn btn-success" lay-filter="add" type="submit" onclick='return submitStatus()'  lay-submit="">确认/保存</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </form>
-
                         <table class="layui-table layui-form">
                             <thead>
                             <tr>
