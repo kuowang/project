@@ -22,7 +22,7 @@
                 <div class="widget">
                     <div class="widget-header" style="text-align: center">
                         <div  style="text-align: center;clear: both;font-size: 16px;" >
-                            <b>{{$project->project_name}}</b>
+                            <b>{{$project->project_name}}(采购单)</b>
                         </div>
                     </div>
                     <div class="widget-body">
@@ -64,11 +64,7 @@
                     </div>
                 </div>
                 <div class="widget">
-                    <div class="widget-header">
-                        <div class="title">
-                            采购单
-                        </div>
-                    </div>
+
                     <div class="widget-body">
                         <div id="dt_example" class="example_alt_pagination">
 
@@ -155,21 +151,24 @@
 
                             <div class="clearfix"></div>
                             <table class="layui-table layui-form table111">
-                                <thead>
-                                    <th>序号</th>
-                                    <th>材料名称</th>
-                                    <th>规格特性要求</th>
-                                    <th>采购单位</th>
-                                    <th>预算工程量</th>
-                                    <th>品牌</th>
-                                    <th>单价</th>
-                                    <th>采购总价</th>
-                                    <th>已采购</th>
-                                    <th>待采购</th>
-                                    <th>本次采购</th>
-                                    <th>本次采购合计</th>
-                                    <th>状态</th>
-                                </thead>
+                                <tr class="pro-title">
+                                    <td colspan="13"><span class="btn btn-info">材料列表</span></td>
+                                </tr>
+                                <tr>
+                                    <td>序号</td>
+                                    <td>材料名称</td>
+                                    <td>规格特性要求</td>
+                                    <td>采购单位</td>
+                                    <td>预算工程量</td>
+                                    <td>品牌</td>
+                                    <td>单价</td>
+                                    <td>采购总价</td>
+                                    <td>已采购</td>
+                                    <td>待采购</td>
+                                    <td>本次采购</td>
+                                    <td>本次采购合计</td>
+                                    <td>状态</td>
+                                </tr>
                                 <tbody id="">
                                 @php
                                     $system_code ='';
@@ -189,7 +188,7 @@
 
                                     @foreach($itemlist[$v->sub_arch_id] as $key=>$item)
 
-                                            <tr class="supplier sub_arch_'+item.sub_arch_id+'" id="budget_item_{{$item->id}}">
+                                            <tr class="supplier sub_arch_{{$v->sub_arch_id}}" id="budget_item_{{$item->id}}">
                                             <td>{{$xuhao++}}<input type="hidden" name="order_item_id[]" value="{{$item->id}}"></td>
                                             <td>{{$item->material_name}}</td>
                                             <td>{{$item->characteristic}}</td>

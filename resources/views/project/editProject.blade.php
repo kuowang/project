@@ -54,11 +54,21 @@
                                 </td>
                                 <td  class="pro-title">项目所在国</td>
                                 <td colspan="2">
-                                    <input type="text"  name="country" class="span8 notempty"  value="{{$project->country}}" lay-skin="primary" >
+                                    @if(isset($project_country))
+                                        <select name="country" id="type" class="span10 notempty" style="min-width: 80px;">
+                                            @foreach($project_country as $v)
+                                                @if($v == $project->country)
+                                                    <option value="{{$v}}" selected="selected" >{{$v}}</option>
+                                                @else
+                                                    <option value="{{$v}}" >{{$v}}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
-                                <td  class="pro-title">项目地点国内</td>
+                                <td  class="pro-title">项目地点(国内)</td>
                                 <td colspan="2">
                                     <div data-toggle="distpicker" id="distpicker1">
                                         <select name="province" data-province="{{$project->province}}"></select>
@@ -72,7 +82,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="pro-title">项目地点国外</td>
+                                <td class="pro-title">项目地点(国外)</td>
                                 <td colspan="5">
                                     <input type="text"  name="foreign_address" class="span8"  value="{{ $project->foreign_address }}" lay-skin="primary" >
                                 </td>

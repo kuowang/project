@@ -185,7 +185,7 @@ class ProjectController extends WebController
         }
         $data['userList']=DB::table('users')->where('status',1)->orderby('name')->select(['id','name','department_id'])->get();
         //获取参数数据
-        $params =['project_type','project_source','project_stage','project_environment','project_traffic','project_material_storage','customer_type'];
+        $params =['project_type','project_country','project_source','project_stage','project_environment','project_traffic','project_material_storage','customer_type'];
         $items =DB::table('system_setting')->wherein('field',$params)->orderby('field')->orderby('sort')->select(['field','name'])->get();
         foreach($items as $item){
             $data[$item->field][] = $item->name ;
@@ -384,7 +384,7 @@ class ProjectController extends WebController
         $data['id']=$project->id;
         $data['userList']=DB::table('users')->where('status',1)->orderby('name')->select(['id','name','department_id'])->get();
         //获取参数数据
-        $params =['project_type','project_source','project_stage','project_environment','project_traffic','project_material_storage','customer_type'];
+        $params =['project_type','project_country','project_source','project_stage','project_environment','project_traffic','project_material_storage','customer_type'];
         $items =DB::table('system_setting')->wherein('field',$params)->orderby('field')->orderby('sort')->select(['field','name'])->get();
         foreach($items as $item){
             $data[$item->field][] = $item->name ;

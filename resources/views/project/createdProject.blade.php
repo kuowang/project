@@ -52,11 +52,17 @@
                                 </td>
                                 <td  class="pro-title">项目所在国</td>
                                 <td colspan="2">
-                                    <input type="text"  name="country" class="span8 notempty"  value="" lay-skin="primary" placeholder="国内/国外">
+                                    @if(isset($project_country))
+                                        <select name="country" id="type" class="span10 notempty" style="min-width: 80px;">
+                                            @foreach($project_country as $v)
+                                                <option value="{{$v}}" >{{$v}}</option>
+                                            @endforeach
+                                        </select>
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
-                                <td  class="pro-title">项目地点国内</td>
+                                <td  class="pro-title">项目地点(国内)</td>
                                 <td colspan="2">
                                     <div data-toggle="distpicker" id="distpicker1">
                                         <select name="province"></select>
@@ -70,7 +76,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="pro-title">项目地点国外</td>
+                                <td class="pro-title">项目地点(国外)</td>
                                 <td colspan="5">
                                     <input type="text"  name="foreign_address" class="span8"  value="" lay-skin="primary"  >
                                 </td>

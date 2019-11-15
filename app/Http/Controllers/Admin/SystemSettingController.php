@@ -21,6 +21,7 @@ class SystemSettingController extends WebController
         //$this->middleware('auth');
         $this->params=[
             'project_type'          =>'项目:项目种类(用途)',
+            'project_country'       =>'项目:项目所在国',
             'project_source'=>'项目:项目来源',
             'project_stage'=>'项目:项目所属阶段',
             'project_environment'=>'项目:场地自然条件',

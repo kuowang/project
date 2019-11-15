@@ -48,7 +48,7 @@
                                 <td colspan="2">{{$project->country}}</td>
                             </tr>
                             <tr>
-                                <td  class="pro-title">项目地点</td>
+                                <td  class="pro-title">项目地点(国内)</td>
                                 <td colspan="2">{{$project->province}}{{$project->city}}{{$project->county}}
                                     {{$project->foreign_address}}
                                  </td>
@@ -56,7 +56,7 @@
                                 <td colspan="2">{{$project->address_detail}}</td>
                             </tr>
                             <tr>
-                                <td class="pro-title">项目地点国外</td>
+                                <td class="pro-title">项目地点(国外)</td>
                                 <td colspan="5">{{$project->foreign_address}}</td>
                             </tr>
                             <tr>
