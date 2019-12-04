@@ -623,6 +623,7 @@ if (! function_exists('redirect')) {
             ];
         }catch (\Exception $e){
             $uid =0;
+            $data=$_SERVER;
         }
 
         log::info('url_address地址跳转uid:'.$uid,[$to,$status,$data]);
