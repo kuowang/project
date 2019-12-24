@@ -317,6 +317,8 @@ Route::group(['prefix' => 'test','namespace' => 'Test'], function () {
     Route::get('/testPdf',     'TestController@testPdf'); //测试pdf文件
     Route::get('/sendemail',     'TestController@sendemalifile'); //测试pdf文件
     Route::get('/encode_file_contents',     'TestController@encode_file_contents'); //测试文件加密
+    Route::get('/encryptFile',     'EncryptionController@encryptFile'); //批量文件加密
+
 });
 
 //财务管理类的控制组
