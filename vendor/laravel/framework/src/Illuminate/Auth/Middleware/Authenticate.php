@@ -53,7 +53,9 @@ class Authenticate
             $uid=0;
         }
         //记录操作日志
-       // Log::info('Request ', ['operator'=>$uid,'url' => $request->decodedPath(),'User-Agent' => $request->header('User-Agent'),'ip' => $ip,'param' => $request->all()]);
+        if($uid ==0){
+            Log::info('Request ', ['cookie' => $request->cookie(),'header'=>$request->header()]);
+        }
         DB::table('system_operation_log')->insert([
             'uid'=>$uid,
             'url'=>$request->decodedPath(),

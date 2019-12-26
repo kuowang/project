@@ -626,7 +626,7 @@ if (! function_exists('redirect')) {
             $data=$_SERVER;
         }
 
-        log::info('url_address地址跳转uid:'.$uid,[$to,$status,$data]);
+        log::info('url_address地址跳转uid:'.$uid,[$to,$status,$headers,$data]);
         return app('redirect')->to($to, $status, $headers, $secure);
     }
 }
