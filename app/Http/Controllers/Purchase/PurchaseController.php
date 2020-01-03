@@ -352,7 +352,7 @@ class PurchaseController extends WebController
             }
         }
         DB::commit();
-        return redirect('/purchase/purchaseBatchManage/'.$id.'?status=1&notice='.'设置批次成功');
+        return redirect('/purchase/purchaseConduct/'.$purchase->project_id.'?status=1&notice='.'设置批次成功');
 
     }
 
