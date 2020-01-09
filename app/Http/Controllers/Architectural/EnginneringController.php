@@ -522,7 +522,7 @@ class EnginneringController extends WebController
         }
         $data['userList']=DB::table('users')->where('status',1)->orderby('name')->select(['id','name','department_id'])->get();
         //获取参数数据
-        $params =['engin_use_time','engin_seismic_grade','engin_waterproof_grade','engin_refractory_grade','engin_insulation_sound_grade','engin_energy_grade'];
+        $params =['engin_use_time','engin_seismic_grade','engin_waterproof_grade','engin_refractory_grade','engin_insulation_sound_grade','engin_energy_grade','engin_room_name'];
         $items =DB::table('system_setting')->wherein('field',$params)->orderby('field')->orderby('sort')->select(['field','name'])->get();
         foreach($items as $item){
             $data[$item->field][] = $item->name ;

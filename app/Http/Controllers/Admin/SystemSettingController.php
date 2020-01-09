@@ -34,6 +34,7 @@ class SystemSettingController extends WebController
             'engin_refractory_grade'=>'工程:建筑耐火等级',
             'engin_insulation_sound_grade'=>'工程:建筑隔声等级',
             'engin_energy_grade'=>'工程:建筑节能等级',
+            "engin_room_name"=>'工程:建筑房间名称',
             'purchase_batch_transport_type'=>'采购批次:运输方式',
             'purchase_batch_load_mode'=>'采购批次:装载方式',
             'purchase_batch_container_size'=>'采购批次:集装箱尺寸',

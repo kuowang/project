@@ -246,9 +246,31 @@
                             @if(isset($room_position) && is_array($room_position))
                             @foreach($room_position as $k=>$v)
                             <tr>
-                                <td ><input type="text" name="room_position[]" value="{{$v}}" id="waterproof_grade"  lay-skin="primary" class="notempty span8" ></td>
-                                <td ><input type="text" name="room_name[]" value="{{isset($room_name[$k])?$room_name[$k]:''}}" id="waterproof_grade"  lay-skin="primary" class="notempty span8" ></td>
-                                <td ><input type="text" name="room_area[]" value="{{isset($room_area[$k])?$room_area[$k]:''}}" id="waterproof_grade"  lay-skin="primary" class="notempty span8" ></td>
+                                <td>
+                                    <select name="room_position[]" id="room_position" class="span10 notempty" style="min-width: 80px;">
+                                        @for ($i = 1; $i <= $engineering->build_floor; $i++)
+                                            @if(  $v == $i.'层')
+                                                <option value="{{$i}}层" selected="selected" >{{$i}}层</option>
+                                            @else
+                                                <option value="{{$i}}层" >{{$i}}层</option>
+                                            @endif
+                                        @endfor
+                                    </select>
+                                </td>
+                                <td >
+                                    @if(isset($engin_room_name))
+                                        <select name="room_name[]" id="room_name" class="span10 notempty" style="min-width: 80px;">
+                                            @foreach($engin_room_name as $v)
+                                                @if(isset($room_name[$k]) && $v == $room_name[$k])
+                                                    <option value="{{$v}}" selected="selected" >{{$v}}</option>
+                                                @else
+                                                    <option value="{{$v}}" >{{$v}}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    @endif
+                                </td>
+                                <td ><input type="text" name="room_area[]" value="{{isset($room_area[$k])?$room_area[$k]:''}}" id="room_area"  lay-skin="primary" class="notempty span8" ></td>
                                 <td><a  class="btn btn-danger delete_zixitong" onclick="deleteTrRow(this)">删除</a>
                                 </td>
                             </tr>
@@ -287,8 +309,22 @@
         function add_room() {
             //添加事件
             str =`<tr>
-                    <td ><input type="text" name="room_position[]" id="waterproof_grade"  lay-skin="primary" class="notempty span8" ></td>
-                    <td ><input type="text" name="room_name[]" id="waterproof_grade"  lay-skin="primary" class="notempty span8" ></td>
+                    <td >
+                        <select name="room_position[]" id="room_position" class="span10 notempty" style="min-width: 80px;">
+                        @for ($i = 1; $i <= $engineering->build_floor; $i++)
+                            <option value="{{$i}}层" >{{$i}}层</option>
+                        @endfor
+                        </select>
+                    </td>
+                    <td >
+                    @if(isset($engin_room_name))
+                    <select name="room_name[]" id="room_name" class="span10 notempty" style="min-width: 80px;">
+                        @foreach($engin_room_name as $v)
+                        <option value="{{$v}}" >{{$v}}</option>
+                        @endforeach
+                    </select>
+                    @endif
+                    </td>
                     <td ><input type="text" name="room_area[]" id="waterproof_grade"  lay-skin="primary" class="notempty span8"></td>
                     <td><a  class="btn btn-danger delete_zixitong" onclick="deleteTrRow(this)">删除</a>
                     </td>
