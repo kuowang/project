@@ -97,14 +97,17 @@
                                     @endforeach
                                 </div>
                             </div>
-                            <div class="form-actions no-margin">
-                                <button type="submit" class="btn btn-info pull-right" >
-                                    创建供应商
-                                </button>
-                                <div class="clearfix">
-                                </div>
+                            <div class="layui-form-item" style="float: right;clear: left">
+                                <label for="L_repass" class="layui-form-label"></label>
+                                <button class="btn btn-success" lay-filter="add" type="submit" lay-submit="" onclick='return form_submit()'>确认/保存</button>
                             </div>
-
+                            <div class="layui-form-item" style="float: right;clear: left">
+                                <a href="javascript:history.go(-1)">
+                                    <label for="L_repass" class="layui-form-label"></label>
+                                    <span class="btn btn-success" lay-filter="add" lay-submit="">返回/取消</span>
+                                </a>
+                            </div>
+                            <div class="clearfix"></div>
                         </form>
 
                     </div>

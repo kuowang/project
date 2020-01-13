@@ -125,7 +125,7 @@
                                     <label class="control-label" for="name">
                                         品牌名称:
                                     </label>
-                                    <div class="controls controls-row">
+                                    <div class="controls controls-row" style=" margin-left: 105px;">
                                         <input class="span12 layui-input" type="text" id="brand_name" name="brand_name" placeholder="标题名称">
                                     </div>
                                 </div>
@@ -133,7 +133,7 @@
                                     <label class="control-label" for="name">
                                         品牌LOGO:
                                     </label>
-                                    <div class="controls controls-row">
+                                    <div class="controls controls-row" style=" margin-left: 105px;">
                                         <input type="hidden" id="brand_logo" name="brand_logo" placeholder="logo" >
 
                                         <input class="span12 " type="file" id="uploadlogo" name="uploadlogo" placeholder="logo" onchange="submitLogo()">
@@ -144,7 +144,7 @@
                                         <label class="control-label" for="password">
                                             状态:
                                         </label>
-                                        <div class="controls">
+                                        <div class="controls controls-row" style=" margin-left: 105px;">
                                             <select name="status" id="status" class="span12" style="min-width: 80px" onchange="checkStatus(this)">
                                                 <option value="1" selected="selected">有效</option>
                                                 <option value="0">无效</option>
@@ -156,12 +156,13 @@
                                     <label class="control-label" for="role">
                                         供应商:
                                     </label>
-                                    <div class="controls">
+                                    <div class="controls" style=" margin-left: 105px;height: 200px;clear: both;overflow: auto">
                                         @foreach ($supplier as $val )
-                                            <label class="checkbox">
+                                            <label class="checkbox" style="clear: both">
                                                 <input type="checkbox" id="supplier_{{ $val->id }}" class="supplier" name="supplier[]" value="{{ $val->id }}">
                                                 {{ $val->supplier }}({{ $val->manufactor }})
                                             </label>
+
                                         @endforeach
                                     </div>
                                 </div>
@@ -193,6 +194,12 @@
         }
         .layui-table img{
             max-width: 100%;
+        }
+        label.control-label{
+            max-width: 100px;
+        }
+        div.controls{
+            margin-left: 100px;
         }
     </style>
 

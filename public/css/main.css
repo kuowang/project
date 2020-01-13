@@ -4139,9 +4139,9 @@ a.thumbnail:hover {
     -ms-transition: top 0.3s ease-out, top 0.3s ease-out;
     -o-transition: top 0.3s ease-out, top 0.3s ease-out;
     transition: top 0.3s ease-out, top 0.3s ease-out;
-    top: -25%; }
-    .modal.fade.in {
-      top: 40%; }
+    top: -20%; }
+   .modal.fade.in {
+      top: 20%; }
 
 .modal-header {
   padding: 9px 15px;

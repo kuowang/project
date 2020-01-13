@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost_3306
-Source Server Version : 50553
-Source Host           : localhost:3306
+Source Server         : 123.57.85.158
+Source Server Version : 50718
+Source Host           : 123.57.85.158:3306
 Source Database       : project
 
 Target Server Type    : MYSQL
-Target Server Version : 50553
+Target Server Version : 50718
 File Encoding         : 65001
 
-Date: 2020-01-06 18:44:37
+Date: 2020-01-09 17:18:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -42,6 +42,58 @@ CREATE TABLE `sp_architectural_sub_system` (
 -- ----------------------------
 -- Records of sp_architectural_sub_system
 -- ----------------------------
+INSERT INTO `sp_architectural_sub_system` VALUES ('2', '6', '基础系统（混凝土条形基础）', '1001-01', 'GK-JC-01', '1', '10', '王海舟', '2', '2019-07-13', '2019-09-05', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_sub_system` VALUES ('3', '6', '基础系统（混凝土构造柱圈梁）', '1001-02', 'GK-JC-02', '1', '10', '王海舟', '2', '2019-07-13', '2019-09-05', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_sub_system` VALUES ('4', '6', '基础系统（混凝土筏板基础）', '1001-03', 'GK-JC-03', '1', '10', '王海舟', '2', '2019-07-13', '2019-09-05', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_sub_system` VALUES ('5', '7', '薄壁轻钢结构系统（镀铝锌G550 55%  AZ150）', '100201', 'GK-ZT-01', '1', '5', '王海舟', '2', '2019-07-13', '2019-09-05', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_sub_system` VALUES ('6', '8', '外墙系统（8厚外挂板)', '1003-1', 'GK-WQ-01', '1', '21', '管理员', '1', '2019-07-14', '2019-10-21', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_sub_system` VALUES ('7', '8', '外墙系统（10厚外挂板）', '1003-2', 'GK-WQ-02', '1', '21', '管理员', '1', '2019-07-14', '2019-10-21', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_sub_system` VALUES ('8', '6', '基础系统（混凝土框架架空基础）', '1001-04', ' GK-JC-04', '1', '10', '王海舟', '2', '2019-07-14', '2019-09-05', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_sub_system` VALUES ('9', '7', '薄壁轻钢结构系统（镀锌G550  Z185）', '100202', 'GK-ZT-02', '1', '5', '王海舟', '2', '2019-07-14', '2019-09-05', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_sub_system` VALUES ('10', '9', '内墙系统（单层12厚石膏板）', '1004-01', 'GK-NQ-01', '1', '5', '管理员', '1', '2019-07-14', '2019-09-05', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_sub_system` VALUES ('11', '9', '内墙系统（双层9.5厚石膏板）', '1004-02', 'GK-NQ-02', '1', '0', '管理员', '1', '2019-07-14', '2019-09-05', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_sub_system` VALUES ('12', '10', '屋面系统（单层沥青瓦+吊顶保温）', '1005-01', 'GK-WM-01', '1', '5', '管理员', '1', '2019-07-14', '2019-09-18', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_sub_system` VALUES ('13', '11', '檐口系统（无组织排水）', '1006-01', 'GK-YK-01', '1', '0', '管理员', '1', '2019-07-14', '2019-09-05', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_sub_system` VALUES ('14', '12', '楼板系统（室内无防水楼面）', '1007-01', 'GK-LM-01', '1', '0', '管理员', '1', '2019-07-14', '2019-09-05', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_sub_system` VALUES ('15', '13', '吊顶系统（轻钢龙骨+石膏板）', '1008-1', 'GK-DD-01', '1', '6', '管理员', '1', '2019-07-14', '2019-09-05', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_sub_system` VALUES ('16', '8', '外墙系统（16厚进口外挂板）', '1003-3', 'GK-WQ-03', '1', '0', null, null, '2019-07-20', '2019-10-21', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_sub_system` VALUES ('17', '8', '外墙系统（外墙文化石）', '1003-4', 'GK-WQ-04', '1', '0', null, null, '2019-07-20', '2019-10-21', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_sub_system` VALUES ('18', '19', '子系统名', '子系统编码', '工况', '1', '0', 'test', '4', '2019-07-20', '2019-10-16', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_sub_system` VALUES ('19', '19', '子系统2', '编码2', 'diam', '1', '0', 'test', '4', '2019-07-20', '2019-10-16', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_sub_system` VALUES ('20', '9', '内墙系统（双层12厚石膏板）', '1004-03', 'GK-NQ-03', '1', '5', '王括', '6', '2019-07-28', '2019-09-05', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_sub_system` VALUES ('21', '20', '子系统', '编码', '公开啊啊啊', '0', '0', '王括', '6', '2019-08-02', '2019-10-16', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_sub_system` VALUES ('22', '10', '屋面系统（双层沥青瓦+吊顶保温）', '1005-02', 'GK-WM-02', '1', '0', '王括', '6', '2019-08-12', '2019-09-18', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_sub_system` VALUES ('23', '7', '薄壁轻钢结构系统（镀锌G550  Z275）', '100203', 'GK-ZT-03', '1', '5', '杨亚君(总经理)', '1', '2019-09-05', '2019-09-05', null, null);
+INSERT INTO `sp_architectural_sub_system` VALUES ('24', '7', '钢框架结构系统（钢框架+薄壁轻钢复合）', '100204', 'GK-ZT-04', '1', '0', '杨亚君(总经理)', '1', '2019-09-05', '2019-09-05', null, null);
+INSERT INTO `sp_architectural_sub_system` VALUES ('25', '6', '基础系统（钢框架架空基础）', '1001-05', ' GK-JC-05', '1', '0', '杨亚君(总经理)', '1', '2019-09-05', '2019-09-05', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_sub_system` VALUES ('26', '9', '内墙系统（单层10厚硅酸钙+单层12厚石膏板）', '1004-04', 'GK-NQ-04', '1', '0', '杨亚君(总经理)', '1', '2019-09-05', '2019-09-05', null, null);
+INSERT INTO `sp_architectural_sub_system` VALUES ('27', '10', '屋面系统（水泥瓦+屋面外保温）', '1005-05', 'GK-WM-05', '1', '0', '杨亚君(总经理)', '1', '2019-09-05', '2019-09-18', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_sub_system` VALUES ('28', '10', '屋面系统（筒瓦+屋面外保温）', '1005-06', 'GK-WM-06', '1', '0', '杨亚君(总经理)', '1', '2019-09-05', '2019-09-18', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_sub_system` VALUES ('29', '11', '檐口系统（PVC落水系统）', '1006-02', 'GK-YK-02', '1', '0', '杨亚君(总经理)', '1', '2019-09-05', '2019-09-05', null, null);
+INSERT INTO `sp_architectural_sub_system` VALUES ('30', '11', '檐口系统（彩铝落水系统）', '1006-03', 'GK-YK-03', '1', '0', '杨亚君(总经理)', '1', '2019-09-05', '2019-09-05', null, null);
+INSERT INTO `sp_architectural_sub_system` VALUES ('31', '11', '檐口系统（仿铜彩铝落水系统）', '1006-04', 'GK-YK-04', '1', '0', '杨亚君(总经理)', '1', '2019-09-05', '2019-09-05', null, null);
+INSERT INTO `sp_architectural_sub_system` VALUES ('32', '12', '楼板系统（室内有防水楼面）', '1007-02', 'GK-LM-02', '1', '0', '杨亚君(总经理)', '1', '2019-09-05', '2019-09-05', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_sub_system` VALUES ('33', '12', '楼板系统（室外有防水楼面）', '1007-03', 'GK-LM-03', '1', '0', '杨亚君(总经理)', '1', '2019-09-05', '2019-09-05', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_sub_system` VALUES ('34', '13', '吊顶系统（木龙骨+石膏板）', '1008-2', 'GK-DD-02', '1', '0', '杨亚君(总经理)', '1', '2019-09-05', '2019-09-05', null, null);
+INSERT INTO `sp_architectural_sub_system` VALUES ('35', '13', '吊顶系统（轻钢龙骨+铝扣板）', '1008-3', 'GK-DD-03', '1', '0', '杨亚君(总经理)', '1', '2019-09-05', '2019-09-05', null, null);
+INSERT INTO `sp_architectural_sub_system` VALUES ('36', '14', '外窗系统（塑钢双玻窗）', '1009-01', 'GK-C-01', '1', '0', '杨亚君(总经理)', '1', '2019-09-05', '2019-09-05', null, null);
+INSERT INTO `sp_architectural_sub_system` VALUES ('37', '14', '外窗系统（铝合金单玻窗）', '1009-02', 'GK-C-02', '1', '0', '杨亚君(总经理)', '1', '2019-09-05', '2019-09-05', null, null);
+INSERT INTO `sp_architectural_sub_system` VALUES ('38', '14', '外窗系统（双玻断桥铝 60系列+普通玻璃）', '1009-03', 'GK-C-03', '1', '1', '杨亚君(总经理)', '1', '2019-09-05', '2019-09-05', null, null);
+INSERT INTO `sp_architectural_sub_system` VALUES ('39', '14', '外窗系统（双玻断桥铝 60系列+钢化玻璃）', '1009-04', 'GK-C-04', '1', '1', '杨亚君(总经理)', '1', '2019-09-05', '2019-09-05', null, null);
+INSERT INTO `sp_architectural_sub_system` VALUES ('40', '14', '外窗系统（双玻断桥铝 70系列+钢化玻璃）', '1009-05', 'GK-C-05', '1', '1', '杨亚君(总经理)', '1', '2019-09-05', '2019-09-05', null, null);
+INSERT INTO `sp_architectural_sub_system` VALUES ('41', '14', '外窗系统（双玻断桥铝 70系列+钢化玻璃+LOW-E）', '1009-06', 'GK-C-06', '1', '1', '杨亚君(总经理)', '1', '2019-09-05', '2019-09-05', null, null);
+INSERT INTO `sp_architectural_sub_system` VALUES ('42', '14', '外窗系统（三玻断桥铝 70系列+钢化玻璃）', '1009-07', 'GK-C-07', '1', '0', '杨亚君(总经理)', '1', '2019-09-05', '2019-09-05', null, null);
+INSERT INTO `sp_architectural_sub_system` VALUES ('43', '15', '外门系统（塑钢双玻门）', '1010-01', 'GK-M-01', '1', '0', '杨亚君(总经理)', '1', '2019-09-05', '2019-09-05', null, null);
+INSERT INTO `sp_architectural_sub_system` VALUES ('44', '15', '外门系统（双玻断桥铝 60系列+钢化玻璃）', '1010-02', 'GK-M-02', '1', '0', '杨亚君(总经理)', '1', '2019-09-05', '2019-09-05', null, null);
+INSERT INTO `sp_architectural_sub_system` VALUES ('45', '15', '外门系统（双玻断桥铝 70系列+钢化玻璃）', '1010-03', 'GK-M-03', '1', '0', '杨亚君(总经理)', '1', '2019-09-05', '2019-09-05', null, null);
+INSERT INTO `sp_architectural_sub_system` VALUES ('46', '16', '细部装饰系统（GRC构件）', '1011-01', 'GK-ZS-01', '1', '0', '杨亚君(总经理)', '1', '2019-09-05', '2019-09-05', null, null);
+INSERT INTO `sp_architectural_sub_system` VALUES ('47', '16', '细部装饰系统（聚苯构件）', '1011-02', 'GK-ZS-02', '1', '0', '杨亚君(总经理)', '1', '2019-09-05', '2019-09-05', null, null);
+INSERT INTO `sp_architectural_sub_system` VALUES ('48', '17', '给排水系统（同层排水）', '1012-01', 'GK-GP-01', '1', '0', '杨亚君(总经理)', '1', '2019-09-05', '2019-09-05', null, null);
+INSERT INTO `sp_architectural_sub_system` VALUES ('49', '17', '给排水系统（隔层排水）', '1012-02', 'GK-GP-02', '1', '0', '杨亚君(总经理)', '1', '2019-09-05', '2019-09-05', null, null);
+INSERT INTO `sp_architectural_sub_system` VALUES ('50', '18', '电气系统（PVC电管+BV电线）', '1013-01', 'GK-DQ-04', '1', '0', '杨亚君(总经理)', '1', '2019-09-05', '2019-09-05', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_sub_system` VALUES ('51', '18', '电气系统（JDG电管+BV电线）', '1013-02', 'GK-DQ-02', '1', '0', '杨亚君(总经理)', '1', '2019-09-05', '2019-09-05', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_sub_system` VALUES ('52', '10', '屋面系统（单层沥青瓦+屋面外保温）', '1005-03', 'GK-WM-03', '1', '0', '杨亚君(总经理)', '1', '2019-09-18', '2019-09-18', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_sub_system` VALUES ('53', '10', '屋面系统（双层沥青瓦+屋面外保温）', '1005-04', 'GK-WM-04', '1', '0', '杨亚君(总经理)', '1', '2019-09-18', '2019-09-18', '1', '杨亚君(总经理)');
 
 -- ----------------------------
 -- Table structure for sp_architectural_system
@@ -68,6 +120,21 @@ CREATE TABLE `sp_architectural_system` (
 -- ----------------------------
 -- Records of sp_architectural_system
 -- ----------------------------
+INSERT INTO `sp_architectural_system` VALUES ('6', '基础系统', '基础工程', '1001', '1', '2', '2019-07-14', '2019-09-05', '王海舟', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_system` VALUES ('7', '主体结构系统', '主体结构工程', '1002', '1', '2', '2019-07-14', '2019-09-05', '王海舟', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_system` VALUES ('8', '外墙系统', '外墙工程', '1003', '1', '1', '2019-07-14', '2019-10-21', '管理员', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_system` VALUES ('9', '内墙系统', '内墙工程', '1004', '1', '1', '2019-07-14', '2019-09-05', '管理员', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_system` VALUES ('10', '屋面系统', '屋面工程', '1005', '1', '1', '2019-07-14', '2019-09-18', '管理员', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_system` VALUES ('11', '檐口系统', '檐口工程', '1006', '1', '1', '2019-07-14', '2019-09-05', '管理员', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_system` VALUES ('12', '楼板系统', '楼板工程', '1007', '1', '1', '2019-07-14', '2019-09-05', '管理员', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_system` VALUES ('13', '吊顶系统', '吊顶工程', '1008', '1', '1', '2019-07-14', '2019-09-05', '管理员', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_system` VALUES ('14', '外窗系统', '外窗工程', '1009', '1', '1', '2019-07-14', '2019-09-05', '管理员', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_system` VALUES ('15', '外门系统', '外门工程', '1010', '1', '1', '2019-07-14', '2019-09-05', '管理员', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_system` VALUES ('16', '细部装饰系统', '细部装饰工程', '1011', '1', '1', '2019-07-14', '2019-09-05', '管理员', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_system` VALUES ('17', '给排水系统', '给排水工程', '1012', '1', '1', '2019-07-14', '2019-09-05', '管理员', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_system` VALUES ('18', '电气系统', '电气工程', '1013', '1', '1', '2019-07-14', '2019-09-05', '管理员', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_system` VALUES ('19', '系统测试', '工程', '1014', '0', '4', '2019-07-20', '2019-10-16', 'test', '1', '杨亚君(总经理)');
+INSERT INTO `sp_architectural_system` VALUES ('20', '系统测试2', '工程 ', '编码', '0', '6', '2019-08-02', '2019-10-16', '王括', '1', '杨亚君(总经理)');
 
 -- ----------------------------
 -- Table structure for sp_authority
@@ -259,7 +326,7 @@ CREATE TABLE `sp_brand` (
   `updated_at` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `status` (`status`,`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sp_brand
@@ -301,7 +368,7 @@ CREATE TABLE `sp_budget` (
   KEY `enginid` (`engin_id`,`project_id`) USING BTREE,
   KEY `project_id` (`project_id`,`engin_id`) USING BTREE,
   KEY `budget_order_number` (`budget_order_number`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sp_budget
@@ -343,27 +410,10 @@ CREATE TABLE `sp_budget_item` (
   KEY `engin` (`engin_id`,`budget_id`) USING BTREE,
   KEY `mbs_id` (`mbs_id`) USING BTREE,
   KEY `mbs` (`material_id`,`brand_id`,`supplier_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sp_budget_item
--- ----------------------------
-
--- ----------------------------
--- Table structure for sp_cate_content
--- ----------------------------
-DROP TABLE IF EXISTS `sp_cate_content`;
-CREATE TABLE `sp_cate_content` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `cate_id` int(11) DEFAULT NULL,
-  `text_content` text,
-  `url` varchar(255) DEFAULT NULL,
-  `page` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=24326 DEFAULT CHARSET=utf8mb4;
-
--- ----------------------------
--- Records of sp_cate_content
 -- ----------------------------
 
 -- ----------------------------
@@ -389,7 +439,7 @@ CREATE TABLE `sp_customer` (
   KEY `customer` (`customer`(191)) USING BTREE,
   KEY `type` (`type`(191)) USING BTREE,
   KEY `address` (`address`(191)) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sp_customer
@@ -484,7 +534,7 @@ CREATE TABLE `sp_engineering` (
   KEY `technical_username` (`technical_username`(191)) USING BTREE,
   KEY `structure_username` (`structure_username`(191)) USING BTREE,
   KEY `progress_username` (`progress_username`(191)) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sp_engineering
@@ -525,7 +575,7 @@ CREATE TABLE `sp_engineering_param` (
   PRIMARY KEY (`id`),
   KEY `enginid` (`engin_id`,`project_id`) USING BTREE,
   KEY `project_id` (`project_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COMMENT='工程参数设计';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='工程参数设计';
 
 -- ----------------------------
 -- Records of sp_engineering_param
@@ -555,7 +605,7 @@ CREATE TABLE `sp_enginnering_architectural` (
   KEY `engin_id` (`project_id`,`engin_id`) USING BTREE,
   KEY `engin` (`engin_id`,`system_code`(191),`sub_system_code`(191)) USING BTREE,
   KEY `engin_atch` (`engin_id`,`arch_id`,`sub_arch_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sp_enginnering_architectural
@@ -579,7 +629,7 @@ CREATE TABLE `sp_enginnering_dynamic` (
   KEY `enginnering_id` (`enginnering_id`,`created_at`) USING BTREE,
   KEY `project_id` (`project_id`) USING BTREE,
   KEY `enginnering` (`enginnering_id`,`dynamic_date`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sp_enginnering_dynamic
@@ -900,6 +950,128 @@ CREATE TABLE `sp_material` (
 -- ----------------------------
 -- Records of sp_material
 -- ----------------------------
+INSERT INTO `sp_material` VALUES ('16', '6', '2', '橡胶垫片', 'DP-JC-FS-01', 'DP', 'JC', 'FS', '01', '1厚橡胶条', '5', '1', '1', '6', '王括', '2019-07-26', '2019-10-21', '1', '杨亚君(总经理)', 'm', 'm', '无', '捆装', '1.00000', '0', '150', '0', '1', '0', '1', '2019-10-21', null, null);
+INSERT INTO `sp_material` VALUES ('17', '6', '2', '抗拔螺栓', 'LS-JC-KB-16', 'LS', 'JC', 'KB', '16', '镀锌螺杆  φ16  长度400mm', '5', '2', '1', '6', '王括', '2019-07-26', '2019-10-21', '1', '杨亚君(总经理)', '根', '根', '无', '捆装', '0.40000', '1000', '0', '0', '0', '16', '1', '2019-10-21', null, null);
+INSERT INTO `sp_material` VALUES ('18', '6', '2', '抗拔螺栓螺母', 'LS-JC-KB-16-01', 'LS', 'JC', 'KB', '16-01', '镀锌螺母   φ16', '5', '3', '1', '6', '王括', '2019-07-26', '2019-10-21', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('19', '6', '2', '抗拔螺栓垫片', 'LS-JC-KB-16-02', 'LS', 'JC', 'KB', '16-02', '镀锌圆形垫片  φ16', '5', '4', '1', '6', '王括', '2019-07-26', '2019-10-21', '1', '杨亚君(总经理)', '阿萨德', '搜索', '12', '31', '11.00000', '1', '23', '12', '321', '332', '6', '2019-07-29', '1', '2019-10-21');
+INSERT INTO `sp_material` VALUES ('20', '6', '3', '橡胶垫片', 'DP-JC-FS-01', 'DP', 'JC', 'FS', '01', '1厚橡胶条', '5', '1', '1', '6', '王括', '2019-07-26', '2019-10-21', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('21', '6', '4', '橡胶垫片', 'DP-JC-FS-01', 'DP', 'JC', 'FS', '01', '1厚橡胶条', '5', '1', '1', '6', '王括', '2019-07-26', '2019-10-21', '1', '杨亚君(总经理)', '维尔切', '沙发斯蒂芬', '4', '5', '3.00000', '6', '7', '8', '9', '0', '6', '2019-07-29', '6', '2019-08-30');
+INSERT INTO `sp_material` VALUES ('22', '6', '4', '抗拔螺栓', 'LS-LS-KB-16', 'LS', 'LS', 'KB', '16', '镀锌螺杆  φ16  长度400mm', '5', '2', '1', '6', '王括', '2019-07-26', '2019-10-21', '1', '杨亚君(总经理)', '阿萨德', '是是是', '4', '4', '3.00000', '5', '6', '7', '8', '9', '6', '2019-07-29', '6', '2019-08-02');
+INSERT INTO `sp_material` VALUES ('29', '7', '9', '薄壁轻钢结构龙骨', 'QGJG-JG-Z', 'QGJG', 'JG', '0', 'Z', '热镀锌 /G550/Z185', '2', '1', '1', '6', '王括', '2019-07-26', '2019-10-11', '1', '杨亚君(总经理)', 'kg', 'kg', '无', '捆装', '1.00000', '0', '0', '0', '0', '0', '1', '2019-10-08', '1', '2019-10-11');
+INSERT INTO `sp_material` VALUES ('30', '7', '9', '结构连接件（墙体-墙体）', 'PJ -JG -01', 'PJ', 'JG', '0', '01', '热镀锌/G550/Z185/1.0厚', '2', '2', '1', '6', '王括', '2019-07-26', '2019-10-11', '1', '杨亚君(总经理)', 'kg', 'kg', '捆装', '无', '1.00000', '0', '0', '0', '0', '0', '1', '2019-09-28', null, null);
+INSERT INTO `sp_material` VALUES ('31', '7', '9', '结构屋架连接件（屋架-墙体）', 'PJ -JG -02', 'PJ', 'JG', '0', '02', '热镀锌/G550/Z185/1.0厚', '2', '3', '1', '6', '王括', '2019-07-26', '2019-10-11', '1', '杨亚君(总经理)', 'kg', 'kg', '无', '木箱包装', '1.00000', '0', '0', '0', '0', '0', '1', '2019-10-08', '1', '2019-10-11');
+INSERT INTO `sp_material` VALUES ('32', '7', '9', '结构连接件（檐口）', 'PJ-JG-03', 'PJ', 'JG', '0', '03', '热镀锌/G550/Z185/1.0厚', '2', '4', '1', '6', '王括', '2019-07-26', '2019-10-11', '1', '杨亚君(总经理)', 'kg', 'kg', '无', '木箱包装', '1.00000', '0', '0', '0', '0', '0', '1', '2019-10-10', '1', '2019-10-11');
+INSERT INTO `sp_material` VALUES ('33', '8', '6', '石膏板（外墙内侧）', 'SGB-WQ-NZ-12', 'SGB', 'WQ', 'NZ', '12', '普通纸面石膏板/12厚', '5', '2', '1', '6', '王括', '2019-07-26', '2019-10-11', '1', '杨亚君(总经理)', 'm2', '张', '无', '捆装', '0.28000', '1', '100', '100', '0', '0', '6', '2019-09-26', '1', '2019-10-11');
+INSERT INTO `sp_material` VALUES ('37', '13', '15', '玻璃棉（吊顶内-单层铺设）', 'BLM-DD-BW-75', 'BLM', 'DD', 'BW', '75', '单面铝箔玻璃棉/16kg/立方/75厚', '5', '3', '1', '6', '王括', '2019-07-26', '2019-09-18', '1', '杨亚君(总经理)', '预算单位', '采购单位', '规格', '要不', '0.80000', '5', '6', '7', '8', '9', '6', '2019-08-16', null, null);
+INSERT INTO `sp_material` VALUES ('38', '13', '15', '玻璃棉（吊顶内-双层铺设）', 'BLM-DD-BW-75*2', 'BLM', 'DD', 'BW', '75*2', '单面铝箔玻璃棉/16kg/立方/150厚', '5', '5', '1', '6', '王括', '2019-07-26', '2019-09-18', '1', '杨亚君(总经理)', '元', '元', '测试规格', '要求不同', '0.99000', '1', '2', '3', '4', '5', '6', '2019-08-16', null, null);
+INSERT INTO `sp_material` VALUES ('41', '7', '9', '结构连接件（屋脊）', 'PJ-JG-04', 'PJ', 'JG', '0', '04', '热镀锌/G550/Z185/1.0厚', '2', '15', '1', '6', '王括', '2019-09-17', '2019-10-11', '1', '杨亚君(总经理)', 'kg', 'kg', '0', '散装', '1.00000', '0', '0', '0', '0', '0', '1', '2019-10-08', '1', '2019-10-11');
+INSERT INTO `sp_material` VALUES ('42', '8', '6', '石膏板（外墙内侧）', 'SGB-WQ-NZ-FH15', 'SGB', 'WQ', 'NZ', 'FH15', '防火石膏板/15厚', '5', '4', '1', '1', '杨亚君(总经理)', '2019-09-17', '2019-10-11', '1', '杨亚君(总经理)', 'm2', 'm2', '正常', '无', '1.00000', '3000', '1200', '0', '15', '0', '1', '2019-09-28', null, null);
+INSERT INTO `sp_material` VALUES ('43', '8', '6', '硅酸钙板（外墙内侧）', 'GSG-WQ-NZ-10', 'GSG', 'WQ', 'NZ', '10', '硅酸钙板/10厚', '5', '6', '1', '1', '杨亚君(总经理)', '2019-09-17', '2019-10-11', '1', '杨亚君(总经理)', 'm2', '张', '无', '捆装', '0.35000', '2400', '1200', '0', '10', '0', '1', '2019-10-11', null, null);
+INSERT INTO `sp_material` VALUES ('44', '8', '6', '硅酸钙板（外墙内侧）', 'GSG-WQ-NZ-12', 'GSG', 'WQ', 'NZ', '12', '硅酸钙板/12厚', '5', '8', '1', '1', '杨亚君(总经理)', '2019-09-17', '2019-10-11', '1', '杨亚君(总经理)', 'kg', 'kg', '无', '捆装', '0.35000', '2400', '1200', '0', '12', '0', '1', '2019-10-11', null, null);
+INSERT INTO `sp_material` VALUES ('45', '8', '6', '硅酸钙板（外墙内侧）', 'GSG-WQ-NZ-15', 'GSG', 'WQ', 'NZ', '15', '硅酸钙板/15厚', '5', '10', '1', '1', '杨亚君(总经理)', '2019-09-17', '2019-10-11', '1', '杨亚君(总经理)', 'm', '张', '无', '捆装', '1.00000', '2400', '1200', '0', '15', '0', '1', '2019-10-13', null, null);
+INSERT INTO `sp_material` VALUES ('46', '8', '6', '岩棉板（外墙龙骨内）', 'YM-WQ-BW-50', 'YM', 'WQ', 'BW', '50', '岩棉板/100KG/立方/50厚', '5', '20', '1', '1', '杨亚君(总经理)', '2019-09-17', '2019-10-11', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('47', '8', '6', '岩棉板（外墙龙骨内）', 'YM-WQ-BW-60', 'YM', 'WQ', 'BW', '60', '岩棉板/100KG/立方/60厚', '5', '16', '1', '1', '杨亚君(总经理)', '2019-09-17', '2019-10-11', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('48', '8', '6', '岩棉板（外墙龙骨内）', 'YM-WQ-BW-70', 'YM', 'WQ', 'BW', '70', '岩棉板/100KG/立方/70厚', '5', '18', '1', '1', '杨亚君(总经理)', '2019-09-17', '2019-10-11', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('49', '8', '6', '岩棉板（外墙龙骨内）', 'YM-WQ-BW-80', 'YM', 'WQ', 'BW', '80', '岩棉板/100KG/立方/80厚', '5', '22', '1', '1', '杨亚君(总经理)', '2019-09-17', '2019-10-11', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('50', '8', '6', '岩棉板（外墙龙骨内）', 'YM-WQ-BW-100', 'YM', 'WQ', 'BW', '100', '岩棉板/100KG/立方/100厚', '5', '24', '1', '1', '杨亚君(总经理)', '2019-09-17', '2019-10-11', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('51', '8', '6', '玻璃棉（外墙龙骨内）', 'BLM-WQ-BW-75', 'BLM', 'WQ', 'BW', '75', '单面铝箔玻璃棉毡/16KG/立方/75厚', '5', '12', '1', '1', '杨亚君(总经理)', '2019-09-17', '2019-10-11', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('52', '8', '6', '玻璃棉（外墙龙骨内）', 'BLM-WQ-BW-100', 'BLM', 'WQ', 'BW', '100', '单面铝箔玻璃棉毡/16KG/立方/100厚', '5', '14', '1', '1', '杨亚君(总经理)', '2019-09-17', '2019-10-11', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('53', '8', '6', 'OSB结构板（外墙）', 'OSB-WQ-JG-09', 'OSB', 'WQ', 'JG', '09', 'OSB板/结构三级/9厚', '10', '26', '1', '1', '杨亚君(总经理)', '2019-09-17', '2019-10-11', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('54', '8', '6', 'OSB结构板（外墙）', 'OSB-WQ-JG-12', 'OSB', 'WQ', 'JG', '12', 'OSB板/结构三级/12厚', '10', '28', '1', '1', '杨亚君(总经理)', '2019-09-17', '2019-10-11', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('55', '8', '6', 'OSB结构板（外墙）', 'OSB-WQ-JG-15', 'OSB', 'WQ', 'JG', '15', 'OSB板/结构三级/12厚', '10', '30', '1', '1', '杨亚君(总经理)', '2019-09-17', '2019-10-11', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('56', '8', '6', '防潮纸（外墙）', 'FCZ-WQ-FS-035', 'FCZ', 'WQ', 'FS', '035', '防潮纸/0.35厚', '5', '32', '1', '1', '杨亚君(总经理)', '2019-09-17', '2019-10-11', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('57', '8', '7', '防潮纸（外墙）', 'FCZ-WQ-FS-086', 'FCZ', 'WQ', 'FS', '086', '防潮纸/0.5厚', '5', '34', '1', '6', '王括', '2019-09-17', '2019-09-18', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('58', '8', '7', '岩棉板（外墙龙骨内）', 'YM-WQ-BW-70', 'YM', 'WQ', 'BW', '70', '岩棉板/100KG/立方/70厚', '5', '15', '1', '6', '王括', '2019-09-17', '2019-09-18', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('59', '8', '7', '岩棉板（外墙龙骨内）', 'YM-WQ-BW-80', 'YM', 'WQ', 'BW', '80', '岩棉板/100KG/立方/80厚', '5', '16', '1', '6', '王括', '2019-09-17', '2019-09-18', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('60', '8', '7', '玻璃棉（外墙龙骨内）', 'BLM-WQ-BW-100', 'BLM', 'WQ', 'BW', '100', '单面铝箔玻璃棉毡/16KG/立方/100厚', '5', '22', '1', '6', '王括', '2019-09-17', '2019-09-18', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('61', '8', '7', '玻璃棉（外墙龙骨内）', 'BLM-WQ-BW-75', 'BLM', 'WQ', 'BW', '75', '单面铝箔玻璃棉毡/16KG/立方/75厚', '5', '20', '1', '6', '王括', '2019-09-17', '2019-09-18', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('62', '8', '7', '防潮纸（外墙）', 'FCZ-WQ-FS-035', 'FCZ', 'WQ', 'FS', '035', '防潮纸/0.35厚', '5', '30', '1', '6', '王括', '2019-09-17', '2019-09-18', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('63', '8', '7', '硅酸钙板（外墙内侧）', 'GSG-WQ-NZ-10', 'GSG', 'WQ', 'NZ', '10', '硅酸钙板/10厚', '5', '6', '1', '6', '王括', '2019-09-17', '2019-09-18', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('64', '8', '7', '硅酸钙板（外墙内侧）', 'GSG-WQ-NZ-12', 'GSG', 'WQ', 'NZ', '12', '硅酸钙板/12厚', '5', '8', '1', '6', '王括', '2019-09-17', '2019-09-18', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('65', '8', '7', '硅酸钙板（外墙内侧）', 'GSG-WQ-NZ-15', 'GSG', 'WQ', 'NZ', '15', '硅酸钙板/15厚', '5', '10', '1', '6', '王括', '2019-09-17', '2019-09-18', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('66', '8', '7', 'OSB结构板（外墙）', 'OSB-WQ-JG-09', 'OSB', 'WQ', 'JG', '09', 'OSB板/结构三级/9厚', '10', '24', '1', '6', '王括', '2019-09-17', '2019-09-18', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('67', '8', '7', 'OSB结构板（外墙）', 'OSB-WQ-JG-12', 'OSB', 'WQ', 'JG', '12', 'OSB板/结构三级/12厚', '10', '26', '1', '6', '王括', '2019-09-17', '2019-09-18', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('68', '8', '7', 'OSB结构板（外墙）', 'OSB-WQ-JG-15', 'OSB', 'WQ', 'JG', '15', 'OSB板/结构三级/12厚', '10', '28', '1', '6', '王括', '2019-09-17', '2019-09-18', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('69', '8', '7', '石膏板（外墙内侧）', 'SGB-WQ-NZ-12', 'SGB', 'WQ', 'NZ', '12', '普通纸面石膏板/12厚', '5', '2', '1', '6', '王括', '2019-09-17', '2019-09-18', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('70', '8', '7', '石膏板（外墙内侧）', 'SGB-WQ-NZ-FH15', 'SGB', 'WQ', 'NZ', 'FH15', '防火石膏板/15厚', '5', '4', '1', '6', '王括', '2019-09-17', '2019-09-18', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('71', '8', '7', '岩棉板（外墙龙骨内）', 'YM-WQ-BW-50', 'YM', 'WQ', 'BW', '50', '岩棉板/100KG/立方/50厚', '5', '12', '1', '6', '王括', '2019-09-17', '2019-09-18', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('72', '8', '7', '岩棉板（外墙龙骨内）', 'YM-WQ-BW-60', 'YM', 'WQ', 'BW', '60', '岩棉板/100KG/立方/60厚', '5', '14', '1', '6', '王括', '2019-09-17', '2019-09-18', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('73', '8', '7', '岩棉板（外墙龙骨内）', 'YM-WQ-BW-100', 'YM', 'WQ', 'BW', '100', '岩棉板/100KG/立方/100厚', '5', '18', '1', '6', '王括', '2019-09-17', '2019-09-18', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('74', '8', '6', '防潮纸（外墙）', 'FCZ-WQ-FS-086', 'FCZ', 'WQ', 'FS', '036', '防潮纸/0.5厚', '5', '34', '1', '1', '杨亚君(总经理)', '2019-09-18', '2019-10-11', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('75', '8', '6', 'XPS保温板（外墙）', 'XPS-WQ-BW-30B1', 'XPS', 'WQ', 'BW', '30B1', '挤塑聚苯保温板/B1级/30厚', '5', '36', '1', '1', '杨亚君(总经理)', '2019-09-18', '2019-10-11', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('76', '8', '6', 'XPS保温板（外墙）', 'XPS-WQ-BW-50B1', 'XPS', 'WQ', 'BW', '50B1', '挤塑聚苯保温板/B1级/50厚', '5', '38', '1', '1', '杨亚君(总经理)', '2019-09-18', '2019-10-11', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('77', '8', '6', 'XPS保温板（外墙）', 'XPS-WQ-BW-60B1', 'XPS', 'WQ', 'BW', '60B1', '挤塑聚苯保温板/B1级/60厚', '5', '42', '1', '1', '杨亚君(总经理)', '2019-09-18', '2019-10-11', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('78', '8', '6', 'XPS保温板（外墙）', 'XPS-WQ-BW-80B1', 'XPS', 'WQ', 'BW', '80B1', '挤塑聚苯保温板/B1级/80厚', '5', '45', '1', '1', '杨亚君(总经理)', '2019-09-18', '2019-10-11', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('79', '8', '7', 'XPS保温板（外墙）', 'XPS-WQ-BW-30B1', 'XPS', 'WQ', 'BW', '30B1', '挤塑聚苯保温板/B1级/30厚', '5', '36', '1', '1', '杨亚君(总经理)', '2019-09-18', '2019-09-18', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('80', '8', '7', 'XPS保温板（外墙）', 'XPS-WQ-BW-50B1', 'XPS', 'WQ', 'BW', '50B1', '挤塑聚苯保温板/B1级/50厚', '5', '38', '1', '1', '杨亚君(总经理)', '2019-09-18', '2019-09-18', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('81', '8', '7', 'XPS保温板（外墙）', 'XPS-WQ-BW-60B1', 'XPS', 'WQ', 'BW', '60B1', '挤塑聚苯保温板/B1级/60厚', '5', '42', '1', '1', '杨亚君(总经理)', '2019-09-18', '2019-09-18', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('82', '8', '7', 'XPS保温板（外墙）', 'XPS-WQ-BW-80B1', 'XPS', 'WQ', 'BW', '80B1', '挤塑聚苯保温板/B1级/80厚', '5', '45', '1', '1', '杨亚君(总经理)', '2019-09-18', '2019-09-18', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('83', '10', '12', '沥青瓦（屋面）', 'LQW-WM-WZ-Z', 'LQW', 'WM', 'WZ', 'Z', '单层沥青瓦', '10', '2', '1', '1', '杨亚君(总经理)', '2019-09-18', '2019-09-18', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('84', '10', '12', 'SBS防水卷材(屋面）', 'SBS-WM-FS-Z', 'SBS', 'WM', 'FS', 'Z', 'SBS改性沥青防水卷材/3厚', '10', '5', '1', '1', '杨亚君(总经理)', '2019-09-18', '2019-09-18', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('85', '10', '12', 'APP自粘防水卷材（屋面）', 'APP-WM-FS-Z', 'APP', 'WM', 'FS', 'Z', 'APP自粘性防水卷材/2厚', '10', '10', '1', '1', '杨亚君(总经理)', '2019-09-18', '2019-09-18', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('86', '10', '12', 'OSB结构板（屋面）', 'OSB-WM-JG-12', 'OSB', 'WM', 'JG', '12', 'OSB结构板/三级/12厚', '10', '12', '1', '1', '杨亚君(总经理)', '2019-09-18', '2019-09-18', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('87', '10', '12', 'OSB结构板（屋面）', 'OSB-WM-JG-15', 'OSB', 'WM', 'JG', '15', 'OSB结构板/三级/15厚', '10', '15', '1', '1', '杨亚君(总经理)', '2019-09-18', '2019-09-18', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('88', '9', '10', '石膏板（内墙双侧单层）', 'SGB-NQ-NZ-12', 'SGB', 'NQ', 'NZ', '12', '普通纸面石膏板/12厚', '10', '2', '1', '1', '杨亚君(总经理)', '2019-09-18', '2019-09-18', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('89', '9', '10', '岩棉板（内墙龙骨内）', 'YM-NQ-BW-60', 'YM', 'NQ', 'BW', '60', '岩棉板/100KG/立方/60厚', '5', '5', '1', '1', '杨亚君(总经理)', '2019-09-18', '2019-09-18', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('90', '9', '10', '岩棉板（内墙龙骨内）', 'YM-NQ-BW-80', 'YM', 'NQ', 'BW', '80', '岩棉板/100KG/立方/80厚', '5', '8', '1', '1', '杨亚君(总经理)', '2019-09-18', '2019-09-18', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('91', '9', '10', '玻璃棉（内墙龙骨内）', 'BLM-NQ-BW-75', 'BLM', 'NQ', 'BW', '75', '单面铝箔玻璃棉/16kg/立方/75厚', '5', '10', '1', '1', '杨亚君(总经理)', '2019-09-18', '2019-09-18', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('92', '9', '10', '玻璃棉（内墙龙骨内）', 'BLM-NQ-BW-100', 'BLM', 'NQ', 'BW', '100', '单面铝箔玻璃棉/16kg/立方/100厚', '5', '12', '1', '1', '杨亚君(总经理)', '2019-09-18', '2019-09-18', '1', '杨亚君(总经理)', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('93', '9', '20', '石膏板（内墙双侧双层）', 'SGB-NQ-NZ-12', 'SGB', 'NQ', 'NZ', '12', '普通纸面石膏板/12厚', '10', '2', '1', '1', '杨亚君(总经理)', '2019-09-18', '2019-09-18', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('94', '9', '20', '岩棉板（内墙龙骨内）', 'YM-NQ-BW-60', 'YM', 'NQ', 'BW', '60', '岩棉板/100KG/立方/60厚', '5', '5', '1', '1', '杨亚君(总经理)', '2019-09-18', '2019-09-18', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('95', '9', '20', '岩棉板（内墙龙骨内）', 'YM-NQ-BW-80', 'YM', 'NQ', 'BW', '80', '岩棉板/100KG/立方/80厚', '5', '8', '1', '1', '杨亚君(总经理)', '2019-09-18', '2019-09-18', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('96', '9', '20', '玻璃棉（内墙龙骨内）', 'BLM-NQ-BW-75', 'BLM', 'NQ', 'BW', '75', '单面铝箔玻璃棉/16kg/立方/75厚', '5', '10', '1', '1', '杨亚君(总经理)', '2019-09-18', '2019-09-18', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('97', '9', '20', '玻璃棉（内墙龙骨内）', 'BLM-NQ-BW-100', 'BLM', 'NQ', 'BW', '100', '单面铝箔玻璃棉/16kg/立方/100厚', '5', '12', '1', '1', '杨亚君(总经理)', '2019-09-18', '2019-09-18', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('98', '13', '15', '轻钢龙骨吊顶', 'QGLG-DD-NZ-Z', 'QGLG', 'DD', 'NZ', 'Z', '镀锌轻钢龙骨', '5', '7', '1', '1', '杨亚君(总经理)', '2019-09-18', '2019-09-18', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('99', '13', '15', '石膏板（吊顶）', 'SGB-DD-NZ-9.5', 'SGB', 'DD', 'NZ', '9.5', '普通纸面石膏板/9.5厚', '5', '10', '1', '1', '杨亚君(总经理)', '2019-09-18', '2019-09-18', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('100', '13', '15', '石膏板（吊顶）', 'SGB-DD-NZ-FS9.5', 'SGB', 'DD', 'NZ', 'FS9.5', '防水石膏板/9.5厚', '5', '12', '1', '1', '杨亚君(总经理)', '2019-09-18', '2019-09-18', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('101', '13', '15', '石膏板（吊顶）', 'SGB-DD-NZ-FH15', 'SGB', 'DD', 'NZ', 'FH15', '防火石膏板/15厚', '5', '15', '1', '1', '杨亚君(总经理)', '2019-09-18', '2019-09-18', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('102', '14', '38', '双玻断桥铝窗', 'C-C-WZ-Z', 'C', 'C', 'WZ', 'Z', '双玻断桥铝/60系列/普通玻璃', '0', '2', '1', '1', '杨亚君(总经理)', '2019-09-18', '2019-09-18', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('103', '7', '5', '薄壁轻钢结构龙骨', 'QGJG-JG-Z', 'QGJG', 'JG', '0', 'Z', '镀铝锌G550   55%   AZ150', '2', '1', '1', '1', '杨亚君(总经理)', '2019-10-11', '2019-10-21', '1', '杨亚君(总经理)', 'kg', 'kg', '无', '捆装', '1.00000', '0', '0', '0', '0', '0', '1', '2019-10-11', null, null);
+INSERT INTO `sp_material` VALUES ('104', '7', '5', '结构连接件（墙体-墙体）', 'PJ-JG-01', 'PJ', 'JG', '0', '01', '镀铝锌G550 /55%  AZ150/1.0厚', '2', '2', '1', '1', '杨亚君(总经理)', '2019-10-11', '2019-10-21', '1', '杨亚君(总经理)', 'kg', 'kg', '无', '木箱包装', '1.00000', '0', '0', '0', '0', '0', '1', '2019-10-11', null, null);
+INSERT INTO `sp_material` VALUES ('105', '7', '5', '结构屋架连接件（屋架-墙体）', 'PJ-JG-02', 'PJ', 'JG', '0', '02', '镀铝锌G550 /55%  AZ150/1.0厚', '2', '3', '1', '1', '杨亚君(总经理)', '2019-10-11', '2019-10-21', '1', '杨亚君(总经理)', 'kg', 'kg', '无', '木箱包装', '1.00000', '0', '0', '0', '0', '0', '1', '2019-10-11', null, null);
+INSERT INTO `sp_material` VALUES ('106', '7', '5', '结构连接件（檐口）', 'PJ-JG-03', 'PJ', 'JG', '0', '03', '镀铝锌G550 /55%  AZ150/1.0厚', '2', '4', '1', '1', '杨亚君(总经理)', '2019-10-11', '2019-10-21', '1', '杨亚君(总经理)', 'kg', 'kg', '无', '木箱包装', '1.00000', '0', '0', '0', '0', '0', '1', '2019-10-11', null, null);
+INSERT INTO `sp_material` VALUES ('107', '7', '5', '结构连接件（屋脊）', 'PJ-JG-04', 'PJ', 'JG', '0', '04', '镀铝锌G550 /55%  AZ150/1.0厚', '2', '5', '1', '1', '杨亚君(总经理)', '2019-10-11', '2019-10-21', '1', '杨亚君(总经理)', 'kg', 'kg', '无', '散装', '1.00000', '0', '0', '0', '0', '0', '1', '2019-10-11', null, null);
+INSERT INTO `sp_material` VALUES ('108', '6', '2', '抗拔螺栓垫片', 'LS-JC-KB-16-03', 'LS', 'JC', 'KB', '16-03', '镀锌方形垫片  φ18   40*40*5mm', '5', '5', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('109', '6', '2', '靴型连接件', 'PJ-JC-KB-15', 'PJ', 'JC', 'KB', '15', '镀锌靴型配件 1.6厚   承载力15KN', '5', '6', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('110', '6', '2', '靴型连接件', 'PJ-JC-KB-30', 'PJ', 'JC', 'KB', '30', '镀锌靴型配件 1.6厚   承载力30KN', '5', '7', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('111', '6', '2', '抗剪螺栓', 'LS-JC-KJ-120', 'LS', 'JC', 'KJ', '120', '镀锌膨胀螺栓    φ12  长度120mm', '5', '8', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('112', '6', '2', '抗剪螺栓', 'LS-JC-KJ-150', 'LS', 'JC', 'KJ', '150', '镀锌膨胀螺栓    φ12  长度150mm', '5', '9', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('113', '6', '2', '植筋胶', 'JGJ-JC-KB-01', 'JGJ', 'JC', 'KB', '01', '高强锚固(植筋)胶环氧类结构胶', '5', '10', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('114', '6', '3', '抗拔螺栓', 'LS-JC-KB-16', 'LS', 'JC', 'KB', '16', '镀锌螺杆  φ16  长度400mm', '5', '2', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('115', '6', '3', '抗拔螺栓螺母', 'LS-JC-KB-16-01', 'LS', 'JC', 'KB', '16-01', '镀锌螺母   φ16', '5', '3', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('116', '6', '3', '抗拔螺栓垫片', 'LS-JC-KB-16-02', 'LS', 'JC', 'KB', '16-02', '镀锌圆形垫片  φ16', '5', '4', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('117', '6', '3', '抗拔螺栓垫片', 'LS-JC-KB-16-03', 'LS', 'JC', 'KB', '16-03', '镀锌方形垫片  φ18   40*40*5mm', '5', '5', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('118', '6', '3', '靴型连接件', 'PJ-JC-KB-15', 'PJ', 'JC', 'KB', '15', '镀锌靴型配件 1.6厚   承载力15KN', '5', '6', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('119', '6', '3', '靴型连接件', 'PJ-JC-KB-30', 'PJ', 'JC', 'KB', '30', '镀锌靴型配件 1.6厚   承载力30KN', '5', '7', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('120', '6', '3', '抗剪螺栓', 'LS-JC-KJ-120', 'LS', 'JC', 'KJ', '120', '镀锌膨胀螺栓    φ12  长度120mm', '5', '8', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('121', '6', '3', '抗剪螺栓', 'LS-JC-KJ-150', 'LS', 'JC', 'KJ', '150', '镀锌膨胀螺栓    φ12  长度150mm', '5', '9', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('122', '6', '3', '植筋胶', 'JGJ-JC-KB-01', 'JGJ', 'JC', 'KB', '01', '高强锚固(植筋)胶环氧类结构胶', '5', '10', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('123', '6', '4', '抗拔螺栓螺母', 'LS-JC-KB-16-01', 'LS', 'JC', 'KB', '16-01', '镀锌螺母   φ16', '5', '3', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('124', '6', '4', '抗拔螺栓垫片', 'LS-JC-KB-16-02', 'LS', 'JC', 'KB', '16-02', '镀锌圆形垫片  φ16', '5', '4', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('125', '6', '4', '抗拔螺栓垫片', 'LS-JC-KB-16-03', 'LS', 'JC', 'KB', '16-03', '镀锌方形垫片  φ18   40*40*5mm', '5', '5', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('126', '6', '4', '靴型连接件', 'PJ-JC-KB-15', 'PJ', 'JC', 'KB', '15', '镀锌靴型配件 1.6厚   承载力15KN', '5', '6', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('127', '6', '4', '靴型连接件', 'PJ-JC-KB-30', 'PJ', 'JC', 'KB', '30', '镀锌靴型配件 1.6厚   承载力30KN', '5', '7', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('128', '6', '4', '抗剪螺栓', 'LS-JC-KJ-120', 'LS', 'JC', 'KJ', '120', '镀锌膨胀螺栓    φ12  长度120mm', '5', '8', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('129', '6', '4', '抗剪螺栓', 'LS-JC-KJ-150', 'LS', 'JC', 'KJ', '150', '镀锌膨胀螺栓    φ12  长度150mm', '5', '9', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('130', '6', '4', '植筋胶', 'JGJ-JC-KB-01', 'JGJ', 'JC', 'KB', '01', '高强锚固(植筋)胶环氧类结构胶', '5', '10', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('131', '6', '8', '橡胶垫片', 'DP-JC-FS-01', 'DP', 'JC', 'FS', '01', '1厚橡胶条', '5', '1', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('132', '6', '8', '抗拔螺栓', 'LS-JC-KB-16', 'LS', 'JC', 'KB', '16', '镀锌螺杆  φ16  长度400mm', '5', '2', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('133', '6', '8', '抗拔螺栓螺母', 'LS-JC-KB-16-01', 'LS', 'JC', 'KB', '16-01', '镀锌螺母   φ16', '5', '3', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('134', '6', '8', '抗拔螺栓垫片', 'LS-JC-KB-16-02', 'LS', 'JC', 'KB', '16-02', '镀锌圆形垫片  φ16', '5', '4', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('135', '6', '8', '抗拔螺栓垫片', 'LS-JC-KB-16-03', 'LS', 'JC', 'KB', '16-03', '镀锌方形垫片  φ18   40*40*5mm', '5', '5', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('136', '6', '8', '靴型连接件', 'PJ-JC-KB-15', 'PJ', 'JC', 'KB', '15', '镀锌靴型配件 1.6厚   承载力15KN', '5', '6', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('137', '6', '8', '靴型连接件', 'PJ-JC-KB-30', 'PJ', 'JC', 'KB', '30', '镀锌靴型配件 1.6厚   承载力30KN', '5', '7', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('138', '6', '8', '抗剪螺栓', 'LS-JC-KJ-120', 'LS', 'JC', 'KJ', '120', '镀锌膨胀螺栓    φ12  长度120mm', '5', '8', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('139', '6', '8', '抗剪螺栓', 'LS-JC-KJ-150', 'LS', 'JC', 'KJ', '150', '镀锌膨胀螺栓    φ12  长度150mm', '5', '9', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('140', '6', '8', '植筋胶', 'JGJ-JC-KB-01', 'JGJ', 'JC', 'KB', '01', '高强锚固(植筋)胶环氧类结构胶', '5', '10', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('141', '7', '23', '薄壁轻钢结构龙骨', 'QGJG-JG-Z', 'QGJG', 'JG', '0', 'Z', '热镀锌 /G550/Z275', '2', '1', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('142', '7', '23', '结构连接件（墙体-墙体）', 'PJ-JG-01', 'PJ', 'JG', '0', '01', '热镀锌/G550/Z275/1.0厚', '2', '2', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('143', '7', '23', '结构屋架连接件（屋架-墙体）', 'PJ-JG-02', 'PJ', 'JG', '0', '02', '热镀锌/G550/Z275/1.0厚', '2', '3', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('144', '7', '23', '结构连接件（檐口）', 'PJ-JG-03', 'PJ', 'JG', '0', '03', '热镀锌/G550/Z275/1.0厚', '2', '4', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('145', '7', '23', '结构连接件（屋脊）', 'PJ-JG-04', 'PJ', 'JG', '0', '04', '热镀锌/G550/Z275/1.0厚', '2', '15', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('146', '14', '39', '双玻断桥铝窗', 'C-C-WZ-Z', 'C', 'C', 'WZ', 'Z', '双玻断桥铝/60系列/钢化玻璃', '0', '2', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('147', '14', '40', '双玻断桥铝窗', 'C-C-WZ-Z', 'C', 'C', 'WZ', 'Z', '双玻断桥铝/70系列/钢化玻璃', '0', '2', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `sp_material` VALUES ('148', '14', '41', '双玻断桥铝窗', 'C-C-WZ-Z', 'C', 'C', 'WZ', 'Z', '双玻断桥铝/70系列/钢化玻璃+LOW-E', '0', '2', '1', '1', '杨亚君(总经理)', '2019-10-21', '2019-10-21', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for sp_material_brand_supplier
@@ -926,7 +1098,7 @@ CREATE TABLE `sp_material_brand_supplier` (
   KEY `material_id` (`material_id`,`brand_id`,`supplier_id`) USING BTREE,
   KEY `brand_id` (`brand_id`) USING BTREE,
   KEY `supplier_id` (`supplier_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sp_material_brand_supplier
@@ -966,7 +1138,7 @@ CREATE TABLE `sp_notice` (
   PRIMARY KEY (`id`),
   KEY `created_at` (`created_at`) USING BTREE,
   KEY `updated_at` (`updated_at`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sp_notice
@@ -1013,7 +1185,7 @@ CREATE TABLE `sp_offer` (
   KEY `offer_order_number_2` (`offer_order_number`) USING BTREE,
   KEY `project_id_2` (`project_id`,`engin_id`,`budget_id`) USING BTREE,
   KEY `engin_id_2` (`engin_id`,`budget_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sp_offer
@@ -1053,7 +1225,7 @@ CREATE TABLE `sp_offer_item` (
   KEY `engin_id` (`engin_id`,`budget_id`,`offer_id`) USING BTREE,
   KEY `budget_id_2` (`budget_id`,`budget_item_id`) USING BTREE,
   KEY `engin_id_2` (`engin_id`,`arch_id`,`sub_arch_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sp_offer_item
@@ -1096,7 +1268,7 @@ CREATE TABLE `sp_progress` (
   PRIMARY KEY (`id`),
   KEY `project_id` (`project_id`,`engin_id`,`budget_id`) USING BTREE,
   KEY `engin_id` (`engin_id`,`budget_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sp_progress
@@ -1125,7 +1297,7 @@ CREATE TABLE `sp_progress_constrc_duration` (
   KEY `project_id` (`project_id`,`engin_id`,`progress_id`) USING BTREE,
   KEY `engin_id` (`engin_id`,`arch_id`,`sub_arch_id`) USING BTREE,
   KEY `engin_id_2` (`engin_id`,`sub_arch_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sp_progress_constrc_duration
@@ -1173,7 +1345,7 @@ CREATE TABLE `sp_progress_construc_info` (
   PRIMARY KEY (`id`),
   KEY `project_id` (`project_id`,`engin_id`,`progress_id`) USING BTREE,
   KEY `engin_id` (`engin_id`,`progress_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sp_progress_construc_info
@@ -1200,7 +1372,7 @@ CREATE TABLE `sp_progress_contenc_process` (
   KEY `engin_id` (`engin_id`,`arch_id`,`sub_arch_id`) USING BTREE,
   KEY `param_id` (`param_id`) USING BTREE,
   KEY `engin_id_2` (`engin_id`,`param_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=208 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sp_progress_contenc_process
@@ -1230,6 +1402,61 @@ CREATE TABLE `sp_progress_params_conf` (
 -- ----------------------------
 -- Records of sp_progress_params_conf
 -- ----------------------------
+INSERT INTO `sp_progress_params_conf` VALUES ('1', '8', '6', '1003-1', '墙体OSB板安装', '1', '1', '1', '1', '2019-10-29');
+INSERT INTO `sp_progress_params_conf` VALUES ('2', '8', '6', '1003-1', '防潮纸铺装', '1', '2', '0', '1', '2019-10-29');
+INSERT INTO `sp_progress_params_conf` VALUES ('3', '8', '6', '1003-1', '墙体横向木龙骨安装', '1', '3', '1', '1', '2019-10-29');
+INSERT INTO `sp_progress_params_conf` VALUES ('4', '6', '2', '1001-01', '测试流程1', '1', '1', '1', '6', '2019-10-27');
+INSERT INTO `sp_progress_params_conf` VALUES ('5', '6', '2', '1001-01', '测试流程2', '1', '2', '1', '6', '2019-10-27');
+INSERT INTO `sp_progress_params_conf` VALUES ('6', '6', '2', '1001-01', '测试流程3', '2', '3', '1', '6', '2019-10-27');
+INSERT INTO `sp_progress_params_conf` VALUES ('7', '6', '3', '1001-02', '测试流程1.2', '1', '1', '1', '6', '2019-10-26');
+INSERT INTO `sp_progress_params_conf` VALUES ('8', '6', '3', '1001-02', '测试流程1.3', '2', '2', '1', '6', '2019-10-26');
+INSERT INTO `sp_progress_params_conf` VALUES ('9', '6', '3', '1001-02', '测试流程1.4', '1', '3', '1', '6', '2019-10-26');
+INSERT INTO `sp_progress_params_conf` VALUES ('10', '6', '3', '1001-02', '测试流程1.5', '2', '4', '1', '6', '2019-10-26');
+INSERT INTO `sp_progress_params_conf` VALUES ('11', '6', '3', '1001-02', '测试流程1.6', '1', '5', '1', '6', '2019-10-26');
+INSERT INTO `sp_progress_params_conf` VALUES ('12', '6', '4', '1001-03', '测试流程1.2', '1', '1', '1', '6', '2019-10-26');
+INSERT INTO `sp_progress_params_conf` VALUES ('13', '6', '4', '1001-03', '测试流程1.3', '2', '2', '1', '6', '2019-10-26');
+INSERT INTO `sp_progress_params_conf` VALUES ('14', '6', '4', '1001-03', '测试流程1.4', '1', '3', '1', '6', '2019-10-26');
+INSERT INTO `sp_progress_params_conf` VALUES ('15', '6', '4', '1001-03', '测试流程1.5', '2', '4', '1', '6', '2019-10-26');
+INSERT INTO `sp_progress_params_conf` VALUES ('16', '6', '4', '1001-03', '测试流程1.6', '1', '5', '1', '6', '2019-10-26');
+INSERT INTO `sp_progress_params_conf` VALUES ('17', '6', '4', '1001-03', '测试流程1', '1', '6', '1', '6', '2019-10-26');
+INSERT INTO `sp_progress_params_conf` VALUES ('18', '6', '4', '1001-03', '测试流程2', '1', '7', '1', '6', '2019-10-26');
+INSERT INTO `sp_progress_params_conf` VALUES ('19', '6', '4', '1001-03', '测试流程3', '2', '8', '1', '6', '2019-10-26');
+INSERT INTO `sp_progress_params_conf` VALUES ('20', '6', '8', '1001-04', '测试流程1', '1', '1', '1', '6', '2019-10-26');
+INSERT INTO `sp_progress_params_conf` VALUES ('21', '6', '8', '1001-04', '测试流程2', '1', '2', '1', '6', '2019-10-26');
+INSERT INTO `sp_progress_params_conf` VALUES ('22', '6', '8', '1001-04', '测试流程3', '2', '3', '1', '6', '2019-10-26');
+INSERT INTO `sp_progress_params_conf` VALUES ('23', '6', '25', '1001-05', '测试流程1.2', '1', '1', '1', '6', '2019-10-26');
+INSERT INTO `sp_progress_params_conf` VALUES ('24', '6', '25', '1001-05', '测试流程1.3', '2', '2', '1', '6', '2019-10-26');
+INSERT INTO `sp_progress_params_conf` VALUES ('25', '6', '25', '1001-05', '测试流程1.4', '1', '3', '1', '6', '2019-10-26');
+INSERT INTO `sp_progress_params_conf` VALUES ('26', '6', '25', '1001-05', '测试流程1.5', '2', '4', '1', '6', '2019-10-26');
+INSERT INTO `sp_progress_params_conf` VALUES ('27', '6', '25', '1001-05', '测试流程1.6', '1', '5', '1', '6', '2019-10-26');
+INSERT INTO `sp_progress_params_conf` VALUES ('28', '6', '2', '1001-01', '4这个测试流程字数比较多的情况', '1', '4', '1', '6', '2019-10-27');
+INSERT INTO `sp_progress_params_conf` VALUES ('29', '6', '2', '1001-01', '5这个不同步', '1', '5', '1', '6', '2019-10-27');
+INSERT INTO `sp_progress_params_conf` VALUES ('30', '6', '2', '1001-01', '6这个显示的是同步', '2', '6', '1', '6', '2019-10-27');
+INSERT INTO `sp_progress_params_conf` VALUES ('31', '6', '2', '1001-01', '7测试', '1', '7', '1', '6', '2019-10-27');
+INSERT INTO `sp_progress_params_conf` VALUES ('32', '6', '2', '1001-01', '8流程', '1', '8', '1', '6', '2019-10-27');
+INSERT INTO `sp_progress_params_conf` VALUES ('33', '6', '2', '1001-01', '9少', '1', '9', '1', '6', '2019-10-27');
+INSERT INTO `sp_progress_params_conf` VALUES ('34', '6', '2', '1001-01', '10', '1', '10', '1', '6', '2019-10-27');
+INSERT INTO `sp_progress_params_conf` VALUES ('35', '7', '5', '100201', '墙板组装', '1', '1', '1', '1', '2019-10-29');
+INSERT INTO `sp_progress_params_conf` VALUES ('36', '7', '5', '100201', '独立过梁组装', '1', '2', '1', '1', '2019-10-29');
+INSERT INTO `sp_progress_params_conf` VALUES ('37', '7', '5', '100201', '楼板梁组装', '1', '3', '1', '1', '2019-10-29');
+INSERT INTO `sp_progress_params_conf` VALUES ('38', '7', '5', '100201', '屋架组装', '1', '4', '1', '1', '2019-10-29');
+INSERT INTO `sp_progress_params_conf` VALUES ('39', '7', '5', '100201', '一层墙板安装', '1', '5', '1', '1', '2019-10-29');
+INSERT INTO `sp_progress_params_conf` VALUES ('40', '7', '5', '100201', '楼板梁安装', '1', '6', '1', '1', '2019-10-29');
+INSERT INTO `sp_progress_params_conf` VALUES ('41', '7', '5', '100201', '二层墙板安装', '1', '7', '1', '1', '2019-10-29');
+INSERT INTO `sp_progress_params_conf` VALUES ('42', '7', '5', '100201', '屋架安装', '1', '9', '1', '1', '2019-10-29');
+INSERT INTO `sp_progress_params_conf` VALUES ('43', '7', '5', '100201', '楼梯安装', '1', '10', '1', '1', '2019-10-29');
+INSERT INTO `sp_progress_params_conf` VALUES ('44', '7', '9', '100202', '墙板组装', '1', '1', '1', '1', '2019-10-29');
+INSERT INTO `sp_progress_params_conf` VALUES ('45', '7', '9', '100202', '独立过梁组装', '1', '2', '1', '1', '2019-10-29');
+INSERT INTO `sp_progress_params_conf` VALUES ('46', '7', '9', '100202', '楼板梁组装', '1', '3', '1', '1', '2019-10-29');
+INSERT INTO `sp_progress_params_conf` VALUES ('47', '7', '9', '100202', '屋架组装', '1', '4', '1', '1', '2019-10-29');
+INSERT INTO `sp_progress_params_conf` VALUES ('48', '7', '9', '100202', '一层墙板安装', '1', '5', '1', '1', '2019-10-29');
+INSERT INTO `sp_progress_params_conf` VALUES ('49', '7', '9', '100202', '楼板梁安装', '1', '6', '1', '1', '2019-10-29');
+INSERT INTO `sp_progress_params_conf` VALUES ('50', '7', '9', '100202', '二层墙板安装', '1', '7', '1', '1', '2019-10-29');
+INSERT INTO `sp_progress_params_conf` VALUES ('51', '7', '9', '100202', '屋架安装', '1', '9', '1', '1', '2019-10-29');
+INSERT INTO `sp_progress_params_conf` VALUES ('52', '7', '9', '100202', '楼梯安装', '1', '10', '1', '1', '2019-10-29');
+INSERT INTO `sp_progress_params_conf` VALUES ('53', '8', '6', '1003-1', '保温板铺装', '1', '4', '1', '1', '2019-10-29');
+INSERT INTO `sp_progress_params_conf` VALUES ('54', '8', '6', '1003-1', '竖向木龙骨安装', '1', '5', '1', '1', '2019-10-29');
+INSERT INTO `sp_progress_params_conf` VALUES ('55', '8', '6', '1003-1', '外墙板安装', '1', '6', '1', '1', '2019-10-29');
 
 -- ----------------------------
 -- Table structure for sp_project
@@ -1306,7 +1533,7 @@ CREATE TABLE `sp_project` (
   KEY `design_username` (`design_username`(191)) USING BTREE,
   KEY `budget_username` (`budget_username`(191)) USING BTREE,
   KEY `technical_username` (`technical_username`(191)) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sp_project
@@ -1333,7 +1560,7 @@ CREATE TABLE `sp_purchase` (
   KEY `project_id` (`project_id`,`engin_id`,`budget_id`) USING BTREE,
   KEY `engin_id` (`engin_id`,`budget_id`) USING BTREE,
   KEY `created_at` (`created_at`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sp_purchase
@@ -1370,7 +1597,7 @@ CREATE TABLE `sp_purchase_batch` (
   PRIMARY KEY (`id`),
   KEY `project_id` (`project_id`,`engin_id`,`purchase_id`) USING BTREE,
   KEY `engin_id` (`engin_id`,`purchase_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sp_purchase_batch
@@ -1395,7 +1622,7 @@ CREATE TABLE `sp_purchase_batch_relation_material` (
   KEY `project_id` (`project_id`,`engin_id`,`batch_id`) USING BTREE,
   KEY `engin_id` (`engin_id`,`batch_id`,`budget_id`) USING BTREE,
   KEY `engin_id_2` (`engin_id`,`budget_item_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sp_purchase_batch_relation_material
@@ -1466,7 +1693,7 @@ CREATE TABLE `sp_purchase_order` (
   KEY `project_id` (`project_id`,`engin_id`,`purchase_id`) USING BTREE,
   KEY `engin_id` (`engin_id`,`batch_id`) USING BTREE,
   KEY `engin_id_2` (`engin_id`,`purchase_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sp_purchase_order
@@ -1510,7 +1737,7 @@ CREATE TABLE `sp_purchase_order_item` (
   KEY `engin_id_3` (`engin_id`,`budget_item_id`) USING BTREE,
   KEY `engin_id_4` (`engin_id`,`sub_arch_id`) USING BTREE,
   KEY `engin_id_5` (`engin_id`,`arch_id`,`sub_arch_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sp_purchase_order_item
@@ -1721,1756 +1948,6 @@ INSERT INTO `sp_role_authority` VALUES ('1693', '14', '200203', '2002', '3', '1'
 INSERT INTO `sp_role_authority` VALUES ('1694', '14', '200204', '2002', '3', '1', '1', '2019-07-22 11:27:31', '2019-07-22 11:27:31');
 INSERT INTO `sp_role_authority` VALUES ('1695', '14', '200205', '2002', '3', '1', '1', '2019-07-22 11:27:31', '2019-07-22 11:27:31');
 INSERT INTO `sp_role_authority` VALUES ('1696', '14', '200206', '2002', '3', '1', '1', '2019-07-22 11:27:31', '2019-07-22 11:27:31');
-INSERT INTO `sp_role_authority` VALUES ('5125', '2', '10', '0', '1', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5126', '2', '1001', '10', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5127', '2', '100101', '1001', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5128', '2', '100102', '1001', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5129', '2', '100103', '1001', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5130', '2', '100105', '1001', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5131', '2', '1002', '10', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5132', '2', '100201', '1002', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5133', '2', '100202', '1002', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5134', '2', '100203', '1002', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5135', '2', '100204', '1002', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5136', '2', '100205', '1002', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5137', '2', '1003', '10', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5138', '2', '100301', '1003', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5139', '2', '100302', '1003', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5140', '2', '100303', '1003', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5141', '2', '1004', '10', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5142', '2', '100401', '1004', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5143', '2', '1005', '10', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5144', '2', '1006', '10', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5145', '2', '100601', '1006', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5146', '2', '100602', '1006', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5147', '2', '100603', '1006', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5148', '2', '15', '0', '1', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5149', '2', '1501', '15', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5150', '2', '1502', '15', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5151', '2', '150201', '1502', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5152', '2', '150202', '1502', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5153', '2', '150203', '1502', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5154', '2', '1503', '15', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5155', '2', '150301', '1503', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5156', '2', '150302', '1503', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5157', '2', '150303', '1503', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5158', '2', '1504', '15', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5159', '2', '150401', '1504', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5160', '2', '150402', '1504', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5161', '2', '1505', '15', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5162', '2', '150501', '1505', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5163', '2', '150502', '1505', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5164', '2', '20', '0', '1', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5165', '2', '2001', '20', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5166', '2', '200101', '2001', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5167', '2', '20010101', '200101', '4', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5168', '2', '20010102', '200101', '4', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5169', '2', '200102', '2001', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5170', '2', '20010201', '200102', '4', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5171', '2', '20010202', '200102', '4', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5172', '2', '200103', '2001', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5173', '2', '20010301', '200103', '4', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5174', '2', '200104', '2001', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5175', '2', '20010401', '200104', '4', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5176', '2', '2002', '20', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5177', '2', '200201', '2002', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5178', '2', '20020101', '200201', '4', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5179', '2', '20020102', '200201', '4', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5180', '2', '200202', '2002', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5181', '2', '20020201', '200202', '4', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5182', '2', '20020202', '200202', '4', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5183', '2', '200203', '2002', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5184', '2', '20020301', '200203', '4', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5185', '2', '200204', '2002', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5186', '2', '20020401', '200204', '4', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5187', '2', '25', '0', '1', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5188', '2', '2501', '25', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5189', '2', '250101', '2501', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5190', '2', '250102', '2501', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5191', '2', '250103', '2501', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5192', '2', '25010301', '250103', '4', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5193', '2', '25010302', '250103', '4', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5194', '2', '25010303', '250103', '4', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5195', '2', '25010304', '250103', '4', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5196', '2', '25010306', '250103', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5197', '2', '250104', '2501', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5198', '2', '25010401', '250104', '4', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5199', '2', '25010402', '250104', '4', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5200', '2', '25010403', '250104', '4', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5201', '2', '2502', '25', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5202', '2', '250202', '2502', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5203', '2', '250203', '2502', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5204', '2', '250204', '2502', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5205', '2', '30', '0', '1', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5206', '2', '3001', '30', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5207', '2', '3002', '30', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5208', '2', '35', '0', '1', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5209', '2', '3500', '35', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5210', '2', '350001', '3500', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5211', '2', '35000101', '350001', '4', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5212', '2', '35000102', '350001', '4', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5213', '2', '350002', '3500', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5214', '2', '35000201', '350002', '4', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5215', '2', '35000202', '350002', '4', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5216', '2', '350003', '3500', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5217', '2', '35000301', '350003', '4', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5218', '2', '350004', '3500', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5219', '2', '35000401', '350004', '4', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5220', '2', '3501', '35', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5221', '2', '350101', '3501', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5222', '2', '350102', '3501', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5223', '2', '350103', '3501', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5224', '2', '350104', '3501', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5225', '2', '3502', '35', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5226', '2', '350201', '3502', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5227', '2', '350202', '3502', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5228', '2', '40', '0', '1', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5229', '2', '4001', '40', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5230', '2', '4002', '40', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5231', '2', '4003', '40', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5232', '2', '45', '0', '1', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5233', '2', '4501', '45', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5234', '2', '450101', '4501', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5235', '2', '450102', '4501', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5236', '2', '450103', '4501', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5237', '2', '4502', '45', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5238', '2', '450201', '4502', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5239', '2', '450202', '4502', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5240', '2', '450203', '4502', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5241', '2', '50', '0', '1', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5242', '2', '5001', '50', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5243', '2', '500101', '5001', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5244', '2', '5002', '50', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5245', '2', '500201', '5002', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5246', '2', '5003', '50', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5247', '2', '500301', '5003', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5248', '2', '55', '0', '1', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5249', '2', '5501', '55', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5250', '2', '5502', '55', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5251', '2', '5503', '55', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5252', '2', '5504', '55', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5253', '2', '60', '0', '1', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5254', '2', '6002', '60', '2', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5255', '2', '600201', '6002', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5256', '2', '600202', '6002', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5257', '2', '600203', '6002', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5258', '2', '600204', '6002', '3', '0', '6', '2019-09-21 16:49:11', '2019-10-16 15:49:13');
-INSERT INTO `sp_role_authority` VALUES ('5259', '1', '10', '0', '1', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5260', '1', '1001', '10', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5261', '1', '100101', '1001', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5262', '1', '100102', '1001', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5263', '1', '100103', '1001', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5264', '1', '100105', '1001', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5265', '1', '1002', '10', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5266', '1', '100201', '1002', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5267', '1', '100202', '1002', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5268', '1', '100203', '1002', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5269', '1', '100204', '1002', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5270', '1', '100205', '1002', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5271', '1', '1003', '10', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5272', '1', '100301', '1003', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5273', '1', '100302', '1003', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5274', '1', '100303', '1003', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5275', '1', '1004', '10', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5276', '1', '100401', '1004', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5277', '1', '1005', '10', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5278', '1', '1006', '10', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5279', '1', '100601', '1006', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5280', '1', '100602', '1006', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5281', '1', '100603', '1006', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5282', '1', '15', '0', '1', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5283', '1', '1501', '15', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5284', '1', '1502', '15', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5285', '1', '150201', '1502', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5286', '1', '150202', '1502', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5287', '1', '150203', '1502', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5288', '1', '1503', '15', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5289', '1', '150301', '1503', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5290', '1', '150302', '1503', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5291', '1', '150303', '1503', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5292', '1', '1504', '15', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5293', '1', '150401', '1504', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5294', '1', '150402', '1504', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5295', '1', '1505', '15', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5296', '1', '150501', '1505', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5297', '1', '150502', '1505', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5298', '1', '20', '0', '1', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5299', '1', '2001', '20', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5300', '1', '200101', '2001', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5301', '1', '20010101', '200101', '4', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5302', '1', '20010102', '200101', '4', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5303', '1', '200102', '2001', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5304', '1', '20010201', '200102', '4', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5305', '1', '20010202', '200102', '4', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5306', '1', '200103', '2001', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5307', '1', '20010301', '200103', '4', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5308', '1', '200104', '2001', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5309', '1', '20010401', '200104', '4', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5310', '1', '2002', '20', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5311', '1', '200201', '2002', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5312', '1', '20020101', '200201', '4', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5313', '1', '20020102', '200201', '4', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5314', '1', '200202', '2002', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5315', '1', '20020201', '200202', '4', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5316', '1', '20020202', '200202', '4', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5317', '1', '200203', '2002', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5318', '1', '20020301', '200203', '4', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5319', '1', '200204', '2002', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5320', '1', '20020401', '200204', '4', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5321', '1', '25', '0', '1', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5322', '1', '2501', '25', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5323', '1', '250101', '2501', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5324', '1', '250102', '2501', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5325', '1', '250103', '2501', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5326', '1', '250104', '2501', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5327', '1', '2502', '25', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5328', '1', '30', '0', '1', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5329', '1', '3001', '30', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5330', '1', '3002', '30', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5331', '1', '35', '0', '1', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5332', '1', '3500', '35', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5333', '1', '350001', '3500', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5334', '1', '35000101', '350001', '4', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5335', '1', '35000102', '350001', '4', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5336', '1', '350002', '3500', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5337', '1', '35000201', '350002', '4', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5338', '1', '35000202', '350002', '4', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5339', '1', '350003', '3500', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5340', '1', '35000301', '350003', '4', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5341', '1', '350004', '3500', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5342', '1', '35000401', '350004', '4', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5343', '1', '3501', '35', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5344', '1', '350101', '3501', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5345', '1', '350102', '3501', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5346', '1', '350103', '3501', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5347', '1', '350104', '3501', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5348', '1', '3502', '35', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5349', '1', '350201', '3502', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5350', '1', '350202', '3502', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5351', '1', '40', '0', '1', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5352', '1', '4001', '40', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5353', '1', '4002', '40', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5354', '1', '4003', '40', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5355', '1', '45', '0', '1', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5356', '1', '4501', '45', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5357', '1', '450101', '4501', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5358', '1', '450102', '4501', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5359', '1', '450103', '4501', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5360', '1', '4502', '45', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5361', '1', '450201', '4502', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5362', '1', '450202', '4502', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5363', '1', '450203', '4502', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5364', '1', '50', '0', '1', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5365', '1', '5001', '50', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5366', '1', '5002', '50', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5367', '1', '5003', '50', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5368', '1', '55', '0', '1', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5369', '1', '5501', '55', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5370', '1', '5502', '55', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5371', '1', '5503', '55', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5372', '1', '5504', '55', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5373', '1', '60', '0', '1', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5374', '1', '6002', '60', '2', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5375', '1', '600201', '6002', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5376', '1', '600202', '6002', '3', '0', '1', '2019-09-28 10:05:11', '2019-10-11 13:58:38');
-INSERT INTO `sp_role_authority` VALUES ('5377', '1', '10', '0', '1', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5378', '1', '1001', '10', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5379', '1', '100101', '1001', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5380', '1', '100102', '1001', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5381', '1', '100103', '1001', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5382', '1', '100105', '1001', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5383', '1', '1002', '10', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5384', '1', '100201', '1002', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5385', '1', '100202', '1002', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5386', '1', '100203', '1002', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5387', '1', '100204', '1002', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5388', '1', '100205', '1002', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5389', '1', '1003', '10', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5390', '1', '100301', '1003', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5391', '1', '100302', '1003', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5392', '1', '100303', '1003', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5393', '1', '1004', '10', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5394', '1', '100401', '1004', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5395', '1', '1005', '10', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5396', '1', '1006', '10', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5397', '1', '100601', '1006', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5398', '1', '100602', '1006', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5399', '1', '100603', '1006', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5400', '1', '15', '0', '1', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5401', '1', '1501', '15', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5402', '1', '1502', '15', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5403', '1', '150201', '1502', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5404', '1', '150202', '1502', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5405', '1', '150203', '1502', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5406', '1', '1503', '15', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5407', '1', '150301', '1503', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5408', '1', '150302', '1503', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5409', '1', '150303', '1503', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5410', '1', '1504', '15', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5411', '1', '150401', '1504', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5412', '1', '150402', '1504', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5413', '1', '1505', '15', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5414', '1', '150501', '1505', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5415', '1', '150502', '1505', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5416', '1', '20', '0', '1', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5417', '1', '2001', '20', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5418', '1', '200101', '2001', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5419', '1', '20010101', '200101', '4', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5420', '1', '20010102', '200101', '4', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5421', '1', '200102', '2001', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5422', '1', '20010201', '200102', '4', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5423', '1', '20010202', '200102', '4', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5424', '1', '200103', '2001', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5425', '1', '20010301', '200103', '4', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5426', '1', '200104', '2001', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5427', '1', '20010401', '200104', '4', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5428', '1', '2002', '20', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5429', '1', '200201', '2002', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5430', '1', '20020101', '200201', '4', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5431', '1', '20020102', '200201', '4', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5432', '1', '200202', '2002', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5433', '1', '20020201', '200202', '4', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5434', '1', '20020202', '200202', '4', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5435', '1', '200203', '2002', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5436', '1', '20020301', '200203', '4', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5437', '1', '200204', '2002', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5438', '1', '20020401', '200204', '4', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5439', '1', '25', '0', '1', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5440', '1', '2501', '25', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5441', '1', '250101', '2501', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5442', '1', '250102', '2501', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5443', '1', '250103', '2501', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5444', '1', '25010301', '250103', '4', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5445', '1', '25010302', '250103', '4', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5446', '1', '25010303', '250103', '4', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5447', '1', '25010304', '250103', '4', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5448', '1', '25010306', '250103', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5449', '1', '250104', '2501', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5450', '1', '25010401', '250104', '4', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5451', '1', '25010402', '250104', '4', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5452', '1', '25010403', '250104', '4', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5453', '1', '2502', '25', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5454', '1', '250202', '2502', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5455', '1', '250203', '2502', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5456', '1', '250204', '2502', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5457', '1', '30', '0', '1', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5458', '1', '3001', '30', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5459', '1', '3002', '30', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5460', '1', '35', '0', '1', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5461', '1', '3500', '35', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5462', '1', '350001', '3500', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5463', '1', '35000101', '350001', '4', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5464', '1', '35000102', '350001', '4', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5465', '1', '350002', '3500', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5466', '1', '35000201', '350002', '4', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5467', '1', '35000202', '350002', '4', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5468', '1', '350003', '3500', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5469', '1', '35000301', '350003', '4', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5470', '1', '350004', '3500', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5471', '1', '35000401', '350004', '4', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5472', '1', '3501', '35', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5473', '1', '350101', '3501', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5474', '1', '350102', '3501', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5475', '1', '350103', '3501', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5476', '1', '350104', '3501', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5477', '1', '3502', '35', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5478', '1', '350201', '3502', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5479', '1', '350202', '3502', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5480', '1', '40', '0', '1', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5481', '1', '4001', '40', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5482', '1', '4002', '40', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5483', '1', '4003', '40', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5484', '1', '45', '0', '1', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5485', '1', '4501', '45', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5486', '1', '450101', '4501', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5487', '1', '450102', '4501', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5488', '1', '450103', '4501', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5489', '1', '4502', '45', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5490', '1', '450201', '4502', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5491', '1', '450202', '4502', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5492', '1', '450203', '4502', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5493', '1', '50', '0', '1', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5494', '1', '5001', '50', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5495', '1', '5002', '50', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5496', '1', '5003', '50', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5497', '1', '55', '0', '1', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5498', '1', '5501', '55', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5499', '1', '5502', '55', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5500', '1', '5503', '55', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5501', '1', '5504', '55', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5502', '1', '60', '0', '1', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5503', '1', '6002', '60', '2', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5504', '1', '600201', '6002', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5505', '1', '600202', '6002', '3', '0', '1', '2019-10-11 13:58:38', '2019-10-23 10:57:17');
-INSERT INTO `sp_role_authority` VALUES ('5506', '2', '10', '0', '1', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5507', '2', '1001', '10', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5508', '2', '100101', '1001', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5509', '2', '100102', '1001', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5510', '2', '100103', '1001', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5511', '2', '100105', '1001', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5512', '2', '1002', '10', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5513', '2', '100201', '1002', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5514', '2', '100202', '1002', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5515', '2', '100203', '1002', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5516', '2', '100204', '1002', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5517', '2', '100205', '1002', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5518', '2', '1003', '10', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5519', '2', '100301', '1003', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5520', '2', '100302', '1003', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5521', '2', '100303', '1003', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5522', '2', '1004', '10', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5523', '2', '100401', '1004', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5524', '2', '1005', '10', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5525', '2', '1006', '10', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5526', '2', '100601', '1006', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5527', '2', '100602', '1006', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5528', '2', '100603', '1006', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5529', '2', '15', '0', '1', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5530', '2', '1501', '15', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5531', '2', '1502', '15', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5532', '2', '150201', '1502', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5533', '2', '150202', '1502', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5534', '2', '150203', '1502', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5535', '2', '1503', '15', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5536', '2', '150301', '1503', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5537', '2', '150302', '1503', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5538', '2', '150303', '1503', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5539', '2', '1504', '15', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5540', '2', '150401', '1504', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5541', '2', '150402', '1504', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5542', '2', '1505', '15', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5543', '2', '150501', '1505', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5544', '2', '150502', '1505', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5545', '2', '20', '0', '1', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5546', '2', '2001', '20', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5547', '2', '200101', '2001', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5548', '2', '20010101', '200101', '4', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5549', '2', '20010102', '200101', '4', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5550', '2', '200102', '2001', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5551', '2', '20010201', '200102', '4', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5552', '2', '20010202', '200102', '4', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5553', '2', '200103', '2001', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5554', '2', '20010301', '200103', '4', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5555', '2', '200104', '2001', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5556', '2', '20010401', '200104', '4', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5557', '2', '2002', '20', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5558', '2', '200201', '2002', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5559', '2', '20020101', '200201', '4', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5560', '2', '20020102', '200201', '4', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5561', '2', '200202', '2002', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5562', '2', '20020201', '200202', '4', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5563', '2', '20020202', '200202', '4', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5564', '2', '200203', '2002', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5565', '2', '20020301', '200203', '4', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5566', '2', '200204', '2002', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5567', '2', '20020401', '200204', '4', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5568', '2', '25', '0', '1', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5569', '2', '2501', '25', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5570', '2', '250101', '2501', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5571', '2', '250102', '2501', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5572', '2', '250103', '2501', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5573', '2', '25010301', '250103', '4', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5574', '2', '25010302', '250103', '4', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5575', '2', '25010303', '250103', '4', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5576', '2', '25010304', '250103', '4', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5577', '2', '25010306', '250103', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5578', '2', '250104', '2501', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5579', '2', '25010401', '250104', '4', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5580', '2', '25010402', '250104', '4', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5581', '2', '25010403', '250104', '4', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5582', '2', '2502', '25', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5583', '2', '250202', '2502', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5584', '2', '250203', '2502', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5585', '2', '250204', '2502', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5586', '2', '30', '0', '1', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5587', '2', '3001', '30', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5588', '2', '3002', '30', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5589', '2', '35', '0', '1', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5590', '2', '3500', '35', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5591', '2', '350001', '3500', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5592', '2', '35000101', '350001', '4', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5593', '2', '35000102', '350001', '4', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5594', '2', '350002', '3500', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5595', '2', '35000201', '350002', '4', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5596', '2', '35000202', '350002', '4', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5597', '2', '350003', '3500', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5598', '2', '35000301', '350003', '4', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5599', '2', '350004', '3500', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5600', '2', '35000401', '350004', '4', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5601', '2', '3501', '35', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5602', '2', '350101', '3501', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5603', '2', '350102', '3501', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5604', '2', '350103', '3501', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5605', '2', '350104', '3501', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5606', '2', '3502', '35', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5607', '2', '350201', '3502', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5608', '2', '350202', '3502', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5609', '2', '40', '0', '1', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5610', '2', '4001', '40', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5611', '2', '4002', '40', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5612', '2', '4003', '40', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5613', '2', '45', '0', '1', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5614', '2', '4501', '45', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5615', '2', '450101', '4501', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5616', '2', '450102', '4501', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5617', '2', '450103', '4501', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5618', '2', '4502', '45', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5619', '2', '450201', '4502', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5620', '2', '450202', '4502', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5621', '2', '450203', '4502', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5622', '2', '50', '0', '1', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5623', '2', '5001', '50', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5624', '2', '500101', '5001', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5625', '2', '5002', '50', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5626', '2', '500201', '5002', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5627', '2', '5003', '50', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5628', '2', '500301', '5003', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5629', '2', '55', '0', '1', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5630', '2', '5501', '55', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5631', '2', '5502', '55', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5632', '2', '5503', '55', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5633', '2', '5504', '55', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5634', '2', '60', '0', '1', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5635', '2', '6002', '60', '2', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5636', '2', '600201', '6002', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5637', '2', '600202', '6002', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5638', '2', '600203', '6002', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5639', '2', '600204', '6002', '3', '0', '6', '2019-10-16 15:49:13', '2019-10-19 17:43:42');
-INSERT INTO `sp_role_authority` VALUES ('5640', '2', '10', '0', '1', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5641', '2', '1001', '10', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5642', '2', '100101', '1001', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5643', '2', '100102', '1001', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5644', '2', '100103', '1001', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5645', '2', '100105', '1001', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5646', '2', '1002', '10', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5647', '2', '100201', '1002', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5648', '2', '100202', '1002', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5649', '2', '100203', '1002', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5650', '2', '100204', '1002', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5651', '2', '100205', '1002', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5652', '2', '1003', '10', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5653', '2', '100301', '1003', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5654', '2', '100302', '1003', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5655', '2', '100303', '1003', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5656', '2', '1004', '10', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5657', '2', '100401', '1004', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5658', '2', '1005', '10', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5659', '2', '1006', '10', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5660', '2', '100601', '1006', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5661', '2', '100602', '1006', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5662', '2', '100603', '1006', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5663', '2', '15', '0', '1', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5664', '2', '1501', '15', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5665', '2', '1502', '15', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5666', '2', '150201', '1502', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5667', '2', '150202', '1502', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5668', '2', '150203', '1502', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5669', '2', '1503', '15', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5670', '2', '150301', '1503', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5671', '2', '150302', '1503', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5672', '2', '150303', '1503', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5673', '2', '1504', '15', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5674', '2', '150401', '1504', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5675', '2', '150402', '1504', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5676', '2', '1505', '15', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5677', '2', '150501', '1505', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5678', '2', '150502', '1505', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5679', '2', '20', '0', '1', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5680', '2', '2001', '20', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5681', '2', '200101', '2001', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5682', '2', '20010101', '200101', '4', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5683', '2', '20010102', '200101', '4', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5684', '2', '200102', '2001', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5685', '2', '20010201', '200102', '4', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5686', '2', '20010202', '200102', '4', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5687', '2', '200103', '2001', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5688', '2', '20010301', '200103', '4', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5689', '2', '200104', '2001', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5690', '2', '20010401', '200104', '4', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5691', '2', '2002', '20', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5692', '2', '200201', '2002', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5693', '2', '20020101', '200201', '4', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5694', '2', '20020102', '200201', '4', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5695', '2', '200202', '2002', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5696', '2', '20020201', '200202', '4', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5697', '2', '20020202', '200202', '4', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5698', '2', '200203', '2002', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5699', '2', '20020301', '200203', '4', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5700', '2', '200204', '2002', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5701', '2', '20020401', '200204', '4', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5702', '2', '25', '0', '1', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5703', '2', '2501', '25', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5704', '2', '250101', '2501', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5705', '2', '250102', '2501', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5706', '2', '250103', '2501', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5707', '2', '25010301', '250103', '4', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5708', '2', '25010302', '250103', '4', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5709', '2', '25010303', '250103', '4', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5710', '2', '25010304', '250103', '4', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5711', '2', '25010306', '250103', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5712', '2', '250104', '2501', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5713', '2', '25010401', '250104', '4', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5714', '2', '25010402', '250104', '4', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5715', '2', '25010403', '250104', '4', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5716', '2', '2502', '25', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5717', '2', '250202', '2502', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5718', '2', '250203', '2502', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5719', '2', '250204', '2502', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5720', '2', '30', '0', '1', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5721', '2', '3001', '30', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5722', '2', '300101', '3001', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5723', '2', '300102', '3001', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5724', '2', '300103', '3001', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5725', '2', '3002', '30', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5726', '2', '35', '0', '1', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5727', '2', '3500', '35', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5728', '2', '350001', '3500', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5729', '2', '35000101', '350001', '4', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5730', '2', '35000102', '350001', '4', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5731', '2', '350002', '3500', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5732', '2', '35000201', '350002', '4', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5733', '2', '35000202', '350002', '4', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5734', '2', '350003', '3500', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5735', '2', '35000301', '350003', '4', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5736', '2', '350004', '3500', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5737', '2', '35000401', '350004', '4', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5738', '2', '3501', '35', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5739', '2', '350101', '3501', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5740', '2', '350102', '3501', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5741', '2', '350103', '3501', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5742', '2', '350104', '3501', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5743', '2', '3502', '35', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5744', '2', '350201', '3502', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5745', '2', '350202', '3502', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5746', '2', '40', '0', '1', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5747', '2', '4001', '40', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5748', '2', '4002', '40', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5749', '2', '4003', '40', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5750', '2', '45', '0', '1', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5751', '2', '4501', '45', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5752', '2', '450101', '4501', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5753', '2', '450102', '4501', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5754', '2', '450103', '4501', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5755', '2', '4502', '45', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5756', '2', '450201', '4502', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5757', '2', '450202', '4502', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5758', '2', '450203', '4502', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5759', '2', '50', '0', '1', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5760', '2', '5001', '50', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5761', '2', '500101', '5001', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5762', '2', '5002', '50', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5763', '2', '500201', '5002', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5764', '2', '5003', '50', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5765', '2', '500301', '5003', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5766', '2', '55', '0', '1', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5767', '2', '5501', '55', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5768', '2', '5502', '55', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5769', '2', '5503', '55', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5770', '2', '5504', '55', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5771', '2', '60', '0', '1', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5772', '2', '6002', '60', '2', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5773', '2', '600201', '6002', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5774', '2', '600202', '6002', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5775', '2', '600203', '6002', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5776', '2', '600204', '6002', '3', '0', '6', '2019-10-19 17:43:42', '2019-10-25 14:56:34');
-INSERT INTO `sp_role_authority` VALUES ('5777', '1', '10', '0', '1', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5778', '1', '1001', '10', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5779', '1', '100101', '1001', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5780', '1', '100102', '1001', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5781', '1', '100103', '1001', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5782', '1', '100105', '1001', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5783', '1', '1002', '10', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5784', '1', '100201', '1002', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5785', '1', '100202', '1002', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5786', '1', '100203', '1002', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5787', '1', '100204', '1002', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5788', '1', '100205', '1002', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5789', '1', '1003', '10', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5790', '1', '100301', '1003', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5791', '1', '100302', '1003', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5792', '1', '100303', '1003', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5793', '1', '1004', '10', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5794', '1', '100401', '1004', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5795', '1', '1005', '10', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5796', '1', '1006', '10', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5797', '1', '100601', '1006', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5798', '1', '100602', '1006', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5799', '1', '100603', '1006', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5800', '1', '15', '0', '1', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5801', '1', '1501', '15', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5802', '1', '1502', '15', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5803', '1', '150201', '1502', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5804', '1', '150202', '1502', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5805', '1', '150203', '1502', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5806', '1', '1503', '15', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5807', '1', '150301', '1503', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5808', '1', '150302', '1503', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5809', '1', '150303', '1503', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5810', '1', '1504', '15', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5811', '1', '150401', '1504', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5812', '1', '150402', '1504', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5813', '1', '1505', '15', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5814', '1', '150501', '1505', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5815', '1', '150502', '1505', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5816', '1', '20', '0', '1', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5817', '1', '2001', '20', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5818', '1', '200101', '2001', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5819', '1', '20010101', '200101', '4', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5820', '1', '20010102', '200101', '4', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5821', '1', '200102', '2001', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5822', '1', '20010201', '200102', '4', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5823', '1', '20010202', '200102', '4', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5824', '1', '200103', '2001', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5825', '1', '20010301', '200103', '4', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5826', '1', '200104', '2001', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5827', '1', '20010401', '200104', '4', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5828', '1', '2002', '20', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5829', '1', '200201', '2002', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5830', '1', '20020101', '200201', '4', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5831', '1', '20020102', '200201', '4', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5832', '1', '200202', '2002', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5833', '1', '20020201', '200202', '4', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5834', '1', '20020202', '200202', '4', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5835', '1', '200203', '2002', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5836', '1', '20020301', '200203', '4', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5837', '1', '200204', '2002', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5838', '1', '20020401', '200204', '4', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5839', '1', '25', '0', '1', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5840', '1', '2501', '25', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5841', '1', '250101', '2501', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5842', '1', '250102', '2501', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5843', '1', '250103', '2501', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5844', '1', '25010301', '250103', '4', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5845', '1', '25010302', '250103', '4', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5846', '1', '25010303', '250103', '4', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5847', '1', '25010304', '250103', '4', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5848', '1', '25010306', '250103', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5849', '1', '250104', '2501', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5850', '1', '25010401', '250104', '4', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5851', '1', '25010402', '250104', '4', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5852', '1', '25010403', '250104', '4', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5853', '1', '2502', '25', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5854', '1', '250202', '2502', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5855', '1', '250203', '2502', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5856', '1', '250204', '2502', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5857', '1', '30', '0', '1', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5858', '1', '3001', '30', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5859', '1', '300101', '3001', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5860', '1', '300102', '3001', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5861', '1', '300103', '3001', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5862', '1', '3002', '30', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5863', '1', '35', '0', '1', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5864', '1', '3500', '35', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5865', '1', '350001', '3500', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5866', '1', '35000101', '350001', '4', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5867', '1', '35000102', '350001', '4', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5868', '1', '350002', '3500', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5869', '1', '35000201', '350002', '4', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5870', '1', '35000202', '350002', '4', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5871', '1', '350003', '3500', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5872', '1', '35000301', '350003', '4', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5873', '1', '350004', '3500', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5874', '1', '35000401', '350004', '4', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5875', '1', '3501', '35', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5876', '1', '350101', '3501', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5877', '1', '350102', '3501', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5878', '1', '350103', '3501', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5879', '1', '350104', '3501', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5880', '1', '3502', '35', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5881', '1', '350201', '3502', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5882', '1', '350202', '3502', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5883', '1', '40', '0', '1', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5884', '1', '4001', '40', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5885', '1', '4002', '40', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5886', '1', '4003', '40', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5887', '1', '45', '0', '1', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5888', '1', '4501', '45', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5889', '1', '450101', '4501', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5890', '1', '450102', '4501', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5891', '1', '450103', '4501', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5892', '1', '4502', '45', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5893', '1', '450201', '4502', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5894', '1', '450202', '4502', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5895', '1', '450203', '4502', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5896', '1', '50', '0', '1', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5897', '1', '5001', '50', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5898', '1', '5002', '50', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5899', '1', '5003', '50', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5900', '1', '55', '0', '1', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5901', '1', '5501', '55', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5902', '1', '5502', '55', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5903', '1', '5503', '55', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5904', '1', '5504', '55', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5905', '1', '60', '0', '1', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5906', '1', '6002', '60', '2', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5907', '1', '600201', '6002', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5908', '1', '600202', '6002', '3', '0', '6', '2019-10-23 10:57:17', '2019-10-25 19:20:23');
-INSERT INTO `sp_role_authority` VALUES ('5909', '2', '10', '0', '1', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5910', '2', '1001', '10', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5911', '2', '100101', '1001', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5912', '2', '100102', '1001', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5913', '2', '100103', '1001', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5914', '2', '100105', '1001', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5915', '2', '1002', '10', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5916', '2', '100201', '1002', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5917', '2', '100202', '1002', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5918', '2', '100203', '1002', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5919', '2', '100204', '1002', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5920', '2', '100205', '1002', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5921', '2', '1003', '10', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5922', '2', '100301', '1003', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5923', '2', '100302', '1003', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5924', '2', '100303', '1003', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5925', '2', '1004', '10', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5926', '2', '100401', '1004', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5927', '2', '1005', '10', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5928', '2', '1006', '10', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5929', '2', '100601', '1006', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5930', '2', '100602', '1006', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5931', '2', '100603', '1006', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5932', '2', '15', '0', '1', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5933', '2', '1501', '15', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5934', '2', '1502', '15', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5935', '2', '150201', '1502', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5936', '2', '150202', '1502', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5937', '2', '150203', '1502', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5938', '2', '1503', '15', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5939', '2', '150301', '1503', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5940', '2', '150302', '1503', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5941', '2', '150303', '1503', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5942', '2', '1504', '15', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5943', '2', '150401', '1504', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5944', '2', '150402', '1504', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5945', '2', '1505', '15', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5946', '2', '150501', '1505', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5947', '2', '150502', '1505', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5948', '2', '20', '0', '1', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5949', '2', '2001', '20', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5950', '2', '200101', '2001', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5951', '2', '20010101', '200101', '4', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5952', '2', '20010102', '200101', '4', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5953', '2', '200102', '2001', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5954', '2', '20010201', '200102', '4', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5955', '2', '20010202', '200102', '4', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5956', '2', '200103', '2001', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5957', '2', '20010301', '200103', '4', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5958', '2', '200104', '2001', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5959', '2', '20010401', '200104', '4', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5960', '2', '2002', '20', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5961', '2', '200201', '2002', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5962', '2', '20020101', '200201', '4', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5963', '2', '20020102', '200201', '4', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5964', '2', '200202', '2002', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5965', '2', '20020201', '200202', '4', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5966', '2', '20020202', '200202', '4', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5967', '2', '200203', '2002', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5968', '2', '20020301', '200203', '4', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5969', '2', '200204', '2002', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5970', '2', '20020401', '200204', '4', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5971', '2', '25', '0', '1', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5972', '2', '2501', '25', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5973', '2', '250101', '2501', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5974', '2', '250102', '2501', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5975', '2', '250103', '2501', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5976', '2', '25010301', '250103', '4', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5977', '2', '25010302', '250103', '4', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5978', '2', '25010303', '250103', '4', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5979', '2', '25010304', '250103', '4', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5980', '2', '25010306', '250103', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5981', '2', '250104', '2501', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5982', '2', '25010401', '250104', '4', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5983', '2', '25010402', '250104', '4', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5984', '2', '25010403', '250104', '4', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5985', '2', '2502', '25', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5986', '2', '250202', '2502', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5987', '2', '250203', '2502', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5988', '2', '250204', '2502', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5989', '2', '30', '0', '1', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5990', '2', '3001', '30', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5991', '2', '300101', '3001', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5992', '2', '300102', '3001', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5993', '2', '300103', '3001', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5994', '2', '3002', '30', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5995', '2', '3003', '30', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5996', '2', '35', '0', '1', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5997', '2', '3500', '35', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5998', '2', '350001', '3500', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('5999', '2', '35000101', '350001', '4', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6000', '2', '35000102', '350001', '4', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6001', '2', '350002', '3500', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6002', '2', '35000201', '350002', '4', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6003', '2', '35000202', '350002', '4', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6004', '2', '350003', '3500', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6005', '2', '35000301', '350003', '4', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6006', '2', '350004', '3500', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6007', '2', '35000401', '350004', '4', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6008', '2', '3501', '35', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6009', '2', '350101', '3501', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6010', '2', '350102', '3501', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6011', '2', '350103', '3501', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6012', '2', '350104', '3501', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6013', '2', '3502', '35', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6014', '2', '350201', '3502', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6015', '2', '350202', '3502', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6016', '2', '40', '0', '1', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6017', '2', '4001', '40', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6018', '2', '4002', '40', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6019', '2', '4003', '40', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6020', '2', '45', '0', '1', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6021', '2', '4501', '45', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6022', '2', '450101', '4501', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6023', '2', '450102', '4501', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6024', '2', '450103', '4501', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6025', '2', '4502', '45', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6026', '2', '450201', '4502', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6027', '2', '450202', '4502', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6028', '2', '450203', '4502', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6029', '2', '50', '0', '1', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6030', '2', '5001', '50', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6031', '2', '500101', '5001', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6032', '2', '5002', '50', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6033', '2', '500201', '5002', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6034', '2', '5003', '50', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6035', '2', '500301', '5003', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6036', '2', '55', '0', '1', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6037', '2', '5501', '55', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6038', '2', '5502', '55', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6039', '2', '5503', '55', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6040', '2', '5504', '55', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6041', '2', '60', '0', '1', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6042', '2', '6002', '60', '2', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6043', '2', '600201', '6002', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6044', '2', '600202', '6002', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6045', '2', '600203', '6002', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6046', '2', '600204', '6002', '3', '0', '6', '2019-10-25 14:56:34', '2019-10-25 16:27:24');
-INSERT INTO `sp_role_authority` VALUES ('6047', '2', '10', '0', '1', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6048', '2', '1001', '10', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6049', '2', '100101', '1001', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6050', '2', '100102', '1001', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6051', '2', '100103', '1001', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6052', '2', '100105', '1001', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6053', '2', '1002', '10', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6054', '2', '100201', '1002', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6055', '2', '100202', '1002', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6056', '2', '100203', '1002', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6057', '2', '100204', '1002', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6058', '2', '100205', '1002', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6059', '2', '1003', '10', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6060', '2', '100301', '1003', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6061', '2', '100302', '1003', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6062', '2', '100303', '1003', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6063', '2', '1004', '10', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6064', '2', '100401', '1004', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6065', '2', '1005', '10', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6066', '2', '1006', '10', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6067', '2', '100601', '1006', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6068', '2', '100602', '1006', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6069', '2', '100603', '1006', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6070', '2', '15', '0', '1', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6071', '2', '1501', '15', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6072', '2', '1502', '15', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6073', '2', '150201', '1502', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6074', '2', '150202', '1502', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6075', '2', '150203', '1502', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6076', '2', '1503', '15', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6077', '2', '150301', '1503', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6078', '2', '150302', '1503', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6079', '2', '150303', '1503', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6080', '2', '1504', '15', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6081', '2', '150401', '1504', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6082', '2', '150402', '1504', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6083', '2', '1505', '15', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6084', '2', '150501', '1505', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6085', '2', '150502', '1505', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6086', '2', '20', '0', '1', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6087', '2', '2001', '20', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6088', '2', '200101', '2001', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6089', '2', '20010101', '200101', '4', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6090', '2', '20010102', '200101', '4', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6091', '2', '200102', '2001', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6092', '2', '20010201', '200102', '4', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6093', '2', '20010202', '200102', '4', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6094', '2', '200103', '2001', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6095', '2', '20010301', '200103', '4', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6096', '2', '200104', '2001', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6097', '2', '20010401', '200104', '4', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6098', '2', '2002', '20', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6099', '2', '200201', '2002', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6100', '2', '20020101', '200201', '4', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6101', '2', '20020102', '200201', '4', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6102', '2', '200202', '2002', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6103', '2', '20020201', '200202', '4', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6104', '2', '20020202', '200202', '4', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6105', '2', '200203', '2002', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6106', '2', '20020301', '200203', '4', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6107', '2', '200204', '2002', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6108', '2', '20020401', '200204', '4', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6109', '2', '25', '0', '1', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6110', '2', '2501', '25', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6111', '2', '250101', '2501', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6112', '2', '250102', '2501', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6113', '2', '250103', '2501', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6114', '2', '25010301', '250103', '4', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6115', '2', '25010302', '250103', '4', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6116', '2', '25010303', '250103', '4', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6117', '2', '25010304', '250103', '4', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6118', '2', '25010306', '250103', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6119', '2', '250104', '2501', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6120', '2', '25010401', '250104', '4', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6121', '2', '25010402', '250104', '4', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6122', '2', '25010403', '250104', '4', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6123', '2', '2502', '25', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6124', '2', '250202', '2502', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6125', '2', '250203', '2502', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6126', '2', '250204', '2502', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6127', '2', '30', '0', '1', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6128', '2', '3001', '30', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6129', '2', '300101', '3001', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6130', '2', '300102', '3001', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6131', '2', '300103', '3001', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6132', '2', '3002', '30', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6133', '2', '3003', '30', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6134', '2', '300301', '3003', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6135', '2', '300302', '3003', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6136', '2', '35', '0', '1', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6137', '2', '3500', '35', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6138', '2', '350001', '3500', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6139', '2', '35000101', '350001', '4', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6140', '2', '35000102', '350001', '4', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6141', '2', '350002', '3500', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6142', '2', '35000201', '350002', '4', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6143', '2', '35000202', '350002', '4', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6144', '2', '350003', '3500', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6145', '2', '35000301', '350003', '4', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6146', '2', '350004', '3500', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6147', '2', '35000401', '350004', '4', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6148', '2', '3501', '35', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6149', '2', '350101', '3501', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6150', '2', '350102', '3501', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6151', '2', '350103', '3501', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6152', '2', '350104', '3501', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6153', '2', '3502', '35', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6154', '2', '350201', '3502', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6155', '2', '350202', '3502', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6156', '2', '40', '0', '1', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6157', '2', '4001', '40', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6158', '2', '4002', '40', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6159', '2', '4003', '40', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6160', '2', '45', '0', '1', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6161', '2', '4501', '45', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6162', '2', '450101', '4501', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6163', '2', '450102', '4501', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6164', '2', '450103', '4501', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6165', '2', '4502', '45', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6166', '2', '450201', '4502', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6167', '2', '450202', '4502', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6168', '2', '450203', '4502', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6169', '2', '50', '0', '1', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6170', '2', '5001', '50', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6171', '2', '500101', '5001', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6172', '2', '5002', '50', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6173', '2', '500201', '5002', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6174', '2', '5003', '50', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6175', '2', '500301', '5003', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6176', '2', '55', '0', '1', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6177', '2', '5501', '55', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6178', '2', '5502', '55', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6179', '2', '5503', '55', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6180', '2', '5504', '55', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6181', '2', '60', '0', '1', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6182', '2', '6002', '60', '2', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6183', '2', '600201', '6002', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6184', '2', '600202', '6002', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6185', '2', '600203', '6002', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6186', '2', '600204', '6002', '3', '0', '6', '2019-10-25 16:27:24', '2019-10-30 09:34:50');
-INSERT INTO `sp_role_authority` VALUES ('6187', '1', '10', '0', '1', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6188', '1', '1001', '10', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6189', '1', '100101', '1001', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6190', '1', '100102', '1001', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6191', '1', '100103', '1001', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6192', '1', '100105', '1001', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6193', '1', '1002', '10', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6194', '1', '100201', '1002', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6195', '1', '100202', '1002', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6196', '1', '100203', '1002', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6197', '1', '100204', '1002', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6198', '1', '100205', '1002', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6199', '1', '1003', '10', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6200', '1', '100301', '1003', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6201', '1', '100302', '1003', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6202', '1', '100303', '1003', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6203', '1', '1004', '10', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6204', '1', '100401', '1004', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6205', '1', '1005', '10', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6206', '1', '1006', '10', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6207', '1', '100601', '1006', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6208', '1', '100602', '1006', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6209', '1', '100603', '1006', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6210', '1', '15', '0', '1', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6211', '1', '1501', '15', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6212', '1', '1502', '15', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6213', '1', '150201', '1502', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6214', '1', '150202', '1502', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6215', '1', '150203', '1502', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6216', '1', '1503', '15', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6217', '1', '150301', '1503', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6218', '1', '150302', '1503', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6219', '1', '150303', '1503', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6220', '1', '1504', '15', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6221', '1', '150401', '1504', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6222', '1', '150402', '1504', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6223', '1', '1505', '15', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6224', '1', '150501', '1505', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6225', '1', '150502', '1505', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6226', '1', '20', '0', '1', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6227', '1', '2001', '20', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6228', '1', '200101', '2001', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6229', '1', '20010101', '200101', '4', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6230', '1', '20010102', '200101', '4', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6231', '1', '200102', '2001', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6232', '1', '20010201', '200102', '4', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6233', '1', '20010202', '200102', '4', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6234', '1', '200103', '2001', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6235', '1', '20010301', '200103', '4', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6236', '1', '200104', '2001', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6237', '1', '20010401', '200104', '4', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6238', '1', '2002', '20', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6239', '1', '200201', '2002', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6240', '1', '20020101', '200201', '4', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6241', '1', '20020102', '200201', '4', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6242', '1', '200202', '2002', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6243', '1', '20020201', '200202', '4', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6244', '1', '20020202', '200202', '4', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6245', '1', '200203', '2002', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6246', '1', '20020301', '200203', '4', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6247', '1', '200204', '2002', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6248', '1', '20020401', '200204', '4', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6249', '1', '25', '0', '1', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6250', '1', '2501', '25', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6251', '1', '250101', '2501', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6252', '1', '250102', '2501', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6253', '1', '250103', '2501', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6254', '1', '25010301', '250103', '4', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6255', '1', '25010302', '250103', '4', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6256', '1', '25010303', '250103', '4', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6257', '1', '25010304', '250103', '4', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6258', '1', '25010306', '250103', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6259', '1', '250104', '2501', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6260', '1', '25010401', '250104', '4', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6261', '1', '25010402', '250104', '4', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6262', '1', '25010403', '250104', '4', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6263', '1', '2502', '25', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6264', '1', '250202', '2502', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6265', '1', '250203', '2502', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6266', '1', '250204', '2502', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6267', '1', '30', '0', '1', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6268', '1', '3001', '30', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6269', '1', '300101', '3001', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6270', '1', '300102', '3001', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6271', '1', '300103', '3001', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6272', '1', '3002', '30', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6273', '1', '3003', '30', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6274', '1', '300301', '3003', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6275', '1', '300302', '3003', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6276', '1', '35', '0', '1', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6277', '1', '3500', '35', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6278', '1', '350001', '3500', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6279', '1', '35000101', '350001', '4', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6280', '1', '35000102', '350001', '4', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6281', '1', '350002', '3500', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6282', '1', '35000201', '350002', '4', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6283', '1', '35000202', '350002', '4', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6284', '1', '350003', '3500', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6285', '1', '35000301', '350003', '4', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6286', '1', '350004', '3500', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6287', '1', '35000401', '350004', '4', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6288', '1', '3501', '35', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6289', '1', '350101', '3501', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6290', '1', '350102', '3501', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6291', '1', '350103', '3501', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6292', '1', '350104', '3501', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6293', '1', '3502', '35', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6294', '1', '350201', '3502', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6295', '1', '350202', '3502', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6296', '1', '40', '0', '1', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6297', '1', '4001', '40', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6298', '1', '4002', '40', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6299', '1', '4003', '40', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6300', '1', '45', '0', '1', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6301', '1', '4501', '45', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6302', '1', '450101', '4501', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6303', '1', '450102', '4501', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6304', '1', '450103', '4501', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6305', '1', '4502', '45', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6306', '1', '450201', '4502', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6307', '1', '450202', '4502', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6308', '1', '450203', '4502', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6309', '1', '50', '0', '1', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6310', '1', '5001', '50', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6311', '1', '5002', '50', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6312', '1', '5003', '50', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6313', '1', '55', '0', '1', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6314', '1', '5501', '55', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6315', '1', '5502', '55', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6316', '1', '5503', '55', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6317', '1', '5504', '55', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6318', '1', '60', '0', '1', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6319', '1', '6002', '60', '2', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6320', '1', '600201', '6002', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6321', '1', '600202', '6002', '3', '0', '1', '2019-10-25 19:20:23', '2019-10-30 09:33:15');
-INSERT INTO `sp_role_authority` VALUES ('6322', '1', '10', '0', '1', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6323', '1', '1001', '10', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6324', '1', '100101', '1001', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6325', '1', '100102', '1001', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6326', '1', '100103', '1001', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6327', '1', '100105', '1001', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6328', '1', '1002', '10', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6329', '1', '100201', '1002', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6330', '1', '100202', '1002', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6331', '1', '100203', '1002', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6332', '1', '100204', '1002', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6333', '1', '100205', '1002', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6334', '1', '1003', '10', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6335', '1', '100301', '1003', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6336', '1', '100302', '1003', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6337', '1', '100303', '1003', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6338', '1', '1004', '10', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6339', '1', '100401', '1004', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6340', '1', '1005', '10', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6341', '1', '1006', '10', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6342', '1', '100601', '1006', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6343', '1', '100602', '1006', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6344', '1', '100603', '1006', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6345', '1', '15', '0', '1', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6346', '1', '1501', '15', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6347', '1', '1502', '15', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6348', '1', '150201', '1502', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6349', '1', '150202', '1502', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6350', '1', '150203', '1502', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6351', '1', '1503', '15', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6352', '1', '150301', '1503', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6353', '1', '150302', '1503', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6354', '1', '150303', '1503', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6355', '1', '1504', '15', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6356', '1', '150401', '1504', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6357', '1', '150402', '1504', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6358', '1', '1505', '15', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6359', '1', '150501', '1505', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6360', '1', '150502', '1505', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6361', '1', '20', '0', '1', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6362', '1', '2001', '20', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6363', '1', '200101', '2001', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6364', '1', '20010101', '200101', '4', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6365', '1', '20010102', '200101', '4', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6366', '1', '200102', '2001', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6367', '1', '20010201', '200102', '4', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6368', '1', '20010202', '200102', '4', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6369', '1', '200103', '2001', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6370', '1', '20010301', '200103', '4', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6371', '1', '200104', '2001', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6372', '1', '20010401', '200104', '4', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6373', '1', '2002', '20', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6374', '1', '200201', '2002', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6375', '1', '20020101', '200201', '4', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6376', '1', '20020102', '200201', '4', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6377', '1', '200202', '2002', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6378', '1', '20020201', '200202', '4', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6379', '1', '20020202', '200202', '4', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6380', '1', '200203', '2002', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6381', '1', '20020301', '200203', '4', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6382', '1', '200204', '2002', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6383', '1', '20020401', '200204', '4', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6384', '1', '25', '0', '1', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6385', '1', '2501', '25', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6386', '1', '250101', '2501', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6387', '1', '250102', '2501', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6388', '1', '250103', '2501', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6389', '1', '25010301', '250103', '4', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6390', '1', '25010302', '250103', '4', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6391', '1', '25010303', '250103', '4', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6392', '1', '25010304', '250103', '4', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6393', '1', '25010306', '250103', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6394', '1', '250104', '2501', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6395', '1', '25010401', '250104', '4', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6396', '1', '25010402', '250104', '4', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6397', '1', '25010403', '250104', '4', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6398', '1', '2502', '25', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6399', '1', '250202', '2502', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6400', '1', '250203', '2502', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6401', '1', '250204', '2502', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6402', '1', '30', '0', '1', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6403', '1', '3001', '30', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6404', '1', '300101', '3001', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6405', '1', '300102', '3001', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6406', '1', '300103', '3001', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6407', '1', '3002', '30', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6408', '1', '3003', '30', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6409', '1', '300301', '3003', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6410', '1', '300302', '3003', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6411', '1', '35', '0', '1', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6412', '1', '3500', '35', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6413', '1', '350001', '3500', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6414', '1', '35000101', '350001', '4', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6415', '1', '35000102', '350001', '4', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6416', '1', '350002', '3500', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6417', '1', '35000201', '350002', '4', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6418', '1', '35000202', '350002', '4', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6419', '1', '350003', '3500', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6420', '1', '35000301', '350003', '4', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6421', '1', '350004', '3500', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6422', '1', '35000401', '350004', '4', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6423', '1', '3501', '35', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6424', '1', '350101', '3501', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6425', '1', '350102', '3501', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6426', '1', '350103', '3501', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6427', '1', '350104', '3501', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6428', '1', '3502', '35', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6429', '1', '350201', '3502', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6430', '1', '350202', '3502', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6431', '1', '40', '0', '1', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6432', '1', '4001', '40', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6433', '1', '4002', '40', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6434', '1', '4003', '40', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6435', '1', '45', '0', '1', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6436', '1', '4501', '45', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6437', '1', '450101', '4501', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6438', '1', '450102', '4501', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6439', '1', '450103', '4501', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6440', '1', '4502', '45', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6441', '1', '450201', '4502', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6442', '1', '450202', '4502', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6443', '1', '450203', '4502', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6444', '1', '50', '0', '1', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6445', '1', '5001', '50', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6446', '1', '5002', '50', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6447', '1', '5003', '50', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6448', '1', '55', '0', '1', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6449', '1', '5501', '55', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6450', '1', '5502', '55', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6451', '1', '5503', '55', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6452', '1', '5504', '55', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6453', '1', '60', '0', '1', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6454', '1', '6002', '60', '2', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6455', '1', '600201', '6002', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6456', '1', '600202', '6002', '3', '0', '6', '2019-10-30 09:33:15', '2019-10-30 09:34:33');
-INSERT INTO `sp_role_authority` VALUES ('6457', '1', '10', '0', '1', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6458', '1', '1001', '10', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6459', '1', '100101', '1001', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6460', '1', '100102', '1001', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6461', '1', '100103', '1001', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6462', '1', '100105', '1001', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6463', '1', '1002', '10', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6464', '1', '100201', '1002', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6465', '1', '100202', '1002', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6466', '1', '100203', '1002', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6467', '1', '100204', '1002', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6468', '1', '100205', '1002', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6469', '1', '1003', '10', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6470', '1', '100301', '1003', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6471', '1', '100302', '1003', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6472', '1', '100303', '1003', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6473', '1', '1004', '10', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6474', '1', '100401', '1004', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6475', '1', '1005', '10', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6476', '1', '1006', '10', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6477', '1', '100601', '1006', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6478', '1', '100602', '1006', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6479', '1', '100603', '1006', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6480', '1', '15', '0', '1', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6481', '1', '1501', '15', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6482', '1', '1502', '15', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6483', '1', '150201', '1502', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6484', '1', '150202', '1502', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6485', '1', '150203', '1502', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6486', '1', '1503', '15', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6487', '1', '150301', '1503', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6488', '1', '150302', '1503', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6489', '1', '150303', '1503', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6490', '1', '1504', '15', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6491', '1', '150401', '1504', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6492', '1', '150402', '1504', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6493', '1', '1505', '15', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6494', '1', '150501', '1505', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6495', '1', '150502', '1505', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6496', '1', '20', '0', '1', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6497', '1', '2001', '20', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6498', '1', '200101', '2001', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6499', '1', '20010101', '200101', '4', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6500', '1', '20010102', '200101', '4', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6501', '1', '200102', '2001', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6502', '1', '20010201', '200102', '4', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6503', '1', '20010202', '200102', '4', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6504', '1', '200103', '2001', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6505', '1', '20010301', '200103', '4', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6506', '1', '200104', '2001', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6507', '1', '20010401', '200104', '4', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6508', '1', '2002', '20', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6509', '1', '200201', '2002', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6510', '1', '20020101', '200201', '4', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6511', '1', '20020102', '200201', '4', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6512', '1', '200202', '2002', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6513', '1', '20020201', '200202', '4', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6514', '1', '20020202', '200202', '4', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6515', '1', '200203', '2002', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6516', '1', '20020301', '200203', '4', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6517', '1', '200204', '2002', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6518', '1', '20020401', '200204', '4', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6519', '1', '25', '0', '1', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6520', '1', '2501', '25', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6521', '1', '250101', '2501', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6522', '1', '250102', '2501', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6523', '1', '250103', '2501', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6524', '1', '25010301', '250103', '4', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6525', '1', '25010302', '250103', '4', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6526', '1', '25010303', '250103', '4', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6527', '1', '25010304', '250103', '4', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6528', '1', '25010306', '250103', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6529', '1', '250104', '2501', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6530', '1', '25010401', '250104', '4', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6531', '1', '25010402', '250104', '4', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6532', '1', '25010403', '250104', '4', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6533', '1', '2502', '25', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6534', '1', '250202', '2502', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6535', '1', '250203', '2502', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6536', '1', '250204', '2502', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6537', '1', '30', '0', '1', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6538', '1', '3001', '30', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6539', '1', '300101', '3001', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6540', '1', '30010101', '300101', '4', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6541', '1', '300102', '3001', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6542', '1', '300103', '3001', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6543', '1', '3002', '30', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6544', '1', '3003', '30', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6545', '1', '300301', '3003', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6546', '1', '300302', '3003', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6547', '1', '35', '0', '1', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6548', '1', '3500', '35', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6549', '1', '350001', '3500', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6550', '1', '35000101', '350001', '4', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6551', '1', '35000102', '350001', '4', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6552', '1', '350002', '3500', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6553', '1', '35000201', '350002', '4', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6554', '1', '35000202', '350002', '4', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6555', '1', '350003', '3500', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6556', '1', '35000301', '350003', '4', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6557', '1', '350004', '3500', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6558', '1', '35000401', '350004', '4', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6559', '1', '3501', '35', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6560', '1', '350101', '3501', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6561', '1', '350102', '3501', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6562', '1', '350103', '3501', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6563', '1', '350104', '3501', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6564', '1', '3502', '35', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6565', '1', '350201', '3502', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6566', '1', '350202', '3502', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6567', '1', '40', '0', '1', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6568', '1', '4001', '40', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6569', '1', '4002', '40', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6570', '1', '4003', '40', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6571', '1', '45', '0', '1', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6572', '1', '4501', '45', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6573', '1', '450101', '4501', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6574', '1', '450102', '4501', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6575', '1', '450103', '4501', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6576', '1', '4502', '45', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6577', '1', '450201', '4502', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6578', '1', '450202', '4502', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6579', '1', '450203', '4502', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6580', '1', '50', '0', '1', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6581', '1', '5001', '50', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6582', '1', '5002', '50', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6583', '1', '5003', '50', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6584', '1', '55', '0', '1', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6585', '1', '5501', '55', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6586', '1', '5502', '55', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6587', '1', '5503', '55', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6588', '1', '5504', '55', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6589', '1', '60', '0', '1', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6590', '1', '6002', '60', '2', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6591', '1', '600201', '6002', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6592', '1', '600202', '6002', '3', '0', '6', '2019-10-30 09:34:33', '2019-11-01 11:20:17');
-INSERT INTO `sp_role_authority` VALUES ('6593', '2', '10', '0', '1', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6594', '2', '1001', '10', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6595', '2', '100101', '1001', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6596', '2', '100102', '1001', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6597', '2', '100103', '1001', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6598', '2', '100105', '1001', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6599', '2', '1002', '10', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6600', '2', '100201', '1002', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6601', '2', '100202', '1002', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6602', '2', '100203', '1002', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6603', '2', '100204', '1002', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6604', '2', '100205', '1002', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6605', '2', '1003', '10', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6606', '2', '100301', '1003', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6607', '2', '100302', '1003', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6608', '2', '100303', '1003', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6609', '2', '1004', '10', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6610', '2', '100401', '1004', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6611', '2', '1005', '10', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6612', '2', '1006', '10', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6613', '2', '100601', '1006', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6614', '2', '100602', '1006', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6615', '2', '100603', '1006', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6616', '2', '15', '0', '1', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6617', '2', '1501', '15', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6618', '2', '1502', '15', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6619', '2', '150201', '1502', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6620', '2', '150202', '1502', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6621', '2', '150203', '1502', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6622', '2', '1503', '15', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6623', '2', '150301', '1503', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6624', '2', '150302', '1503', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6625', '2', '150303', '1503', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6626', '2', '1504', '15', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6627', '2', '150401', '1504', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6628', '2', '150402', '1504', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6629', '2', '1505', '15', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6630', '2', '150501', '1505', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6631', '2', '150502', '1505', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6632', '2', '20', '0', '1', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6633', '2', '2001', '20', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6634', '2', '200101', '2001', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6635', '2', '20010101', '200101', '4', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6636', '2', '20010102', '200101', '4', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6637', '2', '200102', '2001', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6638', '2', '20010201', '200102', '4', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6639', '2', '20010202', '200102', '4', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6640', '2', '200103', '2001', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6641', '2', '20010301', '200103', '4', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6642', '2', '200104', '2001', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6643', '2', '20010401', '200104', '4', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6644', '2', '2002', '20', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6645', '2', '200201', '2002', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6646', '2', '20020101', '200201', '4', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6647', '2', '20020102', '200201', '4', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6648', '2', '200202', '2002', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6649', '2', '20020201', '200202', '4', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6650', '2', '20020202', '200202', '4', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6651', '2', '200203', '2002', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6652', '2', '20020301', '200203', '4', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6653', '2', '200204', '2002', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6654', '2', '20020401', '200204', '4', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6655', '2', '25', '0', '1', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6656', '2', '2501', '25', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6657', '2', '250101', '2501', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6658', '2', '250102', '2501', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6659', '2', '250103', '2501', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6660', '2', '25010301', '250103', '4', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6661', '2', '25010302', '250103', '4', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6662', '2', '25010303', '250103', '4', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6663', '2', '25010304', '250103', '4', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6664', '2', '25010306', '250103', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6665', '2', '250104', '2501', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6666', '2', '25010401', '250104', '4', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6667', '2', '25010402', '250104', '4', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6668', '2', '25010403', '250104', '4', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6669', '2', '2502', '25', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6670', '2', '250202', '2502', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6671', '2', '250203', '2502', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6672', '2', '250204', '2502', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6673', '2', '30', '0', '1', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6674', '2', '3001', '30', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6675', '2', '300101', '3001', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6676', '2', '30010101', '300101', '4', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6677', '2', '300102', '3001', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6678', '2', '300103', '3001', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6679', '2', '3002', '30', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6680', '2', '3003', '30', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6681', '2', '300301', '3003', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6682', '2', '300302', '3003', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6683', '2', '35', '0', '1', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6684', '2', '3500', '35', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6685', '2', '350001', '3500', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6686', '2', '35000101', '350001', '4', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6687', '2', '35000102', '350001', '4', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6688', '2', '350002', '3500', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6689', '2', '35000201', '350002', '4', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6690', '2', '35000202', '350002', '4', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6691', '2', '350003', '3500', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6692', '2', '35000301', '350003', '4', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6693', '2', '350004', '3500', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6694', '2', '35000401', '350004', '4', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6695', '2', '3501', '35', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6696', '2', '350101', '3501', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6697', '2', '350102', '3501', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6698', '2', '350103', '3501', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6699', '2', '350104', '3501', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6700', '2', '3502', '35', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6701', '2', '350201', '3502', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6702', '2', '350202', '3502', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6703', '2', '40', '0', '1', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6704', '2', '4001', '40', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6705', '2', '4002', '40', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6706', '2', '4003', '40', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6707', '2', '45', '0', '1', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6708', '2', '4501', '45', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6709', '2', '450101', '4501', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6710', '2', '450102', '4501', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6711', '2', '450103', '4501', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6712', '2', '4502', '45', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6713', '2', '450201', '4502', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6714', '2', '450202', '4502', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6715', '2', '450203', '4502', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6716', '2', '50', '0', '1', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6717', '2', '5001', '50', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6718', '2', '500101', '5001', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6719', '2', '5002', '50', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6720', '2', '500201', '5002', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6721', '2', '5003', '50', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6722', '2', '500301', '5003', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6723', '2', '55', '0', '1', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6724', '2', '5501', '55', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6725', '2', '5502', '55', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6726', '2', '5503', '55', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6727', '2', '5504', '55', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6728', '2', '60', '0', '1', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6729', '2', '6002', '60', '2', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6730', '2', '600201', '6002', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6731', '2', '600202', '6002', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6732', '2', '600203', '6002', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6733', '2', '600204', '6002', '3', '0', '6', '2019-10-30 09:34:50', '2019-10-30 11:23:53');
-INSERT INTO `sp_role_authority` VALUES ('6734', '2', '10', '0', '1', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6735', '2', '1001', '10', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6736', '2', '100101', '1001', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6737', '2', '100102', '1001', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6738', '2', '100103', '1001', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6739', '2', '100105', '1001', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6740', '2', '1002', '10', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6741', '2', '100201', '1002', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6742', '2', '100202', '1002', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6743', '2', '100203', '1002', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6744', '2', '100204', '1002', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6745', '2', '100205', '1002', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6746', '2', '1003', '10', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6747', '2', '100301', '1003', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6748', '2', '100302', '1003', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6749', '2', '100303', '1003', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6750', '2', '1004', '10', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6751', '2', '100401', '1004', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6752', '2', '1005', '10', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6753', '2', '1006', '10', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6754', '2', '100601', '1006', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6755', '2', '100602', '1006', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6756', '2', '100603', '1006', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6757', '2', '15', '0', '1', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6758', '2', '1501', '15', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6759', '2', '1502', '15', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6760', '2', '150201', '1502', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6761', '2', '150202', '1502', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6762', '2', '150203', '1502', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6763', '2', '1503', '15', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6764', '2', '150301', '1503', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6765', '2', '150302', '1503', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6766', '2', '150303', '1503', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6767', '2', '1504', '15', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6768', '2', '150401', '1504', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6769', '2', '150402', '1504', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6770', '2', '1505', '15', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6771', '2', '150501', '1505', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6772', '2', '150502', '1505', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6773', '2', '20', '0', '1', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6774', '2', '2001', '20', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6775', '2', '200101', '2001', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6776', '2', '20010101', '200101', '4', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6777', '2', '20010102', '200101', '4', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6778', '2', '200102', '2001', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6779', '2', '20010201', '200102', '4', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6780', '2', '20010202', '200102', '4', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6781', '2', '200103', '2001', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6782', '2', '20010301', '200103', '4', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6783', '2', '200104', '2001', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6784', '2', '20010401', '200104', '4', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6785', '2', '2002', '20', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6786', '2', '200201', '2002', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6787', '2', '20020101', '200201', '4', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6788', '2', '20020102', '200201', '4', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6789', '2', '200202', '2002', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6790', '2', '20020201', '200202', '4', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6791', '2', '20020202', '200202', '4', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6792', '2', '200203', '2002', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6793', '2', '20020301', '200203', '4', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6794', '2', '200204', '2002', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6795', '2', '20020401', '200204', '4', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6796', '2', '25', '0', '1', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6797', '2', '2501', '25', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6798', '2', '250101', '2501', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6799', '2', '250102', '2501', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6800', '2', '250103', '2501', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6801', '2', '25010301', '250103', '4', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6802', '2', '25010302', '250103', '4', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6803', '2', '25010303', '250103', '4', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6804', '2', '25010304', '250103', '4', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6805', '2', '25010306', '250103', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6806', '2', '250104', '2501', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6807', '2', '25010401', '250104', '4', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6808', '2', '25010402', '250104', '4', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6809', '2', '25010403', '250104', '4', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6810', '2', '2502', '25', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6811', '2', '250202', '2502', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6812', '2', '250203', '2502', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6813', '2', '250204', '2502', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6814', '2', '30', '0', '1', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6815', '2', '3001', '30', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6816', '2', '300101', '3001', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6817', '2', '30010101', '300101', '4', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6818', '2', '300102', '3001', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6819', '2', '300103', '3001', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6820', '2', '3002', '30', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6821', '2', '3003', '30', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6822', '2', '300301', '3003', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6823', '2', '300302', '3003', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6824', '2', '35', '0', '1', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6825', '2', '3500', '35', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6826', '2', '350001', '3500', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6827', '2', '35000101', '350001', '4', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6828', '2', '35000102', '350001', '4', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6829', '2', '350002', '3500', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6830', '2', '35000201', '350002', '4', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6831', '2', '35000202', '350002', '4', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6832', '2', '350003', '3500', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6833', '2', '35000301', '350003', '4', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6834', '2', '350004', '3500', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6835', '2', '35000401', '350004', '4', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6836', '2', '3501', '35', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6837', '2', '350101', '3501', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6838', '2', '350102', '3501', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6839', '2', '350103', '3501', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6840', '2', '350104', '3501', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6841', '2', '3502', '35', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6842', '2', '350201', '3502', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6843', '2', '350202', '3502', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6844', '2', '40', '0', '1', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6845', '2', '4001', '40', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6846', '2', '4002', '40', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6847', '2', '4003', '40', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6848', '2', '45', '0', '1', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6849', '2', '4501', '45', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6850', '2', '450101', '4501', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6851', '2', '450102', '4501', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6852', '2', '450103', '4501', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6853', '2', '4502', '45', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6854', '2', '450201', '4502', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6855', '2', '450202', '4502', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6856', '2', '450203', '4502', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6857', '2', '50', '0', '1', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6858', '2', '5001', '50', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6859', '2', '500101', '5001', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6860', '2', '5002', '50', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6861', '2', '500201', '5002', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6862', '2', '5003', '50', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6863', '2', '500301', '5003', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6864', '2', '55', '0', '1', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6865', '2', '5501', '55', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6866', '2', '5502', '55', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6867', '2', '5503', '55', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6868', '2', '5504', '55', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6869', '2', '60', '0', '1', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6870', '2', '6002', '60', '2', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6871', '2', '600201', '6002', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6872', '2', '600202', '6002', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6873', '2', '600203', '6002', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('6874', '2', '600204', '6002', '3', '0', '6', '2019-10-30 11:23:53', '2019-11-01 10:38:27');
 INSERT INTO `sp_role_authority` VALUES ('6875', '2', '10', '0', '1', '1', '6', '2019-11-01 10:38:27', '2019-11-01 10:38:27');
 INSERT INTO `sp_role_authority` VALUES ('6876', '2', '1001', '10', '2', '1', '6', '2019-11-01 10:38:27', '2019-11-01 10:38:27');
 INSERT INTO `sp_role_authority` VALUES ('6877', '2', '100101', '1001', '3', '1', '6', '2019-11-01 10:38:27', '2019-11-01 10:38:27');
@@ -3615,145 +2092,6 @@ INSERT INTO `sp_role_authority` VALUES ('7015', '2', '600201', '6002', '3', '1',
 INSERT INTO `sp_role_authority` VALUES ('7016', '2', '600202', '6002', '3', '1', '6', '2019-11-01 10:38:27', '2019-11-01 10:38:27');
 INSERT INTO `sp_role_authority` VALUES ('7017', '2', '600203', '6002', '3', '1', '6', '2019-11-01 10:38:27', '2019-11-01 10:38:27');
 INSERT INTO `sp_role_authority` VALUES ('7018', '2', '600204', '6002', '3', '1', '6', '2019-11-01 10:38:27', '2019-11-01 10:38:27');
-INSERT INTO `sp_role_authority` VALUES ('7019', '1', '10', '0', '1', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7020', '1', '1001', '10', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7021', '1', '100101', '1001', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7022', '1', '100102', '1001', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7023', '1', '100103', '1001', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7024', '1', '100105', '1001', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7025', '1', '1002', '10', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7026', '1', '100201', '1002', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7027', '1', '100202', '1002', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7028', '1', '100203', '1002', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7029', '1', '100204', '1002', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7030', '1', '100205', '1002', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7031', '1', '1003', '10', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7032', '1', '100301', '1003', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7033', '1', '100302', '1003', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7034', '1', '100303', '1003', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7035', '1', '1004', '10', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7036', '1', '100401', '1004', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7037', '1', '1005', '10', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7038', '1', '1006', '10', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7039', '1', '100601', '1006', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7040', '1', '100602', '1006', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7041', '1', '100603', '1006', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7042', '1', '15', '0', '1', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7043', '1', '1501', '15', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7044', '1', '1502', '15', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7045', '1', '150201', '1502', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7046', '1', '150202', '1502', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7047', '1', '150203', '1502', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7048', '1', '1503', '15', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7049', '1', '150301', '1503', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7050', '1', '150302', '1503', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7051', '1', '150303', '1503', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7052', '1', '1504', '15', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7053', '1', '150401', '1504', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7054', '1', '150402', '1504', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7055', '1', '1505', '15', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7056', '1', '150501', '1505', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7057', '1', '150502', '1505', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7058', '1', '20', '0', '1', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7059', '1', '2001', '20', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7060', '1', '200101', '2001', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7061', '1', '20010101', '200101', '4', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7062', '1', '20010102', '200101', '4', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7063', '1', '200102', '2001', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7064', '1', '20010201', '200102', '4', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7065', '1', '20010202', '200102', '4', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7066', '1', '200103', '2001', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7067', '1', '20010301', '200103', '4', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7068', '1', '200104', '2001', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7069', '1', '20010401', '200104', '4', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7070', '1', '2002', '20', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7071', '1', '200201', '2002', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7072', '1', '20020101', '200201', '4', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7073', '1', '20020102', '200201', '4', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7074', '1', '200202', '2002', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7075', '1', '20020201', '200202', '4', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7076', '1', '20020202', '200202', '4', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7077', '1', '200203', '2002', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7078', '1', '20020301', '200203', '4', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7079', '1', '200204', '2002', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7080', '1', '20020401', '200204', '4', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7081', '1', '25', '0', '1', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7082', '1', '2501', '25', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7083', '1', '250101', '2501', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7084', '1', '250102', '2501', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7085', '1', '250103', '2501', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7086', '1', '25010301', '250103', '4', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7087', '1', '25010302', '250103', '4', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7088', '1', '25010303', '250103', '4', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7089', '1', '25010304', '250103', '4', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7090', '1', '25010306', '250103', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7091', '1', '250104', '2501', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7092', '1', '25010401', '250104', '4', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7093', '1', '25010402', '250104', '4', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7094', '1', '25010403', '250104', '4', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7095', '1', '2502', '25', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7096', '1', '250202', '2502', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7097', '1', '250203', '2502', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7098', '1', '250204', '2502', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7099', '1', '30', '0', '1', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7100', '1', '3001', '30', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7101', '1', '300101', '3001', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7102', '1', '30010101', '300101', '4', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7103', '1', '300102', '3001', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7104', '1', '30010201', '300102', '4', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7105', '1', '30010202', '300102', '4', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7106', '1', '300103', '3001', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7107', '1', '30010301', '300101', '4', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7108', '1', '3002', '30', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7109', '1', '3003', '30', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7110', '1', '300301', '3003', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7111', '1', '300302', '3003', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7112', '1', '35', '0', '1', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7113', '1', '3500', '35', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7114', '1', '350001', '3500', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7115', '1', '35000101', '350001', '4', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7116', '1', '35000102', '350001', '4', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7117', '1', '350002', '3500', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7118', '1', '35000201', '350002', '4', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7119', '1', '35000202', '350002', '4', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7120', '1', '350003', '3500', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7121', '1', '35000301', '350003', '4', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7122', '1', '350004', '3500', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7123', '1', '35000401', '350004', '4', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7124', '1', '3501', '35', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7125', '1', '350101', '3501', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7126', '1', '350102', '3501', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7127', '1', '350103', '3501', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7128', '1', '350104', '3501', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7129', '1', '3502', '35', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7130', '1', '350201', '3502', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7131', '1', '350202', '3502', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7132', '1', '40', '0', '1', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7133', '1', '4001', '40', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7134', '1', '4002', '40', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7135', '1', '4003', '40', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7136', '1', '45', '0', '1', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7137', '1', '4501', '45', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7138', '1', '450101', '4501', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7139', '1', '450102', '4501', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7140', '1', '450103', '4501', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7141', '1', '4502', '45', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7142', '1', '450201', '4502', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7143', '1', '450202', '4502', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7144', '1', '450203', '4502', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7145', '1', '50', '0', '1', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7146', '1', '5001', '50', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7147', '1', '5002', '50', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7148', '1', '5003', '50', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7149', '1', '55', '0', '1', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7150', '1', '5501', '55', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7151', '1', '5502', '55', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7152', '1', '5503', '55', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7153', '1', '5504', '55', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7154', '1', '60', '0', '1', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7155', '1', '6002', '60', '2', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7156', '1', '600201', '6002', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
-INSERT INTO `sp_role_authority` VALUES ('7157', '1', '600202', '6002', '3', '0', '1', '2019-11-01 11:20:17', '2019-11-13 17:36:26');
 INSERT INTO `sp_role_authority` VALUES ('7158', '1', '10', '0', '1', '1', '1', '2019-11-13 17:36:26', '2019-11-13 17:36:26');
 INSERT INTO `sp_role_authority` VALUES ('7159', '1', '1001', '10', '2', '1', '1', '2019-11-13 17:36:26', '2019-11-13 17:36:26');
 INSERT INTO `sp_role_authority` VALUES ('7160', '1', '100101', '1001', '3', '1', '1', '2019-11-13 17:36:26', '2019-11-13 17:36:26');
@@ -5479,7 +3817,7 @@ CREATE TABLE `sp_supplier` (
   KEY `supplier` (`supplier`(191)) USING BTREE,
   KEY `address` (`address`(191)) USING BTREE,
   KEY `id` (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sp_supplier
@@ -5505,7 +3843,7 @@ CREATE TABLE `sp_supplier_brand` (
   KEY `supplier_id` (`status`,`supplier_id`) USING BTREE,
   KEY `brand_id_supplier_id` (`status`,`brand_id`,`supplier_id`) USING BTREE,
   KEY `brand_id` (`brand_id`,`supplier_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=130 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sp_supplier_brand
@@ -5525,40 +3863,11 @@ CREATE TABLE `sp_system_operation_log` (
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`),
   KEY `created_at` (`created_at`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=30780 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sp_system_operation_log
 -- ----------------------------
-INSERT INTO `sp_system_operation_log` VALUES ('30751', '6', 'home', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', '127.0.0.1', '[]', '2020-01-06 18:42:32');
-INSERT INTO `sp_system_operation_log` VALUES ('30752', '6', 'project/projectStart', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', '127.0.0.1', '[]', '2020-01-06 18:42:34');
-INSERT INTO `sp_system_operation_log` VALUES ('30753', '6', 'project/projectConduct', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', '127.0.0.1', '[]', '2020-01-06 18:42:38');
-INSERT INTO `sp_system_operation_log` VALUES ('30754', '6', 'project/projectCompleted', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', '127.0.0.1', '[]', '2020-01-06 18:42:39');
-INSERT INTO `sp_system_operation_log` VALUES ('30755', '6', 'project/projectTermination', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', '127.0.0.1', '[]', '2020-01-06 18:42:40');
-INSERT INTO `sp_system_operation_log` VALUES ('30756', '6', 'architectural/enginProjectList', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', '127.0.0.1', '[]', '2020-01-06 18:42:42');
-INSERT INTO `sp_system_operation_log` VALUES ('30757', '6', 'budget/budgetProjectList', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', '127.0.0.1', '[]', '2020-01-06 18:42:43');
-INSERT INTO `sp_system_operation_log` VALUES ('30758', '6', 'purchase/purchaseConductProjectList', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', '127.0.0.1', '[]', '2020-01-06 18:42:45');
-INSERT INTO `sp_system_operation_log` VALUES ('30759', '6', 'progress/progressConductProjectList', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', '127.0.0.1', '[]', '2020-01-06 18:42:46');
-INSERT INTO `sp_system_operation_log` VALUES ('30760', '6', 'material/materialList', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', '127.0.0.1', '[]', '2020-01-06 18:42:47');
-INSERT INTO `sp_system_operation_log` VALUES ('30761', '6', 'supplier/brandList', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', '127.0.0.1', '[]', '2020-01-06 18:42:48');
-INSERT INTO `sp_system_operation_log` VALUES ('30762', '6', 'finance/financeStart', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', '127.0.0.1', '[]', '2020-01-06 18:42:50');
-INSERT INTO `sp_system_operation_log` VALUES ('30763', '6', 'customer/customerList', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', '127.0.0.1', '[]', '2020-01-06 18:42:51');
-INSERT INTO `sp_system_operation_log` VALUES ('30764', '6', 'base/notice_list', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', '127.0.0.1', '[]', '2020-01-06 18:42:52');
-INSERT INTO `sp_system_operation_log` VALUES ('30765', '6', 'home', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', '127.0.0.1', '[]', '2020-01-06 18:42:55');
-INSERT INTO `sp_system_operation_log` VALUES ('30766', '6', 'project/projectStart', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', '127.0.0.1', '[]', '2020-01-06 18:42:59');
-INSERT INTO `sp_system_operation_log` VALUES ('30767', '6', 'home', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', '127.0.0.1', '[]', '2020-01-06 18:43:01');
-INSERT INTO `sp_system_operation_log` VALUES ('30768', '6', 'admin/user_role_list', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', '127.0.0.1', '[]', '2020-01-06 18:43:02');
-INSERT INTO `sp_system_operation_log` VALUES ('30769', '6', 'home', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', '127.0.0.1', '[]', '2020-01-06 18:43:03');
-INSERT INTO `sp_system_operation_log` VALUES ('30770', '6', 'admin/departmentList', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', '127.0.0.1', '[]', '2020-01-06 18:43:05');
-INSERT INTO `sp_system_operation_log` VALUES ('30771', '6', 'admin/role_list', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', '127.0.0.1', '[]', '2020-01-06 18:43:08');
-INSERT INTO `sp_system_operation_log` VALUES ('30772', '6', 'admin/user_role_list', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', '127.0.0.1', '[]', '2020-01-06 18:43:11');
-INSERT INTO `sp_system_operation_log` VALUES ('30773', '6', 'admin/examine_user', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', '127.0.0.1', '[]', '2020-01-06 18:43:14');
-INSERT INTO `sp_system_operation_log` VALUES ('30774', '6', 'admin/user_role_list', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', '127.0.0.1', '[]', '2020-01-06 18:43:16');
-INSERT INTO `sp_system_operation_log` VALUES ('30775', '6', 'admin/menu_nav_list', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', '127.0.0.1', '[]', '2020-01-06 18:43:19');
-INSERT INTO `sp_system_operation_log` VALUES ('30776', '6', 'admin/user_role_list', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', '127.0.0.1', '[]', '2020-01-06 18:43:23');
-INSERT INTO `sp_system_operation_log` VALUES ('30777', '6', 'admin/menu_nav_list', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', '127.0.0.1', '[]', '2020-01-06 18:43:43');
-INSERT INTO `sp_system_operation_log` VALUES ('30778', '6', 'admin/system_list', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', '127.0.0.1', '[]', '2020-01-06 18:43:45');
-INSERT INTO `sp_system_operation_log` VALUES ('30779', '6', 'admin/departmentList', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', '127.0.0.1', '[]', '2020-01-06 18:43:58');
 
 -- ----------------------------
 -- Table structure for sp_system_setting
@@ -5576,7 +3885,7 @@ CREATE TABLE `sp_system_setting` (
   KEY `field` (`field`(191)) USING BTREE,
   KEY `name` (`name`(191)) USING BTREE,
   KEY `field_sort` (`field`(191),`sort`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=137 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sp_system_setting
@@ -5687,24 +3996,54 @@ INSERT INTO `sp_system_setting` VALUES ('123', 'progress_construction_accommodat
 INSERT INTO `sp_system_setting` VALUES ('124', 'progress_construction_crane', '空间有限使用距离（20~30米）', '施工:场地大型施工机械使用条件', '3', '2019-11-06 15:01:48', '2019-11-06 15:03:52');
 INSERT INTO `sp_system_setting` VALUES ('125', 'progress_construction_crane', '空间有限使用距离（30~50米）', '施工:场地大型施工机械使用条件', '3', '2019-11-06 15:01:50', '2019-11-06 15:04:00');
 INSERT INTO `sp_system_setting` VALUES ('126', 'progress_construction_crane', '无法使用', '施工:场地大型施工机械使用条件', '5', '2019-11-06 15:04:14', '2019-11-06 15:04:14');
+INSERT INTO `sp_system_setting` VALUES ('127', 'project_country', '国内', '项目:项目所在国', '1', '2019-11-15 14:05:17', '2019-11-15 14:05:17');
+INSERT INTO `sp_system_setting` VALUES ('128', 'project_country', '国外', '项目:项目所在国', '2', '2019-11-15 14:05:27', '2019-11-15 14:05:27');
+INSERT INTO `sp_system_setting` VALUES ('129', 'engin_room_name', '主卧室', '工程:建筑房间名称', '1', '2020-01-09 15:58:17', '2020-01-09 15:58:17');
+INSERT INTO `sp_system_setting` VALUES ('130', 'engin_room_name', '卧室', '工程:建筑房间名称', '2', '2020-01-09 15:58:31', '2020-01-09 15:58:31');
+INSERT INTO `sp_system_setting` VALUES ('131', 'engin_room_name', '客卧', '工程:建筑房间名称', '3', '2020-01-09 15:58:52', '2020-01-09 15:58:52');
+INSERT INTO `sp_system_setting` VALUES ('132', 'engin_room_name', '客厅', '工程:建筑房间名称', '4', '2020-01-09 15:59:13', '2020-01-09 15:59:13');
+INSERT INTO `sp_system_setting` VALUES ('133', 'engin_room_name', '餐厅', '工程:建筑房间名称', '5', '2020-01-09 15:59:38', '2020-01-09 15:59:38');
+INSERT INTO `sp_system_setting` VALUES ('134', 'engin_room_name', '厨房(中式)', '工程:建筑房间名称', '6', '2020-01-09 16:00:07', '2020-01-09 16:00:07');
+INSERT INTO `sp_system_setting` VALUES ('135', 'engin_room_name', '厨房(西式)', '工程:建筑房间名称', '7', '2020-01-09 16:00:29', '2020-01-09 16:00:29');
+INSERT INTO `sp_system_setting` VALUES ('136', 'engin_room_name', '卫生间', '工程:建筑房间名称', '8', '2020-01-09 16:00:49', '2020-01-09 16:00:49');
 
 -- ----------------------------
--- Table structure for sp_test_cate
+-- Table structure for sp_user_role
 -- ----------------------------
-DROP TABLE IF EXISTS `sp_test_cate`;
-CREATE TABLE `sp_test_cate` (
-  `type` varchar(255) DEFAULT '1',
+DROP TABLE IF EXISTS `sp_user_role`;
+CREATE TABLE `sp_user_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `url_data` varchar(255) DEFAULT NULL,
-  `goods_title` varchar(255) DEFAULT NULL,
-  `data_spm` varchar(255) DEFAULT NULL,
-  `data_cate` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5481 DEFAULT CHARSET=utf8mb4;
+  `uid` int(11) DEFAULT NULL COMMENT '用户id',
+  `role_id` int(11) DEFAULT NULL COMMENT '角色id',
+  `role_name` varchar(255) DEFAULT NULL COMMENT '角色名称',
+  `status` tinyint(4) DEFAULT NULL COMMENT '状态：1再用 0删除',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`,`role_id`,`status`) USING BTREE,
+  KEY `uid_2` (`uid`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
--- Records of sp_test_cate
+-- Records of sp_user_role
 -- ----------------------------
+INSERT INTO `sp_user_role` VALUES ('54', '6', '2', '超级管理员', '1', '2019-09-02 10:56:46', '2019-09-02 10:56:46');
+INSERT INTO `sp_user_role` VALUES ('79', '14', '6', '采购专员', '1', '2019-11-06 15:34:31', '2019-11-06 15:34:31');
+INSERT INTO `sp_user_role` VALUES ('80', '13', '14', '预算专员', '1', '2019-11-06 15:34:53', '2019-11-06 15:34:53');
+INSERT INTO `sp_user_role` VALUES ('81', '12', '9', '销售经理', '1', '2019-11-06 15:35:06', '2019-11-06 15:35:06');
+INSERT INTO `sp_user_role` VALUES ('83', '10', '11', '工程经理', '1', '2019-11-06 15:37:22', '2019-11-06 15:37:22');
+INSERT INTO `sp_user_role` VALUES ('84', '9', '15', '预算部经理', '1', '2019-11-06 15:38:12', '2019-11-06 15:38:12');
+INSERT INTO `sp_user_role` VALUES ('85', '8', '14', '预算专员', '1', '2019-11-06 15:38:26', '2019-11-06 15:38:26');
+INSERT INTO `sp_user_role` VALUES ('86', '7', '10', '销售总监', '1', '2019-11-06 15:38:58', '2019-11-06 15:38:58');
+INSERT INTO `sp_user_role` VALUES ('88', '4', '5', '建筑设计师', '1', '2019-11-06 15:39:18', '2019-11-06 15:39:18');
+INSERT INTO `sp_user_role` VALUES ('89', '3', '5', '建筑设计师', '1', '2019-11-06 15:39:31', '2019-11-06 15:39:31');
+INSERT INTO `sp_user_role` VALUES ('91', '5', '13', '设计总监', '1', '2019-11-06 15:40:17', '2019-11-06 15:40:17');
+INSERT INTO `sp_user_role` VALUES ('96', '17', '23', '项目经理', '1', '2019-11-06 15:45:15', '2019-11-06 15:45:15');
+INSERT INTO `sp_user_role` VALUES ('97', '16', '23', '项目经理', '1', '2019-11-06 15:45:22', '2019-11-06 15:45:22');
+INSERT INTO `sp_user_role` VALUES ('98', '2', '6', '采购专员', '1', '2019-11-06 15:49:19', '2019-11-06 15:49:19');
+INSERT INTO `sp_user_role` VALUES ('99', '11', '9', '销售经理', '1', '2019-11-06 15:49:50', '2019-11-06 15:49:50');
+INSERT INTO `sp_user_role` VALUES ('102', '15', '24', '合约经理', '1', '2019-11-06 15:53:20', '2019-11-06 15:53:20');
+INSERT INTO `sp_user_role` VALUES ('104', '1', '1', '超级管理员2', '1', '2019-11-13 09:36:17', '2019-11-13 09:36:17');
 
 -- ----------------------------
 -- Table structure for sp_users
@@ -5748,128 +4087,3 @@ INSERT INTO `sp_users` VALUES ('14', '采购专员1', '497686205@qq.com', null, 
 INSERT INTO `sp_users` VALUES ('15', '合约经理', 'test14@163.com', null, '$2y$10$9tZ9mrm/TBOge6rFf7D8G.YDODsoY7.LWZFOE4REdo2jKsc/VZgyG', '8', null, '2019-09-02 11:52:55', null, '2019-11-06 15:53:39', '1', '合约经理 ', '');
 INSERT INTO `sp_users` VALUES ('16', '项目经理1', 'test12@136.co', null, '$2y$10$zL4ltraGEDlW4a8KNHow3.pG5o4g8V5S6pcK4slOkwmdpOefbs9yq', '5', null, '2019-11-06 15:43:23', null, '2019-11-06 15:47:10', '1', '', '13511111111');
 INSERT INTO `sp_users` VALUES ('17', '项目经理2', 'test13@qq.com', null, '$2y$10$R2u.kl54GYwg3LxI3T9jcO/8qMHP5I091n4k53JoqmgBu/tl45jYa', '5', null, '2019-11-06 15:44:45', null, '2019-11-06 15:47:16', '1', '', '');
-
--- ----------------------------
--- Table structure for sp_user_role
--- ----------------------------
-DROP TABLE IF EXISTS `sp_user_role`;
-CREATE TABLE `sp_user_role` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uid` int(11) DEFAULT NULL COMMENT '用户id',
-  `role_id` int(11) DEFAULT NULL COMMENT '角色id',
-  `role_name` varchar(255) DEFAULT NULL COMMENT '角色名称',
-  `status` tinyint(4) DEFAULT NULL COMMENT '状态：1再用 0删除',
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `uid` (`uid`,`role_id`,`status`) USING BTREE,
-  KEY `uid_2` (`uid`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb4;
-
--- ----------------------------
--- Records of sp_user_role
--- ----------------------------
-INSERT INTO `sp_user_role` VALUES ('1', '1', '1', '管理员', '0', '2019-06-26 18:05:21', '2019-11-13 09:36:17');
-INSERT INTO `sp_user_role` VALUES ('2', '5', '1', '管理员', '0', '2019-07-09 06:41:20', '2019-11-06 15:40:17');
-INSERT INTO `sp_user_role` VALUES ('3', '5', '1', '管理员', '0', '2019-07-09 07:02:09', '2019-11-06 15:40:17');
-INSERT INTO `sp_user_role` VALUES ('4', '5', '2', '销售人员', '0', '2019-07-09 07:02:09', '2019-11-06 15:40:17');
-INSERT INTO `sp_user_role` VALUES ('5', '2', '2', '销售人员', '0', '2019-07-09 07:02:16', '2019-11-06 15:49:19');
-INSERT INTO `sp_user_role` VALUES ('6', '2', '3', '财务人员', '0', '2019-07-09 07:02:16', '2019-11-06 15:49:19');
-INSERT INTO `sp_user_role` VALUES ('7', '6', '1', '管理员', '0', '2019-07-09 07:34:24', '2019-09-02 10:56:46');
-INSERT INTO `sp_user_role` VALUES ('8', '6', '1', '管理员', '0', '2019-07-09 07:34:50', '2019-09-02 10:56:46');
-INSERT INTO `sp_user_role` VALUES ('9', '2', '1', null, '0', null, '2019-11-06 15:49:19');
-INSERT INTO `sp_user_role` VALUES ('10', '2', '1', '管理员', '0', '2019-07-13 15:26:27', '2019-11-06 15:49:19');
-INSERT INTO `sp_user_role` VALUES ('11', '2', '2', '销售人员', '0', '2019-07-13 15:26:27', '2019-11-06 15:49:19');
-INSERT INTO `sp_user_role` VALUES ('12', '2', '3', '财务人员', '0', '2019-07-13 15:26:27', '2019-11-06 15:49:19');
-INSERT INTO `sp_user_role` VALUES ('13', '2', '5', '建筑工程管理', '0', '2019-07-13 15:26:27', '2019-11-06 15:49:19');
-INSERT INTO `sp_user_role` VALUES ('14', '2', '1', '管理员', '0', '2019-07-14 14:17:52', '2019-11-06 15:49:19');
-INSERT INTO `sp_user_role` VALUES ('15', '2', '5', '建筑工程管理', '0', '2019-07-14 14:17:52', '2019-11-06 15:49:19');
-INSERT INTO `sp_user_role` VALUES ('16', '5', '1', '总经理', '0', '2019-07-16 16:24:20', '2019-11-06 15:40:17');
-INSERT INTO `sp_user_role` VALUES ('17', '5', '2', '超级管理员', '0', '2019-07-16 16:24:20', '2019-11-06 15:40:17');
-INSERT INTO `sp_user_role` VALUES ('18', '5', '3', '财务人员', '0', '2019-07-16 16:24:31', '2019-11-06 15:40:17');
-INSERT INTO `sp_user_role` VALUES ('19', '1', '1', '总经理', '0', '2019-07-16 16:24:50', '2019-11-13 09:36:17');
-INSERT INTO `sp_user_role` VALUES ('20', '2', '2', '超级管理员', '0', '2019-07-16 16:25:01', '2019-11-06 15:49:19');
-INSERT INTO `sp_user_role` VALUES ('21', '2', '5', '建筑工程管理', '0', '2019-07-16 16:25:01', '2019-11-06 15:49:19');
-INSERT INTO `sp_user_role` VALUES ('22', '6', '2', '超级管理员', '0', '2019-07-16 16:26:03', '2019-09-02 10:56:46');
-INSERT INTO `sp_user_role` VALUES ('23', '1', '1', '总经理', '0', '2019-07-16 16:26:45', '2019-11-13 09:36:17');
-INSERT INTO `sp_user_role` VALUES ('24', '2', '2', '超级管理员', '0', '2019-07-16 16:27:15', '2019-11-06 15:49:19');
-INSERT INTO `sp_user_role` VALUES ('25', '2', '5', '建筑工程管理', '0', '2019-07-16 16:27:15', '2019-11-06 15:49:19');
-INSERT INTO `sp_user_role` VALUES ('26', '4', '1', '总经理', '0', '2019-07-20 11:32:29', '2019-11-06 15:39:18');
-INSERT INTO `sp_user_role` VALUES ('27', '4', '2', '超级管理员', '0', '2019-07-20 11:32:29', '2019-11-06 15:39:18');
-INSERT INTO `sp_user_role` VALUES ('28', '4', '3', '财务人员', '0', '2019-07-20 11:32:29', '2019-11-06 15:39:18');
-INSERT INTO `sp_user_role` VALUES ('29', '4', '4', '财务人员1', '0', '2019-07-20 11:32:29', '2019-11-06 15:39:18');
-INSERT INTO `sp_user_role` VALUES ('30', '4', '4', '财务人员1', '0', '2019-07-20 16:28:52', '2019-11-06 15:39:18');
-INSERT INTO `sp_user_role` VALUES ('31', '1', '1', '总经理', '0', '2019-07-20 16:40:02', '2019-11-13 09:36:17');
-INSERT INTO `sp_user_role` VALUES ('32', '4', '5', '建筑工程管理', '0', '2019-07-20 21:33:02', '2019-11-06 15:39:18');
-INSERT INTO `sp_user_role` VALUES ('33', '4', '3', '财务人员', '0', '2019-07-20 21:33:27', '2019-11-06 15:39:18');
-INSERT INTO `sp_user_role` VALUES ('34', '6', '2', '超级管理员', '0', '2019-07-22 10:21:48', '2019-09-02 10:56:46');
-INSERT INTO `sp_user_role` VALUES ('35', '4', '5', '建筑设计管理', '0', '2019-07-22 10:59:00', '2019-11-06 15:39:18');
-INSERT INTO `sp_user_role` VALUES ('36', '3', '5', '建筑设计管理', '0', '2019-07-22 10:59:51', '2019-11-06 15:39:31');
-INSERT INTO `sp_user_role` VALUES ('37', '5', '13', '设计总监', '0', '2019-07-22 11:05:03', '2019-11-06 15:40:17');
-INSERT INTO `sp_user_role` VALUES ('38', '2', '9', '销售经理', '0', '2019-07-22 11:05:53', '2019-11-06 15:49:19');
-INSERT INTO `sp_user_role` VALUES ('39', '7', '10', '销售总监', '0', '2019-07-22 11:06:25', '2019-11-06 15:38:58');
-INSERT INTO `sp_user_role` VALUES ('40', '7', '10', '销售总监', '0', '2019-07-22 11:06:58', '2019-11-06 15:38:58');
-INSERT INTO `sp_user_role` VALUES ('41', '4', '5', '建筑设计师', '0', '2019-07-22 11:07:09', '2019-11-06 15:39:18');
-INSERT INTO `sp_user_role` VALUES ('42', '8', '14', '预算专员', '0', '2019-07-22 11:08:21', '2019-11-06 15:38:26');
-INSERT INTO `sp_user_role` VALUES ('43', '9', '15', '预算总监', '0', '2019-07-22 11:08:56', '2019-11-06 15:38:12');
-INSERT INTO `sp_user_role` VALUES ('44', '10', '11', '工程经理', '0', '2019-07-22 11:09:22', '2019-11-06 15:37:22');
-INSERT INTO `sp_user_role` VALUES ('45', '11', '12', '工程总监', '0', '2019-07-22 11:09:54', '2019-11-06 15:49:50');
-INSERT INTO `sp_user_role` VALUES ('46', '12', '9', '销售经理', '0', '2019-07-22 11:10:42', '2019-11-06 15:35:06');
-INSERT INTO `sp_user_role` VALUES ('47', '13', '14', '预算专员', '0', '2019-07-22 11:11:24', '2019-11-06 15:34:53');
-INSERT INTO `sp_user_role` VALUES ('48', '13', '12', '工程总监', '0', '2019-07-22 11:11:38', '2019-11-06 15:34:53');
-INSERT INTO `sp_user_role` VALUES ('49', '13', '14', '预算专员', '0', '2019-07-22 11:11:38', '2019-11-06 15:34:53');
-INSERT INTO `sp_user_role` VALUES ('50', '13', '14', '预算专员', '0', '2019-07-22 11:11:42', '2019-11-06 15:34:53');
-INSERT INTO `sp_user_role` VALUES ('51', '14', '6', '采购专员', '0', '2019-08-02 16:37:05', '2019-11-06 15:34:31');
-INSERT INTO `sp_user_role` VALUES ('52', '1', '1', '总经理', '0', '2019-08-28 11:05:06', '2019-11-13 09:36:17');
-INSERT INTO `sp_user_role` VALUES ('53', '6', '2', '超级管理员', '0', '2019-09-02 10:54:53', '2019-09-02 10:56:46');
-INSERT INTO `sp_user_role` VALUES ('54', '6', '2', '超级管理员', '1', '2019-09-02 10:56:46', '2019-09-02 10:56:46');
-INSERT INTO `sp_user_role` VALUES ('55', '7', '10', '销售总监', '0', '2019-09-02 10:57:46', '2019-11-06 15:38:58');
-INSERT INTO `sp_user_role` VALUES ('56', '8', '14', '预算专员', '0', '2019-09-02 10:59:40', '2019-11-06 15:38:26');
-INSERT INTO `sp_user_role` VALUES ('57', '13', '14', '预算专员', '0', '2019-09-02 11:46:06', '2019-11-06 15:34:53');
-INSERT INTO `sp_user_role` VALUES ('58', '12', '9', '销售经理', '0', '2019-09-02 11:46:23', '2019-11-06 15:35:06');
-INSERT INTO `sp_user_role` VALUES ('59', '11', '12', '工程总监', '0', '2019-09-02 11:46:32', '2019-11-06 15:49:50');
-INSERT INTO `sp_user_role` VALUES ('60', '10', '11', '工程经理', '0', '2019-09-02 11:46:41', '2019-11-06 15:37:22');
-INSERT INTO `sp_user_role` VALUES ('61', '9', '15', '预算总监', '0', '2019-09-02 11:46:50', '2019-11-06 15:38:12');
-INSERT INTO `sp_user_role` VALUES ('62', '8', '14', '预算专员', '0', '2019-09-02 11:46:57', '2019-11-06 15:38:26');
-INSERT INTO `sp_user_role` VALUES ('63', '7', '10', '销售总监', '0', '2019-09-02 11:47:03', '2019-11-06 15:38:58');
-INSERT INTO `sp_user_role` VALUES ('64', '5', '13', '设计总监', '0', '2019-09-02 11:47:12', '2019-11-06 15:40:17');
-INSERT INTO `sp_user_role` VALUES ('65', '4', '5', '建筑设计师', '0', '2019-09-02 11:47:20', '2019-11-06 15:39:18');
-INSERT INTO `sp_user_role` VALUES ('66', '3', '5', '建筑设计师', '0', '2019-09-02 11:47:30', '2019-11-06 15:39:31');
-INSERT INTO `sp_user_role` VALUES ('67', '2', '9', '销售经理', '0', '2019-09-02 11:47:40', '2019-11-06 15:49:19');
-INSERT INTO `sp_user_role` VALUES ('68', '14', '6', '采购专员', '0', '2019-09-02 11:47:57', '2019-11-06 15:34:31');
-INSERT INTO `sp_user_role` VALUES ('69', '15', '12', '工程总监', '0', '2019-09-02 11:52:56', '2019-11-06 15:53:20');
-INSERT INTO `sp_user_role` VALUES ('70', '15', '12', '工程总监', '0', '2019-09-02 11:54:05', '2019-11-06 15:53:20');
-INSERT INTO `sp_user_role` VALUES ('71', '1', '1', '总经理', '0', '2019-09-19 16:45:45', '2019-11-13 09:36:17');
-INSERT INTO `sp_user_role` VALUES ('72', '1', '1', '总经理', '0', '2019-09-19 16:46:48', '2019-11-13 09:36:17');
-INSERT INTO `sp_user_role` VALUES ('73', '1', '1', '总经理', '0', '2019-09-19 16:48:27', '2019-11-13 09:36:17');
-INSERT INTO `sp_user_role` VALUES ('74', '1', '1', '总经理', '0', '2019-09-19 16:50:03', '2019-11-13 09:36:17');
-INSERT INTO `sp_user_role` VALUES ('75', '1', '1', '总经理', '0', '2019-09-19 16:52:04', '2019-11-13 09:36:17');
-INSERT INTO `sp_user_role` VALUES ('76', '1', '1', '总经理', '0', '2019-09-19 16:54:02', '2019-11-13 09:36:17');
-INSERT INTO `sp_user_role` VALUES ('77', '1', '1', '总经理', '0', '2019-09-19 17:07:50', '2019-11-13 09:36:17');
-INSERT INTO `sp_user_role` VALUES ('78', '15', '12', '工程总监', '0', '2019-11-06 15:34:10', '2019-11-06 15:53:20');
-INSERT INTO `sp_user_role` VALUES ('79', '14', '6', '采购专员', '1', '2019-11-06 15:34:31', '2019-11-06 15:34:31');
-INSERT INTO `sp_user_role` VALUES ('80', '13', '14', '预算专员', '1', '2019-11-06 15:34:53', '2019-11-06 15:34:53');
-INSERT INTO `sp_user_role` VALUES ('81', '12', '9', '销售经理', '1', '2019-11-06 15:35:06', '2019-11-06 15:35:06');
-INSERT INTO `sp_user_role` VALUES ('82', '11', '9', '销售经理', '0', '2019-11-06 15:36:20', '2019-11-06 15:49:50');
-INSERT INTO `sp_user_role` VALUES ('83', '10', '11', '工程经理', '1', '2019-11-06 15:37:22', '2019-11-06 15:37:22');
-INSERT INTO `sp_user_role` VALUES ('84', '9', '15', '预算部经理', '1', '2019-11-06 15:38:12', '2019-11-06 15:38:12');
-INSERT INTO `sp_user_role` VALUES ('85', '8', '14', '预算专员', '1', '2019-11-06 15:38:26', '2019-11-06 15:38:26');
-INSERT INTO `sp_user_role` VALUES ('86', '7', '10', '销售总监', '1', '2019-11-06 15:38:58', '2019-11-06 15:38:58');
-INSERT INTO `sp_user_role` VALUES ('87', '5', '13', '设计总监', '0', '2019-11-06 15:39:08', '2019-11-06 15:40:17');
-INSERT INTO `sp_user_role` VALUES ('88', '4', '5', '建筑设计师', '1', '2019-11-06 15:39:18', '2019-11-06 15:39:18');
-INSERT INTO `sp_user_role` VALUES ('89', '3', '5', '建筑设计师', '1', '2019-11-06 15:39:31', '2019-11-06 15:39:31');
-INSERT INTO `sp_user_role` VALUES ('90', '2', '6', '采购专员', '0', '2019-11-06 15:40:00', '2019-11-06 15:49:19');
-INSERT INTO `sp_user_role` VALUES ('91', '5', '13', '设计总监', '1', '2019-11-06 15:40:17', '2019-11-06 15:40:17');
-INSERT INTO `sp_user_role` VALUES ('92', '16', '23', '项目经理', '0', '2019-11-06 15:43:23', '2019-11-06 15:45:22');
-INSERT INTO `sp_user_role` VALUES ('93', '16', '23', '项目经理', '0', '2019-11-06 15:43:45', '2019-11-06 15:45:22');
-INSERT INTO `sp_user_role` VALUES ('94', '16', '23', '项目经理', '0', '2019-11-06 15:44:00', '2019-11-06 15:45:22');
-INSERT INTO `sp_user_role` VALUES ('95', '17', '23', '项目经理', '0', '2019-11-06 15:44:45', '2019-11-06 15:45:15');
-INSERT INTO `sp_user_role` VALUES ('96', '17', '23', '项目经理', '1', '2019-11-06 15:45:15', '2019-11-06 15:45:15');
-INSERT INTO `sp_user_role` VALUES ('97', '16', '23', '项目经理', '1', '2019-11-06 15:45:22', '2019-11-06 15:45:22');
-INSERT INTO `sp_user_role` VALUES ('98', '2', '6', '采购专员', '1', '2019-11-06 15:49:19', '2019-11-06 15:49:19');
-INSERT INTO `sp_user_role` VALUES ('99', '11', '9', '销售经理', '1', '2019-11-06 15:49:50', '2019-11-06 15:49:50');
-INSERT INTO `sp_user_role` VALUES ('100', '15', '12', '工程总监', '0', '2019-11-06 15:53:10', '2019-11-06 15:53:20');
-INSERT INTO `sp_user_role` VALUES ('101', '15', '24', '合约经理', '0', '2019-11-06 15:53:10', '2019-11-06 15:53:20');
-INSERT INTO `sp_user_role` VALUES ('102', '15', '24', '合约经理', '1', '2019-11-06 15:53:20', '2019-11-06 15:53:20');
-INSERT INTO `sp_user_role` VALUES ('103', '1', '1', '超级管理员2', '0', '2019-11-13 09:30:02', '2019-11-13 09:36:17');
-INSERT INTO `sp_user_role` VALUES ('104', '1', '1', '超级管理员2', '1', '2019-11-13 09:36:17', '2019-11-13 09:36:17');
