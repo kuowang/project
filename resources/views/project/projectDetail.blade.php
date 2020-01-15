@@ -225,24 +225,34 @@
                         <table class="layui-table layui-form">
                             <thead>
                             <tr>
-                                <th colspan="5"><span class="btn btn-info">项目文件</span></th>
+                                <th colspan="4"><span class="btn btn-info">项目文件</span></th>
+                                <th>
+                                    <span class="title" style="float: right;">
+                                        <a class="btn btn-success" id="addProjectFileID" attr="1000" onclick="show_list()">
+                                            <i class="layui-icon" id="show_ids">显示更多</i> >>
+                                        </a>
+                                    </span>
+                                </th>
                             </tr>
                             </thead>
                             <tbody id="projectFileList">
                             <tr>
-                                <td class="pro-title">序号</td>
                                 <td class="pro-title">文件类型</td>
+                                <td class="pro-title">序号</td>
                                 <td class="pro-title">文件名</td>
                                 <td class="pro-title">创建时间</td>
                                 <td class="pro-title">文件描述</td>
                             </tr>
 
                             @foreach($project_file as $k=>$file)
-                                <tr>
+                                @if($k >2)
+                                    <tr style="display: none" class="show_tr_list">
+                                @else
+                                    <tr>
+                                @endif
+
+                                    <td>{{$file->file_type}}</td>
                                     <td class="pro-title">{{++$k}}</td>
-                                    <td>
-                                        {{$file->file_type}}
-                                    </td>
                                     <td>
                                         <div id="uploadfiletitle{{$k}}">{{$file->uploadfile}}
                                             <a href="/project/projectFileDownload/{{$file->file_key}}"  style="color: red">
@@ -278,5 +288,43 @@
     </div>
 </div>
 
+    <script type="text/javascript">
+        jQuery.fn.rowspan = function(colIdx) { //封装的一个JQuery小插件
+            return this.each(function(){
+                var that;
+                $('tr', this).each(function(row) {
+                    $('td:eq('+colIdx+')', this).filter(':visible').each(function(col) {
+                        if (that!=null && $(this).html() == $(that).html()) {
+                            rowspan = $(that).attr("rowSpan");
+                            if (rowspan == undefined) {
+                                $(that).attr("rowSpan",1);
+                                rowspan = $(that).attr("rowSpan"); }
+                            rowspan = Number(rowspan)+1;
+                            $(that).attr("rowSpan",rowspan);
+                            $(this).hide();
+                        } else {
+                            that = this;
+                        }
+                    });
+                });
+            });
+        }
+
+        $(function() {
+            $("#projectFileList").rowspan(0);//传入的参数是对应的列数从0开始，哪一列有相同的内容就输入对应的列数值
+            //$("#table1").rowspan(2);
+
+        });
+        function show_list() {
+            $('.show_tr_list').toggle();
+            $("#projectFileList").rowspan(0);
+            htm =$('#show_ids').html();
+            if(htm =='显示更多'){
+                $('#show_ids').html('折叠');
+            }else{
+                $('#show_ids').html('显示更多');
+            }
+        }
+    </script>
 
 @endsection
