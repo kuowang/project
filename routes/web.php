@@ -98,10 +98,12 @@ Route::group(['prefix' => 'project','namespace' => 'Project','middleware' => 'au
     Route::get('/createdProjectEngin/{id}',           'ProjectController@createdProjectEngin');    //添加项目下的子工程
     Route::post('/postProjectEngin/{id}',             'ProjectController@postProjectEngin');    //保存添加项目下的子工程
     Route::get('/editProjectEngin/{id}',              'ProjectController@editProjectEngin');    //添加项目下的子工程
-    Route::get('/projectEnginDetail/{id}',              'ProjectController@projectEnginDetail');    //项目下的子工程详情
+    Route::get('/projectEnginDetail/{id}',            'ProjectController@projectEnginDetail');    //项目下的子工程详情
 
-    Route::post('/editEnginStatus',                     'ProjectController@editEnginStatus');    //变更工程状态
+    Route::post('/editEnginStatus',                   'ProjectController@editEnginStatus');    //变更工程状态
 
+    Route::post('/uploadProjectFile/{id}',            'ProjectController@uploadProjectFile');    //上传项目文件
+    Route::get('/projectFileDownload/{id}',           'ProjectController@projectFileDownload');   //下载项目文件
 
 });
 
@@ -364,9 +366,5 @@ Route::group(['prefix' => 'progress','namespace' => 'Progress','middleware' => '
     Route::get('/editProgressMaterial/{id}',              'ProgressController@editProgressMaterial');        //编辑现场材料管理
     Route::post('/postProgressMaterial/{id}',             'ProgressController@postProgressMaterial');       //提交现场材料管理信息
     Route::post('/postProgressAcutalManage/{id}',         'ProgressController@postProgressAcutalManage');   //提交施工进度管理
-
-
-
-
 
 });

@@ -4139,7 +4139,7 @@ a.thumbnail:hover {
     -ms-transition: top 0.3s ease-out, top 0.3s ease-out;
     -o-transition: top 0.3s ease-out, top 0.3s ease-out;
     transition: top 0.3s ease-out, top 0.3s ease-out;
-    top: -20%; }
+    top: -50%; }
    .modal.fade.in {
       top: 20%; }
 

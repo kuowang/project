@@ -472,6 +472,63 @@
                             </tbody>
                         </table>
                         <div class="clearfix"></div>
+                            <table class="layui-table layui-form">
+                                <thead>
+                                <tr>
+                                    <th colspan="3"><span class="btn btn-info">项目文件</span></th>
+                                    <th colspan="2">
+                                        <span class="title" style="float: right;">
+                                            <a class="btn btn-success" id="addProjectFileID" attr="1000" onclick="add_project_file()"><i class="layui-icon">添加文件 +</i></a>
+                                        </span>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody id="projectFileList">
+                                <tr>
+                                    <td class="pro-title">序号</td>
+                                    <td class="pro-title">文件类型</td>
+                                    <td class="pro-title">文件</td>
+                                    <td class="pro-title">文件描述</td>
+                                    <td class="pro-title">操作</td>
+                                </tr>
+
+                                @foreach($project_file as $k=>$file)
+                                <tr>
+                                    <td class="pro-title">1</td>
+                                    <td>
+                                        <input type="hidden" id="project_file_id"  name="project_file_id[]" value="{{$file->id}}"  >
+                                        @if(isset($project_file_type))
+                                            <select name="file_type[]" id="file_type" class="span10 notempty" style="min-width: 80px;">
+                                                @foreach($project_file_type as $v)
+                                                    @if($v == $file->file_type)
+                                                        <option value="{{$v}}" selected="selected" >{{$v}}</option>
+                                                    @else
+                                                        <option value="{{$v}}" >{{$v}}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <input type="hidden" id="project_file{{$k}}" class="notempty" name="project_file[]" value="{{$file->file_url}}" placeholder="logo" >
+                                        <input class="span8" type="file" id="uploadfile{{$k}}" name="uploadfile[]"  value="" placeholder="logo" onchange="submitFile({{$k}})">
+                                        <div id="uploadfiletitle{{$k}}">
+                                            <a href="/project/projectFileDownload/{{$file->file_key}}">
+                                                {{$file->uploadfile}}
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type="text"  name="project_file_name[]" class="span12 notempty"  value="{{$file->file_name}}" lay-skin="primary" >
+                                    </td>
+                                    <td><a class="btn btn-danger" onclick="deleteTrRow(this)">删除</a></td>
+                                </tr>
+
+                                @endforeach
+                                </tbody>
+                            </table>
+                            <div style="color: red">注：文件必须是pdf/jpg/png/doc/xls/dwg 格式</div>
+                            <div class="clearfix"></div>
                         <div class="layui-form-item" style="float: right;clear: left">
                             <label for="L_repass" class="layui-form-label"></label>
                             <button class="btn btn-success" lay-filter="add" type="submit" lay-submit="" onclick='return form_submit()'>确认/保存</button>
@@ -593,6 +650,78 @@
                 $(th).val(0);
             }
         }
+        //添加上传文件内容
+        function add_project_file() {
+            id=$('#addProjectFileID').attr('attr') *1 +1;
+            $('#addProjectFileID').attr('attr',id);
+            str =`<tr>
+                <td class="pro-title">1</td>
+                <td>
+                    <input type="hidden" id="project_file_id"  name="project_file_id[]" value="0" >
+                    @if(isset($project_file_type))
+                    <select name="file_type[]" id="file_type" class="span10 notempty" style="min-width: 80px;">
+                        @foreach($project_file_type as $v)
+                        <option value="{{$v}}" >{{$v}}</option>
+                        @endforeach
+                    </select>
+                    @endif
+                </td>
+                <td>
+                    <input type="hidden" id="project_file` + id + `"   class="notempty" name="project_file[]" placeholder="logo" >
+                    <input class="span8 notempty" type="file" id="uploadfile` + id + `" name="uploadfile[]" placeholder="logo" onchange="submitFile(` + id + `)">
+                </td>
+                <td>
+                    <input type="text"  name="project_file_name[]" class="span12 notempty"  value="" lay-skin="primary" >
+                </td>
+                <td><a class="btn btn-danger" onclick="deleteTrRow(this)">删除</a></td>
+            </tr>`;
+            $("#projectFileList").append(str);
+            var len = $('#projectFileList tr').length;
+            for(var i = 1;i<len;i++){
+                $('#projectFileList tr:eq('+i+') td:first').text(i);
+            }
+            //点击文本框设置背景色
+            $(".notempty").focus(function(){
+                $(this).css("background-color","#fff");
+            });
+        }
+        //提交文件信息
+        function submitFile(id) {
+            var formdata=new FormData();
+            formdata.append('file',$('#uploadfile'+id)[0].files[0]);
+            $.ajax({
+                url:'/project/uploadProjectFile/'+{{$id}},
+                type:"POST",
+                data:formdata,
+                processData:false,
+                contentType:false,
+                success:function(data){
+                    console.log(data);
+                    if(data.status ==1){
+                        layui.use('layer', function(){
+                            var layer = layui.layer;
+                            layer.msg(data.data.msg);
+                            $('#project_file'+id).val(data.data.url)
+                        });
+                        $('#uploadfiletitle'+id).remove();
+                    }else{
+                        layui.use('layer', function(){
+                            var layer = layui.layer;
+                            layer.msg(data.info);
+                        });
+                        $('#uploadfile'+id).val('');
+                    }
+                }
+            })
+        }
+
+
+
+
+
+
+
+
     </script>
 
 @endsection

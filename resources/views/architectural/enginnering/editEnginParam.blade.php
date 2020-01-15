@@ -36,7 +36,7 @@
                 <div class="widget-body">
                     <div id="dt_example" class="example_alt_pagination">
                         <form method="post" action="/architectural/postEditEnginParam/{{ $engin_id }}">
-                                                   <table class="layui-table layui-form">
+                            <table class="layui-table layui-form">
                                 <thead>
                                 <tr>
                                     <th colspan="6"><span class="btn btn-info">项目概况</span></th>

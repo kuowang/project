@@ -222,6 +222,42 @@
                             </tbody>
                         </table>
                         <div class="clearfix"></div>
+                        <table class="layui-table layui-form">
+                            <thead>
+                            <tr>
+                                <th colspan="4"><span class="btn btn-info">项目文件</span></th>
+                            </tr>
+                            </thead>
+                            <tbody id="projectFileList">
+                            <tr>
+                                <td class="pro-title">序号</td>
+                                <td class="pro-title">文件类型</td>
+                                <td class="pro-title">文件名</td>
+                                <td class="pro-title">文件描述</td>
+                            </tr>
+
+                            @foreach($project_file as $k=>$file)
+                                <tr>
+                                    <td class="pro-title">{{++$k}}</td>
+                                    <td>
+                                        {{$file->file_type}}
+                                    </td>
+                                    <td>
+                                        <div id="uploadfiletitle{{$k}}">{{$file->uploadfile}}
+                                            <a href="/project/projectFileDownload/{{$file->file_key}}"  style="color: red">
+                                                (下载)
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        {{$file->file_name}}
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                        <div class="clearfix"></div>
+
                         <div class="layui-form-item" style="float: right;clear: left">
                             <a href="javascript:history.go(-1)">
                                 <label for="L_repass" class="layui-form-label"></label>

@@ -27,6 +27,7 @@ class SystemSettingController extends WebController
             'project_environment'=>'项目:场地自然条件',
             'project_traffic'=>'项目:交通条件',
             'project_material_storage'=>'项目:材料储放条件',
+            "project_file_type"=>"项目:上传文件类型",
             'customer_type'=>'项目:客户类型',
             'engin_use_time'=>'工程:建筑使用寿命（年）',
             'engin_seismic_grade'=>'工程:抗震设防烈度(度)',

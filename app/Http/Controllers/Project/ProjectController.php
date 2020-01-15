@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Project;
 use Illuminate\Http\Request;
 use App\Http\Controllers\WebController;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Log;
 
 class ProjectController extends WebController
 {
@@ -348,6 +350,9 @@ class ProjectController extends WebController
             return redirect('/project/projectStart?status=2&notice='.'您没有权限查看该项目信息');
         }
         $engineering =DB::table('engineering')->where('project_id',$id)->get();
+        //获取项目文件
+        $data['project_file']=DB::table('project_file')->where('status',1)->where('project_id',$id)->get();
+
         $data['engineering']=$engineering;
         $data['project']    =$project;
         return view('project.projectDetail',$data);
@@ -383,8 +388,10 @@ class ProjectController extends WebController
         $data['project']    =$project;
         $data['id']=$project->id;
         $data['userList']=DB::table('users')->where('status',1)->orderby('name')->select(['id','name','department_id'])->get();
+        //获取项目文件
+        $data['project_file']=DB::table('project_file')->where('status',1)->where('project_id',$id)->get();
         //获取参数数据
-        $params =['project_type','project_country','project_source','project_stage','project_environment','project_traffic','project_material_storage','customer_type'];
+        $params =['project_type','project_country','project_source','project_stage','project_environment','project_traffic','project_material_storage','customer_type','project_file_type'];
         $items =DB::table('system_setting')->wherein('field',$params)->orderby('field')->orderby('sort')->select(['field','name'])->get();
         foreach($items as $item){
             $data[$item->field][] = $item->name ;
@@ -531,6 +538,19 @@ class ProjectController extends WebController
 
             }
         }
+        //保存项目文件信息
+        $project_file_id    =$request->input('project_file_id',[]);
+        $file_type  =$request->input('file_type',[]);
+        $project_file   =$request->input('project_file',[]);
+        $uploadfile =$request->input('uploadfile',[]);
+        $project_file_name  =$request->input('project_file_name',[]);
+        try{
+            //保存项目文件信息
+            $this->saveProjectFileList($id,$project_file_id,$file_type,$project_file,$uploadfile,$project_file_name);
+        }catch (\Exception $exception){
+           log::notice('文件保存失败',[$request->all()]);
+        }
+
         //设置项目工程数量和建筑总面积
         $this->setProjectEnginNumber($id);
         if($statustype == 'conduct'){
@@ -539,7 +559,43 @@ class ProjectController extends WebController
             return redirect('/project/projectStart?status=1&notice='.'项目修改成功');
         }
     }
-
+    //保存项目文件信息
+    protected function saveProjectFileList($id,$project_file_id,$file_type,$project_file,$uploadfile,$project_file_name)
+    {
+        $uid =$this->user()->id;
+        //第一步将删除的文件状态更改
+        DB::table('project_file')->where('project_id',$id)
+            ->wherenotin('id',$project_file_id)
+            ->update(['status'=>0,'update_at'=>date('Y-m-d')]);
+        //第二步循环保存文件信息
+        $date =date('Y-m-d');
+        foreach($project_file_id as $k=>$item){
+            if(!isset($project_file[$k]) || empty($project_file[$k])){
+                continue;
+            }
+            $data=[
+                'project_id'=>$id,
+                'file_type'=>isset($file_type[$k])?$file_type[$k]:'',
+                'file_name'=>isset($project_file_name[$k])?$project_file_name[$k]:'',
+                'file_url'=>isset($project_file[$k])?$project_file[$k]:'',
+                'uid'=>$uid,
+                'status'=>1,
+                'update_at'=>$date,
+            ] ;
+            if(isset($uploadfile[$k]) && !empty($uploadfile[$k])){
+                $data['uploadfile'] =$uploadfile[$k];
+            }
+            if(isset($project_file[$k]) && !empty($project_file[$k])){
+                $data['file_key'] = pathinfo($project_file[$k], PATHINFO_FILENAME);
+            }
+            if(empty($item)){
+                $data['created_at']=$date;
+                DB::table('project_file')->insert($data);
+            }else{
+                DB::table('project_file')->where('project_id',$id)->where('id',$item)->update($data);
+            }
+        }
+    }
     //编辑项目状态
     public function updateProjectStatus(Request $request,$id)
     {
@@ -1066,5 +1122,75 @@ class ProjectController extends WebController
         $this->setProjectEnginNumber($id);
         return redirect('/project/projectEnginStart/'.$id);
     }
+    //上传项目文件
+    public function uploadProjectFile(Request $request,$id)
+    {
+        $file = $request->file('file');
+        // 此时 $this->upload如果成功就返回文件名不成功返回false
+        // 1.是否上传成功
+        if (! $file->isValid()) {
+            return $this->error('上传异常');
+        }
+        // 2.是否符合文件类型 getClientOriginalExtension 获得文件后缀名
+        $fileExtension = $file->getClientOriginalExtension();
+        if(! in_array($fileExtension, ['png', 'jpg', 'gif','pdf','doc','dwg'])) {
+            return $this->error('文件格式必须是png、jpg、gif、pdf、doc、dwg');
+        }
+        // 3.判断大小是否符合 2M
+        $tmpFile = $file->getRealPath();
+        if (filesize($tmpFile) >= 20480000) {
+            return $this->error('文件不能超过20M');
+        }
+        // 4.是否是通过http请求表单提交的文件
+        if (! is_uploaded_file($tmpFile)) {
+            return $this->error('请求表单异常');
+        }
 
+        $houzhui =strrchr($_FILES["file"]["name"], '.');
+        //防止文件名重复
+        $dir="./projectfile/".$id.'/';
+        $sta =$this->mkdirs($dir);
+        if(!$sta){
+            return $this->error('文件保存失败，请重试');
+        }
+        $filename =md5(time().$_FILES["file"]["name"]);
+        //转码，把utf-8转成gb2312,返回转换后的字符串， 或者在失败时返回 FALSE。
+        $filename =iconv("UTF-8","gb2312",$filename).$houzhui;
+        //检查文件或目录是否存在
+        if(file_exists($dir.$filename))
+        {
+            return $this->error('该文件已存在');
+        }
+        //保存文件,   move_uploaded_file 将上传的文件移动到新位置
+        move_uploaded_file($_FILES["file"]["tmp_name"],$dir.$filename);//将临时地址移动到指定地址
+        $data['msg']='上传文件成功';
+        $data['file_name']=$file->getClientOriginalName();
+        $data['url']="/projectfile/".$id.'/'.$filename;
+        return $this->success($data);
+    }
+
+
+    //创建文件夹
+    public function mkdirs($dir, $mode = 0777)
+    {
+        if (is_dir($dir)){
+            return true;
+        }
+        //第三个参数是“true”表示能创建多级目录，iconv防止中文目录乱码
+        $res=mkdir($dir,0666,true);
+        if ($res){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    //下载项目文件
+    public function projectFileDownload(Request $request,$id){
+        $file=DB::table('project_file')->where('file_key',$id)->first();
+        if(!$file){
+            echo '没有查询到文件';
+        }
+        return (response()->download('.'.$file->file_url,$file->uploadfile));
+    }
 }
