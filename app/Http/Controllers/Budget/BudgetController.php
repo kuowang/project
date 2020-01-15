@@ -293,6 +293,11 @@ class BudgetController extends WebController
             $data['room_area']      =json_decode($data['param']->room_area,true);
         }
         //return $this->success($data);
+        //获取项目文件
+        $data['project_file']=DB::table('project_file')->where('status',1)
+            ->where('project_id',$project->id)
+            ->orderby('file_type')
+            ->orderby('id')->get();
         return view('budget.editBudget',$data);
     }
 
@@ -689,6 +694,11 @@ class BudgetController extends WebController
             $data['room_name']      =json_decode($data['param']->room_name,true);
             $data['room_area']      =json_decode($data['param']->room_area,true);
         }
+        //获取项目文件
+        $data['project_file']=DB::table('project_file')->where('status',1)
+            ->where('project_id',$project->id)
+            ->orderby('file_type')
+            ->orderby('id')->get();
         return view('budget.budgetDetail',$data);
     }
 
