@@ -322,6 +322,7 @@
                             </tbody>
                         </table>
                         <div class="clearfix"></div>
+
                         <div class="clearfix"></div>
                         <div class="layui-form-item" style="float: right;clear: left">
                             <a href="javascript:history.go(-1)">
@@ -329,9 +330,7 @@
                                 <span class="btn btn-success" lay-filter="add" lay-submit="">返回/取消</span>
                             </a>
                         </div>
-                        <div class="clearfix">
-                        </div>
-
+                        <div class="clearfix"></div>
 
                     </div>
                 </div>
@@ -340,6 +339,5 @@
 
     </div>
 </div>
-
 
 @endsection

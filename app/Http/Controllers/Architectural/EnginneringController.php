@@ -213,6 +213,11 @@ class EnginneringController extends WebController
             ->orderby('engineering_name')
             ->select(['id','engineering_name','status','is_conf_architectural'])
             ->get();
+        //获取项目文件
+        $data['project_file']=DB::table('project_file')->where('status',1)
+            ->where('project_id',$engineering->project_id)
+            ->orderby('file_type')
+            ->orderby('id')->get();
         return view('architectural.enginnering.editEngin',$data);
     }
 
@@ -488,6 +493,11 @@ class EnginneringController extends WebController
             ->get();
         $data['engineering']=$engineering;
         $data['project']    =$project;
+        //获取项目文件
+        $data['project_file']=DB::table('project_file')->where('status',1)
+            ->where('project_id',$project->id)
+            ->orderby('file_type')
+            ->orderby('id')->get();
         return view('architectural.enginnering.enginArchitectDetail',$data);
     }
     //项目设计参数
@@ -527,6 +537,11 @@ class EnginneringController extends WebController
         foreach($items as $item){
             $data[$item->field][] = $item->name ;
         }
+        //获取项目文件
+        $data['project_file']=DB::table('project_file')->where('status',1)
+            ->where('project_id',$engineering->project_id)
+            ->orderby('file_type')
+            ->orderby('id')->get();
         return view('architectural.enginnering.editEnginParam',$data);
     }
     //提交建筑设计参数配置
@@ -641,6 +656,11 @@ class EnginneringController extends WebController
             $data['room_name']      =json_decode($data['param']->room_name,true);
             $data['room_area']      =json_decode($data['param']->room_area,true);
         }
+        //获取项目文件
+        $data['project_file']=DB::table('project_file')->where('status',1)
+            ->where('project_id',$engineering->project_id)
+            ->orderby('file_type')
+            ->orderby('id')->get();
         return view('architectural.enginnering.enginParamDetail',$data);
     }
 

@@ -99,7 +99,7 @@
                         <div class="clearfix"></div>
                         <table class="layui-table layui-form">
                             <thead>
-                            <tr><th colspan="8"><span class="btn btn-info">项目子工程信息</span></th>
+                            <tr><th colspan="10"><span class="btn btn-info">项目子工程信息</span></th>
                             </tr>
                             </thead>
                             <tbody id="zigongcheng">
@@ -170,14 +170,14 @@
                             </tbody>
                         </table>
                         <div class="clearfix"></div>
+
                         <div class="layui-form-item" style="float: right;clear: left">
                             <a href="javascript:history.go(-1)">
                                 <label for="L_repass" class="layui-form-label"></label>
                                 <span class="btn btn-success" lay-filter="add" lay-submit="">返回/取消</span>
                             </a>
                         </div>
-                        <div class="clearfix">
-                        </div>
+                        <div class="clearfix"></div>
 
                     </div>
                 </div>
@@ -186,6 +186,5 @@
 
     </div>
 </div>
-
 
 @endsection

@@ -64,6 +64,60 @@
                             </tbody>
                         </table>
 
+                        @if(count($project_file) > 0)
+                            <table class="layui-table layui-form">
+                                <thead>
+                                <tr>
+                                    <th colspan="4"><span class="btn btn-info">项目文件</span></th>
+                                    <th>
+                                    <span class="title" style="float: right;">
+                                        @if(count($project_file) > 3)
+                                            <a class="btn btn-success" id="addProjectFileID" attr="1000" onclick="show_list()">
+                                            <i class="layui-icon" id="show_ids">显示更多</i> >>
+                                        </a>
+                                        @endif
+                                    </span>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody id="projectFileList">
+                                <tr>
+                                    <td class="pro-title">文件类型</td>
+                                    <td class="pro-title">序号</td>
+                                    <td class="pro-title">文件名</td>
+                                    <td class="pro-title">创建时间</td>
+                                    <td class="pro-title">文件描述</td>
+                                </tr>
+
+                                @foreach($project_file as $k=>$file)
+                                    @if($k >2)
+                                        <tr style="display: none" class="show_tr_list">
+                                    @else
+                                        <tr>
+                                            @endif
+
+                                            <td>{{$file->file_type}}</td>
+                                            <td class="pro-title">{{++$k}}</td>
+                                            <td>
+                                                <div id="uploadfiletitle{{$k}}">{{$file->uploadfile}}
+                                                    <a href="/project/projectFileDownload/{{$file->file_key}}"  style="color: red">
+                                                        (下载)
+                                                    </a>
+                                                </div>
+                                            </td>
+                                            <td>{{$file->created_at}}</td>
+                                            <td>
+                                                {{$file->file_name}}
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                </tbody>
+                            </table>
+                            <div class="clearfix"></div>
+                        @endif
+
+
+
                         <div class="clearfix"></div>
                         <table class="layui-table layui-form">
                             <thead>
@@ -334,6 +388,44 @@
                     }
                 },
             });
+        }
+
+
+        jQuery.fn.rowspan = function(colIdx) { //封装的一个JQuery小插件
+            return this.each(function(){
+                var that;
+                $('tr', this).each(function(row) {
+                    $('td:eq('+colIdx+')', this).filter(':visible').each(function(col) {
+                        if (that!=null && $(this).html() == $(that).html()) {
+                            rowspan = $(that).attr("rowSpan");
+                            if (rowspan == undefined) {
+                                $(that).attr("rowSpan",1);
+                                rowspan = $(that).attr("rowSpan"); }
+                            rowspan = Number(rowspan)+1;
+                            $(that).attr("rowSpan",rowspan);
+                            $(this).hide();
+                        } else {
+                            that = this;
+                        }
+                    });
+                });
+            });
+        }
+
+        $(function() {
+            $("#projectFileList").rowspan(0);//传入的参数是对应的列数从0开始，哪一列有相同的内容就输入对应的列数值
+            //$("#table1").rowspan(2);
+
+        });
+        function show_list() {
+            $('.show_tr_list').toggle();
+            $("#projectFileList").rowspan(0);
+            htm =$('#show_ids').html();
+            if(htm =='显示更多'){
+                $('#show_ids').html('折叠');
+            }else{
+                $('#show_ids').html('显示更多');
+            }
         }
 
 
