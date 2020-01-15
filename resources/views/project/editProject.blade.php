@@ -494,7 +494,7 @@
 
                                 @foreach($project_file as $k=>$file)
                                 <tr>
-                                    <td class="pro-title">1</td>
+                                    <td class="pro-title">{{++$k}}</td>
                                     <td>
                                         <input type="hidden" id="project_file_id"  name="project_file_id[]" value="{{$file->id}}"  >
                                         @if(isset($project_file_type))
@@ -514,7 +514,7 @@
                                         <input class="span8" type="file" id="uploadfile{{$k}}" name="uploadfile[]"  value="" placeholder="logo" onchange="submitFile({{$k}})">
                                         <div id="uploadfiletitle{{$k}}">
                                             <a href="/project/projectFileDownload/{{$file->file_key}}">
-                                                {{$file->uploadfile}}
+                                                {{$file->uploadfile}}(日期：{{$file->created_at}})
                                             </a>
                                         </div>
                                     </td>
@@ -527,7 +527,7 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                            <div style="color: red">注：文件必须是pdf/jpg/png/doc/xls/dwg 格式</div>
+                            <div style="color: red">注：文件必须是png、jpg、gif、pdf、doc、dwg、rar、zip 格式</div>
                             <div class="clearfix"></div>
                         <div class="layui-form-item" style="float: right;clear: left">
                             <label for="L_repass" class="layui-form-label"></label>

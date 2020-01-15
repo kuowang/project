@@ -225,7 +225,7 @@
                         <table class="layui-table layui-form">
                             <thead>
                             <tr>
-                                <th colspan="4"><span class="btn btn-info">项目文件</span></th>
+                                <th colspan="5"><span class="btn btn-info">项目文件</span></th>
                             </tr>
                             </thead>
                             <tbody id="projectFileList">
@@ -233,6 +233,7 @@
                                 <td class="pro-title">序号</td>
                                 <td class="pro-title">文件类型</td>
                                 <td class="pro-title">文件名</td>
+                                <td class="pro-title">创建时间</td>
                                 <td class="pro-title">文件描述</td>
                             </tr>
 
@@ -249,6 +250,7 @@
                                             </a>
                                         </div>
                                     </td>
+                                    <td>{{$file->created_at}}</td>
                                     <td>
                                         {{$file->file_name}}
                                     </td>

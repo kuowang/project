@@ -351,7 +351,11 @@ class ProjectController extends WebController
         }
         $engineering =DB::table('engineering')->where('project_id',$id)->get();
         //获取项目文件
-        $data['project_file']=DB::table('project_file')->where('status',1)->where('project_id',$id)->get();
+        $data['project_file']=DB::table('project_file')->where('status',1)
+            ->where('project_id',$id)
+            ->orderby('file_type')
+            ->orderby('id')
+            ->get();
 
         $data['engineering']=$engineering;
         $data['project']    =$project;
@@ -389,7 +393,10 @@ class ProjectController extends WebController
         $data['id']=$project->id;
         $data['userList']=DB::table('users')->where('status',1)->orderby('name')->select(['id','name','department_id'])->get();
         //获取项目文件
-        $data['project_file']=DB::table('project_file')->where('status',1)->where('project_id',$id)->get();
+        $data['project_file']=DB::table('project_file')->where('status',1)
+            ->where('project_id',$id)
+            ->orderby('file_type')
+            ->orderby('id')->get();
         //获取参数数据
         $params =['project_type','project_country','project_source','project_stage','project_environment','project_traffic','project_material_storage','customer_type','project_file_type'];
         $items =DB::table('system_setting')->wherein('field',$params)->orderby('field')->orderby('sort')->select(['field','name'])->get();
@@ -1133,8 +1140,8 @@ class ProjectController extends WebController
         }
         // 2.是否符合文件类型 getClientOriginalExtension 获得文件后缀名
         $fileExtension = $file->getClientOriginalExtension();
-        if(! in_array($fileExtension, ['png', 'jpg', 'gif','pdf','doc','dwg'])) {
-            return $this->error('文件格式必须是png、jpg、gif、pdf、doc、dwg');
+        if(! in_array($fileExtension, ['png', 'jpg', 'gif','pdf','doc','dwg','rar','zip'])) {
+            return $this->error('文件格式必须是png、jpg、gif、pdf、doc、dwg、rar、zip');
         }
         // 3.判断大小是否符合 2M
         $tmpFile = $file->getRealPath();
