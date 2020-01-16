@@ -330,6 +330,13 @@ class EnginneringController extends WebController
         $data['project']    =$project;
         $data['engin_id'] =$id;
         $data['arch_system']=$arch_system;
+
+        //获取项目文件
+        $data['project_file']=DB::table('project_file')->where('status',1)
+            ->where('project_id',$project->id)
+            ->orderby('file_type')
+            ->orderby('id')->get();
+
         return view('architectural.enginnering.editConductEngin',$data);
     }
     //提交编辑实施工程设计详情
