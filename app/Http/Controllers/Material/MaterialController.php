@@ -136,30 +136,32 @@ class MaterialController extends WebController
             ->select(['brand_id','supplier_id'])
             ->get();
         $data['supplier_brand_list']=[];
+        $data['supplier_brand_json']=null;
         if(!empty($supplier_brand)){
             foreach ($supplier_brand as $item){
                 $supplier_brand_list[$item->brand_id][]=$item->supplier_id;
             }
-            $data['supplier_brand_list']=$supplier_brand_list;
-            $data['supplier_brand_json']=json_encode($supplier_brand_list);
-        }else{
-            $data['supplier_brand_json']=null;
+            if(isset($supplier_brand_list)){
+                $data['supplier_brand_list']=$supplier_brand_list;
+                $data['supplier_brand_json']=json_encode($supplier_brand_list);
+            }
         }
-
         //供应商信息
         $supplier =DB::table('supplier')->where('status',1)
             ->select(['id','supplier','manufactor'])
             ->get();
 
         $data['supplier']=[];
+        $data['supplier_list_json']=null;
+
         if(!empty($supplier)){
             foreach($supplier as $item){
                 $data['supplier'][$item->id]=$item;
                 $supplier_list[$item->id] =$item->supplier;
             }
-            $data['supplier_list_json']=json_encode($supplier_list);
-        }else{
-            $data['supplier_list_json']=null;
+            if(isset($supplier_list)){
+                $data['supplier_list_json']=json_encode($supplier_list);
+            }
         }
 
         return view('material.editMaterialBrand',$data);
@@ -294,14 +296,15 @@ class MaterialController extends WebController
             ->select(['brand_id','supplier_id'])
             ->get();
         $data['supplier_brand_list']=[];
+        $data['supplier_brand_json'] =null;
         if(!empty($supplier_brand)){
             foreach ($supplier_brand as $item){
                 $supplier_brand_list[$item->brand_id][]=$item->supplier_id;
             }
-            $data['supplier_brand_list']=$supplier_brand_list;
-            $data['supplier_brand_json']=json_encode($supplier_brand_list);
-        }else{
-            $data['supplier_brand_json']=null;
+            if(isset($supplier_brand_list)){
+                $data['supplier_brand_list']=$supplier_brand_list;
+                $data['supplier_brand_json']=json_encode($supplier_brand_list);
+            }
         }
 
         //供应商信息
@@ -310,14 +313,16 @@ class MaterialController extends WebController
             ->get();
 
         $data['supplier']=[];
+        $data['supplier_list_json']=null;
+
         if(!empty($supplier)){
             foreach($supplier as $item){
                 $data['supplier'][$item->id]=$item;
                 $supplier_list[$item->id] =$item->supplier;
             }
-            $data['supplier_list_json']=json_encode($supplier_list);
-        }else{
-            $data['supplier_list_json']=null;
+            if(isset($supplier_list)){
+                 $data['supplier_list_json']=json_encode($supplier_list);
+            }
         }
         return view('material.materialDetail',$data);
     }
