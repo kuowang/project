@@ -23,15 +23,16 @@
     <meta name="author" content="">
     <!-- bootstrap css -->
 
-    <link href="/icomoon/style.css" rel="stylesheet">
+    <link href="/icomoon/style.css?version=20200202" rel="stylesheet">
     <!--[if lte IE 7]>
     <script src="/css/icomoon-font/lte-ie7.js">
     </script>
     <![endif]-->
-    <link href="/css/wysiwyg/bootstrap-wysihtml5.css" rel="stylesheet">
-    <link href="/css/wysiwyg/wysiwyg-color.css" rel="stylesheet">
-    <link href="/css/main.css" rel="stylesheet"> <!-- Important. For Theming change primary-color variable in main.css  -->
-    <link href="/css/charts-graphs.css" rel="stylesheet">
+    <link href="/css/wysiwyg/bootstrap-wysihtml5.css?version=20200202" rel="stylesheet">
+    <link href="/css/wysiwyg/wysiwyg-color.css?version=20200202" rel="stylesheet">
+    <link href="/css/main.css?version=20200202" rel="stylesheet">
+    <!-- Important. For Theming change primary-color variable in main.css  -->
+    <link href="/css/charts-graphs.css?version=20200202" rel="stylesheet">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
