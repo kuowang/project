@@ -43,7 +43,7 @@
                         <label>
                             <form class="form-search" action="/architectural/architectureList" method="get">
                                 <span style="padding-right: 20px;">系统名称:<input type="text" name="system_name" value="{{ $system_name }}" class="input-medium search-query"></span>
-                                <span style="padding-right: 20px;">工程名称:<input type="text" name="sub_system_name" value="{{ $sub_system_name }}" class="input-medium search-query"></span>
+                                <span style="padding-right: 20px;">子系统名称:<input type="text" name="sub_system_name" value="{{ $sub_system_name }}" class="input-medium search-query"></span>
                                 <span style="padding-right: 20px;">工况代码:<input type="text" name="work_code" value="{{ $work_code }}" class="input-medium search-query"></span>
                                 <button type="submit" class="btn">查询</button>
                             </form></label>
