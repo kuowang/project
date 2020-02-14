@@ -1184,7 +1184,7 @@ class ProjectController extends WebController
             return true;
         }
         //第三个参数是“true”表示能创建多级目录，iconv防止中文目录乱码
-        $res=mkdir($dir,0666,true);
+        $res=mkdir($dir,0777,true);
         if ($res){
             return true;
         }else{
