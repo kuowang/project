@@ -82,6 +82,7 @@ class ArchitecturalController extends WebController
         //子系统工程
         $sub_system_name =$request->input('sub_system_name',[]);
         $sub_system_code =$request->input('sub_system_code',[]);
+        $sub_sort =$request->input('sub_sort',[]);
         $work_code =$request->input('work_code',[]);
         $sub_status =$request->input('sub_status',[]);
         if(empty($system_name) || empty($engineering_name)|| empty($system_code)){
@@ -122,6 +123,7 @@ class ArchitecturalController extends WebController
                     'sub_system_code'=>$sub_system_code[$k],
                     'work_code'=>$work_code[$k],
                     'status'=>(int)$sub_status[$k],
+                    'sub_sort'=>isset($sub_sort[$k])?(int)$sub_sort[$k]:1,
                     'uid'=>$uid,
                     'created_at'=>date('Y-m-d'),
                     'updated_at'=>date('Y-m-d'),
@@ -148,7 +150,7 @@ class ArchitecturalController extends WebController
           //获取该用户的建筑系统信息
         $data['architect']=DB::table('architectural_system')->where('id',$id)->first();
         //获取该用户的建筑系统关联子系统
-        $data['sub_architect']=DB::table('architectural_sub_system')->where('architectural_id',$id)->get();
+        $data['sub_architect']=DB::table('architectural_sub_system')->where('architectural_id',$id)->orderby('sub_sort')->get();
         if(empty($data['architect'])){
             return redirect('/architectural/index?status=2&notice='.'数据不存在，无法编辑');
         }
@@ -174,6 +176,7 @@ class ArchitecturalController extends WebController
         $sub_system_code =$request->input('sub_system_code',[]);
         $work_code =$request->input('work_code',[]);
         $sub_status =$request->input('sub_status',[]);
+        $sub_sort =$request->input('sub_sort',[]);
         $subid=$request->input('sub_id',[]);
         if(empty($system_name) || empty($engineering_name)|| empty($system_code) || empty($id)){
             return redirect('/architectural/index?status=2&notice='.'建筑系统内容不能为空');
@@ -209,6 +212,7 @@ class ArchitecturalController extends WebController
                     'sub_system_code'=>$sub_system_code[$k],
                     'work_code'=>$work_code[$k],
                     'status'=>$sub_status[$k],
+                    'sub_sort'=>isset($sub_sort[$k])?(int)($sub_sort[$k] % 100):1,
                     'updated_at'=>date('Y-m-d'),
                 ];
                 if($v == 0){
@@ -224,7 +228,7 @@ class ArchitecturalController extends WebController
             }
         }
         DB::commit();
-        return redirect('/architectural/index?status=1&notice='.'创建建筑系统成功');
+        return redirect('/architectural/index?status=1&notice='.'编辑建筑系统成功');
     }
 
     //查看详情建筑工程
@@ -238,7 +242,7 @@ class ArchitecturalController extends WebController
         //获取该用户的建筑系统信息
         $data['architect']=DB::table('architectural_system')->where('id',$id)->first();
         //获取该用户的建筑系统关联子系统
-        $data['sub_architect']=DB::table('architectural_sub_system')->where('architectural_id',$id)->get();
+        $data['sub_architect']=DB::table('architectural_sub_system')->where('architectural_id',$id)->orderby('sub_sort')->get();
         if(empty($data['architect'])){
             return redirect('/architectural/index?status=2&notice='.'数据不存在，无法查看');
         }

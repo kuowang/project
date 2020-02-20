@@ -67,6 +67,7 @@
                                 <th>子系统名称</th>
                                 <th>子系统编码</th>
                                 <th>工况代码</th>
+                                <th style="width: 100px">序号</th>
                                 <th>系统状态</th>
 
                             </thead>
@@ -82,6 +83,7 @@
                                 <td>
                                     {{ $v->work_code }}
                                 </td>
+                                <td>{{$v->sub_sort}}</td>
                                 <td>
                                 @if($v->status ==1)
                                     有效

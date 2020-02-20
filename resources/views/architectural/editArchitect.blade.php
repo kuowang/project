@@ -77,6 +77,7 @@
                                 <th style="width: 40%">子系统名称</th>
                                 <th style="width: 20%">子系统编码</th>
                                 <th style="width: 20%">工况代码</th>
+                                <th style="width:100px">排序</th>
                                 <th style="width: 10%">系统状态</th>
                                 <th style="width: 10%">操作</th>
                             </thead>
@@ -92,6 +93,9 @@
                                 </td>
                                 <td>
                                     <input type="text" name="work_code[]" class="span12"  value="{{ $v->work_code }}" lay-skin="primary">
+                                </td>
+                                <td>
+                                    <input type="text" name="sub_sort[]" class="span12"   value="{{ $v->sub_sort }}"lay-skin="primary" placeholder="1-100">
                                 </td>
                                 <td>
                                     <select name="sub_status[]" id="stateAndCity" class="span12" style="min-width: 80px" onchange="setstatus(this)">
@@ -150,6 +154,7 @@
            str ='<tr><td><input type="hidden" name="sub_id[]" value="0" lay-skin="primary"><input type="text" name="sub_system_name[]" class="span12" lay-skin="primary"></td>'+
                '<td><input type="text" name="sub_system_code[]" class="span12" lay-skin="primary"></td>'+
             '<td><input type="text" name="work_code[]" class="span12" lay-skin="primary"></td>'+
+               '<td><input type="text" name="sub_sort[]" class="span12" lay-skin="primary" placeholder="1-100"></td>'+
             '<td><select name="sub_status[]" id="stateAndCity" class="span12" style="min-width: 80px" onchange="setstatus(this)">'+
             '<option value="1" selected="selected">有效</option><option value="0">无效</option></select></td>'+
             '<td><a  class="btn btn-danger" onclick="deleteTrRow(this)">删除</a></td></tr>';
