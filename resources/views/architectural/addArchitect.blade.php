@@ -87,7 +87,7 @@
                                     <input type="text" name="sub_system_name[]" class="span12" lay-skin="primary">
                                 </td>
                                 <td>
-                                    <input type="text" name="sub_system_code[]" class="span12" lay-skin="primary">
+                                    <input type="text" name="sub_system_code[]" class="span12 sub_system_code" lay-skin="primary" onchange ="setsort(this)" >
                                 </td>
                                 <td>
                                     <input type="text" name="work_code[]" class="span12" lay-skin="primary">
@@ -126,7 +126,10 @@
                     <span class="btn btn-success" lay-filter="add" lay-submit="">返回/取消</span>
                 </a>
             </div>
-
+                <div class="layui-form-item" style="float: right;clear: left">
+                    <label for="L_repass" class="layui-form-label"></label>
+                    <span class="btn btn-success" lay-filter="add" lay-submit="" onclick="autopaixu()">自动排序</span>
+                </div>
             </form>
         </div>
     </div>
@@ -146,7 +149,7 @@
         //添加事件
         function add_xitong() {
            str ='<tr><td><input type="text" name="sub_system_name[]" class="span12" lay-skin="primary"></td>'+
-               '<td><input type="text" name="sub_system_code[]" class="span12" lay-skin="primary"></td>'+
+               '<td><input type="text" name="sub_system_code[]" class="span12 sub_system_code" lay-skin="primary"  onchange ="setsort(this)" ></td>'+
             '<td><input type="text" name="work_code[]" class="span12" lay-skin="primary"></td>'+
             '<td><select name="sub_status[]" id="stateAndCity" class="span12" style="min-width: 80px">'+
             '<option value="1" selected="selected">有效</option><option value="0">无效</option></select></td>'+
@@ -173,7 +176,35 @@
             }
             return true;
         }
-
+        //自动排序
+        function autopaixu() {
+            var numArr = new Array();
+            $('.sub_system_code').each(function(){
+                //将选中元素的某属性值添加到数组中
+                var p_id = $(this).val();
+                //如果数组中不存在
+                if($.inArray(p_id,numArr) == -1){
+                    numArr.push(p_id);
+                }
+            });
+            console.log(numArr.sort());
+            ids =numArr.sort();
+            $.each(ids, function(p1, p2){
+                console.log(p1+'--'+p2);
+                movetr(p2);
+            });
+        }
+        // 重新排序
+        function movetr(id){
+            html =$('.sort_'+id).clone();
+            $('.sort_'+id).remove();
+            $("#zixitong").append(html);
+        }
+        function setsort(th){
+            sortid =$(th).val();
+            $(th).val(sortid);
+            $(th).parent().parent().removeClass().addClass('sort sort_'+sortid);
+        }
 
     </script>
 
