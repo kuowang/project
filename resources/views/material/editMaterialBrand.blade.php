@@ -194,8 +194,8 @@
     <!-- 你的HTML代码 -->
 
     <script type="text/javascript">
-        var supplier_brand={!! $supplier_brand_json !!}; //品牌对应供应商列表
-        var supplier={!! $supplier_list_json !!}; //供应商名称列表
+        var supplier_brand = {!! $supplier_brand_json !!}; //品牌对应供应商列表
+        var supplier = {!! $supplier_list_json !!}; //供应商名称列表
         //删除事件
         function deleteTrRow(tr){
             $(tr).parent().parent().remove();
@@ -209,33 +209,18 @@
             supplier_brand_list =supplier_brand[brand_id];
             $('#manufactor_'+id+' .manufa').hide();
             $('#manufactor_'+id).val('');
-            for(var i=0;i<supplier_brand_list.length;i++){
-                j= supplier_brand_list[i];
-                $('#manufactor_'+id+' .manufa_'+j).show();
+            if(supplier_brand_list){
+                for(var i=0;i<supplier_brand_list.length;i++){
+                    j= supplier_brand_list[i];
+                    $('#manufactor_'+id+' .manufa_'+j).show();
+                }
+            }else{
+                layui.use('layer', function(){
+                    var layer = layui.layer;
+                    layer.msg('该品牌没有供应商信息');
+                });
             }
 
-            //$("#manufactor_"+id).empty();
-            //$("#manufactor_"+id).append("<option value='0' ></option>");
-            //获取品牌对于的供应商信息
-            /*
-            $.ajax({
-                url:'/supplier/brandToSupplier/'+brand_id,
-                type:'get',
-                // contentType: 'application/json',
-                success:function(data){
-                    console.log(data);
-                    if(data.status == 1){
-                        arr =data.data;
-                        for(var i=0;i<arr.length;i++){
-                            console.log(arr[i]);
-                            obj =arr[i];
-                            supplier[obj.id]=obj.supplier;
-                            $("#manufactor_"+id).append("<option value='"+obj.id+"' supplier='"+obj.supplier+"'>"+obj.manufactor+"</option>");
-                        }
-                    }
-                },
-            });
-            */
         }
 
         function selectManufactor(id){
@@ -281,9 +266,17 @@
         //提交验证信息
         function form_submit(){
             $('input').css('background','#fff');
+            $('select').css('background','#fff');
             var sum=0;
             $("input").each(function(){
                 if($(this).val()){
+                }else{
+                    $(this).css('background','orange');
+                    sum=1;
+                }
+            });
+            $("select").each(function(){
+                if($(this).val() && ($(this).val() != '')  && ($(this).val() !=0)){
                 }else{
                     $(this).css('background','orange');
                     sum=1;
@@ -294,6 +287,12 @@
                     var layer = layui.layer;
                     layer.msg('有信息没有填写完全，请填写完成后，再提交。');
                 });
+                return false;
+            }
+
+            var r=confirm("所有建筑系统中的材料编码({{ $material->material_code }})一致的材料信息将同步保存")
+            if (r==true) {
+            } else {
                 return false;
             }
             return true;

@@ -136,7 +136,7 @@ class MaterialController extends WebController
             ->select(['brand_id','supplier_id'])
             ->get();
         $data['supplier_brand_list']=[];
-        $data['supplier_brand_json']=null;
+        $data['supplier_brand_json']='{}';
         if(!empty($supplier_brand)){
             foreach ($supplier_brand as $item){
                 $supplier_brand_list[$item->brand_id][]=$item->supplier_id;
@@ -152,7 +152,7 @@ class MaterialController extends WebController
             ->get();
 
         $data['supplier']=[];
-        $data['supplier_list_json']=null;
+        $data['supplier_list_json']='{}';
 
         if(!empty($supplier)){
             foreach($supplier as $item){
@@ -163,7 +163,6 @@ class MaterialController extends WebController
                 $data['supplier_list_json']=json_encode($supplier_list);
             }
         }
-
         return view('material.editMaterialBrand',$data);
     }
 
@@ -205,23 +204,26 @@ class MaterialController extends WebController
         //保存材料信息
         DB::beginTransaction();
         $material =DB::table('material')->where('id',$id)->first();
-        if(empty($material->material_created_uid)){
-            $data['material_created_uid']=$this->user()->id;
-            $data['material_created_at']=date('Y-m-d');
-        }else{
-            $data['material_edit_uid']=$this->user()->id;
-            $data['material_updated_at']=date('Y-m-d');
-        }
-        DB::table('material')->where('id',$id)->update($data);
 
-        //删除原有的材料品牌供应
-       // DB::table('material_brand_supplier')->where('material_id',$id)->delete();
+        //更改编码相同的材料记录
+        $data['material_edit_uid']=$this->user()->id;
+        $data['material_updated_at']=date('Y-m-d');
+        DB::table('material')->where('material_code',$material->material_code)
+            ->whereNotNull('material_created_uid')->update($data);
+        unset($data['material_edit_uid']);unset($data['material_updated_at']);
+        //补充编码相同的材料记录
+        $data['material_created_uid']=$this->user()->id;
+        $data['material_created_at']=date('Y-m-d');
+        DB::table('material')->where('material_code',$material->material_code)
+            ->whereNull('material_created_uid')->update($data);
+        $mateCodeList =DB::table('material')->where('material_code',$material->material_code)
+                ->pluck('id');
+
         //保存品牌供应商信息
         if(count($msb_id) >0){
             foreach($msb_id as $k=>$v){
-                $datalist['material_id']=$id;
                 $datalist['brand_id']=$brand_id[$k];
-                $datalist['brand_name']=DB::table('brand')->where('id',$v)->value('brand_name');
+                $datalist['brand_name']=DB::table('brand')->where('id',$brand_id[$k])->value('brand_name');
                 $datalist['supplier_id']=$manufactor[$k];
                 $datalist['manufactor']=DB::table('supplier')->where('id',$manufactor[$k])->value('manufactor');;
                 $datalist['supplier']=$supplier[$k];
@@ -234,10 +236,41 @@ class MaterialController extends WebController
                 $datalist['uid']=$this->user()->id;
                 $datalist['username']=$this->user()->name;
                 $datalist['created_at']=date('Y-m-d');
-                if(empty($v)){
-                    DB::table('material_brand_supplier')->insert($datalist);
+
+                $brandId=$brand_id[$k];
+                $supplierId=$manufactor[$k];
+
+                if(empty($v)){ //新增的关联信息
+                    foreach($mateCodeList as $item){
+                        $datalist['material_id']=$item;
+                        //查看其它材料是否已经存在关联信息
+                        $mbsid = DB::table('material_brand_supplier')
+                            ->where('material_id',$item)->where('brand_id',$brandId)->where('supplier_id',$supplierId)
+                            ->value('id');
+                        if(empty($mbsid)){
+                            DB::table('material_brand_supplier')->insert($datalist);
+                        }else{
+                            DB::table('material_brand_supplier')->where('id',$mbsid)->update($datalist);
+                        }
+                    }
                 }else{
-                    DB::table('material_brand_supplier')->where('id',$v)->update($datalist);
+                    $msbDetail =DB::table('material_brand_supplier')->where('id',$v)->first();
+                    foreach($mateCodeList as $item) {
+                        $datalist['material_id']=$item;
+                        //查询其他材料是否有关联信息
+                        $mbsid = DB::table('material_brand_supplier')
+                            ->where('material_id',$item)->where('brand_id',$msbDetail->brand_id)->where('supplier_id',$msbDetail->supplier_id)
+                            ->value('id');
+                        if(empty($mbsid)){
+                            DB::table('material_brand_supplier')->insert($datalist);
+                        }else{
+                            DB::table('material_brand_supplier')
+                                ->where('material_id', $item)
+                                ->where('brand_id', $msbDetail->brand_id)
+                                ->where('supplier_id', $msbDetail->supplier_id)
+                                ->update($datalist);
+                        }
+                    }
                 }
             }
         }
