@@ -202,7 +202,7 @@
 
                             <table class="layui-table layui-form table111">
                                 <tr class="pro-title">
-                                    <td colspan="13"><span class="btn btn-info">材料列表</span></td>
+                                    <td colspan="14"><span class="btn btn-info">材料列表</span></td>
                                 </tr>
                                 <tr>
                                     <td>序号</td>
@@ -320,7 +320,9 @@
             str +='<td>'+item.engineering_quantity+'</td>'
             str +='<td>'+item.total_engineering_quantity+'</td>'
             str +='<td>'+item.brand_name+'</td>'
-            str +='<td>'+item.purchase_unit_price+'<input type="hidden" id="purchase_price_'+item.id+'" name="purchase_unit_price[]" value="'+item.purchase_unit_price+'"></td>'
+            str +='<td>'+item.purchase_unit_price+'<input type="hidden" id="purchase_price_'+item.id+'" name="purchase_unit_price[]" value="'+item.purchase_unit_price+'">'
+            str +='<input type="hidden" id="purchase_cishu_'+item.id+'" name="purchase_cishu[]" value="'+item.purchase_cishu+'"></td>'
+
             str +='<td>'+(item.total_purchase_price)+'</td>'
             str +='<td>'+(item.already_purchased_quantity)+'</td>'
             str +='<td id="wait_purchased_quantity_'+item.id+'">'+(item.wait_purchased_quantity)+'</td>'
@@ -349,8 +351,11 @@
         var wait_purchased_quantity =$('#wait_purchased_quantity_'+id).html();
         var actual_quantity =$(th).val();
         var purchase_price = $('#purchase_price_'+id).val();
+        var purchase_cishu =$('#purchase_cishu_'+id).val();
         if(actual_quantity*1 > wait_purchased_quantity*1){
             showMsg('采购数量超出待采购数量，请核实');
+        }else if({{$batchinfo->deliver_properties}} == 1 && purchase_cishu *1 == 1 && actual_quantity*1 != wait_purchased_quantity*1){
+            showMsg('预算内，该材料仅采购一次，采购数量需等于待采购数量，请核实');
         }
         $("#actual_total_fee_"+id).html((actual_quantity * purchase_price).toFixed(2) );
         console.log(wait_purchased_quantity);

@@ -477,8 +477,8 @@ class PurchaseController extends WebController
         }
         $data['supplier']=$supplier;
         //获取批次中允许采购的材料id
-        $budgetItemId =DB::table('purchase_batch_relation_material')->where('batch_id',$brach_id)->pluck('budget_item_id');
-
+        $itemList =DB::table('purchase_batch_relation_material')->where('batch_id',$brach_id)->pluck('purchase_cishu','budget_item_id')->toArray();
+        $budgetItemId = array_keys($itemList);
         //获取预算工程信息材料
         $budgetitem=DB::table('budget_item')
             ->join('material_brand_supplier','material_brand_supplier.id','=','mbs_id')
@@ -491,7 +491,11 @@ class PurchaseController extends WebController
                 'purchase_unit','purchase_unit_price'
                 ])
             ->get();
-
+        if($budgetitem){
+            foreach($budgetitem as &$v){
+                $v->purchase_cishu=isset($itemList[$v->id])?$itemList[$v->id]:1;
+            }
+        }
         $data['budgetitem']=$budgetitem;
         $itemids =[];
         foreach($budgetitem as $value){
@@ -655,7 +659,11 @@ class PurchaseController extends WebController
              $datalist['engineering_quantity']   =number_format($item->engineering_quantity, 2, '.', '');                //`engineering_quantity` varchar(255) DEFAULT NULL COMMENT '总工程量',
              $datalist['already_purchased_quantity'] =number_format($item->already_purchased_quantity, 2, '.', '');                //`already_purchased_quantity` varchar(255) DEFAULT NULL COMMENT '已经采购量',
              $datalist['wait_purchased_quantity'] =number_format($item->wait_purchased_quantity, 2, '.', '');              //`wait_purchased_quantity` varchar(255) DEFAULT NULL COMMENT '待采购量',
-             $datalist['actual_purchase_quantity'] =number_format($actual_purchase_quantity[$item->id], 2, '.', '');                //`actual_purchase_quantity` varchar(255) DEFAULT NULL COMMENT '实际采购量',
+             if(isset($actual_purchase_quantity[$item->id]) && is_numeric($actual_purchase_quantity[$item->id])){
+                 $datalist['actual_purchase_quantity'] = number_format($actual_purchase_quantity[$item->id], 2, '.', '');                //`actual_purchase_quantity` varchar(255) DEFAULT NULL COMMENT '实际采购量',
+             }else{
+                 $datalist['actual_purchase_quantity'] = 0;
+             }
              $datalist['total_purchase_price']   =number_format($item->total_purchase_price, 2, '.', '');                //`total_purchase_price` varchar(10) DEFAULT NULL COMMENT '总采购价',
              $datalist['actual_total_fee']       =number_format($datalist['actual_purchase_quantity'] * $item->purchase_unit_price , 2, '.', '');                //`actual_total_fee` varchar(255) DEFAULT NULL COMMENT '实际采购金额',
              $datalist['purchase_unit']          =$item->purchase_unit;              //`purchase_unit` varchar(255) DEFAULT NULL COMMENT '采购单位',
