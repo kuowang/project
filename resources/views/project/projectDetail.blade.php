@@ -113,7 +113,15 @@
                                 <td>
                                     {{$project->winter_min_temperature}}
                                 </td>
-                                <td colspan="4"></td>
+                                <td class="pro-title">场地尺寸：长（m）</td>
+                                <td>
+                                    {{$project->project_area_length}}
+                                </td>
+                                <td class="pro-title">场地尺寸：宽（m）</td>
+                                <td>
+                                    {{$project->project_area_width}}
+                                </td>
+
                             </tr>
                             </tbody>
                         </table>
@@ -161,13 +169,15 @@
                         <div class="clearfix"></div>
                         <table class="layui-table layui-form">
                             <thead>
-                            <tr><th colspan="6"><span class="btn btn-info">项目子工程信息</span></th>
+                            <tr><th colspan="8"><span class="btn btn-info">项目子工程信息</span></th>
                             </tr>
                             </thead>
                             <tbody id="zigongcheng">
                             <tr>
                                 <td class="pro-title">子工程名称</td>
                                 <td  class="pro-title">建筑总面积（m²）</td>
+                                <td class="pro-title">房屋占地尺寸:长(m)</td>
+                                <td class="pro-title">房屋占地尺寸:宽(m)</td>
                                 <td class="pro-title">建筑总层数</td>
                                 <td class="pro-title">建筑总高度（m）</td>
                                 <td class="pro-title">室内净高（最小）（m）</td>
@@ -177,6 +187,8 @@
                             <tr >
                                 <td>{{$item->engineering_name}}</td>
                                 <td>{{$item->build_area}}</td>
+                                <td>{{$item->build_length}}</td>
+                                <td>{{$item->build_width}}</td>
                                 <td>{{$item->build_floor}}</td>
                                 <td>{{$item->build_height}}</td>
                                 <td>{{$item->indoor_height}}</td>

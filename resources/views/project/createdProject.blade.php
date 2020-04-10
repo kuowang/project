@@ -196,7 +196,14 @@
                                 <td>
                                     <input type="text"  name="winter_min_temperature" class="span8 notempty"  value="" lay-skin="primary" >
                                 </td>
-                                <td colspan="4"></td>
+                                <td class="pro-title">场地尺寸：长（m）</td>
+                                <td>
+                                    <input type="text"  name="project_area_length" class="span8 notempty"  value="" lay-skin="primary" >
+                                </td>
+                                <td class="pro-title">场地尺寸：宽（m）</td>
+                                <td>
+                                    <input type="text"  name="project_area_width" class="span8 notempty"  value="" lay-skin="primary" >
+                                </td>
 
                             </tr>
                             </tbody>
@@ -267,7 +274,7 @@
                         <div class="clearfix"></div>
                         <table class="layui-table layui-form">
                             <thead>
-                            <tr><th colspan="4"><span class="btn btn-info">项目子工程信息</span></th>
+                            <tr><th colspan="6"><span class="btn btn-info">项目子工程信息</span></th>
                             <th colspan="3"><span class="title" style="float: right;">
                                 <a class="btn btn-success" onclick="add_zigongcheng()"><i class="layui-icon">添加子工程 +</i></a>
                             </span>
@@ -277,29 +284,38 @@
                             <tbody id="zigongcheng">
                             <tr>
                                 <td class="pro-title">子工程名称</td>
-                                <td  class="pro-title">建筑总面积（m²）</td>
+                                <td  class="pro-title">建筑总面积(m²)</td>
+                                <td class="pro-title">房屋占地尺寸:长(m)</td>
+                                <td class="pro-title">房屋占地尺寸:宽(m)</td>
                                 <td class="pro-title">建筑总层数</td>
-                                <td class="pro-title">建筑总高度（m）</td>
-                                <td class="pro-title">室内净高（最小）（m）</td>
-                                <td class="pro-title">建筑物数量（栋）</td>
+                                <td class="pro-title">建筑总高度(m)</td>
+                                <td class="pro-title">室内净高(最小)(m)</td>
+                                <td class="pro-title">建筑物数量(栋）</td>
                                 <td class="pro-title">操作</td>
                             </tr>
                             <tr >
                                 <td>
-                                    <input type="text"  name="engineering_name[]" class="span8 notempty"  value="" lay-skin="primary" >
+                                    <input type="text"  name="engineering_name[]" class="span12 notempty"  value="" lay-skin="primary" >
                                 </td>
                                 <td>
-                                    <input type="text"  name="build_area[]" class="span8  notempty"  onclick="key(this)" value="" lay-skin="primary" >
+                                    <input type="text"  name="build_area[]" class="span12  notempty"  onclick="key(this)" value="" lay-skin="primary" >
                                 </td>
                                 <td>
-                                    <input type="text"  name="build_floor[]" class="span8 notempty"  onclick="key(this)" value="" lay-skin="primary" >
+                                    <input type="text"  name="build_length[]" class="span12  notempty"  onclick="key(this)" value="" lay-skin="primary" >
                                 </td>
                                 <td>
-                                    <input type="text"  name="build_height[]" class="span8 notempty"  onclick="key(this)" value="" lay-skin="primary" >
+                                    <input type="text"  name="build_width[]" class="span12  notempty"  onclick="key(this)" value="" lay-skin="primary" >
                                 </td>
-                                <td><input type="text"  name="indoor_height[]" class="span8 notempty"  onclick="key(this)" value="" lay-skin="primary" ></td>
+
                                 <td>
-                                    <input type="text"  name="build_number[]" class="span8 notempty"  onclick="key(this)" value="" lay-skin="primary" >
+                                    <input type="text"  name="build_floor[]" class="span12 notempty"  onclick="key(this)" value="" lay-skin="primary" >
+                                </td>
+                                <td>
+                                    <input type="text"  name="build_height[]" class="span12 notempty"  onclick="key(this)" value="" lay-skin="primary" >
+                                </td>
+                                <td><input type="text"  name="indoor_height[]" class="span12 notempty"  onclick="key(this)" value="" lay-skin="primary" ></td>
+                                <td>
+                                    <input type="text"  name="build_number[]" class="span12 notempty"  onclick="key(this)" value="" lay-skin="primary" >
                                 </td>
                                 <td></td>
                             </tr>
@@ -430,12 +446,14 @@
         function add_zigongcheng() {
             intid =parseInt(Math.random() * (1000000 )+100);
             str ='<tr >' +
-                '<td> <input type="text"  name="engineering_name[]" class="span8 notempty "  value="" lay-skin="primary" > </td>'+
-                '<td> <input type="text"  name="build_area[]" class="span8 notempty" onclick="key(this)"  value="" lay-skin="primary" > </td>'+
-                '<td> <input type="text"  name="build_floor[]" class="span8 notempty"  onclick="key(this)"  value="" lay-skin="primary" > </td>'+
-                '<td> <input type="text"  name="build_height[]" class="span8 notempty"  onclick="key(this)" value="" lay-skin="primary" > </td>'+
-                '<td><input type="text"  name="indoor_height[]" class="span8 notempty"  onclick="key(this)" value="" lay-skin="primary" ></td>'+
-                '<td><input type="text"  name="build_number[]" class="span8 notempty"  onclick="key(this)" value="" lay-skin="primary" ></td>'+
+                '<td> <input type="text"  name="engineering_name[]" class="span12 notempty "  value="" lay-skin="primary" > </td>'+
+                '<td> <input type="text"  name="build_area[]" class="span12 notempty" onclick="key(this)"  value="" lay-skin="primary" > </td>'+
+                '<td> <input type="text"  name="build_length[]" class="span12 notempty" onclick="key(this)"  value="" lay-skin="primary" > </td>'+
+                '<td> <input type="text"  name="build_width[]" class="span12 notempty" onclick="key(this)"  value="" lay-skin="primary" > </td>'+
+                '<td> <input type="text"  name="build_floor[]" class="span12 notempty"  onclick="key(this)"  value="" lay-skin="primary" > </td>'+
+                '<td> <input type="text"  name="build_height[]" class="span12 notempty"  onclick="key(this)" value="" lay-skin="primary" > </td>'+
+                '<td><input type="text"  name="indoor_height[]" class="span12 notempty"  onclick="key(this)" value="" lay-skin="primary" ></td>'+
+                '<td><input type="text"  name="build_number[]" class="span12 notempty"  onclick="key(this)" value="" lay-skin="primary" ></td>'+
 
                 '<td><a class="btn btn-danger" onclick="deleteTrRow(this)">删除</a></td>'+
             '</tr>';

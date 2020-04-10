@@ -230,6 +230,8 @@ class ProjectController extends WebController
                 echo"<script>alert('内容不能为空');history.go(-1);</script>";
             }
         }
+        $data["project_area_width"]    =$request->input('project_area_width',0);
+        $data["project_area_length"]   =$request->input('project_area_length',0);
         $data['summer_avg_temperature']=$request->input('summer_avg_temperature','');
         $data['summer_max_temperature']=$request->input('summer_max_temperature','');
         $data['winter_avg_temperature']=$request->input('winter_avg_temperature','');
@@ -297,6 +299,8 @@ class ProjectController extends WebController
         $indoor_height =$request->input('indoor_height',[]);
         $build_number=$request->input('build_number',[]);
         $engineering_name=$request->input('engineering_name',[]);
+        $build_length=$request->input('build_length',[]);
+        $build_width=$request->input('build_width',[]);
 
         $data['start_count'] =count($engineering_name);
         $data['customer_id'] =$customer_id;
@@ -313,6 +317,8 @@ class ProjectController extends WebController
                     'project_id'=>$project_id,
                     'engineering_name'=>$v,
                     'build_area'=>isset($build_area[$k])?(float)$build_area[$k]:1,
+                    'build_length'=>isset($build_length[$k])?(float)$build_length[$k]:0,
+                    'build_width'=>isset($build_width[$k])?(float)$build_width[$k]:0,
                     'build_floor'=>isset($build_floor[$k])?(int)$build_floor[$k]:1,
                     'build_height'=>isset($build_height[$k])?(float)$build_height[$k]:1,
                     'indoor_height'=>isset($indoor_height[$k])?(float)$indoor_height[$k]:1,
@@ -449,7 +455,8 @@ class ProjectController extends WebController
                 echo"<script>alert('内容不能为空');history.go(-1);</script>";
             }
         }
-
+        $data["project_area_width"]    =$request->input('project_area_width',0);
+        $data["project_area_length"]   =$request->input('project_area_length',0);
         $data['summer_avg_temperature']=$request->input('summer_avg_temperature','');
         $data['summer_max_temperature']=$request->input('summer_max_temperature','');
         $data['winter_avg_temperature']=$request->input('winter_avg_temperature','');
@@ -520,6 +527,8 @@ class ProjectController extends WebController
         $build_height=$request->input('build_height',[]);
         $indoor_height =$request->input('indoor_height',[]);
         $build_number =$request->input('build_number',[]);
+        $build_length=$request->input('build_length',[]);
+        $build_width=$request->input('build_width',[]);
         if(count($engineering_id) != count($engineering_name) || count($build_area) != count($build_floor)){
             return redirect('/project/projectStart?status=2&notice='.'子工程信息缺失');
         }
@@ -529,6 +538,8 @@ class ProjectController extends WebController
                     'project_id'=>$id,
                     'engineering_name'=>$engineering_name[$k],
                     'build_area'=>isset($build_area[$k])?(float)$build_area[$k]:1,
+                    'build_length'=>isset($build_length[$k])?(float)$build_length[$k]:0,
+                    'build_width'=>isset($build_width[$k])?(float)$build_width[$k]:0,
                     'build_floor'=>isset($build_floor[$k])?(int)$build_floor[$k]:1,
                     'build_height'=>isset($build_height[$k])?(float)$build_height[$k]:1,
                     'indoor_height'=>isset($indoor_height[$k])?(float)$indoor_height[$k]:1,
@@ -997,7 +1008,7 @@ class ProjectController extends WebController
         if(empty($enginid)){
             $data['engin']=null;
         }else{
-            $data['engin']=DB::table('engineering')->where('id',$id)->first();
+            $data['engin']=DB::table('engineering')->where('id',$enginid)->first();
         }
         $data['navid']      =15;
         $data['subnavid']   =1502;
@@ -1061,6 +1072,9 @@ class ProjectController extends WebController
         $data['engineering_name']   =$request->input('engineering_name','');
         $data['engin_address']  =$request->input('engin_address','');
         $data['build_area'] =(float)$request->input('build_area',0);
+        $data['build_length'] =(float)$request->input('build_length',0);
+        $data['build_width'] =(float)$request->input('build_width',0);
+
         $data['build_floor']    =(int)$request->input('build_floor',1);
         $data['build_number']   =(int)$request->input('build_number',1);
         $data['indoor_height']   =(int)$request->input('indoor_height',1);

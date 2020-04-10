@@ -108,13 +108,21 @@
                                 <td>{{$engineering->engineering_name}}</td>
                                 <td class="pro-title">建筑总面积（m²）</td>
                                 <td>{{$engineering->build_area}}</td>
+                                <td class="pro-title">房屋占地尺寸:长(m)</td>
+                                <td>{{$engineering->build_length}}</td>
+                                <td class="pro-title">房屋占地尺寸:宽(m)</td>
+                                <td>{{$engineering->build_width}}</td>
+
+                            </tr>
+                            <tr>
                                 <td class="pro-title">建筑总层数</td>
                                 <td>{{$engineering->build_floor}}</td>
                                 <td class="pro-title">建筑总高度（m）</td>
                                 <td>{{$engineering->build_height}}</td>
-                                <td class="pro-title">建筑净高（最小）（m）</td>
+                                <td class="pro-title">室内净高（最小）（m）</td>
                                 <td>{{$engineering->indoor_height}}</td>
-
+                                <td class="pro-title">建筑数量（栋）</td>
+                                <td>{{$engineering->build_number}}</td>
                             </tr>
                             </tbody>
                         </table>

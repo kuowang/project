@@ -67,17 +67,21 @@
                                 <td><input class="span12" type="text" name="build_area" value="{{isset($engin->build_area)?$engin->build_area:''}}" onclick="key(this)" placeholder=""></td>
                             </tr>
                             <tr>
+                                <td class="pro-title">房屋占地尺寸:长(m)</td>
+                                <td><input class="span12" type="text" name="build_length" value="{{isset($engin->build_length)?$engin->build_length:''}}"  onclick="key(this)" placeholder=""></td>
+                                <td class="pro-title">房屋占地尺寸:宽(m)</td>
+                                <td><input class="span12" type="text" name="build_width" value="{{isset($engin->build_width)?$engin->build_width:''}}" onclick="key(this)"  placeholder=""></td>
                                 <td class="pro-title">建筑总层数</td>
                                 <td><input class="span12" type="text" name="build_floor" value="{{isset($engin->build_floor)?$engin->build_floor:''}}"  onclick="key(this)"  placeholder=""></td>
+                            </tr>
+                            <tr>
                                 <td class="pro-title">建筑总高度（m）</td>
                                 <td><input class="span12" type="text" name="build_height" value="{{isset($engin->build_height)?$engin->build_height:''}}"  onclick="key(this)" placeholder=""></td>
                                 <td class="pro-title">室内净高（最小）（m）</td>
                                 <td><input class="span12" type="text" name="indoor_height" value="{{isset($engin->indoor_height)?$engin->indoor_height:''}}" onclick="key(this)"  placeholder=""></td>
-                            </tr>
-                            <tr>
                                 <td class="pro-title">建筑数量(栋)</td>
                                 <td><input class="span12" type="text" name="build_number" value="{{isset($engin->build_number)?$engin->build_number:''}}" onclick="key(this)"  placeholder=""></td>
-                                <td colspan="4"></td>
+
                             </tr>
 
                             </tbody>

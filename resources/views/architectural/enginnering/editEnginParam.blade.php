@@ -254,9 +254,9 @@
                             </tr>
                             <tr>
                                 <td  class="pro-title">建筑占地尺寸 长（m）</td>
-                                <td><input type="text" class="span8 notempty" value="{{isset($param->floor_height)?$param->floor_height:''}}" name="floor_height" onclick="key(this)"></td>
-                                <td class="pro-title">宽（m）</td>
-                                <td><input type="text" class="span8 notempty" value="{{isset($param->floor_width)?$param->floor_width:''}}" name="floor_width" onclick="key(this)"></td>
+                                <td>{{$engineering->build_length}}</td>
+                                <td class="pro-title">建筑占地尺寸 宽（m）</td>
+                                <td>{{$engineering->build_width}}</td>
                             </tr>
                             <tr>
                                 <td  class="pro-title">楼层信息</td>

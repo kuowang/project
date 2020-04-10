@@ -66,17 +66,20 @@
                                 <td>{{$engin->build_area}}</td>
                             </tr>
                             <tr>
+                                <td class="pro-title">房屋占地尺寸:长(m)</td>
+                                <td>{{isset($engin->build_length)?$engin->build_length:''}}
+                                <td class="pro-title">房屋占地尺寸:宽(m)</td>
+                                <td>{{isset($engin->build_width)?$engin->build_width:''}}
                                 <td class="pro-title">建筑总层数</td>
                                 <td>{{$engin->build_floor}}</td>
+                            </tr>
+                            <tr>
                                 <td class="pro-title">建筑总高度（m）</td>
                                 <td>{{$engin->build_height}}</td>
                                 <td class="pro-title">室内净高（最小）（m）</td>
                                 <td>{{$engin->indoor_height}}</td>
-                            </tr>
-                            <tr>
                                 <td class="pro-title">建筑数量(栋)</td>
                                 <td>{{$engin->build_number}}</td>
-                                <td colspan="4"></td>
 
                             </tr>
                             </tbody>
