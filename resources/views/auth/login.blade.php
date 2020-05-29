@@ -44,6 +44,27 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         {{ config('app.project_logo_foot_telphone') }}
     </div>
+    <script src="/js/app.js"></script>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/layui/layui.js"></script>
+
+<script type="text/javascript">
+    @if($message != '')
+      $().ready(function () {
+        layui.use('layer', function(){
+            var layer = layui.layer;
+            layer.msg('{{$message}}', {
+                time: 2000, //20s后自动关闭
+            });
+        });
+    });
+    @endif
+
+
+
+
+</script>
+
 
 
 

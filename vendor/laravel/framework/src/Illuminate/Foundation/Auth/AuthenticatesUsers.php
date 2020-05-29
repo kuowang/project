@@ -5,6 +5,7 @@ namespace Illuminate\Foundation\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
+use DB;
 
 trait AuthenticatesUsers
 {
@@ -15,9 +16,10 @@ trait AuthenticatesUsers
      *
      * @return \Illuminate\Http\Response
      */
-    public function showLoginForm()
+    public function showLoginForm(Request $request)
     {
-        return view('auth.login');
+        $data['message']=$request->input('message','');
+        return view('auth.login',$data);
     }
 
     /**
@@ -113,7 +115,9 @@ trait AuthenticatesUsers
      */
     protected function authenticated(Request $request, $user)
     {
-        //
+        // 设置用户登录的唯一标示
+        $a =0;
+        DB::table('users')->where('id',$user->id)->update(['sessionid'=>$request->session()->getId()]);
     }
 
     /**
@@ -154,7 +158,10 @@ trait AuthenticatesUsers
         $request->session()->flush();
 
         $request->session()->regenerate();
-
+        $message =$request->input('message','');
+        if($message){
+            return redirect('/login?message='.$message);
+        }
         return redirect('/login');
     }
 

@@ -18,7 +18,7 @@ Route::get('/',                     'Home\HomeController@index'); //首页地址
 
 //Route::get('/home', 'HomeController@index');
 //个人中心
-Route::group(['namespace' => 'Home','middleware' => 'auth'], function () {
+Route::group(['namespace' => 'Home','middleware' => ['auth']], function () {
     Route::get('/home',                         'HomeController@index'); //个人首页
 
     Route::get('/editHomeUserInfo',             'HomeController@editHomeUserInfo');           //编辑用户个人信息
@@ -28,7 +28,7 @@ Route::group(['namespace' => 'Home','middleware' => 'auth'], function () {
 });
 
 //角色类的控制组 需要登录
-Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => 'auth'], function () {
+Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth','active_status']], function () {
 
     Route::get('/home',                 'RoleController@index'); //管理员首页
     //系统配置
@@ -71,7 +71,7 @@ Route::group(['namespace' => 'Admin'], function () {
 });
 
 //项目类的控制组 需要登录
-Route::group(['prefix' => 'project','namespace' => 'Project','middleware' => 'auth'], function () {
+Route::group(['prefix' => 'project','namespace' => 'Project','middleware' => ['auth','active_status']], function () {
     Route::get('/projectEnginStart/{id?}',                     'ProjectController@projectEnginStart');      //洽谈项目工程首页
     Route::get('/projectEnginConduct/{id?}',                   'ProjectController@projectEnginConduct');    //实施项目工程列表
     Route::get('/projectEnginCompleted/{id?}',                 'ProjectController@projectEnginCompleted');  //竣工项目工程首页
@@ -113,7 +113,7 @@ Route::group(['namespace' => 'Project'], function () {
     //Route::post('/test', 'RoleController@test');
 });
 //建筑设计管理类的控制组 需要登录
-Route::group(['prefix' => 'architectural','namespace' => 'Architectural','middleware' => 'auth'], function () {
+Route::group(['prefix' => 'architectural','namespace' => 'Architectural','middleware' => ['auth','active_status']], function () {
     //建筑设计管理系统
     Route::get('/index',                   'ArchitecturalController@index');      //建筑设计主页
     Route::get('/add_architect',           'ArchitecturalController@addArchitect'); //创建建筑工程
@@ -161,7 +161,7 @@ Route::group(['prefix' => 'architectural','namespace' => 'Architectural','middle
 });
 
 //基础信息管理类的控制组 需要登录
-Route::group(['prefix' => 'base','namespace' => 'Base','middleware' => 'auth'], function () {
+Route::group(['prefix' => 'base','namespace' => 'Base','middleware' => ['auth','active_status']], function () {
     //公告管理
     Route::get('/notice_list',                   'BaseController@noticeList');      //公告列表
     Route::get('/add_notice',                   'BaseController@addNotice');      //添加公告
@@ -174,7 +174,7 @@ Route::group(['prefix' => 'base','namespace' => 'Base','middleware' => 'auth'], 
 });
 
 //供应商品牌管理类的控制组 需要登录
-Route::group(['prefix' => 'supplier','namespace' => 'SupplierBrand','middleware' => 'auth'], function () {
+Route::group(['prefix' => 'supplier','namespace' => 'SupplierBrand','middleware' => ['auth','active_status']], function () {
     //品牌管理
     Route::get('/brandList',                   'BrandController@brandList');      //品牌列表
     Route::post('/post_add_brand',              'BrandController@postAddBrand');      //提交新增品牌
@@ -193,7 +193,7 @@ Route::group(['prefix' => 'supplier','namespace' => 'SupplierBrand','middleware'
 });
 
 //部品部件管理类的控制组 需要登录
-Route::group(['prefix' => 'material','namespace' => 'Material','middleware' => 'auth'], function () {
+Route::group(['prefix' => 'material','namespace' => 'Material','middleware' => ['auth','active_status']], function () {
     //部品部件管理
     Route::get('/materialList',                   'MaterialController@materialList');      //部品部件列表
     Route::get('/editMaterial/{id}',              'MaterialController@editMaterial');      //编辑部品部件
@@ -203,7 +203,7 @@ Route::group(['prefix' => 'material','namespace' => 'Material','middleware' => '
 });
 
 //客户类的控制组 需要登录
-Route::group(['prefix' => 'customer','namespace' => 'Customer','middleware' => 'auth'], function () {
+Route::group(['prefix' => 'customer','namespace' => 'Customer','middleware' => ['auth','active_status']], function () {
     //客户管理
     Route::get('/customerList',                   'CustomerController@customerList');             //客户列表
     Route::post('/postAddCustomer',               'CustomerController@postAddCustomer');        //提交新增客户信息
@@ -213,7 +213,7 @@ Route::group(['prefix' => 'customer','namespace' => 'Customer','middleware' => '
 });
 
 //预算管理类的控制组 需要登录
-Route::group(['prefix' => 'budget','namespace' => 'Budget','middleware' => 'auth'], function () {
+Route::group(['prefix' => 'budget','namespace' => 'Budget','middleware' => ['auth','active_status']], function () {
     Route::get('/budgetStart/{id?}',                     'BudgetController@budgetStart');      //洽谈工程列表
     Route::get('/budgetConduct/{id?}',                   'BudgetController@budgetConduct');    //实施工程列表
     Route::get('/budgetCompleted/{id?}',                 'BudgetController@budgetCompleted');  //竣工工程列表
@@ -245,7 +245,7 @@ Route::group(['prefix' => 'budget','namespace' => 'Budget'], function () {
 });
 
 //报价管理类的控制组 需要登录
-Route::group(['prefix' => 'offer','namespace' => 'Offer','middleware' => 'auth'], function () {
+Route::group(['prefix' => 'offer','namespace' => 'Offer','middleware' => ['auth','active_status']], function () {
     Route::get('/offerStart/{id?}',                     'OfferController@offerStart');      //洽谈工程列表
     Route::get('/offerConduct/{id?}',                   'OfferController@offerConduct');    //实施工程列表
     Route::get('/offerCompleted/{id?}',                 'OfferController@offerCompleted');  //竣工工程列表
@@ -270,7 +270,7 @@ Route::group(['prefix' => 'offer','namespace' => 'Offer','middleware' => 'auth']
 });
 
 //采购管理类的控制组 不需要登录
-Route::group(['prefix' => 'purchase','namespace' => 'Purchase','middleware' => 'auth'], function () {
+Route::group(['prefix' => 'purchase','namespace' => 'Purchase','middleware' => ['auth','active_status']], function () {
     Route::get('/purchaseConduct/{id?}',              'PurchaseController@purchaseConduct');    //实施项目采购列表
 
     Route::get('/editPurchase/{id}',            'PurchaseController@editPurchase');    //实施项目采购列表
@@ -324,7 +324,7 @@ Route::group(['prefix' => 'test','namespace' => 'Test'], function () {
 });
 
 //财务管理类的控制组
-Route::group(['prefix' => 'finance','namespace' => 'Finance','middleware' => 'auth'], function () {
+Route::group(['prefix' => 'finance','namespace' => 'Finance','middleware' => ['auth','active_status']], function () {
     Route::get('/financeStart',                 'FinanceController@financeStart');    //洽谈项目财务列表
     Route::post('/postEditFinanceStart/{id}',   'FinanceController@postEditFinanceStart');    //洽谈项目财务列表
     Route::get('/financeConduct',               'FinanceController@financeConduct');    //实施项目财务列表
@@ -336,7 +336,7 @@ Route::group(['prefix' => 'finance','namespace' => 'Finance','middleware' => 'au
 
 });
 //项目施工的控制组
-Route::group(['prefix' => 'progress','namespace' => 'Progress','middleware' => 'auth'], function () {
+Route::group(['prefix' => 'progress','namespace' => 'Progress','middleware' => ['auth','active_status']], function () {
     Route::get('/progressConductProjectList',           'ProgressController@progressConductProjectList');    //实施项目施工列表
     Route::get('/progressCompletedProjectList',         'ProgressController@progressCompletedProjectList');    //实施项目竣工列表
 
