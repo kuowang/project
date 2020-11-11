@@ -9,6 +9,7 @@ use App\Models\UserRole;
 use Illuminate\Http\Request;
 use App\Http\Controllers\WebController;
 use Illuminate\Support\Facades\DB;
+use WkRedis;
 
 class HomeController extends WebController
 {
@@ -30,6 +31,11 @@ class HomeController extends WebController
      */
     public function index()
     {
+       // app('auth')->user();
+       // $user = WkRedis::get('hs_ghost_market_setting');
+       // print_r($user);
+       // exit;
+
       //  session_start();
         //print_r($this->user());
       //  print_r($_SESSION);
