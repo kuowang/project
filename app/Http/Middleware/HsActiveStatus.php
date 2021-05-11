@@ -11,6 +11,7 @@ namespace App\Http\Middleware;
 use Closure;
 use DB;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use Log;
 
 class HsActiveStatus
 {
@@ -24,6 +25,7 @@ class HsActiveStatus
             $phpsession =$request->session()->getId();
             $sessionid =$this->auth->user()->sessionid;
             if($phpsession != $sessionid){
+                Log::info('用户在其他位置登录',[$this->auth->user(),$request->header()]);
                 return redirect('/logout?message=您在其他位置已经登录，请重新登录');
             }
         }
