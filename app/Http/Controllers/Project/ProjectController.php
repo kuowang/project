@@ -591,6 +591,20 @@ class ProjectController extends WebController
             if(!isset($project_file[$k]) || empty($project_file[$k])){
                 continue;
             }
+            //判断文件类型 1图片 2文档 3CBD 4压缩包 5其他
+            $a = pathinfo($project_file[$k],PATHINFO_EXTENSION );
+            if(in_array($a,['png', 'jpg', 'gif'])){
+                $type =1;
+            }elseif(in_array($a,['pdf','doc'])){
+                $type =2;
+            }elseif(in_array($a,['dwg'])){
+                $type =3;
+            }elseif(in_array($a,['rar','zip'])){
+                $type =4;
+            }else{
+                $type =5;
+            }
+
             $data=[
                 'project_id'=>$id,
                 'file_type'=>isset($file_type[$k])?$file_type[$k]:'',
@@ -599,6 +613,7 @@ class ProjectController extends WebController
                 'uid'=>$uid,
                 'status'=>1,
                 'update_at'=>$date,
+                'type'=>$type
             ] ;
             if(isset($uploadfile[$k]) && !empty($uploadfile[$k])){
                 $data['uploadfile'] =$uploadfile[$k];
