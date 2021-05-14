@@ -1229,4 +1229,11 @@ class ProjectController extends WebController
         }
         return (response()->download('.'.$file->file_url,$file->uploadfile));
     }
+
+    //查询项目图片列表
+    public function projectImgList($id){
+        $file=DB::table('project_file')->where('project_id',$id)
+            ->where('type',1)->get();
+        return view('project.projectImgList',['project_file'=>$file]);
+    }
 }

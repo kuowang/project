@@ -491,7 +491,12 @@
                             <table class="layui-table layui-form">
                                 <thead>
                                 <tr>
-                                    <th colspan="3"><span class="btn btn-info">项目文件</span></th>
+                                    <th colspan="3"><span class="btn btn-info">项目文件</span>
+                                        <a class="btn btn-success"  onclick="show_img()">
+                                            <i class="layui-icon" id="show_img">显示图片</i> >>
+                                        </a>
+
+                                    </th>
                                     <th colspan="2">
                                         <span class="title" style="float: right;">
                                             <a class="btn btn-success" id="addProjectFileID" attr="1000" onclick="add_project_file()"><i class="layui-icon">添加文件 +</i></a>
@@ -734,11 +739,18 @@
         }
 
 
-
-
-
-
-
+        function show_img(){
+            layui.use(['layer', 'form'], function(){
+                var layer = layui.layer
+                    ,form = layui.form;
+                layer.open({
+                    title:'查看全部图片',
+                    type: 2,
+                    area: ['70%','80%'],
+                    content: '/project/projectImgList/{{$project->id}}' //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+                });
+            });
+        }
 
     </script>
 
