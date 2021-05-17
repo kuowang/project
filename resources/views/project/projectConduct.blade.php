@@ -150,7 +150,7 @@
                                         <td>{{$val->type}}</td>
                                         <td>{{$val->conduct_count}}</td>
                                         <td>{{$val->project_area}}</td>
-                                        <td>{{ $val->address_detail }}</td>
+                                        <td>{{ $val->province }}{{ $val->city }}{{ $val->county }}</td>
                                         <td>{{ $val->project_leader }}</td>
                                         <td>{{ $val->sale_username }}</td>
                                         <td>{{ $val->design_username }}</td>
