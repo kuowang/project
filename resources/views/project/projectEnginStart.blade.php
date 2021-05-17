@@ -268,7 +268,7 @@
                         <div class="span12">
                             <div class="widget-body">
                                 <div class="control-group">
-                                    <table class="layui-table layui-form">
+                                    <table class="layui-table layui-form" id="project_engin_status">
                                         <tr>
                                             <td>项目名称</td>
                                             <td id="project_name"></td>
@@ -279,20 +279,23 @@
                                         </tr>
                                         <tr>
                                             <td>工程状态</td>
-                                            <td id="">
+                                            <td >
                                                 <input type="hidden" name="project_id" id="project_id" value="0">
                                                 <input type="hidden" name="engin_id"  id="engin_id" value="0">
 
-                                                <select name="engin_status" id="engin_status" class="input-medium span8" >
+                                                <select name="engin_status" id="engin_status" class="input-medium span8" onchange="checkEnginStatus()" >
                                                     <option value="0" >洽谈工程</option>
                                                     <option value="1" >实施工程</option>
                                                     <option value="2" >竣工工程</option>
                                                     <option value="4" >终止工程</option>
                                                 </select>
+
                                             </td>
                                         </tr>
 
                                     </table>
+
+                                    <div style="color:red">工程状态发生变化后不能回撤，请谨慎操作</div>
                                 </div>
                             </div>
                         </div>
@@ -302,7 +305,6 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                     <button class="btn btn-success" lay-filter="add"  data-dismiss="modal" lay-submit="" onclick="submitform()" >确认</button>
                 </div>
-            </form>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 
@@ -317,13 +319,33 @@
             $('#project_id').val(project_id);
             $('#engin_id').val(id);
             $('#enginModel').modal();
+            $('.project_engin_status').remove()
         }
         function submitform() {
+            eng_status =$('#engin_status').val()
+            if(eng_status == 1){
+                code = $('#contract_code').val()
+                if(code.length == 0){
+                    //配置一个透明的询问框
+                    layui.use('layer', function(){
+                        var layer = layui.layer;
+                        layer.msg('实施工程需要补充合同编号,保存失败,请重新输入', {
+                            time: 10000, //20s后自动关闭
+                            btn: ['知道了'],
+                            btnAlign: 'c'
+                        });
+                    });
+                    return false;
+                }
+            }else{
+                code=''
+            }
 
             var datalist={
                 project_id:$('#project_id').val(),
                 engin_id:$('#engin_id').val(),
-                engin_status:$('#engin_status').val()
+                engin_status:eng_status,
+                contract_code:code
             };
             $.ajax({
                 url:'/project/editEnginStatus',
@@ -352,6 +374,22 @@
                 layer.msg(str);
             });
         }
+
+        function checkEnginStatus() {
+            status =$("#engin_status").val();
+            console.log(status);
+            html ='<tr class="project_engin_status">';
+            html +=   '<td>合同编号</td>' ;
+            html +=   '<td ><input type="text"  name="contract_code" id="contract_code" class="span8 notempty"  value="" lay-skin="primary" > </td>';
+            html +=  '</tr>';
+            if(status == 1){
+                $('.project_engin_status').remove();
+                $('#project_engin_status').append(html);
+            }else{
+                $('.project_engin_status').remove()
+            }
+        }
+
     </script>
 
 @endsection

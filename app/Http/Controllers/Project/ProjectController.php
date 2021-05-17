@@ -676,6 +676,7 @@ class ProjectController extends WebController
         $project_id =$request->input('project_id',0);
         $engin_id =$request->input('engin_id',0);
         $status =$request->input('engin_status',0);
+        $contract_code =$request->input('contract_code','');
 
         $engin=DB::table('engineering')->where('id',$engin_id)->where('project_id',$project_id)->first();
         if(empty($engin)){
@@ -699,7 +700,13 @@ class ProjectController extends WebController
         }elseif($status ==4){
             $data['termination_at'] =date('Y-m-d');//终止时间
         }
+        if($status == 1){
+            $data['contract_code'] =$contract_code;
+        }
         DB::table('engineering')->where('id',$engin_id)->update($data);
+
+
+
         //设置项目工程数量和建筑总面积
         $this->setProjectEnginNumber($engin->project_id);
         return $this->success('工程状态变更成功');
