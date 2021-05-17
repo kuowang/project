@@ -223,7 +223,7 @@
                                             <input type="hidden" name="engin_id"  id="engin_id" value="0">
 
                                             <select name="engin_status" id="engin_status" class="input-medium span8" >
-                                                <option value="0" >洽谈工程</option>
+
                                                 <option value="1" >实施工程</option>
                                                 <option value="2" >竣工工程</option>
                                                 <option value="4" >终止工程</option>
@@ -241,7 +241,7 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                 <button class="btn btn-success" lay-filter="add"  data-dismiss="modal" lay-submit="" onclick="submitform()" >确认</button>
             </div>
-            </form>
+
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 

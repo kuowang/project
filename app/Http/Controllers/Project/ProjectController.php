@@ -591,6 +591,20 @@ class ProjectController extends WebController
             if(!isset($project_file[$k]) || empty($project_file[$k])){
                 continue;
             }
+            //判断文件类型 1图片 2文档 3CBD 4压缩包 5其他
+            $a = pathinfo($project_file[$k],PATHINFO_EXTENSION );
+            if(in_array($a,['png', 'jpg', 'gif'])){
+                $type =1;
+            }elseif(in_array($a,['pdf','doc'])){
+                $type =2;
+            }elseif(in_array($a,['dwg'])){
+                $type =3;
+            }elseif(in_array($a,['rar','zip'])){
+                $type =4;
+            }else{
+                $type =5;
+            }
+
             $data=[
                 'project_id'=>$id,
                 'file_type'=>isset($file_type[$k])?$file_type[$k]:'',
@@ -599,6 +613,7 @@ class ProjectController extends WebController
                 'uid'=>$uid,
                 'status'=>1,
                 'update_at'=>$date,
+                'type'=>$type
             ] ;
             if(isset($uploadfile[$k]) && !empty($uploadfile[$k])){
                 $data['uploadfile'] =$uploadfile[$k];
@@ -661,6 +676,7 @@ class ProjectController extends WebController
         $project_id =$request->input('project_id',0);
         $engin_id =$request->input('engin_id',0);
         $status =$request->input('engin_status',0);
+        $contract_code =$request->input('contract_code','');
 
         $engin=DB::table('engineering')->where('id',$engin_id)->where('project_id',$project_id)->first();
         if(empty($engin)){
@@ -684,7 +700,13 @@ class ProjectController extends WebController
         }elseif($status ==4){
             $data['termination_at'] =date('Y-m-d');//终止时间
         }
+        if($status == 1){
+            $data['contract_code'] =$contract_code;
+        }
         DB::table('engineering')->where('id',$engin_id)->update($data);
+
+
+
         //设置项目工程数量和建筑总面积
         $this->setProjectEnginNumber($engin->project_id);
         return $this->success('工程状态变更成功');
@@ -1213,5 +1235,12 @@ class ProjectController extends WebController
             echo '没有查询到文件';
         }
         return (response()->download('.'.$file->file_url,$file->uploadfile));
+    }
+
+    //查询项目图片列表
+    public function projectImgList($id){
+        $file=DB::table('project_file')->where('project_id',$id)
+            ->where('type',1)->get();
+        return view('project.projectImgList',['project_file'=>$file]);
     }
 }

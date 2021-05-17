@@ -21,7 +21,7 @@ class MaterialController extends WebController
         $this->middleware('auth');
     }
 
-    //供应商列表
+    //部件列表 材料列表
     public function materialList(Request $request)
     {
         $this->user();
@@ -74,7 +74,7 @@ class MaterialController extends WebController
         $data['data']= $db->orderby('architectural_system.system_code')
             ->orderby('sub_system_code')
             ->orderby('material.material_sort')
-            ->select(['material.id','architectural_system.system_code','system_name','engineering_name',
+            ->select(['material.id','architectural_sub_system.work_code','architectural_system.system_code','system_name','engineering_name',
                 'sub_system_name','sub_system_code','material_name',
                 'material_code','material_type','position',
                 'purpose','material_number','characteristic',
@@ -95,6 +95,9 @@ class MaterialController extends WebController
      */
     public function editMaterial(Request $request, $id)
     {
+        // 在 Session 中存储一条数据...
+        session(['redirect_url' => url()->previous()]);
+
         //用户权限部分
         $this->user();
         $data['navid']      =40;
@@ -275,7 +278,21 @@ class MaterialController extends WebController
             }
         }
         DB::commit();
-        return redirect('/material/materialList?status=1&notice='.'编辑成功。请到详情中查看！');
+        //echo"<script>history.go(-2);</script>";
+
+        //session(['redirect_url' => url()->previous()]);
+        // 指定一个默认值...
+        $url = session('redirect_url', '/material/materialList?');
+        if(str_is('*请到详情中查看*', $url)){
+            return redirect($url);
+        }elseif(str_is('*?*', $url)){
+            $url .='&status=1&notice=编辑成功。请到详情中查看！';
+        }else{
+            $url .='?status=1&notice=编辑成功。请到详情中查看！';
+        }
+        return redirect($url);
+
+        //return redirect('/material/materialList?status=1&notice='.'编辑成功。请到详情中查看！');
         //return $this->success($request->all());
     }
 

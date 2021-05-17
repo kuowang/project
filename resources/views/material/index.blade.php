@@ -59,7 +59,7 @@
                         <table class="table table-condensed table-striped table-hover layui-table layui-form" id="data-table">
                             <thead>
                             <tr>
-                                <th>序号</th>
+                                <th >序号</th>
                                 <th>材料名称</th>
                                 <th>材料编码</th>
                                 <th>规格特性</th>
@@ -88,7 +88,7 @@
                                 <!--补充子系统工程-->
                                 @if($val->sub_system_code != $syatem_sub_code  )
                                     <tr class="gradeA success odd" style="border-bottom: #1599b5 2px solid">
-                                        <td></td>
+                                        <td>{{$val->work_code}}</td>
                                         <td colspan="7">{{$val->sub_system_name}}</td>
                                         <td onclick="showcontent('{{$val->sub_system_code}}')"><span class="btn-default btn"  id="sub_code_{{$val->sub_system_code}}">展开材料</span></td>
                                     </tr>

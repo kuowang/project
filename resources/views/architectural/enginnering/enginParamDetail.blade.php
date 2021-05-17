@@ -63,7 +63,11 @@
                             <table class="layui-table layui-form">
                                 <thead>
                                 <tr>
-                                    <th colspan="4"><span class="btn btn-info">项目文件</span></th>
+                                    <th colspan="4"><span class="btn btn-info">项目文件</span>
+                                        <a class="btn btn-success"  onclick="show_img()">
+                                            <i class="layui-icon" id="show_img">显示图片</i> >>
+                                        </a>
+                                    </th>
                                     <th>
                                     <span class="title" style="float: right;">
                                         @if(count($project_file) > 3)
@@ -279,6 +283,17 @@
             $('#show_ids').html('显示更多');
         }
     }
-
+    function show_img(){
+        layui.use(['layer', 'form'], function(){
+            var layer = layui.layer
+                ,form = layui.form;
+            layer.open({
+                title:'查看全部图片',
+                type: 2,
+                area: ['70%','80%'],
+                content: '/project/projectImgList/{{$project->id}}' //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+            });
+        });
+    }
 </script>
 @endsection
