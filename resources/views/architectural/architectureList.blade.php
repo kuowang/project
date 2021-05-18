@@ -67,9 +67,22 @@
                                 <th>创建日期</th>
                                 <th>执行操作</th>
                             </thead>
-                            <tbody>
+                            <tbody id="lookInfoTable">
+                            @php
+                                $engineering_name ='';
+                            @endphp
 
                             @foreach ($data as $key=>$val)
+
+                                <!--补充系统工程-->
+                                @if($val->engineering_name != $engineering_name  )
+                                    <tr class="gradeX  odd">
+                                        <td colspan="9"><span class="btn btn-info" >{{$val->system_name}}</span></td>
+                                    </tr>
+                                    @php
+                                        $engineering_name = $val->engineering_name;
+                                    @endphp
+                                @endif
                                 <tr>
                                     <td>{{ $key+1 }}</td>
                                     <td>{{ $val->sub_system_name }}</td>

@@ -41,52 +41,53 @@
                     </div>
                 </div>
             </div>
-                <div class="widget">
-                    <div class="widget-header">
-                        <div class="title">
-                            规格尺寸信息
-                        </div>
-                        <span class="tools">
-                      <a class="fs1" aria-hidden="true" data-icon="&#xe090;"></a>
+            <div class="widget">
+                <div class="widget-header">
+                    <div class="title">
+                        材料图片
+                    </div>
+                    <span class="title" style="float: right;">
+                        <a class="btn btn-success" attr="1000" id="addMaterialFileID" onclick="add_material_file()"><i class="layui-icon">新增图片 +</i></a>
                     </span>
-                    </div>
-                    <div class="widget-body">
-                        <div id="dt_example" class="example_alt_pagination">
-                            <table class="layui-table layui-form">
-                                <thead>
-                                <tr>
-                                    <th>预算单位</th>
-                                    <th>采购单位</th>
-                                    <th>单位换算关系</th>
-                                    <th>包装规格</th>
-                                    <th>包装要求</th>
-                                    <th>长(mm)</th>
-                                    <th>宽(mm)</th>
-                                    <th>高(mm)</th>
-                                    <th>厚(mm)</th>
-                                    <th>直径(mm)</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td><input type="text"  name="material_budget_unit"      id="budget_unit"        value="{{ $material->material_budget_unit }}" lay-skin="primary" onchange="selectunit()" style="width:50px;"></td>
-                                    <td><input type="text"  name="material_purchase_unit"    id="purchase_unit"      value="{{ $material->material_purchase_unit }}" lay-skin="primary" onchange="selectunit()" style="width:50px;"></td>
-                                    <td><input type="text"  name="conversion"       id="conversion"         value="{{ $material->conversion }}" lay-skin="primary" style="width:70px;"></td>
-                                    <td><input type="text"  name="pack_specification" id="pack_specification" value="{{ $material->pack_specification }}" lay-skin="primary"></td>
-                                    <td><input type="text"  name="pack_claim"       id="pack_claim"         value="{{ $material->pack_claim }}" lay-skin="primary"></td>
-                                    <td><input type="text"  name="material_length"  id="material_length"    value="{{ $material->material_length }}" lay-skin="primary" style="width:50px;"></td>
-                                    <td><input type="text"  name="material_width"   id="material_width"     value="{{ $material->material_width }}" lay-skin="primary"  style="width:50px;"></td>
-                                    <td><input type="text"  name="material_height"  id="material_height"    value="{{ $material->material_height }}" lay-skin="primary" style="width:50px;"></td>
-                                    <td><input type="text"  name="material_thickness" id="material_thickness" value="{{ $material->material_thickness }}" lay-skin="primary"  style="width:50px;"></td>
-                                    <td><input type="text"  name="material_diameter" id="material_diameter" value="{{ $material->material_diameter }}" lay-skin="primary" style="width:50px;"></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <div class="clearfix">
-                            </div>
-                        </div>
-                    </div>
                 </div>
+                <div class="widget-body">
+                    <table class="layui-table layui-form">
+                        <tbody id="materialFileList">
+                        <tr>
+                            <td class="pro-title">序号</td>
+                            <td class="pro-title">文件</td>
+                            <td class="pro-title">备注</td>
+                            <td class="pro-title">图片</td>
+                            <td class="pro-title">操作</td>
+                        </tr>
+
+                        @foreach($material_file as $k=>$file)
+                            <tr>
+                                <td class="pro-title">{{++$k}}</td>
+
+                                <td>
+                                    <input type="hidden" id="material_file{{$k}}" class="notempty" name="project_file[]" value="{{$file->file_url}}" placeholder="logo" >
+                                    <input class="span8" type="file" id="uploadfile{{$k}}" name="uploadfile[]"  value="" placeholder="logo" onchange="submitFile({{$k}})">
+                                </td>
+                                <td>
+                                    <input type="text"  name="material_file_name[]" class="span12 notempty"  value="{{$file->file_name}}" lay-skin="primary" >
+                                </td>
+                                <td>
+                                    <img src="" style="max-height:200px;">
+                                </td>
+                                <td><a class="btn btn-danger" onclick="deleteTrRow(this)">删除</a></td>
+                            </tr>
+
+                        @endforeach
+                        </tbody>
+                    </table>
+                    <div style="color: red">注：图片必须是png、jpg、gif 格式</div>
+                    <div class="clearfix"></div>
+
+
+                </div>
+            </div>
+
             <div class="widget">
                 <div class="widget-header">
                     <div class="title">
@@ -315,6 +316,71 @@
                 $('#purchase_unit_price_'+key).val(budget_price)
             }
         }
+
+
+        //添加上传文件内容
+        function add_material_file() {
+            id=$('#addMaterialFileID').attr('attr') *1 +1;
+            $('#addMaterialFileID').attr('attr',id);
+            str =`<tr>
+                <td class="pro-title">1</td>
+                <td>
+                    <input type="hidden" id="material_file` + id + `"   class="notempty" name="material_file[]" placeholder="logo" >
+                    <input class="span8 notempty" type="file" id="uploadfile` + id + `" name="uploadfile[]" placeholder="logo" onchange="submitFile(` + id + `)">
+                </td>
+                <td>
+                    <input type="text"  name="material_file_name[]" class="span12 notempty"  value="" lay-skin="primary" >
+                </td>
+                <td id="material_img_` + id + `">
+
+                </td>
+
+                <td><a class="btn btn-danger" onclick="deleteTrRow(this)">删除</a></td>
+            </tr>`;
+            $("#materialFileList").append(str);
+            var len = $('#materialFileList tr').length;
+            for(var i = 1;i<len;i++){
+                $('#materialFileList tr:eq('+i+') td:first').text(i);
+            }
+            //点击文本框设置背景色
+            $(".notempty").focus(function(){
+                $(this).css("background-color","#fff");
+            });
+        }
+
+        //提交文件信息
+        function submitFile(id) {
+            var formdata=new FormData();
+            formdata.append('file',$('#uploadfile'+id)[0].files[0]);
+            $.ajax({
+                url:'/material/uploadMaterialFile/'+{{$id}},
+                type:"POST",
+                data:formdata,
+                processData:false,
+                contentType:false,
+                success:function(data){
+                    console.log(data);
+                    if(data.status == 1){
+                        layui.use('layer', function(){
+                            var layer = layui.layer;
+                            layer.msg(data.data.msg);
+                            $('#material_file'+id).val(data.data.url)
+                            html ='<img src="/storage/'+data.data.url+'" style="max-height: 100px">';
+                            $('#material_img_'+id).append(html)
+                        });
+                        $('#uploadfiletitle'+id).remove();
+                    }else{
+                        layui.use('layer', function(){
+                            var layer = layui.layer;
+                            layer.msg(data.info);
+                        });
+                        $('#uploadfile'+id).val('');
+                    }
+                }
+            })
+        }
+
+
 
     </script>
 

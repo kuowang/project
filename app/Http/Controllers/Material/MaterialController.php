@@ -7,6 +7,7 @@ use App\Models\UserManageAuthority;
 use Illuminate\Http\Request;
 use App\Http\Controllers\WebController;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class MaterialController extends WebController
 {
@@ -166,6 +167,7 @@ class MaterialController extends WebController
                 $data['supplier_list_json']=json_encode($supplier_list);
             }
         }
+        $data['material_file']=[];
         return view('material.editMaterialBrand',$data);
     }
 
@@ -375,6 +377,38 @@ class MaterialController extends WebController
             }
         }
         return view('material.materialDetail',$data);
+    }
+
+
+    //上传材料文件
+    public function uploadMaterialFile(Request $request,$id)
+    {
+        $file = $request->file('file');
+        // 此时 $this->upload如果成功就返回文件名不成功返回false
+        // 1.是否上传成功
+        if (!$file->isValid()) {
+            return $this->error('上传异常');
+        }
+        // 2.是否符合文件类型 getClientOriginalExtension 获得文件后缀名
+        $fileExtension = $file->getClientOriginalExtension();
+        if (!in_array($fileExtension, ['png', 'jpg', 'gif', 'jpeg'])) {
+            return $this->error('文件格式必须是png, jpg, gif, jpeg');
+        }
+        // 3.判断大小是否符合 2M
+        $tmpFile = $file->getRealPath();
+        if (filesize($tmpFile) >= 20480000) {
+            return $this->error('文件不能超过20M');
+        }
+        // 4.是否是通过http请求表单提交的文件
+        if (!is_uploaded_file($tmpFile)) {
+            return $this->error('请求表单异常');
+        }
+
+        $path = Storage::putFile('material_file/' . $id, $request->file('file'));
+        $data['msg'] = '上传文件成功';
+        $data['file_name'] = $file->getClientOriginalName();
+        $data['url'] = $path;
+        return $this->success($data);
     }
 
 }
