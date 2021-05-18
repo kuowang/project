@@ -90,7 +90,9 @@
                                     <tr class="gradeA success odd" style="border-bottom: #1599b5 2px solid">
                                         <td>{{$val->work_code}}</td>
                                         <td colspan="7">{{$val->sub_system_name}}</td>
-                                        <td onclick="showcontent('{{$val->sub_system_code}}')"><span class="btn-default btn"  id="sub_code_{{$val->sub_system_code}}">展开材料</span></td>
+                                        <td onclick="showcontent('{{$val->sub_system_code}}')">
+                                            <span class="btn-default btn material_list"  id="sub_code_{{$val->sub_system_code}}">展开材料</span>
+                                        </td>
                                     </tr>
                                     @php
                                         $syatem_sub_code = $val->sub_system_code;
@@ -174,6 +176,43 @@
         }else{
             $('#sub_code_'+sub_code).html('展开材料');
         }
+        saveTag('mater_sub_code_'+sub_code) //记录数据到本地
     }
+
+
+    //存储数据
+    function saveTag(id){
+        if(!window.localStorage){
+            console.log("浏览器支持localstorage");
+        }else{
+            var a = new Array();
+            i=0;
+            $(".material_list").each(function(){
+                html =$(this).html()
+                if(html =='隐藏材料'){
+                    a[i]=$(this).attr('id')
+                    i++
+                }
+            });
+            var storage=window.localStorage;
+            //写入字段
+            //storage.setItem('tagshow',1);//讲已经展开的数据写入到本次存储
+            storage.setItem('tagshow',JSON.stringify(a));
+            console.log(storage);
+        }
+    }
+    $().ready(function (){
+        if(!window.localStorage){
+            console.log("浏览器支持localstorage");
+        }else{
+            tagshow = JSON.parse(window.localStorage.getItem('tagshow'));
+            console.log(tagshow);
+            for(var i=0;i<tagshow.length;i++){
+               id= tagshow[i] ;
+               $(".mater_"+id).toggle(); //将本地数据展开
+            }
+        }
+    })
+
 </script>
 @endsection
