@@ -7,6 +7,7 @@ use App\Models\UserManageAuthority;
 use Illuminate\Http\Request;
 use App\Http\Controllers\WebController;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class MaterialController extends WebController
 {
@@ -166,6 +167,11 @@ class MaterialController extends WebController
                 $data['supplier_list_json']=json_encode($supplier_list);
             }
         }
+        $data['material_file']=DB::table('material_file')
+            ->where('material_id',$id)
+            ->where('status',1)
+            ->select()
+            ->get();;
         return view('material.editMaterialBrand',$data);
     }
 
@@ -278,6 +284,16 @@ class MaterialController extends WebController
             }
         }
         DB::commit();
+        //保存材料对应的文件数据
+        $file_id           =$request->input('file_id'); //文件地址
+        $material_url      =$request->input('material_url'); //文件地址
+        $file_name         =$request->input('file_name'); //上传的文件名
+        $material_remarks  =$request->input('material_remarks');//备注
+        if(!empty($material_url) && !empty($file_name)){
+            $this->saveMaterialImageList($id,$file_id,$material_url,$file_name,$material_remarks);
+        }
+        //var_dump($request->all());
+        //exit;
         //echo"<script>history.go(-2);</script>";
 
         //session(['redirect_url' => url()->previous()]);
@@ -294,6 +310,40 @@ class MaterialController extends WebController
 
         //return redirect('/material/materialList?status=1&notice='.'编辑成功。请到详情中查看！');
         //return $this->success($request->all());
+    }
+
+    protected function saveMaterialImageList($id,$file_id,$material_url,$file_name,$material_remarks){
+        $uid =$this->user()->id;
+        //第一步将删除的文件状态更改
+        DB::table('material_file')->where('material_id',$id)
+            ->wherenotin('id',$file_id)
+            ->update(['status'=>0,'update_at'=>date('Y-m-d')]);
+        //第二步循环保存文件信息
+        $date =date('Y-m-d');
+        foreach($file_id as $k=>$item){
+            if(!isset($material_url[$k]) || empty($material_url[$k])){
+                continue;
+            }
+            $data=[
+                'material_id'=>$id,
+                //'file_name'=>isset($file_name[$k])?$file_name[$k]:'',
+                'file_url'=>isset($material_url[$k])?$material_url[$k]:'',
+                'remarks'=>isset($material_remarks[$k])?$material_remarks[$k]:'',
+                'uid'=>$uid,
+                'status'=>1,
+                'update_at'=>$date,
+            ] ;
+            if(isset($file_name[$k]) && !empty($file_name[$k])){
+                $data['file_name'] =$file_name[$k];
+            }
+
+            if(empty($item)){
+                $data['created_at']=$date;
+                DB::table('material_file')->insert($data);
+            }else{
+                DB::table('material_file')->where('material_id',$id)->where('id',$item)->update($data);
+            }
+        }
     }
 
     /**
@@ -375,6 +425,38 @@ class MaterialController extends WebController
             }
         }
         return view('material.materialDetail',$data);
+    }
+
+
+    //上传材料文件
+    public function uploadMaterialFile(Request $request,$id)
+    {
+        $file = $request->file('file');
+        // 此时 $this->upload如果成功就返回文件名不成功返回false
+        // 1.是否上传成功
+        if (!$file->isValid()) {
+            return $this->error('上传异常');
+        }
+        // 2.是否符合文件类型 getClientOriginalExtension 获得文件后缀名
+        $fileExtension = $file->getClientOriginalExtension();
+        if (!in_array($fileExtension, ['png', 'jpg', 'gif', 'jpeg'])) {
+            return $this->error('文件格式必须是png, jpg, gif, jpeg');
+        }
+        // 3.判断大小是否符合 2M
+        $tmpFile = $file->getRealPath();
+        if (filesize($tmpFile) >= 20480000) {
+            return $this->error('文件不能超过20M');
+        }
+        // 4.是否是通过http请求表单提交的文件
+        if (!is_uploaded_file($tmpFile)) {
+            return $this->error('请求表单异常');
+        }
+
+        $path = Storage::putFile('material_file/' . $id, $request->file('file'));
+        $data['msg'] = '上传文件成功';
+        $data['file_name'] = $file->getClientOriginalName();
+        $data['url'] = $path;
+        return $this->success($data);
     }
 
 }

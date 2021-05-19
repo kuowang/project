@@ -593,7 +593,7 @@ class ProjectController extends WebController
             }
             //判断文件类型 1图片 2文档 3CBD 4压缩包 5其他
             $a = pathinfo($project_file[$k],PATHINFO_EXTENSION );
-            if(in_array($a,['png', 'jpg', 'gif'])){
+            if(in_array($a,['png', 'jpg', 'gif','jpeg'])){
                 $type =1;
             }elseif(in_array($a,['pdf','doc'])){
                 $type =2;
@@ -1166,18 +1166,19 @@ class ProjectController extends WebController
         return redirect('/project/projectEnginStart/'.$id);
     }
     //上传项目文件
-    public function uploadProjectFile(Request $request,$id)
+    //先执行 php artisan config:cache 清除配置缓存
+    public function uploadProjectFile(Request $request, $id)
     {
         $file = $request->file('file');
         // 此时 $this->upload如果成功就返回文件名不成功返回false
         // 1.是否上传成功
-        if (! $file->isValid()) {
+        if (!$file->isValid()) {
             return $this->error('上传异常');
         }
         // 2.是否符合文件类型 getClientOriginalExtension 获得文件后缀名
         $fileExtension = $file->getClientOriginalExtension();
-        if(! in_array($fileExtension, ['png', 'jpg', 'gif','pdf','doc','dwg','rar','zip'])) {
-            return $this->error('文件格式必须是png、jpg、gif、pdf、doc、dwg、rar、zip');
+        if (!in_array($fileExtension, ['png', 'jpg', 'gif','jpeg', 'pdf', 'doc', 'dwg', 'rar', 'zip'])) {
+            return $this->error('文件格式必须是png、jpg、jpeg、gif、pdf、doc、dwg、rar、zip');
         }
         // 3.判断大小是否符合 2M
         $tmpFile = $file->getRealPath();
@@ -1185,48 +1186,17 @@ class ProjectController extends WebController
             return $this->error('文件不能超过20M');
         }
         // 4.是否是通过http请求表单提交的文件
-        if (! is_uploaded_file($tmpFile)) {
+        if (!is_uploaded_file($tmpFile)) {
             return $this->error('请求表单异常');
         }
 
-        $houzhui =strrchr($_FILES["file"]["name"], '.');
-        //防止文件名重复
-        $dir="./projectfile/".$id.'/';
-        $sta =$this->mkdirs($dir);
-        if(!$sta){
-            return $this->error('文件保存失败，请重试');
-        }
-        $filename =md5(time().$_FILES["file"]["name"]);
-        //转码，把utf-8转成gb2312,返回转换后的字符串， 或者在失败时返回 FALSE。
-        $filename =iconv("UTF-8","gb2312",$filename).$houzhui;
-        //检查文件或目录是否存在
-        if(file_exists($dir.$filename))
-        {
-            return $this->error('该文件已存在');
-        }
-        //保存文件,   move_uploaded_file 将上传的文件移动到新位置
-        move_uploaded_file($_FILES["file"]["tmp_name"],$dir.$filename);//将临时地址移动到指定地址
-        $data['msg']='上传文件成功';
-        $data['file_name']=$file->getClientOriginalName();
-        $data['url']="/projectfile/".$id.'/'.$filename;
+        $path = Storage::putFile('project_file/' . $id, $request->file('file'));
+        $data['msg'] = '上传文件成功';
+        $data['file_name'] = $file->getClientOriginalName();
+        $data['url'] = $path;
         return $this->success($data);
     }
 
-
-    //创建文件夹
-    public function mkdirs($dir, $mode = 0777)
-    {
-        if (is_dir($dir)){
-            return true;
-        }
-        //第三个参数是“true”表示能创建多级目录，iconv防止中文目录乱码
-        $res=mkdir($dir,0777,true);
-        if ($res){
-            return true;
-        }else{
-            return false;
-        }
-    }
 
     //下载项目文件
     public function projectFileDownload(Request $request,$id){
@@ -1240,7 +1210,7 @@ class ProjectController extends WebController
     //查询项目图片列表
     public function projectImgList($id){
         $file=DB::table('project_file')->where('project_id',$id)
-            ->where('type',1)->get();
+            ->where('type',1)->where('status',1)->get();
         return view('project.projectImgList',['project_file'=>$file]);
     }
 }

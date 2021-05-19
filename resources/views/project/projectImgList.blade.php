@@ -6,7 +6,7 @@
         描述：{{$file->file_name}}
     </div>
     <div style="padding-bottom: 20px">
-        <img src="{{$file->file_url}}" style="min-width: 300px;max-width:1000px;max-height: 700px" >
+        <img src="/storage/{{$file->file_url}}" style="min-width: 300px;max-width:1000px;max-height: 700px" >
     </div>
 
 @endforeach

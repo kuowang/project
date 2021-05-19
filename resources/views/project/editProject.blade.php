@@ -740,9 +740,8 @@
 
 
         function show_img(){
-            layui.use(['layer', 'form'], function(){
-                var layer = layui.layer
-                    ,form = layui.form;
+            layui.use(['layer'], function(){
+                var layer = layui.layer;
                 layer.open({
                     title:'查看全部图片',
                     type: 2,
