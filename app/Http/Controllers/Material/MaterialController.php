@@ -299,9 +299,9 @@ class MaterialController extends WebController
         //session(['redirect_url' => url()->previous()]);
         // 指定一个默认值...
         $url = session('redirect_url', '/material/materialList?');
-        if(str_is('*请到详情中查看*', $url)){
+        if(substr_count($url,'status') > 0){
             return redirect($url);
-        }elseif(str_is('*?*', $url)){
+        }elseif(substr_count($url,'?') > 0){
             $url .='&status=1&notice=编辑成功。请到详情中查看！';
         }else{
             $url .='?status=1&notice=编辑成功。请到详情中查看！';
