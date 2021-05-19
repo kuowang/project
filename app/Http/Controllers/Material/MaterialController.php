@@ -171,7 +171,7 @@ class MaterialController extends WebController
             ->where('material_id',$id)
             ->where('status',1)
             ->select()
-            ->get();;
+            ->get();
         return view('material.editMaterialBrand',$data);
     }
 
@@ -424,6 +424,15 @@ class MaterialController extends WebController
                  $data['supplier_list_json']=json_encode($supplier_list);
             }
         }
+
+        $data['material_file']=DB::table('material_file')
+            ->where('material_id',$id)
+            ->where('status',1)
+            ->select()
+            ->get();
+
+
+
         return view('material.materialDetail',$data);
     }
 

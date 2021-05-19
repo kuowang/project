@@ -493,7 +493,7 @@
                                 <tr>
                                     <th colspan="3"><span class="btn btn-info">项目文件</span>
                                         <a class="btn btn-success"  onclick="show_img()">
-                                            <i class="layui-icon" id="show_img">显示图片</i> >>
+                                            <i class="layui-icon" id="show_img">预览图片信息</i> >>
                                         </a>
 
                                     </th>
