@@ -1204,7 +1204,7 @@ class ProjectController extends WebController
         if(!$file){
             echo '没有查询到文件';
         }
-        return (response()->download('.'.$file->file_url,$file->uploadfile));
+        return (response()->download('./storage/'.$file->file_url,$file->uploadfile));
     }
 
     //查询项目图片列表

@@ -87,6 +87,54 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="widget">
+                    <div class="widget-header">
+                        <div class="title">
+                            材料图片
+                        </div>
+                    </div>
+                    <div class="widget-body">
+                        <table class="layui-table layui-form">
+                            <tbody id="materialFileList">
+                            <tr>
+                                <td class="pro-title">序号</td>
+                                <td class="pro-title">文件</td>
+                                <td class="pro-title">备注</td>
+                                <td class="pro-title">图片</td>
+                            </tr>
+
+                            @foreach($material_file as $k=>$file)
+                                <tr>
+                                    <td class="pro-title">{{++$k}}</td>
+                                    <td>
+                                       <div>
+                                            {{$file->file_name}}(日期：{{$file->created_at}})
+                                        </div>
+
+                                    </td>
+                                    <td>
+                                      {{$file->remarks}}
+                                    </td>
+                                    <td onclick="chakanImage({{$k}})" id="material_img_{{$k}}" style="cursor:pointer;">
+                                        <img src="/storage/{{$file->file_url}}" style="height: 50px;width: auto">
+                                    </td>
+                                </tr>
+
+                            @endforeach
+                            </tbody>
+                        </table>
+                        <div style="color: red">注：图片必须是png、jpg、gif 格式 点击图片放大显示</div>
+                        <div class="clearfix"></div>
+
+
+                    </div>
+                </div>
+
+
+
+
+
             <div class="widget">
                 <div class="widget-header">
                     <div class="title">
@@ -150,106 +198,23 @@
     <!-- 你的HTML代码 -->
 
     <script type="text/javascript">
-        var supplier_brand={!! $supplier_brand_json !!}; //品牌对应供应商列表
-        var supplier={!! $supplier_list_json !!}; //供应商名称列表
-        //删除事件
-        function deleteTrRow(tr){
-            $(tr).parent().parent().remove();
-        }
-
-        function selectSupplier(id){
-            // id =parseInt(Math.random() * (1000000 )+100);
-            brand_id =$('#brand_id_'+id).val();
-            console.log(supplier_brand[brand_id]);
-            console.log(brand_id);
-            supplier_brand_list =supplier_brand[brand_id];
-            $('.manufa').hide();
-            for(var i=0;i<supplier_brand_list.length;i++){
-                j= supplier_brand_list[i];
-                $('.manufa_'+j).show();
-            }
-
-            //$("#manufactor_"+id).empty();
-            //$("#manufactor_"+id).append("<option value='0' ></option>");
-            //获取品牌对于的供应商信息
-            /*
-            $.ajax({
-                url:'/supplier/brandToSupplier/'+brand_id,
-                type:'get',
-                // contentType: 'application/json',
-                success:function(data){
-                    console.log(data);
-                    if(data.status == 1){
-                        arr =data.data;
-                        for(var i=0;i<arr.length;i++){
-                            console.log(arr[i]);
-                            obj =arr[i];
-                            supplier[obj.id]=obj.supplier;
-                            $("#manufactor_"+id).append("<option value='"+obj.id+"' supplier='"+obj.supplier+"'>"+obj.manufactor+"</option>");
-                        }
-                    }
-                },
-            });
-            */
-        }
-
-        function selectManufactor(id){
-            sid =$('#manufactor_'+id).val();
-            $('#supplier_'+id).val(supplier[sid]);
-            console.log(supplier[sid]);
-        }
-
-
-
-        //添加事件
-        function add_xitong() {
-            intid =parseInt(Math.random() * (1000000 )+100);
-           str =' <tr> <td>'+
-               '<select name="brand_id[]" id="brand_id_'+intid+'" class="span12" style="min-width: 80px;" onchange="selectSupplier('+intid+')">'+
-            '<option value="0"  style="display: none"></option>'+
-                    @foreach($brand as $v)
-                        '<option value="{{ $v->id }}" >{{$v->brand_name}}</option>'+
-                    @endforeach
-                '</select>'+
-            '</td> <td>'+
-            '<select name="manufactor[]" id="manufactor_'+intid+'" class="span12" style="min-width: 100px" onchange="selectManufactor('+intid+')">'+
-            '<option value="0"  style="display: none"></option>'+
-                    @foreach($supplier as $val)
-                        '<option value="{{ $val->id }}" class="manufa manufa_{{ $val->id }}" style="display: none">{{$val->manufactor}}</option>'+
-                    @endforeach
-                        '</select>'+
-            '</td>'+
-            '<td><input type="text"  name="supplier[]"          id="supplier_'+intid+'"         value="" lay-skin="primary"></td>'+
-            '<td><input type="text"  name="budget_unit_price[]" id="budget_unit_price_'+intid+'" value="" lay-skin="primary" placeholder=""style="width:50px;"></td>'+
-            '<td><input type="text"  name="budget_unit[]"       id="budget_unit_'+intid+'"         value="" lay-skin="primary"  placeholder=""style="width:50px;"></td>'+
-            '<td><input type="text"  name="purchase_unit_price[]"  id="purchase_unit_price_'+intid+'"    value="" lay-skin="primary" style="width:50px;"></td>'+
-            '<td><input type="text"  name="purchase_unit[]"      id="purchase_unit_'+intid+'" value="" lay-skin="primary" style="width:50px;"></td>'+
-            '<td><a class="btn btn-danger" onclick="deleteTrRow(this)">删除</a></td>'+
-            '</tr>';
-
-            $("#zixitong").append(str);
-        }
-        //提交验证信息
-        function form_submit(){
-            $('input').css('background','#fff');
-            var sum=0;
-            $("input").each(function(){
-                if($(this).val()){
-                }else{
-                    $(this).css('background','orange');
-                    sum=1;
-                }
-            });
-            if(sum == 1){
-                layui.use('layer', function(){
-                    var layer = layui.layer;
-                    layer.msg('有信息没有填写完全，请填写完成后，再提交。');
+        function chakanImage(id){
+            url =$('#material_img_'+id+' img').attr('src');
+            html ='<img src="'+url+'" style="width: auto;height: auto">'
+            layui.use('layer', function(){
+                var layer = layui.layer;
+                layer.open({
+                    type: 1,
+                    title: false,
+                    closeBtn: 0,
+                    area: ['600px','600px'],
+                    skin: 'layui-layer-nobg', //没有背景色
+                    shadeClose: true,
+                    content: html
                 });
-                return false;
-            }
-            return true;
-        }
+            });
 
+        }
 
     </script>
 

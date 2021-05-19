@@ -104,7 +104,7 @@
                                     @endphp
                                 @endif
 
-                                <tr class="gradeC mater_sub_code_{{$syatem_sub_code}}" style="display: none">
+                                <tr class="gradeC mater_sub_code_{{$syatem_sub_code}}" id="material_{{ $val->id }}" style="display: none">
                                         <td class="brand_id_{{ $val->id }}">
                                             {{ $i }}
                                         </td>
@@ -123,7 +123,7 @@
                                             </a>
                                         @endif
                                         @if(empty($val->material_created_uid ) ||(in_array(4003,$pageauth) && $val->material_created_uid == $uid ) || in_array(4003,$manageauth))
-                                            <a title="编辑" class="btn btn-success"  href="/material/editMaterial/{{ $val->id }}">
+                                            <a title="编辑" class="btn btn-success" onclick="sectionTr('material_{{ $val->id }}')" href="/material/editMaterial/{{ $val->id }}">
                                                 <i class="layui-icon">编辑</i>
                                             </a>
                                         @endif
@@ -211,8 +211,19 @@
                id= tagshow[i] ;
                $(".mater_"+id).toggle(); //将本地数据展开
             }
+            color =window.localStorage.getItem('materialTrColor')
+            console.log(color)
+            $("#"+color+' td').css('background','#AAAAFF');
         }
     })
+
+    function sectionTr(id){
+        var storage=window.localStorage;
+        //写入字段
+        //storage.setItem('tagshow',1);//讲已经展开的数据写入到本次存储
+        storage.setItem('materialTrColor',id);
+    }
+
 
 </script>
 @endsection
