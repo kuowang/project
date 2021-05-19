@@ -6,7 +6,7 @@
 <div class="left-sidebar">
     <div class="row-fluid">
         <div class="span12">
-            <form method="post" action="/material/postEditMaterial/{{ $id }}">
+            <form method="post" id="material_form" action="/material/postEditMaterial/{{ $id }}">
                 <div class="widget">
                     <div class="widget-header">
                         <div class="title">
@@ -346,12 +346,29 @@
                 return false;
             }
 
-            var r=confirm("所有建筑系统中的材料编码({{ $material->material_code }})一致的材料信息将同步保存")
-            if (r==true) {
-            } else {
-                return false;
-            }
-            return true;
+            layui.use(['layer'], function(){
+                var layer = layui.layer //获得 layer 模块
+                var content ="所有建筑系统中的材料编码({{ $material->material_code }})一致的材料信息将同步保存";
+                layer.confirm(content,
+                    {btn: ['确认', '取消'], title: '提示信息'},
+                    function(index, layero){
+                        //按钮【按钮一】的回调 数据提交
+                        $('#material_form').submit()
+                    },
+                    function(index){
+                        layer.closeAll(); //关闭所有弹出层
+                    });
+
+            });
+
+            return false;
+
+            //var r=confirm("所有建筑系统中的材料编码({{ $material->material_code }})一致的材料信息将同步保存")
+            //if (r==true) {
+            //} else {
+            //    return false;
+            //}
+            //return true;
         }
         //将报价和预算单位默认到品牌信息里面
         function selectunit() {
