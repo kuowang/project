@@ -59,9 +59,8 @@
         });
     });
     @endif
-
-
-
+    //清除本地缓存
+    window.localStorage.clear()
 
 </script>
 

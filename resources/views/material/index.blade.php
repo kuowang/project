@@ -214,8 +214,6 @@
             color =window.localStorage.getItem('materialTrColor')
             console.log(color)
             $("#"+color+' td').css('background','#AAAAFF');
-            window.localStorage.removeItem('tagshow')
-            window.localStorage.removeItem('materialTrColor')
         }
     })
 
