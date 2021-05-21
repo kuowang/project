@@ -5747,7 +5747,9 @@ header {
 
 /*  DASHBOARD CSS Starts here  */
 .dashboard-container {
-  margin-top: 90px; }
+    margin-top: 90px;
+    min-width: 1300px;
+}
 
 .dashboard-wrapper {
   position: relative;
