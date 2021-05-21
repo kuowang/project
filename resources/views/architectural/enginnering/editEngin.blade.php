@@ -394,33 +394,6 @@
             });
         }
 
-
-        jQuery.fn.rowspan = function(colIdx) { //封装的一个JQuery小插件
-            return this.each(function(){
-                var that;
-                $('tr', this).each(function(row) {
-                    $('td:eq('+colIdx+')', this).filter(':visible').each(function(col) {
-                        if (that!=null && $(this).html() == $(that).html()) {
-                            rowspan = $(that).attr("rowSpan");
-                            if (rowspan == undefined) {
-                                $(that).attr("rowSpan",1);
-                                rowspan = $(that).attr("rowSpan"); }
-                            rowspan = Number(rowspan)+1;
-                            $(that).attr("rowSpan",rowspan);
-                            $(this).hide();
-                        } else {
-                            that = this;
-                        }
-                    });
-                });
-            });
-        }
-
-        $(function() {
-            $("#projectFileList").rowspan(0);//传入的参数是对应的列数从0开始，哪一列有相同的内容就输入对应的列数值
-            //$("#table1").rowspan(2);
-
-        });
         function show_list() {
             $('.show_tr_list').toggle();
             $("#projectFileList").rowspan(0);
@@ -432,9 +405,8 @@
             }
         }
         function show_img(){
-            layui.use(['layer', 'form'], function(){
-                var layer = layui.layer
-                    ,form = layui.form;
+            layui.use(['layer'], function(){
+                var layer = layui.layer;
                 layer.open({
                     title:'查看全部图片',
                     type: 2,
