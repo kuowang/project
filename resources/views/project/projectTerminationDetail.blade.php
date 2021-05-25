@@ -89,7 +89,7 @@
                                 <td colspan="2">{{$project->province}}{{$project->city}}{{$project->county}}
                                     {{$project->foreign_address}}
                                 </td>
-                                <td  class="pro-title">详情地址</td>
+                                <td  class="pro-title">详情地址(街道/乡镇/村)</td>
                                 <td colspan="2">{{$project->address_detail}}</td>
                             </tr>
                             <tr>

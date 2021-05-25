@@ -207,13 +207,15 @@
         }else{
             tagshow = JSON.parse(window.localStorage.getItem('tagshow'));
             console.log(tagshow);
-            for(var i=0;i<tagshow.length;i++){
-               id= tagshow[i] ;
-               $(".mater_"+id).toggle(); //将本地数据展开
+            if(tagshow != null){
+                for(var i=0;i<tagshow.length;i++){
+                    id= tagshow[i] ;
+                    $(".mater_"+id).toggle(); //将本地数据展开
+                }
+                color =window.localStorage.getItem('materialTrColor')
+                console.log(color)
+                $("#"+color+' td').css('background','#AAAAFF');
             }
-            color =window.localStorage.getItem('materialTrColor')
-            console.log(color)
-            $("#"+color+' td').css('background','#AAAAFF');
         }
     })
 
