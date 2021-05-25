@@ -169,7 +169,15 @@ class EnginneringController extends WebController
     }
 
     //编辑工程设计详情
-    public function editEngin(Request $request,$id)
+
+    /**
+     * @param Request $request
+     * @param $id int 工程id
+     * @param int $programme_id int 方案id 默认为 0 时创建方案  -1 显示第一个方案
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     * @throws \Exception
+     */
+    public function editEngin(Request $request,$id,$programme_id = -1)
     {
         $this->user();
         $data['navid']      =35;
@@ -198,20 +206,47 @@ class EnginneringController extends WebController
             ->orderby('a.system_code')
             ->orderby('sub_s.sub_system_code')
             ->get();
+        //获取工程方案列表
+        $data['programme_list']=DB::table('engin_programme')
+            ->where('engin_id',$id)
+            ->select(['id','project_id','engin_id','programme_name'])
+            ->get();
+
+        //有列表 但没有选择时 显示第一个方案
+        $programme_name ='';
+        if(isset($data['programme_list'][0]) && $programme_id == -1){
+            $programme_id = $data['programme_list'][0]->id;
+            $programme_name = $data['programme_list'][0]->programme_name;
+        }else{
+            foreach($data['programme_list'] as $pro){
+                if($programme_id == $pro->id){
+                    $programme_name =$pro->programme_name;
+                    break;
+                }
+            }
+        }
         $data['engin_system']=DB::table('enginnering_architectural')
             ->where('engin_id',$id)
+            ->where('programme_id',$programme_id)
             ->pluck('work_code','sub_arch_id')->toarray();
         $data['engineering']=$engineering;
         $data['project']    =$project;
         $data['engin_id'] =$id;
         $data['arch_system']=$arch_system;
+        $data['programme_id'] = $programme_id;//方案id 当前显示的方案id
+        $data['programme_name'] = $programme_name;//方案id 当前显示的方案id
+
         //如果为新增工况 则出现选择模板
         //查询其他工程的模板列表
         $data['otherEngin']=DB::table('engineering')
-            ->where('project_id',$engineering->project_id)
-            ->where('id','!=',$id)
-            ->orderby('engineering_name')
-            ->select(['id','engineering_name','status','is_conf_architectural'])
+            ->join('engin_programme','engin_programme.engin_id','=','engineering.id')
+            ->where('engineering.project_id',$engineering->project_id)
+            ->where('engin_programme.id','!=',$programme_id)
+            ->orderby('engineering.engineering_name')
+            ->select(['engineering.id','engineering.engineering_name',
+                'engineering.status','engineering.is_conf_architectural',
+                'engin_programme.id as programme_id','engin_programme.programme_name'
+            ])
             ->get();
         //获取项目文件
         $data['project_file']=DB::table('project_file')->where('status',1)
@@ -223,7 +258,7 @@ class EnginneringController extends WebController
 
     //获取指定工程对应的工况信息
     public function getEnginArchList(Request $request,$id){
-        $data =DB::table('enginnering_architectural')->where('engin_id',$id)
+        $data =DB::table('enginnering_architectural')->where('programme_id',$id)
             ->select(['arch_id','sub_arch_id'])->get();
         if(empty($data)){
             return $this->error('没有工况信息');
@@ -236,6 +271,10 @@ class EnginneringController extends WebController
         //return $this->success($request->all());
         $sub_arch_id    =$request->input('sub_arch_id',[]);
         $engin_work_code=$request->input('engin_work_code',[]);
+
+        $programme_id = $request->input('programme_id',0);
+        $programme_name = $request->input('programme_name','');
+
         if(empty($sub_arch_id) || count($sub_arch_id) != count($engin_work_code)){
             echo "<script>alert('内容不能为空');history.go(-1);</script>";
         }
@@ -251,6 +290,29 @@ class EnginneringController extends WebController
             //设计人员和管理者可以操作更改工程设计详情
             return redirect('/architectural/enginStart/'.$engineering->project_id.'?status=2&notice='.'您没有权限编辑该工程信息');
         }
+
+        if($programme_id == 0){ //创建一个方案
+            if(empty($programme_name)){
+                $count =DB::table('engin_programme')->where('engin_id',$id)->count();
+                $programme_name ='方案'.($count+1);
+            }
+            $programme=[
+                'project_id'=>$project->id,
+                'engin_id'=>$id,
+                'programme_name'=>$programme_name,
+                'status'=>1,
+                'created_uid'=>$this->user()->id,
+                'created_at'=>date('Y-m-d'),
+            ];
+            $programme_id =DB::table('engin_programme')->insertGetId($programme);
+        }else{
+            $programme =DB::table('engin_programme')->where('engin_id',$id)
+                ->where('id',$programme_id)->first();
+            if(empty($programme)){
+                echo "<script>alert('方案不存在，请重新编辑');history.go(-1);</script>";
+            }
+        }
+
         $enginList=DB::table('architectural_sub_system as sub_s')
             ->join('architectural_system as a','a.id','=','sub_s.architectural_id')
             ->where('sub_s.status',1)
@@ -265,7 +327,7 @@ class EnginneringController extends WebController
         //$datalist['engin']=$enginList;
         DB::beginTransaction();
         //删除原始数据
-        DB::table('enginnering_architectural')->where('engin_id',$id)->delete();
+        DB::table('enginnering_architectural')->where('engin_id',$id)->where('programme_id',$programme_id)->delete();
         //设置工程配置建筑设计信息
         DB::table('engineering')->where('id',$id)->update(['is_conf_architectural'=>1]);
         //添加新数据
@@ -276,6 +338,7 @@ class EnginneringController extends WebController
                     'project_id'=>$engineering->project_id,
                     'engin_id'=>$id,
                     'arch_id'=>$engin->arch_id,
+                    'programme_id'=>$programme_id,
                     'system_name'=>$engin->system_name,
                     'engin_name'=>$engin->engin_name,
                     'system_code'=>$engin->system_code,
