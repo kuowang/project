@@ -76,7 +76,7 @@
                                         <select name="county" data-district="{{$project->county}}"></select>
                                     </div>
                                  </td>
-                                <td  class="pro-title">详情地址</td>
+                                <td  class="pro-title">详情地址(街道/乡镇/村)</td>
                                 <td colspan="2">
                                     <input type="text"  name="address_detail" class="span12"  value="{{ $project->address_detail }}" lay-skin="primary" >
                                 </td>
