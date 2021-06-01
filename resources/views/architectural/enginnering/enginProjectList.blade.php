@@ -72,7 +72,7 @@
                             <thead>
                             <tr>
                                 <th>序号</th>
-                                <th>项目名称</th>
+                                <th style="max-width: 130px">项目名称</th>
                                 <th>项目种类</th>
                                 <th>工程数量</th>
                                 <th>项目总面积</th>

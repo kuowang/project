@@ -103,7 +103,11 @@ class BudgetController extends WebController
         //DB::connection()->enableQueryLog();
         $db=DB::table('engineering')
             ->join('project','project.id','=','project_id')
-            ->leftjoin('budget','engineering.id','=','budget.engin_id')
+            ->join('engin_programme',function ($join) {
+                $join->on('engin_programme.engin_id','=','engineering.id')
+                    ->where('engin_programme.budget_status','=',(int)1);
+            })
+            ->leftjoin('budget','engin_programme.id','=','budget.programme_id')
             ->where('engineering.status',$status);
         if($id){
             $db->where('engineering.project_id',$id);
@@ -129,10 +133,12 @@ class BudgetController extends WebController
         $data['count'] =$db->count();
         $data['data']= $db->orderby('project.id','desc')
             ->orderby('engineering.engineering_name','asc')
+            ->orderby('engin_programme.id','desc')
             ->select(['project.project_name','engineering.project_id','engineering.id as engin_id',
                 'engineering.engineering_name','build_area','engin_build_area','budget.total_budget_price','budget.budget_order_number',
                 'engineering.budget_uid','engineering.budget_username','budget.budget_status',
-                'is_conf_architectural','budget.id as budget_id','is_conf_param','build_number'])
+                'is_conf_architectural','budget.id as budget_id','is_conf_param','build_number',
+                'engin_programme.programme_name','engin_programme.id as programme_id'])
             ->skip(($page-1)*$rows)
             ->take($rows)
             ->get();

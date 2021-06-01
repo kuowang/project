@@ -19,3 +19,7 @@ CREATE TABLE `sp_engin_programme` (
 
 ALTER TABLE `sp_enginnering_architectural`
     ADD COLUMN `programme_id`  int(11) NULL COMMENT '方案id' AFTER `arch_id`;
+
+
+ALTER TABLE `sp_budget`
+    ADD COLUMN `programme_id`  int NULL COMMENT '工程方案id' AFTER `engin_id`;

@@ -177,8 +177,9 @@ class ProgrammeController extends WebController
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
-        if(  $project->design_uid != $this->user()->id ){
-            //设计人员和管理者可以操作更改工程设计详情
+        if( ($project->design_uid == $this->user()->id ) || in_array(350702,$this->user()->manageauth)){
+        }else{
+            //设计人员可以操作更改工程设计详情
             return redirect('/architectural/enginStart/'.$engineering->project_id.'?status=2&notice='.'您没有权限编辑该工程信息');
         }
 
@@ -244,10 +245,13 @@ class ProgrammeController extends WebController
             DB::table('enginnering_architectural')->insert($data);
         }
         DB::commit();
-
-
-
-        return redirect('/architectural/enginStart/'.$engineering->project_id.'?status=1&notice='.'编辑工程对应的建筑设计信息成功');
+        if($engineering->status == 0){
+            return redirect('/architectural/enginStart/'.$engineering->project_id.'?status=1&notice='.'编辑工程对应的建筑设计方案信息成功');
+        }elseif($engineering->status ==1){
+            return redirect('/architectural/enginConduct/'.$engineering->project_id.'?status=1&notice='.'编辑工程对应的建筑设计方案信息成功');
+        }else{
+            return redirect('/architectural/enginStart/'.$engineering->project_id.'?status=1&notice='.'编辑工程对应的建筑设计方案信息成功');
+        }
 
     }
 

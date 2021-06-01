@@ -100,12 +100,13 @@
                 <div class="widget-body">
                     <div id="dt_example" class="example_alt_pagination">
 
-                        <table class="layui-table layui-form">
+                        <table class="layui-table layui-form" id="tableRelate">
                             <thead>
                             <tr>
                                 <th>序号</th>
                                 <th>项目名称</th>
                                 <th>工程名称</th>
+                                <th>工程方案名称</th>
                                 <th>建筑面积(m²)</th>
                                 <th>建筑数量</th>
                                 <th>预算金额(元)(单栋)</th>
@@ -127,6 +128,12 @@
                                     <td>{{ $k+1 }}</td>
                                     <td >{{ $val->project_name }}</td>
                                     <td>{{ $val->engineering_name }}</td>
+                                    <td>@if(empty($val->programme_name))
+                                            <span style="color:#FF5722!important">无方案</span>
+                                        @else
+                                            {{ $val->programme_name }}
+                                        @endif
+                                    </td>
                                     <td>{{ $val->build_area }}</td>
                                     <td>{{ $val->build_number }}</td>
                                     <td>{{ round($val->total_budget_price,2) }}</td>
@@ -183,7 +190,9 @@
                                     </td>
                                 </tr>
                             @endforeach
-
+                            <tr>
+                                <td colspan="13" style="color: #cd0a0a"> 项目工程没有设计方案，则不显示该工程信息</td>
+                            </tr>
                             </tbody>
                         </table>
                             <div>
@@ -238,6 +247,39 @@
            layer.msg(str);
        });
    }
+
+
+        (function ($) {
+            $.fn.extend({
+                //表格合并单元格，colIdx要合并的列序号，从0开始
+                "rowspan": function (colIdx) {
+                    return this.each(function () {
+                        var that;
+                        $('tr', this).each(function (row) {
+                            $('td:eq(' + colIdx + ')', this).filter(':visible').each(function (col) {
+                                if (that != null && $(this).html() == $(that).html()) {
+                                    rowspan = $(that).attr("rowSpan");
+                                    if (rowspan == undefined) {
+                                        $(that).attr("rowSpan", 1);
+                                        rowspan = $(that).attr("rowSpan");
+                                    }
+                                    rowspan = Number(rowspan) + 1;
+                                    $(that).attr("rowSpan", rowspan);
+                                    $(this).hide();
+                                } else {
+                                    that = this;
+                                }
+                            });
+                        });
+                    });
+                }
+            });
+        })(jQuery);
+        $("#tableRelate").rowspan(1); //第二列合并
+        $("#tableRelate").rowspan(2);//第三列合并
+
+
+
     </script>
 
 @endsection
