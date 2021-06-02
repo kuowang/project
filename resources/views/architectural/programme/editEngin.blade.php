@@ -171,19 +171,13 @@
                                     <th colspan="8">
                                         <span  class="btn btn-info">项目子工程方案</span>
                                         方案：
-                                        @foreach ($programme_list as $programme)
                                             <span class="title" >
-                                                @if($programme_id == $programme->id)
-                                                    <a class="layui-btn  layui-btn-warm layui-btn-sm" href="/architectural/editEngin/{{ $engin_id }}/{{$programme->id}}">
+                                                @if($programme_id != 0)
+                                                    <span class="layui-btn  layui-btn-warm layui-btn-sm" href="/architectural/editEngin/{{ $engin_id }}/{{$programme->id}}">
                                                         <i class="layui-icon">{{$programme->programme_name}}</i>
-                                                    </a>
-                                                @else
-                                                    <a class="btn btn-success" href="/architectural/editEngin/{{ $engin_id }}/{{$programme->id}}">
-                                                        <i class="layui-icon">{{$programme->programme_name}}</i>
-                                                    </a>
+                                                    </span>
                                                 @endif
                                         </span>
-                                        @endforeach
 
                                         <span class="title" style="float: right;">
                                             <a class="btn btn-success" href="/architectural/editEngin/{{ $engin_id }}/0"><i class="layui-icon">新增工程方案 +</i></a>
@@ -228,13 +222,18 @@
                                     </tr>
                                     @php( $arch_id = $v->arch_id)
                                 @endif
-                            <tr style="display: none" class="sub_arch_id arch_id_{{$v->arch_id}}">
-                                <td>
+
                                     @if($engineering->budget_id > 0 && isset($engin_system[$v->sub_arch_id]))
+                                        <tr style="" class="sub_arch_id arch_id_{{$v->arch_id}}">
+                                            <td>
                                         <input type="hidden" class="inputsubarchid" id="sub_arch_id_{{$v->sub_arch_id}}" name="sub_arch_id[{{$v->sub_arch_id}}]" value="{{$v->sub_arch_id}}" checked="checked" >
                                     @elseif(isset($engin_system[$v->sub_arch_id]))
+                                        <tr style="" class="sub_arch_id arch_id_{{$v->arch_id}}">
+                                            <td>
                                         <input type="checkbox" class="inputsubarchid"  id="sub_arch_id_{{$v->sub_arch_id}}" name="sub_arch_id[{{$v->sub_arch_id}}]" value="{{$v->sub_arch_id}}" checked="checked" onclick="checkboxarch(this)" >
                                     @else
+                                        <tr style="display: none" class="sub_arch_id arch_id_{{$v->arch_id}}">
+                                            <td>
                                         <input type="checkbox" class="inputsubarchid"  id="sub_arch_id_{{$v->sub_arch_id}}" name="sub_arch_id[{{$v->sub_arch_id}}]" value="{{$v->sub_arch_id}}" onclick="checkboxarch(this)">
                                     @endif
                                     </td>
@@ -354,10 +353,12 @@
             str =$('#show_'+id).html();
             if(str =='显示'){
                 $('#show_'+id).html('隐藏');
+                $(".arch_id_"+id).show();
             }else{
                 $('#show_'+id).html('显示');
+                $(".arch_id_"+id).hide();
             }
-            $(".arch_id_"+id).toggle();
+
         }
 
         function form_submit(){

@@ -159,6 +159,22 @@
                     </div>
                 </div>
                 <div class="widget-body">
+                    <table class="layui-table layui-form">
+                        <thead>
+                        <tr>
+                            <th colspan="8">
+                                <span  class="btn btn-info">项目子工程方案</span>
+                                方案：<span class="title" >
+                                        <span class="layui-btn  layui-btn-warm layui-btn-sm" >
+                                                <i class="layui-icon">{{$programme->programme_name}}</i>
+                                        </span>
+                                    </span>
+                            </th>
+                        </tr>
+                        </thead>
+                    </table>
+                    <div class="clearfix"></div>
+
                     <div id="dt_example" class="example_alt_pagination">
                         <table class="layui-table layui-form">
                             <thead>

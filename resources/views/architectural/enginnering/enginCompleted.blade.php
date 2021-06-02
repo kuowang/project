@@ -125,7 +125,7 @@
                                     <th>给排水设计负责人</th>
                                     <th>电气设计负责人</th>
                                     <th style="width: 140px;">设计参数状态</th>
-                                    <th style="width: 140px;">设计工况状态</th>
+                                    <th style="width: 140px;">工况方案管理</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -135,7 +135,7 @@
                                         <td>{{ $k+1 }}</td>
                                         <td >{{ $val->project_name }}</td>
                                         <td>{{ $val->engineering_name }}</td>
-                                        <td>
+                                        <td  title="{{$val->engin_address}}">
                                             @if (strlen($val->engin_address) > 10)
                                                 {{mb_substr($val->engin_address,0,10)}} ...
                                             @else
@@ -151,7 +151,6 @@
                                         <td>{{$val->electrical_username}}</td>
                                         <td>
                                             @if($val->is_conf_param ==1)
-                                                <i class="layui-icon btn btn-info">已创建</i>
                                                 @if( (in_array(35000301,$pageauth) && $val->design_uid == $uid ) || in_array(350705,$manageauth))
                                                         <a title="查看详情" class="btn btn-info"  href="/architectural/enginParamDetail/{{ $val->engineering_id }}">
                                                             <i class="layui-icon">详情</i>
@@ -163,17 +162,15 @@
                                         </td>
                                         <td>
                                             @if($val->is_conf_architectural ==1)
-                                                <i class="layui-icon btn btn-info">已创建</i>
                                                 @if( (in_array(35000301,$pageauth) && $val->design_uid == $uid ) || in_array(350705,$manageauth))
-                                                        <a title="查看详情" class="btn btn-info"  href="/architectural/enginCompletedDetail/{{ $val->engineering_id }}">
-                                                            <i class="layui-icon">详情</i>
-                                                        </a>
+                                                    <a title="编辑" class="btn btn-success"  href="/architectural/enginProgrammeManage/{{ $val->engineering_id }}">
+                                                        <i class="layui-icon">管理</i>
+                                                    </a>
                                                 @endif
                                             @else
                                                 <i class="layui-icon btn btn-danger">未创建</i>
                                             @endif
                                         </td>
-
                                     </tr>
                                 @endforeach
 
