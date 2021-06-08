@@ -165,7 +165,7 @@
                                 <tr>
                                     <th colspan="6">
                                         <span class="btn btn-info">项目子工程方案列表</span>
-                                        @if(in_array($engineering->status,[0,1]) )
+                                        @if(in_array($engineering->status,[0]) )
                                         <span class="title" style="float: right;">
                                             <a class="btn btn-success"
                                                href="/architectural/editEngin/{{ $engin_id }}/0"><i class="layui-icon">新增工程方案 +</i></a>
@@ -193,7 +193,7 @@
                                             <a class="btn btn-success" href="/architectural/enginStartDetail/{{ $engin_id }}/{{$programme->id}}">
                                                 <i class="layui-icon">详情</i>
                                             </a>
-                                            @if($programme->budget_status == 0 && in_array($engineering->status,[0,1]) )
+                                            @if($programme->budget_status == 0 && in_array($engineering->status,[0]) )
                                             <a class="btn btn-success" href="/architectural/editEngin/{{ $engin_id }}/{{$programme->id}}">
                                                 <i class="layui-icon">编辑</i>
                                             </a>
@@ -225,6 +225,7 @@
 
                                 </tbody>
                             </table>
+                            <span style="color: red"> 工况配置方案只能在洽谈时，才能编辑和新增方案 </span>
                             <div class="clearfix"></div>
 
 

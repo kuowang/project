@@ -677,7 +677,7 @@ class ProjectController extends WebController
         $engin_id =$request->input('engin_id',0);
         $status =$request->input('engin_status',0);
         $contract_code =$request->input('contract_code','');
-
+        $programme_id =$request->input('programme_id',0);
         $engin=DB::table('engineering')->where('id',$engin_id)->where('project_id',$project_id)->first();
         if(empty($engin)){
             return redirect('/project/projectStart?status=2&notice='.'项目不存在');
@@ -705,7 +705,11 @@ class ProjectController extends WebController
         }
         DB::table('engineering')->where('id',$engin_id)->update($data);
 
-
+        //设置工程方案可以进入施工阶段
+        DB::table('engin_programme')->where('engin_id',$engin_id)
+            ->where('project_id',$project_id)
+            ->where('id',$programme_id)
+            ->update(['progress_status'=>1,'edit_uid'=>$this->user()->id,'updated_at'=>date('Y-m-d')]);
 
         //设置项目工程数量和建筑总面积
         $this->setProjectEnginNumber($engin->project_id);

@@ -7,7 +7,7 @@ CREATE TABLE `sp_engin_programme` (
     `created_uid`    int(11) DEFAULT NULL COMMENT '创建用户',
     `created_at`     date          DEFAULT NULL COMMENT '创建时间',
     `edit_uid`       int(11) unsigned zerofill DEFAULT NULL COMMENT '修改用户id',
-    `update_at`      date          DEFAULT NULL COMMENT '修改时间',
+    `updated_at`      date          DEFAULT NULL COMMENT '修改时间',
     `budget_id`      int(11) unsigned zerofill DEFAULT '0' COMMENT '预算单id',
     `offer_id`       int(11) unsigned zerofill DEFAULT '0' COMMENT '报价单id',
     `budget_status`  tinyint(3) unsigned zerofill DEFAULT '000' COMMENT '是否提交到预算中1是0否',
@@ -22,4 +22,20 @@ ALTER TABLE `sp_enginnering_architectural`
 
 
 ALTER TABLE `sp_budget`
-    ADD COLUMN `programme_id`  int NULL COMMENT '工程方案id' AFTER `engin_id`;
+    ADD COLUMN `programme_id`  int NULL COMMENT '工程方案id' AFTER `engin_id`,
+COMMENT='预算表';
+
+ALTER TABLE `sp_budget_item`
+    ADD COLUMN `programme_id`  int(11) NULL COMMENT '方案id' AFTER `budget_id`,
+COMMENT='预算详情表';
+
+ALTER TABLE `sp_offer`
+    ADD COLUMN `programme_id`  int(11) NULL COMMENT '方案id' AFTER `budget_id`,
+COMMENT='报价表';
+
+ALTER TABLE `sp_offer_item`
+    ADD COLUMN `programme_id`  int(11) NULL COMMENT '方案id' AFTER `budget_id`,
+COMMENT='报价详情表';
+
+ALTER TABLE `sp_engin_programme`
+    ADD COLUMN `progress_status`  tinyint(3) NULL DEFAULT 0 COMMENT '是否使用施工状态；1 该方案最终可以施工 0没有进入施工工程' AFTER `offer_status`;

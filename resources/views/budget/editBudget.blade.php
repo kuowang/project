@@ -34,7 +34,7 @@
                 </div>
                 <div class="widget-body">
                     <div id="dt_example" class="example_alt_pagination">
-                        <form method="post" action="/budget/postEditBudget/{{ $engin_id }}">
+                        <form method="post" action="/budget/postEditBudget/{{ $engin_id }}/{{$programme_id}}">
                             <table class="layui-table layui-form">
                                 <thead>
                                 <tr>
@@ -182,7 +182,11 @@
                         <table class="layui-table layui-form table111">
                             <thead>
                             <tr>
-                                <th colspan="11"><span class="btn btn-info">预算清单列表</span></th>
+                                <th colspan="11"><span class="btn btn-info" style="margin-right: 20px">预算清单列表</span>
+                                    方案名称：<span class="layui-btn  layui-btn-warm layui-btn-sm" >
+                                        <i class="layui-icon">{{$programme->programme_name}}</i>
+                                    </span>
+                                </th>
                             </tr>
                             </thead>
                             <thead>

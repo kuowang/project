@@ -104,7 +104,7 @@
                             <thead>
                             <tr>
                                 <th>序号</th>
-                                <th>项目名称</th>
+                                <th style="min-width: 130px">项目名称</th>
                                 <th>工程名称</th>
                                 <th>工程方案名称</th>
                                 <th>建筑面积(m²)</th>
@@ -114,11 +114,9 @@
                                 <th>预算单编号</th>
                                 <th>预算负责人</th>
                                 <th>预算状态</th>
-                                <th>审核状态</th>
                                 @if(in_array(200103,$manageauth))
-                                    <th>审核操作</th>
+                                    <th>提交至报价</th>
                                 @endif
-
                                 <th>执行操作</th>
                             </tr>
                             </thead>
@@ -142,46 +140,43 @@
                                     <td>{{ $val->budget_order_number }}</td>
                                     <td>{{ $val->budget_username }}</td>
                                     @if(empty($val->budget_order_number))
-                                        <td><span class="btn btn-danger">未完成</span></td>
+                                        <td><span class="layui-btn-danger  layui-btn-sm layui-btn">未完成</span></td>
                                     @else
-                                        <td><span class="btn btn-info">已完成</span></td>
+                                        <td><span class="layui-btn-normal  layui-btn-sm layui-btn">已完成</span></td>
                                     @endif
-                                    @if($val->budget_status ==1)
-                                        <td><span class="btn btn-info">已审核</span></td>
-                                    @else
-                                        <td><span class="btn btn-danger">待审核</span></td>
-                                    @endif
+
                                     @if(in_array(200103,$manageauth))
                                     <td>
-                                    @if(!empty($val->budget_order_number))
-                                        @if($val->budget_status ==1)
-                                            <div class="btn btn-warning" onclick="emainStatus({{$val->budget_id}},0)">取消审核</div>
-                                        @else
-                                            <div class="btn btn-success" onclick="emainStatus({{$val->budget_id}},1)">审核通过</div>
+                                        @if(!empty($val->budget_order_number))
+                                            @if($val->offer_status == 0)
+                                                <div class="btn btn-success" onclick="emainStatus({{$val->engin_id}},{{$val->programme_id}})">提交至报价</div>
+                                            @else
+                                                <span class=" layui-btn-normal  layui-btn-sm layui-btn">已提交</span>
+                                            @endif
                                         @endif
-                                    @endif
                                     </td>
                                     @endif
                                     <td class="td-manage">
 
                                         @if( (in_array(20010102,$pageauth) && $val->budget_uid == $uid ) || in_array(200101,$manageauth))
                                             @if(!empty($val->budget_id))
-                                            <a title="查看详情" class="btn btn-info"  href="/budget/budgetStartDetail/{{ $val->engin_id }}">
+                                            <a title="查看详情" class="btn btn-info"  href="/budget/budgetStartDetail/{{ $val->engin_id }}/{{$val->programme_id}}">
                                                 <i class="layui-icon">详情</i>
                                             </a>
-                                            <a title="导出"  target="_blank" class="btn btn-success"  target="_blank" href="/budget/budgetStartDetail/{{ $val->engin_id }}?download=1" onclick="return checkStatus({{$val->is_conf_architectural}})">
+                                            <a title="导出"  target="_blank" class="btn btn-success"  target="_blank" href="/budget/budgetStartDetail/{{ $val->engin_id }}/{{$val->programme_id}}?download=1" onclick="return checkStatus({{$val->is_conf_architectural}})">
                                                 <i class="layui-icon">导出</i>
                                             </a>
                                             @endif
                                         @endif
+
                                         @if((in_array(20010101,$pageauth) && $val->budget_uid == $uid ) || in_array(200102,$manageauth))
-                                            @if($val->budget_status != 1)
+                                            @if($val->budget_status == 1 && $val->offer_status == 0)
                                                 @if(empty($val->budget_id))
-                                                    <a title="创建" class="btn btn-success"  href="/budget/editStartBudget/{{ $val->engin_id }}" onclick="return checkStatus({{$val->is_conf_architectural}},{{$val->is_conf_param}})">
+                                                    <a title="创建" class="btn btn-success"  href="/budget/editStartBudget/{{ $val->engin_id }}/{{$val->programme_id}}" onclick="return checkStatus({{$val->is_conf_architectural}},{{$val->is_conf_param}})">
                                                         <i class="layui-icon">创建</i>
                                                     </a>
                                                 @else
-                                                    <a title="编辑" class="btn btn-success"  href="/budget/editStartBudget/{{ $val->engin_id }}" >
+                                                    <a title="编辑" class="btn btn-success"  href="/budget/editStartBudget/{{ $val->engin_id }}/{{$val->programme_id}}" >
                                                         <i class="layui-icon">编辑</i>
                                                     </a>
                                                 @endif
@@ -190,9 +185,7 @@
                                     </td>
                                 </tr>
                             @endforeach
-                            <tr>
-                                <td colspan="13" style="color: #cd0a0a"> 项目工程没有设计方案，则不显示该工程信息</td>
-                            </tr>
+
                             </tbody>
                         </table>
                             <div>
@@ -201,8 +194,9 @@
                                 @endphp
 
                             </div>
-                        <div class="clearfix">
-                        </div>
+
+                        <span class="layui-col-md12" colspan="13" style="color: #cd0a0a"> 项目工程没有设计方案，则不显示该工程列表</span>
+                        <div class="clearfix"></div>
                     </div>
                 </div>
             </div>
@@ -223,10 +217,28 @@
         return true;
     }
     //审核状态修改
-    function emainStatus(id,status) {
+    function emainStatus(id,proramme_id) {
+        layui.use('layer', function(){
+            var layer = layui.layer;
+            layer.confirm('是否要将该方案提交到报价模块，提交之后，该方案不能编辑，请确认', {
+                btn: [ '确认', '取消'] //可以无限个按钮
+            }, function(index, layero){
+                //按钮【按钮一】的回调
+                submitBudgetData(id,proramme_id)
+                layer.closeAll();
+                return true
+            }, function(index, layero){
+                //按钮【按钮一】的回调
+                layer.closeAll();
+                return true
+            });
+        });
 
+    }
+
+    function submitBudgetData(id,proramme_id){
         $.ajax({
-            url:'/budget/examineStartBudget/'+id+'/'+status,
+            url:'/budget/examineStartBudget/'+id +'/'+proramme_id,
             type:'post',
             // contentType: 'application/json',
             success:function(data){
@@ -240,6 +252,7 @@
             },
         });
     }
+
 
    function showMsg(str){
        layui.use('layer', function(){

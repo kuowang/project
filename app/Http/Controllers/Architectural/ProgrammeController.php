@@ -287,7 +287,22 @@ class ProgrammeController extends WebController
         return $this->success($data);
 
     }
-
+    //获取可供实施工程使用的方案列表
+    public function getProgrammeList($id=0)
+    {
+        $info = DB::table('engin_programme')->where('engin_id',$id)
+            ->where('budget_status',1)
+            ->where('offer_status',1)
+            ->where('budget_id','>',0)
+            ->where('offer_id','>',0)
+            ->select(['id','programme_name'])
+            ->get();
+        if(!empty($info) && count($info) > 0){
+            return $this->success($info);
+        }else{
+            return $this->error('没有可供实施的工程方案,不能选择实施工程');
+        }
+    }
 
 
 }
