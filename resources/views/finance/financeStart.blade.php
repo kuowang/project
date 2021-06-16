@@ -58,7 +58,7 @@
                             <thead>
                             <tr>
                                 <th>序号</th>
-                                <th>项目名称</th>
+                                <th style="max-width: 130px">项目名称</th>
                                 <th>工程名称</th>
                                 <th>预估项目总金额(万元)</th>
                                 <th>预估成本（万元）</th>

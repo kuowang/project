@@ -22,7 +22,7 @@
                         <table class="layui-table layui-form">
                             <thead>
                             <tr>
-                                <th>项目名称</th>
+                                <th style="max-width: 130px">项目名称</th>
                                 <th>工程名称</th>
                                 <th>原始合同总额（万元）</th>
                                 <th>变更合同总额（万元）</th>

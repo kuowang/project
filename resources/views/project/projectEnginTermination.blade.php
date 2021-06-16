@@ -114,7 +114,7 @@
                                 <thead>
                                 <tr>
                                     <th>序号</th>
-                                    <th>项目名称</th>
+                                    <th style="max-width: 130px">项目名称</th>
                                     <th>工程名称</th>
                                     <th>工程地址</th>
                                     <th>建筑面积(m²)</th>
@@ -202,7 +202,7 @@
                             <div class="control-group">
                                 <table class="layui-table layui-form">
                                     <tr>
-                                        <td>项目名称</td>
+                                        <td style="max-width: 130px">项目名称</td>
                                         <td id="project_name"></td>
                                     </tr>
                                     <tr>

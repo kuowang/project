@@ -114,7 +114,7 @@
                                 <thead>
                                 <tr>
                                     <th>序号</th>
-                                    <th>项目名称</th>
+                                    <th style="max-width: 130px">项目名称</th>
                                     <th>工程名称</th>
                                     <th>工程地址</th>
                                     <th style="width: 70px">建筑面积(m²)</th>
@@ -124,10 +124,8 @@
                                     <th>结构设计负责人</th>
                                     <th>给排水设计负责人</th>
                                     <th>电气设计负责人</th>
-                                    <th style="width: 140px;">设计参数状态</th>
-                                    <th style="width: 140px;">设计工况状态</th>
                                     <th style="width: 60px;">设计参数管理</th>
-                                    <th style="width: 60px;">设计工况管理</th>
+                                    <th style="width: 60px;">工况方案管理</th>
                                     <th style="width: 60px;">执行操作</th>
                                 </tr>
                                 </thead>
@@ -138,7 +136,7 @@
                                         <td>{{ $k+1 }}</td>
                                         <td >{{ $val->project_name }}</td>
                                         <td>{{ $val->engineering_name }}</td>
-                                        <td>
+                                        <td  title="{{$val->engin_address}}">
                                             @if (strlen($val->engin_address) > 10)
                                                 {{mb_substr($val->engin_address,0,10)}} ...
                                             @else
@@ -152,30 +150,7 @@
                                         <td>{{$val->structure_username}}</td>
                                         <td>{{$val->drainage_username}}</td>
                                         <td>{{$val->electrical_username}}</td>
-                                        <td>
-                                            @if($val->is_conf_param ==1)
-                                                <i class="layui-icon btn btn-info">已创建</i>
-                                                @if( (in_array(35000201,$pageauth) && $val->design_uid == $uid ) || in_array(350703,$manageauth))
-                                                    <a title="查看详情" class="btn btn-info"  href="/architectural/enginParamDetail/{{ $val->engineering_id }}">
-                                                        <i class="layui-icon">详情</i>
-                                                    </a>
-                                                @endif
-                                            @else
-                                                <i class="layui-icon btn btn-danger">未创建</i>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if($val->is_conf_architectural ==1)
-                                                <i class="layui-icon btn btn-info">已创建</i>
-                                                @if( (in_array(35000201,$pageauth) && $val->design_uid == $uid ) || in_array(350703,$manageauth))
-                                                    <a title="查看详情" class="btn btn-info"  href="/architectural/enginConductDetail/{{ $val->engineering_id }}">
-                                                        <i class="layui-icon">详情</i>
-                                                    </a>
-                                                @endif
-                                            @else
-                                                <i class="layui-icon btn btn-danger">未创建</i>
-                                            @endif
-                                        </td>
+
                                         <td class="td-manage">
                                             @if((in_array(35000202,$pageauth) && $val->design_uid == $uid ) || in_array(350704,$manageauth))
                                                 <a title="编辑" class="btn btn-success"  href="/architectural/editEnginParam/{{ $val->engineering_id }}">
@@ -185,17 +160,19 @@
                                                         <i class="layui-icon">创建</i>
                                                     @endif
                                                 </a>
+                                                @if($val->is_conf_param == 1)
+                                                    @if( (in_array(35000201,$pageauth) && $val->design_uid == $uid ) || in_array(350703,$manageauth))
+                                                        <a title="查看详情" class="btn btn-info"  href="/architectural/enginParamDetail/{{ $val->engineering_id }}">
+                                                            <i class="layui-icon">详情</i>
+                                                        </a>
+                                                    @endif
+                                                @endif
                                             @endif
                                         </td>
                                         <td class="td-manage">
-
                                             @if((in_array(35000202,$pageauth) && $val->design_uid == $uid ) || in_array(350704,$manageauth))
-                                                <a title="编辑" class="btn btn-success"  href="/architectural/editConductEngin/{{ $val->engineering_id }}">
-                                                    @if($val->is_conf_architectural ==1)
-                                                        <i class="layui-icon">编辑</i>
-                                                    @else
-                                                        <i class="layui-icon">创建</i>
-                                                    @endif
+                                                <a title="编辑" class="btn btn-success"  href="/architectural/enginProgrammeManage/{{ $val->engineering_id }}">
+                                                    <i class="layui-icon">管理</i>
                                                 </a>
                                             @endif
                                         </td>
