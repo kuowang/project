@@ -104,8 +104,13 @@ class OfferController extends WebController
         //DB::connection()->enableQueryLog();
         $db=DB::table('engineering')
             ->join('project','project.id','=','project_id')
-            ->leftjoin('budget','engineering.id','=','budget.engin_id')
-            ->leftjoin('offer','offer.engin_id','=','engineering.id')
+            ->join('engin_programme',function ($join) {
+                $join->on('engin_programme.engin_id','=','engineering.id')
+                    ->where('engin_programme.budget_status','=',(int)1)
+                    ->where('engin_programme.offer_status','=',(int)1);
+            })
+            ->leftjoin('budget','engin_programme.id','=','budget.programme_id')
+            ->leftjoin('offer','engin_programme.id','=','offer.programme_id')
             ->where('engineering.status',$status);
         if($id){
             $db->where('engineering.project_id',$id);
@@ -130,13 +135,42 @@ class OfferController extends WebController
         $data['count'] =$db->count();
         $data['data']= $db->orderby('project.id','desc')
             ->orderby('engineering.engineering_name','asc')
-            ->select(['project.project_name','engineering.project_id','engineering.id as engin_id',
-                'engineering.engineering_name','engineering.offer_id','build_area','budget.total_budget_price','budget.budget_order_number',
-                'project.budget_uid','project.budget_username','budget.budget_status','is_conf_architectural',
-                'budget.id as budget_id','budget.profit_ratio as budget_profit_ratio',
-                'budget.profit as budget_profit','budget.tax_ratio as budget_tax_ratio','budget.tax as budget_tax',
-                'offer.profit_ratio as offer_profit_ratio','offer.profit as offer_profit','offer.tax_ratio as offer_tax_ratio','offer.tax as offer_tax',
-                'offer.id as offer_id','offer.total_offer_price','offer.offer_status','offer_order_number','build_number'])
+            ->select(['project.project_name',
+                'engineering.project_id',
+                'engineering.id as engin_id',
+                'engineering.engineering_name',
+                //'engineering.offer_id',
+                'engineering.build_area',
+                'budget.total_budget_price',
+                'budget.budget_order_number',
+                'project.budget_uid',
+                'project.budget_username',
+                'budget.budget_status',
+                'engineering.is_conf_architectural',
+                'budget.id as budget_id',
+                'budget.profit_ratio as budget_profit_ratio',
+                'budget.profit as budget_profit',
+                'budget.tax_ratio as budget_tax_ratio',
+                'budget.tax as budget_tax',
+                'offer.profit_ratio as offer_profit_ratio',
+                'offer.profit as offer_profit',
+                'offer.tax_ratio as offer_tax_ratio',
+                'offer.tax as offer_tax',
+                'offer.id as offer_id',
+                'offer.total_offer_price',
+                'offer.offer_status as offer_exam_status',
+                'offer_order_number',
+                'build_number',
+                'engin_programme.programme_name',
+                'engin_programme.id as programme_id',
+                //'engin_programme.budget_id',
+                'engin_programme.budget_status',
+                //'engin_programme.offer_id',
+                'engin_programme.progress_status',
+                'engin_programme.offer_status',
+                'engin_programme.status'
+
+            ])
             ->skip(($page-1)*$rows)
             ->take($rows)
             ->get();
@@ -177,7 +211,7 @@ class OfferController extends WebController
         return $data;
     }
     //编辑洽谈工程报价详情
-    public function editStartOffer(Request $request,$id)
+    public function editStartOffer(Request $request,$id,$programme_id)
     {
         $this->user();
         $data['navid']      =20;
@@ -216,7 +250,7 @@ class OfferController extends WebController
 
 
     //编辑实施工程报价详情
-    public function editConductOffer(Request $request,$id)
+    public function editConductOffer(Request $request,$id,$programme_id)
     {
         $this->user();
         $data['navid']      =20;
@@ -313,7 +347,7 @@ class OfferController extends WebController
     }
 
     //保存报价信息
-    public function postEditOffer(Request $request,$id){
+    public function postEditOffer(Request $request,$id,$programme_id){
        // return $this->success($request->all());
         $quotation_date     =$request->input('quotation_date');  //报价日期
         $quotation_limit_day =(int)$request->input('quotation_limit_day');  //报价有效期限（天）
@@ -445,16 +479,14 @@ class OfferController extends WebController
 
 
     //审核洽谈工程报价
-    public function examineStartOffer(Request $request,$id,$status)
+    public function examineStartOffer(Request $request,$id,$programme_id)
     {
         $this->user();
         if(!in_array(200203,$this->user()->manageauth)){
             return $this->error('您没有更改权限');
         }
-        if(!in_array($status,[-1,1])){
-            return $this->error('状态不正确');
-        }
-        $data['offer_status'] =$status;
+
+        $data['offer_status'] =1;
         $data['edit_uid'] =$this->user()->id;
         $data['updated_at'] =date('Y-m-d');
         DB::table('offer')->where('id',$id)->update($data);
@@ -479,7 +511,7 @@ class OfferController extends WebController
     }
 
     //洽谈工程报价详情
-    public function offerStartDetail(Request $request,$id)
+    public function offerStartDetail(Request $request,$id,$programme_id)
     {
         $this->user();
         $data['navid']      =20;
@@ -504,7 +536,7 @@ class OfferController extends WebController
     }
 
     //查看实施工程报价详情
-    public function offerConductDetail(Request $request,$id)
+    public function offerConductDetail(Request $request,$id,$programme_id)
     {
         $this->user();
         $data['navid']      =20;
@@ -530,7 +562,7 @@ class OfferController extends WebController
     }
 
     //查看竣工工程报价信息
-    public function offerCompletedDetail(Request $request,$id)
+    public function offerCompletedDetail(Request $request,$id,$programme_id)
     {
         $this->user();
         $data['navid']      =20;
@@ -555,7 +587,7 @@ class OfferController extends WebController
         }
     }
     //查看终止项目工程报价信息
-    public function offerTerminationDetail(Request $request,$id)
+    public function offerTerminationDetail(Request $request,$id,$programme_id)
     {
         $this->user();
         $data['navid']      =20;

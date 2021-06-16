@@ -203,20 +203,20 @@ Route::group(['prefix' => 'offer','namespace' => 'Offer','middleware' => ['auth'
     Route::get('/offerCompleted/{id?}',                 'OfferController@offerCompleted');  //竣工工程列表
     Route::get('/offerTermination/{id?}',               'OfferController@offerTermination'); //终止工程列表
 
-    Route::get('/editStartOffer/{id}',             'OfferController@editStartOffer');             //编辑工程预算详情
-    Route::get('/offerStartDetail/{id}',           'OfferController@offerStartDetail');      //洽谈工程预算详情
-    Route::post('/postEditOffer/{id}',             'OfferController@postEditOffer');         //提交编辑工程预算详情
-    Route::post('/examineStartOffer/{id}/{status}','OfferController@examineStartOffer');         //审核洽谈工程预算
-    Route::post('/updateProjectStatus/{id}',        'OfferController@updateProjectStatus');  //提交编辑项目状态
+    Route::get('/editStartOffer/{id}/{programme_id}',             'OfferController@editStartOffer');             //编辑工程报价详情
+    Route::get('/offerStartDetail/{id}/{programme_id}',           'OfferController@offerStartDetail');      //洽谈工程报价详情
+    Route::post('/postEditOffer/{id}/{programme_id}',             'OfferController@postEditOffer');         //提交编辑工程报价详情
+    Route::post('/examineStartOffer/{id}/{programme_id}','OfferController@examineStartOffer');         //审核洽谈工程报价
+    Route::post('/updateProjectStatus/{id}/{programme_id}',        'OfferController@updateProjectStatus');  //提交编辑项目状态
 
-    Route::get('/editConductOffer/{id}',           'OfferController@editConductOffer');      //编辑实施工程预算详情
-    Route::get('/offerConductDetail/{id}',         'OfferController@offerConductDetail');      //查看实施工程预算详情
-    Route::post('/examineConductOffer/{id}/{status}','OfferController@examineConductOffer');         //审核实施工程预算
+    Route::get('/editConductOffer/{id}/{programme_id}',           'OfferController@editConductOffer');      //编辑实施工程报价详情
+    Route::get('/offerConductDetail/{id}/{programme_id}',         'OfferController@offerConductDetail');      //查看实施工程报价详情
+    Route::post('/examineConductOffer/{id}/{programme_id}','OfferController@examineConductOffer');         //审核实施工程报价
 
-    Route::get('/offerCompletedDetail/{id}',       'OfferController@offerCompletedDetail');    //查看竣工工程预算信息
-    Route::get('/offerTerminationDetail/{id}',     'OfferController@offerTerminationDetail');    //查看终止项目工程预算信息
+    Route::get('/offerCompletedDetail/{id}/{programme_id}',       'OfferController@offerCompletedDetail');    //查看竣工工程报价信息
+    Route::get('/offerTerminationDetail/{id}/{programme_id}',     'OfferController@offerTerminationDetail');    //查看终止项目工程报价信息
 
-    Route::get('/offerDownload/{id}',             'OfferController@offerDownload');         //导出预算单
+    Route::get('/offerDownload/{id}/{programme_id}',             'OfferController@offerDownload');         //导出报价
     Route::get('/offerProjectList',               'OfferController@offerProjectList');         //报价项目列表
 
 });

@@ -709,7 +709,7 @@ class ProjectController extends WebController
         DB::table('engin_programme')->where('engin_id',$engin_id)
             ->where('project_id',$project_id)
             ->where('id',$programme_id)
-            ->update(['progress_status'=>1,'edit_uid'=>$this->user()->id,'updated_at'=>date('Y-m-d')]);
+            ->update(['status'=>1,'edit_uid'=>$this->user()->id,'updated_at'=>date('Y-m-d')]);
 
         //设置项目工程数量和建筑总面积
         $this->setProjectEnginNumber($engin->project_id);
