@@ -105,12 +105,13 @@
                 <div class="widget-body">
                     <div id="dt_example" class="example_alt_pagination">
 
-                        <table class="layui-table layui-form">
+                        <table class="layui-table layui-form" id="tableRelate">
                             <thead>
                             <tr>
                                 <th>序号</th>
-                                <th>项目名称</th>
+                                <th style="min-width: 130px">项目名称</th>
                                 <th>工程名称</th>
+                                <th>工程方案名称</th>
                                 <th>建筑面积(m²)</th>
                                 <th>建筑数量(栋)</th>
                                 <th>预算金额(万元)(单栋)</th>
@@ -121,14 +122,11 @@
                                 <th>毛利润合计(万元)</th>
                                 <th>预算负责人</th>
                                 <th>报价状态</th>
-                                <th>报价审核状态</th>
                                 @if(in_array(200203,$manageauth))
-                                    <th style="width: 80px">审核操作</th>
-                                    <th style="width: 80px">执行操作</th>
-                                @else
-                                    <th >执行操作</th>
+                                    <th>提交至实施</th>
                                 @endif
 
+                                <th style="width: 80px">执行操作</th>
 
                             </tr>
                             </thead>
@@ -138,6 +136,12 @@
                                     <td>{{ $k+1 }}</td>
                                     <td >{{ $val->project_name }}</td>
                                     <td>{{ $val->engineering_name }}</td>
+                                    <td>@if(empty($val->programme_name))
+                                            <span style="color:#FF5722!important">无方案</span>
+                                        @else
+                                            {{ $val->programme_name }}
+                                        @endif
+                                    </td>
                                     <td>{{ $val->build_area }}</td>
                                     <td>{{ $val->build_number }}</td>
                                     <td>{{ empty($val->total_budget_price)?'':round($val->total_budget_price/10000,2) }}</td>
@@ -149,45 +153,43 @@
 
                                     <td>{{ $val->budget_username }}</td>
                                     @if(empty($val->offer_order_number))
-                                        <td><span class="btn btn-danger">未完成</span></td>
+                                        <td><span class="layui-btn-danger  layui-btn-sm layui-btn">未完成</span></td>
                                     @else
-                                        <td><span class="btn btn-info">已完成</span></td>
+                                        <td><span class="layui-btn-normal  layui-btn-sm layui-btn">已完成</span></td>
                                     @endif
-                                    @if($val->offer_status ==1)
-                                        <td><span class="btn btn-info">已审核</span></td>
-                                    @elseif($val->offer_status ==0)
-                                        <td><span class="btn btn-success">待审核</span></td>
-                                    @elseif($val->offer_status == -1)
-                                        <td><span class="btn btn-danger">已取消</span></td>
-                                    @endif
+
                                     @if(in_array(200203,$manageauth))
                                     <td>
                                     @if(!empty($val->offer_order_number))
-                                        @if($val->offer_status == 0)
-                                            <div class="btn btn-warning" onclick="emainStatus({{$val->offer_id}},-1)">取消</div>
-                                            <div class="btn btn-success" onclick="emainStatus({{$val->offer_id}},1)">通过</div>
-                                        @elseif($val->offer_status ==1)
-                                            <div class="btn btn-warning" onclick="emainStatus({{$val->offer_id}},-1)">取消</div>
-                                        @elseif($val->offer_status == -1)
-                                            <div class="btn btn-success" onclick="emainStatus({{$val->offer_id}},1)">通过</div>
+                                        @if($val->progress_status == 0)
+                                            <div class="btn btn-success" onclick="emainStatus({{$val->engin_id}},{{$val->programme_id}})">提交至实施</div>
+                                        @else
+                                            <span class=" layui-btn-normal  layui-btn-sm layui-btn">已确认</span>
                                         @endif
+                                    @else
+                                        @if($val->progress_status == 0)
+                                            <span class="layui-btn-danger  layui-btn-sm layui-btn">未确认</span>
+                                        @else
+                                            <span class=" layui-btn-normal  layui-btn-sm layui-btn">已确认</span>
+                                        @endif
+                                        
                                     @endif
                                     </td>
                                     @endif
                                     <td class="td-manage">
                                         @if( (in_array(20020102,$pageauth) && $val->budget_uid == $uid ) || in_array(200201,$manageauth))
                                             @if(!empty($val->offer_order_number))
-                                            <a title="查看详情" class="btn btn-info"  href="/offer/offerStartDetail/{{ $val->engin_id }}" >
+                                            <a title="查看详情" class="btn btn-info"  href="/offer/offerStartDetail/{{ $val->engin_id }}/{{ $val->programme_id }}" >
                                                 <i class="layui-icon">详情</i>
                                             </a>
-                                            <a title="导出"  target="_blank"  class="btn btn-success"  href="/offer/offerStartDetail/{{ $val->engin_id }}?download=1" onclick="return checkStatus({{$val->is_conf_architectural}})">
+                                            <a title="导出"  target="_blank"  class="btn btn-success"  href="/offer/offerStartDetail/{{ $val->engin_id }}/{{ $val->programme_id }}?download=1" onclick="return checkStatus({{$val->is_conf_architectural}})">
                                                 <i class="layui-icon">导出</i>
                                             </a>
                                             @endif
                                         @endif
                                         @if((in_array(20020101,$pageauth) && $val->budget_uid == $uid ) || in_array(200202,$manageauth))
-                                            @if($val->offer_status != 1)
-                                            <a title="编辑" class="btn btn-success"  href="/offer/editStartOffer/{{ $val->engin_id }}" onclick="return checkStatus({{$val->is_conf_architectural}})">
+                                            @if($val->offer_exam_status != 1)
+                                            <a title="编辑" class="btn btn-success"  href="/offer/editStartOffer/{{ $val->engin_id }}/{{ $val->programme_id }}" onclick="return checkStatus({{$val->is_conf_architectural}})">
                                                 @if($val->offer_id ==0)
                                                 <i class="layui-icon">创建</i>
                                                 @else
@@ -215,6 +217,7 @@
                             <div>1、毛利润=报价金额 - 预算金额</div>
                             <div>2、毛利率=(报价金额 - 预算金额)\报价金额 * 100</div>
                             <div>3、预算金额、报价金额、毛利额均是单栋建筑的金额</div>
+                            <span class="layui-col-md12" colspan="13" style="color: #cd0a0a"> 项目工程没有设计方案，则不显示该工程列表</span>
 
                         </div>
                         <div class="clearfix"></div>
@@ -238,10 +241,10 @@
         return true;
     }
     //审核状态修改
-    function emainStatus(id,status) {
+    function emainStatus(id,programme_id) {
 
         $.ajax({
-            url:'/offer/examineStartOffer/'+id+'/'+status,
+            url:'/offer/examineStartOffer/'+id+'/'+programme_id,
             type:'post',
             // contentType: 'application/json',
             success:function(data){
@@ -262,6 +265,39 @@
            layer.msg(str);
        });
    }
+
+        (function ($) {
+            $.fn.extend({
+                //表格合并单元格，colIdx要合并的列序号，从0开始
+                "rowspan": function (colIdx) {
+                    return this.each(function () {
+                        var that;
+                        $('tr', this).each(function (row) {
+                            $('td:eq(' + colIdx + ')', this).filter(':visible').each(function (col) {
+                                if (that != null && $(this).html() == $(that).html()) {
+                                    rowspan = $(that).attr("rowSpan");
+                                    if (rowspan == undefined) {
+                                        $(that).attr("rowSpan", 1);
+                                        rowspan = $(that).attr("rowSpan");
+                                    }
+                                    rowspan = Number(rowspan) + 1;
+                                    $(that).attr("rowSpan", rowspan);
+                                    $(this).hide();
+                                } else {
+                                    that = this;
+                                }
+                            });
+                        });
+                    });
+                }
+            });
+        })(jQuery);
+        $("#tableRelate").rowspan(1); //第二列合并
+        $("#tableRelate").rowspan(2);//第三列合并
+
+
+
+
     </script>
 
 @endsection

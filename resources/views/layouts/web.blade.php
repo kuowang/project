@@ -167,8 +167,8 @@
         $('input').attr('autocomplete','off');
         //input输入框或下拉框禁止显示历史记录
         $('select').attr('autocomplete','off');
+        $('form').attr('autocomplete','off');
     })
 </script>
-
 </body>
 </html>

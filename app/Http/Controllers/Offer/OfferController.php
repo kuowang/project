@@ -104,9 +104,20 @@ class OfferController extends WebController
         //DB::connection()->enableQueryLog();
         $db=DB::table('engineering')
             ->join('project','project.id','=','project_id')
-            ->leftjoin('budget','engineering.id','=','budget.engin_id')
-            ->leftjoin('offer','offer.engin_id','=','engineering.id')
-            ->where('engineering.status',$status);
+            ->join('engin_programme',function ($join) {
+                $join->on('engin_programme.engin_id','=','engineering.id')
+                    ->where('engin_programme.budget_status','=',(int)1)
+                    ->where('engin_programme.offer_status','=',(int)1);
+            });
+        if($status ==0){
+            $db->leftjoin('budget','engin_programme.id','=','budget.programme_id')
+                ->leftjoin('offer','engin_programme.id','=','offer.programme_id');
+        }else{
+            $db->join('budget','engin_programme.id','=','budget.programme_id')
+                ->join('offer','engin_programme.id','=','offer.programme_id');
+        }
+
+        $db->where('engineering.status',$status);
         if($id){
             $db->where('engineering.project_id',$id);
         }
@@ -130,13 +141,42 @@ class OfferController extends WebController
         $data['count'] =$db->count();
         $data['data']= $db->orderby('project.id','desc')
             ->orderby('engineering.engineering_name','asc')
-            ->select(['project.project_name','engineering.project_id','engineering.id as engin_id',
-                'engineering.engineering_name','engineering.offer_id','build_area','budget.total_budget_price','budget.budget_order_number',
-                'project.budget_uid','project.budget_username','budget.budget_status','is_conf_architectural',
-                'budget.id as budget_id','budget.profit_ratio as budget_profit_ratio',
-                'budget.profit as budget_profit','budget.tax_ratio as budget_tax_ratio','budget.tax as budget_tax',
-                'offer.profit_ratio as offer_profit_ratio','offer.profit as offer_profit','offer.tax_ratio as offer_tax_ratio','offer.tax as offer_tax',
-                'offer.id as offer_id','offer.total_offer_price','offer.offer_status','offer_order_number','build_number'])
+            ->select(['project.project_name',
+                'engineering.project_id',
+                'engineering.id as engin_id',
+                'engineering.engineering_name',
+                //'engineering.offer_id',
+                'engineering.build_area',
+                'budget.total_budget_price',
+                'budget.budget_order_number',
+                'project.budget_uid',
+                'project.budget_username',
+                'budget.budget_status',
+                'engineering.is_conf_architectural',
+                'budget.id as budget_id',
+                'budget.profit_ratio as budget_profit_ratio',
+                'budget.profit as budget_profit',
+                'budget.tax_ratio as budget_tax_ratio',
+                'budget.tax as budget_tax',
+                'offer.profit_ratio as offer_profit_ratio',
+                'offer.profit as offer_profit',
+                'offer.tax_ratio as offer_tax_ratio',
+                'offer.tax as offer_tax',
+                'offer.id as offer_id',
+                'offer.total_offer_price',
+                'offer.offer_status as offer_exam_status',
+                'offer_order_number',
+                'build_number',
+                'engin_programme.programme_name',
+                'engin_programme.id as programme_id',
+                //'engin_programme.budget_id',
+                'engin_programme.budget_status',
+                //'engin_programme.offer_id',
+                'engin_programme.progress_status',
+                'engin_programme.offer_status',
+                'engin_programme.status'
+
+            ])
             ->skip(($page-1)*$rows)
             ->take($rows)
             ->get();
@@ -177,8 +217,9 @@ class OfferController extends WebController
         return $data;
     }
     //编辑洽谈工程报价详情
-    public function editStartOffer(Request $request,$id)
+    public function editStartOffer(Request $request,$id,$programme_id)
     {
+
         $this->user();
         $data['navid']      =20;
         $data['subnavid']   =2002;
@@ -197,26 +238,35 @@ class OfferController extends WebController
             //预算人员可以操作编辑报价信息
             return redirect('/offer/offerStart?status=2&notice='.'您没有权限编辑该工程信息');
         }
+        //方案信息
+        $programme =DB::table('engin_programme')->where('engin_id',$id)
+            ->where('id',$programme_id)->first();
+        if(empty($programme)){
+            return redirect('/offer/offerStart/'.$engineering->project_id.'?status=2&notice='.'工程方案不存在');
+        }elseif($programme->offer_status != 1){
+            return redirect('/offer/offerStart/'.$engineering->project_id.'?status=2&notice='.'该方案没有提交到报价，不能创建报价');
+        }
+        $data['programme']=$programme;
         //报价信息
-        $offer =DB::table('offer')->where('engin_id',$id)->first();
+        $offer =DB::table('offer')->where('engin_id',$id)->where('programme_id',$programme_id)->first();
         if(isset($offer->offer_status) && $offer->offer_status==1 ){
             echo"<script>alert('报价单已审核通过，不能编辑');history.go(-1);</script>";
             exit;
         }
-        //报价信息
-        $budget =DB::table('budget')->where('engin_id',$id)->first();
+        //预算信息
+        $budget =DB::table('budget')->where('engin_id',$id)->where('programme_id',$programme_id)->first();
         if(empty($budget)){
             //return redirect('/offer/offerStart?status=2&notice='.'先创建预算单才能创建报价单');
             echo"<script>alert('创建完预算单才能创建报价单');history.go(-1);</script>";
             exit;
         }
-        return $this->editOffer($id,$data,$project,$engineering,$budget,$offer);
+        return $this->editOffer($id,$programme_id,$data,$project,$engineering,$budget,$offer);
     }
 
 
 
     //编辑实施工程报价详情
-    public function editConductOffer(Request $request,$id)
+    public function editConductOffer(Request $request,$id,$programme_id)
     {
         $this->user();
         $data['navid']      =20;
@@ -236,13 +286,22 @@ class OfferController extends WebController
             //设计人员可以操作更改工程设计详情
             return redirect('/offer/offerConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
+        //方案信息
+        $programme =DB::table('engin_programme')->where('engin_id',$id)
+            ->where('id',$programme_id)->first();
+        if(empty($programme)){
+            return redirect('/offer/offerConduct/'.$engineering->project_id.'?status=2&notice='.'工程方案不存在');
+        }elseif($programme->offer_status != 1){
+            return redirect('/offer/offerConduct/'.$engineering->project_id.'?status=2&notice='.'该方案没有提交到报价，不能创建报价');
+        }
+        $data['programme']=$programme;
         //报价信息
-        $offer =DB::table('offer')->where('engin_id',$id)->first();
+        $offer =DB::table('offer')->where('engin_id',$id)->where('programme_id',$programme_id)->first();
         if(isset($offer->offer_status) && $offer->offer_status==1 ){
             return redirect('/offer/offerConduct?status=2&notice='.'报价单已审核通过，不能编辑');
         }
         //预算信息
-        $budget =DB::table('budget')->where('engin_id',$id)->first();
+        $budget =DB::table('budget')->where('engin_id',$id)->where('programme_id',$programme_id)->first();
         if(empty($budget)){
             echo"<script>alert('创建完预算单才能创建报价单');history.go(-1);</script>";
             exit;
@@ -250,7 +309,7 @@ class OfferController extends WebController
             echo"<script>alert('报价单已审核通过，不能编辑');history.go(-1);</script>";
             exit;
         }
-        return $this->editOffer($id,$data,$project,$engineering,$budget,$offer);
+        return $this->editOffer($id,$programme_id,$data,$project,$engineering,$budget,$offer);
     }
 
 
@@ -260,16 +319,18 @@ class OfferController extends WebController
      * @param $id 工程id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    protected function editOffer($id,$data,$project,$engineering,$budget,$offer)
+    protected function editOffer($id,$programme_id,$data,$project,$engineering,$budget,$offer)
     {
         //建筑系统信息 以及项目对应的子系统信息
         $data['engin_system']=DB::table('enginnering_architectural')
             ->where('engin_id',$id)
+            ->where('programme_id',$programme_id)
             ->get();
         $data['engineering']=$engineering;
         $data['project']    =$project;
         $data['engin_id'] =$id;
         $data['offer_item']=[];
+        $data['programme_id'] =$programme_id;
         //报价材料信息
         if(!empty($offer)){ //报价材料存在使用报价信息 不存在使用预算信息
 
@@ -313,7 +374,7 @@ class OfferController extends WebController
     }
 
     //保存报价信息
-    public function postEditOffer(Request $request,$id){
+    public function postEditOffer(Request $request,$id,$programme_id){
        // return $this->success($request->all());
         $quotation_date     =$request->input('quotation_date');  //报价日期
         $quotation_limit_day =(int)$request->input('quotation_limit_day');  //报价有效期限（天）
@@ -342,12 +403,20 @@ class OfferController extends WebController
         if(empty($engineering)){
             return redirect('/offer/offerStart?status=2&notice='.'该工程不存在');
         }
-        $budget_id =DB::table('budget')->where('engin_id',$id)->value('id');
-        $offer =DB::table('offer')->where('engin_id',$id)->first();
-        if(!empty($offer) && $offer->offer_status ==1){
+        $budget_id =DB::table('budget')->where('engin_id',$id)->where('programme_id',$programme_id)->value('id');
+        $offer =DB::table('offer')->where('engin_id',$id)->where('programme_id',$programme_id)->first();
+        $programme =DB::table('engin_programme')->where('engin_id',$id)
+            ->where('id',$programme_id)->first();
+        if(empty($programme)){
+            return redirect('/offer/offerConduct/'.$engineering->project_id.'?status=2&notice='.'工程方案不存在');
+        }elseif($programme->offer_status != 1){
+            return redirect('/offer/offerConduct/'.$engineering->project_id.'?status=2&notice='.'该方案没有提交到报价，不能创建报价');
+        }
+
+        if(!empty($offer) && $offer->offer_status == 1){
             if($engineering->status == 0){
                 return redirect('/offer/offerStart?status=2&notice='.'报价单已审核通过，不能编辑');
-            }elseif($engineering->status ==1){
+            }elseif($engineering->status == 1){
                 return redirect('/offer/offerConduct?status=2&notice='.'报价单已审核通过，不能编辑');
             }
         }
@@ -375,6 +444,7 @@ class OfferController extends WebController
             $total_material_price = number_format($engineering_quantity * $offer_price[$k], 2, '.', '');
             $offeritemdata[]=[
                 'project_id'      =>$project->id,
+                'programme_id'    =>$programme_id, //方案id
                 'engin_id'        =>$id,
                 'budget_id'       =>$budget_id,
                 'arch_id'         =>$mater->architectural_id,
@@ -402,6 +472,7 @@ class OfferController extends WebController
         $offerdata['project_id']           = $project->id;              //```project_id` int(11) DEFAULT NULL COMMENT '项目id',
         $offerdata['engin_id']             =$id;                 //```engin_id` int(11) DEFAULT NULL COMMENT '工程id',
         $offerdata['budget_id']            =$budget_id;                 //```budget_id` int(11) DEFAULT NULL COMMENT '预算id',
+        $offerdata['programme_id']         =$programme_id; //方案id
         $offerdata['offer_status']         =0 ;               //```offer_status` tinyint(4) DEFAULT '0' COMMENT '报价审核状态 1已审核 0未审核',
         $offerdata['quotation_date']       =$quotation_date;               //```quotation_date` date DEFAULT NULL COMMENT '报价日期',
         $offerdata['quotation_limit_day']  =$quotation_limit_day;              //```quotation_limit_day` varchar(255) DEFAULT NULL COMMENT '报价有效期限（天）',
@@ -426,14 +497,14 @@ class OfferController extends WebController
 
         DB::beginTransaction();
         //开启事务
-        DB::table('offer')->where('engin_id',$id)->delete();
+        DB::table('offer')->where('engin_id',$id)->where('programme_id',$programme_id)->delete();
         $offer_id= DB::table('offer')->insertGetId($offerdata);
         foreach($offeritemdata as &$bud){
             $bud['offer_id']=$offer_id;
         }
-        DB::table('offer_item')->where('engin_id',$id)->delete();
+        DB::table('offer_item')->where('engin_id',$id)->where('programme_id',$programme_id)->delete();
         DB::table('offer_item')->insert($offeritemdata);
-        DB::table('engineering')->where('id',$id)->update(['offer_id'=>$offer_id]);
+        DB::table('engin_programme')->where('id',$programme_id)->update(['offer_id'=>$offer_id]);
         DB::commit();
         if($engineering->status == 0){
             return redirect('/offer/offerStart/'.$engineering->project_id.'?status=1&notice='.'编辑报价成功');
@@ -445,19 +516,32 @@ class OfferController extends WebController
 
 
     //审核洽谈工程报价
-    public function examineStartOffer(Request $request,$id,$status)
+    public function examineStartOffer(Request $request,$id,$programme_id)
     {
         $this->user();
         if(!in_array(200203,$this->user()->manageauth)){
             return $this->error('您没有更改权限');
         }
-        if(!in_array($status,[-1,1])){
-            return $this->error('状态不正确');
+        $programme =DB::table('engin_programme')->where('engin_id',$id)
+            ->where('id',$programme_id)
+            ->first();
+        if(empty($programme)){
+            return $this->error('工程方案不存在');
+        }elseif($programme->budget_status != 1){
+            return $this->error('该方案没有提交到预算，不能创建预算');
         }
-        $data['offer_status'] =$status;
+
+        $data['offer_status'] =1;
         $data['edit_uid'] =$this->user()->id;
         $data['updated_at'] =date('Y-m-d');
-        DB::table('offer')->where('id',$id)->update($data);
+        DB::table('offer')->where('id',$id)->where('id',$programme_id)->update($data);
+
+        //方案表中设置方案 实施状态
+        $data['progress_status']=1;
+        DB::table('engin_programme')->where('engin_id',$id)
+            ->where('id',$programme_id)
+            ->update($data);
+
         return $this->success('更改成功');
 
     }
@@ -479,7 +563,7 @@ class OfferController extends WebController
     }
 
     //洽谈工程报价详情
-    public function offerStartDetail(Request $request,$id)
+    public function offerStartDetail(Request $request,$id,$programme_id)
     {
         $this->user();
         $data['navid']      =20;
@@ -496,15 +580,26 @@ class OfferController extends WebController
             //设计人员可以操作更改工程设计详情
             return redirect('/offer/offerStart?status=2&notice='.'您没有权限编辑该工程信息');
         }
+        //方案信息
+        $programme =DB::table('engin_programme')->where('engin_id',$id)
+            ->where('id',$programme_id)->first();
+        if(empty($programme)){
+            return redirect('/offer/offerConduct/'.$engineering->project_id.'?status=2&notice='.'工程方案不存在');
+        }elseif($programme->offer_status != 1){
+            return redirect('/offer/offerConduct/'.$engineering->project_id.'?status=2&notice='.'该方案没有提交到报价，不能创建报价');
+        }
+        $data['programme']=$programme;
+
+
         if($request->input('download',0) == 1){
-            return $this->offerDownload($id,$data,$project,$engineering);
+            return $this->offerDownload($id,$programme_id,$data,$project,$engineering);
         }else{
-            return $this->offerDetail($id,$data,$project,$engineering);
+            return $this->offerDetail($id,$programme_id,$data,$project,$engineering);
         }
     }
 
     //查看实施工程报价详情
-    public function offerConductDetail(Request $request,$id)
+    public function offerConductDetail(Request $request,$id,$programme_id)
     {
         $this->user();
         $data['navid']      =20;
@@ -521,16 +616,24 @@ class OfferController extends WebController
             //设计人员可以操作更改工程设计详情
             return redirect('/offer/offerConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
-
+        //方案信息
+        $programme =DB::table('engin_programme')->where('engin_id',$id)
+            ->where('id',$programme_id)->first();
+        if(empty($programme)){
+            return redirect('/offer/offerConduct/'.$engineering->project_id.'?status=2&notice='.'工程方案不存在');
+        }elseif($programme->offer_status != 1){
+            return redirect('/offer/offerConduct/'.$engineering->project_id.'?status=2&notice='.'该方案没有提交到报价，不能创建报价');
+        }
+        $data['programme']=$programme;
         if($request->input('download',0) == 1){
-            return $this->offerDownload($id,$data,$project,$engineering);
+            return $this->offerDownload($id,$programme_id,$data,$project,$engineering);
         }else{
-            return $this->offerDetail($id,$data,$project,$engineering);
+            return $this->offerDetail($id,$programme_id,$data,$project,$engineering);
         }
     }
 
     //查看竣工工程报价信息
-    public function offerCompletedDetail(Request $request,$id)
+    public function offerCompletedDetail(Request $request,$id,$programme_id)
     {
         $this->user();
         $data['navid']      =20;
@@ -547,15 +650,23 @@ class OfferController extends WebController
             //设计人员可以操作更改工程设计详情
             return redirect('/offer/offerCompleted?status=2&notice='.'您没有权限编辑该工程信息');
         }
-
+        //方案信息
+        $programme =DB::table('engin_programme')->where('engin_id',$id)
+            ->where('id',$programme_id)->first();
+        if(empty($programme)){
+            return redirect('/offer/offerConduct/'.$engineering->project_id.'?status=2&notice='.'工程方案不存在');
+        }elseif($programme->offer_status != 1){
+            return redirect('/offer/offerConduct/'.$engineering->project_id.'?status=2&notice='.'该方案没有提交到报价，不能创建报价');
+        }
+        $data['programme']=$programme;
         if($request->input('download',0) == 1){
-            return $this->offerDownload($id,$data,$project,$engineering);
+            return $this->offerDownload($id,$programme_id,$data,$project,$engineering);
         }else{
-            return $this->offerDetail($id,$data,$project,$engineering);
+            return $this->offerDetail($id,$programme_id,$data,$project,$engineering);
         }
     }
     //查看终止项目工程报价信息
-    public function offerTerminationDetail(Request $request,$id)
+    public function offerTerminationDetail(Request $request,$id,$programme_id)
     {
         $this->user();
         $data['navid']      =20;
@@ -573,36 +684,47 @@ class OfferController extends WebController
             return redirect('/offer/offerTermination?status=2&notice='.'您没有权限编辑该工程信息');
         }
 
+        //方案信息
+        $programme =DB::table('engin_programme')->where('engin_id',$id)
+            ->where('id',$programme_id)->first();
+        if(empty($programme)){
+            return redirect('/offer/offerConduct/'.$engineering->project_id.'?status=2&notice='.'工程方案不存在');
+        }elseif($programme->offer_status != 1){
+            return redirect('/offer/offerConduct/'.$engineering->project_id.'?status=2&notice='.'该方案没有提交到报价，不能创建报价');
+        }
+        $data['programme']=$programme;
+
         if($request->input('download',0) == 1){
             return $this->offerDownload($id,$data,$project,$engineering);
         }else{
 
         if($request->input('download',0) == 1){
-            return $this->offerDownload($id,$data,$project,$engineering);
+            return $this->offerDownload($id,$programme_id,$data,$project,$engineering);
         }else{
-            return $this->offerDetail($id,$data,$project,$engineering);
+            return $this->offerDetail($id,$programme_id,$data,$project,$engineering);
         }
         }
     }
 
     //报价详情信息
-    protected function offerDetail($id,$data,$project,$engineering){
+    protected function offerDetail($id,$programme_id,$data,$project,$engineering){
         //建筑系统信息 以及项目对应的子系统信息
         $data['engin_system']=DB::table('enginnering_architectural')
             ->where('engin_id',$id)
+            ->where('programme_id',$programme_id)
             ->get();
         $data['engineering']=$engineering;
         $data['project']    =$project;
         $data['engin_id'] =$id;
 
         //报价信息
-        $offer =DB::table('offer')->where('engin_id',$id)->first();
+        $offer =DB::table('offer')->where('engin_id',$id)->where('programme_id',$programme_id)->first();
         $data['offer'] =$offer;
         $data['offer_item']=[];
         //报价材料信息
         if(!empty($offer)){
             //报价详情
-            $offer_item =DB::table('offer_item')->where('offer_id',$offer->id)->get();
+            $offer_item =DB::table('offer_item')->where('offer_id',$offer->id)->where('programme_id',$programme_id)->get();
             if($offer_item){
                 foreach($offer_item as $item){
                     $data['offer_item'][$item->sub_arch_id][]=$item;
@@ -624,23 +746,24 @@ class OfferController extends WebController
     }
 
     //导出报价单
-    protected function offerDownload($id,$data,$project,$engineering)
+    protected function offerDownload($id,$programme_id,$data,$project,$engineering)
     {
         $data['engin_system']=DB::table('enginnering_architectural')
             ->where('engin_id',$id)
+            ->where('programme_id',$programme_id)
             ->get();
         $data['engineering']=$engineering;
         $data['project']    =$project;
         $data['engin_id'] =$id;
 
         //报价信息
-        $offer =DB::table('offer')->where('engin_id',$id)->first();
+        $offer =DB::table('offer')->where('engin_id',$id)->where('programme_id',$programme_id)->first();
         $data['offer'] =$offer;
         $data['offer_item']=[];
         //报价材料信息
         if(!empty($offer)){
             //报价详情
-            $offer_item =DB::table('offer_item')->where('offer_id',$offer->id)->get();
+            $offer_item =DB::table('offer_item')->where('offer_id',$offer->id)->where('programme_id',$programme_id)->get();
             if($offer_item){
                 foreach($offer_item as $item){
                     $data['offer_item'][$item->sub_arch_id][]=$item;

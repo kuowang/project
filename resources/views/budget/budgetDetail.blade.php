@@ -192,7 +192,13 @@
                         <table class="layui-table layui-form table111">
                             <thead>
                             <tr>
-                                <th colspan="10"><span class="btn btn-info">预算清单列表</span></th>
+                                <th colspan="10"><span class="btn btn-info">预算清单列表</span>
+
+                                    方案名称：<span class="layui-btn  layui-btn-warm layui-btn-sm" >
+                                        <i class="layui-icon">{{$programme->programme_name}}</i>
+                                    </span>
+
+                                </th>
                             </tr>
                             </thead>
                             <thead>

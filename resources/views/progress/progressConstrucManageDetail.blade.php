@@ -313,7 +313,7 @@
                                                                         <div class="progresszhouqi7" style="">
                                                                             <input type="text" class="progresszhouqi8" disabled="disabled" value="{{$progress_process[$arch['param_id']]}}" name="arch_duration_plan[{{$arch['param_id']}}]" style="padding:4px 0;" onclick="key(this)">
                                                                     @else
-                                                                        <div class="progresszhouqi6" style="color:red">周期(天)</div>
+                                                                        <div class="progresszhouqi6 " style="background:#FF5722">周期(天)</div>
                                                                         <div class="progresszhouqi7" style="">
                                                                             <input type="text" class="progresszhouqi8" disabled="disabled" value="{{$progress_process[$arch['param_id']]}}" name="arch_duration_plan[{{$arch['param_id']}}]" style="padding:4px 0;" onclick="key(this)">
                                                                         </div>
@@ -362,7 +362,7 @@
                                     </a>
                                 @endif
                             </div>
-
+                            <span class="layui-btn layui-btn-danger" >   注： 橙色标记为可以同步施工   </span>
                             <div class="clearfix"></div>
 
                         </div>

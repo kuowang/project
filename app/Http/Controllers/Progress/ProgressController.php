@@ -119,8 +119,10 @@ class ProgressController extends WebController
 
         $db=DB::table('engineering')
             ->join('project','project.id','=','project_id')
+            ->join('engin_programme','engin_programme.engin_id','=','engineering.id')
             ->leftjoin('progress','engineering.id','=','progress.engin_id')
-            ->where('engineering.status',1); //实施项目工程
+            ->where('engineering.status',1) //实施项目工程
+            ->where('engin_programme.status',1); //已有实施方案的工程
         if($id != 0){
             $db->where('engineering.project_id','=',$id);
         }
@@ -138,9 +140,9 @@ class ProgressController extends WebController
         $data['data']= $db->orderby('project.id','desc')
             ->orderby('engineering.id','asc')
             ->select(['project.project_name','project.budget_uid','project.budget_username','engineering.progress_uid','engineering.progress_username','is_conf_architectural',
-                'engineering.project_id','engineering.id as engin_id', 'engineering.engineering_name','engineering.budget_id',
+                'engineering.project_id','engineering.id as engin_id', 'engineering.engineering_name','engin_programme.budget_id',
                 'build_area', 'engineering.status as engin_status', 'contract_code',
-                'progress.id as progress_id','progress_status','build_status','arrange_status','progress.remark','build_number'
+                'progress.id as progress_id','progress.progress_status','build_status','arrange_status','progress.remark','build_number'
             ])
             ->skip(($page-1)*$rows)
             ->take($rows)
@@ -179,8 +181,10 @@ class ProgressController extends WebController
 
         $db=DB::table('engineering')
             ->join('project','project.id','=','project_id')
+            ->join('engin_programme','engin_programme.engin_id','=','engineering.id')
             ->leftjoin('progress','engineering.id','=','progress.engin_id')
-            ->where('engineering.status',2); //竣工项目工程
+            ->where('engineering.status',2) //竣工项目工程
+            ->where('engin_programme.status',1); //已有实施方案的工程
         if($id != 0){
             $db->where('engineering.project_id','=',$id);
         }
@@ -198,7 +202,7 @@ class ProgressController extends WebController
         $data['data']= $db->orderby('project.id','desc')
             ->orderby('engineering.id','asc')
             ->select(['project.project_name','project.budget_uid','project.budget_username','engineering.progress_uid','engineering.progress_username','is_conf_architectural',
-                'engineering.project_id','engineering.id as engin_id', 'engineering.engineering_name','engineering.budget_id',
+                'engineering.project_id','engineering.id as engin_id', 'engineering.engineering_name','engin_programme.budget_id',
                 'build_area', 'engineering.status as engin_status', 'contract_code',
                 'progress.id as progress_id','progress_status','build_status','arrange_status','progress.remark','build_number'
             ])
@@ -300,7 +304,13 @@ class ProgressController extends WebController
         $progress_uid       =$request->input('progress_uid',0);
 
         $progress =DB::table('progress')->where('engin_id',$id)->first();
-        $budget =DB::table('budget')->where('engin_id',$id)->first();
+
+        $programme = DB::table('engin_programme')->where('engin_id',$id)->where('status',1)->first();
+        if(empty($programme) || $programme->budget_id == 0){
+            return redirect('/progress/progressConduct?status=2&notice='.'没有具体实施方案');
+        }
+        $budget =DB::table('budget')->where('engin_id',$id)->where('programme_id',$programme->id)->first();
+
         if(empty($progress)){
             $data=[
                 'project_id'=>$budget->project_id,
@@ -343,6 +353,10 @@ class ProgressController extends WebController
         if(empty($engin)){
             return redirect('/progress/progressConduct?status=2&notice='.'项目不存在');
         }
+        $programme = DB::table('engin_programme')->where('engin_id',$engin->id)->where('status',1)->first();
+        if(empty($programme) || $programme->budget_id == 0){
+            return redirect('/progress/progressConduct?status=2&notice='.'没有具体实施方案');
+        }
         $data['project']=$project;
         $data['engineering']=$engin;
         $data['subnavid']   =3001;
@@ -359,6 +373,7 @@ class ProgressController extends WebController
             $data['room_area']      =json_decode($data['param']->room_area,true);
         }
         $engin_arch =DB::table('enginnering_architectural')->where('engin_id',$id)
+            ->where('programme_id',$programme->id)
             ->orderby('system_code')->orderby('sub_system_code')
             ->get();
         $data['engin_arch']=$engin_arch;
@@ -411,6 +426,10 @@ class ProgressController extends WebController
         if(empty($engin)){
             return redirect('/progress/progressConduct?status=2&notice='.'项目不存在');
         }
+        $programme = DB::table('engin_programme')->where('engin_id',$engin->id)->where('status',1)->first();
+        if(empty($programme) || $programme->budget_id == 0){
+            return redirect('/progress/progressConduct?status=2&notice='.'没有具体实施方案');
+        }
         $data['project']=$project;
         $data['engineering']=$engin;
         $data['subnavid']   =3001;
@@ -427,6 +446,7 @@ class ProgressController extends WebController
             $data['room_area']      =json_decode($data['param']->room_area,true);
         }
         $engin_arch =DB::table('enginnering_architectural')->where('engin_id',$id)
+            ->where('programme_id',$programme->id)
             ->orderby('system_code')->orderby('sub_system_code')
             ->get();
         $data['engin_arch']=$engin_arch;
@@ -606,9 +626,11 @@ class ProgressController extends WebController
             //采购人员可以操作更改工程设计详情
             return redirect('/progress/progressConduct/'.$engineering->project_id.'?status=2&notice='.'您没有权限进入现场材料管理');
         }
-        if($engineering->budget_id ==0){
-            return redirect('/progress/progressConduct/'.$engineering->project_id.'?status=2&notice='.'请先创建预算单,无法进入现场材料管理');
+        $programme = DB::table('engin_programme')->where('engin_id',$engineering->id)->where('status',1)->first();
+        if(empty($programme) || $programme->budget_id == 0){
+            return redirect('/progress/progressConduct/'.$engineering->project_id.'?status=2&notice='.'没有具体实施方案');
         }
+
         $data['project'] =$project;
         $data['engineering'] =$engineering;
         $data['engin_id']=$id;
@@ -641,9 +663,11 @@ class ProgressController extends WebController
             //采购人员可以操作更改工程设计详情
             return redirect('/progress/progressConduct/'.$engin->project_id.'?status=2&notice='.'您没有权限进入现场材料管理');
         }
-        if($engin->budget_id ==0){
-            return redirect('/progress/progressConduct/'.$engin->project_id.'?status=2&notice='.'请先创建预算单,无法进入现场材料管理');
+        $programme = DB::table('engin_programme')->where('engin_id',$engin->id)->where('status',1)->first();
+        if(empty($programme) || $programme->budget_id == 0){
+            return redirect('/progress/progressConduct/'.$engin->project_id.'?status=2&notice='.'没有具体实施方案');
         }
+
         $data['project'] =$project;
         $data['engin'] =$engin;
         $data['purchase_order_id']=$id;
@@ -683,9 +707,11 @@ class ProgressController extends WebController
             //采购人员可以操作更改工程设计详情
             return redirect('/progress/progressConduct/'.$engin->project_id.'?status=2&notice='.'您没有权限进入现场材料管理');
         }
-        if($engin->budget_id ==0){
-            return redirect('/progress/progressConduct/'.$engin->project_id.'?status=2&notice='.'请先创建预算单,无法进入现场材料管理');
+        $programme = DB::table('engin_programme')->where('engin_id',$engin->id)->where('status',1)->first();
+        if(empty($programme) || $programme->budget_id == 0){
+            return redirect('/progress/progressConduct/'.$engin->project_id.'?status=2&notice='.'没有具体实施方案');
         }
+
         $data['project'] =$project;
         $data['engin'] =$engin;
         $data['purchase_order_id']=$id;
@@ -757,6 +783,10 @@ class ProgressController extends WebController
         if(empty($engin)){
             return redirect('/progress/progressConduct?status=2&notice='.'项目不存在');
         }
+        $programme = DB::table('engin_programme')->where('engin_id',$engin->id)->where('status',1)->first();
+        if(empty($programme) || $programme->budget_id == 0){
+            return redirect('/progress/progressConduct?status=2&notice='.'没有具体实施方案');
+        }
         $data['project']=$project;
         $data['engineering']=$engin;
         $data['subnavid']   =3001;
@@ -773,6 +803,7 @@ class ProgressController extends WebController
             $data['room_area']      =json_decode($data['param']->room_area,true);
         }
         $engin_arch =DB::table('enginnering_architectural')->where('engin_id',$id)
+            ->where('programme_id',$programme->id)
             ->orderby('system_code')->orderby('sub_system_code')
             ->get();
         $data['engin_arch']=$engin_arch;
@@ -826,6 +857,10 @@ class ProgressController extends WebController
         if(empty($engin)){
             return redirect('/progress/progressConduct?status=2&notice='.'项目不存在');
         }
+        $programme = DB::table('engin_programme')->where('engin_id',$engin->id)->where('status',1)->first();
+        if(empty($programme) || $programme->budget_id == 0){
+            return redirect('/progress/progressConduct?status=2&notice='.'没有具体实施方案');
+        }
         $data['project']=$project;
         $data['engineering']=$engin;
         $data['subnavid']   =3001;
@@ -842,6 +877,7 @@ class ProgressController extends WebController
             $data['room_area']      =json_decode($data['param']->room_area,true);
         }
         $engin_arch =DB::table('enginnering_architectural')->where('engin_id',$id)
+            ->where('programme_id',$programme->id)
             ->orderby('system_code')->orderby('sub_system_code')
             ->get();
         $data['engin_arch']=$engin_arch;
@@ -1010,10 +1046,10 @@ class ProgressController extends WebController
         //用户权限部分
         $data['navid']      =30; //当前导航页面
         $data['subnavid']   =3003;//当前子导航页
-        //获取该用户的建筑系统信息
-        $data['architect']=DB::table('architectural_system')->where('id',$id)->first();
+        //获取该用户的建筑子系统信息
+        $data['architect']=DB::table('architectural_sub_system')->where('id',$id)->first();
         //获取该用户的建筑系统关联子系统
-        $data['paramsList']=DB::table('progress_params_conf')->where('arch_id',$id)->orderby('sort')->get();
+        $data['paramsList']=DB::table('progress_params_conf')->where('sub_arch_id',$id)->orderby('sort')->get();
         if(empty($data['architect'])){
             return redirect('/progress/porgressParamsList?status=2&notice='.'数据不存在，无法编辑');
         }
@@ -1026,7 +1062,7 @@ class ProgressController extends WebController
         //用户权限部分
         $data['navid']      =30; //当前导航页面
         $data['subnavid']   =3003;//当前子导航页
-        //获取该用户的建筑系统信息
+        //获取该用户的建筑子系统信息
         $architect=DB::table('architectural_sub_system')->where('id',$id)->first();
         $data['architect'] =$architect;
         //获取该用户的建筑系统关联子系统

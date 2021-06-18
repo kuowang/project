@@ -295,7 +295,7 @@
 
                                     </table>
 
-                                    <div style="color:red">工程状态发生变化后不能回撤，请谨慎操作</div>
+                                    <div style="color:red" id="message">工程状态发生变化后不能回撤，请谨慎操作</div>
                                 </div>
                             </div>
                         </div>
@@ -324,12 +324,13 @@
         function submitform() {
             eng_status =$('#engin_status').val()
             if(eng_status == 1){
-                code = $('#contract_code').val()
-                if(code.length == 0){
+                code = $('#contract_code').val();
+                programme_id =$('#programme_id').val()
+                if(code.length == 0 || programme_id.length == 0){
                     //配置一个透明的询问框
                     layui.use('layer', function(){
                         var layer = layui.layer;
-                        layer.msg('实施工程需要补充合同编号,保存失败,请重新输入', {
+                        layer.msg('实施工程需要补充合同编号和方案,保存失败,请重新输入', {
                             time: 10000, //20s后自动关闭
                             btn: ['知道了'],
                             btnAlign: 'c'
@@ -339,13 +340,15 @@
                 }
             }else{
                 code=''
+                programme_id =''
             }
 
             var datalist={
                 project_id:$('#project_id').val(),
                 engin_id:$('#engin_id').val(),
                 engin_status:eng_status,
-                contract_code:code
+                contract_code:code,
+                programme_id :programme_id
             };
             $.ajax({
                 url:'/project/editEnginStatus',
@@ -359,6 +362,7 @@
                         showMsg('变更工程状态成功');
                         location.href=location.href
                     }else{
+                        $('#myModal').modal('hide');
                         showMsg(data.info);
                     }
                 },
@@ -369,6 +373,7 @@
         }
         //显示提示信息
         function showMsg(str){
+
             layui.use('layer', function(){
                 var layer = layui.layer;
                 layer.msg(str);
@@ -388,7 +393,44 @@
             }else{
                 $('.project_engin_status').remove()
             }
+
+            if(status ==1){ //获取可供选择的实施工程的方案列表
+                engin_id =$('#engin_id').val()
+                $.ajax({
+                    url:'/architectural/getProgrammeList/'+engin_id,
+                    type:'get',
+                    success:function(data){
+                        console.log(data);
+                        if(data.status == 1){
+                            html ='<tr class="project_engin_status">';
+                            html +=   '<td>方案名称</td>' ;
+                            html +=   '<td >' ;
+                            html +=  '<select name="programme_id" id="programme_id" class="input-medium span8"  >';
+                            $.each(data.data, function(index, value) {
+                                console.log(value);
+                                html +=  '<option value="'+value.id+'" >'+value.programme_name+'</option>';
+                            });
+                            html += '</select>';
+                            html +=     '</td>';
+                            html +=  '</tr>';
+                            $('#project_engin_status').append(html);
+                        }else{
+                            $('.project_engin_status').remove();
+                            $('#engin_status').val(0);
+                            $('#message').text(data.info)
+                        }
+                    },
+                    error:function () {
+                        $('.project_engin_status').remove();
+                        $('#engin_status').val(0);
+                        $('#message').text('请求异常，请联系管理员')
+
+                    }
+                });
+            }
+
         }
+
 
     </script>
 

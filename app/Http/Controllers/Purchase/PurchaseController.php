@@ -36,8 +36,10 @@ class PurchaseController extends WebController
 
         $db=DB::table('engineering')
             ->join('project','project.id','=','project_id')
+            ->join('engin_programme','engin_programme.engin_id','=','engineering.id')
             ->leftjoin('purchase','engineering.id','=','purchase.engin_id')
-            ->where('engineering.status',1); //实施项目工程
+            ->where('engineering.status',1) //实施项目工程
+            ->where('engin_programme.status',1);
         if($id != 0){
             $db->where('engineering.project_id','=',$id);
         }
@@ -55,7 +57,7 @@ class PurchaseController extends WebController
         $data['data']= $db->orderby('project.id','desc')
             ->orderby('engineering.id','asc')
             ->select(['project.project_name','project.budget_uid','project.budget_username','engineering.purchase_uid','engineering.purchase_username','is_conf_architectural',
-                'engineering.project_id','engineering.id as engin_id', 'engineering.engineering_name','engineering.budget_id',
+                'engineering.project_id','engineering.id as engin_id', 'engineering.engineering_name','engin_programme.budget_id',
                 'build_area', 'engineering.status as engin_status', 'contract_code',
                 'purchase_status','logistics_status','batch_status','purchase.remark','build_number'
             ])
@@ -81,7 +83,7 @@ class PurchaseController extends WebController
         $data['notice']=$request->input('notice','成功'); //提示信息
         return view('purchase.purchaseConduct',$data);
     }
-//实施项目采购列表
+    //实施项目采购列表
     public function purchaseCompleted(Request $request,$id=0){
         $this->user();
 
@@ -96,8 +98,10 @@ class PurchaseController extends WebController
 
         $db=DB::table('engineering')
             ->join('project','project.id','=','project_id')
+            ->join('engin_programme','engin_programme.engin_id','=','engineering.id')
             ->leftjoin('purchase','engineering.id','=','purchase.engin_id')
-            ->where('engineering.status',2); //竣工项目工程
+            ->where('engineering.status',2) //竣工项目工程
+            ->where('engin_programme.status',1); //可以实施的方案
         if($id != 0){
             $db->where('engineering.project_id','=',$id);
         }
@@ -115,7 +119,7 @@ class PurchaseController extends WebController
         $data['data']= $db->orderby('project.id','desc')
             ->orderby('engineering.id','asc')
             ->select(['project.project_name','project.budget_uid','project.budget_username','engineering.purchase_uid','engineering.purchase_username','is_conf_architectural',
-                'engineering.project_id','engineering.id as engin_id', 'engineering.engineering_name','engineering.budget_id',
+                'engineering.project_id','engineering.id as engin_id', 'engineering.engineering_name','engin_programme.budget_id',
                 'build_area', 'engineering.status as engin_status', 'contract_code',
                 'purchase_status','logistics_status','batch_status','purchase.remark','build_number'
             ])
@@ -220,7 +224,9 @@ class PurchaseController extends WebController
         $purchase_uid       =$request->input('purchase_uid',0);
 
         $purchase =DB::table('purchase')->where('engin_id',$id)->first();
-        $budget =DB::table('budget')->where('engin_id',$id)->first();
+        $programme = DB::table('engin_programme')->where('engin_id',$id)->where('status',1)->first();
+
+        $budget =DB::table('budget')->where('engin_id',$id)->where('programme_id',$programme->id)->first();
         if(empty($purchase)){
             $data=[
                 'project_id'=>$budget->project_id,
@@ -268,7 +274,9 @@ class PurchaseController extends WebController
             //采购人员可以操作更改工程设计详情
             return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
-        if($engineering->budget_id ==0){
+        //方案
+        $programme = DB::table('engin_programme')->where('engin_id',$id)->where('status',1)->first();
+        if($programme->budget_id == 0){
             return redirect('/purchase/purchaseConduct?status=2&notice='.'请先创建预算单，再创建采购批次？');
         }
         $data['project'] =$project;
@@ -373,7 +381,9 @@ class PurchaseController extends WebController
             //采购人员可以操作更改工程设计详情
             return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
-        if($engineering->budget_id ==0){
+        //方案
+        $programme = DB::table('engin_programme')->where('engin_id',$id)->where('status',1)->first();
+        if($programme->budget_id ==0){
             return redirect('/purchase/purchaseConduct?status=2&notice='.'请先创建预算单，再创建采购批次？');
         }
         $data['project'] =$project;
@@ -411,8 +421,10 @@ class PurchaseController extends WebController
             //采购人员可以操作更改工程设计详情
             return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
-        if($engineering->budget_id ==0){
-            return redirect('/purchase/purchaseConduct?status=2&notice='.'请先创建预算单，再创建采购批次？3');
+        //方案
+        $programme = DB::table('engin_programme')->where('engin_id',$batchinfo->engin_id)->where('status',1)->first();
+        if(empty($programme) || $programme->budget_id == 0){
+            return redirect('/purchase/purchaseConduct?status=2&notice='.'请先创建预算单，再创建采购批次？');
         }
         $data['project'] =$project; //项目信息
         $data['engineering'] =$engineering; //工程信息
@@ -424,13 +436,14 @@ class PurchaseController extends WebController
             ->join('purchase_batch_relation_material','purchase_batch_relation_material.budget_item_id','=','budget_item.id')
             ->join('supplier','supplier.id','=','supplier_id')
             ->where('purchase_batch_relation_material.engin_id',$batchinfo->engin_id)
-            ->where('purchase_batch_relation_material.budget_id',$engineering->budget_id)
+            ->where('purchase_batch_relation_material.budget_id',$programme->budget_id)
             ->where('batch_id',$id)
             ->orderby('supplier')
             ->pluck('supplier.supplier','supplier_id');
 
         $data['engin_system']=DB::table('enginnering_architectural')
             ->where('engin_id',$batchinfo->engin_id)
+            ->where('programme_id',$programme->id)
             ->orderby('system_code')
             ->orderby('sub_system_code')
             ->get();
@@ -461,8 +474,9 @@ class PurchaseController extends WebController
         }
         //项目信息
         $project =DB::table('project')->where('id',$engineering->project_id)->first();
-
-        if($engineering->budget_id ==0){
+        //方案信息
+        $programme = DB::table('engin_programme')->where('engin_id',$batchinfo->engin_id)->where('status',1)->first();
+        if(empty($programme) || $programme->budget_id ==0){
             return $this->error('请先创建预算单，再创建采购批次4');
         }
 
@@ -483,6 +497,7 @@ class PurchaseController extends WebController
         $budgetitem=DB::table('budget_item')
             ->join('material_brand_supplier','material_brand_supplier.id','=','mbs_id')
             ->where('budget_item.engin_id',$batchinfo->engin_id)
+            ->where('programme_id',$programme->id)
             ->where('budget_item.supplier_id',$id)
             ->wherein('budget_item.id',$budgetItemId)
             ->select(['budget_item.id','budget_item.supplier_id','budget_item.sub_arch_id',
@@ -571,7 +586,9 @@ class PurchaseController extends WebController
             echo"<script>alert('您没有权限编辑该工程信息');history.go(-1);</script>";
             exit;
         }
-        if($engineering->budget_id ==0){
+        $programme = DB::table('engin_programme')->where('engin_id',$batchinfo->engin_id)->where('status',1)->first();
+
+        if(empty($programme) || $programme->budget_id ==0){
             echo"<script>alert('请先创建预算单,再创建采购批次');history.go(-1);</script>";
             exit;
         }
@@ -579,7 +596,7 @@ class PurchaseController extends WebController
         $data['project_id']=$project->id;    //`project_id` int(11) DEFAULT NULL COMMENT '项目id',
         $data['engin_id']=$batchinfo->engin_id;    //`engin_id` int(11) DEFAULT NULL COMMENT '工程id',
         $data['purchase_id']=$batchinfo->purchase_id;    //`purchase_id` int(11) DEFAULT NULL COMMENT '采购id',
-        $data['budget_id']=$engineering->budget_id;    //`budget_id` int(11) DEFAULT NULL COMMENT '预算单id',
+        $data['budget_id']=$programme->budget_id;    //`budget_id` int(11) DEFAULT NULL COMMENT '预算单id',
         $data['batch_id']=$id;    //`batch_id` int(11) DEFAULT NULL COMMENT '批次id',
         $data['purchase_order_number']='CGD'.date('YmdHis').mt_rand(100000,999999);    //`purchase_order_number` varchar(255) DEFAULT NULL COMMENT '采购单单号',
         $data['order_created_date']=$order_created_date;    //`order_created_date` date DEFAULT NULL COMMENT '下单日期',
@@ -607,6 +624,7 @@ class PurchaseController extends WebController
         $budgetitem=DB::table('budget_item')
             ->join('material_brand_supplier','material_brand_supplier.id','=','mbs_id')
             ->where('budget_item.engin_id',$batchinfo->engin_id)
+            ->where('programme_id'.$programme->id)
             ->where('budget_item.supplier_id',$supplier)
             ->wherein('budget_item.id',$budget_item_id)
             ->select(['budget_item.id','budget_item.supplier_id','budget_item.sub_arch_id',
@@ -644,7 +662,7 @@ class PurchaseController extends WebController
              $datalist['project_id']             =$project->id;                //`project_id` int(11) DEFAULT NULL COMMENT '项目id',
              $datalist['engin_id']               =$batchinfo->engin_id;                //`engin_id` int(11) DEFAULT NULL COMMENT '工程id',
              $datalist['purchase_id']            =$batchinfo->purchase_id;              //`purchase_id` int(11) DEFAULT NULL COMMENT '采购id',
-             $datalist['budget_id']              =$engineering->budget_id;               //`budget_id` int(11) DEFAULT NULL COMMENT '预算单id',
+             $datalist['budget_id']              =$programme->budget_id;               //`budget_id` int(11) DEFAULT NULL COMMENT '预算单id',
              $datalist['budget_item_id']         =$item->id;                //`budget_item_id` int(11) DEFAULT NULL COMMENT '预算详情id',
              $datalist['batch_id']               =$id;                //`batch_id` int(11) DEFAULT NULL COMMENT '批次id',
              $datalist['arch_id']                =$item->arch_id;                //`arch_id` int(11) DEFAULT NULL COMMENT '建筑工程id',
@@ -743,7 +761,10 @@ class PurchaseController extends WebController
             //采购人员可以操作更改工程设计详情
             return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
-        if($engineering->budget_id ==0){
+
+        $programme = DB::table('engin_programme')->where('engin_id',$batchinfo->engin_id)->where('status',1)->first();
+
+        if(empty($programme) || $programme->budget_id ==0){
             return redirect('/purchase/purchaseConduct?status=2&notice='.'请先创建预算单，再创建采购批次？');
         }
 
@@ -756,6 +777,7 @@ class PurchaseController extends WebController
         $data['supplier'] =DB::table('supplier')->where('id',$orderinfo->supplier_id)->first();
         $data['engin_system']=DB::table('enginnering_architectural')
             ->where('engin_id',$orderinfo->engin_id)
+            ->where('programme_id',$programme->id)
             ->orderby('system_code')
             ->orderby('sub_system_code')
             ->get();
@@ -817,7 +839,9 @@ class PurchaseController extends WebController
             echo"<script>alert('您没有权限编辑该工程信息');history.go(-1);</script>";
             exit;
         }
-        if($engineering->budget_id ==0){
+        $programme = DB::table('engin_programme')->where('engin_id',$orderinfo->engin_id)->where('status',1)->first();
+
+        if(empty($programme) || $programme->budget_id == 0){
             echo"<script>alert('请先创建预算单,再创建采购批次');history.go(-1);</script>";
             exit;
         }
@@ -882,7 +906,9 @@ class PurchaseController extends WebController
             //采购人员可以操作更改工程设计详情
             return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
-        if($engineering->budget_id ==0){
+
+        $programme = DB::table('engin_programme')->where('engin_id',$orderinfo->engin_id)->where('status',1)->first();
+        if(empty($programme) || $programme->budget_id == 0){
             return redirect('/purchase/purchaseConduct?status=2&notice='.'请先创建预算单，再创建采购批次？');
         }
 
@@ -895,6 +921,7 @@ class PurchaseController extends WebController
         $data['supplier'] =DB::table('supplier')->where('id',$orderinfo->supplier_id)->first();
         $data['engin_system']=DB::table('enginnering_architectural')
             ->where('engin_id',$orderinfo->engin_id)
+            ->where('programme_id',$programme->id)
             ->orderby('system_code')
             ->orderby('sub_system_code')
             ->get();
@@ -933,7 +960,9 @@ class PurchaseController extends WebController
             //采购人员可以操作更改工程设计详情
             return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
-        if($engineering->budget_id ==0){
+
+        $programme = DB::table('engin_programme')->where('engin_id',$orderinfo->engin_id)->where('status',1)->first();
+        if(empty($programme) || $programme->budget_id == 0){
             return redirect('/purchase/purchaseConduct?status=2&notice='.'请先创建预算单，再创建采购批次？');
         }
 
@@ -946,6 +975,7 @@ class PurchaseController extends WebController
         $data['supplier'] =DB::table('supplier')->where('id',$orderinfo->supplier_id)->first();
         $data['engin_system']=DB::table('enginnering_architectural')
             ->where('engin_id',$orderinfo->engin_id)
+            ->where('programme_id',$programme->id)
             ->orderby('system_code')
             ->orderby('sub_system_code')
             ->get();
@@ -987,7 +1017,8 @@ class PurchaseController extends WebController
             //采购人员可以操作更改工程设计详情
             return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
-        if($engineering->budget_id ==0){
+        $programme = DB::table('engin_programme')->where('engin_id',$orderinfo->engin_id)->where('status',1)->first();
+        if(empty($programme) || $programme->budget_id == 0){
             return redirect('/purchase/purchaseConduct?status=2&notice='.'请先创建预算单，再创建采购批次？');
         }
 
@@ -1000,6 +1031,7 @@ class PurchaseController extends WebController
         $data['supplier'] =DB::table('supplier')->where('id',$orderinfo->supplier_id)->first();
         $data['engin_system']=DB::table('enginnering_architectural')
             ->where('engin_id',$orderinfo->engin_id)
+            ->where('programme_id',$programme->id)
             ->orderby('system_code')
             ->orderby('sub_system_code')
             ->get();
@@ -1057,7 +1089,9 @@ class PurchaseController extends WebController
             //采购人员可以操作更改工程设计详情
             return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
-        if($engineering->budget_id ==0){
+
+        $programme = DB::table('engin_programme')->where('engin_id',$engineering->id)->where('status',1)->first();
+        if(empty($programme) || $programme->budget_id == 0){
             return redirect('/purchase/purchaseConduct?status=2&notice='.'请先创建预算单，再创建采购批次？');
         }
         $data['project'] =$project;
@@ -1112,7 +1146,8 @@ class PurchaseController extends WebController
             //采购人员可以操作更改工程设计详情
             return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
-        if($engineering->budget_id ==0){
+        $programme = DB::table('engin_programme')->where('engin_id',$engineering->id)->where('status',1)->first();
+        if(empty($programme) || $programme->budget_id == 0){
             return redirect('/purchase/purchaseConduct?status=2&notice='.'请先创建预算单，再创建采购批次？');
         }
 
@@ -1125,6 +1160,7 @@ class PurchaseController extends WebController
         $data['supplier'] =DB::table('supplier')->where('id',$orderinfo->supplier_id)->first();
         $data['engin_system']=DB::table('enginnering_architectural')
             ->where('engin_id',$orderinfo->engin_id)
+            ->where('programme_id',$programme->id)
             ->orderby('system_code')
             ->orderby('sub_system_code')
             ->get();
@@ -1183,7 +1219,8 @@ class PurchaseController extends WebController
             //采购人员可以操作更改工程设计详情
             return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
-        if($engineering->budget_id ==0){
+        $programme = DB::table('engin_programme')->where('engin_id',$engineering->id)->where('status',1)->first();
+        if(empty($programme) || $programme->budget_id == 0){
             return redirect('/purchase/purchaseConduct?status=2&notice='.'请先创建预算单，再创建采购批次？');
         }
 
@@ -1196,6 +1233,7 @@ class PurchaseController extends WebController
         $data['supplier'] =DB::table('supplier')->where('id',$orderinfo->supplier_id)->first();
         $data['engin_system']=DB::table('enginnering_architectural')
             ->where('engin_id',$orderinfo->engin_id)
+            ->where('programme_id',$programme->id)
             ->orderby('system_code')
             ->orderby('sub_system_code')
             ->get();
@@ -1228,7 +1266,8 @@ class PurchaseController extends WebController
             //采购人员可以操作更改工程设计详情
             return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
-        if($engineering->budget_id ==0){
+        $programme = DB::table('engin_programme')->where('engin_id',$engineering->id)->where('status',1)->first();
+        if(empty($programme) || $programme->budget_id == 0){
             return redirect('/purchase/purchaseConduct?status=2&notice='.'请先创建预算单，再创建采购批次？');
         }
         $data['project'] =$project;
@@ -1256,7 +1295,8 @@ class PurchaseController extends WebController
             //采购人员可以操作更改工程设计详情
             return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
-        if($engineering->budget_id ==0){
+        $programme = DB::table('engin_programme')->where('engin_id',$engineering->id)->where('status',1)->first();
+        if(empty($programme) || $programme->budget_id == 0){
             return redirect('/purchase/purchaseConduct?status=2&notice='.'请先创建预算单，再创建采购批次？');
         }
         $data['project'] =$project;
@@ -1290,7 +1330,8 @@ class PurchaseController extends WebController
             //采购人员可以操作更改工程设计详情
             return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
-        if($engineering->budget_id ==0){
+        $programme = DB::table('engin_programme')->where('engin_id',$engineering->id)->where('status',1)->first();
+        if(empty($programme) || $programme->budget_id == 0){
             return redirect('/purchase/purchaseConduct?status=2&notice='.'请先创建预算单，再创建采购批次？');
         }
         $data['project'] =$project;
@@ -1426,12 +1467,15 @@ class PurchaseController extends WebController
             //采购人员可以操作更改工程设计详情
             return redirect('/purchase/purchaseConduct?status=2&notice='.'您没有权限编辑该工程信息');
         }
-        if($engineering->budget_id ==0){
+        //方案
+        $programme = DB::table('engin_programme')->where('engin_id',$id)->where('status',1)->first();
+        if(empty($programme) || $programme->budget_id == 0){
             return redirect('/purchase/purchaseConduct?status=2&notice='.'请先创建预算单，再创建采购批次？');
         }
         //建筑系统信息 以及项目对应的子系统信息
         $data['engin_system']=DB::table('enginnering_architectural')
             ->where('engin_id',$id)
+            ->where('programme_id',$programme->id)
             ->orderby('system_code')
             ->orderby('sub_system_code')
             ->get();
@@ -1440,7 +1484,7 @@ class PurchaseController extends WebController
         $data['engin_id'] =$id;
 
         //预算信息
-        $budget =DB::table('budget')->where('engin_id',$id)->first();
+        $budget =DB::table('budget')->where('engin_id',$id)->where('programme_id',$programme->id)->first();
         $data['budget'] =$budget;
         $data['budget_item']=[];
         //预算材料信息
@@ -1488,6 +1532,7 @@ class PurchaseController extends WebController
             $budget_item =DB::table('budget_item')
                 ->join('purchase_batch_relation_material','purchase_batch_relation_material.budget_item_id','=','budget_item.id')
                 ->where('batch_id',$batchid)
+                ->where('programme_id',$programme->id)
                 ->where('budget_item.budget_id',$budget->id)
                 ->select('budget_item.*')
                 ->get();
@@ -1518,9 +1563,16 @@ class PurchaseController extends WebController
         if(empty($budget_item_id)){
             echo"<script>alert('没有选中材料，请重新选择');history.go(-1);</script>";
         }
+        //方案
+        $programme = DB::table('engin_programme')->where('engin_id',$batchInfo->engin_id)->where('status',1)->first();
+        if(empty($programme) || $programme->budget_id == 0){
+            echo"<script>alert('没有工程方案，请重新选择');history.go(-1);</script>";
+        }
+
         $budget_item =DB::table('budget_item')
             ->wherein('id',$budget_item_id)
             ->where('engin_id',$batchInfo->engin_id)
+            ->where('programme_id',$programme->id)
             ->get()->toarray();
         if(empty($budget_item)){
             echo"<script>alert('当前工程中没有选中的材料，请重新选择');history.go(-1);</script>";

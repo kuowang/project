@@ -101,7 +101,7 @@
     }
 </style>
 <div class="page-break"></div>
-<div style="text-align: center;font-size: 20px;">报价清单列表</div>
+<div style="text-align: center;font-size: 20px;">报价清单列表 (方案：{{$programme->programme_name}})</div>
 
 <table class="layui-table layui-form table111"  border="1" cellspacing="0" cellpadding="0" >
     <thead>

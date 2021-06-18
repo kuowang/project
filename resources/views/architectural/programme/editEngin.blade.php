@@ -142,7 +142,7 @@
                             </tbody>
                         </table>
                         <div class="clearfix"></div>
-                        @if($engineering->budget_id > 0)
+                        @if(isset($programme->budget_id) && $programme->budget_id > 0)
                         <div class="layui-form-item" style="color:orange">
                             当前工程已经设置过预算信息 ，工况信息只能增加，不能取消
                         </div>
@@ -165,7 +165,40 @@
                 <div class="widget-body">
                     <div id="dt_example" class="example_alt_pagination">
                         <form method="post" action="/architectural/postEditEngin/{{ $engin_id }}">
-                        <table class="layui-table layui-form">
+                            <table class="layui-table layui-form">
+                                <thead>
+                                <tr>
+                                    <th colspan="8">
+                                        <span  class="btn btn-info">项目子工程方案</span>
+                                        @if($programme_id != 0)
+                                        方案：
+                                        <span class="title" >
+                                            <span class="layui-btn  layui-btn-warm layui-btn-sm" href="/architectural/editEngin/{{ $engin_id }}/{{$programme->id}}">
+                                                <i class="layui-icon">{{$programme->programme_name}}</i>
+                                            </span>
+                                        </span>
+
+                                        <span class="title" style="float: right;">
+                                            <a class="btn btn-success" href="/architectural/editEngin/{{ $engin_id }}/0"><i class="layui-icon">新增工程方案 +</i></a>
+                                        </span>
+                                        @endif
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody id="">
+                                <tr class="layui-bg-green">
+                                    <td >方案名称</td>
+                                    <td colspan="7" >
+                                        <input type="hidden" name="programme_id"  value="{{$programme_id}}" class="input-medium search-query">
+                                        <input type="text" name="programme_name"  style="width: 80%;" value="{{$programme_name}}" class="input-medium search-query" placeholder="例：简约风格，精装修，富贵奢华">
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="clearfix"></div>
+
+
+                            <table class="layui-table layui-form">
                             <thead>
                             <tr>
                                 <th style="width: 25px;"></th>
@@ -188,13 +221,18 @@
                                     </tr>
                                     @php( $arch_id = $v->arch_id)
                                 @endif
-                            <tr style="display: none" class="sub_arch_id arch_id_{{$v->arch_id}}">
-                                <td>
-                                    @if($engineering->budget_id > 0 && isset($engin_system[$v->sub_arch_id]))
+
+                                    @if(isset($programme->budget_id) && $programme->budget_id > 0 && isset($engin_system[$v->sub_arch_id]))
+                                        <tr style="" class="sub_arch_id arch_id_{{$v->arch_id}}">
+                                            <td>
                                         <input type="hidden" class="inputsubarchid" id="sub_arch_id_{{$v->sub_arch_id}}" name="sub_arch_id[{{$v->sub_arch_id}}]" value="{{$v->sub_arch_id}}" checked="checked" >
                                     @elseif(isset($engin_system[$v->sub_arch_id]))
+                                        <tr style="" class="sub_arch_id arch_id_{{$v->arch_id}}">
+                                            <td>
                                         <input type="checkbox" class="inputsubarchid"  id="sub_arch_id_{{$v->sub_arch_id}}" name="sub_arch_id[{{$v->sub_arch_id}}]" value="{{$v->sub_arch_id}}" checked="checked" onclick="checkboxarch(this)" >
                                     @else
+                                        <tr style="display: none" class="sub_arch_id arch_id_{{$v->arch_id}}">
+                                            <td>
                                         <input type="checkbox" class="inputsubarchid"  id="sub_arch_id_{{$v->sub_arch_id}}" name="sub_arch_id[{{$v->sub_arch_id}}]" value="{{$v->sub_arch_id}}" onclick="checkboxarch(this)">
                                     @endif
                                     </td>
@@ -250,21 +288,24 @@
                                         <tr>
                                             <td>选择</td>
                                             <td>工程名称</td>
+                                            <td>方案名称</td>
                                             <td>项目状态</td>
                                         </tr>
                                         @if(isset($otherEngin) && !empty($otherEngin))
                                             @foreach($otherEngin as $item)
                                                 <tr>
                                                     <td>
-                                                        @if($item->is_conf_architectural !=0)
+                                                        @if($item->is_conf_architectural != 0)
                                                             <label style="width: 100%;height: 100%">
-                                                                <input type="radio" name="subArchitectID" class="subArchitectID" value="{{$item->id}}" style="display: block">
+                                                                <input type="radio" name="programme_id" class="programme_id" value="{{$item->programme_id}}" style="display: block">
                                                             </label>
                                                         @else
-                                                            <input type="radio" name="subArchitectID" class="subArchitectID" value="{{$item->id}}" disabled="" style="display: block">
+                                                            <input type="radio" name="programme_id" class="programme_id" value="{{$item->programme_id}}" disabled="" style="display: block">
                                                         @endif
                                                     </td>
                                                     <td>{{$item->engineering_name}}</td>
+                                                    <td>{{$item->programme_name}}</td>
+
                                                     <td>@if($item->status ==0) 洽谈
                                                         @elseif($item->status ==1) 实施
                                                         @elseif($item->status ==2) 竣工
@@ -311,10 +352,12 @@
             str =$('#show_'+id).html();
             if(str =='显示'){
                 $('#show_'+id).html('隐藏');
+                $(".arch_id_"+id).show();
             }else{
                 $('#show_'+id).html('显示');
+                $(".arch_id_"+id).hide();
             }
-            $(".arch_id_"+id).toggle();
+
         }
 
         function form_submit(){
@@ -348,8 +391,8 @@
         }
         //使用模板数据
         function querenModel() {
-            id =$('.subArchitectID').val();
-            var val=$('input:radio[name="subArchitectID"]:checked').val();
+            id =$('.programme_id').val();
+            var val=$('input:radio[name="programme_id"]:checked').val();
             if(val==null){
                 showMsg('什么都没有选？');
                 return false;

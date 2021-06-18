@@ -127,7 +127,9 @@ audio:not([controls]) {
 html {
   font-size: 100%;
   -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%; }
+  -ms-text-size-adjust: 100%;
+    min-width: 1300px;
+}
 
 a:focus {
   outline: thin dotted #333333;
@@ -261,7 +263,9 @@ body {
   font-size: 12px;
   line-height: 20px;
   color: #333333;
-  background-color: #262626; }
+  background-color: #262626;
+    min-width: 1300px;
+}
 
 a {
   color: black;
@@ -5433,6 +5437,7 @@ header {
   line-height: 70px;
   vertical-align: middle;
   width: 100%;
+    min-width: 1300px;
   left: top;
   left: 0;
   top: 0;

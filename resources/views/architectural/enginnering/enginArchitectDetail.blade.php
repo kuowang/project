@@ -143,12 +143,7 @@
                             </tbody>
                         </table>
                         <div class="clearfix"></div>
-                        @if($engineering->budget_id > 0)
-                        <div class="layui-form-item" style="color:orange">
-                            当前工程已经设置过预算信息 ，工况信息只能增加，不能取消
-                        </div>
-                        <div class="clearfix"></div>
-                        @endif
+
                     </div>
                 </div>
             </div>
@@ -159,6 +154,22 @@
                     </div>
                 </div>
                 <div class="widget-body">
+                    <table class="layui-table layui-form">
+                        <thead>
+                        <tr>
+                            <th colspan="8">
+                                <span  class="btn btn-info">项目子工程方案</span>
+                                方案：<span class="title" >
+                                        <span class="layui-btn  layui-btn-warm layui-btn-sm" >
+                                                <i class="layui-icon">{{$programme->programme_name}}</i>
+                                        </span>
+                                    </span>
+                            </th>
+                        </tr>
+                        </thead>
+                    </table>
+                    <div class="clearfix"></div>
+
                     <div id="dt_example" class="example_alt_pagination">
                         <table class="layui-table layui-form">
                             <thead>
