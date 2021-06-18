@@ -7,34 +7,38 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-## About Laravel
+## 关于 Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+Laravel 是一个具有表现力、优雅语法的 Web 应用程序框架。我们相信发展必须是一种令人愉快的、创造性的体验，才能真正实现。Laravel 试图通过简化大多数 Web 项目中使用的常见任务来减轻开发的痛苦，例如：
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- [简单、快速的路由引擎。](https://laravel.com/docs/routing).
+- [强大的依赖注入容器。](https://laravel.com/docs/container).
+- 用于 [会话](https://laravel.com/docs/session)  [缓存](https://laravel.com/docs/cache) 存储的多个后端。.
+-  [富有表现力、直观的数据库 ORM。](https://laravel.com/docs/eloquent).
+- 数据库不可知模式迁移。(https://laravel.com/docs/migrations).
+- [强大的后台作业处理。](https://laravel.com/docs/queues).
+- [实时事件广播。](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
+Laravel 易于访问，但功能强大，为大型、健壮的应用程序提供所需的工具。简单、优雅和创新的完美结合为您提供了构建任何应用程序所需的工具。
 
-## Learning Laravel
+## 学习 Laravel
 
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
+Laravel 拥有所有现代 Web 应用程序框架中最广泛和最全面的文档和视频教程库。该Laravel文档是彻底的，完整的，并且是一件轻而易举的上手学习的框架。
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+如果您没有心情阅读，Laracasts包含 900 多个关于一系列主题的视频教程，包括 Laravel、现代 PHP、单元测试、JavaScript 等。通过深入了解我们全面的视频库，提高您自己和整个团队的技能水平。
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+v1.0 无工程方案的 项目-新型建筑网
+    无工程方案版本
+        一个项目  对应 多个工程
+        一个工程 对应  一个预算
+        一个预算 对应  一个报价
+        一个工程 对应 多次采购
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+V2.0 工程多方案 项目-新型建筑网
+    无工程方案版本
+        一个项目  对应 多个工程
+        一个工程 对应  多个方案
+        一个方案 对应  一个预算
+        一个预算 对应  一个报价
+        一个工程 对应 多次采购
