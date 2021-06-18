@@ -113,14 +113,14 @@
                                         <td>{{ $val->contract_code }}</td>
                                         <td>{{$val->progress_username}}</td>
                                         <td>
-                                            @if($val->build_status == 0)<span class="btn btn-danger">未施工</span>
-                                            @elseif($val->build_status == 1)<span class="btn btn-success">施工中</span>
-                                            @elseif($val->build_status == 2)<span class="btn btn-info">竣工验收</span>
+                                            @if($val->build_status == 0)<span class="layui-btn-danger  layui-btn-sm layui-btn">未施工</span>
+                                            @elseif($val->build_status == 1)<span class="layui-btn-normal  layui-btn-sm layui-btn">施工中</span>
+                                            @elseif($val->build_status == 2)<span class="layui-btn layui-btn-sm layui-btn-normal">竣工验收</span>
                                             @endif
                                         </td>
                                         <td>
-                                            @if($val->progress_status == 2)<span class="btn btn-danger">延期</span>
-                                            @elseif($val->progress_status == 1)<span class="btn btn-success">正常</span>
+                                            @if($val->progress_status == 2)<span class="layui-btn-danger  layui-btn-sm layui-btn">延期</span>
+                                            @elseif($val->progress_status == 1)<span class="layui-btn-normal  layui-btn-sm layui-btn">正常</span>
                                             @endif
                                         </td>
                                         <td>@if(!empty($val->progress_id) && $val->budget_id != 0 && ((in_array(300101,$pageauth) && $val->progress_uid == $uid ) || in_array(300101,$manageauth)))

@@ -1046,10 +1046,10 @@ class ProgressController extends WebController
         //用户权限部分
         $data['navid']      =30; //当前导航页面
         $data['subnavid']   =3003;//当前子导航页
-        //获取该用户的建筑系统信息
-        $data['architect']=DB::table('architectural_system')->where('id',$id)->first();
+        //获取该用户的建筑子系统信息
+        $data['architect']=DB::table('architectural_sub_system')->where('id',$id)->first();
         //获取该用户的建筑系统关联子系统
-        $data['paramsList']=DB::table('progress_params_conf')->where('arch_id',$id)->orderby('sort')->get();
+        $data['paramsList']=DB::table('progress_params_conf')->where('sub_arch_id',$id)->orderby('sort')->get();
         if(empty($data['architect'])){
             return redirect('/progress/porgressParamsList?status=2&notice='.'数据不存在，无法编辑');
         }
@@ -1062,7 +1062,7 @@ class ProgressController extends WebController
         //用户权限部分
         $data['navid']      =30; //当前导航页面
         $data['subnavid']   =3003;//当前子导航页
-        //获取该用户的建筑系统信息
+        //获取该用户的建筑子系统信息
         $architect=DB::table('architectural_sub_system')->where('id',$id)->first();
         $data['architect'] =$architect;
         //获取该用户的建筑系统关联子系统

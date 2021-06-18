@@ -71,9 +71,9 @@
                                         @if(isset($params[$val->id]))
                                         @foreach($params[$val->id] as $l=>$item)
                                             @if($item->is_synchro == 1)
-                                                <span style="background: #0c9abb;padding: 3px">{{$item->name}}</span>
+                                                <span class="layui-badge layui-bg-green">{{ $item->name }}</span>
                                             @else
-                                                <span style="background: #df8505;padding: 3px">{{$item->name}}</span>
+                                                 <span class="layui-badge layui-bg-orange">{{ $item->name }}</span>
                                             @endif
                                         @endforeach
                                         @endif
@@ -100,8 +100,10 @@
                             @php
                                 echo $page;
                             @endphp
-                            <div class="clearfix">
-                            </div>
+                            <span class="layui-badge layui-bg-orange">这个显示的是同步施工</span>
+                            <span class="layui-badge layui-bg-green">这个显示的异步施工</span>
+
+                            <div class="clearfix"></div>
                         </div>
                     </div>
                 </div>

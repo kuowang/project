@@ -349,7 +349,7 @@
                                                                             @endif
                                                                         </div>
                                                                     @else
-                                                                        <div class="progresszhouqi6" style="color:red">周期(天)</div>
+                                                                        <div class="progresszhouqi6" style="background:#FF5722">周期(天)</div>
                                                                         <div class="progresszhouqi7" style="">
                                                                             @if(isset($progress_process[$arch['param_id']]))
                                                                                 <input type="text" is_synchro="2" id="param_id_{{$arch['param_id']}}"  class="progresszhouqi8" value="{{$progress_process[$arch['param_id']]}}"  name="arch_duration_plan[{{$arch['param_id']}}]" style="padding:4px 0;color:red" onclick="key(this)" onchange='selectzhouqi("{{$v->sub_arch_id}}","{{$k}}",this)'>
@@ -400,11 +400,10 @@
                                     <span class="btn btn-success" lay-filter="add" lay-submit="">返回/取消</span>
                                 </a>
                             </div>
+                            <span class="layui-btn layui-btn-danger" >   注： 橙色标记为可以同步施工 ,
+                                保存后施工进度管理中的数据将被清除，请谨慎操作  </span>
 
                             <div class="clearfix"></div>
-                            <div style="color: red">
-                                注：保存后施工进度管理中的数据将被清除，请谨慎操作
-                            </div>
 
                         </div>
                     </div>

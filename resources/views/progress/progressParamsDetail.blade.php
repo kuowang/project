@@ -21,21 +21,21 @@
                         <table class="layui-table layui-form">
                             <thead>
                             <tr>
-                                <th>系统名称</th>
-                                <th>工程名称</th>
-                                <th>系统编码</th>
+                                <th>子工程名称</th>
+                                <th>子工程编码</th>
+                                <th>工况代码</th>
                                 <th>系统状态</th>
                             </thead>
                             <tbody>
                             <tr>
                                 <td>
-                                    {{ $architect->system_name }}
+                                    {{ $architect->sub_system_name }}
                                 </td>
                                 <td>
-                                    {{ $architect->engineering_name }}
+                                    {{ $architect->sub_system_code }}
                                 </td>
                                 <td>
-                                    {{ $architect->system_code }}
+                                    {{ $architect->work_code }}
                                 </td>
                                 <td>
                                     有效
@@ -68,18 +68,18 @@
                             </thead>
                             <tbody id="zixitong">
                             @foreach($paramsList as $v)
-                                @if($v->status ==0)
-                                    <tr style="background:#ea66a6">
-                                @elseif($v->is_synchro ==1)
-                                    <tr style="background: #0c9abb;">
-                                @elseif($v->is_synchro ==2)
-                                    <tr style="background:#df8505">
-                                @else
-                                    <tr>
-                                @endif
+                               <tr>
 
                                 <td>
-                                    {{ $v->name }}
+                               @if($v->status ==0)
+                                    <span class="layui-badge">{{ $v->name }}</span>
+                               @elseif($v->is_synchro ==1)
+                                   <span class="layui-badge layui-bg-green">{{ $v->name }}</span>
+                               @elseif($v->is_synchro ==2)
+                                    <span class="layui-badge layui-bg-orange">{{ $v->name }}</span>
+                               @else
+                                    <span>{{ $v->name }}</span>
+                               @endif
                                 </td>
                                 <td>
                                     @if($v->is_synchro ==1)
