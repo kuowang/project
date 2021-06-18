@@ -35,7 +35,7 @@
                 </div>
                 <div class="widget-body">
                     <div id="dt_example" class="example_alt_pagination">
-                        <form method="post" action="/offer/postEditOffer/{{ $engin_id }}">
+                        <form method="post" action="/offer/postEditOffer/{{ $engin_id }}/{{$programme_id}}">
 
                             <table class="layui-table layui-form">
                                 <thead>

@@ -142,7 +142,7 @@
                             </tbody>
                         </table>
                         <div class="clearfix"></div>
-                        @if($engineering->budget_id > 0)
+                        @if(isset($programme->budget_id) && $programme->budget_id > 0)
                         <div class="layui-form-item" style="color:orange">
                             当前工程已经设置过预算信息 ，工况信息只能增加，不能取消
                         </div>
@@ -170,26 +170,25 @@
                                 <tr>
                                     <th colspan="8">
                                         <span  class="btn btn-info">项目子工程方案</span>
+                                        @if($programme_id != 0)
                                         方案：
-                                            <span class="title" >
-                                                @if($programme_id != 0)
-                                                    <span class="layui-btn  layui-btn-warm layui-btn-sm" href="/architectural/editEngin/{{ $engin_id }}/{{$programme->id}}">
-                                                        <i class="layui-icon">{{$programme->programme_name}}</i>
-                                                    </span>
-                                                @endif
+                                        <span class="title" >
+                                            <span class="layui-btn  layui-btn-warm layui-btn-sm" href="/architectural/editEngin/{{ $engin_id }}/{{$programme->id}}">
+                                                <i class="layui-icon">{{$programme->programme_name}}</i>
+                                            </span>
                                         </span>
 
                                         <span class="title" style="float: right;">
                                             <a class="btn btn-success" href="/architectural/editEngin/{{ $engin_id }}/0"><i class="layui-icon">新增工程方案 +</i></a>
                                         </span>
-
+                                        @endif
                                     </th>
                                 </tr>
                                 </thead>
                                 <tbody id="">
-                                <tr >
-                                    <td class="pro-title">方案名称</td>
-                                    <td colspan="7">
+                                <tr class="layui-bg-green">
+                                    <td >方案名称</td>
+                                    <td colspan="7" >
                                         <input type="hidden" name="programme_id"  value="{{$programme_id}}" class="input-medium search-query">
                                         <input type="text" name="programme_name"  style="width: 80%;" value="{{$programme_name}}" class="input-medium search-query" placeholder="例：简约风格，精装修，富贵奢华">
                                     </td>
@@ -223,7 +222,7 @@
                                     @php( $arch_id = $v->arch_id)
                                 @endif
 
-                                    @if($engineering->budget_id > 0 && isset($engin_system[$v->sub_arch_id]))
+                                    @if(isset($programme->budget_id) && $programme->budget_id > 0 && isset($engin_system[$v->sub_arch_id]))
                                         <tr style="" class="sub_arch_id arch_id_{{$v->arch_id}}">
                                             <td>
                                         <input type="hidden" class="inputsubarchid" id="sub_arch_id_{{$v->sub_arch_id}}" name="sub_arch_id[{{$v->sub_arch_id}}]" value="{{$v->sub_arch_id}}" checked="checked" >

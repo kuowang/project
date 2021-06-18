@@ -105,7 +105,7 @@
                 <div class="widget-body">
                     <div id="dt_example" class="example_alt_pagination">
 
-                        <table class="layui-table layui-form">
+                        <table class="layui-table layui-form" id="tableRelate">
                             <thead>
                             <tr>
                                 <th>序号</th>
@@ -161,13 +161,13 @@
                                     @if(in_array(200203,$manageauth))
                                     <td>
                                     @if(!empty($val->offer_order_number))
-                                        @if($val->progress_status == 1)
-                                            <div class="btn btn-success" onclick="emainStatus({{$val->offer_id}},{{$val->programme_id}})">审核确认</div>
+                                        @if($val->progress_status == 0)
+                                            <div class="btn btn-success" onclick="emainStatus({{$val->engin_id}},{{$val->programme_id}})">提交至实施</div>
                                         @else
                                             <span class=" layui-btn-normal  layui-btn-sm layui-btn">已确认</span>
                                         @endif
                                     @else
-                                        @if($val->progress_status == 1)
+                                        @if($val->progress_status == 0)
                                             <span class="layui-btn-danger  layui-btn-sm layui-btn">未确认</span>
                                         @else
                                             <span class=" layui-btn-normal  layui-btn-sm layui-btn">已确认</span>
@@ -217,6 +217,7 @@
                             <div>1、毛利润=报价金额 - 预算金额</div>
                             <div>2、毛利率=(报价金额 - 预算金额)\报价金额 * 100</div>
                             <div>3、预算金额、报价金额、毛利额均是单栋建筑的金额</div>
+                            <span class="layui-col-md12" colspan="13" style="color: #cd0a0a"> 项目工程没有设计方案，则不显示该工程列表</span>
 
                         </div>
                         <div class="clearfix"></div>
@@ -240,10 +241,10 @@
         return true;
     }
     //审核状态修改
-    function emainStatus(id,status) {
+    function emainStatus(id,programme_id) {
 
         $.ajax({
-            url:'/offer/examineStartOffer/'+id+'/'+status,
+            url:'/offer/examineStartOffer/'+id+'/'+programme_id,
             type:'post',
             // contentType: 'application/json',
             success:function(data){
@@ -264,6 +265,39 @@
            layer.msg(str);
        });
    }
+
+        (function ($) {
+            $.fn.extend({
+                //表格合并单元格，colIdx要合并的列序号，从0开始
+                "rowspan": function (colIdx) {
+                    return this.each(function () {
+                        var that;
+                        $('tr', this).each(function (row) {
+                            $('td:eq(' + colIdx + ')', this).filter(':visible').each(function (col) {
+                                if (that != null && $(this).html() == $(that).html()) {
+                                    rowspan = $(that).attr("rowSpan");
+                                    if (rowspan == undefined) {
+                                        $(that).attr("rowSpan", 1);
+                                        rowspan = $(that).attr("rowSpan");
+                                    }
+                                    rowspan = Number(rowspan) + 1;
+                                    $(that).attr("rowSpan", rowspan);
+                                    $(this).hide();
+                                } else {
+                                    that = this;
+                                }
+                            });
+                        });
+                    });
+                }
+            });
+        })(jQuery);
+        $("#tableRelate").rowspan(1); //第二列合并
+        $("#tableRelate").rowspan(2);//第三列合并
+
+
+
+
     </script>
 
 @endsection

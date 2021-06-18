@@ -143,12 +143,7 @@
                                 </tbody>
                             </table>
                             <div class="clearfix"></div>
-                            @if($engineering->budget_id > 0)
-                                <div class="layui-form-item" style="color:orange">
-                                    当前工程已经设置过预算信息 ，工况信息只能增加，不能取消
-                                </div>
-                                <div class="clearfix"></div>
-                            @endif
+
                         </div>
                     </div>
                 </div>
@@ -163,7 +158,7 @@
                             <table class="layui-table layui-form"  style="text-align: center">
                                 <thead>
                                 <tr>
-                                    <th colspan="6">
+                                    <th colspan="7">
                                         <span class="btn btn-info">项目子工程方案列表</span>
                                         @if(in_array($engineering->status,[0]) )
                                         <span class="title" style="float: right;">
@@ -177,9 +172,10 @@
                                     <td>序号</td>
                                     <td>方案名称</td>
                                     <td>操作</td>
-                                    <td>预算状态</td>
-                                    <td>报价状态</td>
-                                    <td>实施状态</td>
+                                    <td>提交至预算</td>
+                                    <td>提交至报价</td>
+                                    <td>提交至实施</td>
+                                    <td>最终实施状态</td>
 
                                 </tr>
                                 </thead>
@@ -214,6 +210,11 @@
                                             @endif
                                         </td>
                                         <td>
+                                            @if($programme->progress_status)  <span class="  layui-btn-normal  layui-btn-sm layui-btn">已确认</span>
+                                            @else  <span class=" layui-btn-danger  layui-btn-sm layui-btn">未确认</span>
+                                            @endif
+                                        </td>
+                                        <td>
                                             @if($programme->status)  <span class="  layui-btn-normal  layui-btn-sm layui-btn">已确认</span>
                                             @else  <span class=" layui-btn-danger  layui-btn-sm layui-btn">未确认</span>
                                             @endif
@@ -230,7 +231,7 @@
 
 
                             <div class="layui-form-item" style="float: right;clear: left">
-                                <a href="javascript:history.go(-1)">
+                                <a href="{{$return_url}}">
                                     <label for="L_repass" class="layui-form-label"></label>
                                     <span class="btn btn-success" lay-filter="add" lay-submit="">返回/取消</span>
                                 </a>

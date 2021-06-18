@@ -98,7 +98,7 @@
     }
 </style>
 <div class="page-break"></div>
-<div style="text-align: center;font-size: 20px;">预算清单列表({{$programme->programme_name}})</div>
+<div style="text-align: center;font-size: 20px;">预算清单列表(方案：{{$programme->programme_name}})</div>
 
     <table  border="1" cellspacing="0" cellpadding="0">
     <tbody>
@@ -114,7 +114,6 @@
         <td >单价</td>
         <td >合计</td>
     </tr>
-    </thead>
     <tbody>
     @php
         $system_code ='';

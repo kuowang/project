@@ -71,6 +71,19 @@ class ProgrammeController extends WebController
             ->where('project_id',$engineering->project_id)
             ->orderby('file_type')
             ->orderby('id')->get();
+
+        //返回地址
+        if($engineering->status == 0){
+            $data['return_url']='/architectural/enginStart/'.$project->id;
+        }elseif($engineering->status==1){
+            $data['return_url']='/architectural/enginConduct/'.$project->id;
+        }elseif($engineering->status==2){
+            $data['return_url']='/architectural/enginCompleted/'.$project->id;
+        }elseif($engineering->status==4){
+            $data['return_url']='/architectural/enginTermination/'.$project->id;
+        }else{
+            $data['return_url']='/architectural/enginStart/'.$project->id;
+        }
         return view('architectural.programme.enginProgrammeManage',$data);
     }
 
@@ -245,13 +258,7 @@ class ProgrammeController extends WebController
             DB::table('enginnering_architectural')->insert($data);
         }
         DB::commit();
-        if($engineering->status == 0){
-            return redirect('/architectural/enginStart/'.$engineering->project_id.'?status=1&notice='.'编辑工程对应的建筑设计方案信息成功');
-        }elseif($engineering->status ==1){
-            return redirect('/architectural/enginConduct/'.$engineering->project_id.'?status=1&notice='.'编辑工程对应的建筑设计方案信息成功');
-        }else{
-            return redirect('/architectural/enginStart/'.$engineering->project_id.'?status=1&notice='.'编辑工程对应的建筑设计方案信息成功');
-        }
+        return redirect('/architectural/enginProgrammeManage/'.$engineering->id.'?status=1&notice='.'编辑工程对应的建筑设计方案信息成功');
 
     }
 

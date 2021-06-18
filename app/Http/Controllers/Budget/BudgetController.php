@@ -65,7 +65,7 @@ class BudgetController extends WebController
     public function budgetCompleted(Request $request,$id=0)
     {
         $this->user();
-        $data=$this->budget($request,$id, 2, '.', '');
+        $data=$this->budget($request,$id, 2);
         $data['subnavid']   =2001;
         if( !(in_array(200103,$this->user()->pageauth)) && !in_array(200107,$this->user()->manageauth)){
             return redirect('/budget/budgetStart?status=2&notice='.'您没有操作该功能权限');
@@ -106,9 +106,15 @@ class BudgetController extends WebController
             ->join('engin_programme',function ($join) {
                 $join->on('engin_programme.engin_id','=','engineering.id')
                     ->where('engin_programme.budget_status','=',(int)1);
-            })
-            ->leftjoin('budget','engin_programme.id','=','budget.programme_id')
-            ->where('engineering.status',$status);
+            });
+        if($status == 0){
+            $db->leftjoin('budget','engin_programme.id','=','budget.programme_id')
+                ->where('engineering.status',$status);
+        }else{
+            $db->join('budget','engin_programme.id','=','budget.programme_id')
+                ->where('engineering.status',$status);
+        }
+
         if($id){
             $db->where('engineering.project_id',$id);
         }
