@@ -162,7 +162,7 @@
                                     <td>
                                     @if(!empty($val->offer_order_number))
                                         @if($val->progress_status == 0)
-                                            <div class="btn btn-success" onclick="emainStatus({{$val->engin_id}},{{$val->programme_id}})">提交至实施</div>
+                                            <div class="btn btn-success" onclick="emainStatus({{$val->engin_id}},{{$val->programme_id}})">提交至销售</div>
                                         @else
                                             <span class=" layui-btn-normal  layui-btn-sm layui-btn">已确认</span>
                                         @endif
