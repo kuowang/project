@@ -123,7 +123,7 @@
                                 <th>预算负责人</th>
                                 <th>报价状态</th>
                                 @if(in_array(200203,$manageauth))
-                                    <th>提交至实施</th>
+                                    <th>提交至销售</th>
                                 @endif
 
                                 <th style="width: 80px">执行操作</th>
